@@ -12,6 +12,7 @@ import BlogSection from "@/components/sections/BlogSection";
 import EventsSection from "@/components/sections/EventsSection";
 import RoadmapSection from "@/components/sections/RoadmapSection";
 import TrustSection from "@/components/sections/TrustSection";
+import FaqSection from "@/components/sections/FaqSection";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
         <EventsSection />
         <RoadmapSection />
         <TrustSection />
+        <FaqSection />
       </main>
       <Footer />
       <FloatingLaunchButton />

@@ -37,3 +37,8 @@
 - [x] Full visual audit (desktop + mobile) — all sections verified
 - [x] No console errors, all API calls return 200
 - [x] TypeScript error in storageProxy.ts fixed (0 TS errors)
+
+## V5 — NEXT STEPS
+- [x] Add 4+ more blog posts to seed data (diverse topics: security, yield farming, community, roadmap)
+- [x] Add FAQ / How It Works accordion section to homepage
+- [x] Remind user about custom domain setup via Settings panel

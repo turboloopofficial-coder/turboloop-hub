@@ -1,167 +1,205 @@
 import { motion } from "framer-motion";
 import { Shield, Video, Users, Gift } from "lucide-react";
 import { useState } from "react";
+import SectionHeading from "@/components/SectionHeading";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const PROMO_CARDS = [
   {
     icon: Shield,
     title: "$100K Smart Contract Challenge",
-    badge: "ACTIVE",
-    description: "Prove It. Win $100,000.",
-    details: "Open challenge to anyone who can prove centralization in the Turbo Loop smart contract. Identify any owner-controlled function, submit verifiable on-chain evidence, and claim $100,000 USDT if validated by independent auditors.",
-    color: "#EF4444",
-    glowColor: "rgba(239,68,68,0.15)",
-    borderColor: "rgba(239,68,68,0.2)",
+    badge: "BOUNTY",
+    subtitle: "Find a vulnerability. Win $100,000.",
+    description: "Open challenge to anyone who can prove centralization in the Turbo Loop smart contract. Identify any owner-controlled function, submit verifiable on-chain evidence, and claim $100,000 USDT if validated by independent auditors.",
+    color: "#FBBF24",
     isHero: true,
   },
   {
     icon: Video,
     title: "Content Creator Star",
-    badge: "EARN PER VIEW",
-    description: "Create Videos. Get Paid Per View.",
-    details: "No minimum followers required. Earn from $5 (500 views) up to $1,000 (1M views) within 45 days. Supported on YouTube, Instagram, and Facebook.",
+    badge: "EARN",
+    subtitle: "Get paid for every view",
+    description: "Create content about Turbo Loop and earn based on your reach. 1K-5K views: $10. 5K-20K: $25. 20K-100K: $50. 100K+: $100. No minimum followers required.",
     color: "#C084FC",
-    glowColor: "rgba(192,132,252,0.12)",
-    borderColor: "rgba(192,132,252,0.2)",
     isHero: false,
   },
   {
     icon: Users,
     title: "Local Zoom Presenter",
-    badge: "$100/MONTH",
-    description: "Be the Voice of TurboLoop in Your Country.",
-    details: "Earn $100/month as a community builder. Conduct local language Zoom sessions with a minimum of 40 real participants per session.",
+    badge: "HOST",
+    subtitle: "$100/month guaranteed",
+    description: "Host weekly Zoom presentations in your local language. Build your community and earn a fixed monthly income. Minimum 40 real participants per session.",
     color: "#22D3EE",
-    glowColor: "rgba(34,211,238,0.12)",
-    borderColor: "rgba(34,211,238,0.2)",
     isHero: false,
   },
   {
     icon: Gift,
-    title: "Onboarding Bonus Reward",
-    badge: "LIMITED TIME",
-    description: "Earn a One-Time Bonus When Your Referral Deposits.",
-    details: "Bonuses range from $3 (100 USDT deposit) to $50 (5,000+ USDT deposit). Applies to first deposit only on 30-day or 60-day plans. Limited time program \u2014 2 months.",
-    color: "#FBBF24",
-    glowColor: "rgba(251,191,36,0.12)",
-    borderColor: "rgba(251,191,36,0.2)",
+    title: "Onboarding Bonus",
+    badge: "LIMITED",
+    subtitle: "Limited time — 2 months",
+    description: "Deposit $100+: earn $10. Deposit $500+: earn $30. Deposit $1,000+: earn $50. Deposit $5,000+: earn $200. First deposit only.",
+    color: "#34D399",
     isHero: false,
   },
 ];
+
+function HeroPromoCard({ promo }: { promo: typeof PROMO_CARDS[0] }) {
+  const [hovered, setHovered] = useState(false);
+  const Icon = promo.icon;
+
+  return (
+    <AnimatedSection>
+      <div
+        className="relative group"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Animated border gradient */}
+        <div
+          className="absolute -inset-[1px] rounded-2xl transition-opacity duration-700"
+          style={{
+            background: `linear-gradient(135deg, ${promo.color}50, transparent 40%, transparent 60%, ${promo.color}30)`,
+            opacity: hovered ? 0.8 : 0.4,
+          }}
+        />
+
+        <div
+          className="relative p-8 md:p-10 rounded-2xl overflow-hidden"
+          style={{ background: "linear-gradient(135deg, rgba(15, 22, 42, 0.95) 0%, rgba(6, 10, 22, 0.98) 100%)" }}
+        >
+          {/* Holographic shimmer overlay */}
+          <div
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{
+              background: `linear-gradient(135deg, ${promo.color}08, transparent 30%, ${promo.color}04, transparent 70%, ${promo.color}06)`,
+              backgroundSize: "400% 400%",
+              animation: "shimmer 8s ease infinite",
+              opacity: hovered ? 1 : 0.3,
+            }}
+          />
+
+          {/* Top accent line */}
+          <div className="absolute top-0 left-0 right-0 h-px"
+            style={{ background: `linear-gradient(90deg, transparent, ${promo.color}60, transparent)` }}
+          />
+
+          {/* Corner glow */}
+          <div className="absolute top-0 right-0 w-[250px] h-[250px] pointer-events-none"
+            style={{ background: `radial-gradient(circle, ${promo.color}08, transparent 70%)` }}
+          />
+
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-4"
+                style={{ background: `${promo.color}15`, color: promo.color, border: `1px solid ${promo.color}25` }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: promo.color }} />
+                {promo.badge}
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{promo.title}</h3>
+              <p className="text-lg font-medium mb-3" style={{ color: `${promo.color}cc` }}>{promo.subtitle}</p>
+              <p className="text-gray-400 leading-relaxed max-w-xl">{promo.description}</p>
+            </div>
+
+            <div className="shrink-0">
+              <div
+                className="w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center"
+                style={{
+                  background: `linear-gradient(135deg, ${promo.color}15, ${promo.color}05)`,
+                  border: `1px solid ${promo.color}25`,
+                  boxShadow: `0 0 40px ${promo.color}10`,
+                }}
+              >
+                <Icon className="w-10 h-10 md:w-12 md:h-12" style={{ color: promo.color }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
 
 function PromoCard({ promo, index }: { promo: typeof PROMO_CARDS[0]; index: number }) {
   const [hovered, setHovered] = useState(false);
   const Icon = promo.icon;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`relative group ${promo.isHero ? "md:col-span-2" : ""}`}
-    >
+    <AnimatedSection delay={index * 0.12}>
       <div
-        className="relative p-7 md:p-8 rounded-2xl overflow-hidden h-full"
+        className="group relative p-6 rounded-xl h-full overflow-hidden transition-all duration-400"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         style={{
-          background: promo.isHero
-            ? "linear-gradient(135deg, rgba(30,10,10,0.8) 0%, rgba(13,20,40,0.6) 100%)"
-            : "linear-gradient(135deg, rgba(13,20,40,0.7) 0%, rgba(13,20,40,0.4) 100%)",
-          backdropFilter: "blur(20px)",
-          border: `1px solid ${hovered ? promo.borderColor : "rgba(255,255,255,0.04)"}`,
-          boxShadow: hovered ? `0 0 40px ${promo.glowColor}` : "none",
-          transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          background: "rgba(10, 18, 38, 0.5)",
+          border: `1px solid ${hovered ? `${promo.color}20` : "rgba(255,255,255,0.04)"}`,
+          boxShadow: hovered ? `0 4px 30px ${promo.color}08` : "none",
         }}
       >
-        {/* Top glow line */}
-        <div
-          className="absolute top-0 left-0 right-0 h-px"
+        {/* Top accent */}
+        <div className="absolute top-0 left-0 right-0 h-px transition-opacity duration-500"
           style={{
-            background: `linear-gradient(90deg, transparent, ${promo.color}50, transparent)`,
-            opacity: hovered ? 1 : 0.3,
-            transition: "opacity 0.4s",
+            background: `linear-gradient(90deg, transparent, ${promo.color}40, transparent)`,
+            opacity: hovered ? 1 : 0,
           }}
         />
 
-        {/* Corner glow for hero card */}
-        {promo.isHero && (
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full" style={{ background: `radial-gradient(circle, ${promo.glowColor}, transparent 70%)` }} />
-        )}
-
-        <div className="relative flex flex-col h-full">
-          <div className="flex items-start justify-between mb-5">
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center"
-              style={{
-                background: `linear-gradient(135deg, ${promo.color}20, ${promo.color}05)`,
-                border: `1px solid ${promo.color}30`,
-              }}
-            >
-              <Icon className="h-6 w-6" style={{ color: promo.color }} />
-            </div>
-            <span
-              className="text-xs font-bold px-4 py-1.5 rounded-full"
-              style={{
-                background: `${promo.color}15`,
-                color: promo.color,
-                border: `1px solid ${promo.color}30`,
-                boxShadow: hovered ? `0 0 10px ${promo.color}20` : "none",
-              }}
-            >
-              {promo.badge}
-            </span>
-          </div>
-
-          <h3 className="text-xl md:text-2xl font-heading font-bold text-white mb-2">{promo.title}</h3>
-          <p className="text-sm font-semibold mb-3" style={{ color: promo.color }}>{promo.description}</p>
-          <p className="text-sm text-gray-400 leading-relaxed flex-1">{promo.details}</p>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider mb-4"
+          style={{ background: `${promo.color}10`, color: promo.color }}
+        >
+          {promo.badge}
         </div>
+
+        <div className="flex items-start gap-4 mb-3">
+          <div
+            className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+            style={{ background: `${promo.color}10`, border: `1px solid ${promo.color}15` }}
+          >
+            <Icon className="w-5 h-5" style={{ color: promo.color }} />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-white mb-0.5">{promo.title}</h3>
+            <p className="text-sm font-medium" style={{ color: `${promo.color}aa` }}>{promo.subtitle}</p>
+          </div>
+        </div>
+
+        <p className="text-sm text-gray-400 leading-relaxed">{promo.description}</p>
       </div>
-    </motion.div>
+    </AnimatedSection>
   );
 }
 
 export default function PromotionsSection() {
+  const featured = PROMO_CARDS[0];
+  const rest = PROMO_CARDS.slice(1);
+
   return (
-    <section id="promotions" className="relative section-padding overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(251,191,36,0.04) 0%, transparent 60%)" }} />
-      </div>
+    <section id="promotions" className="section-spacing relative">
+      <div className="container">
+        <SectionHeading
+          label="Active Programs"
+          title="Earn While You Build"
+          subtitle="Four ways to earn with Turbo Loop — beyond yield farming. Create, present, refer, and get rewarded."
+        />
 
-      <div className="container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-sm text-amber-300/80 mb-8">
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-            Active Promotions
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5">
-            <span className="text-white">Earn</span>{" "}
-            <span className="text-gradient">Beyond Yield</span>
-          </h2>
-        </motion.div>
+        {/* Featured: $100K Challenge */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <HeroPromoCard promo={featured} />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-          {PROMO_CARDS.map((promo, index) => (
-            <PromoCard key={promo.title} promo={promo} index={index} />
+        {/* Other promotions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {rest.map((promo, i) => (
+            <PromoCard key={promo.title} promo={promo} index={i} />
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-10 text-sm text-gray-500"
-        >
-          Promotional Support backed by Project Developers Team
-        </motion.p>
+        <AnimatedSection delay={0.6}>
+          <p className="text-center mt-10 text-sm text-gray-500">
+            Promotional support backed by the Turbo Loop development team
+          </p>
+        </AnimatedSection>
       </div>
     </section>
   );

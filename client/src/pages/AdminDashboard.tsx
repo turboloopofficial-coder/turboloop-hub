@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, Save, LogOut, PenLine, Eye, EyeOff } from "lucide-react";
-import { SITE } from "@/lib/constants";
+
 
 // ============ Blog Manager ============
 function BlogManager() {
@@ -283,7 +283,7 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0f1e] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#060a16" }}>
         <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
       </div>
     );
@@ -301,13 +301,14 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e]">
+    <div className="min-h-screen" style={{ background: "#060a16" }}>
       {/* Header */}
-      <div className="sticky top-0 z-50" style={{ background: 'rgba(6,10,22,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(34,211,238,0.08)' }}>
+      <div className="sticky top-0 z-50" style={{ background: 'rgba(6,10,22,0.9)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-3">
-            <img src={SITE.logo} alt="" className="h-8 w-8 object-contain rounded-lg" />
-            <span className="font-heading font-bold text-white">Admin Dashboard</span>
+            <span className="font-bold text-white"><span className="text-white">Turbo</span><span className="text-cyan-400">Loop</span></span>
+            <div className="h-5 w-px bg-gray-800" />
+            <span className="font-bold text-white">Admin</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-xs text-gray-500">{admin.email}</span>

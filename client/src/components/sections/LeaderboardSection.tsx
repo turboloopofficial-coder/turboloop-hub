@@ -1,141 +1,211 @@
 import { trpc } from "@/lib/trpc";
-import { COUNTRY_FLAGS } from "@/lib/constants";
-import { motion } from "framer-motion";
+import { COUNTRY_DATA, getFlagUrl } from "@/lib/constants";
+import { motion, useInView } from "framer-motion";
+import { Trophy, Medal } from "lucide-react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import SectionHeading from "@/components/SectionHeading";
+import AnimatedSection from "@/components/AnimatedSection";
 
-const MEDAL_ICONS = ["\u{1F947}", "\u{1F948}", "\u{1F949}"];
+const MEDAL_COLORS = {
+  gold: { bg: "rgba(251,191,36,0.12)", border: "rgba(251,191,36,0.3)", text: "#FBBF24", glow: "0 0 20px rgba(251,191,36,0.15)" },
+  silver: { bg: "rgba(148,163,184,0.12)", border: "rgba(148,163,184,0.3)", text: "#94A3B8", glow: "0 0 20px rgba(148,163,184,0.1)" },
+  bronze: { bg: "rgba(217,119,6,0.12)", border: "rgba(217,119,6,0.3)", text: "#D97706", glow: "0 0 20px rgba(217,119,6,0.1)" },
+};
 
-const barGradients = [
-  "linear-gradient(90deg, #22D3EE 0%, #06b6d4 100%)",
-  "linear-gradient(90deg, #22D3EE 0%, #34D399 100%)",
-  "linear-gradient(90deg, #34D399 0%, #22D3EE 100%)",
-  "linear-gradient(90deg, #22D3EE 0%, #818CF8 100%)",
-  "linear-gradient(90deg, #818CF8 0%, #C084FC 100%)",
-  "linear-gradient(90deg, #C084FC 0%, #22D3EE 100%)",
+const BAR_GRADIENTS = [
+  "linear-gradient(90deg, #FBBF24 0%, #F59E0B 60%, #EAB308 100%)",
+  "linear-gradient(90deg, #94A3B8 0%, #64748B 100%)",
+  "linear-gradient(90deg, #D97706 0%, #B45309 100%)",
+  "linear-gradient(90deg, #22D3EE 0%, #06B6D4 100%)",
+  "linear-gradient(90deg, #A78BFA 0%, #8B5CF6 100%)",
+  "linear-gradient(90deg, #34D399 0%, #10B981 100%)",
 ];
 
-const barGlows = [
-  "rgba(34,211,238,0.3)", "rgba(34,211,238,0.25)", "rgba(52,211,153,0.25)",
-  "rgba(34,211,238,0.2)", "rgba(129,140,248,0.2)", "rgba(192,132,252,0.2)",
-];
+/** Animated count-up number */
+function CountUp({ target, duration = 1.5, delay = 0 }: { target: number; duration?: number; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [value, setValue] = useState(0);
+
+  const animate = useCallback(() => {
+    const start = performance.now();
+    const step = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / (duration * 1000), 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  }, [target, duration]);
+
+  useEffect(() => {
+    if (isInView) {
+      const timer = setTimeout(animate, delay * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, animate, delay]);
+
+  return <span ref={ref}>{value}%</span>;
+}
 
 export default function LeaderboardSection() {
   const { data: leaderboard } = trpc.content.leaderboard.useQuery();
 
   const entries = leaderboard && leaderboard.length > 0
-    ? leaderboard
-    : [
-        { rank: 1, country: "Germany", countryCode: "DE", description: "Strongest European Community", score: 100 },
-        { rank: 2, country: "Nigeria", countryCode: "NG", description: "Fastest Growing in Africa", score: 85 },
-        { rank: 3, country: "Indonesia", countryCode: "ID", description: "Leading Southeast Asia", score: 72 },
-        { rank: 4, country: "India", countryCode: "IN", description: "Rapidly Expanding", score: 65 },
-        { rank: 5, country: "Turkey", countryCode: "TR", description: "Emerging Market Leader", score: 50 },
-        { rank: 6, country: "Brazil", countryCode: "BR", description: "Latin America Pioneer", score: 40 },
-      ];
+    ? leaderboard.map((e) => ({
+        rank: e.rank,
+        country: e.country,
+        code: e.countryCode?.toLowerCase() || "un",
+        description: e.description || "",
+        score: e.score,
+        medal: e.rank <= 3 ? (["gold", "silver", "bronze"][e.rank - 1] as "gold" | "silver" | "bronze") : ("none" as const),
+      }))
+    : COUNTRY_DATA;
+
+  const top3 = entries.slice(0, 3);
+  const rest = entries.slice(3);
 
   return (
-    <section id="leaderboard" className="relative section-padding overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full" style={{ background: "radial-gradient(circle, rgba(34,211,238,0.05) 0%, transparent 60%)" }} />
-      </div>
+    <section id="leaderboard" className="section-spacing relative">
+      <div className="container">
+        <SectionHeading
+          label="Global Community"
+          title="Where Is TurboLoop Growing Fastest?"
+          subtitle="A truly global movement. Community builders across 6 continents are driving adoption."
+        />
 
-      <div className="container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-sm text-cyan-300/80 mb-8">
-            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            Country Leaderboard
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5">
-            <span className="text-white">Where Is TurboLoop</span>
-            <br />
-            <span className="text-gradient">Growing Fastest?</span>
-          </h2>
-        </motion.div>
+        {/* Podium — Top 3 */}
+        <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mb-12">
+          {/* Reorder: 2nd, 1st, 3rd for visual podium */}
+          {[top3[1], top3[0], top3[2]].map((entry, podiumIndex) => {
+            if (!entry) return null;
+            const isChampion = entry.rank === 1;
+            const medalStyle = MEDAL_COLORS[entry.medal as keyof typeof MEDAL_COLORS];
 
-        <div className="max-w-4xl mx-auto space-y-4">
-          {entries.map((entry, index) => (
-            <motion.div
-              key={entry.rank}
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative"
-            >
+            return (
+              <AnimatedSection key={entry.rank} delay={podiumIndex * 0.15}>
+                <div
+                  className={`relative flex flex-col items-center text-center p-4 md:p-6 rounded-2xl ${isChampion ? "md:-mt-6" : ""}`}
+                  style={{
+                    background: medalStyle
+                      ? `linear-gradient(180deg, ${medalStyle.bg} 0%, rgba(6,10,22,0.5) 100%)`
+                      : "rgba(10,18,38,0.5)",
+                    border: `1px solid ${medalStyle?.border || "rgba(255,255,255,0.04)"}`,
+                    boxShadow: medalStyle?.glow || "none",
+                  }}
+                >
+                  {/* Medal icon */}
+                  <div className="mb-3">
+                    {isChampion ? (
+                      <Trophy className="w-8 h-8 md:w-10 md:h-10" style={{ color: medalStyle?.text }} />
+                    ) : (
+                      <Medal className="w-7 h-7 md:w-8 md:h-8" style={{ color: medalStyle?.text }} />
+                    )}
+                  </div>
+
+                  {/* Flag */}
+                  <img
+                    src={getFlagUrl(entry.code, 80)}
+                    alt={entry.country}
+                    className="w-12 h-8 md:w-16 md:h-11 object-cover rounded shadow-lg mb-3"
+                  />
+
+                  {/* Rank */}
+                  <span className="text-2xl md:text-3xl font-bold mb-1" style={{ color: medalStyle?.text || "#fff" }}>
+                    #{entry.rank}
+                  </span>
+
+                  {/* Country */}
+                  <h3 className="text-base md:text-lg font-bold text-white mb-1">{entry.country}</h3>
+                  <p className="text-xs text-gray-400 hidden md:block">{entry.description}</p>
+
+                  {/* Animated Score */}
+                  <span className="text-xl md:text-2xl font-bold mt-2" style={{ color: medalStyle?.text || "#22D3EE" }}>
+                    <CountUp target={entry.score} duration={1.8} delay={0.3 + podiumIndex * 0.15} />
+                  </span>
+                </div>
+              </AnimatedSection>
+            );
+          })}
+        </div>
+
+        {/* Remaining countries — bar chart style */}
+        <div className="max-w-3xl mx-auto space-y-4">
+          {rest.map((entry, index) => (
+            <AnimatedSection key={entry.rank} delay={0.5 + index * 0.1}>
               <div
-                className="relative p-5 md:p-6 rounded-xl overflow-hidden transition-all duration-400"
+                className="relative flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-xl"
                 style={{
-                  background: "linear-gradient(135deg, rgba(13,20,40,0.7) 0%, rgba(13,20,40,0.4) 100%)",
-                  backdropFilter: "blur(20px)",
+                  background: "rgba(10, 18, 38, 0.5)",
                   border: "1px solid rgba(255,255,255,0.04)",
                 }}
               >
-                <div className="flex items-center gap-4 md:gap-6 mb-3">
-                  {/* Rank + Medal */}
-                  <div className="flex items-center gap-2 w-20 shrink-0">
-                    {index < 3 && <span className="text-2xl">{MEDAL_ICONS[index]}</span>}
-                    <span className="text-2xl font-heading font-bold text-white">#{entry.rank}</span>
-                  </div>
+                {/* Rank */}
+                <span className="text-xl font-bold text-gray-400 w-10 shrink-0">#{entry.rank}</span>
 
-                  {/* Flag + Country */}
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <span className="text-3xl">{COUNTRY_FLAGS[entry.countryCode] || ""}</span>
-                    <div className="min-w-0">
-                      <h3 className="text-lg md:text-xl font-heading font-bold text-white truncate">{entry.country}</h3>
-                      <p className="text-sm text-gray-400 truncate">{entry.description}</p>
+                {/* Flag */}
+                <img
+                  src={getFlagUrl(entry.code, 48)}
+                  alt={entry.country}
+                  className="w-10 h-7 object-cover rounded shadow shrink-0"
+                />
+
+                {/* Country + bar */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <span className="text-base font-bold text-white">{entry.country}</span>
+                      <span className="text-xs text-gray-500 ml-2 hidden md:inline">{entry.description}</span>
                     </div>
-                  </div>
-
-                  {/* Score */}
-                  <div className="text-right shrink-0">
-                    <span
-                      className="text-2xl md:text-3xl font-heading font-bold"
-                      style={{ color: index < 2 ? "#22D3EE" : index < 4 ? "#34D399" : "#C084FC" }}
-                    >
-                      {entry.score}%
+                    <span className="text-lg font-bold text-cyan-400">
+                      <CountUp target={entry.score} duration={1.5} delay={0.6 + index * 0.1} />
                     </span>
                   </div>
-                </div>
-
-                {/* Animated bar */}
-                <div className="relative h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${entry.score}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.3 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="h-full rounded-full relative"
-                    style={{
-                      background: barGradients[index],
-                      boxShadow: `0 0 15px ${barGlows[index]}, 0 0 30px ${barGlows[index]}`,
-                    }}
-                  >
-                    {/* Shimmer effect */}
-                    <div
-                      className="absolute inset-0 rounded-full animate-shimmer"
-                      style={{ background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%)", backgroundSize: "200% 100%" }}
-                    />
-                  </motion.div>
+                  {/* Thick animated bar */}
+                  <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.04)" }}>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${entry.score}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="h-full rounded-full relative"
+                      style={{ background: BAR_GRADIENTS[entry.rank - 1] || BAR_GRADIENTS[3] }}
+                    >
+                      <div
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
+                          backgroundSize: "200% 100%",
+                          animation: "shimmer 3s infinite",
+                        }}
+                      />
+                    </motion.div>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </AnimatedSection>
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 1 }}
-          className="text-center mt-12 text-xl md:text-2xl font-heading font-bold text-gradient"
-        >
-          The World Is Joining. Are You?
-        </motion.p>
+        {/* CTA line */}
+        <AnimatedSection delay={0.8}>
+          <p className="text-center mt-14 text-xl md:text-2xl font-bold">
+            <span
+              style={{
+                background: "linear-gradient(135deg, #22D3EE, #C084FC)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              The World Is Joining. Are You?
+            </span>
+          </p>
+        </AnimatedSection>
       </div>
     </section>
   );

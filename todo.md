@@ -1,42 +1,39 @@
 # Turbo Loop Community Hub — TODO
 
-- [x] Dark theme setup with brand colors (#0a0f1e, cyan #22D3EE, purple #C084FC)
-- [x] Database schema (blogs, videos, events, leaderboard, promotions, roadmap, deck)
-- [x] API routes for all content types (CRUD)
-- [x] Admin authentication (devdady@proton.me password-protected)
-- [x] Cinematic Hero Section with logo, tagline, Launch App CTA → turboloop.io
-- [x] Six Pillars of the Ecosystem (glowing hexagonal cards)
-- [x] Global Community Leaderboard (animated bars, 6 countries, flags)
-- [x] Revenue Flywheel animated diagram (LP Rewards, Swap Fees, Buy Fees)
-- [x] Active Promotions section ($100K Challenge, Creator Star, Zoom Presenter, Onboarding Bonus)
-- [x] Video Hub (28+ videos, 3 categories, 12 language flag filters)
-- [x] Blog/News section with admin-managed posts
-- [x] Events & Zoom Meetings section (daily zoom, upcoming/past events)
-- [x] Roadmap (9 phases, WE ARE HERE on Phase 6)
-- [x] Resources & Trust section (deck download, security pillars, trust quote)
-- [x] Footer with social links (Telegram, Twitter/X, YouTube)
-- [x] Admin Dashboard (manage all content types)
-- [x] Seed initial data (videos, zoom, leaderboard, promotions)
-- [x] Upload logo and presentation deck as static assets
-- [x] Responsive mobile design
-- [x] Vitest tests for API routes
-- [x] Blog section visible with empty state when no posts
-- [x] Events section separates active/upcoming from completed/past events
-- [x] Presentation deck download wired to uploaded PDF asset
-- [x] Responsive mobile design (Navbar hamburger, responsive grids, mobile-first)
-- [x] PREMIUM REDESIGN: Enhanced global CSS utilities (glassmorphism, neon glow, animated gradients)
-- [x] PREMIUM REDESIGN: Hero section — animated logo glow, word-reveal animation, dramatic CTA buttons
-- [x] FIX: Hero heading visibility — ensure text is visible on initial load (inline styles, reduced animation delay)
-- [x] PREMIUM REDESIGN: Ecosystem cards — glassmorphism, hover effects, neon border glow
-- [x] ENHANCE: Add 3D perspective tilt on ecosystem card hover (mouse-tracking tilt with spotlight)
-- [x] PREMIUM REDESIGN: Leaderboard — gradient animated bars with glow, dramatic medals
-- [x] PREMIUM REDESIGN: Flywheel — premium vertical flow diagram with glow effects
-- [x] ENHANCE: Convert flywheel to circular/orbital animated diagram (desktop circular, mobile vertical)
-- [x] PREMIUM REDESIGN: Promotions — spotlight effects, gradient borders, animated badges
-- [x] PREMIUM REDESIGN: Video Hub — custom overlays, better language pills
-- [x] PREMIUM REDESIGN: Events — more visual energy, countdown feel
-- [x] PREMIUM REDESIGN: Roadmap — glowing timeline with pulsing WE ARE HERE marker
-- [x] PREMIUM REDESIGN: Trust section — dramatic quote, larger security pillars
-- [x] PREMIUM REDESIGN: Footer — visual separation, premium feel
-- [x] PREMIUM REDESIGN: Section dividers between all sections
-- [x] Add 2 seeded blog posts with real content
+## V1-V3 (Completed)
+- [x] Basic project setup with database and auth
+- [x] Database schema for all content types
+- [x] API routes for all CRUD operations
+- [x] Initial frontend sections
+- [x] Admin dashboard with login
+- [x] Seed data (videos, events, promotions, leaderboard, roadmap)
+- [x] V2 Premium redesign (glassmorphism, animations)
+- [x] V3 Fixes (hero heading, 3D tilt, flywheel diagram)
+- [x] 2 blog posts seeded
+- [x] Vitest tests passing
+
+## V4 — PUBLISH-READY PREMIUM REBUILD
+- [x] Darker base background (#060a16) with noise texture
+- [x] Gradient mesh background orbs (cyan + purple)
+- [x] Scroll progress indicator (cyan line at top)
+- [x] Scroll-triggered reveal animations (Framer Motion)
+- [x] Sticky floating Launch App button
+- [x] Navbar: transparent → glassmorphism on scroll, mobile drawer
+- [x] Hero: 100vh, canvas particle network, CSS gradient text, magnetic buttons
+- [x] Ecosystem: 3x2 glassmorphism cards, staggered entrance, icon glow
+- [x] Leaderboard: podium layout, real flags (flagcdn), gold/silver/bronze, thick bars, animated count-up numbers
+- [x] Flywheel: SVG circular arrows, rotating center hub, energy particle animation, revenue streams
+- [x] Promotions: $100K featured card, animated gradient border, pulsing badge
+- [x] Feed page (/feed): grid layout, horizontal filter pills (All/Videos/Articles/Updates), video thumbnails with language badges
+- [x] Events: DAILY badge, prominent Join Zoom button, passcode shown
+- [x] Roadmap: real milestones, glowing path, radar ping on Phase 6, checkmarks/locks
+- [x] Trust: dramatic blockquote, security badges, deck download
+- [x] Footer: 4-column, social icons, hub vs dApp note
+- [x] Videos: category filters, language flag filters, YouTube thumbnails
+- [x] Blog: 2 seeded posts with premium card design
+- [x] Admin login page with TurboLoop branding
+- [x] Admin dashboard for content management
+- [x] All vitest tests passing (12/12)
+- [x] Full visual audit (desktop + mobile) — all sections verified
+- [x] No console errors, all API calls return 200
+- [x] TypeScript error in storageProxy.ts fixed (0 TS errors)

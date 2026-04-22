@@ -1,9 +1,7 @@
 import { trpc } from "@/lib/trpc";
-import { useRoute } from "wouter";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/sections/Footer";
-import { ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
+import { SITE } from "@/lib/constants";
+import { useRoute, Link } from "wouter";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Streamdown } from "streamdown";
 
 export default function BlogPost() {
@@ -12,22 +10,37 @@ export default function BlogPost() {
   const { data: post, isLoading } = trpc.content.blogPost.useQuery({ slug });
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] text-white overflow-x-hidden">
-      <Navbar />
+    <div className="min-h-screen" style={{ background: "#060a16" }}>
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b" style={{ background: "rgba(6,10,22,0.9)", backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.04)" }}>
+        <div className="container flex items-center justify-between py-4">
+          <div className="flex items-center gap-4">
+            <Link href="/#blog">
+              <button className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
+                <ArrowLeft className="h-4 w-4" />
+                Back
+              </button>
+            </Link>
+            <div className="h-5 w-px bg-gray-800" />
+            <Link href="/">
+              <span className="text-base font-bold cursor-pointer">
+                <span className="text-white">Turbo</span>
+                <span className="text-cyan-400">Loop</span>
+              </span>
+            </Link>
+          </div>
+          <a
+            href={SITE.mainApp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+          >
+            Launch App <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+      </header>
 
-      {/* Background glow */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(34,211,238,0.03) 0%, transparent 60%)" }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(192,132,252,0.03) 0%, transparent 60%)" }} />
-      </div>
-
-      <div className="container relative z-10 pt-28 pb-20 max-w-3xl">
-        <Link href="/#blog">
-          <span className="inline-flex items-center gap-2 text-sm text-cyan-400/70 hover:text-cyan-300 mb-8 cursor-pointer transition-colors duration-300">
-            <ArrowLeft className="h-4 w-4" /> Back to Blog
-          </span>
-        </Link>
-
+      <div className="container max-w-3xl pt-12 pb-20">
         {isLoading ? (
           <div className="space-y-4">
             <div className="h-8 rounded w-3/4 animate-pulse" style={{ background: "rgba(255,255,255,0.05)" }} />
@@ -37,23 +50,14 @@ export default function BlogPost() {
         ) : post ? (
           <article>
             {post.coverImage && (
-              <img src={post.coverImage} alt={post.title} className="w-full h-64 object-cover rounded-xl mb-8" />
+              <img src={post.coverImage} alt={post.title} className="w-full h-56 md:h-72 object-cover rounded-xl mb-8" />
             )}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 leading-tight">{post.title}</h1>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">{post.title}</h1>
             <p className="text-sm text-gray-500 mb-10">
               {new Date(post.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
             </p>
-            <div
-              className="rounded-2xl p-6 md:p-10"
-              style={{
-                background: "linear-gradient(135deg, rgba(13,20,40,0.6) 0%, rgba(13,20,40,0.3) 100%)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.04)",
-              }}
-            >
-              <div className="prose prose-invert prose-cyan max-w-none prose-headings:font-heading prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-strong:text-cyan-300 prose-blockquote:border-cyan-500/30 prose-blockquote:text-gray-300 prose-a:text-cyan-400 prose-li:text-gray-300">
-                <Streamdown>{post.content}</Streamdown>
-              </div>
+            <div className="prose prose-invert prose-cyan max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-strong:text-cyan-300 prose-blockquote:border-cyan-500/30 prose-blockquote:text-gray-300 prose-a:text-cyan-400 prose-li:text-gray-300">
+              <Streamdown>{post.content}</Streamdown>
             </div>
           </article>
         ) : (
@@ -62,7 +66,6 @@ export default function BlogPost() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

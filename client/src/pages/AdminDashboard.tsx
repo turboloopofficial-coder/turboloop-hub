@@ -303,7 +303,7 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-[#0a0f1e]">
       {/* Header */}
-      <div className="border-b border-cyan-500/10 bg-[#0a0f1e]/90 backdrop-blur-xl sticky top-0 z-50">
+      <div className="sticky top-0 z-50" style={{ background: 'rgba(6,10,22,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(34,211,238,0.08)' }}>
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-3">
             <img src={SITE.logo} alt="" className="h-8 w-8 object-contain rounded-lg" />
@@ -321,7 +321,7 @@ export default function AdminDashboard() {
       {/* Content */}
       <div className="container py-8">
         <Tabs defaultValue="blog" className="w-full">
-          <TabsList className="bg-[#0d1425] border border-gray-800 mb-6 flex-wrap h-auto gap-1 p-1">
+          <TabsList className="mb-6 flex-wrap h-auto gap-1 p-1" style={{ background: 'rgba(13,20,40,0.6)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '12px' }}>
             <TabsTrigger value="blog" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Blog</TabsTrigger>
             <TabsTrigger value="videos" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Videos</TabsTrigger>
             <TabsTrigger value="events" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Events</TabsTrigger>

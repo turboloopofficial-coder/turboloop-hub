@@ -3,7 +3,6 @@ import { trpc } from "@/lib/trpc";
 import { LANGUAGE_FLAGS } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { Play, Film } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 type VideoCategory = "presentation" | "how-to-join" | "withdraw-compound" | "other";
 
@@ -39,30 +38,29 @@ export default function VideoSection() {
   const filteredVideos = useMemo(() => {
     if (!videos) return [];
     return videos.filter(
-      (v) =>
-        v.category === activeCategory &&
-        (activeLanguage === "all" || v.language === activeLanguage)
+      (v) => v.category === activeCategory && (activeLanguage === "all" || v.language === activeLanguage)
     );
   }, [videos, activeCategory, activeLanguage]);
 
   return (
-    <section id="videos" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[150px]" />
+    <section id="videos" className="relative section-padding overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(34,211,238,0.04) 0%, transparent 60%)" }} />
+      </div>
 
       <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-sm text-cyan-300 mb-6">
-            <Film className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-sm text-cyan-300/80 mb-8">
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
             Video Hub
           </div>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-            <span className="text-white">Watch & </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5">
+            <span className="text-white">Watch &</span>{" "}
             <span className="text-gradient">Learn</span>
           </h2>
           <p className="text-gray-400 text-lg">Available in 12+ languages</p>
@@ -71,46 +69,53 @@ export default function VideoSection() {
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {(categories.length > 0 ? categories : (["presentation", "how-to-join", "withdraw-compound"] as VideoCategory[])).map((cat) => (
-            <Button
+            <button
               key={cat}
-              variant={activeCategory === cat ? "default" : "outline"}
-              size="sm"
               onClick={() => { setActiveCategory(cat); setActiveLanguage("all"); }}
-              className={activeCategory === cat
-                ? "bg-cyan-500/20 text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/30"
-                : "border-gray-700 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30 bg-transparent"
-              }
+              className="relative px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300"
+              style={{
+                background: activeCategory === cat ? "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(34,211,238,0.05))" : "rgba(13,20,40,0.5)",
+                border: `1px solid ${activeCategory === cat ? "rgba(34,211,238,0.3)" : "rgba(255,255,255,0.04)"}`,
+                color: activeCategory === cat ? "#22D3EE" : "#9CA3AF",
+                boxShadow: activeCategory === cat ? "0 0 15px rgba(34,211,238,0.1)" : "none",
+              }}
             >
               {CATEGORY_LABELS[cat]}
-            </Button>
+            </button>
           ))}
         </div>
 
         {/* Language Filters */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          <Button
-            variant="ghost"
-            size="sm"
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          <button
             onClick={() => setActiveLanguage("all")}
-            className={activeLanguage === "all" ? "text-cyan-400 bg-cyan-500/10" : "text-gray-500 hover:text-gray-300"}
+            className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+            style={{
+              background: activeLanguage === "all" ? "rgba(34,211,238,0.1)" : "transparent",
+              color: activeLanguage === "all" ? "#22D3EE" : "#6B7280",
+              border: `1px solid ${activeLanguage === "all" ? "rgba(34,211,238,0.2)" : "transparent"}`,
+            }}
           >
             All
-          </Button>
+          </button>
           {languages.map((lang) => (
-            <Button
+            <button
               key={lang}
-              variant="ghost"
-              size="sm"
               onClick={() => setActiveLanguage(lang)}
-              className={activeLanguage === lang ? "text-cyan-400 bg-cyan-500/10" : "text-gray-500 hover:text-gray-300"}
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-1.5"
+              style={{
+                background: activeLanguage === lang ? "rgba(34,211,238,0.1)" : "transparent",
+                color: activeLanguage === lang ? "#22D3EE" : "#6B7280",
+                border: `1px solid ${activeLanguage === lang ? "rgba(34,211,238,0.2)" : "transparent"}`,
+              }}
             >
-              <span className="mr-1">{LANGUAGE_FLAGS[lang] || "🏳️"}</span> {lang}
-            </Button>
+              <span>{LANGUAGE_FLAGS[lang] || ""}</span> {lang}
+            </button>
           ))}
         </div>
 
         {/* Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredVideos.map((video, index) => {
             const ytId = video.youtubeUrl ? getYouTubeId(video.youtubeUrl) : null;
             const isPlaying = playingId === video.id;
@@ -124,9 +129,15 @@ export default function VideoSection() {
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="group"
               >
-                <div className="rounded-xl border border-cyan-500/10 bg-[#0d1425]/60 overflow-hidden hover:border-cyan-500/25 transition-all">
+                <div
+                  className="rounded-xl overflow-hidden transition-all duration-400"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(13,20,40,0.7) 0%, rgba(13,20,40,0.4) 100%)",
+                    border: "1px solid rgba(255,255,255,0.04)",
+                  }}
+                >
                   {/* Thumbnail / Player */}
-                  <div className="relative aspect-video bg-[#0a0f1e]">
+                  <div className="relative aspect-video bg-[#060a16] overflow-hidden">
                     {isPlaying && ytId ? (
                       <iframe
                         src={`https://www.youtube.com/embed/${ytId}?autoplay=1`}
@@ -140,15 +151,30 @@ export default function VideoSection() {
                           <img
                             src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
                             alt={video.title}
-                            className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity"
+                            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
                           />
                         )}
+                        {/* Dark gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#060a16] via-transparent to-transparent" />
+                        {/* Language badge */}
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-lg glass text-xs font-medium text-white">
+                          <span>{video.languageFlag}</span> {video.language}
+                        </div>
+                        {/* Play button */}
                         <button
                           onClick={() => setPlayingId(video.id)}
                           className="absolute inset-0 flex items-center justify-center"
                         >
-                          <div className="w-14 h-14 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center group-hover:bg-cyan-500/30 group-hover:scale-110 transition-all">
-                            <Play className="h-6 w-6 text-cyan-400 ml-1" />
+                          <div
+                            className="w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300"
+                            style={{
+                              background: "rgba(34,211,238,0.15)",
+                              border: "2px solid rgba(34,211,238,0.4)",
+                              boxShadow: "0 0 30px rgba(34,211,238,0.2)",
+                              backdropFilter: "blur(10px)",
+                            }}
+                          >
+                            <Play className="h-7 w-7 text-cyan-400 ml-1" />
                           </div>
                         </button>
                       </>
@@ -157,10 +183,6 @@ export default function VideoSection() {
 
                   {/* Info */}
                   <div className="p-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg">{video.languageFlag}</span>
-                      <span className="text-xs text-gray-500">{video.language}</span>
-                    </div>
                     <h4 className="text-sm font-heading font-semibold text-white truncate">{video.title}</h4>
                   </div>
                 </div>
@@ -170,9 +192,11 @@ export default function VideoSection() {
         </div>
 
         {filteredVideos.length === 0 && (
-          <div className="text-center py-16 text-gray-500">
-            <Film className="h-12 w-12 mx-auto mb-4 opacity-30" />
-            <p>No videos available yet. Check back soon.</p>
+          <div className="text-center py-16">
+            <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mx-auto mb-4">
+              <Film className="h-8 w-8 text-gray-600" />
+            </div>
+            <p className="text-gray-500">No videos available yet. Check back soon.</p>
           </div>
         )}
       </div>

@@ -1,7 +1,6 @@
 import { trpc } from "@/lib/trpc";
 import { motion } from "framer-motion";
 import { Calendar, Video, Clock, ExternalLink, History } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useMemo, useState } from "react";
 
 export default function EventsSection() {
@@ -15,99 +14,126 @@ export default function EventsSection() {
     return { activeEvents: active, pastEvents: past };
   }, [events]);
 
+  const statusConfig: Record<string, { label: string; color: string; pulse: boolean }> = {
+    live: { label: "LIVE NOW", color: "#EF4444", pulse: true },
+    recurring: { label: "RECURRING", color: "#34D399", pulse: false },
+    upcoming: { label: "UPCOMING", color: "#22D3EE", pulse: false },
+  };
+
   return (
-    <section id="events" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px]" />
+    <section id="events" className="relative section-padding overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(34,211,238,0.04) 0%, transparent 60%)" }} />
+      </div>
 
       <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-sm text-cyan-300 mb-6">
-            <Calendar className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-sm text-cyan-300/80 mb-8">
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
             Events & Meetings
           </div>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-            <span className="text-white">Join the </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5">
+            <span className="text-white">Join the</span>{" "}
             <span className="text-gradient">Community</span>
           </h2>
         </motion.div>
 
-        {/* Active / Upcoming / Recurring Events */}
         <div className="max-w-3xl mx-auto space-y-4">
           {activeEvents.length > 0 ? (
-            activeEvents.map((event, index) => (
-              <motion.div
-                key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-              >
-                <div className="p-6 rounded-xl border border-cyan-500/10 bg-[#0d1425]/60 hover:border-cyan-500/25 transition-all">
-                  <div className="flex flex-col md:flex-row md:items-center gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        {event.status === "recurring" && (
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
-                            RECURRING
+            activeEvents.map((event, index) => {
+              const status = statusConfig[event.status] || statusConfig.upcoming;
+              return (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <div
+                    className="relative p-6 md:p-7 rounded-xl overflow-hidden transition-all duration-400"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(13,20,40,0.7) 0%, rgba(13,20,40,0.4) 100%)",
+                      backdropFilter: "blur(20px)",
+                      border: `1px solid ${status.color}15`,
+                    }}
+                  >
+                    {/* Top glow line */}
+                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${status.color}40, transparent)` }} />
+
+                    <div className="flex flex-col md:flex-row md:items-center gap-5">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full ${status.pulse ? "animate-pulse" : ""}`}
+                            style={{
+                              background: `${status.color}15`,
+                              color: status.color,
+                              border: `1px solid ${status.color}30`,
+                              boxShadow: status.pulse ? `0 0 10px ${status.color}20` : "none",
+                            }}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: status.color }} />
+                            {status.label}
                           </span>
+                        </div>
+
+                        <h3 className="text-xl font-heading font-bold text-white mb-2">{event.title}</h3>
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+                          <span className="flex items-center gap-1.5">
+                            <Clock className="h-3.5 w-3.5 text-gray-500" />
+                            {event.dateTime} {event.timezone}
+                          </span>
+                          {event.frequency && (
+                            <span style={{ color: `${status.color}80` }}>{event.frequency}</span>
+                          )}
+                          {event.language && (
+                            <span className="text-gray-500">{event.language}</span>
+                          )}
+                        </div>
+                        {event.description && (
+                          <p className="text-sm text-gray-500 mt-2">{event.description}</p>
                         )}
-                        {event.status === "live" && (
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse">
-                            LIVE NOW
-                          </span>
-                        )}
-                        {event.status === "upcoming" && (
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
-                            UPCOMING
-                          </span>
+                        {event.hostName && (
+                          <p className="text-xs text-gray-600 mt-1">Host: {event.hostName}</p>
                         )}
                       </div>
-                      <h3 className="text-lg font-heading font-bold text-white mb-1">{event.title}</h3>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
-                        <span className="flex items-center gap-1">
-                          <Clock className="h-3.5 w-3.5" />
-                          {event.dateTime} {event.timezone}
-                        </span>
-                        {event.frequency && (
-                          <span className="text-cyan-400/60">{event.frequency}</span>
-                        )}
-                        {event.language && (
-                          <span className="text-gray-500">{event.language}</span>
+
+                      <div className="shrink-0 flex flex-col items-center gap-2">
+                        <a href={event.meetingLink} target="_blank" rel="noopener noreferrer">
+                          <button
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300"
+                            style={{
+                              background: `linear-gradient(135deg, ${status.color}20, ${status.color}10)`,
+                              border: `1px solid ${status.color}30`,
+                              color: status.color,
+                            }}
+                          >
+                            <Video className="h-4 w-4" />
+                            Join Meeting
+                            <ExternalLink className="h-3 w-3" />
+                          </button>
+                        </a>
+                        {event.passcode && (
+                          <p className="text-xs text-gray-600">Passcode: {event.passcode}</p>
                         )}
                       </div>
-                      {event.description && (
-                        <p className="text-sm text-gray-500 mt-2">{event.description}</p>
-                      )}
-                      {event.hostName && (
-                        <p className="text-xs text-gray-600 mt-1">Host: {event.hostName}</p>
-                      )}
-                    </div>
-                    <div className="shrink-0">
-                      <a href={event.meetingLink} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30">
-                          <Video className="h-4 w-4 mr-1.5" />
-                          Join Meeting
-                          <ExternalLink className="h-3 w-3 ml-1" />
-                        </Button>
-                      </a>
-                      {event.passcode && (
-                        <p className="text-xs text-gray-600 mt-1 text-center">Passcode: {event.passcode}</p>
-                      )}
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))
+                </motion.div>
+              );
+            })
           ) : (
-            <div className="text-center py-12 text-gray-500">
-              <Calendar className="h-12 w-12 mx-auto mb-4 opacity-30" />
-              <p>No upcoming events. Check back soon.</p>
+            <div className="text-center py-12">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl glass flex items-center justify-center">
+                <Calendar className="h-8 w-8 text-gray-600" />
+              </div>
+              <p className="text-gray-500">No upcoming events. Check back soon.</p>
             </div>
           )}
         </div>
@@ -128,14 +154,16 @@ export default function EventsSection() {
                 {pastEvents.map((event) => (
                   <div
                     key={event.id}
-                    className="p-4 rounded-xl border border-gray-700/30 bg-[#0d1425]/30 opacity-60"
+                    className="p-4 rounded-xl opacity-50"
+                    style={{
+                      background: "rgba(13,20,40,0.3)",
+                      border: "1px solid rgba(255,255,255,0.03)",
+                    }}
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-500/20 text-gray-400 border border-gray-500/30">
-                        COMPLETED
-                      </span>
-                    </div>
-                    <h3 className="text-base font-heading font-semibold text-gray-300">{event.title}</h3>
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(107,114,128,0.15)", color: "#9CA3AF", border: "1px solid rgba(107,114,128,0.2)" }}>
+                      COMPLETED
+                    </span>
+                    <h3 className="text-base font-heading font-semibold text-gray-300 mt-2">{event.title}</h3>
                     <p className="text-xs text-gray-500 mt-1">{event.dateTime} {event.timezone}</p>
                   </div>
                 ))}

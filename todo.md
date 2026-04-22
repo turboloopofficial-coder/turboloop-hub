@@ -24,3 +24,19 @@
 - [x] Events section separates active/upcoming from completed/past events
 - [x] Presentation deck download wired to uploaded PDF asset
 - [x] Responsive mobile design (Navbar hamburger, responsive grids, mobile-first)
+- [x] PREMIUM REDESIGN: Enhanced global CSS utilities (glassmorphism, neon glow, animated gradients)
+- [x] PREMIUM REDESIGN: Hero section — animated logo glow, word-reveal animation, dramatic CTA buttons
+- [x] FIX: Hero heading visibility — ensure text is visible on initial load (inline styles, reduced animation delay)
+- [x] PREMIUM REDESIGN: Ecosystem cards — glassmorphism, hover effects, neon border glow
+- [x] ENHANCE: Add 3D perspective tilt on ecosystem card hover (mouse-tracking tilt with spotlight)
+- [x] PREMIUM REDESIGN: Leaderboard — gradient animated bars with glow, dramatic medals
+- [x] PREMIUM REDESIGN: Flywheel — premium vertical flow diagram with glow effects
+- [x] ENHANCE: Convert flywheel to circular/orbital animated diagram (desktop circular, mobile vertical)
+- [x] PREMIUM REDESIGN: Promotions — spotlight effects, gradient borders, animated badges
+- [x] PREMIUM REDESIGN: Video Hub — custom overlays, better language pills
+- [x] PREMIUM REDESIGN: Events — more visual energy, countdown feel
+- [x] PREMIUM REDESIGN: Roadmap — glowing timeline with pulsing WE ARE HERE marker
+- [x] PREMIUM REDESIGN: Trust section — dramatic quote, larger security pillars
+- [x] PREMIUM REDESIGN: Footer — visual separation, premium feel
+- [x] PREMIUM REDESIGN: Section dividers between all sections
+- [x] Add 2 seeded blog posts with real content

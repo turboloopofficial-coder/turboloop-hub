@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { SITE } from "@/lib/constants";
-import { Button } from "@/components/ui/button";
 import { Menu, X, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -25,19 +24,22 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0a0f1e]/90 backdrop-blur-xl border-b border-cyan-500/10 shadow-lg shadow-cyan-500/5"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        background: scrolled
+          ? "rgba(6,10,22,0.85)"
+          : "transparent",
+        backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(34,211,238,0.08)" : "1px solid transparent",
+      }}
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 shrink-0">
+        <a href="/" className="flex items-center gap-2.5 shrink-0">
           <img
             src={SITE.logo}
             alt="Turbo Loop"
-            className="h-10 w-10 md:h-12 md:w-12 object-contain rounded-lg"
+            className="h-9 w-auto md:h-11 object-contain rounded-lg"
           />
           <span className="text-lg md:text-xl font-heading font-bold">
             <span className="text-white">Turbo</span>
@@ -46,20 +48,36 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-7">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-gray-300 hover:text-cyan-400 transition-colors font-medium"
+              className="text-sm text-gray-400 hover:text-cyan-400 transition-colors duration-300 font-medium"
             >
               {link.label}
             </a>
           ))}
           <a href={SITE.mainApp} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-gradient-to-r from-cyan-500 to-cyan-400 hover:from-cyan-400 hover:to-cyan-300 text-[#0a0f1e] font-bold px-6 shadow-lg shadow-cyan-500/25 transition-all hover:shadow-cyan-500/40">
-              Launch App <ExternalLink className="ml-1.5 h-4 w-4" />
-            </Button>
+            <button
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300"
+              style={{
+                background: "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(34,211,238,0.05))",
+                border: "1px solid rgba(34,211,238,0.3)",
+                color: "#22D3EE",
+                boxShadow: "0 0 20px rgba(34,211,238,0.1)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(34,211,238,0.1))";
+                e.currentTarget.style.boxShadow = "0 0 30px rgba(34,211,238,0.2)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(34,211,238,0.05))";
+                e.currentTarget.style.boxShadow = "0 0 20px rgba(34,211,238,0.1)";
+              }}
+            >
+              Launch App <ExternalLink className="h-3.5 w-3.5" />
+            </button>
           </a>
         </div>
 
@@ -79,23 +97,34 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#0a0f1e]/95 backdrop-blur-xl border-b border-cyan-500/10"
+            style={{
+              background: "rgba(6,10,22,0.95)",
+              backdropFilter: "blur(20px)",
+              borderBottom: "1px solid rgba(34,211,238,0.08)",
+            }}
           >
-            <div className="container py-4 flex flex-col gap-3">
+            <div className="container py-5 flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-gray-300 hover:text-cyan-400 transition-colors py-2 font-medium"
+                  className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 py-3 font-medium text-base"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
-              <a href={SITE.mainApp} target="_blank" rel="noopener noreferrer" className="mt-2">
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-cyan-400 hover:from-cyan-400 hover:to-cyan-300 text-[#0a0f1e] font-bold shadow-lg shadow-cyan-500/25">
-                  Launch App <ExternalLink className="ml-1.5 h-4 w-4" />
-                </Button>
+              <a href={SITE.mainApp} target="_blank" rel="noopener noreferrer" className="mt-3">
+                <button
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(34,211,238,0.05))",
+                    border: "1px solid rgba(34,211,238,0.3)",
+                    color: "#22D3EE",
+                  }}
+                >
+                  Launch App <ExternalLink className="h-3.5 w-3.5" />
+                </button>
               </a>
             </div>
           </motion.div>

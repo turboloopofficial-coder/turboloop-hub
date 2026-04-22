@@ -2,27 +2,244 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { z } from "zod";
+import * as jose from "jose";
+import { parse as parseCookieHeader } from "cookie";
+import {
+  verifyAdminPassword, createAdmin, getAdminByEmail,
+  listBlogPosts, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
+  listVideos, createVideo, updateVideo, deleteVideo,
+  listEvents, createEvent, updateEvent, deleteEvent,
+  listLeaderboard, upsertLeaderboardEntry,
+  listPromotions, updatePromotion, createPromotion,
+  listRoadmapPhases, updateRoadmapPhase,
+  getSetting, setSetting,
+} from "./db";
+import { TRPCError } from "@trpc/server";
+
+const ADMIN_JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "turboloop-admin-secret");
+
+// Helper to verify admin JWT from cookie
+async function verifyAdminToken(token: string): Promise<{ email: string }> {
+  try {
+    const { payload } = await jose.jwtVerify(token, ADMIN_JWT_SECRET);
+    return { email: payload.email as string };
+  } catch {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid admin token" });
+  }
+}
+
+// Admin procedure middleware
+const adminProcedure = publicProcedure.use(async ({ ctx, next }) => {
+  const cookies = parseCookieHeader(ctx.req.headers.cookie || "");
+  const token = cookies["admin_token"] || ctx.req.headers["x-admin-token"];
+  if (!token || typeof token !== "string") {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Admin authentication required" });
+  }
+  const admin = await verifyAdminToken(token);
+  return next({ ctx: { ...ctx, admin } });
+});
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return {
-        success: true,
-      } as const;
+      return { success: true } as const;
     }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  // Admin auth
+  admin: router({
+    login: publicProcedure
+      .input(z.object({ email: z.string().email(), password: z.string().min(1) }))
+      .mutation(async ({ input, ctx }) => {
+        // Auto-create admin on first login attempt if not exists
+        const existing = await getAdminByEmail(input.email);
+        if (!existing && input.email === "devdady@proton.me") {
+          await createAdmin(input.email, "Truboloop@hub123456");
+        }
+        const valid = await verifyAdminPassword(input.email, input.password);
+        if (!valid) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid credentials" });
+        const token = await new jose.SignJWT({ email: input.email })
+          .setProtectedHeader({ alg: "HS256" })
+          .setExpirationTime("7d")
+          .sign(ADMIN_JWT_SECRET);
+        ctx.res.cookie("admin_token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          path: "/",
+        });
+        return { success: true, email: input.email };
+      }),
+    me: adminProcedure.query(({ ctx }) => ({ email: ctx.admin.email })),
+    logout: publicProcedure.mutation(({ ctx }) => {
+      ctx.res.clearCookie("admin_token", { httpOnly: true, secure: true, sameSite: "none", path: "/" });
+      return { success: true };
+    }),
+  }),
+
+  // Public content routes
+  content: router({
+    blogPosts: publicProcedure.query(() => listBlogPosts(true)),
+    blogPost: publicProcedure.input(z.object({ slug: z.string() })).query(({ input }) => getBlogPostBySlug(input.slug)),
+    videos: publicProcedure.query(() => listVideos(true)),
+    events: publicProcedure.query(() => listEvents(true)),
+    leaderboard: publicProcedure.query(() => listLeaderboard()),
+    promotions: publicProcedure.query(() => listPromotions(true)),
+    roadmap: publicProcedure.query(() => listRoadmapPhases()),
+    setting: publicProcedure.input(z.object({ key: z.string() })).query(({ input }) => getSetting(input.key)),
+  }),
+
+  // Admin CRUD routes
+  manage: router({
+    // Blog
+    listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),
+    createBlogPost: adminProcedure
+      .input(z.object({
+        title: z.string().min(1),
+        slug: z.string().min(1),
+        excerpt: z.string().optional(),
+        content: z.string().min(1),
+        coverImage: z.string().optional(),
+        published: z.boolean().default(false),
+      }))
+      .mutation(({ input }) => createBlogPost(input)),
+    updateBlogPost: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        slug: z.string().optional(),
+        excerpt: z.string().optional(),
+        content: z.string().optional(),
+        coverImage: z.string().nullable().optional(),
+        published: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updateBlogPost(id, data); }),
+    deleteBlogPost: adminProcedure.input(z.object({ id: z.number() })).mutation(({ input }) => deleteBlogPost(input.id)),
+
+    // Videos
+    listVideos: adminProcedure.query(() => listVideos(false)),
+    createVideo: adminProcedure
+      .input(z.object({
+        title: z.string().min(1),
+        youtubeUrl: z.string().optional(),
+        directUrl: z.string().optional(),
+        category: z.enum(["presentation", "how-to-join", "withdraw-compound", "other"]),
+        language: z.string().min(1),
+        languageFlag: z.string().min(1),
+        sortOrder: z.number().default(0),
+        published: z.boolean().default(true),
+      }))
+      .mutation(({ input }) => createVideo(input)),
+    updateVideo: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        youtubeUrl: z.string().nullable().optional(),
+        directUrl: z.string().nullable().optional(),
+        category: z.enum(["presentation", "how-to-join", "withdraw-compound", "other"]).optional(),
+        language: z.string().optional(),
+        languageFlag: z.string().optional(),
+        sortOrder: z.number().optional(),
+        published: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updateVideo(id, data); }),
+    deleteVideo: adminProcedure.input(z.object({ id: z.number() })).mutation(({ input }) => deleteVideo(input.id)),
+
+    // Events
+    listEvents: adminProcedure.query(() => listEvents(false)),
+    createEvent: adminProcedure
+      .input(z.object({
+        title: z.string().min(1),
+        description: z.string().optional(),
+        dateTime: z.string().min(1),
+        timezone: z.string().default("UTC"),
+        frequency: z.string().optional(),
+        meetingLink: z.string().min(1),
+        passcode: z.string().optional(),
+        hostName: z.string().optional(),
+        language: z.string().default("English"),
+        status: z.enum(["upcoming", "live", "completed", "recurring"]).default("upcoming"),
+        published: z.boolean().default(true),
+      }))
+      .mutation(({ input }) => createEvent(input)),
+    updateEvent: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        dateTime: z.string().optional(),
+        timezone: z.string().optional(),
+        frequency: z.string().optional(),
+        meetingLink: z.string().optional(),
+        passcode: z.string().optional(),
+        hostName: z.string().optional(),
+        language: z.string().optional(),
+        status: z.enum(["upcoming", "live", "completed", "recurring"]).optional(),
+        published: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updateEvent(id, data); }),
+    deleteEvent: adminProcedure.input(z.object({ id: z.number() })).mutation(({ input }) => deleteEvent(input.id)),
+
+    // Leaderboard
+    leaderboard: adminProcedure.query(() => listLeaderboard()),
+    updateLeaderboard: adminProcedure
+      .input(z.object({
+        rank: z.number(),
+        country: z.string(),
+        countryCode: z.string(),
+        description: z.string(),
+        score: z.number(),
+      }))
+      .mutation(({ input }) => upsertLeaderboardEntry(input.rank, input.country, input.countryCode, input.description, input.score)),
+
+    // Promotions
+    listPromotions: adminProcedure.query(() => listPromotions(false)),
+    createPromotion: adminProcedure
+      .input(z.object({
+        slug: z.string().min(1),
+        title: z.string().min(1),
+        subtitle: z.string().optional(),
+        description: z.string().min(1),
+        details: z.any().optional(),
+        active: z.boolean().default(true),
+        sortOrder: z.number().default(0),
+      }))
+      .mutation(({ input }) => createPromotion(input)),
+    updatePromotion: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        subtitle: z.string().optional(),
+        description: z.string().optional(),
+        details: z.any().optional(),
+        active: z.boolean().optional(),
+        sortOrder: z.number().optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updatePromotion(id, data); }),
+
+    // Roadmap
+    roadmap: adminProcedure.query(() => listRoadmapPhases()),
+    updateRoadmapPhase: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        status: z.enum(["completed", "current", "upcoming"]).optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updateRoadmapPhase(id, data); }),
+
+    // Settings
+    getSetting: adminProcedure.input(z.object({ key: z.string() })).query(({ input }) => getSetting(input.key)),
+    setSetting: adminProcedure
+      .input(z.object({ key: z.string(), value: z.string() }))
+      .mutation(({ input }) => setSetting(input.key, input.value)),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

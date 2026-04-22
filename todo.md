@@ -1,0 +1,26 @@
+# Turbo Loop Community Hub — TODO
+
+- [x] Dark theme setup with brand colors (#0a0f1e, cyan #22D3EE, purple #C084FC)
+- [x] Database schema (blogs, videos, events, leaderboard, promotions, roadmap, deck)
+- [x] API routes for all content types (CRUD)
+- [x] Admin authentication (devdady@proton.me password-protected)
+- [x] Cinematic Hero Section with logo, tagline, Launch App CTA → turboloop.io
+- [x] Six Pillars of the Ecosystem (glowing hexagonal cards)
+- [x] Global Community Leaderboard (animated bars, 6 countries, flags)
+- [x] Revenue Flywheel animated diagram (LP Rewards, Swap Fees, Buy Fees)
+- [x] Active Promotions section ($100K Challenge, Creator Star, Zoom Presenter, Onboarding Bonus)
+- [x] Video Hub (28+ videos, 3 categories, 12 language flag filters)
+- [x] Blog/News section with admin-managed posts
+- [x] Events & Zoom Meetings section (daily zoom, upcoming/past events)
+- [x] Roadmap (9 phases, WE ARE HERE on Phase 6)
+- [x] Resources & Trust section (deck download, security pillars, trust quote)
+- [x] Footer with social links (Telegram, Twitter/X, YouTube)
+- [x] Admin Dashboard (manage all content types)
+- [x] Seed initial data (videos, zoom, leaderboard, promotions)
+- [x] Upload logo and presentation deck as static assets
+- [x] Responsive mobile design
+- [x] Vitest tests for API routes
+- [x] Blog section visible with empty state when no posts
+- [x] Events section separates active/upcoming from completed/past events
+- [x] Presentation deck download wired to uploaded PDF asset
+- [x] Responsive mobile design (Navbar hamburger, responsive grids, mobile-first)

@@ -1,0 +1,339 @@
+import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLocation } from "wouter";
+import { toast } from "sonner";
+import { Loader2, Plus, Trash2, Save, LogOut, PenLine, Eye, EyeOff } from "lucide-react";
+import { SITE } from "@/lib/constants";
+
+// ============ Blog Manager ============
+function BlogManager() {
+  const utils = trpc.useUtils();
+  const { data: posts, isLoading } = trpc.manage.listBlogPosts.useQuery();
+  const createPost = trpc.manage.createBlogPost.useMutation({ onSuccess: () => { utils.manage.listBlogPosts.invalidate(); toast.success("Post created"); setShowForm(false); } });
+  const deletePost = trpc.manage.deleteBlogPost.useMutation({ onSuccess: () => { utils.manage.listBlogPosts.invalidate(); toast.success("Post deleted"); } });
+  const updatePost = trpc.manage.updateBlogPost.useMutation({ onSuccess: () => { utils.manage.listBlogPosts.invalidate(); toast.success("Post updated"); } });
+
+  const [showForm, setShowForm] = useState(false);
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [content, setContent] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-heading font-bold text-white">Blog Posts</h3>
+        <Button size="sm" onClick={() => setShowForm(!showForm)} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30">
+          <Plus className="h-4 w-4 mr-1" /> New Post
+        </Button>
+      </div>
+
+      {showForm && (
+        <div className="p-4 rounded-xl border border-cyan-500/15 bg-[#0d1425]/80 space-y-3">
+          <div className="grid grid-cols-2 gap-3">
+            <div><Label className="text-gray-400 text-xs">Title</Label><Input value={title} onChange={e => setTitle(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+            <div><Label className="text-gray-400 text-xs">Slug</Label><Input value={slug} onChange={e => setSlug(e.target.value)} placeholder="my-post-url" className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          </div>
+          <div><Label className="text-gray-400 text-xs">Excerpt</Label><Input value={excerpt} onChange={e => setExcerpt(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          <div><Label className="text-gray-400 text-xs">Cover Image URL</Label><Input value={coverImage} onChange={e => setCoverImage(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          <div><Label className="text-gray-400 text-xs">Content (Markdown)</Label><textarea value={content} onChange={e => setContent(e.target.value)} rows={8} className="w-full bg-[#0a0f1e] border border-gray-700 text-white text-sm rounded-md p-2 focus:border-cyan-500 outline-none" /></div>
+          <div className="flex gap-2">
+            <Button size="sm" onClick={() => createPost.mutate({ title, slug, excerpt, content, coverImage: coverImage || undefined, published: true })} disabled={createPost.isPending} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+              {createPost.isPending ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Save className="h-3 w-3 mr-1" />} Publish
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setShowForm(false)} className="text-gray-400">Cancel</Button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? <Loader2 className="h-6 w-6 animate-spin text-cyan-400 mx-auto" /> : (
+        <div className="space-y-2">
+          {posts?.map(post => (
+            <div key={post.id} className="flex items-center justify-between p-3 rounded-lg border border-gray-800 bg-[#0d1425]/40">
+              <div>
+                <p className="text-sm font-medium text-white">{post.title}</p>
+                <p className="text-xs text-gray-500">/blog/{post.slug} &middot; {post.published ? "Published" : "Draft"}</p>
+              </div>
+              <div className="flex gap-1">
+                <Button size="sm" variant="ghost" onClick={() => updatePost.mutate({ id: post.id, published: !post.published })} className="text-gray-400 hover:text-cyan-400">
+                  {post.published ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete this post?")) deletePost.mutate({ id: post.id }); }} className="text-gray-400 hover:text-red-400">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            </div>
+          ))}
+          {posts?.length === 0 && <p className="text-sm text-gray-600 text-center py-4">No blog posts yet.</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============ Video Manager ============
+function VideoManager() {
+  const utils = trpc.useUtils();
+  const { data: videos, isLoading } = trpc.manage.listVideos.useQuery();
+  const createVideo = trpc.manage.createVideo.useMutation({ onSuccess: () => { utils.manage.listVideos.invalidate(); toast.success("Video added"); setShowForm(false); } });
+  const deleteVideo = trpc.manage.deleteVideo.useMutation({ onSuccess: () => { utils.manage.listVideos.invalidate(); toast.success("Video deleted"); } });
+
+  const [showForm, setShowForm] = useState(false);
+  const [title, setTitle] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [category, setCategory] = useState<"presentation" | "how-to-join" | "withdraw-compound" | "other">("presentation");
+  const [language, setLanguage] = useState("English");
+  const [languageFlag, setLanguageFlag] = useState("🇬🇧");
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-heading font-bold text-white">Videos</h3>
+        <Button size="sm" onClick={() => setShowForm(!showForm)} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30">
+          <Plus className="h-4 w-4 mr-1" /> Add Video
+        </Button>
+      </div>
+
+      {showForm && (
+        <div className="p-4 rounded-xl border border-cyan-500/15 bg-[#0d1425]/80 space-y-3">
+          <div><Label className="text-gray-400 text-xs">Title</Label><Input value={title} onChange={e => setTitle(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          <div><Label className="text-gray-400 text-xs">YouTube URL</Label><Input value={youtubeUrl} onChange={e => setYoutubeUrl(e.target.value)} placeholder="https://youtu.be/..." className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <Label className="text-gray-400 text-xs">Category</Label>
+              <select value={category} onChange={e => setCategory(e.target.value as typeof category)} className="w-full bg-[#0a0f1e] border border-gray-700 text-white text-sm rounded-md p-2">
+                <option value="presentation">Presentation</option>
+                <option value="how-to-join">How to Join</option>
+                <option value="withdraw-compound">Withdraw/Compound</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div><Label className="text-gray-400 text-xs">Language</Label><Input value={language} onChange={e => setLanguage(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+            <div><Label className="text-gray-400 text-xs">Flag Emoji</Label><Input value={languageFlag} onChange={e => setLanguageFlag(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          </div>
+          <div className="flex gap-2">
+            <Button size="sm" onClick={() => createVideo.mutate({ title, youtubeUrl, category, language, languageFlag, published: true })} disabled={createVideo.isPending} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+              {createVideo.isPending ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Save className="h-3 w-3 mr-1" />} Save
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setShowForm(false)} className="text-gray-400">Cancel</Button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? <Loader2 className="h-6 w-6 animate-spin text-cyan-400 mx-auto" /> : (
+        <div className="space-y-2">
+          {videos?.map(v => (
+            <div key={v.id} className="flex items-center justify-between p-3 rounded-lg border border-gray-800 bg-[#0d1425]/40">
+              <div>
+                <p className="text-sm font-medium text-white">{v.languageFlag} {v.title}</p>
+                <p className="text-xs text-gray-500">{v.category} &middot; {v.language}</p>
+              </div>
+              <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete?")) deleteVideo.mutate({ id: v.id }); }} className="text-gray-400 hover:text-red-400">
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          ))}
+          {videos?.length === 0 && <p className="text-sm text-gray-600 text-center py-4">No videos yet.</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============ Event Manager ============
+function EventManager() {
+  const utils = trpc.useUtils();
+  const { data: events, isLoading } = trpc.manage.listEvents.useQuery();
+  const createEvent = trpc.manage.createEvent.useMutation({ onSuccess: () => { utils.manage.listEvents.invalidate(); toast.success("Event created"); setShowForm(false); } });
+  const deleteEvent = trpc.manage.deleteEvent.useMutation({ onSuccess: () => { utils.manage.listEvents.invalidate(); toast.success("Event deleted"); } });
+
+  const [showForm, setShowForm] = useState(false);
+  const [title, setTitle] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [timezone, setTimezone] = useState("UTC");
+  const [frequency, setFrequency] = useState("");
+  const [meetingLink, setMeetingLink] = useState("");
+  const [passcode, setPasscode] = useState("");
+  const [language, setLanguage] = useState("English");
+  const [status, setStatus] = useState<"upcoming" | "live" | "completed" | "recurring">("recurring");
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-heading font-bold text-white">Events & Meetings</h3>
+        <Button size="sm" onClick={() => setShowForm(!showForm)} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30">
+          <Plus className="h-4 w-4 mr-1" /> Add Event
+        </Button>
+      </div>
+
+      {showForm && (
+        <div className="p-4 rounded-xl border border-cyan-500/15 bg-[#0d1425]/80 space-y-3">
+          <div><Label className="text-gray-400 text-xs">Title</Label><Input value={title} onChange={e => setTitle(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          <div className="grid grid-cols-3 gap-3">
+            <div><Label className="text-gray-400 text-xs">Date/Time</Label><Input value={dateTime} onChange={e => setDateTime(e.target.value)} placeholder="5:00 PM" className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+            <div><Label className="text-gray-400 text-xs">Timezone</Label><Input value={timezone} onChange={e => setTimezone(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+            <div><Label className="text-gray-400 text-xs">Frequency</Label><Input value={frequency} onChange={e => setFrequency(e.target.value)} placeholder="Every Day" className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div><Label className="text-gray-400 text-xs">Meeting Link</Label><Input value={meetingLink} onChange={e => setMeetingLink(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+            <div><Label className="text-gray-400 text-xs">Passcode</Label><Input value={passcode} onChange={e => setPasscode(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div><Label className="text-gray-400 text-xs">Language</Label><Input value={language} onChange={e => setLanguage(e.target.value)} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" /></div>
+            <div>
+              <Label className="text-gray-400 text-xs">Status</Label>
+              <select value={status} onChange={e => setStatus(e.target.value as typeof status)} className="w-full bg-[#0a0f1e] border border-gray-700 text-white text-sm rounded-md p-2">
+                <option value="upcoming">Upcoming</option>
+                <option value="live">Live</option>
+                <option value="recurring">Recurring</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button size="sm" onClick={() => createEvent.mutate({ title, dateTime, timezone, frequency: frequency || undefined, meetingLink, passcode: passcode || undefined, language, status, published: true })} disabled={createEvent.isPending} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+              {createEvent.isPending ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Save className="h-3 w-3 mr-1" />} Save
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setShowForm(false)} className="text-gray-400">Cancel</Button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? <Loader2 className="h-6 w-6 animate-spin text-cyan-400 mx-auto" /> : (
+        <div className="space-y-2">
+          {events?.map(ev => (
+            <div key={ev.id} className="flex items-center justify-between p-3 rounded-lg border border-gray-800 bg-[#0d1425]/40">
+              <div>
+                <p className="text-sm font-medium text-white">{ev.title}</p>
+                <p className="text-xs text-gray-500">{ev.dateTime} {ev.timezone} &middot; {ev.status}</p>
+              </div>
+              <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete?")) deleteEvent.mutate({ id: ev.id }); }} className="text-gray-400 hover:text-red-400">
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          ))}
+          {events?.length === 0 && <p className="text-sm text-gray-600 text-center py-4">No events yet.</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============ Leaderboard Manager ============
+function LeaderboardManager() {
+  const utils = trpc.useUtils();
+  const { data: entries, isLoading } = trpc.manage.leaderboard.useQuery();
+  const updateEntry = trpc.manage.updateLeaderboard.useMutation({ onSuccess: () => { utils.manage.leaderboard.invalidate(); toast.success("Updated"); } });
+
+  const [editRank, setEditRank] = useState<number | null>(null);
+  const [editCountry, setEditCountry] = useState("");
+  const [editCode, setEditCode] = useState("");
+  const [editDesc, setEditDesc] = useState("");
+  const [editScore, setEditScore] = useState(0);
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-lg font-heading font-bold text-white">Country Leaderboard</h3>
+      {isLoading ? <Loader2 className="h-6 w-6 animate-spin text-cyan-400 mx-auto" /> : (
+        <div className="space-y-2">
+          {entries?.map(entry => (
+            <div key={entry.rank} className="p-3 rounded-lg border border-gray-800 bg-[#0d1425]/40">
+              {editRank === entry.rank ? (
+                <div className="space-y-2">
+                  <div className="grid grid-cols-4 gap-2">
+                    <Input value={editCountry} onChange={e => setEditCountry(e.target.value)} placeholder="Country" className="bg-[#0a0f1e] border-gray-700 text-white text-sm" />
+                    <Input value={editCode} onChange={e => setEditCode(e.target.value)} placeholder="Code" className="bg-[#0a0f1e] border-gray-700 text-white text-sm" />
+                    <Input value={editDesc} onChange={e => setEditDesc(e.target.value)} placeholder="Description" className="bg-[#0a0f1e] border-gray-700 text-white text-sm" />
+                    <Input type="number" value={editScore} onChange={e => setEditScore(Number(e.target.value))} className="bg-[#0a0f1e] border-gray-700 text-white text-sm" />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" onClick={() => { updateEntry.mutate({ rank: entry.rank, country: editCountry, countryCode: editCode, description: editDesc, score: editScore }); setEditRank(null); }} className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs"><Save className="h-3 w-3 mr-1" /> Save</Button>
+                    <Button size="sm" variant="ghost" onClick={() => setEditRank(null)} className="text-gray-400 text-xs">Cancel</Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-white">#{entry.rank} {entry.country} ({entry.countryCode}) — {entry.score}%</p>
+                    <p className="text-xs text-gray-500">{entry.description}</p>
+                  </div>
+                  <Button size="sm" variant="ghost" onClick={() => { setEditRank(entry.rank); setEditCountry(entry.country); setEditCode(entry.countryCode); setEditDesc(entry.description); setEditScore(entry.score); }} className="text-gray-400 hover:text-cyan-400">
+                    <PenLine className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============ Main Dashboard ============
+export default function AdminDashboard() {
+  const { data: admin, isLoading, error } = trpc.admin.me.useQuery();
+  const logoutMutation = trpc.admin.logout.useMutation();
+  const [, navigate] = useLocation();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0a0f1e] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
+      </div>
+    );
+  }
+
+  if (error || !admin) {
+    navigate("/admin/login");
+    return null;
+  }
+
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => navigate("/admin/login"),
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0f1e]">
+      {/* Header */}
+      <div className="border-b border-cyan-500/10 bg-[#0a0f1e]/90 backdrop-blur-xl sticky top-0 z-50">
+        <div className="container flex items-center justify-between h-14">
+          <div className="flex items-center gap-3">
+            <img src={SITE.logo} alt="" className="h-8 w-8 object-contain rounded-lg" />
+            <span className="font-heading font-bold text-white">Admin Dashboard</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-500">{admin.email}</span>
+            <Button size="sm" variant="ghost" onClick={handleLogout} className="text-gray-400 hover:text-red-400">
+              <LogOut className="h-4 w-4 mr-1" /> Logout
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="container py-8">
+        <Tabs defaultValue="blog" className="w-full">
+          <TabsList className="bg-[#0d1425] border border-gray-800 mb-6 flex-wrap h-auto gap-1 p-1">
+            <TabsTrigger value="blog" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Blog</TabsTrigger>
+            <TabsTrigger value="videos" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Videos</TabsTrigger>
+            <TabsTrigger value="events" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Events</TabsTrigger>
+            <TabsTrigger value="leaderboard" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 text-gray-400 text-sm">Leaderboard</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="blog"><BlogManager /></TabsContent>
+          <TabsContent value="videos"><VideoManager /></TabsContent>
+          <TabsContent value="events"><EventManager /></TabsContent>
+          <TabsContent value="leaderboard"><LeaderboardManager /></TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}

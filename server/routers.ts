@@ -13,6 +13,7 @@ import {
   listLeaderboard, upsertLeaderboardEntry,
   listPromotions, updatePromotion, createPromotion,
   listRoadmapPhases, updateRoadmapPhase,
+  listPresentations, createPresentation, updatePresentation, deletePresentation,
   getSetting, setSetting,
 } from "./db";
 import { TRPCError } from "@trpc/server";
@@ -93,6 +94,7 @@ export const appRouter = router({
     leaderboard: publicProcedure.query(() => listLeaderboard()),
     promotions: publicProcedure.query(() => listPromotions(true)),
     roadmap: publicProcedure.query(() => listRoadmapPhases()),
+    presentations: publicProcedure.query(() => listPresentations(true)),
     setting: publicProcedure.input(z.object({ key: z.string() })).query(({ input }) => getSetting(input.key)),
   }),
 
@@ -234,6 +236,31 @@ export const appRouter = router({
         status: z.enum(["completed", "current", "upcoming"]).optional(),
       }))
       .mutation(({ input }) => { const { id, ...data } = input; return updateRoadmapPhase(id, data); }),
+
+    // Presentations
+    listPresentations: adminProcedure.query(() => listPresentations(false)),
+    createPresentation: adminProcedure
+      .input(z.object({
+        title: z.string().min(1),
+        language: z.string().min(1),
+        fileUrl: z.string().optional(),
+        sortOrder: z.number().default(0),
+        published: z.boolean().default(true),
+      }))
+      .mutation(({ input }) => createPresentation(input)),
+    updatePresentation: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        language: z.string().optional(),
+        fileUrl: z.string().nullable().optional(),
+        sortOrder: z.number().optional(),
+        published: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updatePresentation(id, data); }),
+    deletePresentation: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(({ input }) => deletePresentation(input.id)),
 
     // Image upload
     uploadImage: adminProcedure

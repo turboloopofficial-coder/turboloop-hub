@@ -11,17 +11,19 @@ function BlogCard({ post, index }: { post: any; index: number }) {
         <div
           className="group relative rounded-xl overflow-hidden h-full cursor-pointer"
           style={{
-            background: "rgba(10, 18, 38, 0.5)",
-            border: "1px solid rgba(255,255,255,0.04)",
+            background: "rgba(255, 255, 255, 0.7)",
+            border: "1px solid rgba(255,255,255,0.85)",
+            backdropFilter: "blur(20px)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
             transition: "border-color 0.4s, box-shadow 0.4s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(192,132,252,0.2)";
-            e.currentTarget.style.boxShadow = "0 4px 30px rgba(192,132,252,0.06)";
+            e.currentTarget.style.borderColor = "rgba(124,58,237,0.2)";
+            e.currentTarget.style.boxShadow = "0 8px 40px rgba(124,58,237,0.08), 0 4px 16px rgba(0,0,0,0.06)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.04)";
-            e.currentTarget.style.boxShadow = "none";
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.85)";
+            e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.04)";
           }}
         >
           {/* Cover image */}
@@ -32,7 +34,7 @@ function BlogCard({ post, index }: { post: any; index: number }) {
                 alt={post.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060a16] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent" />
             </div>
           )}
 
@@ -44,16 +46,16 @@ function BlogCard({ post, index }: { post: any; index: number }) {
               />
             )}
 
-            <p className="text-xs text-gray-500 mb-3">
+            <p className="text-xs text-slate-400 mb-3">
               {new Date(post.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </p>
-            <h3 className="text-lg font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">
+            <h3 className="text-lg font-bold text-slate-800 mb-3 group-hover:text-cyan-600 transition-colors duration-300">
               {post.title}
             </h3>
             {post.excerpt && (
-              <p className="text-sm text-gray-400 leading-relaxed line-clamp-3">{post.excerpt}</p>
+              <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">{post.excerpt}</p>
             )}
-            <div className="mt-5 flex items-center gap-2 text-sm font-medium text-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="mt-5 flex items-center gap-2 text-sm font-medium text-cyan-600 opacity-0 group-hover:opacity-100 transition-all duration-300">
               Read more <ArrowRight className="h-3.5 w-3.5" />
             </div>
           </div>
@@ -85,11 +87,11 @@ export default function BlogSection() {
           <AnimatedSection>
             <div className="max-w-md mx-auto text-center py-12">
               <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center"
-                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+                style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.06)" }}
               >
                 <PenLine className="h-7 w-7 text-purple-400/50" />
               </div>
-              <p className="text-gray-500 text-sm">Blog posts coming soon. Stay tuned for updates, deep dives, and community highlights.</p>
+              <p className="text-slate-400 text-sm">Blog posts coming soon. Stay tuned for updates, deep dives, and community highlights.</p>
             </div>
           </AnimatedSection>
         )}

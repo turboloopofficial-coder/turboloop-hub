@@ -116,6 +116,20 @@ export const roadmapPhases = mysqlTable("roadmap_phases", {
 
 export type RoadmapPhase = typeof roadmapPhases.$inferSelect;
 
+// Presentations / PDF library
+export const presentations = mysqlTable("presentations", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 500 }).notNull(),
+  language: varchar("language", { length: 50 }).default("English").notNull(),
+  fileUrl: varchar("fileUrl", { length: 1000 }),
+  sortOrder: int("sortOrder").default(0).notNull(),
+  published: boolean("published").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Presentation = typeof presentations.$inferSelect;
+export type InsertPresentation = typeof presentations.$inferInsert;
+
 // Site settings (key-value store for deck URL, etc.)
 export const siteSettings = mysqlTable("site_settings", {
   id: int("id").autoincrement().primaryKey(),

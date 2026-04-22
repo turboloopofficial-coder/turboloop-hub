@@ -7,9 +7,9 @@ import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const MEDAL_COLORS = {
-  gold: { bg: "rgba(251,191,36,0.12)", border: "rgba(251,191,36,0.3)", text: "#FBBF24", glow: "0 0 20px rgba(251,191,36,0.15)" },
-  silver: { bg: "rgba(148,163,184,0.12)", border: "rgba(148,163,184,0.3)", text: "#94A3B8", glow: "0 0 20px rgba(148,163,184,0.1)" },
-  bronze: { bg: "rgba(217,119,6,0.12)", border: "rgba(217,119,6,0.3)", text: "#D97706", glow: "0 0 20px rgba(217,119,6,0.1)" },
+  gold: { bg: "rgba(251,191,36,0.08)", border: "rgba(251,191,36,0.25)", text: "#B45309", glow: "0 0 20px rgba(251,191,36,0.1)" },
+  silver: { bg: "rgba(148,163,184,0.08)", border: "rgba(148,163,184,0.25)", text: "#64748B", glow: "0 0 20px rgba(148,163,184,0.08)" },
+  bronze: { bg: "rgba(217,119,6,0.08)", border: "rgba(217,119,6,0.25)", text: "#92400E", glow: "0 0 20px rgba(217,119,6,0.08)" },
 };
 
 const BAR_GRADIENTS = [
@@ -92,9 +92,10 @@ export default function LeaderboardSection() {
                   className={`relative flex flex-col items-center text-center p-4 md:p-6 rounded-2xl ${isChampion ? "md:-mt-6" : ""}`}
                   style={{
                     background: medalStyle
-                      ? `linear-gradient(180deg, ${medalStyle.bg} 0%, rgba(6,10,22,0.5) 100%)`
-                      : "rgba(10,18,38,0.5)",
-                    border: `1px solid ${medalStyle?.border || "rgba(255,255,255,0.04)"}`,
+                      ? `linear-gradient(180deg, ${medalStyle.bg} 0%, rgba(255,255,255,0.7) 100%)`
+                      : "rgba(255,255,255,0.7)",
+                    border: `1px solid ${medalStyle?.border || "rgba(255,255,255,0.85)"}`,
+                    backdropFilter: "blur(20px)",
                     boxShadow: medalStyle?.glow || "none",
                   }}
                 >
@@ -120,8 +121,8 @@ export default function LeaderboardSection() {
                   </span>
 
                   {/* Country */}
-                  <h3 className="text-base md:text-lg font-bold text-white mb-1">{entry.country}</h3>
-                  <p className="text-xs text-gray-400 hidden md:block">{entry.description}</p>
+                  <h3 className="text-base md:text-lg font-bold text-slate-800 mb-1">{entry.country}</h3>
+                  <p className="text-xs text-slate-500 hidden md:block">{entry.description}</p>
 
                   {/* Animated Score */}
                   <span className="text-xl md:text-2xl font-bold mt-2" style={{ color: medalStyle?.text || "#22D3EE" }}>
@@ -140,12 +141,14 @@ export default function LeaderboardSection() {
               <div
                 className="relative flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-xl"
                 style={{
-                  background: "rgba(10, 18, 38, 0.5)",
-                  border: "1px solid rgba(255,255,255,0.04)",
+                  background: "rgba(255, 255, 255, 0.7)",
+                  border: "1px solid rgba(255,255,255,0.85)",
+                  backdropFilter: "blur(20px)",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
                 }}
               >
                 {/* Rank */}
-                <span className="text-xl font-bold text-gray-400 w-10 shrink-0">#{entry.rank}</span>
+                <span className="text-xl font-bold text-slate-400 w-10 shrink-0">#{entry.rank}</span>
 
                 {/* Flag */}
                 <img
@@ -158,15 +161,15 @@ export default function LeaderboardSection() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <span className="text-base font-bold text-white">{entry.country}</span>
-                      <span className="text-xs text-gray-500 ml-2 hidden md:inline">{entry.description}</span>
+                      <span className="text-base font-bold text-slate-800">{entry.country}</span>
+                      <span className="text-xs text-slate-500 ml-2 hidden md:inline">{entry.description}</span>
                     </div>
-                    <span className="text-lg font-bold text-cyan-400">
+                    <span className="text-lg font-bold text-cyan-600">
                       <CountUp target={entry.score} duration={1.5} delay={0.6 + index * 0.1} />
                     </span>
                   </div>
                   {/* Thick animated bar */}
-                  <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.05)" }}>
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${entry.score}%` }}
@@ -196,7 +199,7 @@ export default function LeaderboardSection() {
           <p className="text-center mt-14 text-xl md:text-2xl font-bold">
             <span
               style={{
-                background: "linear-gradient(135deg, #22D3EE, #C084FC)",
+                background: "linear-gradient(135deg, #0891B2, #7C3AED)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

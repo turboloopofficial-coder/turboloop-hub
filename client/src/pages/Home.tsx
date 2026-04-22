@@ -17,7 +17,7 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative" style={{ background: "#060a16" }}>
+    <div className="min-h-screen relative" style={{ background: "#F7F8FC" }}>
       <ScrollProgress />
       <BackgroundEffects />
       <Navbar />

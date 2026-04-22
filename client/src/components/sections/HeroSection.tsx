@@ -15,7 +15,7 @@ export default function HeroSection() {
         style={{
           width: "900px",
           height: "900px",
-          background: "radial-gradient(circle, rgba(34,211,238,0.08) 0%, rgba(34,211,238,0.02) 40%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(34,211,238,0.06) 0%, rgba(34,211,238,0.015) 40%, transparent 70%)",
           filter: "blur(40px)",
         }}
       />
@@ -25,7 +25,7 @@ export default function HeroSection() {
         style={{
           width: "500px",
           height: "500px",
-          background: "radial-gradient(circle, rgba(192,132,252,0.05) 0%, transparent 60%)",
+          background: "radial-gradient(circle, rgba(167,139,250,0.04) 0%, transparent 60%)",
           filter: "blur(40px)",
         }}
       />
@@ -39,15 +39,15 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
           style={{
-            background: "rgba(34,211,238,0.06)",
-            border: "1px solid rgba(34,211,238,0.12)",
+            background: "rgba(8,145,178,0.06)",
+            border: "1px solid rgba(8,145,178,0.12)",
           }}
         >
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-600 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-600" />
           </span>
-          <span className="text-xs font-semibold tracking-[0.15em] uppercase text-cyan-300/80">
+          <span className="text-xs font-semibold tracking-[0.15em] uppercase text-cyan-700/80">
             The Complete DeFi Ecosystem
           </span>
         </motion.div>
@@ -60,10 +60,10 @@ export default function HeroSection() {
           className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.9] mb-6"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          <span className="text-white">Turbo</span>
+          <span className="text-slate-800">Turbo</span>
           <span
             style={{
-              background: "linear-gradient(135deg, #22D3EE 0%, #A78BFA 60%, #C084FC 100%)",
+              background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 60%, #9333EA 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -78,7 +78,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="text-lg md:text-xl text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed"
+          className="text-lg md:text-xl text-slate-500 max-w-xl mx-auto mb-10 leading-relaxed"
         >
           {SITE.tagline}
         </motion.p>
@@ -96,16 +96,16 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-base transition-all duration-300"
             style={{
-              background: "linear-gradient(135deg, #22D3EE, #06b6d4)",
-              color: "#040810",
-              boxShadow: "0 0 30px rgba(34,211,238,0.3), 0 4px 20px rgba(0,0,0,0.3)",
+              background: "linear-gradient(135deg, #0891B2, #0E7490)",
+              color: "#ffffff",
+              boxShadow: "0 4px 25px rgba(8,145,178,0.3), 0 2px 10px rgba(0,0,0,0.08)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 50px rgba(34,211,238,0.5), 0 4px 30px rgba(0,0,0,0.4)";
+              e.currentTarget.style.boxShadow = "0 6px 35px rgba(8,145,178,0.4), 0 4px 15px rgba(0,0,0,0.1)";
               e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 30px rgba(34,211,238,0.3), 0 4px 20px rgba(0,0,0,0.3)";
+              e.currentTarget.style.boxShadow = "0 4px 25px rgba(8,145,178,0.3), 0 2px 10px rgba(0,0,0,0.08)";
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
@@ -113,18 +113,19 @@ export default function HeroSection() {
           </a>
           <button
             onClick={() => document.querySelector("#ecosystem")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base text-gray-300 transition-all duration-300 hover:text-white"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base text-slate-600 transition-all duration-300 hover:text-slate-800"
             style={{
-              border: "1px solid rgba(255,255,255,0.1)",
-              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(0,0,0,0.1)",
+              background: "rgba(255,255,255,0.6)",
+              backdropFilter: "blur(12px)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(34,211,238,0.2)";
-              e.currentTarget.style.background = "rgba(34,211,238,0.05)";
+              e.currentTarget.style.borderColor = "rgba(8,145,178,0.3)";
+              e.currentTarget.style.background = "rgba(255,255,255,0.8)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-              e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+              e.currentTarget.style.borderColor = "rgba(0,0,0,0.1)";
+              e.currentTarget.style.background = "rgba(255,255,255,0.6)";
             }}
           >
             Explore Ecosystem
@@ -138,7 +139,7 @@ export default function HeroSection() {
           transition={{ delay: 1.3 }}
           className="mt-12"
         >
-          <span className="inline-flex items-center gap-2 text-xs text-gray-500 tracking-widest uppercase">
+          <span className="inline-flex items-center gap-2 text-xs text-slate-400 tracking-widest uppercase">
             Built on Binance Smart Chain
           </span>
         </motion.div>
@@ -151,8 +152,8 @@ export default function HeroSection() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
-        <ChevronDown className="w-5 h-5 text-cyan-400/40 animate-scroll-hint" />
+        <span className="text-xs text-slate-400 tracking-widest uppercase">Scroll</span>
+        <ChevronDown className="w-5 h-5 text-cyan-600/40 animate-scroll-hint" />
       </motion.div>
     </section>
   );

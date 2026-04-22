@@ -26,9 +26,9 @@ export default function FloatingLaunchButton() {
           whileTap={{ scale: 0.95 }}
           className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm"
           style={{
-            background: "linear-gradient(135deg, #22D3EE, #06b6d4)",
-            color: "#040810",
-            boxShadow: "0 0 25px rgba(34,211,238,0.35), 0 4px 20px rgba(0,0,0,0.4)",
+            background: "linear-gradient(135deg, #0891B2, #0E7490)",
+            color: "#ffffff",
+            boxShadow: "0 4px 20px rgba(8,145,178,0.3), 0 2px 8px rgba(0,0,0,0.1)",
           }}
         >
           <Rocket className="w-4 h-4" />

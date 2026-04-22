@@ -60,9 +60,9 @@ export default function VideoSection() {
               onClick={() => { setActiveCategory(cat); setActiveLanguage("all"); setPlayingId(null); }}
               className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
               style={{
-                background: activeCategory === cat ? "rgba(34,211,238,0.12)" : "rgba(255,255,255,0.03)",
-                border: `1px solid ${activeCategory === cat ? "rgba(34,211,238,0.25)" : "rgba(255,255,255,0.06)"}`,
-                color: activeCategory === cat ? "#22D3EE" : "#9CA3AF",
+                background: activeCategory === cat ? "rgba(8,145,178,0.1)" : "rgba(255,255,255,0.6)",
+                border: `1px solid ${activeCategory === cat ? "rgba(8,145,178,0.25)" : "rgba(0,0,0,0.06)"}`,
+                color: activeCategory === cat ? "#0891B2" : "#64748B",
               }}
             >
               {CATEGORY_LABELS[cat]}
@@ -76,9 +76,9 @@ export default function VideoSection() {
             onClick={() => { setActiveLanguage("all"); setPlayingId(null); }}
             className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300"
             style={{
-              background: activeLanguage === "all" ? "rgba(34,211,238,0.12)" : "rgba(255,255,255,0.03)",
-              border: `1px solid ${activeLanguage === "all" ? "rgba(34,211,238,0.25)" : "rgba(255,255,255,0.06)"}`,
-              color: activeLanguage === "all" ? "#22D3EE" : "#6B7280",
+              background: activeLanguage === "all" ? "rgba(8,145,178,0.1)" : "rgba(255,255,255,0.6)",
+              border: `1px solid ${activeLanguage === "all" ? "rgba(8,145,178,0.25)" : "rgba(0,0,0,0.06)"}`,
+              color: activeLanguage === "all" ? "#0891B2" : "#64748B",
             }}
           >
             All Languages
@@ -91,9 +91,9 @@ export default function VideoSection() {
                 onClick={() => { setActiveLanguage(lang); setPlayingId(null); }}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300"
                 style={{
-                  background: activeLanguage === lang ? "rgba(34,211,238,0.12)" : "rgba(255,255,255,0.03)",
-                  border: `1px solid ${activeLanguage === lang ? "rgba(34,211,238,0.25)" : "rgba(255,255,255,0.06)"}`,
-                  color: activeLanguage === lang ? "#22D3EE" : "#6B7280",
+                  background: activeLanguage === lang ? "rgba(8,145,178,0.1)" : "rgba(255,255,255,0.6)",
+                  border: `1px solid ${activeLanguage === lang ? "rgba(8,145,178,0.25)" : "rgba(0,0,0,0.06)"}`,
+                  color: activeLanguage === lang ? "#0891B2" : "#64748B",
                 }}
               >
                 <img src={getFlagUrl(code, 20)} alt={lang} className="w-4 h-3 object-cover rounded-sm" />
@@ -115,12 +115,14 @@ export default function VideoSection() {
                 <div
                   className="group rounded-xl overflow-hidden transition-all duration-400"
                   style={{
-                    background: "rgba(10, 18, 38, 0.5)",
-                    border: "1px solid rgba(255,255,255,0.04)",
+                    background: "rgba(255, 255, 255, 0.7)",
+                    border: "1px solid rgba(255,255,255,0.85)",
+                    backdropFilter: "blur(20px)",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
                   }}
                 >
                   {/* Thumbnail / Player */}
-                  <div className="relative aspect-video bg-[#060a16] overflow-hidden">
+                  <div className="relative aspect-video bg-slate-100 overflow-hidden">
                     {isPlaying && ytId ? (
                       <iframe
                         src={`https://www.youtube.com/embed/${ytId}?autoplay=1`}
@@ -138,7 +140,7 @@ export default function VideoSection() {
                           />
                         )}
                         {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#060a16] via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
                         {/* Language badge with real flag */}
                         <div
@@ -157,13 +159,13 @@ export default function VideoSection() {
                           <div
                             className="w-14 h-14 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300"
                             style={{
-                              background: "rgba(34,211,238,0.15)",
-                              border: "2px solid rgba(34,211,238,0.4)",
-                              boxShadow: "0 0 30px rgba(34,211,238,0.15)",
+                              background: "rgba(255,255,255,0.85)",
+                              border: "2px solid rgba(8,145,178,0.3)",
+                              boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
                               backdropFilter: "blur(8px)",
                             }}
                           >
-                            <Play className="h-6 w-6 text-cyan-400 ml-0.5 fill-cyan-400" />
+                            <Play className="h-6 w-6 text-cyan-600 ml-0.5 fill-cyan-600" />
                           </div>
                         </button>
                       </>
@@ -172,7 +174,7 @@ export default function VideoSection() {
 
                   {/* Info */}
                   <div className="p-4">
-                    <h4 className="text-sm font-semibold text-white truncate">{video.title}</h4>
+                    <h4 className="text-sm font-semibold text-slate-800 truncate">{video.title}</h4>
                   </div>
                 </div>
               </AnimatedSection>
@@ -183,11 +185,11 @@ export default function VideoSection() {
         {filteredVideos.length === 0 && (
           <div className="text-center py-16">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.06)" }}
             >
-              <Film className="h-8 w-8 text-gray-600" />
+              <Film className="h-8 w-8 text-slate-400" />
             </div>
-            <p className="text-gray-500">No videos available for this filter. Try another category.</p>
+            <p className="text-slate-400">No videos available for this filter. Try another category.</p>
           </div>
         )}
       </div>

@@ -37,10 +37,10 @@ function PillarCard({ pillar, index }: { pillar: typeof ECOSYSTEM_PILLARS[0]; in
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="group relative p-8 rounded-2xl h-full"
           style={{
-            background: "linear-gradient(145deg, rgba(10, 18, 38, 0.7) 0%, rgba(6, 10, 22, 0.5) 100%)",
-            border: `1px solid ${hovered ? `${pillar.color}25` : "rgba(255,255,255,0.04)"}`,
-            backdropFilter: "blur(10px)",
-            boxShadow: hovered ? `0 8px 40px ${pillar.color}10, inset 0 1px 0 rgba(255,255,255,0.03)` : "none",
+            background: "rgba(255, 255, 255, 0.7)",
+            border: `1px solid ${hovered ? `${pillar.color}30` : "rgba(255,255,255,0.85)"}`,
+            backdropFilter: "blur(20px)",
+            boxShadow: hovered ? `0 8px 40px ${pillar.color}12, 0 4px 16px rgba(0,0,0,0.06)` : "0 4px 24px rgba(0,0,0,0.04)",
             transformStyle: "preserve-3d",
             transition: "border-color 0.4s, box-shadow 0.4s",
           }}
@@ -69,9 +69,9 @@ function PillarCard({ pillar, index }: { pillar: typeof ECOSYSTEM_PILLARS[0]; in
 
           {/* Content */}
           <div style={{ transform: "translateZ(10px)" }}>
-            <h3 className="text-xl font-bold text-white mb-1">{pillar.title}</h3>
+            <h3 className="text-xl font-bold text-slate-800 mb-1">{pillar.title}</h3>
             <p className="text-sm font-medium mb-3" style={{ color: `${pillar.color}cc` }}>{pillar.subtitle}</p>
-            <p className="text-sm text-gray-400 leading-relaxed">{pillar.description}</p>
+            <p className="text-sm text-slate-500 leading-relaxed">{pillar.description}</p>
           </div>
 
           {/* Bottom accent */}

@@ -47,3 +47,15 @@
 - [x] Fix flywheel section: remove stray floating cyan dot
 - [x] Fix leaderboard: broken flag images for India, Turkey, Brazil (#4-#6)
 - [x] Improve admin dashboard: clear content posting/uploading workflow with image upload to S3
+
+## V7 — MAJOR UPDATE: FROSTED AURORA THEME + FEATURES
+- [x] Implement "Frosted Aurora" light theme across entire site (index.css, all components)
+- [x] Redesign Flywheel/Velocity Cycle section (circular flywheel with rotating ring)
+- [x] Add "Blog" link to navigation menu bar (links to /feed)
+- [x] Add Zoom countdown timer with auto-update and LIVE indicator (2hr window)
+- [x] Redesign PDF/Presentations section for 50+ PDFs (filterable by language, organized grid, DB-backed with admin CRUD)
+- [x] Convert AdminDashboard to light theme with Presentations tab
+- [x] Convert AdminLogin to light theme
+- [x] Convert ImageUpload component to light theme
+- [x] All 14 vitest tests passing (presentations + content + auth)
+- [x] No remaining dark theme references (#060a16, bg-[#0a0f1e]) in client code

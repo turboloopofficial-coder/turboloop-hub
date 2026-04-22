@@ -65,7 +65,7 @@ function HeroPromoCard({ promo }: { promo: typeof PROMO_CARDS[0] }) {
 
         <div
           className="relative p-8 md:p-10 rounded-2xl overflow-hidden"
-          style={{ background: "linear-gradient(135deg, rgba(15, 22, 42, 0.95) 0%, rgba(6, 10, 22, 0.98) 100%)" }}
+          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.7) 100%)", backdropFilter: "blur(20px)" }}
         >
           {/* Holographic shimmer overlay */}
           <div
@@ -97,9 +97,9 @@ function HeroPromoCard({ promo }: { promo: typeof PROMO_CARDS[0] }) {
                 {promo.badge}
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{promo.title}</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-slate-800 mb-2">{promo.title}</h3>
               <p className="text-lg font-medium mb-3" style={{ color: `${promo.color}cc` }}>{promo.subtitle}</p>
-              <p className="text-gray-400 leading-relaxed max-w-xl">{promo.description}</p>
+              <p className="text-slate-500 leading-relaxed max-w-xl">{promo.description}</p>
             </div>
 
             <div className="shrink-0">
@@ -132,9 +132,10 @@ function PromoCard({ promo, index }: { promo: typeof PROMO_CARDS[0]; index: numb
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          background: "rgba(10, 18, 38, 0.5)",
-          border: `1px solid ${hovered ? `${promo.color}20` : "rgba(255,255,255,0.04)"}`,
-          boxShadow: hovered ? `0 4px 30px ${promo.color}08` : "none",
+          background: "rgba(255, 255, 255, 0.7)",
+          border: `1px solid ${hovered ? `${promo.color}30` : "rgba(255,255,255,0.85)"}`,
+          backdropFilter: "blur(20px)",
+          boxShadow: hovered ? `0 8px 40px ${promo.color}12, 0 4px 16px rgba(0,0,0,0.06)` : "0 4px 24px rgba(0,0,0,0.04)",
         }}
       >
         {/* Top accent */}
@@ -159,12 +160,12 @@ function PromoCard({ promo, index }: { promo: typeof PROMO_CARDS[0]; index: numb
             <Icon className="w-5 h-5" style={{ color: promo.color }} />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white mb-0.5">{promo.title}</h3>
+            <h3 className="text-lg font-bold text-slate-800 mb-0.5">{promo.title}</h3>
             <p className="text-sm font-medium" style={{ color: `${promo.color}aa` }}>{promo.subtitle}</p>
           </div>
         </div>
 
-        <p className="text-sm text-gray-400 leading-relaxed">{promo.description}</p>
+        <p className="text-sm text-slate-500 leading-relaxed">{promo.description}</p>
       </div>
     </AnimatedSection>
   );
@@ -196,7 +197,7 @@ export default function PromotionsSection() {
         </div>
 
         <AnimatedSection delay={0.6}>
-          <p className="text-center mt-10 text-sm text-gray-500">
+          <p className="text-center mt-10 text-sm text-slate-400">
             Promotional support backed by the Turbo Loop development team
           </p>
         </AnimatedSection>

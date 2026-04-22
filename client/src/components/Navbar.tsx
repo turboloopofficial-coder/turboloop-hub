@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { label: "Ecosystem", href: "#ecosystem" },
   { label: "Community", href: "#leaderboard" },
   { label: "Videos", href: "#videos" },
+  { label: "Blog", href: "#blog" },
   { label: "Roadmap", href: "#roadmap" },
   { label: "Resources", href: "#trust" },
 ];
@@ -32,16 +33,18 @@ export default function Navbar() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background: scrolled ? "rgba(4, 8, 16, 0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(34,211,238,0.06)" : "1px solid transparent",
+          background: scrolled ? "rgba(255, 255, 255, 0.75)" : "transparent",
+          backdropFilter: scrolled ? "blur(24px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid transparent",
+          boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.04)" : "none",
         }}
       >
         <div className="container flex items-center justify-between h-16 md:h-20">
           <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3 group">
             <span className="text-xl md:text-2xl font-bold tracking-tight">
-              <span className="text-white">Turbo</span>
-              <span className="text-cyan-400">Loop</span>
+              <span className="text-slate-800">Turbo</span>
+              <span className="text-cyan-600">Loop</span>
             </span>
           </a>
 
@@ -50,7 +53,7 @@ export default function Navbar() {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="text-sm text-gray-400 hover:text-white transition-colors duration-300 tracking-wide"
+                className="text-sm text-slate-500 hover:text-cyan-600 transition-colors duration-300 tracking-wide font-medium"
               >
                 {link.label}
               </button>
@@ -64,24 +67,25 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
               style={{
-                background: "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(192,132,252,0.1))",
-                border: "1px solid rgba(34,211,238,0.25)",
-                color: "#22D3EE",
+                background: "linear-gradient(135deg, #0891B2, #0E7490)",
+                border: "none",
+                color: "#ffffff",
+                boxShadow: "0 2px 12px rgba(8,145,178,0.25)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(192,132,252,0.15))";
-                e.currentTarget.style.boxShadow = "0 0 20px rgba(34,211,238,0.2)";
+                e.currentTarget.style.boxShadow = "0 4px 20px rgba(8,145,178,0.35)";
+                e.currentTarget.style.transform = "translateY(-1px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(192,132,252,0.1))";
-                e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.boxShadow = "0 2px 12px rgba(8,145,178,0.25)";
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
               Launch App <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
 
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-gray-300 p-2">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-slate-600 p-2">
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -95,10 +99,10 @@ export default function Navbar() {
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 z-[60] md:hidden"
-            style={{ background: "rgba(4, 8, 16, 0.97)", backdropFilter: "blur(24px)" }}
+            style={{ background: "rgba(255, 255, 255, 0.97)", backdropFilter: "blur(24px)" }}
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
-              <button onClick={() => setMobileOpen(false)} className="absolute top-5 right-5 text-gray-400 p-2">
+              <button onClick={() => setMobileOpen(false)} className="absolute top-5 right-5 text-slate-400 p-2">
                 <X className="w-7 h-7" />
               </button>
               {NAV_LINKS.map((link, i) => (
@@ -108,7 +112,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-2xl font-semibold text-white tracking-wide"
+                  className="text-2xl font-semibold text-slate-800 tracking-wide"
                 >
                   {link.label}
                 </motion.button>
@@ -121,7 +125,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 px-8 py-3 rounded-lg font-semibold text-lg"
-                style={{ background: "linear-gradient(135deg, #22D3EE, #06b6d4)", color: "#040810" }}
+                style={{ background: "linear-gradient(135deg, #0891B2, #0E7490)", color: "#ffffff" }}
               >
                 Launch App
               </motion.a>

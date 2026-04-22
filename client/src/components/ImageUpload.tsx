@@ -67,7 +67,7 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
 
   return (
     <div className="space-y-2">
-      <label className="text-gray-400 text-xs font-medium">{label}</label>
+      <label className="text-slate-500 text-xs font-medium">{label}</label>
       
       {/* Preview */}
       {value && (
@@ -75,7 +75,7 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
           <img
             src={value}
             alt="Preview"
-            className="w-full max-w-xs h-32 object-cover rounded-lg border border-gray-700"
+            className="w-full max-w-xs h-32 object-cover rounded-lg border border-slate-200"
           />
           <button
             onClick={() => onChange("")}
@@ -100,7 +100,7 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
           size="sm"
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
-          className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30"
+          className="bg-cyan-600/10 text-cyan-700 border border-cyan-600/20 hover:bg-cyan-600/20"
         >
           {uploading ? (
             <><Loader2 className="h-3 w-3 animate-spin mr-1" /> Uploading...</>
@@ -108,23 +108,23 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
             <><Upload className="h-3 w-3 mr-1" /> Upload Image</>
           )}
         </Button>
-        <span className="text-gray-600 text-xs">or</span>
+        <span className="text-slate-400 text-xs">or</span>
         <Input
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Paste image URL..."
-          className="bg-[#0a0f1e] border-gray-700 text-white text-sm flex-1"
+          className="bg-white/80 border-slate-200 text-slate-800 text-sm flex-1"
         />
       </div>
 
       {!value && (
         <div
           onClick={() => fileRef.current?.click()}
-          className="border-2 border-dashed border-gray-700 rounded-lg p-6 text-center cursor-pointer hover:border-cyan-500/30 transition-colors"
+          className="border-2 border-dashed border-slate-200 rounded-lg p-6 text-center cursor-pointer hover:border-cyan-500/30 transition-colors"
         >
-          <ImageIcon className="w-8 h-8 text-gray-600 mx-auto mb-2" />
-          <p className="text-xs text-gray-500">Click to upload or drag & drop</p>
-          <p className="text-xs text-gray-600 mt-1">PNG, JPG, GIF up to 5MB</p>
+          <ImageIcon className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+          <p className="text-xs text-slate-400">Click to upload or drag & drop</p>
+          <p className="text-xs text-slate-400 mt-1">PNG, JPG, GIF up to 5MB</p>
         </div>
       )}
     </div>

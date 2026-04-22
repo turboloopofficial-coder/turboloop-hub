@@ -9,6 +9,7 @@ import {
   countryLeaderboard,
   promotions,
   roadmapPhases,
+  presentations, type InsertPresentation,
   siteSettings,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -224,6 +225,34 @@ export async function updateRoadmapPhase(id: number, data: Partial<typeof roadma
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   await db.update(roadmapPhases).set(data).where(eq(roadmapPhases.id, id));
+}
+
+// ===== Presentations =====
+export async function listPresentations(publishedOnly = true) {
+  const db = await getDb();
+  if (!db) return [];
+  if (publishedOnly) {
+    return db.select().from(presentations).where(eq(presentations.published, true)).orderBy(asc(presentations.sortOrder), desc(presentations.createdAt));
+  }
+  return db.select().from(presentations).orderBy(asc(presentations.sortOrder), desc(presentations.createdAt));
+}
+
+export async function createPresentation(data: InsertPresentation) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.insert(presentations).values(data);
+}
+
+export async function updatePresentation(id: number, data: Partial<InsertPresentation>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(presentations).set(data).where(eq(presentations.id, id));
+}
+
+export async function deletePresentation(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(presentations).where(eq(presentations.id, id));
 }
 
 // ===== Site Settings =====

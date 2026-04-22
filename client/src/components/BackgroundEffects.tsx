@@ -1,45 +1,49 @@
 export default function BackgroundEffects() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-      {/* Gradient orb — cyan, top-left */}
+      {/* Aurora blob — cyan, top-left, drifting */}
       <div
-        className="absolute animate-pulse-glow"
+        className="absolute animate-aurora"
         style={{
-          top: "-10%",
-          left: "-5%",
-          width: "800px",
-          height: "800px",
-          background: "radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)",
-          filter: "blur(60px)",
+          top: "-8%",
+          left: "-8%",
+          width: "900px",
+          height: "900px",
+          background: "radial-gradient(circle, rgba(34,211,238,0.08) 0%, rgba(8,145,178,0.03) 40%, transparent 70%)",
+          filter: "blur(80px)",
         }}
       />
-      {/* Gradient orb — purple, bottom-right */}
+      {/* Aurora blob — purple, bottom-right, drifting reverse */}
       <div
-        className="absolute"
+        className="absolute animate-aurora-reverse"
         style={{
-          bottom: "-10%",
-          right: "-5%",
-          width: "700px",
-          height: "700px",
-          background: "radial-gradient(circle, rgba(192,132,252,0.04) 0%, transparent 70%)",
-          filter: "blur(60px)",
-          animation: "pulse-glow 5s ease-in-out infinite 1.5s",
+          bottom: "-8%",
+          right: "-8%",
+          width: "800px",
+          height: "800px",
+          background: "radial-gradient(circle, rgba(167,139,250,0.06) 0%, rgba(124,58,237,0.02) 40%, transparent 70%)",
+          filter: "blur(80px)",
+        }}
+      />
+      {/* Aurora blob — teal, center-right */}
+      <div
+        className="absolute animate-aurora"
+        style={{
+          top: "40%",
+          right: "-3%",
+          width: "600px",
+          height: "600px",
+          background: "radial-gradient(circle, rgba(34,211,238,0.04) 0%, transparent 60%)",
+          filter: "blur(70px)",
+          animationDelay: "5s",
         }}
       />
       {/* Subtle dot grid overlay */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
-        }}
-      />
-      {/* Noise texture overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          opacity: 0.015,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
         }}
       />
     </div>

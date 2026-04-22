@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, Save, LogOut, PenLine, Eye, EyeOff, X, ExternalLink, FileText } from "lucide-react";
+import { Loader2, Plus, Trash2, Save, LogOut, PenLine, Eye, EyeOff, X, ExternalLink, FileText, Settings } from "lucide-react";
 import ImageUpload from "@/components/ImageUpload";
 
 
@@ -571,6 +571,103 @@ function PresentationManager() {
   );
 }
 
+// ============ Welcome Popup Settings ============
+function WelcomePopupManager() {
+  const utils = trpc.useUtils();
+  const { data: currentTitle, isLoading: loadingTitle } = trpc.manage.getSetting.useQuery({ key: "welcome_title" });
+  const { data: currentMessage, isLoading: loadingMessage } = trpc.manage.getSetting.useQuery({ key: "welcome_message" });
+  const setSetting = trpc.manage.setSetting.useMutation({
+    onSuccess: () => {
+      utils.manage.getSetting.invalidate();
+      utils.content.setting.invalidate();
+      toast.success("Welcome popup updated");
+    },
+  });
+
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!loadingTitle && !loadingMessage && !initialized) {
+      setTitle(currentTitle || "Welcome to TurboLoop Tech Hub");
+      setMessage(
+        currentMessage ||
+        "Turbo Loop is the complete DeFi ecosystem on Binance Smart Chain — offering sustainable yield farming, a fiat-to-crypto gateway, decentralized swaps, and a powerful referral network.\n\nExplore our community hub to discover educational videos, blog articles, upcoming events, and the latest promotions. Whether you're new to DeFi or an experienced investor, Turbo Loop is designed to be transparent, secure, and open to everyone.\n\nJoin thousands of community members across 100+ countries building the future of decentralized finance."
+      );
+      setInitialized(true);
+    }
+  }, [loadingTitle, loadingMessage, currentTitle, currentMessage, initialized]);
+
+  const handleSave = () => {
+    setSetting.mutate({ key: "welcome_title", value: title });
+    setSetting.mutate({ key: "welcome_message", value: message });
+  };
+
+  if (loadingTitle || loadingMessage) {
+    return <Loader2 className="h-6 w-6 animate-spin text-cyan-600 mx-auto" />;
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-heading font-bold text-slate-800">Welcome Popup Settings</h3>
+          <p className="text-xs text-slate-400 mt-1">Customize the welcome notification that appears when visitors first open the site.</p>
+        </div>
+      </div>
+
+      <div className="p-5 rounded-xl border border-slate-200 bg-white/70 backdrop-blur-xl space-y-4">
+        <div>
+          <Label className="text-slate-500 text-xs">Popup Title</Label>
+          <Input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Welcome to TurboLoop Tech Hub"
+            className="bg-white/80 border-slate-200 text-slate-800 text-sm"
+          />
+        </div>
+        <div>
+          <Label className="text-slate-500 text-xs">Popup Message (use \n for new paragraphs)</Label>
+          <textarea
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            rows={8}
+            placeholder="Write the welcome message here..."
+            className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md p-3 focus:border-cyan-500 outline-none leading-relaxed"
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <Button
+            size="sm"
+            onClick={handleSave}
+            disabled={setSetting.isPending}
+            className="bg-cyan-600/10 text-cyan-700 border border-cyan-600/20"
+          >
+            {setSetting.isPending ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Save className="h-3 w-3 mr-1" />}
+            Save Changes
+          </Button>
+          <span className="text-xs text-slate-400">Changes appear immediately for new visitors.</span>
+        </div>
+      </div>
+
+      {/* Preview */}
+      <div className="p-5 rounded-xl border border-slate-200 bg-white/50">
+        <h4 className="text-sm font-bold text-slate-500 mb-3">Preview</h4>
+        <div className="p-6 rounded-xl" style={{ background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
+          <div className="h-1.5 -mx-6 -mt-6 mb-5 rounded-t-xl" style={{ background: 'linear-gradient(90deg, #0891B2, #7C3AED, #0891B2)' }} />
+          <h3 className="text-xl font-bold text-slate-800 mb-3">{title || "Welcome to TurboLoop Tech Hub"}</h3>
+          <div className="text-sm text-slate-500 leading-relaxed space-y-2">
+            {(message || "").split("\n").filter(Boolean).map((p: string, i: number) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ============ Main Dashboard ============
 export default function AdminDashboard() {
   const { data: admin, isLoading, error } = trpc.admin.me.useQuery();
@@ -639,6 +736,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="promotions" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm">Promotions</TabsTrigger>
             <TabsTrigger value="leaderboard" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm">Leaderboard</TabsTrigger>
             <TabsTrigger value="presentations" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm">Presentations</TabsTrigger>
+            <TabsTrigger value="settings" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"><Settings className="h-3.5 w-3.5 mr-1" />Settings</TabsTrigger>
           </TabsList>
 
           <TabsContent value="blog"><BlogManager /></TabsContent>
@@ -647,6 +745,7 @@ export default function AdminDashboard() {
           <TabsContent value="promotions"><PromotionManager /></TabsContent>
           <TabsContent value="leaderboard"><LeaderboardManager /></TabsContent>
           <TabsContent value="presentations"><PresentationManager /></TabsContent>
+          <TabsContent value="settings"><WelcomePopupManager /></TabsContent>
         </Tabs>
       </div>
     </div>

@@ -59,3 +59,8 @@
 - [x] Convert ImageUpload component to light theme
 - [x] All 14 vitest tests passing (presentations + content + auth)
 - [x] No remaining dark theme references (#060a16, bg-[#0a0f1e]) in client code
+
+## V8 — WELCOME POPUP + ADMIN ACCESS
+- [x] Welcome notification popup on first visit (intro message + close button, shows once per session)
+- [x] Admin login link in footer for easy access
+- [x] Admin control to edit welcome popup title/message from dashboard (Settings tab)

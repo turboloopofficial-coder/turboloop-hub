@@ -14,6 +14,7 @@ import RoadmapSection from "@/components/sections/RoadmapSection";
 import TrustSection from "@/components/sections/TrustSection";
 import FaqSection from "@/components/sections/FaqSection";
 import Footer from "@/components/sections/Footer";
+import WelcomePopup from "@/components/WelcomePopup";
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingLaunchButton />
+      <WelcomePopup />
     </div>
   );
 }

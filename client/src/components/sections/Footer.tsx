@@ -96,13 +96,18 @@ export default function Footer() {
             <p className="text-xs text-slate-400">
               &copy; {new Date().getFullYear()} Turbo Loop. All rights reserved.
             </p>
-            <p className="text-xs text-slate-400">
-              turboloop.tech is the community hub &middot;{" "}
-              <a href={SITE.mainApp} target="_blank" rel="noopener noreferrer" className="text-cyan-600/60 hover:text-cyan-600 transition-colors">
-                turboloop.io
-              </a>{" "}
-              is the main dApp
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="text-xs text-slate-400">
+                turboloop.tech is the community hub &middot;{" "}
+                <a href={SITE.mainApp} target="_blank" rel="noopener noreferrer" className="text-cyan-600/60 hover:text-cyan-600 transition-colors">
+                  turboloop.io
+                </a>{" "}
+                is the main dApp
+              </p>
+              <a href="/admin/login" className="text-xs text-slate-300 hover:text-slate-500 transition-colors duration-300">
+                Admin
+              </a>
+            </div>
           </div>
         </div>
       </div>

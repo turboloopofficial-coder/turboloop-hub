@@ -65,6 +65,9 @@ export const LANGUAGE_FLAGS: Record<string, string> = {
   Arabic: "sa", Chinese: "cn", Malay: "my",
 };
 
-export function getFlagUrl(code: string, size = 48): string {
-  return `https://flagcdn.com/w${size}/${code.toLowerCase()}.png`;
+export function getFlagUrl(code: string, size = 40): string {
+  // flagcdn supports: w20, w40, w80, w160, w320
+  const validSizes = [20, 40, 80, 160, 320];
+  const closest = validSizes.reduce((prev, curr) => Math.abs(curr - size) < Math.abs(prev - size) ? curr : prev);
+  return `https://flagcdn.com/w${closest}/${code.toLowerCase()}.png`;
 }

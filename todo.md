@@ -42,3 +42,8 @@
 - [x] Add 4+ more blog posts to seed data (diverse topics: security, yield farming, community, roadmap)
 - [x] Add FAQ / How It Works accordion section to homepage
 - [x] Remind user about custom domain setup via Settings panel
+
+## V6 — BUG FIXES & ADMIN IMPROVEMENTS
+- [x] Fix flywheel section: remove stray floating cyan dot
+- [x] Fix leaderboard: broken flag images for India, Turkey, Brazil (#4-#6)
+- [x] Improve admin dashboard: clear content posting/uploading workflow with image upload to S3

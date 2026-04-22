@@ -62,21 +62,7 @@ export default function FlywheelSection() {
                 </div>
               </div>
 
-              {/* Orbiting energy pulse */}
-              <motion.div
-                className="absolute w-3 h-3 rounded-full"
-                style={{
-                  background: "#22D3EE",
-                  boxShadow: "0 0 15px rgba(34,211,238,0.6), 0 0 30px rgba(34,211,238,0.3)",
-                  top: "50%",
-                  left: "50%",
-                }}
-                animate={{
-                  x: [0, 180, 180, 0, -180, -180, 0],
-                  y: [-180, -60, 120, 180, 120, -60, -180],
-                }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              />
+
 
               {/* Step nodes positioned in a circle */}
               {FLYWHEEL_STEPS.map((step, i) => {

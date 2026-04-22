@@ -16,6 +16,7 @@ import {
   getSetting, setSetting,
 } from "./db";
 import { TRPCError } from "@trpc/server";
+import { storagePut } from "./storage";
 
 const ADMIN_JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "turboloop-admin-secret");
 
@@ -233,6 +234,20 @@ export const appRouter = router({
         status: z.enum(["completed", "current", "upcoming"]).optional(),
       }))
       .mutation(({ input }) => { const { id, ...data } = input; return updateRoadmapPhase(id, data); }),
+
+    // Image upload
+    uploadImage: adminProcedure
+      .input(z.object({
+        filename: z.string().min(1),
+        base64: z.string().min(1),
+        contentType: z.string().default("image/png"),
+      }))
+      .mutation(async ({ input }) => {
+        const buffer = Buffer.from(input.base64, "base64");
+        const key = `uploads/${Date.now()}-${input.filename}`;
+        const result = await storagePut(key, buffer, input.contentType);
+        return result; // { key, url }
+      }),
 
     // Settings
     getSetting: adminProcedure.input(z.object({ key: z.string() })).query(({ input }) => getSetting(input.key)),

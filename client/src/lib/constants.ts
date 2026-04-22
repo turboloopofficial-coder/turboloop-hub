@@ -60,9 +60,21 @@ export const COUNTRY_DATA = [
 ];
 
 export const LANGUAGE_FLAGS: Record<string, string> = {
-  English: "gb", Hindi: "in", French: "fr", Spanish: "es", Vietnamese: "vn",
-  Indonesian: "id", Italian: "it", Russian: "ru", Japanese: "jp", German: "de",
-  Arabic: "sa", Chinese: "cn", Malay: "my",
+  English: "gb", Amharic: "et", Arabic: "sa", Azerbaijani: "az",
+  Bengali: "bd", "Chinese (Simplified)": "cn", "Chinese (Traditional)": "tw",
+  Czech: "cz", Dutch: "nl", Filipino: "ph", French: "fr",
+  Georgian: "ge", German: "de", Greek: "gr", Gujarati: "in",
+  Hausa: "ng", Hebrew: "il", Hindi: "in", Hungarian: "hu",
+  Indonesian: "id", Italian: "it", Japanese: "jp", Kannada: "in",
+  Kazakh: "kz", Khmer: "kh", Korean: "kr", Malay: "my",
+  Malayalam: "in", Marathi: "in", Myanmar: "mm", Nepali: "np",
+  Pashto: "af", Persian: "ir", Polish: "pl", Portuguese: "br",
+  Romanian: "ro", Russian: "ru", Sinhala: "lk", Spanish: "es",
+  Swedish: "se", Tamil: "in", Telugu: "in", Thai: "th",
+  Turkish: "tr", Ukrainian: "ua", Urdu: "pk", Uzbek: "uz",
+  Vietnamese: "vn", Yoruba: "ng",
+  // Legacy aliases
+  Chinese: "cn",
 };
 
 export function getFlagUrl(code: string, size = 40): string {

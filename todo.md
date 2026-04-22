@@ -64,3 +64,9 @@
 - [x] Welcome notification popup on first visit (intro message + close button, shows once per session)
 - [x] Admin login link in footer for easy access
 - [x] Admin control to edit welcome popup title/message from dashboard (Settings tab)
+
+## V9 — SEED 48 LANGUAGE PRESENTATIONS
+- [x] Extract 48 PDFs from uploaded zip file
+- [x] Upload all PDFs to storage via manus-upload-file (all 48 uploaded)
+- [x] Seed all 48 presentations into database with proper language names and flags
+- [x] Verify Presentations section displays all entries beautifully (flags, filters, download/view links working)

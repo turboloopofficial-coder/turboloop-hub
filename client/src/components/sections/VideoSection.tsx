@@ -49,7 +49,7 @@ export default function VideoSection() {
         <SectionHeading
           label="Content Hub"
           title="Watch & Learn"
-          subtitle="Educational content in 12+ languages. Tutorials, presentations, and step-by-step guides."
+          subtitle="Educational content in 48 languages. Tutorials, presentations, and step-by-step guides."
         />
 
         {/* Category Tabs */}

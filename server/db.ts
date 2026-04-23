@@ -256,11 +256,11 @@ export async function deletePresentation(id: number) {
 }
 
 // ===== Site Settings =====
-export async function getSetting(key: string): Promise<string | undefined> {
+export async function getSetting(key: string): Promise<string | null> {
   const db = await getDb();
-  if (!db) return undefined;
+  if (!db) return null;
   const result = await db.select().from(siteSettings).where(eq(siteSettings.settingKey, key)).limit(1);
-  return result[0]?.settingValue;
+  return result[0]?.settingValue ?? null;
 }
 
 export async function setSetting(key: string, value: string) {

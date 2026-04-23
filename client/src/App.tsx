@@ -18,7 +18,7 @@ function Router() {
       <Route path="/feed" component={FeedPage} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin">{() => <Redirect to="/admin/login" />}</Route>
+      <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/:rest*" component={AdminDashboard} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

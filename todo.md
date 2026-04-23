@@ -75,3 +75,7 @@
 - [x] Fix /admin route to redirect to /admin/login (currently shows 404)
 - [x] Admin email/password login working (cookie set with SameSite=Lax for published domain)
 - [x] Store admin credentials securely via environment secrets (ADMIN_EMAIL, ADMIN_PASSWORD)
+
+## V11 — ADMIN LOGIN BUG FIX + HANDOFF
+- [x] Fix admin login redirect bug (navigate to /admin/dashboard, fix getSetting returning undefined)
+- [x] Create comprehensive handoff document for Claude Code (CLAUDE_HANDOFF.md)

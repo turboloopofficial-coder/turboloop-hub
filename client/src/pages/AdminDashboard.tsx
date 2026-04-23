@@ -674,21 +674,13 @@ export default function AdminDashboard() {
   const logoutMutation = trpc.admin.logout.useMutation();
   const [, navigate] = useLocation();
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}>
-        <Loader2 className="h-8 w-8 animate-spin text-cyan-600" />
-      </div>
-    );
-  }
-
   useEffect(() => {
     if (!isLoading && (error || !admin)) {
       navigate("/admin/login");
     }
   }, [isLoading, error, admin, navigate]);
 
-  if (error || !admin) {
+  if (isLoading || error || !admin) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}>
         <Loader2 className="h-8 w-8 animate-spin text-cyan-600" />

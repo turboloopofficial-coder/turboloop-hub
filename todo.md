@@ -70,3 +70,8 @@
 - [x] Upload all PDFs to storage via manus-upload-file (all 48 uploaded)
 - [x] Seed all 48 presentations into database with proper language names and flags
 - [x] Verify Presentations section displays all entries beautifully (flags, filters, download/view links working)
+
+## V10 — ADMIN LOGIN FIX
+- [x] Fix /admin route to redirect to /admin/login (currently shows 404)
+- [x] Admin email/password login working (cookie set with SameSite=Lax for published domain)
+- [x] Store admin credentials securely via environment secrets (ADMIN_EMAIL, ADMIN_PASSWORD)

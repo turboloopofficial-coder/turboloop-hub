@@ -60,8 +60,10 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         // Auto-create admin on first login attempt if not exists
         const existing = await getAdminByEmail(input.email);
-        if (!existing && input.email === "devdady@proton.me") {
-          await createAdmin(input.email, "Truboloop@hub123456");
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        if (!existing && adminEmail && adminPassword && input.email === adminEmail) {
+          await createAdmin(input.email, adminPassword);
         }
         const valid = await verifyAdminPassword(input.email, input.password);
         if (!valid) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid credentials" });
@@ -71,8 +73,8 @@ export const appRouter = router({
           .sign(ADMIN_JWT_SECRET);
         ctx.res.cookie("admin_token", token, {
           httpOnly: true,
-          secure: true,
-          sameSite: "none",
+          secure: ctx.req.headers["x-forwarded-proto"] === "https" || ctx.req.secure,
+          sameSite: "lax",
           maxAge: 7 * 24 * 60 * 60 * 1000,
           path: "/",
         });
@@ -80,7 +82,7 @@ export const appRouter = router({
       }),
     me: adminProcedure.query(({ ctx }) => ({ email: ctx.admin.email })),
     logout: publicProcedure.mutation(({ ctx }) => {
-      ctx.res.clearCookie("admin_token", { httpOnly: true, secure: true, sameSite: "none", path: "/" });
+      ctx.res.clearCookie("admin_token", { httpOnly: true, secure: ctx.req.headers["x-forwarded-proto"] === "https" || ctx.req.secure, sameSite: "lax", path: "/" });
       return { success: true };
     }),
   }),

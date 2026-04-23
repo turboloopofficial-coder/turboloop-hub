@@ -9,6 +9,7 @@ import FeedPage from "./pages/FeedPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import BlogPost from "./pages/BlogPost";
+import { Redirect } from "wouter";
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/feed" component={FeedPage} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin">{() => <Redirect to="/admin/login" />}</Route>
       <Route path="/admin/:rest*" component={AdminDashboard} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

@@ -1,18 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "vite build",
+  "buildCommand": "node scripts/build-vercel-api.mjs && vite build",
   "outputDirectory": "dist/public",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
   "rewrites": [
-    { "source": "/api/trpc/:path*", "destination": "/api/trpc/[trpc]" },
     { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "functions": {
-    "api/trpc/[trpc].ts": {
+    "api/trpc/[trpc].js": {
       "maxDuration": 30,
-      "memory": 1024,
-      "includeFiles": "{server,shared,drizzle}/**"
+      "memory": 1024
     }
   }
 }

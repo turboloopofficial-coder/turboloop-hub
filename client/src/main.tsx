@@ -1,0 +1,59 @@
+import { trpc } from "@/lib/trpc";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { httpBatchLink, TRPCClientError } from "@trpc/client";
+import { createRoot } from "react-dom/client";
+import superjson from "superjson";
+import App from "./App";
+import "./index.css";
+
+const queryClient = new QueryClient();
+
+const redirectToAdminLoginIfUnauthorized = (error: unknown) => {
+  if (!(error instanceof TRPCClientError)) return;
+  if (typeof window === "undefined") return;
+  if (error.data?.code !== "UNAUTHORIZED") return;
+
+  const path = window.location.pathname;
+  if (!path.startsWith("/admin") || path === "/admin/login") return;
+
+  window.location.href = "/admin/login";
+};
+
+queryClient.getQueryCache().subscribe(event => {
+  if (event.type === "updated" && event.action.type === "error") {
+    const error = event.query.state.error;
+    redirectToAdminLoginIfUnauthorized(error);
+    console.error("[API Query Error]", error);
+  }
+});
+
+queryClient.getMutationCache().subscribe(event => {
+  if (event.type === "updated" && event.action.type === "error") {
+    const error = event.mutation.state.error;
+    redirectToAdminLoginIfUnauthorized(error);
+    console.error("[API Mutation Error]", error);
+  }
+});
+
+const trpcClient = trpc.createClient({
+  links: [
+    httpBatchLink({
+      url: "/api/trpc",
+      transformer: superjson,
+      fetch(input, init) {
+        return globalThis.fetch(input, {
+          ...(init ?? {}),
+          credentials: "include",
+        });
+      },
+    }),
+  ],
+});
+
+createRoot(document.getElementById("root")!).render(
+  <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </trpc.Provider>
+);

@@ -1,0 +1,294 @@
+{
+  "logo": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
+  "deck": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-deck.pdf",
+  "presentations": [
+    {
+      "language": "English",
+      "flag": "gb",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-deck.pdf",
+      "filename": "english"
+    },
+    {
+      "language": "Amharic",
+      "flag": "et",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/amharic.pdf",
+      "filename": "amharic"
+    },
+    {
+      "language": "Arabic",
+      "flag": "sa",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/arabic.pdf",
+      "filename": "arabic"
+    },
+    {
+      "language": "Azerbaijani",
+      "flag": "az",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/azerbaijani.pdf",
+      "filename": "azerbaijani"
+    },
+    {
+      "language": "Bengali",
+      "flag": "bd",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/bengali.pdf",
+      "filename": "bengali"
+    },
+    {
+      "language": "Chinese (Simplified)",
+      "flag": "cn",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/chinese-simplified.pdf",
+      "filename": "chinese-simplified"
+    },
+    {
+      "language": "Chinese (Traditional)",
+      "flag": "tw",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/chinese-traditional.pdf",
+      "filename": "chinese-traditional"
+    },
+    {
+      "language": "Czech",
+      "flag": "cz",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/czech.pdf",
+      "filename": "czech"
+    },
+    {
+      "language": "Dutch",
+      "flag": "nl",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/dutch.pdf",
+      "filename": "dutch"
+    },
+    {
+      "language": "Filipino",
+      "flag": "ph",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/filipino.pdf",
+      "filename": "filipino"
+    },
+    {
+      "language": "French",
+      "flag": "fr",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/french.pdf",
+      "filename": "french"
+    },
+    {
+      "language": "Georgian",
+      "flag": "ge",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/georgian.pdf",
+      "filename": "georgian"
+    },
+    {
+      "language": "German",
+      "flag": "de",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/german.pdf",
+      "filename": "german"
+    },
+    {
+      "language": "Greek",
+      "flag": "gr",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/greek.pdf",
+      "filename": "greek"
+    },
+    {
+      "language": "Gujarati",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/gujarati.pdf",
+      "filename": "gujarati"
+    },
+    {
+      "language": "Hausa",
+      "flag": "ng",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/hausa.pdf",
+      "filename": "hausa"
+    },
+    {
+      "language": "Hebrew",
+      "flag": "il",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/hebrew.pdf",
+      "filename": "hebrew"
+    },
+    {
+      "language": "Hindi",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/hindi.pdf",
+      "filename": "hindi"
+    },
+    {
+      "language": "Hungarian",
+      "flag": "hu",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/hungarian.pdf",
+      "filename": "hungarian"
+    },
+    {
+      "language": "Indonesian",
+      "flag": "id",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/indonesian.pdf",
+      "filename": "indonesian"
+    },
+    {
+      "language": "Italian",
+      "flag": "it",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/italian.pdf",
+      "filename": "italian"
+    },
+    {
+      "language": "Japanese",
+      "flag": "jp",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/japanese.pdf",
+      "filename": "japanese"
+    },
+    {
+      "language": "Kannada",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/kannada.pdf",
+      "filename": "kannada"
+    },
+    {
+      "language": "Kazakh",
+      "flag": "kz",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/kazakh.pdf",
+      "filename": "kazakh"
+    },
+    {
+      "language": "Khmer",
+      "flag": "kh",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/khmer.pdf",
+      "filename": "khmer"
+    },
+    {
+      "language": "Korean",
+      "flag": "kr",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/korean.pdf",
+      "filename": "korean"
+    },
+    {
+      "language": "Malayalam",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/malayalam.pdf",
+      "filename": "malayalam"
+    },
+    {
+      "language": "Malay",
+      "flag": "my",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/malay.pdf",
+      "filename": "malay"
+    },
+    {
+      "language": "Marathi",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/marathi.pdf",
+      "filename": "marathi"
+    },
+    {
+      "language": "Myanmar",
+      "flag": "mm",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/myanmar.pdf",
+      "filename": "myanmar"
+    },
+    {
+      "language": "Pashto",
+      "flag": "af",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/pashto.pdf",
+      "filename": "pashto"
+    },
+    {
+      "language": "Persian",
+      "flag": "ir",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/persian.pdf",
+      "filename": "persian"
+    },
+    {
+      "language": "Polish",
+      "flag": "pl",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/polish.pdf",
+      "filename": "polish"
+    },
+    {
+      "language": "Portuguese",
+      "flag": "br",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/portuguese.pdf",
+      "filename": "portuguese"
+    },
+    {
+      "language": "Romanian",
+      "flag": "ro",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/romanian.pdf",
+      "filename": "romanian"
+    },
+    {
+      "language": "Russian",
+      "flag": "ru",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/russian.pdf",
+      "filename": "russian"
+    },
+    {
+      "language": "Sinhala",
+      "flag": "lk",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/sinhala.pdf",
+      "filename": "sinhala"
+    },
+    {
+      "language": "Spanish",
+      "flag": "es",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/spanish.pdf",
+      "filename": "spanish"
+    },
+    {
+      "language": "Swedish",
+      "flag": "se",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/swedish.pdf",
+      "filename": "swedish"
+    },
+    {
+      "language": "Tamil",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/tamil.pdf",
+      "filename": "tamil"
+    },
+    {
+      "language": "Telugu",
+      "flag": "in",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/telugu.pdf",
+      "filename": "telugu"
+    },
+    {
+      "language": "Thai",
+      "flag": "th",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/thai.pdf",
+      "filename": "thai"
+    },
+    {
+      "language": "Turkish",
+      "flag": "tr",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/turkish.pdf",
+      "filename": "turkish"
+    },
+    {
+      "language": "Ukrainian",
+      "flag": "ua",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/ukrainian.pdf",
+      "filename": "ukrainian"
+    },
+    {
+      "language": "Urdu",
+      "flag": "pk",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/urdu.pdf",
+      "filename": "urdu"
+    },
+    {
+      "language": "Uzbek",
+      "flag": "uz",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/uzbek.pdf",
+      "filename": "uzbek"
+    },
+    {
+      "language": "Vietnamese",
+      "flag": "vn",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/vietnamese.pdf",
+      "filename": "vietnamese"
+    },
+    {
+      "language": "Yoruba",
+      "flag": "ng",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/yoruba.pdf",
+      "filename": "yoruba"
+    }
+  ]
+}

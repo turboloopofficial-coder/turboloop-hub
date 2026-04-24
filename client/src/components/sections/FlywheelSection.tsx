@@ -2,32 +2,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   Droplets, ArrowLeftRight, CreditCard, Wallet, TrendingUp, Layers,
-  RotateCw, Zap, ArrowRight, Users, DollarSign, Gem, Sparkles,
-  Coins, Cpu, Target, ChevronRight,
+  RotateCw, Sparkles, Users, DollarSign, Gem, Cpu, Target,
+  Infinity as InfinityIcon, Zap, CheckCircle2, Shield,
 } from "lucide-react";
 
-// -- Flywheel node data (matches the main-site Turbo Loop flywheel)
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
+
 type Node = {
   n: number;
   label: string;
   sub: string;
   color: string;
+  softColor: string; // lighter version for bg tints
   icon: React.ElementType;
 };
 
 const FLYWHEEL_NODES: Node[] = [
-  { n: 1, label: "Users",            sub: "Swap & Buy Crypto",   color: "#22D3EE", icon: Users },      // cyan
-  { n: 2, label: "Fees Generated",   sub: "Trading + TX Fees",   color: "#F59E0B", icon: DollarSign }, // orange
-  { n: 3, label: "Liquidity Pool",   sub: "USDT / USDC",         color: "#10B981", icon: Droplets },   // green
-  { n: 4, label: "DeFi Strategies",  sub: "Staking · Lending · LP", color: "#A855F7", icon: Layers }, // purple
-  { n: 5, label: "Rewards",          sub: "Yield Distributed",   color: "#34D399", icon: Gem },        // light green
+  { n: 1, label: "Users",           sub: "Swap & Buy Crypto",      color: "#0891B2", softColor: "#CFFAFE", icon: Users },
+  { n: 2, label: "Fees Generated",  sub: "Trading + TX Fees",      color: "#D97706", softColor: "#FED7AA", icon: DollarSign },
+  { n: 3, label: "Liquidity Pool",  sub: "USDT / USDC",            color: "#059669", softColor: "#A7F3D0", icon: Droplets },
+  { n: 4, label: "DeFi Strategies", sub: "Staking · Lending · LP", color: "#7C3AED", softColor: "#DDD6FE", icon: Layers },
+  { n: 5, label: "Rewards",         sub: "Yield Distributed",      color: "#10B981", softColor: "#A7F3D0", icon: Gem },
 ];
 
-// -- Revenue tabs (three income streams, matches main site)
 type Tab = {
   key: "lp" | "swap" | "buy";
-  badge: string;
-  badgeColor: string;
+  tag: string;
+  tabLabel: string;
+  tagColor: string;
   title: string;
   titleColor: string;
   desc: string;
@@ -37,202 +41,212 @@ type Tab = {
 const TABS: Tab[] = [
   {
     key: "lp",
-    badge: "Core Engine",
-    badgeColor: "#10B981",
+    tag: "Core Engine",
+    tabLabel: "LP Rewards",
+    tagColor: "#059669",
     title: "Liquidity Pool Rewards",
-    titleColor: "#10B981",
+    titleColor: "#059669",
     desc:
       "Your deposited USDT/USDC is automatically deployed into high-performing DeFi yield farming strategies on BNB Smart Chain — including liquidity provision, staking, and lending protocols.",
     flow: [
-      { label: "User Deposits",    icon: Wallet,     color: "#10B981" },
-      { label: "DeFi Strategies",  icon: Cpu,        color: "#A855F7" },
-      { label: "Yield Generated",  icon: TrendingUp, color: "#10B981" },
+      { label: "User Deposits",   icon: Wallet,     color: "#059669" },
+      { label: "DeFi Strategies", icon: Cpu,        color: "#7C3AED" },
+      { label: "Yield Generated", icon: TrendingUp, color: "#10B981" },
     ],
   },
   {
     key: "swap",
-    badge: "Fueling the Flywheel",
-    badgeColor: "#22D3EE",
+    tag: "Fueling the Flywheel",
+    tabLabel: "Swap Fees",
+    tagColor: "#0891B2",
     title: "Turbo Swap Trading Fees",
-    titleColor: "#22D3EE",
+    titleColor: "#0891B2",
     desc:
       "Every token swap through Turbo Swap generates a small trading fee. This fee flows directly into the Liquidity Pool in real-time, increasing its depth and yield potential with every single swap.",
     flow: [
-      { label: "User Swaps",       icon: ArrowLeftRight, color: "#22D3EE" },
-      { label: "Fee Generated",    icon: DollarSign,     color: "#F59E0B" },
-      { label: "Directly to LP",   icon: Droplets,       color: "#10B981" },
+      { label: "User Swaps",     icon: ArrowLeftRight, color: "#0891B2" },
+      { label: "Fee Generated",  icon: DollarSign,     color: "#D97706" },
+      { label: "Directly to LP", icon: Droplets,       color: "#059669" },
     ],
   },
   {
     key: "buy",
-    badge: "On-Ramping Value",
-    badgeColor: "#F59E0B",
+    tag: "On-Ramping Value",
+    tabLabel: "Buy Fees",
+    tagColor: "#D97706",
     title: "Turbo Buy Transaction Fees",
-    titleColor: "#F59E0B",
+    titleColor: "#D97706",
     desc:
       "Each fiat-to-crypto purchase through Turbo Buy includes a small processing fee. These funds are channeled directly into the core Liquidity Pool, enhancing the protocol's earning power instantly.",
     flow: [
-      { label: "User Buys Crypto", icon: CreditCard, color: "#F59E0B" },
-      { label: "Fee Generated",    icon: DollarSign, color: "#F59E0B" },
-      { label: "Directly to LP",   icon: Droplets,   color: "#10B981" },
+      { label: "User Buys Crypto", icon: CreditCard, color: "#D97706" },
+      { label: "Fee Generated",    icon: DollarSign, color: "#D97706" },
+      { label: "Directly to LP",   icon: Droplets,   color: "#059669" },
     ],
   },
 ];
 
-/** A single icon circle in the flow row */
+// ---------------------------------------------------------------------------
+// Flow row (used inside each tab panel)
+// ---------------------------------------------------------------------------
+
 function FlowIcon({ icon: Icon, color, label }: { icon: React.ElementType; color: string; label: string }) {
   return (
-    <div className="flex flex-col items-center shrink-0 text-center">
+    <div className="flex flex-col items-center shrink-0 text-center" style={{ width: 96 }}>
       <motion.div
-        whileHover={{ scale: 1.08 }}
-        className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center relative"
+        whileHover={{ scale: 1.06, y: -2 }}
+        className="w-20 h-20 rounded-2xl flex items-center justify-center relative"
         style={{
-          background: "rgba(255,255,255,0.02)",
+          background: "white",
           border: `2px solid ${color}`,
-          boxShadow: `0 0 24px -4px ${color}80, inset 0 0 20px ${color}15`,
+          boxShadow: `0 12px 28px -8px ${color}50, 0 0 0 6px ${color}12`,
         }}
       >
-        <Icon className="w-7 h-7 md:w-8 md:h-8" style={{ color }} />
-        {/* Inner glow dot */}
+        <Icon className="w-8 h-8" style={{ color }} />
+        {/* outer subtle halo */}
         <motion.div
-          className="absolute inset-0 rounded-full"
-          animate={{ opacity: [0.3, 0.8, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          style={{ boxShadow: `inset 0 0 20px ${color}35` }}
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          animate={{ boxShadow: [`0 0 0 0 ${color}40`, `0 0 0 10px ${color}00`] }}
+          transition={{ duration: 2.4, repeat: Infinity }}
         />
       </motion.div>
-      <div className="mt-3 text-[11px] md:text-xs text-white/70 whitespace-pre-line font-medium tracking-wide" style={{ maxWidth: 90 }}>
-        {label}
-      </div>
+      <div className="mt-3 text-xs font-semibold text-slate-700 leading-tight">{label}</div>
     </div>
   );
 }
 
-/** Animated dashed arrow between two icons */
 function FlowArrow({ color }: { color: string }) {
   return (
-    <div className="flex-1 flex items-center justify-center px-2 md:px-4" style={{ minWidth: 40 }}>
+    <div className="flex-1 flex items-center justify-center" style={{ minWidth: 30 }}>
       <svg width="100%" height="14" viewBox="0 0 100 14" preserveAspectRatio="none" className="max-w-[120px]">
-        <motion.line
-          x1="0" y1="7" x2="86" y2="7"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeDasharray="4 4"
-          opacity="0.5"
-        />
-        {/* Flowing particle */}
+        <line x1="0" y1="7" x2="86" y2="7" stroke={color} strokeOpacity="0.4" strokeWidth="1.5" strokeDasharray="3 4" />
         <motion.circle
-          r="3"
+          r="4"
           cy="7"
           fill={color}
           animate={{ cx: [0, 86, 86] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "linear", times: [0, 0.85, 1] }}
         />
-        {/* Arrow head */}
-        <polygon points="86,2 94,7 86,12" fill={color} opacity="0.9" />
+        <polygon points="86,2 94,7 86,12" fill={color} />
       </svg>
     </div>
   );
 }
 
-/** The circular flywheel — matches the main site's style */
-function CircularFlywheel({ activeNode }: { activeNode: number }) {
-  const SIZE = 460;
+// ---------------------------------------------------------------------------
+// The flywheel — light theme, crafted
+// ---------------------------------------------------------------------------
+
+function Flywheel({ activeNode }: { activeNode: number }) {
+  const SIZE = 480;
   const CENTER = SIZE / 2;
-  const RADIUS = 170;
+  const RADIUS = 175;
 
   return (
     <div className="relative mx-auto" style={{ width: SIZE, height: SIZE }}>
       <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
         <defs>
-          <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" />
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" />
           </filter>
+          {FLYWHEEL_NODES.map((n, i) => {
+            const next = FLYWHEEL_NODES[(i + 1) % FLYWHEEL_NODES.length];
+            return (
+              <linearGradient key={i} id={`seg-${i}`} x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor={n.color} stopOpacity="0.35" />
+                <stop offset="100%" stopColor={next.color} stopOpacity="0.35" />
+              </linearGradient>
+            );
+          })}
         </defs>
 
-        {/* Main dashed ring */}
-        <circle
-          cx={CENTER}
-          cy={CENTER}
-          r={RADIUS}
-          fill="none"
-          stroke="rgba(255,255,255,0.15)"
-          strokeWidth="1"
-          strokeDasharray="3 4"
-        />
+        {/* Outer dashed ring */}
+        <circle cx={CENTER} cy={CENTER} r={RADIUS + 22} fill="none" stroke="rgba(15,23,42,0.1)" strokeWidth="1" strokeDasharray="2 5" />
 
-        {/* Colored segments between nodes */}
-        {FLYWHEEL_NODES.map((node, i) => {
+        {/* Colored segments between each node */}
+        {FLYWHEEL_NODES.map((_, i) => {
           const startAngle = (i / FLYWHEEL_NODES.length) * 360 - 90;
           const endAngle = ((i + 1) / FLYWHEEL_NODES.length) * 360 - 90;
-          const startRad = (startAngle * Math.PI) / 180;
-          const endRad = (endAngle * Math.PI) / 180;
-          const x1 = CENTER + RADIUS * Math.cos(startRad);
-          const y1 = CENTER + RADIUS * Math.sin(startRad);
-          const x2 = CENTER + RADIUS * Math.cos(endRad);
-          const y2 = CENTER + RADIUS * Math.sin(endRad);
-          const nextNode = FLYWHEEL_NODES[(i + 1) % FLYWHEEL_NODES.length];
-
+          const sr = (startAngle * Math.PI) / 180;
+          const er = (endAngle * Math.PI) / 180;
+          const x1 = CENTER + RADIUS * Math.cos(sr);
+          const y1 = CENTER + RADIUS * Math.sin(sr);
+          const x2 = CENTER + RADIUS * Math.cos(er);
+          const y2 = CENTER + RADIUS * Math.sin(er);
           return (
-            <g key={`segment-${i}`}>
-              <path
-                d={`M ${x1} ${y1} A ${RADIUS} ${RADIUS} 0 0 1 ${x2} ${y2}`}
-                fill="none"
-                stroke={`url(#segGrad-${i})`}
-                strokeWidth="1.5"
-                opacity="0.4"
-              />
-              <defs>
-                <linearGradient id={`segGrad-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor={node.color} />
-                  <stop offset="100%" stopColor={nextNode.color} />
-                </linearGradient>
-              </defs>
-            </g>
+            <path
+              key={`seg-path-${i}`}
+              d={`M ${x1} ${y1} A ${RADIUS} ${RADIUS} 0 0 1 ${x2} ${y2}`}
+              fill="none"
+              stroke={`url(#seg-${i})`}
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
           );
         })}
 
-        {/* Flowing dots traveling clockwise along the ring */}
+        {/* Thin inner guide ring */}
+        <circle cx={CENTER} cy={CENTER} r={RADIUS - 40} fill="none" stroke="rgba(15,23,42,0.04)" strokeWidth="1" />
+
+        {/* Flowing particles */}
         {[0, 1, 2, 3, 4].map((i) => (
           <motion.circle
             key={`flow-${i}`}
-            r="3.5"
-            fill="#22D3EE"
-            filter="url(#nodeGlow)"
+            r="4"
+            fill="#0891B2"
+            filter="url(#softGlow)"
             animate={{
               cx: Array.from({ length: 73 }, (_, k) => CENTER + RADIUS * Math.cos(((k * 5 - 90 + i * 72) % 360) * Math.PI / 180)),
               cy: Array.from({ length: 73 }, (_, k) => CENTER + RADIUS * Math.sin(((k * 5 - 90 + i * 72) % 360) * Math.PI / 180)),
             }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 11, repeat: Infinity, ease: "linear" }}
           />
         ))}
       </svg>
 
-      {/* Center label */}
-      <div
-        className="absolute flex flex-col items-center justify-center"
+      {/* Center hub */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 220, delay: 0.2 }}
+        className="absolute flex flex-col items-center justify-center rounded-full"
         style={{
-          left: CENTER - 90,
-          top: CENTER - 40,
-          width: 180,
-          height: 80,
+          width: 170,
+          height: 170,
+          left: CENTER - 85,
+          top: CENTER - 85,
+          background: "radial-gradient(circle, #ffffff 0%, #f0fdff 55%, #faf5ff 100%)",
+          border: "1px solid rgba(8,145,178,0.15)",
+          boxShadow:
+            "0 25px 60px -10px rgba(8,145,178,0.2), 0 0 70px rgba(124,58,237,0.08), inset 0 2px 10px rgba(255,255,255,0.9)",
         }}
       >
-        <div
-          className="text-[11px] font-bold tracking-[0.3em] uppercase text-center leading-tight"
-          style={{ color: "rgba(255,255,255,0.25)" }}
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+          className="w-14 h-14 rounded-full flex items-center justify-center mb-1"
+          style={{
+            background: "linear-gradient(135deg, rgba(8,145,178,0.15), rgba(124,58,237,0.1))",
+            border: "1.5px solid rgba(8,145,178,0.2)",
+          }}
         >
-          Turbo Loop
-        </div>
-        <div
-          className="text-[11px] font-bold tracking-[0.3em] uppercase text-center leading-tight"
-          style={{ color: "rgba(255,255,255,0.18)" }}
+          <InfinityIcon className="w-7 h-7" style={{ color: "#0891B2" }} strokeWidth={2.5} />
+        </motion.div>
+        <span
+          className="text-[10px] font-bold tracking-[0.3em]"
+          style={{
+            background: "linear-gradient(135deg, #0891B2, #7C3AED)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
         >
-          Flywheel
-        </div>
-      </div>
+          TURBO LOOP
+        </span>
+        <span className="text-[8px] text-slate-400 tracking-[0.2em] mt-0.5">FLYWHEEL</span>
+      </motion.div>
 
-      {/* Nodes */}
+      {/* Nodes (with outside labels) */}
       {FLYWHEEL_NODES.map((node, i) => {
         const angle = (i / FLYWHEEL_NODES.length) * 360 - 90;
         const rad = (angle * Math.PI) / 180;
@@ -240,32 +254,31 @@ function CircularFlywheel({ activeNode }: { activeNode: number }) {
         const y = CENTER + RADIUS * Math.sin(rad);
         const isActive = activeNode === i;
 
-        // Position labels on the outside of the ring
-        const labelAngle = angle;
-        const labelIsLeft = labelAngle > 90 && labelAngle < 270;
-        const labelRadius = RADIUS + 70;
-        const lx = CENTER + labelRadius * Math.cos(rad);
-        const ly = CENTER + labelRadius * Math.sin(rad);
+        // Label placement (push outward from center)
+        const labelIsLeft = Math.cos(rad) < -0.1;
+        const labelIsRight = Math.cos(rad) > 0.1;
+        const labelR = RADIUS + 78;
+        const lx = CENTER + labelR * Math.cos(rad);
+        const ly = CENTER + labelR * Math.sin(rad);
 
         return (
           <div key={node.label}>
-            {/* Node circle */}
+            {/* Node — gradient-filled "marble" */}
             <motion.div
               initial={{ scale: 0.4, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.08, type: "spring", stiffness: 220 }}
+              transition={{ delay: 0.25 + i * 0.08, type: "spring", stiffness: 220 }}
               className="absolute flex items-center justify-center rounded-full"
               style={{
-                left: x - 32,
-                top: y - 32,
-                width: 64,
-                height: 64,
-                background: "#0B1220",
-                border: `2.5px solid ${node.color}`,
+                left: x - 34,
+                top: y - 34,
+                width: 68,
+                height: 68,
+                background: `radial-gradient(circle at 30% 30%, ${node.softColor}, ${node.color})`,
                 boxShadow: isActive
-                  ? `0 0 36px ${node.color}, 0 0 12px ${node.color}, inset 0 0 14px ${node.color}40`
-                  : `0 0 18px ${node.color}55, inset 0 0 10px ${node.color}25`,
+                  ? `0 0 0 5px ${node.color}25, 0 12px 35px -5px ${node.color}, inset -2px -2px 12px ${node.color}90, inset 3px 3px 10px rgba(255,255,255,0.35)`
+                  : `0 8px 24px -4px ${node.color}70, inset -2px -2px 10px ${node.color}70, inset 3px 3px 10px rgba(255,255,255,0.3)`,
               }}
               animate={isActive ? { scale: [1, 1.12, 1] } : { scale: 1 }}
               transition={{ duration: 0.8 }}
@@ -273,15 +286,24 @@ function CircularFlywheel({ activeNode }: { activeNode: number }) {
               <span
                 className="font-bold text-2xl tabular-nums"
                 style={{
-                  color: node.color,
-                  textShadow: `0 0 10px ${node.color}70`,
+                  color: "white",
+                  textShadow: `0 2px 4px ${node.color}`,
                 }}
               >
                 {node.n}
               </span>
+              {isActive && (
+                <motion.div
+                  className="absolute inset-0 rounded-full pointer-events-none"
+                  initial={{ opacity: 0.5, scale: 1 }}
+                  animate={{ opacity: 0, scale: 1.7 }}
+                  transition={{ duration: 1.2 }}
+                  style={{ border: `2px solid ${node.color}` }}
+                />
+              )}
             </motion.div>
 
-            {/* Label (positioned based on angle) */}
+            {/* Label on the outside */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -289,21 +311,16 @@ function CircularFlywheel({ activeNode }: { activeNode: number }) {
               transition={{ delay: 0.4 + i * 0.08 }}
               className="absolute"
               style={{
-                left: labelIsLeft ? lx - 130 : lx,
+                left: labelIsLeft ? lx - 132 : labelIsRight ? lx - 8 : lx - 70,
                 top: ly - 18,
-                width: 130,
-                textAlign: labelIsLeft ? "right" : "left",
+                width: 140,
+                textAlign: labelIsLeft ? "right" : labelIsRight ? "left" : "center",
               }}
             >
-              <div
-                className="text-xs font-bold tracking-wider uppercase leading-tight"
-                style={{ color: node.color }}
-              >
+              <div className="text-[11px] font-bold tracking-wider uppercase leading-tight" style={{ color: node.color }}>
                 {node.label}
               </div>
-              <div className="text-[10px] text-white/45 mt-0.5 leading-tight">
-                {node.sub}
-              </div>
+              <div className="text-[10px] text-slate-500 mt-0.5 leading-tight">{node.sub}</div>
             </motion.div>
           </div>
         );
@@ -312,7 +329,6 @@ function CircularFlywheel({ activeNode }: { activeNode: number }) {
   );
 }
 
-/** Mobile layout: vertical stack of nodes */
 function MobileFlywheelList({ activeNode }: { activeNode: number }) {
   return (
     <div className="max-w-sm mx-auto space-y-2">
@@ -328,18 +344,17 @@ function MobileFlywheelList({ activeNode }: { activeNode: number }) {
             transition={{ delay: i * 0.07 }}
             className="flex items-center gap-3 p-3 rounded-xl"
             style={{
-              background: isActive ? `${node.color}18` : "rgba(255,255,255,0.02)",
-              border: `1px solid ${isActive ? node.color : "rgba(255,255,255,0.06)"}${isActive ? "" : ""}`,
-              boxShadow: isActive ? `0 6px 24px -6px ${node.color}60` : "none",
+              background: isActive ? `${node.softColor}` : "white",
+              border: `1px solid ${isActive ? node.color : "rgba(15,23,42,0.06)"}`,
+              boxShadow: isActive ? `0 6px 24px -6px ${node.color}55` : "0 2px 8px -2px rgba(0,0,0,0.04)",
             }}
           >
             <div
-              className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 font-bold text-base"
+              className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-white font-bold"
               style={{
-                background: "#0B1220",
-                border: `2px solid ${node.color}`,
-                color: node.color,
-                boxShadow: `0 0 14px ${node.color}50, inset 0 0 8px ${node.color}20`,
+                background: `radial-gradient(circle at 30% 30%, ${node.softColor}, ${node.color})`,
+                boxShadow: `0 4px 12px -2px ${node.color}60, inset -1px -1px 6px ${node.color}80`,
+                textShadow: `0 1px 2px ${node.color}`,
               }}
             >
               {node.n}
@@ -348,9 +363,9 @@ function MobileFlywheelList({ activeNode }: { activeNode: number }) {
               <div className="text-[11px] font-bold tracking-wider uppercase" style={{ color: node.color }}>
                 {node.label}
               </div>
-              <div className="text-xs text-white/50 truncate">{node.sub}</div>
+              <div className="text-xs text-slate-500 truncate">{node.sub}</div>
             </div>
-            <Icon className="w-4 h-4 text-white/30 shrink-0" />
+            <Icon className="w-4 h-4 text-slate-300 shrink-0" />
           </motion.div>
         );
       })}
@@ -358,51 +373,46 @@ function MobileFlywheelList({ activeNode }: { activeNode: number }) {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Main section
+// ---------------------------------------------------------------------------
+
 export default function FlywheelSection() {
   const [activeTab, setActiveTab] = useState<Tab["key"]>("lp");
   const [activeNode, setActiveNode] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setActiveNode((n) => (n + 1) % FLYWHEEL_NODES.length);
-    }, 1800);
+    const t = setInterval(() => setActiveNode((n) => (n + 1) % FLYWHEEL_NODES.length), 1800);
     return () => clearInterval(t);
   }, []);
 
   const tab = TABS.find((t) => t.key === activeTab)!;
 
   return (
-    <section
-      id="flywheel"
-      className="relative py-20 md:py-28 overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(ellipse at top, #0F172A 0%, #0A0F1E 50%, #030712 100%)",
-      }}
-    >
-      {/* Grid pattern background */}
+    <section id="flywheel" className="relative py-24 md:py-32 overflow-hidden">
+      {/* Subtle dotted pattern bg */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-40"
+        className="absolute inset-0 pointer-events-none opacity-70"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(34,211,238,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.05) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          maskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)",
+            "radial-gradient(rgba(15,23,42,0.06) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          maskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
         }}
       />
-      {/* Ambient glows */}
+      {/* Ambient color glows */}
       <div
-        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 60%)" }}
+        className="absolute top-0 left-1/4 w-[700px] h-[700px] pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(8,145,178,0.08) 0%, transparent 55%)" }}
       />
       <div
-        className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 60%)" }}
+        className="absolute bottom-0 right-1/4 w-[700px] h-[700px] pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 55%)" }}
       />
 
       <div className="container relative z-10">
-        {/* Top label */}
+        {/* Top badge */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -410,15 +420,15 @@ export default function FlywheelSection() {
           className="flex justify-center mb-6"
         >
           <div
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
             style={{
-              background: "rgba(34,211,238,0.08)",
-              border: "1px solid rgba(34,211,238,0.35)",
-              boxShadow: "0 0 20px rgba(34,211,238,0.15)",
+              background: "linear-gradient(135deg, rgba(8,145,178,0.1), rgba(124,58,237,0.1))",
+              border: "1px solid rgba(8,145,178,0.25)",
+              boxShadow: "0 0 30px rgba(8,145,178,0.15)",
             }}
           >
-            <Target className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-xs font-bold text-cyan-300 tracking-[0.3em] uppercase">Revenue Model</span>
+            <Target className="w-3.5 h-3.5 text-cyan-700" />
+            <span className="text-xs font-bold text-cyan-800 tracking-[0.3em] uppercase">Revenue Model</span>
           </div>
         </motion.div>
 
@@ -427,14 +437,14 @@ export default function FlywheelSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] mb-5"
+          className="text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.02] mb-5 tracking-tight"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          <span className="text-white">How Turbo Loop</span>
+          <span className="text-slate-900">How Turbo Loop</span>
           <br />
           <span
             style={{
-              background: "linear-gradient(135deg, #22D3EE 0%, #A855F7 50%, #EC4899 100%)",
+              background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 50%, #EC4899 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -447,85 +457,97 @@ export default function FlywheelSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center text-sm md:text-base text-white/50 max-w-2xl mx-auto mb-10 font-mono"
+          className="text-center text-base md:text-lg text-slate-500 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
           Three interconnected revenue streams power the Turbo Loop flywheel — creating a self-sustaining ecosystem of yield and growth.
         </motion.p>
 
-        {/* Tab selector */}
-        <div className="flex justify-center gap-2 md:gap-3 mb-8 flex-wrap">
+        {/* Tabs */}
+        <div className="flex justify-center gap-2 md:gap-3 mb-10 flex-wrap">
           {TABS.map((t) => {
             const active = t.key === activeTab;
             return (
               <button
                 key={t.key}
                 onClick={() => setActiveTab(t.key)}
-                className="px-5 md:px-7 py-3 rounded-lg text-xs md:text-sm font-bold tracking-wider uppercase font-mono transition-all duration-300"
+                className="group relative px-6 md:px-8 py-3 rounded-2xl text-sm font-bold tracking-wide transition-all duration-300"
                 style={{
-                  background: active ? `${t.titleColor}12` : "rgba(255,255,255,0.03)",
-                  border: `1.5px solid ${active ? t.titleColor : "rgba(255,255,255,0.08)"}`,
-                  color: active ? t.titleColor : "rgba(255,255,255,0.55)",
-                  boxShadow: active ? `0 0 25px ${t.titleColor}35, inset 0 0 15px ${t.titleColor}10` : "none",
+                  background: active
+                    ? `linear-gradient(135deg, ${t.titleColor}16, ${t.titleColor}08)`
+                    : "rgba(255,255,255,0.75)",
+                  border: `1.5px solid ${active ? t.titleColor : "rgba(15,23,42,0.08)"}`,
+                  color: active ? t.titleColor : "#475569",
+                  boxShadow: active
+                    ? `0 10px 30px -8px ${t.titleColor}40, 0 0 0 4px ${t.titleColor}10`
+                    : "0 2px 10px -2px rgba(0,0,0,0.04)",
                 }}
               >
-                {t.key === "lp" && "LP Rewards"}
-                {t.key === "swap" && "Swap Fees"}
-                {t.key === "buy" && "Buy Fees"}
+                <span className="relative z-10">{t.tabLabel}</span>
+                {active && (
+                  <motion.div
+                    layoutId="tabUnderline"
+                    className="absolute bottom-1.5 left-6 right-6 h-[2px] rounded-full"
+                    style={{ background: t.titleColor }}
+                  />
+                )}
               </button>
             );
           })}
         </div>
 
-        {/* Active tab panel */}
-        <div className="max-w-5xl mx-auto mb-20">
+        {/* Active tab panel — premium light card */}
+        <div className="max-w-5xl mx-auto mb-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={tab.key}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.35 }}
-              className="relative p-6 md:p-10 rounded-2xl overflow-hidden"
+              className="relative p-8 md:p-12 rounded-3xl overflow-hidden"
               style={{
-                background: "linear-gradient(180deg, rgba(15,23,42,0.85) 0%, rgba(3,7,18,0.95) 100%)",
-                border: `1px solid ${tab.titleColor}30`,
-                boxShadow: `0 20px 60px -15px ${tab.titleColor}30, inset 0 0 40px ${tab.titleColor}06`,
+                background: "linear-gradient(180deg, #ffffff 0%, #fafbff 100%)",
+                border: "1px solid rgba(15,23,42,0.06)",
+                boxShadow: `0 30px 80px -20px ${tab.titleColor}30, 0 10px 25px -10px rgba(0,0,0,0.08)`,
               }}
             >
-              {/* Corner accent */}
+              {/* corner glow */}
               <div
-                className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none opacity-40"
-                style={{ background: `radial-gradient(circle, ${tab.titleColor}25 0%, transparent 70%)` }}
+                className="absolute -top-20 -right-20 w-80 h-80 rounded-full pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle, ${tab.titleColor}15 0%, transparent 65%)`,
+                }}
+              />
+              {/* subtle top accent */}
+              <div
+                className="absolute top-0 left-20 right-20 h-[2px] rounded-full"
+                style={{ background: `linear-gradient(90deg, transparent, ${tab.titleColor}80, transparent)` }}
               />
 
-              <div className="grid md:grid-cols-5 gap-8 items-center relative z-10">
-                {/* Left: badge + title + desc */}
+              <div className="grid md:grid-cols-5 gap-10 items-center relative z-10">
+                {/* Left: narrative */}
                 <div className="md:col-span-2">
                   <div
                     className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4"
                     style={{
-                      background: `${tab.badgeColor}12`,
-                      border: `1px solid ${tab.badgeColor}50`,
+                      background: `${tab.tagColor}10`,
+                      border: `1px solid ${tab.tagColor}30`,
                     }}
                   >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: tab.badgeColor }} />
-                    <span className="text-[10px] font-bold tracking-[0.25em] uppercase font-mono" style={{ color: tab.badgeColor }}>
-                      {tab.badge}
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: tab.tagColor }} />
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: tab.tagColor }}>
+                      {tab.tag}
                     </span>
                   </div>
-
-                  <h3
-                    className="text-2xl md:text-3xl font-bold mb-3 leading-tight"
-                    style={{ color: tab.titleColor }}
-                  >
+                  <h3 className="text-2xl md:text-3xl font-bold leading-tight mb-3" style={{ color: tab.titleColor }}>
                     {tab.title}
                   </h3>
-                  <p className="text-sm md:text-base text-white/60 leading-relaxed">{tab.desc}</p>
+                  <p className="text-sm md:text-base text-slate-600 leading-relaxed">{tab.desc}</p>
                 </div>
 
-                {/* Right: Flow diagram */}
+                {/* Right: flow diagram */}
                 <div className="md:col-span-3">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between px-2">
                     <FlowIcon {...tab.flow[0]} />
                     <FlowArrow color={tab.titleColor} />
                     <FlowIcon {...tab.flow[1]} />
@@ -538,90 +560,98 @@ export default function FlywheelSection() {
           </AnimatePresence>
         </div>
 
-        {/* Divider + flywheel title */}
+        {/* Flywheel section — new header */}
         <div className="flex items-center justify-center gap-4 mb-4">
-          <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-transparent to-cyan-500/50" />
+          <div className="h-px w-14 md:w-24" style={{ background: "linear-gradient(90deg, transparent, rgba(8,145,178,0.4))" }} />
           <motion.div
             className="flex items-center gap-2 px-4 py-1.5 rounded-full"
             style={{
-              background: "rgba(34,211,238,0.08)",
-              border: "1px solid rgba(34,211,238,0.3)",
+              background: "linear-gradient(135deg, rgba(8,145,178,0.08), rgba(124,58,237,0.08))",
+              border: "1px solid rgba(8,145,178,0.2)",
             }}
-            animate={{ boxShadow: ["0 0 0 rgba(34,211,238,0)", "0 0 25px rgba(34,211,238,0.3)", "0 0 0 rgba(34,211,238,0)"] }}
+            animate={{ boxShadow: ["0 0 0 rgba(8,145,178,0)", "0 0 28px rgba(8,145,178,0.25)", "0 0 0 rgba(8,145,178,0)"] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
-              <RotateCw className="w-3.5 h-3.5 text-cyan-400" />
+              <RotateCw className="w-3.5 h-3.5 text-cyan-700" />
             </motion.div>
-            <span className="text-[10px] font-bold text-cyan-300 tracking-[0.3em] uppercase font-mono">Continuous Loop</span>
+            <span className="text-[10px] font-bold text-cyan-800 tracking-[0.3em] uppercase">Continuous Loop</span>
           </motion.div>
-          <div className="h-px flex-1 max-w-[80px] bg-gradient-to-l from-transparent to-cyan-500/50" />
+          <div className="h-px w-14 md:w-24" style={{ background: "linear-gradient(270deg, transparent, rgba(8,145,178,0.4))" }} />
         </div>
 
         <motion.h3
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3"
+          className="text-center text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-2 tracking-tight"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          <span className="text-white">Turbo Loop </span>
+          <span className="text-slate-900">The </span>
           <span
             style={{
-              background: "linear-gradient(135deg, #22D3EE 0%, #60A5FA 100%)",
+              background: "linear-gradient(135deg, #0891B2 0%, #60A5FA 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
           >
-            Flywheel
+            Velocity Cycle
           </span>
         </motion.h3>
-        <p className="text-center text-xs md:text-sm text-white/40 tracking-[0.2em] uppercase mb-14 font-mono">
-          A Self-Sustaining Loop Of Value
+        <p className="text-center text-xs md:text-sm text-slate-500 tracking-[0.25em] uppercase mb-16">
+          A self-sustaining loop of value
         </p>
 
-        {/* Flywheel diagram */}
-        <div className="hidden md:block">
-          <CircularFlywheel activeNode={activeNode} />
+        <div className="hidden md:flex justify-center">
+          <Flywheel activeNode={activeNode} />
         </div>
         <div className="md:hidden">
           <MobileFlywheelList activeNode={activeNode} />
         </div>
 
-        {/* Bottom metrics row */}
+        {/* Bottom stats row */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mt-16 max-w-4xl mx-auto"
+          transition={{ delay: 0.4 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 mt-20 max-w-4xl mx-auto"
         >
           {[
-            { label: "Revenue Streams", value: "3", unit: "", color: "#22D3EE" },
-            { label: "Distribution", value: "Daily", unit: "", color: "#10B981" },
-            { label: "External Funding", value: "0", unit: "%", color: "#F59E0B" },
-            { label: "Loop Status", value: "Live", unit: "", color: "#34D399" },
-          ].map((stat, i) => (
-            <div
-              key={stat.label}
-              className="p-4 rounded-xl text-center"
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: `1px solid ${stat.color}30`,
-                boxShadow: `inset 0 0 20px ${stat.color}08`,
-              }}
-            >
-              <div className="flex items-baseline justify-center gap-0.5">
-                <span className="text-2xl md:text-3xl font-bold tabular-nums" style={{ color: stat.color }}>
-                  {stat.value}
-                </span>
-                {stat.unit && <span className="text-lg font-bold" style={{ color: stat.color }}>{stat.unit}</span>}
+            { label: "Revenue Streams",  value: "3",     unit: "",  icon: Sparkles, color: "#0891B2" },
+            { label: "Distribution",     value: "Daily", unit: "",  icon: Zap,      color: "#10B981" },
+            { label: "External Funding", value: "0",     unit: "%", icon: Shield,   color: "#D97706" },
+            { label: "Loop Status",      value: "Live",  unit: "",  icon: CheckCircle2, color: "#059669" },
+          ].map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div
+                key={stat.label}
+                className="group relative p-5 rounded-2xl"
+                style={{
+                  background: "linear-gradient(180deg, #ffffff 0%, #fafbff 100%)",
+                  border: `1px solid ${stat.color}25`,
+                  boxShadow: `0 10px 25px -8px ${stat.color}18, 0 2px 8px -2px rgba(0,0,0,0.04)`,
+                }}
+              >
+                <div
+                  className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ background: `${stat.color}12` }}
+                >
+                  <Icon className="w-4 h-4" style={{ color: stat.color }} />
+                </div>
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-3xl md:text-4xl font-bold tabular-nums" style={{ color: stat.color }}>
+                    {stat.value}
+                  </span>
+                  {stat.unit && <span className="text-2xl font-bold" style={{ color: stat.color }}>{stat.unit}</span>}
+                </div>
+                <div className="text-[11px] text-slate-500 mt-2 tracking-[0.15em] uppercase font-semibold">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-[10px] md:text-[11px] text-white/40 mt-1 tracking-widest uppercase font-mono">
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { LANGUAGE_FLAGS, getFlagUrl } from "@/lib/constants";
 import { Play, Film } from "lucide-react";
@@ -107,25 +108,34 @@ export default function VideoSection() {
         </div>
 
         {/* Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
           {filteredVideos.map((video, index) => {
             const ytId = video.youtubeUrl ? getYouTubeId(video.youtubeUrl) : null;
             const isPlaying = playingId === video.id;
             const langCode = LANGUAGE_FLAGS[video.language || ""] || "un";
 
             return (
-              <AnimatedSection key={video.id} delay={index * 0.06}>
+              <AnimatedSection key={video.id} delay={Math.min(index * 0.05, 0.3)}>
                 <div
-                  className="group rounded-xl overflow-hidden transition-all duration-400"
+                  className="group rounded-2xl overflow-hidden transition-all duration-400 relative"
                   style={{
-                    background: "rgba(255, 255, 255, 0.7)",
-                    border: "1px solid rgba(255,255,255,0.85)",
-                    backdropFilter: "blur(20px)",
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+                    background: "white",
+                    border: "1px solid rgba(15,23,42,0.06)",
+                    boxShadow: "0 6px 20px -6px rgba(15,23,42,0.06)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = "0 25px 50px -12px rgba(8,145,178,0.25), 0 8px 20px -4px rgba(0,0,0,0.06)";
+                    e.currentTarget.style.borderColor = "rgba(8,145,178,0.25)";
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 6px 20px -6px rgba(15,23,42,0.06)";
+                    e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
+                    e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
                   {/* Thumbnail / Player */}
-                  <div className="relative aspect-video bg-slate-100 overflow-hidden">
+                  <div className="relative aspect-video bg-slate-900 overflow-hidden">
                     {isPlaying && ytId ? (
                       <iframe
                         src={`https://www.youtube.com/embed/${ytId}?autoplay=1`}
@@ -139,45 +149,91 @@ export default function VideoSection() {
                           <img
                             src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
                             alt={video.title}
-                            className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
                         )}
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                        {/* Top dark gradient + bottom gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
 
-                        {/* Language badge with real flag */}
+                        {/* Language flag pill (top-left) */}
                         <div
-                          className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-white/90"
-                          style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(8px)" }}
+                          className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide"
+                          style={{
+                            background: "rgba(15,23,42,0.65)",
+                            color: "white",
+                            backdropFilter: "blur(10px)",
+                            border: "1px solid rgba(255,255,255,0.15)",
+                          }}
                         >
-                          <img src={getFlagUrl(langCode, 20)} alt="" className="w-4 h-3 object-cover rounded-sm" />
+                          <img src={getFlagUrl(langCode, 40)} alt="" className="w-4 h-3 object-cover rounded-sm" />
                           {video.language}
                         </div>
 
-                        {/* Play button */}
+                        {/* Duration / category pill (top-right) */}
+                        <div
+                          className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase"
+                          style={{
+                            background: "rgba(15,23,42,0.65)",
+                            color: "white",
+                            backdropFilter: "blur(10px)",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                          }}
+                        >
+                          {video.category === "presentation" ? "Intro" : video.category === "how-to-join" ? "How-To" : video.category === "withdraw-compound" ? "Tutorial" : "Other"}
+                        </div>
+
+                        {/* Play button — premium gradient */}
                         <button
                           onClick={() => setPlayingId(video.id)}
                           className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                          aria-label={`Play ${video.title}`}
                         >
-                          <div
-                            className="w-14 h-14 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300"
+                          <motion.div
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-16 h-16 rounded-full flex items-center justify-center relative"
                             style={{
-                              background: "rgba(255,255,255,0.85)",
-                              border: "2px solid rgba(8,145,178,0.3)",
-                              boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
-                              backdropFilter: "blur(8px)",
+                              background: "linear-gradient(135deg, #ffffff, #f1f5f9)",
+                              boxShadow: "0 8px 25px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5)",
                             }}
                           >
+                            {/* Pulsing ring on hover */}
+                            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                              style={{
+                                background: "radial-gradient(circle, rgba(8,145,178,0.3), transparent)",
+                                transform: "scale(1.5)",
+                              }}
+                            />
                             <Play className="h-6 w-6 text-cyan-600 ml-0.5 fill-cyan-600" />
-                          </div>
+                          </motion.div>
                         </button>
+
+                        {/* Title overlay at bottom of thumbnail */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                          <h4 className="text-sm font-bold text-white leading-tight line-clamp-2 drop-shadow-lg">
+                            {video.title}
+                          </h4>
+                        </div>
                       </>
                     )}
                   </div>
 
-                  {/* Info */}
-                  <div className="p-4 flex items-center justify-between gap-2">
-                    <h4 className="text-sm font-semibold text-slate-800 truncate flex-1">{video.title}</h4>
+                  {/* Footer info */}
+                  <div className="p-3.5 flex items-center justify-between gap-2 bg-white">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                        style={{
+                          background: "linear-gradient(135deg, rgba(8,145,178,0.1), rgba(124,58,237,0.08))",
+                        }}
+                      >
+                        <Play className="w-3.5 h-3.5 text-cyan-600 fill-cyan-600 ml-0.5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400">YouTube</div>
+                        <div className="text-xs font-semibold text-slate-700 truncate">{video.language}</div>
+                      </div>
+                    </div>
                     <ShareButton
                       path="/#videos"
                       message={`🎥 ${video.title}\n\nWatch on Turbo Loop — the complete DeFi ecosystem on BSC.${video.youtubeUrl ? "\n\n" + video.youtubeUrl : ""}`}

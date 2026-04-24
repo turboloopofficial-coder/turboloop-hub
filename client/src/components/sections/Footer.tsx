@@ -1,39 +1,105 @@
 import { SITE } from "@/lib/constants";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { ExternalLink, ArrowUpRight, Send, MessageCircle, Twitter, Youtube, Shield, Zap, Globe } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 
 export default function Footer() {
   return (
-    <footer className="relative" style={{ background: "rgba(248,250,252,0.95)", backdropFilter: "blur(20px)" }}>
+    <footer className="relative overflow-hidden">
       {/* Top gradient line */}
-      <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(8,145,178,0.15), rgba(124,58,237,0.15), transparent)" }} />
+      <div
+        className="h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, rgba(8,145,178,0.3), rgba(124,58,237,0.3), transparent)",
+        }}
+      />
 
-      <div className="container py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-xl font-bold">
-                <span className="text-slate-800">Turbo</span>
-                <span className="text-cyan-600">Loop</span>
-              </span>
+      {/* Dramatic dark hero strip */}
+      <div
+        className="relative"
+        style={{
+          background:
+            "linear-gradient(180deg, #0F172A 0%, #1E293B 60%, #0F172A 100%)",
+        }}
+      >
+        {/* Top glow */}
+        <div
+          className="absolute top-0 left-0 right-0 h-40 pointer-events-none opacity-40"
+          style={{
+            background:
+              "radial-gradient(ellipse at top, rgba(8,145,178,0.4), transparent 60%)",
+          }}
+        />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-30"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        {/* Decorative orbs */}
+        <div
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(8,145,178,0.15), transparent 70%)",
+            filter: "blur(60px)",
+          }}
+        />
+        <div
+          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(124,58,237,0.12), transparent 70%)",
+            filter: "blur(60px)",
+          }}
+        />
+
+        <div className="relative container py-16 md:py-20">
+          {/* Top CTA banner */}
+          <div className="mb-14 flex flex-col md:flex-row items-center justify-between gap-6 pb-12"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <div className="text-center md:text-left">
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase mb-3"
+                style={{
+                  background: "rgba(8,145,178,0.15)",
+                  border: "1px solid rgba(8,145,178,0.25)",
+                  color: "#67E8F9",
+                }}
+              >
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
+                </span>
+                Live on BSC
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight max-w-md">
+                Ready to Join the Loop?
+              </h3>
+              <p className="text-slate-400 text-sm mt-1">
+                The complete DeFi ecosystem awaits.
+              </p>
             </div>
-            <p className="text-sm text-slate-500 leading-relaxed mb-6">
-              The Complete DeFi Ecosystem on Binance Smart Chain.
-            </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href={SITE.mainApp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:brightness-110"
+                className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 hover:scale-105"
                 style={{
-                  background: "rgba(8,145,178,0.08)",
-                  border: "1px solid rgba(8,145,178,0.2)",
-                  color: "#0891B2",
+                  background:
+                    "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                  color: "white",
+                  boxShadow:
+                    "0 12px 30px -8px rgba(8,145,178,0.5), 0 6px 18px -4px rgba(124,58,237,0.4)",
                 }}
               >
-                Launch App <ArrowUpRight className="h-3.5 w-3.5" />
+                Launch App
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
               <ShareButton
                 path="/"
@@ -43,78 +109,257 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Explore */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-400 mb-5 uppercase tracking-widest">Explore</h4>
-            <div className="space-y-3">
-              {[
-                { href: "#ecosystem", label: "Ecosystem" },
-                { href: "#leaderboard", label: "Global Growth" },
-                { href: "#flywheel", label: "Revenue Model" },
-                { href: "#promotions", label: "Promotions" },
-              ].map((link) => (
-                <a key={link.href} href={link.href} className="block text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-400 mb-5 uppercase tracking-widest">Resources</h4>
-            <div className="space-y-3">
-              {[
-                { href: "#videos", label: "Video Hub" },
-                { href: "/feed", label: "Blog" },
-                { href: "#events", label: "Events" },
-                { href: "#roadmap", label: "Roadmap" },
-                { href: "#trust", label: "Security" },
-              ].map((link) => (
-                <a key={link.href} href={link.href} className="block text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Community */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-400 mb-5 uppercase tracking-widest">Community</h4>
-            <div className="space-y-3">
-              <a href={SITE.socials.telegramCommunity} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                Telegram Community <ExternalLink className="h-3 w-3 opacity-50" />
-              </a>
-              <a href={SITE.socials.telegramChat} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                Telegram Chat <ExternalLink className="h-3 w-3 opacity-50" />
-              </a>
-              <a href={SITE.socials.twitter} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                X (Twitter) <ExternalLink className="h-3 w-3 opacity-50" />
-              </a>
-              <a href={SITE.socials.youtube} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                YouTube <ExternalLink className="h-3 w-3 opacity-50" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="mt-14 pt-8" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-slate-400">
-              &copy; {new Date().getFullYear()} Turbo Loop. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
-              <p className="text-xs text-slate-400">
-                turboloop.tech is the community hub &middot;{" "}
-                <a href={SITE.mainApp} target="_blank" rel="noopener noreferrer" className="text-cyan-600/60 hover:text-cyan-600 transition-colors">
-                  turboloop.io
-                </a>{" "}
-                is the main dApp
+          {/* Main columns */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+            {/* Brand */}
+            <div className="md:col-span-4">
+              <div className="flex items-center gap-2 mb-4">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                    boxShadow: "0 8px 20px -6px rgba(8,145,178,0.5)",
+                  }}
+                >
+                  <span className="text-white font-bold text-sm">TL</span>
+                </div>
+                <span className="text-2xl font-bold">
+                  <span className="text-white">Turbo</span>
+                  <span
+                    className="ml-0.5"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #22D3EE 0%, #A78BFA 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Loop
+                  </span>
+                </span>
+              </div>
+              <p className="text-sm text-slate-400 leading-relaxed mb-5 max-w-sm">
+                The Complete DeFi Ecosystem on Binance Smart Chain. Sustainable
+                yield. Transparent by design. Open to everyone.
               </p>
-              <a href="/admin/login" className="text-xs text-slate-300 hover:text-slate-500 transition-colors duration-300">
-                Admin
-              </a>
+
+              {/* Trust badges micro */}
+              <div className="flex flex-wrap gap-2 mb-5">
+                {[
+                  { icon: Shield, label: "Audited" },
+                  { icon: Zap, label: "Renounced" },
+                  { icon: Globe, label: "On-Chain" },
+                ].map((b) => (
+                  <div
+                    key={b.label}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      color: "#94A3B8",
+                    }}
+                  >
+                    <b.icon className="w-3 h-3 text-cyan-400" />
+                    {b.label}
+                  </div>
+                ))}
+              </div>
+
+              {/* Social icons row */}
+              <div className="flex items-center gap-2">
+                {[
+                  {
+                    href: SITE.socials.telegramCommunity,
+                    icon: Send,
+                    label: "Telegram",
+                  },
+                  {
+                    href: SITE.socials.telegramChat,
+                    icon: MessageCircle,
+                    label: "Chat",
+                  },
+                  {
+                    href: SITE.socials.twitter,
+                    icon: Twitter,
+                    label: "X / Twitter",
+                  },
+                  {
+                    href: SITE.socials.youtube,
+                    icon: Youtube,
+                    label: "YouTube",
+                  },
+                ].map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      color: "#94A3B8",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background =
+                        "linear-gradient(135deg, rgba(8,145,178,0.2), rgba(124,58,237,0.2))";
+                      e.currentTarget.style.borderColor =
+                        "rgba(8,145,178,0.4)";
+                      e.currentTarget.style.color = "#67E8F9";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.04)";
+                      e.currentTarget.style.borderColor =
+                        "rgba(255,255,255,0.08)";
+                      e.currentTarget.style.color = "#94A3B8";
+                    }}
+                  >
+                    <s.icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Explore */}
+            <div className="md:col-span-2">
+              <h4 className="text-[11px] font-bold text-slate-500 mb-5 uppercase tracking-[0.2em]">
+                Explore
+              </h4>
+              <ul className="space-y-2.5">
+                {[
+                  { href: "#ecosystem", label: "Ecosystem" },
+                  { href: "#leaderboard", label: "Global Growth" },
+                  { href: "#flywheel", label: "Revenue Model" },
+                  { href: "#promotions", label: "Promotions" },
+                ].map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="group inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-300"
+                    >
+                      <span className="w-0 group-hover:w-2 h-px bg-cyan-400 transition-all duration-300" />
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div className="md:col-span-3">
+              <h4 className="text-[11px] font-bold text-slate-500 mb-5 uppercase tracking-[0.2em]">
+                Resources
+              </h4>
+              <ul className="space-y-2.5">
+                {[
+                  { href: "#videos", label: "Video Hub" },
+                  { href: "/feed", label: "Blog & Updates" },
+                  { href: "#events", label: "Live Events" },
+                  { href: "#roadmap", label: "Roadmap" },
+                  { href: "#trust", label: "Security & Audit" },
+                  { href: "#faq", label: "FAQ" },
+                ].map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="group inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-300"
+                    >
+                      <span className="w-0 group-hover:w-2 h-px bg-cyan-400 transition-all duration-300" />
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Community */}
+            <div className="md:col-span-3">
+              <h4 className="text-[11px] font-bold text-slate-500 mb-5 uppercase tracking-[0.2em]">
+                Community
+              </h4>
+              <ul className="space-y-2.5">
+                <li>
+                  <a
+                    href={SITE.socials.telegramCommunity}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-300"
+                  >
+                    Telegram Community
+                    <ExternalLink className="h-3 w-3 opacity-50 group-hover:opacity-100" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SITE.socials.telegramChat}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-300"
+                  >
+                    Telegram Chat
+                    <ExternalLink className="h-3 w-3 opacity-50 group-hover:opacity-100" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SITE.socials.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-300"
+                  >
+                    X (Twitter)
+                    <ExternalLink className="h-3 w-3 opacity-50 group-hover:opacity-100" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SITE.socials.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors duration-300"
+                  >
+                    YouTube
+                    <ExternalLink className="h-3 w-3 opacity-50 group-hover:opacity-100" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom row */}
+          <div
+            className="mt-14 pt-8"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+              <p className="text-xs text-slate-500">
+                &copy; {new Date().getFullYear()} Turbo Loop. All rights reserved.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                <p className="text-xs text-slate-500">
+                  <span className="text-slate-400">turboloop.tech</span> is the
+                  community hub
+                  <span className="mx-2 text-slate-600">·</span>
+                  <a
+                    href={SITE.mainApp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400/70 hover:text-cyan-400 transition-colors"
+                  >
+                    turboloop.io
+                  </a>{" "}
+                  is the main dApp
+                </p>
+                <a
+                  href="/admin/login"
+                  className="text-xs text-slate-600 hover:text-slate-400 transition-colors duration-300"
+                >
+                  Admin
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FLYWHEEL_STEPS, REVENUE_SOURCES } from "@/lib/constants";
 import {
   Droplets, ArrowLeftRight, CreditCard, Wallet, TrendingUp, Clock,
-  RotateCw, Zap, ArrowRight, CheckCircle2,
+  RotateCw, Zap, ArrowRight, ArrowDown, CheckCircle2,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -18,144 +18,212 @@ const REVENUE_ICONS: Record<string, React.ElementType> = {
 const REVENUE_COLORS = ["#0891B2", "#059669", "#9333EA"];
 const REVENUE_STATS = ["0.3% per swap", "LP yield daily", "Trading fees"];
 
-/** Compact node positioned around a smaller ring */
-function FlywheelNode({
-  step, index, total, color, Icon, activeStep,
-}: {
-  step: { label: string; short: string };
-  index: number;
-  total: number;
-  color: string;
-  Icon: React.ElementType;
-  activeStep: number;
-}) {
-  const angle = (index / total) * 360 - 90;
-  const rad = (angle * Math.PI) / 180;
-  const radius = 40;
-  const x = 50 + radius * Math.cos(rad);
-  const y = 50 + radius * Math.sin(rad);
-  const isActive = activeStep === index;
+/** Fixed-size flywheel with strict pixel sizing and dense internals */
+function FlywheelCore({ activeStep }: { activeStep: number }) {
+  const SIZE = 400;
+  const RADIUS = 150;
+  const CENTER = SIZE / 2;
 
   return (
-    <div
-      className="absolute"
-      style={{
-        left: `${x}%`,
-        top: `${y}%`,
-        transform: "translate(-50%, -50%)",
-      }}
-    >
+    <div className="relative mx-auto" style={{ width: SIZE, height: SIZE }}>
+      {/* SVG — the base diagram (orbits, arcs, connecting lines, particles) */}
+      <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
+        <defs>
+          <linearGradient id="orbitGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#0891B2" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#7C3AED" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#D97706" stopOpacity="0.4" />
+          </linearGradient>
+          <radialGradient id="hubGrad">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="60%" stopColor="#f0fdff" />
+            <stop offset="100%" stopColor="#faf5ff" />
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Outer dashed ring */}
+        <circle cx={CENTER} cy={CENTER} r={RADIUS + 20} fill="none" stroke="rgba(8,145,178,0.15)" strokeWidth="1.5" strokeDasharray="3 5" />
+
+        {/* Main ring with gradient */}
+        <circle cx={CENTER} cy={CENTER} r={RADIUS} fill="none" stroke="url(#orbitGrad)" strokeWidth="2" opacity="0.7" />
+
+        {/* Inner subtle ring */}
+        <circle cx={CENTER} cy={CENTER} r={RADIUS - 40} fill="none" stroke="rgba(8,145,178,0.08)" strokeWidth="1" />
+
+        {/* Animated rotating accent arc */}
+        <motion.g animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: `${CENTER}px ${CENTER}px` }}>
+          <path
+            d={`M ${CENTER} ${CENTER - RADIUS} A ${RADIUS} ${RADIUS} 0 0 1 ${CENTER + RADIUS * 0.7} ${CENTER - RADIUS * 0.7}`}
+            fill="none"
+            stroke="#0891B2"
+            strokeWidth="3"
+            strokeLinecap="round"
+            opacity="0.8"
+            filter="url(#glow)"
+          />
+        </motion.g>
+
+        {/* Reverse rotating arc */}
+        <motion.g animate={{ rotate: -360 }} transition={{ duration: 14, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: `${CENTER}px ${CENTER}px` }}>
+          <path
+            d={`M ${CENTER + RADIUS * 0.6} ${CENTER + RADIUS * 0.8} A ${RADIUS} ${RADIUS} 0 0 1 ${CENTER - RADIUS * 0.8} ${CENTER + RADIUS * 0.6}`}
+            fill="none"
+            stroke="#D97706"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.5"
+          />
+        </motion.g>
+
+        {/* Flowing particles — 5 dots traversing the ring */}
+        {[0, 1, 2, 3, 4].map((i) => (
+          <motion.circle
+            key={i}
+            r="4"
+            fill="#0891B2"
+            filter="url(#glow)"
+            animate={{
+              cx: Array.from({ length: 61 }, (_, k) => CENTER + RADIUS * Math.cos((k * 6 - 90 + i * 72) * Math.PI / 180)),
+              cy: Array.from({ length: 61 }, (_, k) => CENTER + RADIUS * Math.sin((k * 6 - 90 + i * 72) * Math.PI / 180)),
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          />
+        ))}
+      </svg>
+
+      {/* Center hub (HTML — allows gradient text) */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.2 + index * 0.08, type: "spring", stiffness: 220 }}
-        className="relative flex flex-col items-center"
+        transition={{ type: "spring", stiffness: 220, delay: 0.2 }}
+        className="absolute flex flex-col items-center justify-center rounded-full"
+        style={{
+          width: 140,
+          height: 140,
+          left: CENTER - 70,
+          top: CENTER - 70,
+          background: "radial-gradient(circle, #ffffff 0%, #f0fdff 60%, #faf5ff 100%)",
+          border: "2px solid rgba(8,145,178,0.22)",
+          boxShadow:
+            "0 20px 50px -10px rgba(8,145,178,0.25), 0 0 60px rgba(124,58,237,0.1), inset 0 2px 8px rgba(255,255,255,0.9)",
+        }}
       >
-        {/* Step number */}
-        <div
-          className="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white z-10 shadow-md"
-          style={{ background: color }}
-        >
-          {index + 1}
-        </div>
-
-        {/* Icon tile */}
         <motion.div
-          animate={isActive ? { scale: [1, 1.12, 1], y: [0, -3, 0] } : {}}
-          transition={{ duration: 0.6 }}
-          className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center relative"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+          className="w-12 h-12 rounded-full flex items-center justify-center mb-1"
           style={{
-            background: "white",
-            border: `2px solid ${isActive ? color : `${color}30`}`,
-            boxShadow: isActive
-              ? `0 12px 30px -6px ${color}50, 0 0 0 6px ${color}15`
-              : `0 6px 16px -4px ${color}25`,
+            background: "linear-gradient(135deg, rgba(8,145,178,0.2), rgba(124,58,237,0.12))",
+            border: "1.5px solid rgba(8,145,178,0.25)",
           }}
         >
-          <Icon className="w-6 h-6 md:w-7 md:h-7" style={{ color }} />
-          {isActive && (
-            <motion.div
-              className="absolute inset-0 rounded-2xl pointer-events-none"
-              initial={{ opacity: 0.5, scale: 1 }}
-              animate={{ opacity: 0, scale: 1.6 }}
-              transition={{ duration: 1.2 }}
-              style={{ border: `2px solid ${color}` }}
-            />
-          )}
+          <Zap className="w-6 h-6 text-cyan-600 fill-cyan-500" />
         </motion.div>
-
-        {/* Pill label */}
-        <div
-          className="mt-2 px-2.5 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap transition-all"
+        <span
+          className="text-[11px] font-bold tracking-wider"
           style={{
-            background: isActive ? color : `${color}12`,
-            color: isActive ? "white" : color,
-            border: `1px solid ${color}${isActive ? "" : "25"}`,
+            background: "linear-gradient(135deg, #0891B2, #7C3AED)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
           }}
         >
-          {step.short}
+          TURBO LOOP
+        </span>
+        <span className="text-[8px] text-slate-400 tracking-[0.18em] mt-0.5">REVENUE ENGINE</span>
+        <div className="flex items-center gap-1 mt-1">
+          <motion.div
+            className="w-1.5 h-1.5 rounded-full bg-emerald-500"
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+          <span className="text-[9px] font-semibold text-emerald-600 tracking-wider uppercase">Live</span>
         </div>
       </motion.div>
+
+      {/* Nodes — placed precisely with sin/cos on fixed radius */}
+      {FLYWHEEL_STEPS.map((step, i) => {
+        const total = FLYWHEEL_STEPS.length;
+        const angle = (i / total) * 360 - 90;
+        const rad = (angle * Math.PI) / 180;
+        const x = CENTER + RADIUS * Math.cos(rad);
+        const y = CENTER + RADIUS * Math.sin(rad);
+        const Icon = STEP_ICONS[i] || Zap;
+        const color = STEP_COLORS[i];
+        const isActive = activeStep === i;
+
+        return (
+          <motion.div
+            key={step.label}
+            initial={{ opacity: 0, scale: 0.4 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 + i * 0.07, type: "spring", stiffness: 220 }}
+            className="absolute flex flex-col items-center"
+            style={{ left: x - 26, top: y - 26, width: 52 }}
+          >
+            <div className="relative">
+              <div
+                className="absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold text-white z-10 shadow-md"
+                style={{ background: color }}
+              >
+                {i + 1}
+              </div>
+              <motion.div
+                animate={isActive ? { scale: [1, 1.14, 1] } : {}}
+                transition={{ duration: 0.6 }}
+                className="w-[52px] h-[52px] rounded-xl flex items-center justify-center relative"
+                style={{
+                  background: "white",
+                  border: `2px solid ${isActive ? color : `${color}35`}`,
+                  boxShadow: isActive
+                    ? `0 10px 24px -4px ${color}55, 0 0 0 4px ${color}18`
+                    : `0 4px 12px -2px ${color}22`,
+                }}
+              >
+                <Icon className="w-6 h-6" style={{ color }} />
+                {isActive && (
+                  <motion.div
+                    className="absolute inset-0 rounded-xl pointer-events-none"
+                    initial={{ opacity: 0.6, scale: 1 }}
+                    animate={{ opacity: 0, scale: 1.7 }}
+                    transition={{ duration: 1.2 }}
+                    style={{ border: `2px solid ${color}` }}
+                  />
+                )}
+              </motion.div>
+            </div>
+            <div
+              className="mt-1.5 px-2 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap"
+              style={{
+                background: isActive ? color : `${color}12`,
+                color: isActive ? "white" : color,
+                border: `1px solid ${color}${isActive ? "" : "28"}`,
+              }}
+            >
+              {step.short}
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
 
-function MobileStep({
-  step, index, color, Icon, isLast,
-}: {
-  step: { label: string; short: string };
-  index: number;
-  color: string;
-  Icon: React.ElementType;
-  isLast: boolean;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08 }}
-      className="relative pl-16 pb-5"
-    >
-      {!isLast && (
-        <div
-          className="absolute left-[27px] top-14 bottom-0 w-0.5"
-          style={{ background: `linear-gradient(180deg, ${color}50, ${STEP_COLORS[(index + 1) % STEP_COLORS.length]}30)` }}
-        />
-      )}
-      <div
-        className="absolute left-0 top-0 w-14 h-14 rounded-2xl flex items-center justify-center"
-        style={{
-          background: "white",
-          border: `2px solid ${color}30`,
-          boxShadow: `0 6px 16px -4px ${color}25`,
-        }}
-      >
-        <Icon className="w-6 h-6" style={{ color }} />
-        <div
-          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white"
-          style={{ background: color }}
-        >
-          {index + 1}
-        </div>
-      </div>
-      <div className="pt-1">
-        <h4 className="text-sm font-bold text-slate-800">{step.short}</h4>
-        <p className="text-xs text-slate-500 mt-0.5">{step.label}</p>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function FlywheelSection() {
-  // Cycle through steps to give the "alive" feel
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     const t = setInterval(() => {
       setActiveStep((s) => (s + 1) % FLYWHEEL_STEPS.length);
-    }, 1400);
+    }, 1500);
     return () => clearInterval(t);
   }, []);
 
@@ -164,7 +232,7 @@ export default function FlywheelSection() {
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(8,145,178,0.06) 0%, rgba(124,58,237,0.04) 35%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(8,145,178,0.05) 0%, rgba(124,58,237,0.03) 35%, transparent 70%)",
         }}
       />
 
@@ -175,16 +243,17 @@ export default function FlywheelSection() {
           subtitle="A self-reinforcing flywheel where every action strengthens the ecosystem. No external funding needed — the protocol sustains itself."
         />
 
-        {/* Status pill */}
-        <AnimatedSection delay={0.1}>
-          <div className="flex items-center justify-center gap-2 mb-10">
+        {/* Desktop: Two-column layout — narrative left, flywheel right. Dense, no empty space. */}
+        <div className="hidden md:grid md:grid-cols-2 gap-10 lg:gap-16 items-center max-w-6xl mx-auto mb-16">
+          {/* Left: narrative + step list */}
+          <div>
             <motion.div
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5"
               style={{
                 background: "linear-gradient(135deg, rgba(8,145,178,0.08), rgba(124,58,237,0.08))",
                 border: "1px solid rgba(8,145,178,0.18)",
               }}
-              animate={{ boxShadow: ["0 0 0px rgba(8,145,178,0)", "0 0 28px rgba(8,145,178,0.18)", "0 0 0px rgba(8,145,178,0)"] }}
+              animate={{ boxShadow: ["0 0 0px rgba(8,145,178,0)", "0 0 24px rgba(8,145,178,0.18)", "0 0 0px rgba(8,145,178,0)"] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
@@ -192,178 +261,116 @@ export default function FlywheelSection() {
               </motion.div>
               <span className="text-xs font-bold text-cyan-600 tracking-widest uppercase">Continuous Loop · Running</span>
             </motion.div>
-          </div>
-        </AnimatedSection>
 
-        {/* Desktop flywheel — compact, dense, alive */}
-        <div className="hidden md:block mb-14">
-          <div className="relative w-full mx-auto" style={{ maxWidth: "480px", paddingBottom: "100%", maxHeight: "480px" }}>
-            <div className="absolute inset-0">
-              {/* Outer dashed ring */}
-              <div
-                className="absolute inset-[10%] rounded-full"
-                style={{ border: "2px dashed rgba(8,145,178,0.18)" }}
-              />
-              {/* Rotating accent (cyan → purple gradient) */}
-              <motion.div
-                className="absolute inset-[9.5%] rounded-full"
-                style={{
-                  border: "3px solid transparent",
-                  borderTopColor: "rgba(8,145,178,0.45)",
-                  borderRightColor: "rgba(124,58,237,0.3)",
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              />
-              {/* Inner reverse ring */}
-              <motion.div
-                className="absolute inset-[15%] rounded-full"
-                style={{
-                  border: "1px solid transparent",
-                  borderBottomColor: "rgba(217,119,6,0.3)",
-                  borderLeftColor: "rgba(5,150,105,0.2)",
-                }}
-                animate={{ rotate: -360 }}
-                transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-              />
+            <h3 className="text-2xl lg:text-3xl font-bold text-slate-800 leading-tight mb-4">
+              Every deposit strengthens the next payout.
+            </h3>
+            <p className="text-slate-500 leading-relaxed mb-6">
+              Capital flows through five on-chain steps. Each step feeds the next.
+              Protocol revenue compounds daily without external funding or token emissions.
+            </p>
 
-              {/* Flowing particles on the orbit */}
-              {[0, 1, 2, 3].map((i) => (
-                <motion.div
-                  key={i}
-                  className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full"
-                  style={{
-                    background: "radial-gradient(circle, rgba(8,145,178,0.95), rgba(8,145,178,0.3))",
-                    boxShadow: "0 0 12px rgba(8,145,178,0.5)",
-                  }}
-                  animate={{
-                    x: Array.from({ length: 37 }, (_, k) => Math.cos((k * 10 - 90 + i * 90) * Math.PI / 180) * 160 - 4),
-                    y: Array.from({ length: 37 }, (_, k) => Math.sin((k * 10 - 90 + i * 90) * Math.PI / 180) * 160 - 4),
-                  }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-                />
-              ))}
-
-              {/* Center hub — bigger, denser */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 220, delay: 0.2 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full flex flex-col items-center justify-center p-4"
-                style={{
-                  background: "linear-gradient(135deg, #ffffff 0%, #f0fdff 50%, #faf5ff 100%)",
-                  border: "2px solid rgba(8,145,178,0.25)",
-                  boxShadow:
-                    "0 25px 60px -10px rgba(8,145,178,0.25), 0 0 80px rgba(124,58,237,0.12), inset 0 0 40px rgba(255,255,255,0.8), inset 0 2px 10px rgba(8,145,178,0.08)",
-                }}
-              >
-                {/* Inner rotating icon block */}
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  className="w-12 h-12 rounded-full flex items-center justify-center mb-1 relative"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(8,145,178,0.18), rgba(124,58,237,0.1))",
-                    border: "1.5px solid rgba(8,145,178,0.2)",
-                  }}
-                >
-                  <Zap className="w-6 h-6 text-cyan-600 fill-cyan-500" />
-                </motion.div>
-                <span
-                  className="text-[13px] font-bold tracking-wider text-center leading-tight"
-                  style={{
-                    background: "linear-gradient(135deg, #0891B2, #7C3AED)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  TURBO LOOP
-                </span>
-                <span className="text-[8px] text-slate-400 tracking-[0.2em] mt-0.5">REVENUE ENGINE</span>
-                {/* Live blinking dot */}
-                <div className="flex items-center gap-1 mt-1.5">
-                  <motion.div
-                    className="w-1.5 h-1.5 rounded-full bg-emerald-500"
-                    animate={{ opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  />
-                  <span className="text-[9px] font-semibold text-emerald-600 tracking-wider uppercase">Live</span>
-                </div>
-              </motion.div>
-
-              {/* Nodes */}
+            {/* Step list with live active highlight */}
+            <div className="space-y-2">
               {FLYWHEEL_STEPS.map((step, i) => {
                 const Icon = STEP_ICONS[i] || Zap;
                 const color = STEP_COLORS[i];
+                const isActive = activeStep === i;
                 return (
-                  <FlywheelNode
+                  <motion.div
                     key={step.label}
-                    step={step}
-                    index={i}
-                    total={FLYWHEEL_STEPS.length}
-                    color={color}
-                    Icon={Icon}
-                    activeStep={activeStep}
-                  />
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all"
+                    style={{
+                      background: isActive ? `${color}10` : "rgba(255,255,255,0.5)",
+                      border: `1px solid ${isActive ? color : "rgba(0,0,0,0.04)"}${isActive ? "40" : ""}`,
+                      boxShadow: isActive ? `0 4px 16px -4px ${color}30` : "none",
+                    }}
+                  >
+                    <div
+                      className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                      style={{
+                        background: isActive ? color : `${color}12`,
+                        color: isActive ? "white" : color,
+                      }}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="text-[10px] font-bold tracking-wider uppercase"
+                          style={{ color: isActive ? color : "#94A3B8" }}
+                        >
+                          Step {i + 1}
+                        </span>
+                        <span className={`text-sm font-semibold ${isActive ? "text-slate-800" : "text-slate-600"}`}>
+                          {step.short}
+                        </span>
+                      </div>
+                      <div className="text-xs text-slate-500 truncate">{step.label}</div>
+                    </div>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                      >
+                        <div className="w-2 h-2 rounded-full" style={{ background: color }} />
+                      </motion.div>
+                    )}
+                  </motion.div>
                 );
               })}
             </div>
           </div>
 
-          {/* Active step caption below the flywheel */}
-          <div className="flex justify-center mt-6">
-            <motion.div
-              key={activeStep}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
-              style={{
-                background: "rgba(255,255,255,0.9)",
-                border: `1px solid ${STEP_COLORS[activeStep]}30`,
-                boxShadow: `0 4px 20px -4px ${STEP_COLORS[activeStep]}25`,
-              }}
-            >
-              <CheckCircle2 className="w-4 h-4" style={{ color: STEP_COLORS[activeStep] }} />
-              <span className="text-xs font-bold tracking-wider text-slate-700">
-                STEP {activeStep + 1}:
-              </span>
-              <span className="text-xs text-slate-600">{FLYWHEEL_STEPS[activeStep].label}</span>
-            </motion.div>
+          {/* Right: the flywheel */}
+          <div className="flex justify-center">
+            <FlywheelCore activeStep={activeStep} />
           </div>
         </div>
 
-        {/* Mobile */}
+        {/* Mobile: vertical list (more compact) */}
         <div className="md:hidden max-w-sm mx-auto mb-12">
-          {FLYWHEEL_STEPS.map((step, i) => {
-            const Icon = STEP_ICONS[i] || Zap;
-            const color = STEP_COLORS[i];
-            return (
-              <MobileStep key={step.label} step={step} index={i} color={color} Icon={Icon} isLast={i === FLYWHEEL_STEPS.length - 1} />
-            );
-          })}
-          <div className="flex justify-center mt-3">
-            <motion.div
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
-              style={{
-                background: "linear-gradient(135deg, rgba(217,119,6,0.08), rgba(124,58,237,0.06))",
-                border: "1px solid rgba(217,119,6,0.18)",
-              }}
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <RotateCw className="w-3.5 h-3.5 text-amber-600" />
-              <span className="text-[10px] font-bold text-amber-600 tracking-wider">CYCLE REPEATS</span>
-            </motion.div>
+          <FlywheelCore activeStep={activeStep} />
+          <div className="mt-8 space-y-2">
+            {FLYWHEEL_STEPS.map((step, i) => {
+              const Icon = STEP_ICONS[i] || Zap;
+              const color = STEP_COLORS[i];
+              return (
+                <div
+                  key={step.label}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl"
+                  style={{
+                    background: "rgba(255,255,255,0.6)",
+                    border: "1px solid rgba(0,0,0,0.04)",
+                  }}
+                >
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `${color}12` }}>
+                    <Icon className="w-4 h-4" style={{ color }} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-slate-800">{step.short}</div>
+                    <div className="text-xs text-slate-500 truncate">{step.label}</div>
+                  </div>
+                  <span className="text-[10px] font-bold tracking-wider text-slate-400">#{i + 1}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Revenue sources — premium cards */}
+        {/* Revenue source cards */}
         <AnimatedSection delay={0.2}>
           <div className="text-center mb-10">
             <h3 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
               <span className="text-slate-800">Where Does the </span>
-              <span style={{ background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 Yield Come From?
               </span>
             </h3>
@@ -427,12 +434,10 @@ export default function FlywheelSection() {
         <AnimatedSection delay={0.7}>
           <div className="flex flex-col items-center mt-12">
             <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-slate-300">
-              <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
-                <path d="M20 0 L20 16 M12 10 L20 18 L28 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ArrowDown className="w-5 h-5" />
             </motion.div>
             <div
-              className="mt-4 px-6 py-3 rounded-full inline-flex items-center gap-3"
+              className="mt-3 px-6 py-3 rounded-full inline-flex items-center gap-3"
               style={{
                 background: "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,253,250,0.8))",
                 border: "1px solid rgba(8,145,178,0.15)",

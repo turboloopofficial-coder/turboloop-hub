@@ -16,6 +16,11 @@ const bundles = [
     out: path.join(projectRoot, "api/cron/publish-blog.js"),
     label: "Cron: publish-blog",
   },
+  {
+    src: path.join(projectRoot, "server/_vercel/sitemap.ts"),
+    out: path.join(projectRoot, "api/sitemap.js"),
+    label: "Sitemap",
+  },
 ];
 
 console.log("🔧 Bundling Vercel serverless handlers...\n");
@@ -40,7 +45,7 @@ for (const b of bundles) {
 }
 
 // Ensure each api/ directory has a package.json with type=commonjs
-const cjsDirs = ["api/trpc", "api/cron"];
+const cjsDirs = ["api/trpc", "api/cron", "api"];
 for (const dir of cjsDirs) {
   const pkgPath = path.join(projectRoot, dir, "package.json");
   fs.mkdirSync(path.dirname(pkgPath), { recursive: true });

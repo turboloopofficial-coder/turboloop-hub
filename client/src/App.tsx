@@ -9,6 +9,7 @@ import FeedPage from "./pages/FeedPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import BlogPost from "./pages/BlogPost";
+import ReelPage from "./pages/ReelPage";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/feed" component={FeedPage} />
       <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/reels/:slug" component={ReelPage} />
       <Route path="/admin" component={() => <Redirect to="/admin/login" />} />
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/:rest*" component={AdminDashboard} />

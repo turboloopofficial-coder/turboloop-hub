@@ -3,6 +3,7 @@ import { SITE } from "@/lib/constants";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, Play, FileText, Image, Filter, X, ExternalLink } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 type ContentType = "all" | "video" | "article" | "update";
 
@@ -18,6 +19,9 @@ export default function FeedPage() {
   const { data: posts } = trpc.content.blogPosts.useQuery();
   const [filter, setFilter] = useState<ContentType>("all");
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+
+  const seoTitle = "Content Feed — Videos, Articles & Updates | Turbo Loop";
+  const seoDesc = "Latest Turbo Loop videos, blog articles, and community updates — in one place. Multi-language educational content on sustainable DeFi yield farming.";
 
   // Combine videos and posts into a unified feed
   const feedItems = useMemo(() => {
@@ -61,6 +65,7 @@ export default function FeedPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}>
+      <SEOHead title={seoTitle} description={seoDesc} path="/feed" type="website" />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b" style={{ background: "rgba(255,255,255,0.8)", backdropFilter: "blur(20px)", borderColor: "rgba(0,0,0,0.06)" }}>
         <div className="container flex items-center justify-between py-4">

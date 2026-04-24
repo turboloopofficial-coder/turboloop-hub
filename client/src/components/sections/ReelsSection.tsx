@@ -17,6 +17,15 @@ function thumbForReel(videoUrl: string): string {
   }
 }
 
+/** Extract slug from a reel URL like https://<r2>/reels/my-slug.mp4 → "my-slug" */
+function slugFromUrl(videoUrl: string): string {
+  try {
+    const u = new URL(videoUrl);
+    const m = u.pathname.match(/\/reels\/([a-z0-9-]+)\.mp4$/i);
+    return m ? m[1] : "";
+  } catch { return ""; }
+}
+
 export default function ReelsSection() {
   const { data: videos } = trpc.content.videos.useQuery();
   const reels = (videos ?? []).filter(v => v.directUrl && !v.youtubeUrl);
@@ -333,7 +342,7 @@ function ReelPlayer({
           </button>
           <div onClick={(e) => e.stopPropagation()}>
             <ShareButton
-              path="/#reels"
+              path={reel.directUrl ? `/reels/${slugFromUrl(reel.directUrl)}` : "/"}
               message={shareMessage}
               variant="icon"
               className="!w-11 !h-11 !bg-white/15 hover:!bg-white/25 !border-white/20 !text-white"

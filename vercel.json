@@ -5,6 +5,7 @@
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
   "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "functions": {
@@ -15,6 +16,10 @@
     "api/cron/publish-blog.js": {
       "maxDuration": 30,
       "memory": 512
+    },
+    "api/sitemap.js": {
+      "maxDuration": 10,
+      "memory": 256
     }
   },
   "crons": [

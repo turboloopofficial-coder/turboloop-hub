@@ -10,6 +10,7 @@ import LeaderboardSection from "@/components/sections/LeaderboardSection";
 import FlywheelSection from "@/components/sections/FlywheelSection";
 import PromotionsSection from "@/components/sections/PromotionsSection";
 import VideoSection from "@/components/sections/VideoSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import BlogSection from "@/components/sections/BlogSection";
 import EventsSection from "@/components/sections/EventsSection";
 import RoadmapSection from "@/components/sections/RoadmapSection";
@@ -69,6 +70,7 @@ export default function Home() {
         <LeaderboardSection />
         <PromotionsSection />
         <VideoSection />
+        <TestimonialsSection />
         <BlogSection />
         <RoadmapSection />
         <TrustSection />

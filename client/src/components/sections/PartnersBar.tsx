@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, Lock, CheckCircle2, Eye, Zap, CreditCard } from "lucide-react";
+import { ShieldCheck, Lock, CheckCircle2, Eye, Zap } from "lucide-react";
 
 const PARTNERS = [
   { label: "Binance Smart Chain", sublabel: "Network", icon: Zap, color: "#F0B90B" },
@@ -7,7 +7,6 @@ const PARTNERS = [
   { label: "Independent Audit", sublabel: "Passed", icon: ShieldCheck, color: "#0891B2" },
   { label: "Ownership", sublabel: "Renounced", icon: CheckCircle2, color: "#10B981" },
   { label: "Liquidity", sublabel: "100% Locked", icon: Lock, color: "#7C3AED" },
-  { label: "MoonPay", sublabel: "Fiat Gateway", icon: CreditCard, color: "#7D00FF" },
 ];
 
 export default function PartnersBar() {
@@ -17,7 +16,7 @@ export default function PartnersBar() {
         <p className="text-center text-xs font-semibold tracking-[0.25em] uppercase text-slate-400 mb-6">
           Built On · Audited By · Integrated With
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 md:gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 max-w-5xl mx-auto">
           {PARTNERS.map((p, i) => {
             const Icon = p.icon;
             return (

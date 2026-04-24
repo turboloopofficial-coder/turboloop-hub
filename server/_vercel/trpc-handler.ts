@@ -1,8 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import express, { type Express } from "express";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { appRouter } from "../../server/routers";
-import { createContext } from "../../server/_core/context";
+import { appRouter } from "../routers";
+import { createContext } from "../_core/context";
 
 let cachedApp: Express | null = null;
 

@@ -4,10 +4,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const srcFile = path.join(projectRoot, "api/trpc/[trpc].ts");
+const srcFile = path.join(projectRoot, "server/_vercel/trpc-handler.ts");
 const outFile = path.join(projectRoot, "api/trpc/[trpc].js");
 
 console.log("🔧 Bundling Vercel serverless handler...");
+console.log("  source:", srcFile);
+console.log("  output:", outFile);
 
 if (!fs.existsSync(srcFile)) {
   console.error(`❌ Source file not found: ${srcFile}`);
@@ -22,12 +24,8 @@ await build({
   target: "node20",
   outfile: outFile,
   logLevel: "info",
-  // bcrypt/crypto etc. stay as Node built-ins
-  // Everything else (express, trpc, drizzle, neon) gets bundled in
 });
-
-// Remove the TS source so Vercel picks up the bundled .js (it prefers .ts over .js if both exist)
-fs.unlinkSync(srcFile);
 
 const stats = fs.statSync(outFile);
 console.log(`✅ Bundled to ${outFile} (${(stats.size / 1024).toFixed(1)} KB)`);
+console.log(`   Don't forget to commit ${path.relative(projectRoot, outFile)} after rebuilding.`);

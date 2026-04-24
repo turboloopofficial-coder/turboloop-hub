@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Share2, X, Check, Copy, Twitter, Send as TelegramIcon, MessageCircle,
@@ -32,6 +33,21 @@ export default function ShareButton({
 
   useEffect(() => {
     setSavedRef(getReferralCode());
+  }, [open]);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   const shareUrl = buildShareUrl(path);
@@ -92,35 +108,33 @@ export default function ShareButton({
 
   const isWalletAddr = savedRef?.startsWith("0x") || false;
 
-  return (
-    <>
-      <button onClick={onTrigger} className={`${btnClass} ${className}`} style={btnStyle} aria-label="Share">
-        <Share2 style={{ width: iconSize, height: iconSize }} />
-        {variant !== "icon" && <span>{label}</span>}
-      </button>
-
-      <AnimatePresence>
-        {open && (
+  // Modal rendered via portal so it always lives at <body> level —
+  // never trapped inside a parent with transform/filter/backdrop-filter
+  // (which would break position:fixed and confine the overlay to the card).
+  const modal = (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto"
+          style={{ background: "rgba(15,23,42,0.6)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
+          onClick={() => setOpen(false)}
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4"
-            style={{ background: "rgba(15,23,42,0.55)", backdropFilter: "blur(8px)" }}
-            onClick={() => setOpen(false)}
+            initial={{ scale: 0.92, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.92, opacity: 0, y: 20 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-md rounded-3xl overflow-hidden my-auto"
+            style={{
+              background: "linear-gradient(180deg, #ffffff 0%, #fafbff 100%)",
+              boxShadow: "0 30px 80px -20px rgba(15,23,42,0.4), 0 10px 25px -10px rgba(15,23,42,0.15)",
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ scale: 0.92, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.92, opacity: 0, y: 20 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-md rounded-3xl overflow-hidden"
-              style={{
-                background: "linear-gradient(180deg, #ffffff 0%, #fafbff 100%)",
-                boxShadow: "0 30px 80px -20px rgba(15,23,42,0.4), 0 10px 25px -10px rgba(15,23,42,0.15)",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
               {/* Top gradient accent */}
               <div
                 className="absolute top-0 left-0 right-0 h-[3px]"
@@ -306,6 +320,15 @@ export default function ShareButton({
           </motion.div>
         )}
       </AnimatePresence>
+  );
+
+  return (
+    <>
+      <button onClick={onTrigger} className={`${btnClass} ${className}`} style={btnStyle} aria-label="Share">
+        <Share2 style={{ width: iconSize, height: iconSize }} />
+        {variant !== "icon" && <span>{label}</span>}
+      </button>
+      {typeof document !== "undefined" ? createPortal(modal, document.body) : null}
     </>
   );
 }

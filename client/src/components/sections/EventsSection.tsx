@@ -1,10 +1,11 @@
 import { trpc } from "@/lib/trpc";
-import { Calendar, Video, Clock, ExternalLink, History, Radio } from "lucide-react";
-import { useMemo, useState, useEffect, useCallback } from "react";
+import { Calendar, Video, Clock, ExternalLink, History, Radio, Globe2, Users } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 
-/** Parse a recurring event time like "10:00 PM" + timezone into the next occurrence */
+/** Parse a recurring event time + timezone into the next occurrence */
 function getNextOccurrence(timeStr: string, tz: string): Date | null {
   try {
     const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
@@ -15,7 +16,6 @@ function getNextOccurrence(timeStr: string, tz: string): Date | null {
     if (ampm === "PM" && hours !== 12) hours += 12;
     if (ampm === "AM" && hours === 12) hours = 0;
 
-    // Build a date in UTC-based approach: we assume the tz string is like "UTC+5:30" or "UTC"
     const tzMatch = tz.match(/UTC([+-]?\d+)?(?::(\d+))?/);
     let offsetMinutes = 0;
     if (tzMatch) {
@@ -30,23 +30,58 @@ function getNextOccurrence(timeStr: string, tz: string): Date | null {
     const month = todayInTz.getUTCMonth();
     const day = todayInTz.getUTCDate();
 
-    // Create the event time in UTC
     let eventTime = new Date(Date.UTC(year, month, day, hours, minutes, 0) - offsetMinutes * 60000);
-
-    // If event time + 2 hours has already passed, move to next day
     const eventEnd = new Date(eventTime.getTime() + 2 * 3600000);
     if (now > eventEnd) {
       eventTime = new Date(eventTime.getTime() + 86400000);
     }
-
     return eventTime;
   } catch {
     return null;
   }
 }
 
-/** Countdown timer component */
-function ZoomCountdown({ eventTime, meetingLink }: { eventTime: Date; meetingLink: string }) {
+/** Single big countdown digit tile */
+function DigitTile({ value, label, accent }: { value: number; label: string; accent: string }) {
+  const padded = String(value).padStart(2, "0");
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className="relative w-16 h-20 md:w-20 md:h-24 rounded-2xl flex items-center justify-center overflow-hidden"
+        style={{
+          background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)",
+          border: `1px solid ${accent}30`,
+          boxShadow: `0 10px 30px -8px ${accent}40, inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -10px 20px rgba(0,0,0,0.3)`,
+        }}
+      >
+        {/* horizontal split line */}
+        <div
+          className="absolute left-0 right-0 top-1/2 h-[1px] -translate-y-px pointer-events-none"
+          style={{ background: "rgba(255,255,255,0.08)" }}
+        />
+        <span
+          className="text-3xl md:text-4xl font-bold tabular-nums leading-none"
+          style={{
+            color: accent,
+            textShadow: `0 0 18px ${accent}50, 0 2px 0 rgba(0,0,0,0.4)`,
+          }}
+        >
+          {padded}
+        </span>
+      </div>
+      <span className="mt-2 text-[10px] tracking-[0.2em] uppercase font-bold text-white/40">{label}</span>
+    </div>
+  );
+}
+
+/** Hero countdown card */
+function ZoomCountdown({
+  event,
+  eventTime,
+}: {
+  event: any;
+  eventTime: Date;
+}) {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -57,73 +92,165 @@ function ZoomCountdown({ eventTime, meetingLink }: { eventTime: Date; meetingLin
   const diff = eventTime.getTime() - now.getTime();
   const eventEnd = new Date(eventTime.getTime() + 2 * 3600000);
   const isLive = diff <= 0 && now < eventEnd;
-  const isPast = now >= eventEnd;
+  const totalSecs = Math.max(0, Math.floor(diff / 1000));
+  const hours = Math.floor(totalSecs / 3600);
+  const mins = Math.floor((totalSecs % 3600) / 60);
+  const secs = totalSecs % 60;
 
-  if (isPast) return null;
+  // Live remaining
+  const liveRemaining = Math.max(0, Math.floor((eventEnd.getTime() - now.getTime()) / 1000));
+  const liveMins = Math.floor(liveRemaining / 60);
+  const liveSecs = liveRemaining % 60;
 
-  if (isLive) {
-    const remaining = eventEnd.getTime() - now.getTime();
-    const mins = Math.floor(remaining / 60000);
-    const secs = Math.floor((remaining % 60000) / 1000);
-    return (
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full"
-          style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.25)" }}>
-          <Radio className="h-4 w-4 text-red-500 animate-pulse" />
-          <span className="text-sm font-bold text-red-500">LIVE NOW</span>
-        </div>
-        <a href={meetingLink} target="_blank" rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300"
-          style={{
-            background: "linear-gradient(135deg, #0891B2, #0E7490)",
-            color: "#ffffff",
-            boxShadow: "0 4px 20px rgba(8,145,178,0.3)",
-          }}
-        >
-          <Video className="h-4 w-4" />
-          Join Now
-          <ExternalLink className="h-3 w-3" />
-        </a>
-        <span className="text-xs text-slate-400">Ends in {mins}m {secs}s</span>
-      </div>
-    );
-  }
-
-  // Countdown to start
-  const hours = Math.floor(diff / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  const secs = Math.floor((diff % 60000) / 1000);
+  const accent = isLive ? "#EF4444" : "#22D3EE";
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      <span className="text-xs font-semibold text-slate-400 tracking-wider uppercase">Starts in</span>
-      <div className="flex items-center gap-2">
-        {[
-          { value: hours, label: "h" },
-          { value: mins, label: "m" },
-          { value: secs, label: "s" },
-        ].map((unit, i) => (
-          <div key={i} className="flex items-center gap-1">
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-lg font-bold text-cyan-700"
-              style={{ background: "rgba(8,145,178,0.08)", border: "1px solid rgba(8,145,178,0.15)" }}>
-              {String(unit.value).padStart(2, "0")}
-            </span>
-            <span className="text-xs text-slate-400 font-medium">{unit.label}</span>
-          </div>
-        ))}
-      </div>
-      <a href={meetingLink} target="_blank" rel="noopener noreferrer"
-        className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300"
+    <div className="relative w-full max-w-4xl mx-auto">
+      {/* Outer glow */}
+      <motion.div
+        className="absolute -inset-3 rounded-[28px] opacity-50 blur-2xl pointer-events-none"
         style={{
-          background: "rgba(8,145,178,0.08)",
-          border: "1px solid rgba(8,145,178,0.2)",
-          color: "#0891B2",
+          background: isLive
+            ? "linear-gradient(135deg, #EF444440, #DC262650, #EF444440)"
+            : "linear-gradient(135deg, #0891B240, #7C3AED50, #0891B240)",
+          backgroundSize: "200% 200%",
+        }}
+        animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+
+      <div
+        className="relative rounded-3xl overflow-hidden p-7 md:p-10"
+        style={{
+          background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
+          border: `1.5px solid ${accent}40`,
+          boxShadow: `0 30px 80px -20px ${accent}40`,
         }}
       >
-        <Video className="h-4 w-4" />
-        Join Meeting
-        <ExternalLink className="h-3 w-3" />
-      </a>
+        {/* Grid bg */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-30"
+          style={{
+            backgroundImage:
+              `linear-gradient(${accent}15 1px, transparent 1px), linear-gradient(90deg, ${accent}15 1px, transparent 1px)`,
+            backgroundSize: "32px 32px",
+            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 90%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 90%)",
+          }}
+        />
+        {/* Corner glow */}
+        <div
+          className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
+          style={{ background: `radial-gradient(circle, ${accent}25 0%, transparent 60%)` }}
+        />
+
+        <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center">
+          {/* Left: status + title + meta */}
+          <div className="md:col-span-7">
+            {/* Status pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
+              style={{
+                background: `${accent}15`,
+                border: `1px solid ${accent}40`,
+              }}
+            >
+              <motion.div
+                animate={isLive ? { scale: [1, 1.5, 1], opacity: [1, 0.4, 1] } : { opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: isLive ? 1.2 : 2, repeat: Infinity }}
+                className="w-2 h-2 rounded-full"
+                style={{ background: accent, boxShadow: `0 0 10px ${accent}` }}
+              />
+              <span className="text-[10px] font-bold tracking-[0.25em] uppercase" style={{ color: accent }}>
+                {isLive ? "Live Now · Join Anytime" : "Daily · Every Day"}
+              </span>
+              {isLive && <Radio className="w-3 h-3" style={{ color: accent }} />}
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-3">
+              {event.title}
+            </h3>
+
+            {event.description && (
+              <p className="text-sm md:text-base text-white/55 leading-relaxed mb-5 max-w-md">
+                {event.description}
+              </p>
+            )}
+
+            {/* Meta info row */}
+            <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6 text-[13px] text-white/60">
+              <span className="inline-flex items-center gap-2">
+                <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="font-mono">{event.dateTime}</span>
+                <span className="text-white/40">{event.timezone}</span>
+              </span>
+              {event.language && (
+                <span className="inline-flex items-center gap-2">
+                  <Globe2 className="w-3.5 h-3.5 text-purple-400" />
+                  {event.language}
+                </span>
+              )}
+              {event.passcode && (
+                <span className="inline-flex items-center gap-2">
+                  <Users className="w-3.5 h-3.5 text-emerald-400" />
+                  Code: <span className="font-mono font-semibold text-white/80">{event.passcode}</span>
+                </span>
+              )}
+            </div>
+
+            {/* CTA */}
+            <motion.a
+              href={event.meetingLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all"
+              style={{
+                background: isLive
+                  ? "linear-gradient(135deg, #EF4444, #DC2626)"
+                  : "linear-gradient(135deg, #22D3EE, #0891B2)",
+                color: "white",
+                boxShadow: `0 14px 34px -8px ${accent}90, inset 0 1px 0 rgba(255,255,255,0.2)`,
+              }}
+            >
+              <Video className="w-4 h-4" />
+              {isLive ? "Join Live Call" : "Join Today's Call"}
+              <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </motion.a>
+          </div>
+
+          {/* Right: countdown */}
+          <div className="md:col-span-5">
+            <div className="text-center">
+              <div className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/40 mb-3">
+                {isLive ? "Ends in" : "Starts in"}
+              </div>
+              <div className="flex items-start justify-center gap-2 md:gap-3">
+                {isLive ? (
+                  <>
+                    <DigitTile value={liveMins} label="Min" accent={accent} />
+                    <div className="text-3xl md:text-4xl font-bold text-white/30 pt-3 md:pt-4">:</div>
+                    <DigitTile value={liveSecs} label="Sec" accent={accent} />
+                  </>
+                ) : (
+                  <>
+                    <DigitTile value={hours} label="Hours" accent={accent} />
+                    <div className="text-3xl md:text-4xl font-bold text-white/30 pt-3 md:pt-4">:</div>
+                    <DigitTile value={mins} label="Min" accent={accent} />
+                    <div className="text-3xl md:text-4xl font-bold text-white/30 pt-3 md:pt-4">:</div>
+                    <DigitTile value={secs} label="Sec" accent={accent} />
+                  </>
+                )}
+              </div>
+              {!isLive && (
+                <p className="mt-4 text-xs text-white/40">
+                  Daily community call · No registration needed
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -139,113 +266,70 @@ export default function EventsSection() {
     return { activeEvents: active, pastEvents: past };
   }, [events]);
 
-  const statusConfig: Record<string, { label: string; color: string; pulse: boolean }> = {
-    live: { label: "LIVE NOW", color: "#EF4444", pulse: true },
-    recurring: { label: "DAILY", color: "#059669", pulse: false },
-    upcoming: { label: "UPCOMING", color: "#0891B2", pulse: false },
-  };
-
   return (
-    <section id="events" className="section-spacing relative">
-      <div className="container">
+    <section id="events" className="section-spacing relative overflow-hidden">
+      <div className="container relative z-10">
         <SectionHeading
           label="Events & Meetings"
           title="Join the Community"
           subtitle="Daily Zoom sessions, community calls, and live events. Everyone is welcome."
         />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="space-y-5">
           {activeEvents.length > 0 ? (
             activeEvents.map((event, index) => {
-              const status = statusConfig[event.status] || statusConfig.upcoming;
-              const nextTime = event.status === "recurring" ? getNextOccurrence(event.dateTime, event.timezone || "UTC") : null;
+              const nextTime = event.status === "recurring"
+                ? getNextOccurrence(event.dateTime, event.timezone || "UTC")
+                : null;
 
+              if (nextTime) {
+                return (
+                  <AnimatedSection key={event.id} delay={index * 0.1}>
+                    <ZoomCountdown event={event} eventTime={nextTime} />
+                  </AnimatedSection>
+                );
+              }
+
+              // Fallback: simple card for non-recurring events
               return (
                 <AnimatedSection key={event.id} delay={index * 0.1}>
                   <div
-                    className="relative p-6 md:p-7 rounded-xl overflow-hidden"
+                    className="max-w-3xl mx-auto p-6 rounded-2xl"
                     style={{
-                      background: "rgba(255, 255, 255, 0.7)",
-                      border: `1px solid rgba(255,255,255,0.85)`,
-                      backdropFilter: "blur(20px)",
-                      boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+                      background: "white",
+                      border: "1px solid rgba(15,23,42,0.06)",
+                      boxShadow: "0 6px 20px -6px rgba(15,23,42,0.06)",
                     }}
                   >
-                    {/* Top accent */}
-                    <div className="absolute top-0 left-0 right-0 h-px"
-                      style={{ background: `linear-gradient(90deg, transparent, ${status.color}40, transparent)` }}
-                    />
-
-                    <div className="flex flex-col md:flex-row md:items-center gap-5">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3">
-                          <span
-                            className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full ${status.pulse ? "animate-pulse" : ""}`}
-                            style={{
-                              background: `${status.color}10`,
-                              color: status.color,
-                              border: `1px solid ${status.color}25`,
-                              boxShadow: status.pulse ? `0 0 10px ${status.color}15` : "none",
-                            }}
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: status.color }} />
-                            {status.label}
-                          </span>
-                        </div>
-
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">{event.title}</h3>
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500">
-                          <span className="flex items-center gap-1.5">
-                            <Clock className="h-3.5 w-3.5 text-slate-400" />
-                            {event.dateTime} {event.timezone}
-                          </span>
-                          {event.frequency && (
-                            <span style={{ color: status.color }}>{event.frequency}</span>
-                          )}
-                          {event.language && (
-                            <span className="text-slate-400">{event.language}</span>
-                          )}
-                        </div>
-                        {event.description && (
-                          <p className="text-sm text-slate-500 mt-2">{event.description}</p>
-                        )}
-                        {event.hostName && (
-                          <p className="text-xs text-slate-400 mt-1">Host: {event.hostName}</p>
-                        )}
-                        {event.passcode && (
-                          <p className="text-xs text-slate-400 mt-1">Passcode: <span className="font-mono font-semibold text-slate-600">{event.passcode}</span></p>
-                        )}
-                      </div>
-
-                      <div className="shrink-0">
-                        {nextTime ? (
-                          <ZoomCountdown eventTime={nextTime} meetingLink={event.meetingLink} />
-                        ) : (
-                          <div className="flex flex-col items-center gap-2">
-                            <a href={event.meetingLink} target="_blank" rel="noopener noreferrer"
-                              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300"
-                              style={{
-                                background: `${status.color}10`,
-                                border: `1px solid ${status.color}25`,
-                                color: status.color,
-                              }}
-                            >
-                              <Video className="h-4 w-4" />
-                              Join Meeting
-                              <ExternalLink className="h-3 w-3" />
-                            </a>
-                          </div>
-                        )}
-                      </div>
+                    <h3 className="text-xl font-bold text-slate-800 mb-2">{event.title}</h3>
+                    <div className="flex flex-wrap gap-3 text-sm text-slate-500 mb-4">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" />
+                        {event.dateTime} {event.timezone}
+                      </span>
+                      {event.language && <span>{event.language}</span>}
                     </div>
+                    <a
+                      href={event.meetingLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold"
+                      style={{
+                        background: "linear-gradient(135deg, #0891B2, #7C3AED)",
+                        color: "white",
+                      }}
+                    >
+                      <Video className="w-4 h-4" /> Join Meeting <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </AnimatedSection>
               );
             })
           ) : (
             <AnimatedSection>
-              <div className="text-center py-12">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center"
+              <div className="text-center py-12 max-w-md mx-auto">
+                <div
+                  className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center"
                   style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.06)" }}
                 >
                   <Calendar className="h-8 w-8 text-slate-400" />
@@ -266,7 +350,6 @@ export default function EventsSection() {
               <History className="h-4 w-4" />
               {showPast ? "Hide" : "Show"} Past Events ({pastEvents.length})
             </button>
-
             {showPast && (
               <div className="space-y-3 mt-4">
                 {pastEvents.map((event) => (
@@ -278,12 +361,7 @@ export default function EventsSection() {
                       border: "1px solid rgba(0,0,0,0.04)",
                     }}
                   >
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full"
-                      style={{ background: "rgba(100,116,139,0.1)", color: "#64748B" }}
-                    >
-                      COMPLETED
-                    </span>
-                    <h3 className="text-base font-semibold text-slate-600 mt-2">{event.title}</h3>
+                    <h4 className="text-sm font-semibold text-slate-700">{event.title}</h4>
                     <p className="text-xs text-slate-400 mt-1">{event.dateTime} {event.timezone}</p>
                   </div>
                 ))}

@@ -33,15 +33,15 @@ function PillarCard({ pillar, index }: { pillar: typeof ECOSYSTEM_PILLARS[0]; in
         style={{ perspective: "1000px" }}
       >
         <motion.div
-          animate={{ rotateX: tilt.x, rotateY: tilt.y, scale: hovered ? 1.02 : 1 }}
+          animate={{ scale: hovered ? 1.02 : 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="group relative p-8 rounded-2xl h-full"
+          className="group relative p-7 md:p-8 rounded-2xl h-full"
           style={{
-            background: "rgba(255, 255, 255, 0.7)",
-            border: `1px solid ${hovered ? `${pillar.color}30` : "rgba(255,255,255,0.85)"}`,
-            backdropFilter: "blur(20px)",
-            boxShadow: hovered ? `0 8px 40px ${pillar.color}12, 0 4px 16px rgba(0,0,0,0.06)` : "0 4px 24px rgba(0,0,0,0.04)",
-            transformStyle: "preserve-3d",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)",
+            border: `1px solid ${hovered ? `${pillar.color}40` : "rgba(226,232,240,0.9)"}`,
+            boxShadow: hovered
+              ? `0 20px 50px -10px ${pillar.color}25, 0 8px 20px -4px rgba(0,0,0,0.08)`
+              : "0 4px 20px -4px rgba(0,0,0,0.05)",
             transition: "border-color 0.4s, box-shadow 0.4s",
           }}
         >
@@ -50,34 +50,33 @@ function PillarCard({ pillar, index }: { pillar: typeof ECOSYSTEM_PILLARS[0]; in
             <div
               className="absolute inset-0 rounded-2xl pointer-events-none"
               style={{
-                background: `radial-gradient(circle at ${(tilt.y / 12 + 0.5) * 100}% ${(-tilt.x / 12 + 0.5) * 100}%, ${pillar.color}08 0%, transparent 60%)`,
+                background: `radial-gradient(circle at ${(tilt.y / 12 + 0.5) * 100}% ${(-tilt.x / 12 + 0.5) * 100}%, ${pillar.color}12 0%, transparent 60%)`,
               }}
             />
           )}
 
           {/* Icon */}
           <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-500"
+            className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-500"
             style={{
-              background: `${pillar.color}10`,
-              border: `1px solid ${pillar.color}20`,
-              transform: "translateZ(20px)",
+              background: `linear-gradient(135deg, ${pillar.color}15, ${pillar.color}08)`,
+              border: `1px solid ${pillar.color}25`,
             }}
           >
-            <Icon className="w-5 h-5" style={{ color: pillar.color }} />
+            <Icon className="w-6 h-6" style={{ color: pillar.color }} />
           </div>
 
           {/* Content */}
-          <div style={{ transform: "translateZ(10px)" }}>
+          <div className="relative z-10">
             <h3 className="text-xl font-bold text-slate-800 mb-1">{pillar.title}</h3>
-            <p className="text-sm font-medium mb-3" style={{ color: `${pillar.color}cc` }}>{pillar.subtitle}</p>
-            <p className="text-sm text-slate-500 leading-relaxed">{pillar.description}</p>
+            <p className="text-sm font-semibold mb-3" style={{ color: pillar.color }}>{pillar.subtitle}</p>
+            <p className="text-sm text-slate-600 leading-relaxed">{pillar.description}</p>
           </div>
 
           {/* Bottom accent */}
           <div
-            className="absolute bottom-0 left-8 right-8 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{ background: `linear-gradient(90deg, transparent, ${pillar.color}40, transparent)` }}
+            className="absolute bottom-0 left-6 right-6 h-[2px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ background: `linear-gradient(90deg, transparent, ${pillar.color}, transparent)` }}
           />
         </motion.div>
       </div>

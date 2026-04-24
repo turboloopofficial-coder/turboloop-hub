@@ -4,6 +4,7 @@ import { LANGUAGE_FLAGS, getFlagUrl } from "@/lib/constants";
 import { Play, Film } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
+import ShareButton from "@/components/ShareButton";
 
 type VideoCategory = "presentation" | "how-to-join" | "withdraw-compound" | "other";
 
@@ -175,8 +176,14 @@ export default function VideoSection() {
                   </div>
 
                   {/* Info */}
-                  <div className="p-4">
-                    <h4 className="text-sm font-semibold text-slate-800 truncate">{video.title}</h4>
+                  <div className="p-4 flex items-center justify-between gap-2">
+                    <h4 className="text-sm font-semibold text-slate-800 truncate flex-1">{video.title}</h4>
+                    <ShareButton
+                      path="/#videos"
+                      message={`🎥 ${video.title}\n\nWatch on Turbo Loop — the complete DeFi ecosystem on BSC.${video.youtubeUrl ? "\n\n" + video.youtubeUrl : ""}`}
+                      variant="icon"
+                      label="Share"
+                    />
                   </div>
                 </div>
               </AnimatedSection>

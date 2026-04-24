@@ -3,6 +3,7 @@ import { ArrowRight, PenLine } from "lucide-react";
 import { Link } from "wouter";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
+import ShareButton from "@/components/ShareButton";
 
 function BlogCard({ post, index }: { post: any; index: number }) {
   return (
@@ -55,8 +56,18 @@ function BlogCard({ post, index }: { post: any; index: number }) {
             {post.excerpt && (
               <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">{post.excerpt}</p>
             )}
-            <div className="mt-5 flex items-center gap-2 text-sm font-medium text-cyan-600 opacity-0 group-hover:opacity-100 transition-all duration-300">
-              Read more <ArrowRight className="h-3.5 w-3.5" />
+            <div className="mt-5 flex items-center justify-between">
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-cyan-600 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                Read more <ArrowRight className="h-3.5 w-3.5" />
+              </span>
+              <span onClick={(e) => { e.preventDefault(); e.stopPropagation(); }} className="z-10">
+                <ShareButton
+                  path={`/blog/${post.slug}`}
+                  message={`📖 ${post.title}\n\n${post.excerpt || "Read on Turbo Loop — the complete DeFi ecosystem on BSC."}`}
+                  variant="icon"
+                  label="Share"
+                />
+              </span>
             </div>
           </div>
         </div>

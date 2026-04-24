@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Share2, X, Check, Copy, Twitter, Send as TelegramIcon, MessageCircle, Mail, Link as LinkIcon } from "lucide-react";
+import { Share2, X, Check, Copy, Twitter, Send as TelegramIcon, MessageCircle, Mail, Wallet } from "lucide-react";
 import { buildShareUrl, getReferralCode, setReferralCode } from "@/lib/referral";
+import { connectWallet, hasWallet, shortenAddress } from "@/lib/wallet";
 
 type Props = {
   /** Path relative to site root, e.g. "/feed" or "/blog/my-slug" or "/" */
@@ -126,25 +127,37 @@ export default function ShareButton({
                 <X className="w-5 h-5 text-slate-500" />
               </button>
 
-              <h3 className="text-xl font-bold text-slate-800 mb-1">Share</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-1">Share & Earn</h3>
               <p className="text-sm text-slate-500 mb-5">
                 {savedRef ? (
-                  <>Shared links include your referral code <span className="font-mono font-semibold text-cyan-700">{savedRef}</span>.</>
+                  <>Shared links include your referral code <span className="font-mono font-semibold text-cyan-700">{savedRef.length > 18 ? shortenAddress(savedRef) : savedRef}</span>.</>
                 ) : (
-                  <>Add your referral code to earn rewards from shares.</>
+                  <>Connect your wallet or paste your referral code to earn rewards when people join through your share.</>
                 )}
               </p>
 
-              {/* Referral setter */}
-              <div className="mb-5">
-                <label className="text-xs font-semibold tracking-wider uppercase text-slate-500">
-                  Your referral code
-                </label>
-                <div className="mt-1.5 flex gap-2">
+              {/* Wallet connect + Referral setter */}
+              <div className="mb-5 space-y-2.5">
+                <button
+                  onClick={async () => {
+                    const addr = await connectWallet();
+                    if (addr) setSavedRef(addr);
+                  }}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all"
+                  style={{
+                    background: "linear-gradient(135deg, #F7931A 0%, #F0B90B 100%)",
+                    color: "white",
+                    boxShadow: "0 4px 14px -2px rgba(247,147,26,0.35)",
+                  }}
+                >
+                  <Wallet className="w-4 h-4" /> {savedRef && savedRef.startsWith("0x") ? `Connected: ${shortenAddress(savedRef)}` : "Connect Wallet (auto-set referral)"}
+                </button>
+                <div className="text-center text-[11px] text-slate-400 tracking-wider uppercase">or paste referral code</div>
+                <div className="flex gap-2">
                   <input
                     value={refInput}
                     onChange={(e) => setRefInput(e.target.value)}
-                    placeholder={savedRef || "your-code-or-wallet"}
+                    placeholder={savedRef ? "replace referral code" : "wallet address or username"}
                     className="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
                   />
                   <button

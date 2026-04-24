@@ -4,6 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { useState, useMemo } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
+import ShareButton from "@/components/ShareButton";
 
 const SECURITY_PILLARS = [
   { icon: FileCheck, label: "Audited", desc: "Independent security audit passed", color: "#0891B2" },
@@ -211,7 +212,7 @@ export default function TrustSection() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 mt-4">
+                    <div className="flex items-center gap-2 mt-4 flex-wrap">
                       {pres.fileUrl && (
                         <a
                           href={pres.fileUrl}
@@ -240,6 +241,12 @@ export default function TrustSection() {
                           View
                         </a>
                       )}
+                      <ShareButton
+                        path="/#presentations"
+                        message={`📄 Turbo Loop presentation in ${pres.language} — download or view online.${pres.fileUrl ? "\n\n" + pres.fileUrl : ""}`}
+                        variant="icon"
+                        label="Share"
+                      />
                     </div>
                   </div>
                 </AnimatedSection>

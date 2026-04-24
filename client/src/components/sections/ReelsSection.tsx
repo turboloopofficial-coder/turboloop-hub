@@ -4,6 +4,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX, X, ChevronLeft, ChevronRight, Sparkles, Loader2 } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 
+/** Derive thumbnail URL from the reel's video URL.
+ *  video: https://<r2>/reels/slug.mp4  →  thumb: https://<r2>/reel-thumbs/slug.jpg
+ */
+function thumbForReel(videoUrl: string): string {
+  try {
+    const u = new URL(videoUrl);
+    u.pathname = u.pathname.replace(/^\/reels\//, "/reel-thumbs/").replace(/\.mp4$/i, ".jpg");
+    return u.toString();
+  } catch {
+    return "";
+  }
+}
+
 export default function ReelsSection() {
   const { data: videos } = trpc.content.videos.useQuery();
   const reels = (videos ?? []).filter(v => v.directUrl && !v.youtubeUrl);
@@ -159,14 +172,24 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
           boxShadow: "0 12px 40px -8px rgba(0,0,0,0.15), 0 4px 16px -2px rgba(8,145,178,0.1)",
         }}
       >
+        {/* Poster thumbnail — shows instantly, no black frame */}
+        <img
+          src={thumbForReel(reel.directUrl)}
+          alt={reel.title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+          style={{ opacity: hovered ? 0 : 1, transition: "opacity 0.25s" }}
+        />
         <video
           ref={videoRef}
           src={reel.directUrl}
+          poster={thumbForReel(reel.directUrl)}
           muted
           playsInline
-          preload="metadata"
+          preload="none"
           loop
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          style={{ opacity: hovered ? 1 : 0, transition: "opacity 0.25s" }}
         />
         {/* Dark gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
@@ -271,25 +294,38 @@ function ReelPlayer({
       className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl"
       onClick={onClose}
     >
-      {/* Top bar */}
-      <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 md:p-5 pointer-events-none">
+      {/* FLOATING CLOSE BUTTON — always visible, top-right corner, impossible to miss */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        className="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex items-center gap-2 pl-3 pr-5 py-3 rounded-full bg-white hover:bg-red-50 shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-200 hover:scale-105"
+        aria-label="Close (Esc)"
+        style={{ animation: "closeBtnPulse 2.2s ease-in-out infinite" }}
+      >
+        <span className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:from-red-600 group-hover:to-red-700 transition">
+          <X className="w-5 h-5 md:w-6 md:h-6 text-white" strokeWidth={3} />
+        </span>
+        <span className="text-slate-800 text-sm md:text-base font-bold">Close</span>
+      </button>
+
+      <style>{`
+        @keyframes closeBtnPulse {
+          0%, 100% { box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 0 0 rgba(239,68,68,0.45); }
+          50%      { box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 0 14px rgba(239,68,68,0); }
+        }
+      `}</style>
+
+      {/* Top bar (left side only — counter + mute + share) */}
+      <div className="absolute top-0 left-0 right-0 z-20 flex items-start justify-between p-4 md:p-6 pointer-events-none">
         <div className="flex items-center gap-3 pointer-events-auto">
-          <button
-            onClick={(e) => { e.stopPropagation(); onClose(); }}
-            className="group flex items-center gap-2 pl-2 pr-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 transition-all"
-            aria-label="Close (Esc)"
-          >
-            <span className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/25 transition">
-              <X className="w-4 h-4 text-white" />
-            </span>
-            <span className="text-white text-sm font-medium">Close</span>
-          </button>
-          <span className="text-white/60 text-xs md:text-sm font-mono tracking-wider">{position}</span>
+          <span className="text-white/70 text-sm md:text-base font-mono tracking-wider bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+            {position}
+          </span>
         </div>
-        <div className="flex items-center gap-2 pointer-events-auto">
+        {/* Spacer for close button (positioned absolute above) */}
+        <div className="flex items-center gap-2 pointer-events-auto" style={{ marginRight: "140px" }}>
           <button
             onClick={(e) => { e.stopPropagation(); setMuted(m => !m); }}
-            className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 flex items-center justify-center transition"
+            className="w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center transition"
             aria-label={muted ? "Unmute" : "Mute"}
             title={muted ? "Unmute" : "Mute"}
           >
@@ -300,7 +336,7 @@ function ReelPlayer({
               path="/#reels"
               message={shareMessage}
               variant="icon"
-              className="!w-11 !h-11 !bg-white/10 hover:!bg-white/20 !border-white/10 !text-white"
+              className="!w-11 !h-11 !bg-white/15 hover:!bg-white/25 !border-white/20 !text-white"
             />
           </div>
         </div>
@@ -344,6 +380,7 @@ function ReelPlayer({
             <video
               ref={videoRef}
               src={reel.directUrl}
+              poster={thumbForReel(reel.directUrl)}
               autoPlay
               playsInline
               loop

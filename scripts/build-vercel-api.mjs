@@ -4,28 +4,47 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const srcFile = path.join(projectRoot, "server/_vercel/trpc-handler.ts");
-const outFile = path.join(projectRoot, "api/trpc/[trpc].js");
 
-console.log("🔧 Bundling Vercel serverless handler...");
-console.log("  source:", srcFile);
-console.log("  output:", outFile);
+const bundles = [
+  {
+    src: path.join(projectRoot, "server/_vercel/trpc-handler.ts"),
+    out: path.join(projectRoot, "api/trpc/[trpc].js"),
+    label: "tRPC handler",
+  },
+  {
+    src: path.join(projectRoot, "server/_vercel/cron-publish-blog.ts"),
+    out: path.join(projectRoot, "api/cron/publish-blog.js"),
+    label: "Cron: publish-blog",
+  },
+];
 
-if (!fs.existsSync(srcFile)) {
-  console.error(`❌ Source file not found: ${srcFile}`);
-  process.exit(1);
+console.log("🔧 Bundling Vercel serverless handlers...\n");
+
+for (const b of bundles) {
+  if (!fs.existsSync(b.src)) {
+    console.error(`❌ Source missing: ${b.src}`);
+    process.exit(1);
+  }
+  fs.mkdirSync(path.dirname(b.out), { recursive: true });
+  await build({
+    entryPoints: [b.src],
+    bundle: true,
+    platform: "node",
+    format: "cjs",
+    target: "node20",
+    outfile: b.out,
+    logLevel: "warning",
+  });
+  const stats = fs.statSync(b.out);
+  console.log(`  ✓ ${b.label}: ${path.relative(projectRoot, b.out)} (${(stats.size / 1024).toFixed(1)} KB)`);
 }
 
-await build({
-  entryPoints: [srcFile],
-  bundle: true,
-  platform: "node",
-  format: "cjs",
-  target: "node20",
-  outfile: outFile,
-  logLevel: "info",
-});
+// Ensure each api/ directory has a package.json with type=commonjs
+const cjsDirs = ["api/trpc", "api/cron"];
+for (const dir of cjsDirs) {
+  const pkgPath = path.join(projectRoot, dir, "package.json");
+  fs.mkdirSync(path.dirname(pkgPath), { recursive: true });
+  fs.writeFileSync(pkgPath, JSON.stringify({ type: "commonjs" }, null, 2) + "\n");
+}
 
-const stats = fs.statSync(outFile);
-console.log(`✅ Bundled to ${outFile} (${(stats.size / 1024).toFixed(1)} KB)`);
-console.log(`   Don't forget to commit ${path.relative(projectRoot, outFile)} after rebuilding.`);
+console.log("\n✅ All handlers bundled");

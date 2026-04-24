@@ -23,6 +23,7 @@ export const blogPosts = pgTable("blog_posts", {
   content: text("content").notNull(),
   coverImage: varchar("cover_image", { length: 1000 }),
   published: boolean("published").default(false).notNull(),
+  scheduledPublishAt: timestamp("scheduled_publish_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
 });

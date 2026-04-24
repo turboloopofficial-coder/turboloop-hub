@@ -20,7 +20,9 @@ function getYouTubeId(url: string): string | null {
 }
 
 export default function VideoSection() {
-  const { data: videos } = trpc.content.videos.useQuery();
+  const { data: allVideos } = trpc.content.videos.useQuery();
+  // Exclude reels (directUrl-only videos) — they're shown in ReelsSection
+  const videos = useMemo(() => (allVideos ?? []).filter(v => v.youtubeUrl), [allVideos]);
   const [activeCategory, setActiveCategory] = useState<VideoCategory>("presentation");
   const [activeLanguage, setActiveLanguage] = useState<string>("all");
   const [playingId, setPlayingId] = useState<number | null>(null);

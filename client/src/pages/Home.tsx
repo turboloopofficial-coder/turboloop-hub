@@ -3,6 +3,7 @@ import FloatingLaunchButton from "@/components/FloatingLaunchButton";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
+import ReelsSection from "@/components/sections/ReelsSection";
 import EcosystemSection from "@/components/sections/EcosystemSection";
 import LeaderboardSection from "@/components/sections/LeaderboardSection";
 import FlywheelSection from "@/components/sections/FlywheelSection";
@@ -24,13 +25,14 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10">
         <HeroSection />
+        <ReelsSection />
+        <EventsSection />
         <EcosystemSection />
-        <LeaderboardSection />
         <FlywheelSection />
+        <LeaderboardSection />
         <PromotionsSection />
         <VideoSection />
         <BlogSection />
-        <EventsSection />
         <RoadmapSection />
         <TrustSection />
         <FaqSection />

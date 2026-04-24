@@ -90954,6 +90954,7 @@ var blogPosts = pgTable("blog_posts", {
   content: text("content").notNull(),
   coverImage: varchar("cover_image", { length: 1e3 }),
   published: boolean4("published").default(false).notNull(),
+  scheduledPublishAt: timestamp("scheduled_publish_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
 });

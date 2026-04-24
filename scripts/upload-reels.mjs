@@ -41,47 +41,48 @@ async function upload(localPath, key, contentType) {
   return url;
 }
 
+// Use the FULL (non-THUMB) versions which have audio
 const reels = [
   {
     title: "The Safest Number in DeFi",
     slug: "safest-number-in-defi",
-    file: "TurboLoop_TheSafestNumberinDeFi_1080p_THUMB.mp4",
+    file: "TurboLoop_ The Safest Number in DeFi_1080p.mp4",
     description: "Why the math behind Turbo Loop makes it statistically the safest yield farming number in DeFi.",
   },
   {
     title: "The Blockchain Never Lies",
     slug: "blockchain-never-lies",
-    file: "TurboLoop_TheBlockchainNeverLies_1080p_THUMB.mp4",
+    file: "TurboLoop_ The Blockchain Never Lies_1080p.mp4",
     description: "Every transaction, every reward, every contract call — publicly verifiable on BscScan.",
   },
   {
     title: "Global Momentum",
     slug: "global-momentum",
-    file: "TurboLoopGlobalMomentumReel_1080p(1)_THUMB.mp4",
+    file: "TurboLoop Global Momentum Reel_1080p (1).mp4",
     description: "Communities growing across 6+ continents. The Turbo Loop movement, in motion.",
   },
   {
     title: "Cryptographically Impossible Rug-Pull",
     slug: "rug-pull-proof",
-    file: "TurboLoop_TheCryptographicallyImpossibleRug-PullProofArchitecture_1080p_THUMB.mp4",
+    file: "TurboLoop_ The Cryptographically Impossible Rug-Pull Proof Architecture_1080p.mp4",
     description: "Renounced ownership + locked LP + verified contract = rug-pull is cryptographically impossible.",
   },
   {
     title: "90-Day Math",
     slug: "90-day-math",
-    file: "TurboLoop90-DayMathReel_1080p_THUMB.mp4",
+    file: "TurboLoop 90-Day Math Reel_1080p.mp4",
     description: "Follow the math — 90 days of compound yield modeled on the blockchain.",
   },
   {
     title: "3 Streams of Income",
     slug: "3-streams-of-income",
-    file: "TurboLoop_3StreamsofIncome_1080p_THUMB.mp4",
+    file: "TurboLoop_ 3 Streams of Income_1080p.mp4",
     description: "Yield, referrals, leadership — three independent income streams from a single deposit.",
   },
   {
     title: "The Leadership Journey",
     slug: "leadership-journey",
-    file: "TurboLoop_TheLeadershipJourney_1080p_THUMB.mp4",
+    file: "TurboLoop_ The Leadership Journey_1080p.mp4",
     description: "From Turbo Partner to Turbo Legend — seven ranks, unlimited earning potential.",
   },
 ];

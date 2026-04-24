@@ -5,6 +5,10 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import "./index.css";
+import { captureReferralFromUrl } from "./lib/referral";
+
+// Capture ?ref= URL param on load (persists to localStorage)
+captureReferralFromUrl();
 
 const queryClient = new QueryClient();
 

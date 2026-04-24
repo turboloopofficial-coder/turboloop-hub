@@ -3,6 +3,7 @@ import { SITE } from "@/lib/constants";
 import { useRoute, Link } from "wouter";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Streamdown } from "streamdown";
+import ShareButton from "@/components/ShareButton";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -53,11 +54,28 @@ export default function BlogPost() {
               <img src={post.coverImage} alt={post.title} className="w-full h-56 md:h-72 object-cover rounded-xl mb-8" />
             )}
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-4 leading-tight">{post.title}</h1>
-            <p className="text-sm text-slate-400 mb-10">
-              {new Date(post.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-            </p>
+            <div className="flex items-center justify-between mb-10 flex-wrap gap-3">
+              <p className="text-sm text-slate-400">
+                {new Date(post.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              </p>
+              <ShareButton
+                path={`/blog/${post.slug}`}
+                message={`📖 ${post.title}\n\n${post.excerpt || "Read on Turbo Loop — the complete DeFi ecosystem on BSC."}`}
+                label="Share this post"
+                variant="solid"
+              />
+            </div>
             <div className="prose prose-slate max-w-none prose-headings:text-slate-800 prose-p:text-slate-600 prose-p:leading-relaxed prose-strong:text-cyan-700 prose-blockquote:border-cyan-500/30 prose-blockquote:text-slate-600 prose-a:text-cyan-600 prose-li:text-slate-600">
               <Streamdown>{post.content}</Streamdown>
+            </div>
+            <div className="mt-12 pt-8 border-t border-slate-200 flex items-center justify-between flex-wrap gap-4">
+              <p className="text-sm text-slate-500">Enjoyed this? Share it with your network — earn referral rewards.</p>
+              <ShareButton
+                path={`/blog/${post.slug}`}
+                message={`📖 ${post.title}\n\n${post.excerpt || "Read on Turbo Loop — the complete DeFi ecosystem on BSC."}`}
+                label="Share"
+                variant="solid"
+              />
             </div>
           </article>
         ) : (

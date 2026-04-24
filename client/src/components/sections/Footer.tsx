@@ -1,5 +1,6 @@
 import { SITE } from "@/lib/constants";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
+import ShareButton from "@/components/ShareButton";
 
 export default function Footer() {
   return (
@@ -20,19 +21,26 @@ export default function Footer() {
             <p className="text-sm text-slate-500 leading-relaxed mb-6">
               The Complete DeFi Ecosystem on Binance Smart Chain.
             </p>
-            <a
-              href={SITE.mainApp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:brightness-110"
-              style={{
-                background: "rgba(8,145,178,0.08)",
-                border: "1px solid rgba(8,145,178,0.2)",
-                color: "#0891B2",
-              }}
-            >
-              Launch App <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href={SITE.mainApp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:brightness-110"
+                style={{
+                  background: "rgba(8,145,178,0.08)",
+                  border: "1px solid rgba(8,145,178,0.2)",
+                  color: "#0891B2",
+                }}
+              >
+                Launch App <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+              <ShareButton
+                path="/"
+                message="🚀 Turbo Loop — the complete DeFi ecosystem on BSC. Sustainable yield. Transparent by design. Open to everyone."
+                label="Share"
+              />
+            </div>
           </div>
 
           {/* Explore */}

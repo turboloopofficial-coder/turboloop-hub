@@ -148,9 +148,33 @@ export default function ReelsSection() {
   );
 }
 
+// Vibrant gradient palette cycled per reel, shown behind dark/loading thumbs so cards
+// never look black. Picked deterministically from the slug so each reel always gets
+// the same color scheme.
+const REEL_GRADIENTS: Array<{ from: string; via: string; to: string; accent: string }> = [
+  { from: "#0891B2", via: "#7C3AED", to: "#EC4899", accent: "#22D3EE" }, // cyan → purple → pink
+  { from: "#7C3AED", via: "#EC4899", to: "#F59E0B", accent: "#A78BFA" }, // purple → pink → amber
+  { from: "#10B981", via: "#0891B2", to: "#7C3AED", accent: "#34D399" }, // green → cyan → purple
+  { from: "#EC4899", via: "#7C3AED", to: "#0891B2", accent: "#F472B6" }, // pink → purple → cyan
+  { from: "#F59E0B", via: "#EC4899", to: "#7C3AED", accent: "#FBBF24" }, // amber → pink → purple
+  { from: "#0891B2", via: "#10B981", to: "#F59E0B", accent: "#67E8F9" }, // cyan → green → amber
+];
+
+function gradientForSlug(slug: string) {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  return REEL_GRADIENTS[hash % REEL_GRADIENTS.length];
+}
+
 function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number; onOpen: () => void; isDimmed: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hovered, setHovered] = useState(false);
+  const [thumbLoaded, setThumbLoaded] = useState(false);
+  const [thumbFailed, setThumbFailed] = useState(false);
+
+  const slug = slugFromUrl(reel.directUrl) || `reel-${reel.id}`;
+  const palette = gradientForSlug(slug);
+  const letter = (reel.title?.[0] || "T").toUpperCase();
 
   useEffect(() => {
     const v = videoRef.current;
@@ -178,17 +202,55 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
       <div
         className="relative w-full h-full rounded-2xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]"
         style={{
-          boxShadow: "0 12px 40px -8px rgba(0,0,0,0.15), 0 4px 16px -2px rgba(8,145,178,0.1)",
+          boxShadow: `0 18px 50px -10px ${palette.from}50, 0 6px 20px -4px ${palette.via}30`,
         }}
       >
-        {/* Poster thumbnail — shows instantly, no black frame */}
-        <img
-          src={thumbForReel(reel.directUrl)}
-          alt={reel.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-          style={{ opacity: hovered ? 0 : 1, transition: "opacity 0.25s" }}
+        {/* Vibrant gradient backdrop — always visible so card never looks black,
+            even before the thumbnail loads or if it's dim */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(135deg, ${palette.from} 0%, ${palette.via} 50%, ${palette.to} 100%)`,
+          }}
         />
+        {/* Decorative giant letter behind thumb (visible at low opacity if thumb is dark) */}
+        <div
+          className="absolute -right-4 -bottom-12 text-[10rem] font-bold leading-none select-none pointer-events-none"
+          style={{
+            color: "rgba(255,255,255,0.15)",
+            fontFamily: "var(--font-heading)",
+          }}
+        >
+          {letter}
+        </div>
+        {/* Diagonal shimmer over backdrop */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 45%, transparent 60%)",
+            backgroundSize: "200% 200%",
+          }}
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Poster thumbnail — fades in on top of gradient when it loads */}
+        {!thumbFailed && (
+          <img
+            src={thumbForReel(reel.directUrl)}
+            alt={reel.title}
+            onLoad={() => setThumbLoaded(true)}
+            onError={() => setThumbFailed(true)}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+            style={{
+              opacity: hovered ? 0 : thumbLoaded ? 1 : 0,
+              transition: "opacity 0.4s",
+            }}
+          />
+        )}
+
         <video
           ref={videoRef}
           src={reel.directUrl}
@@ -200,29 +262,68 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           style={{ opacity: hovered ? 1 : 0, transition: "opacity 0.25s" }}
         />
-        {/* Dark gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
-        {/* Play overlay */}
+
+        {/* Color-tinted gradient overlay — adds depth, makes title readable, never makes thumb look black */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(180deg, transparent 0%, transparent 40%, ${palette.from}cc 100%)`,
+            mixBlendMode: "multiply",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
+
+        {/* Top accent stripe */}
+        <div
+          className="absolute top-0 left-0 right-0 h-1 pointer-events-none"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${palette.accent}, transparent)`,
+          }}
+        />
+
+        {/* Play overlay — vibrant gradient ring */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div
-            className="w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 group-hover:scale-110"
-            style={{
-              background: "rgba(255,255,255,0.95)",
-              boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
-            }}
-          >
-            <Play className="w-5 h-5 text-slate-800 ml-0.5 fill-slate-800" />
+          <div className="relative">
+            {/* Pulsing outer ring */}
+            <div
+              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background: `radial-gradient(circle, ${palette.accent}66, transparent 70%)`,
+                transform: "scale(2)",
+              }}
+            />
+            <div
+              className="relative w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+              style={{
+                background: "linear-gradient(135deg, #ffffff, #f1f5f9)",
+                boxShadow: `0 8px 25px rgba(0,0,0,0.4), 0 0 0 4px ${palette.accent}40, inset 0 1px 0 rgba(255,255,255,0.5)`,
+              }}
+            >
+              <Play
+                className="w-6 h-6 ml-0.5 fill-current"
+                style={{ color: palette.from }}
+              />
+            </div>
           </div>
         </div>
+
         {/* Title */}
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-          <h4 className="text-sm font-semibold leading-tight line-clamp-2 drop-shadow-lg">
+          <h4 className="text-sm font-bold leading-tight line-clamp-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
             {reel.title}
           </h4>
         </div>
-        {/* Top-right badge */}
-        <div className="absolute top-3 right-3 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase bg-white/20 backdrop-blur-md border border-white/20 text-white">
-          Reel
+
+        {/* Top-right "Reel" badge with accent color */}
+        <div
+          className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black tracking-[0.18em] uppercase backdrop-blur-md"
+          style={{
+            background: "rgba(255,255,255,0.95)",
+            color: palette.from,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+          }}
+        >
+          ▸ Reel
         </div>
       </div>
     </motion.div>

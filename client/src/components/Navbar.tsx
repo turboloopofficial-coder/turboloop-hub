@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ExternalLink, Wallet, Check } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
 import { SITE } from "@/lib/constants";
-import { connectWallet, getConnectedAddress, hasWallet, shortenAddress } from "@/lib/wallet";
 
 const NAV_LINKS = [
   { label: "Ecosystem", href: "#ecosystem" },
@@ -16,24 +15,12 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [walletAddr, setWalletAddr] = useState<string | null>(null);
-  const [connecting, setConnecting] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Check if already connected on load
-    getConnectedAddress().then((addr) => { if (addr) setWalletAddr(addr); });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const onConnect = async () => {
-    if (walletAddr) return; // already connected
-    setConnecting(true);
-    const addr = await connectWallet();
-    if (addr) setWalletAddr(addr);
-    setConnecting(false);
-  };
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
@@ -94,29 +81,6 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            {/* Wallet connect */}
-            <button
-              onClick={onConnect}
-              disabled={connecting}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
-              style={walletAddr ? {
-                background: "rgba(16,185,129,0.08)",
-                border: "1px solid rgba(16,185,129,0.25)",
-                color: "#059669",
-              } : {
-                background: "rgba(255,255,255,0.7)",
-                border: "1px solid rgba(0,0,0,0.08)",
-                color: "#475569",
-              }}
-              title={walletAddr ? `Connected: ${walletAddr}` : "Connect wallet to earn referrals"}
-            >
-              {walletAddr ? (
-                <><Check className="w-3.5 h-3.5" /> {shortenAddress(walletAddr)}</>
-              ) : (
-                <><Wallet className="w-3.5 h-3.5" /> {connecting ? "Connecting…" : "Connect"}</>
-              )}
-            </button>
-
             {/* Launch App */}
             <a
               href={SITE.mainApp}

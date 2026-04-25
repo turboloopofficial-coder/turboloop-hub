@@ -264,9 +264,9 @@ export default function TrustSection() {
         </div>
 
         {/* ===== PRESENTATIONS / PDF LIBRARY ===== */}
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <AnimatedSection>
-            <div className="text-center mb-10">
+            <div className="text-center mb-8">
               <div
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase mb-3"
                 style={{
@@ -282,8 +282,48 @@ export default function TrustSection() {
                 Decks & Resources
               </h3>
               <p className="text-slate-500">
-                Available in 48 languages. Download or view online.
+                The complete Turbo Loop story — translated, polished, ready to share.
               </p>
+            </div>
+          </AnimatedSection>
+
+          {/* Stats row — quick at-a-glance counts */}
+          <AnimatedSection delay={0.05}>
+            <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto mb-8">
+              {[
+                { label: "Documents", value: presentations?.length || 0, color: "#0891B2", icon: FileText },
+                { label: "Languages", value: languages.length, color: "#7C3AED", icon: Search },
+                { label: "Format", value: "PDF", color: "#10B981", icon: Download, isText: true },
+              ].map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl p-4 text-center"
+                    style={{
+                      background: "white",
+                      border: "1px solid rgba(15,23,42,0.06)",
+                      boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
+                    }}
+                  >
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-2"
+                      style={{
+                        background: `linear-gradient(135deg, ${stat.color}, ${stat.color}cc)`,
+                        boxShadow: `0 6px 14px -4px ${stat.color}50`,
+                      }}
+                    >
+                      <Icon className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="text-xl md:text-2xl font-bold text-slate-900 tabular-nums">
+                      {stat.value}
+                    </div>
+                    <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mt-0.5">
+                      {stat.label}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </AnimatedSection>
 

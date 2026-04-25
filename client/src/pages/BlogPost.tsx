@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { Streamdown } from "streamdown";
 import ShareButton from "@/components/ShareButton";
 import SEOHead from "@/components/SEOHead";
+import ReadingProgress from "@/components/ReadingProgress";
+import BackToTop from "@/components/BackToTop";
 
 // Same gradient palette used by the BlogSection cards — pick deterministically by slug
 // so a post's hero gradient matches its card on the listing page.
@@ -57,6 +59,8 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}>
+      <ReadingProgress />
+      <BackToTop />
       {post && (
         <SEOHead
           title={`${post.title} | Turbo Loop Blog`}
@@ -82,9 +86,20 @@ export default function BlogPost() {
             </Link>
             <div className="h-5 w-px bg-slate-200" />
             <Link href="/">
-              <span className="text-base font-bold cursor-pointer">
-                <span className="text-slate-800">Turbo</span>
-                <span className="text-cyan-600">Loop</span>
+              <span className="flex items-center gap-2 cursor-pointer">
+                <img src={SITE.logo} alt="Turbo Loop" className="h-7 w-auto" />
+                <span className="text-base font-bold">
+                  <span className="text-slate-800">Turbo</span>
+                  <span
+                    style={{
+                      background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Loop
+                  </span>
+                </span>
               </span>
             </Link>
           </div>

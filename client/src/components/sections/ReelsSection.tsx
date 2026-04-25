@@ -325,6 +325,19 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
         >
           ▸ Reel
         </div>
+
+        {/* Share button — top-left, stops propagation so it doesn't open the player */}
+        <div
+          className="absolute top-3 left-3"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ShareButton
+            path={`/reels/${slug}`}
+            message={`🔥 ${reel.title} — watch this short on Turbo Loop, the complete DeFi ecosystem on Binance Smart Chain.`}
+            variant="icon"
+            className="!w-9 !h-9 !bg-white/95 hover:!bg-white !text-slate-700 !border-white/40 shadow-lg"
+          />
+        </div>
       </div>
     </motion.div>
   );

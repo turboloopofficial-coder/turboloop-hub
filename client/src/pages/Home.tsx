@@ -1,5 +1,6 @@
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingLaunchButton from "@/components/FloatingLaunchButton";
+import BackToTop from "@/components/BackToTop";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Navbar from "@/components/Navbar";
 import ActivityTicker from "@/components/ActivityTicker";
@@ -85,6 +86,7 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingLaunchButton />
+      <BackToTop />
       <WelcomePopup />
     </div>
   );

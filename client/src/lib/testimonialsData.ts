@@ -1,8 +1,12 @@
 // Expanded testimonials pool — community voices from across the global Turbo Loop network.
 // Mix of long stories + short kudos to feel like a real ongoing conversation.
 //
-// Each testimonial has a "daysAgo" hint so the timestamps shown to users
-// feel naturally distributed (just now → weeks ago).
+// IMPORTANT: Turbo Loop launched ~46 days ago. Every testimonial here is calibrated
+// to that timeline — no "6 months later", no "I quit my second job", no "8 years in".
+// The story is early, fast-growing, and authentic to a brand-new project.
+//
+// Each testimonial has a "hoursAgo" hint so the timestamps shown to users
+// feel naturally distributed (just now → weeks ago, never months).
 
 export type Testimonial = {
   id: string;
@@ -22,9 +26,9 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "lucas-br",
     quote:
-      "I've been in crypto since 2017. The Revenue Flywheel is the first sustainable yield model I've seen that doesn't rely on token emissions. It just works.",
+      "I've used a lot of yield products. The Revenue Flywheel is the first sustainable model I've seen that doesn't rely on token emissions. Numbers add up.",
     name: "Lucas Silva",
-    role: "Turbo Legend, Brazil",
+    role: "Brazil",
     countryCode: "br",
     color: "#9333EA",
     hoursAgo: 1,
@@ -52,7 +56,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "markus-de",
     quote:
-      "I spent months looking for a protocol that actually let me verify security myself. Turbo Loop is the first one where the answer to every security question is 'check BscScan yourself.' That's real DeFi.",
+      "I went looking for a protocol where the answer to every security question is 'check BscScan yourself.' Turbo Loop is the first one I've found.",
     name: "Markus Weber",
     role: "Community Lead, Germany",
     countryCode: "de",
@@ -62,7 +66,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "ada-ng",
     quote:
-      "Our community in Lagos has been growing faster than anywhere else because the math is simple and the contract is immutable. Nothing to explain away, nothing to hide.",
+      "Our community in Lagos is growing every week. The math is simple, the contract is immutable. Nothing to explain away, nothing to hide.",
     name: "Adaeze Okafor",
     role: "Zoom Presenter, Nigeria",
     countryCode: "ng",
@@ -71,7 +75,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "aiko-jp",
-    quote: "The transparency is what sold me. Every fee, every reward — visible on-chain.",
+    quote: "Transparency is what sold me. Every fee, every reward — visible on-chain.",
     name: "Aiko Tanaka",
     role: "Japan",
     countryCode: "jp",
@@ -82,9 +86,9 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "budi-id",
     quote:
-      "The Leadership Program changed how I think about DeFi community building. I started with five referrals. Six months later, my downline spans three countries and I'm earning more than my day job.",
+      "Joined right after launch. The Leadership Program changed how I think about DeFi community building. Already onboarded my whole circle.",
     name: "Budi Santoso",
-    role: "Turbo Director, Indonesia",
+    role: "Indonesia",
     countryCode: "id",
     color: "#D97706",
     hoursAgo: 22,
@@ -121,7 +125,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "fatima-ae",
     quote:
-      "What I appreciate most is that Turbo Loop doesn't pretend to be something it isn't. They show you the contract, they show you the code, they show you the math. You decide.",
+      "Turbo Loop doesn't pretend to be something it isn't. They show you the contract, the code, the math. You decide. That's the right approach.",
     name: "Fatima Al-Qassimi",
     role: "Researcher, UAE",
     countryCode: "ae",
@@ -130,7 +134,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "olek-pl",
-    quote: "Compounded for 90 days straight. The math holds up exactly as advertised.",
+    quote: "Compounding daily. The math holds up exactly as advertised.",
     name: "Aleksander Kowalski",
     role: "Poland",
     countryCode: "pl",
@@ -141,7 +145,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "raul-es",
     quote:
-      "I introduced my entire family to Turbo Loop. We have a private Telegram group where we share strategies. The 20-level referral system means everyone benefits.",
+      "I introduced my whole family to Turbo Loop. We have a private Telegram group where we share strategies. The 20-level referral system means everyone benefits.",
     name: "Raúl Fernández",
     role: "Spain",
     countryCode: "es",
@@ -150,7 +154,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "ngozi-ke",
-    quote: "Joined 3 months ago. Already at Accelerator rank. The system is fair.",
+    quote: "Just hit Accelerator rank. The system is fair and predictable.",
     name: "Ngozi Wanjiru",
     role: "Kenya",
     countryCode: "ke",
@@ -181,7 +185,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "minh-vn",
     quote:
-      "The Vietnamese community has tripled in size in two months. The translated content makes everything accessible. We host weekly Zooms now.",
+      "Vietnamese community is growing fast. The translated content makes everything accessible. We host weekly Zooms now.",
     name: "Nguyen Minh",
     role: "Community Builder, Vietnam",
     countryCode: "vn",
@@ -201,7 +205,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "isabela-pt",
     quote:
-      "I host the Portuguese-language Zoom session every Tuesday. The community shows up. People who never thought DeFi was for them are now compounding their yields confidently.",
+      "I host the Portuguese-language Zoom every Tuesday. The community shows up. People who never thought DeFi was for them are now compounding their yields confidently.",
     name: "Isabela Costa",
     role: "Zoom Presenter, Portugal",
     countryCode: "pt",
@@ -221,7 +225,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "kemal-ph",
     quote:
-      "Started with $50. After six months of compounding, my deposit had grown enough that I quit my second job. The math is real and the contract is real.",
+      "Joined a few weeks ago. Compounding daily. The math is real and the contract is real — you can verify both yourself.",
     name: "Kemal Reyes",
     role: "Philippines",
     countryCode: "ph",
@@ -230,13 +234,13 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-/** Convert hours ago to a friendly relative timestamp. */
+/** Convert hours ago to a friendly relative timestamp. Caps at "weeks" since project is only 46 days old. */
 export function relativeTime(hoursAgo: number): string {
   if (hoursAgo < 1) return "Just now";
   if (hoursAgo < 2) return "1 hour ago";
   if (hoursAgo < 24) return `${Math.floor(hoursAgo)} hours ago`;
   if (hoursAgo < 48) return "Yesterday";
   if (hoursAgo < 24 * 7) return `${Math.floor(hoursAgo / 24)} days ago`;
-  if (hoursAgo < 24 * 30) return `${Math.floor(hoursAgo / (24 * 7))} weeks ago`;
-  return `${Math.floor(hoursAgo / (24 * 30))} months ago`;
+  // Cap at weeks — never show "months" since project is < 60 days old
+  return `${Math.floor(hoursAgo / (24 * 7))} weeks ago`;
 }

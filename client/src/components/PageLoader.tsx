@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SITE } from "@/lib/constants";
 
 export default function PageLoader() {
   return (
@@ -8,7 +9,7 @@ export default function PageLoader() {
     >
       <div className="flex flex-col items-center gap-6">
         {/* Animated logo orb */}
-        <div className="relative w-20 h-20">
+        <div className="relative w-24 h-24">
           {/* Pulsing outer ring */}
           <motion.div
             animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
@@ -23,7 +24,7 @@ export default function PageLoader() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-2 rounded-full"
+            className="absolute inset-0 rounded-full"
             style={{
               background:
                 "conic-gradient(from 0deg, transparent 0deg, #0891B2 90deg, #7C3AED 180deg, transparent 360deg)",
@@ -34,16 +35,13 @@ export default function PageLoader() {
                 "radial-gradient(circle, transparent 60%, black 62%)",
             }}
           />
-          {/* Inner core */}
-          <div
-            className="absolute inset-5 rounded-full flex items-center justify-center"
-            style={{
-              background:
-                "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
-              boxShadow: "0 8px 24px -6px rgba(8,145,178,0.5)",
-            }}
-          >
-            <span className="text-white font-bold text-sm tracking-wider">TL</span>
+          {/* Real logo in the center */}
+          <div className="absolute inset-3 rounded-full flex items-center justify-center bg-white p-2">
+            <img
+              src={SITE.logo}
+              alt="Turbo Loop"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
 

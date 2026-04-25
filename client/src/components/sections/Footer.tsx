@@ -113,17 +113,15 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
             {/* Brand */}
             <div className="md:col-span-4">
-              <div className="flex items-center gap-2 mb-4">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+              <div className="flex items-center gap-3 mb-4">
+                <img
+                  src={SITE.logo}
+                  alt="Turbo Loop"
+                  className="h-11 w-auto"
                   style={{
-                    background:
-                      "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
-                    boxShadow: "0 8px 20px -6px rgba(8,145,178,0.5)",
+                    filter: "drop-shadow(0 8px 20px rgba(8,145,178,0.3))",
                   }}
-                >
-                  <span className="text-white font-bold text-sm">TL</span>
-                </div>
+                />
                 <span className="text-2xl font-bold">
                   <span className="text-white">Turbo</span>
                   <span

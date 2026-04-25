@@ -54,10 +54,30 @@ export default function Navbar() {
         }}
       >
         <div className="container flex items-center justify-between h-16 md:h-20">
-          <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3 group">
-            <span className="text-xl md:text-2xl font-bold tracking-tight">
+          <a
+            href="#"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-2.5 group"
+          >
+            <img
+              src={SITE.logo}
+              alt="Turbo Loop"
+              className="h-9 md:h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+              style={{
+                filter: "drop-shadow(0 4px 12px rgba(8,145,178,0.2))",
+              }}
+            />
+            <span className="text-xl md:text-2xl font-bold tracking-tight hidden sm:inline">
               <span className="text-slate-800">Turbo</span>
-              <span className="text-cyan-600">Loop</span>
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Loop
+              </span>
             </span>
           </a>
 

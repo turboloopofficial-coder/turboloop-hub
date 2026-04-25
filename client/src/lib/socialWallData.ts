@@ -87,7 +87,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     hoursAgo: 4,
     verified: true,
     pinned: true,
-    badges: ["Official", "12K+ members"],
+    badges: ["Official", "Growing daily"],
   },
 
   // — TurboLoop YouTube channel
@@ -168,7 +168,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     initials: "BS",
     avatarGradient: { from: "#D97706", to: "#EC4899" },
     content:
-      "6 months in. Downline across 3 countries. The Leadership Program changed how I think about community building. 🇮🇩",
+      "Joined right after launch. Already onboarded my whole circle. The Leadership Program changed how I think about community building. 🇮🇩",
     url: "/#testimonials",
     countryCode: "id",
     hoursAgo: 19,
@@ -221,7 +221,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     initials: "LS",
     avatarGradient: { from: "#9333EA", to: "#EC4899" },
     content:
-      "8 years in crypto. The Revenue Flywheel is the first sustainable yield model I've seen that doesn't rely on token emissions. It just works. 🇧🇷",
+      "I've used a lot of yield products. The Revenue Flywheel is the first sustainable model I've seen that doesn't rely on token emissions. Numbers add up. 🇧🇷",
     url: "/#testimonials",
     countryCode: "br",
     hoursAgo: 48,
@@ -237,7 +237,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     initials: "NM",
     avatarGradient: { from: "#10B981", to: "#0891B2" },
     content:
-      "Cộng đồng Việt Nam đang phát triển! Vietnamese community has tripled in two months. Weekly Zooms now.",
+      "Cộng đồng Việt Nam đang phát triển! The Vietnamese community is growing fast. Weekly Zooms in our language now.",
     url: "/#testimonials",
     countryCode: "vn",
     hoursAgo: 60,

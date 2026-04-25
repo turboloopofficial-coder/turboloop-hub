@@ -1,10 +1,33 @@
 import { trpc } from "@/lib/trpc";
 import { SITE } from "@/lib/constants";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, ExternalLink, ChevronRight, Calendar } from "lucide-react";
+import { ArrowLeft, ExternalLink, ChevronRight, Calendar, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 import { Streamdown } from "streamdown";
 import ShareButton from "@/components/ShareButton";
 import SEOHead from "@/components/SEOHead";
+
+// Same gradient palette used by the BlogSection cards — pick deterministically by slug
+// so a post's hero gradient matches its card on the listing page.
+const COVER_PALETTES = [
+  { from: "#0891B2", via: "#22D3EE", to: "#7C3AED" },
+  { from: "#7C3AED", via: "#A78BFA", to: "#EC4899" },
+  { from: "#10B981", via: "#34D399", to: "#0891B2" },
+  { from: "#D97706", via: "#FBBF24", to: "#EC4899" },
+  { from: "#0F172A", via: "#475569", to: "#7C3AED" },
+  { from: "#0891B2", via: "#10B981", to: "#F59E0B" },
+];
+
+function paletteForSlug(slug: string) {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+  return COVER_PALETTES[h % COVER_PALETTES.length];
+}
+
+function readingTime(content: string): number {
+  const words = content?.split(/\s+/).length || 0;
+  return Math.max(1, Math.round(words / 200));
+}
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -94,15 +117,109 @@ export default function BlogPost() {
           </div>
         ) : post ? (
           <article>
-            {post.coverImage && (
-              <img src={post.coverImage} alt={post.title} className="w-full h-56 md:h-72 object-cover rounded-xl mb-8" />
-            )}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-4 leading-tight">{post.title}</h1>
-            <div className="flex items-center justify-between mb-10 flex-wrap gap-3">
-              <p className="inline-flex items-center gap-1.5 text-sm text-slate-400">
-                <Calendar className="w-3.5 h-3.5" />
-                {new Date(post.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+            {/* Premium hero banner */}
+            {(() => {
+              const palette = paletteForSlug(post.slug);
+              const minutes = readingTime(post.content);
+              const letter = (post.title?.[0] || "T").toUpperCase();
+              return (
+                <div
+                  className="relative rounded-3xl overflow-hidden mb-10"
+                  style={{
+                    boxShadow: `0 30px 60px -20px ${palette.from}40`,
+                  }}
+                >
+                  {post.coverImage ? (
+                    <div className="relative aspect-[2/1] overflow-hidden">
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    </div>
+                  ) : (
+                    <div
+                      className="relative aspect-[2/1] overflow-hidden"
+                      style={{
+                        background: `linear-gradient(135deg, ${palette.from} 0%, ${palette.via} 50%, ${palette.to} 100%)`,
+                      }}
+                    >
+                      {/* Animated diagonal shimmer */}
+                      <motion.div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background:
+                            "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 45%, transparent 60%)",
+                          backgroundSize: "200% 200%",
+                        }}
+                        animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      />
+                      {/* Grid pattern */}
+                      <div
+                        className="absolute inset-0 opacity-25 pointer-events-none"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px)",
+                          backgroundSize: "32px 32px",
+                        }}
+                      />
+                      {/* Decorative giant letter */}
+                      <div
+                        className="absolute -right-6 -bottom-16 select-none pointer-events-none font-bold leading-none"
+                        style={{
+                          fontSize: "20rem",
+                          color: "rgba(255,255,255,0.18)",
+                          fontFamily: "var(--font-heading)",
+                        }}
+                      >
+                        {letter}
+                      </div>
+                      {/* Bottom dark gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    </div>
+                  )}
+
+                  {/* Title overlay at the bottom of the banner */}
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.95)" }}>
+                      <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: palette.from }}>
+                        Turbo Loop · Blog
+                      </span>
+                    </div>
+                    <h1
+                      className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.05] mb-3 max-w-3xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {post.title}
+                    </h1>
+                    <div className="flex items-center gap-4 text-white/90 text-sm flex-wrap">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {new Date(post.createdAt).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" />
+                        {minutes} min read
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Excerpt + share row */}
+            {post.excerpt && (
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-6 italic font-light border-l-4 pl-4" style={{ borderColor: paletteForSlug(post.slug).from }}>
+                {post.excerpt}
               </p>
+            )}
+            <div className="flex items-center justify-end mb-10 flex-wrap gap-3">
               <ShareButton
                 path={`/blog/${post.slug}`}
                 message={`📖 ${post.title}\n\n${post.excerpt || "Read on Turbo Loop — the complete DeFi ecosystem on BSC."}`}

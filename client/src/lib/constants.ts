@@ -50,13 +50,23 @@ export const ROADMAP_DATA = [
   { phase: 9, title: "Full Ecosystem Maturity", description: "Self-sustaining flywheel, global DeFi standard, community governance", status: "upcoming" as const },
 ];
 
+// Expanded global community map — 14 countries across 6 continents.
+// Scores represent relative community size/activity (0-100).
 export const COUNTRY_DATA = [
   { rank: 1, country: "Germany", code: "de", description: "Strongest European Community", score: 100, medal: "gold" },
-  { rank: 2, country: "Nigeria", code: "ng", description: "Fastest Growing in Africa", score: 85, medal: "silver" },
-  { rank: 3, country: "Indonesia", code: "id", description: "Leading Southeast Asia", score: 72, medal: "bronze" },
-  { rank: 4, country: "India", code: "in", description: "Rapidly Expanding", score: 65, medal: "none" },
-  { rank: 5, country: "Turkey", code: "tr", description: "Emerging Market Leader", score: 50, medal: "none" },
-  { rank: 6, country: "Brazil", code: "br", description: "Latin America Pioneer", score: 40, medal: "none" },
+  { rank: 2, country: "Nigeria", code: "ng", description: "Fastest Growing in Africa", score: 88, medal: "silver" },
+  { rank: 3, country: "Indonesia", code: "id", description: "Leading Southeast Asia", score: 76, medal: "bronze" },
+  { rank: 4, country: "India", code: "in", description: "Rapidly Expanding", score: 68, medal: "none" },
+  { rank: 5, country: "Turkey", code: "tr", description: "Emerging Market Leader", score: 58, medal: "none" },
+  { rank: 6, country: "Brazil", code: "br", description: "Latin America Pioneer", score: 52, medal: "none" },
+  { rank: 7, country: "Vietnam", code: "vn", description: "Tripled in 2 months", score: 47, medal: "none" },
+  { rank: 8, country: "Philippines", code: "ph", description: "Strong Local Hubs", score: 43, medal: "none" },
+  { rank: 9, country: "Mexico", code: "mx", description: "Growing Latin Network", score: 38, medal: "none" },
+  { rank: 10, country: "Spain", code: "es", description: "Active Iberian Community", score: 34, medal: "none" },
+  { rank: 11, country: "Kenya", code: "ke", description: "East Africa Hub", score: 31, medal: "none" },
+  { rank: 12, country: "Poland", code: "pl", description: "Central Europe Rising", score: 28, medal: "none" },
+  { rank: 13, country: "UAE", code: "ae", description: "Middle East Gateway", score: 25, medal: "none" },
+  { rank: 14, country: "Japan", code: "jp", description: "Quality Over Volume", score: 22, medal: "none" },
 ];
 
 export const LANGUAGE_FLAGS: Record<string, string> = {

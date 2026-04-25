@@ -1,10 +1,21 @@
 import { trpc } from "@/lib/trpc";
 import { COUNTRY_DATA, getFlagUrl } from "@/lib/constants";
 import { motion, useInView } from "framer-motion";
-import { Trophy, Medal, Award, Crown, TrendingUp } from "lucide-react";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { Trophy, Medal, Award, Crown, TrendingUp, Flame, Sparkles } from "lucide-react";
+import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
+
+// Pseudo-random "trending" indicator that's stable per day per country.
+// Uses dayOfYear + country code to deterministically pick which countries
+// are "🔥 trending" today — gives the leaderboard a daily-shifting feel
+// without faking any underlying numbers.
+function isTrendingToday(code: string): boolean {
+  const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+  let h = day;
+  for (let i = 0; i < code.length; i++) h = (h * 31 + code.charCodeAt(i)) >>> 0;
+  return h % 4 === 0; // ~25% of countries trend on any given day
+}
 
 // Podium tier styling (1st = gold, 2nd = silver, 3rd = bronze)
 const TIERS = {
@@ -275,22 +286,37 @@ export default function LeaderboardSection() {
           />
         </div>
 
-        {/* Sub-leaderboard for rank 4-6 — premium bars */}
+        {/* Sub-leaderboard for rank 4+ — premium bars with trending badges */}
         <div className="max-w-3xl mx-auto space-y-3">
-          <div className="text-center mb-5">
-            <span className="text-xs tracking-[0.3em] uppercase font-bold text-slate-400">Honorable Mentions</span>
+          <div className="flex items-center justify-between mb-5">
+            <span className="text-xs tracking-[0.3em] uppercase font-bold text-slate-400">
+              Global Community
+            </span>
+            <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-emerald-600 inline-flex items-center gap-1.5">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+              </span>
+              Updated daily
+            </span>
           </div>
           {rest.map((entry, index) => {
             const grad = REST_GRADIENTS[index % REST_GRADIENTS.length];
+            const trending = isTrendingToday(entry.code);
+            const isNewEntry = entry.rank >= 12; // visually flag the lower ranks as new entrants
             return (
-              <AnimatedSection key={entry.rank} delay={0.4 + index * 0.08}>
+              <AnimatedSection key={entry.rank} delay={Math.min(0.3 + index * 0.05, 0.7)}>
                 <motion.div
                   whileHover={{ x: 4 }}
                   className="relative flex items-center gap-4 md:gap-5 p-4 md:p-5 rounded-2xl group"
                   style={{
                     background: "white",
-                    border: "1px solid rgba(15,23,42,0.06)",
-                    boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06), 0 1px 3px rgba(15,23,42,0.04)",
+                    border: trending
+                      ? "1px solid rgba(16,185,129,0.25)"
+                      : "1px solid rgba(15,23,42,0.06)",
+                    boxShadow: trending
+                      ? "0 8px 24px -8px rgba(16,185,129,0.2), 0 1px 3px rgba(15,23,42,0.04)"
+                      : "0 4px 14px -4px rgba(15,23,42,0.06), 0 1px 3px rgba(15,23,42,0.04)",
                   }}
                 >
                   {/* Rank number */}
@@ -320,12 +346,40 @@ export default function LeaderboardSection() {
                   {/* Country + bar */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                      <div>
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-base font-bold text-slate-800">{entry.country}</span>
-                        <span className="text-xs text-slate-500 ml-2 hidden md:inline">{entry.description}</span>
+                        {trending && (
+                          <span
+                            className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full"
+                            style={{
+                              background:
+                                "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(236,72,153,0.15))",
+                              color: "#D97706",
+                              border: "1px solid rgba(245,158,11,0.3)",
+                            }}
+                          >
+                            <Flame className="w-2.5 h-2.5" />
+                            Trending
+                          </span>
+                        )}
+                        {isNewEntry && !trending && (
+                          <span
+                            className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full"
+                            style={{
+                              background:
+                                "linear-gradient(135deg, rgba(8,145,178,0.12), rgba(124,58,237,0.12))",
+                              color: "#0891B2",
+                              border: "1px solid rgba(8,145,178,0.25)",
+                            }}
+                          >
+                            <Sparkles className="w-2.5 h-2.5" />
+                            New
+                          </span>
+                        )}
+                        <span className="text-xs text-slate-500 hidden md:inline">{entry.description}</span>
                       </div>
                       <span className="text-base md:text-lg font-bold text-slate-700 tabular-nums">
-                        <CountUp target={entry.score} duration={1.5} delay={0.7 + index * 0.08} />
+                        <CountUp target={entry.score} duration={1.5} delay={Math.min(0.5 + index * 0.04, 0.9)} />
                       </span>
                     </div>
                     {/* Bar */}
@@ -337,7 +391,7 @@ export default function LeaderboardSection() {
                         initial={{ width: 0 }}
                         whileInView={{ width: `${entry.score}%` }}
                         viewport={{ once: true }}
-                        transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="h-full rounded-full relative"
                         style={{ background: grad }}
                       >

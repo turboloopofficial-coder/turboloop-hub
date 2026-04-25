@@ -2,6 +2,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import FloatingLaunchButton from "@/components/FloatingLaunchButton";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Navbar from "@/components/Navbar";
+import ActivityTicker from "@/components/ActivityTicker";
 import HeroSection from "@/components/sections/HeroSection";
 import PartnersBar from "@/components/sections/PartnersBar";
 import ReelsSection from "@/components/sections/ReelsSection";
@@ -11,6 +12,8 @@ import FlywheelSection from "@/components/sections/FlywheelSection";
 import PromotionsSection from "@/components/sections/PromotionsSection";
 import VideoSection from "@/components/sections/VideoSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import CreativesHubSection from "@/components/sections/CreativesHubSection";
+import SocialWallSection from "@/components/sections/SocialWallSection";
 import BlogSection from "@/components/sections/BlogSection";
 import EventsSection from "@/components/sections/EventsSection";
 import RoadmapSection from "@/components/sections/RoadmapSection";
@@ -63,13 +66,17 @@ export default function Home() {
       <main className="relative z-10">
         <HeroSection />
         <PartnersBar />
+        {/* Live activity ticker — sliding marquee of real events */}
+        <ActivityTicker />
         <ReelsSection />
         <EventsSection />
         <EcosystemSection />
         <FlywheelSection />
         <LeaderboardSection />
+        <CreativesHubSection />
         <PromotionsSection />
         <VideoSection />
+        <SocialWallSection />
         <TestimonialsSection />
         <BlogSection />
         <RoadmapSection />

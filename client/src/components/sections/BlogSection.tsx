@@ -5,30 +5,16 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 import ShareButton from "@/components/ShareButton";
+import { paletteForSlug, topicForSlug, readingTime } from "@/lib/blogVisuals";
 
-// Color palette cycled per blog post (so cards have visual rhythm)
-const COVER_PALETTES = [
-  { from: "#0891B2", to: "#7C3AED", soft: "#CFFAFE" }, // cyan → purple
-  { from: "#7C3AED", to: "#EC4899", soft: "#DDD6FE" }, // purple → pink
-  { from: "#10B981", to: "#0891B2", soft: "#A7F3D0" }, // green → cyan
-  { from: "#D97706", to: "#EC4899", soft: "#FED7AA" }, // amber → pink
-  { from: "#0F172A", to: "#7C3AED", soft: "#E0E7FF" }, // slate → purple
-  { from: "#0891B2", to: "#10B981", soft: "#CFFAFE" }, // cyan → green
-];
-
-function readingTime(content: string): number {
-  const words = content?.split(/\s+/).length || 0;
-  return Math.max(1, Math.round(words / 200));
-}
-
-function CoverArt({ palette, title }: { palette: typeof COVER_PALETTES[0]; title: string }) {
-  // Use first letter of title as a giant decorative letter
-  const letter = title?.[0]?.toUpperCase() || "T";
+function CoverArt({ slug, title }: { slug: string; title: string }) {
+  const palette = paletteForSlug(slug);
+  const topic = topicForSlug(slug);
   return (
     <div
-      className="relative h-44 overflow-hidden"
+      className="relative h-48 overflow-hidden"
       style={{
-        background: `linear-gradient(135deg, ${palette.from} 0%, ${palette.to} 100%)`,
+        background: `linear-gradient(135deg, ${palette.from} 0%, ${palette.via} 50%, ${palette.to} 100%)`,
       }}
     >
       {/* Diagonal shimmer */}
@@ -50,26 +36,34 @@ function CoverArt({ palette, title }: { palette: typeof COVER_PALETTES[0]; title
           backgroundSize: "24px 24px",
         }}
       />
-      {/* Decorative letter */}
+      {/* Big topic emoji as visual anchor */}
       <div
-        className="absolute -right-2 -bottom-8 font-bold leading-none select-none pointer-events-none"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
         style={{
-          fontSize: "12rem",
-          color: "rgba(255,255,255,0.18)",
-          fontFamily: "var(--font-heading)",
-          textShadow: "0 4px 30px rgba(0,0,0,0.15)",
+          fontSize: "5.5rem",
+          filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.25))",
         }}
       >
-        {letter}
+        {topic.emoji}
+      </div>
+      {/* Topic tag (top-left) */}
+      <div
+        className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.18em] uppercase backdrop-blur-md"
+        style={{
+          background: "rgba(255,255,255,0.95)",
+          color: palette.from,
+        }}
+      >
+        {topic.tag}
       </div>
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/30 to-transparent" />
     </div>
   );
 }
 
 function BlogCard({ post, index }: { post: any; index: number }) {
-  const palette = COVER_PALETTES[index % COVER_PALETTES.length];
+  const palette = paletteForSlug(post.slug);
   const minutes = readingTime(post.content);
 
   return (
@@ -104,7 +98,7 @@ function BlogCard({ post, index }: { post: any; index: number }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
             ) : (
-              <CoverArt palette={palette} title={post.title} />
+              <CoverArt slug={post.slug} title={post.title} />
             )}
           </div>
         </Link>

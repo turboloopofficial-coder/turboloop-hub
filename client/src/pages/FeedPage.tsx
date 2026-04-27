@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Play, FileText, Image as ImageIcon, Filter, X, ExternalLink, Calendar, Clock, ArrowRight, Sparkles } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
+import { topicForSlug } from "@/lib/blogVisuals";
 
 type ContentType = "all" | "video" | "article" | "update";
 
@@ -48,8 +49,8 @@ function readingTime(content: string | undefined | null): number {
 }
 
 /** Gradient cover art (when no real cover image is available) — used for articles and as fallback */
-function CoverArt({ palette, title, type }: { palette: typeof COVER_PALETTES[0]; title: string; type: string }) {
-  const letter = (title?.[0] || "T").toUpperCase();
+function CoverArt({ palette, slug }: { palette: typeof COVER_PALETTES[0]; slug: string }) {
+  const topic = topicForSlug(slug || "");
   return (
     <div
       className="relative w-full h-full overflow-hidden"
@@ -77,16 +78,15 @@ function CoverArt({ palette, title, type }: { palette: typeof COVER_PALETTES[0];
           backgroundSize: "24px 24px",
         }}
       />
-      {/* Decorative giant letter */}
+      {/* Topic emoji as decorative anchor */}
       <div
-        className="absolute -right-2 -bottom-8 select-none pointer-events-none font-bold leading-none"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
         style={{
-          fontSize: "12rem",
-          color: "rgba(255,255,255,0.18)",
-          fontFamily: "var(--font-heading)",
+          fontSize: "5rem",
+          filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.25))",
         }}
       >
-        {letter}
+        {topic.emoji}
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
     </div>
@@ -321,8 +321,7 @@ export default function FeedPage() {
                 ) : (
                   <CoverArt
                     palette={paletteForKey(featured.id)}
-                    title={featured.title}
-                    type={featured.type}
+                    slug={featured.slug || featured.id}
                   />
                 )}
                 {featured.type === "video" && (
@@ -471,7 +470,7 @@ export default function FeedPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <CoverArt palette={palette} title={item.title} type={item.type} />
+                    <CoverArt palette={palette} slug={item.slug || item.id} />
                   )}
 
                   {/* Type badge */}

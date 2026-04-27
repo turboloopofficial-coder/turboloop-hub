@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 import ShareButton from "@/components/ShareButton";
-import { paletteForSlug, topicForSlug, readingTime } from "@/lib/blogVisuals";
+import { paletteForSlug, topicForSlug, readingTime, publishDate } from "@/lib/blogVisuals";
 
 function CoverArt({ slug, title }: { slug: string; title: string }) {
   const palette = paletteForSlug(slug);
@@ -109,7 +109,7 @@ function BlogCard({ post, index }: { post: any; index: number }) {
             <div className="flex items-center gap-3 text-xs text-slate-400">
               <span className="inline-flex items-center gap-1">
                 <Calendar className="w-3 h-3" />
-                {new Date(post.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                {publishDate(post).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
               </span>
               <span className="inline-flex items-center gap-1">
                 <Clock className="w-3 h-3" />
@@ -155,6 +155,11 @@ function BlogCard({ post, index }: { post: any; index: number }) {
 export default function BlogSection() {
   const { data: posts } = trpc.content.blogPosts.useQuery();
 
+  // Sort by display date (newest publish-date first), then take 6
+  const sortedPosts = posts
+    ? [...posts].sort((a, b) => publishDate(b).getTime() - publishDate(a).getTime())
+    : [];
+
   return (
     <section id="blog" className="section-spacing relative">
       <div className="container">
@@ -164,15 +169,15 @@ export default function BlogSection() {
           subtitle="Deep dives, community highlights, and ecosystem updates."
         />
 
-        {posts && posts.length > 0 ? (
+        {sortedPosts.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {posts.slice(0, 6).map((post, index) => (
+              {sortedPosts.slice(0, 6).map((post, index) => (
                 <BlogCard key={post.id} post={post} index={index} />
               ))}
             </div>
 
-            {posts.length > 6 && (
+            {sortedPosts.length > 6 && (
               <AnimatedSection delay={0.5}>
                 <div className="flex justify-center mt-12">
                   <Link href="/feed">

@@ -10,7 +10,7 @@ import ReadingProgress from "@/components/ReadingProgress";
 import BackToTop from "@/components/BackToTop";
 import BlogContent from "@/components/BlogContent";
 import TableOfContents from "@/components/TableOfContents";
-import { paletteForSlug, topicForSlug, readingTime, extractHeadings } from "@/lib/blogVisuals";
+import { paletteForSlug, topicForSlug, readingTime, extractHeadings, publishDate } from "@/lib/blogVisuals";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -25,8 +25,8 @@ export default function BlogPost() {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt || post.title,
-    datePublished: post.createdAt,
-    dateModified: post.updatedAt || post.createdAt,
+    datePublished: publishDate(post).toISOString(),
+    dateModified: post.updatedAt || publishDate(post).toISOString(),
     author: { "@type": "Organization", name: "Turbo Loop" },
     publisher: {
       "@type": "Organization",
@@ -49,7 +49,7 @@ export default function BlogPost() {
           path={`/blog/${post.slug}`}
           type="article"
           image={post.coverImage || undefined}
-          publishedTime={typeof post.createdAt === "string" ? post.createdAt : new Date(post.createdAt).toISOString()}
+          publishedTime={publishDate(post).toISOString()}
           author="Turbo Loop"
           jsonLd={jsonLd}
         />
@@ -221,7 +221,7 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
             <div className="flex items-center gap-4 text-white/90 text-sm flex-wrap">
               <span className="inline-flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" />
-                {new Date(post.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                {publishDate(post).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />

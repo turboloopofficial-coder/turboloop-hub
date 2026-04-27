@@ -135,7 +135,9 @@ export default function FeedPage() {
           slug: p.slug,
           coverImage: p.coverImage,
           content: p.content,
-          createdAt: p.createdAt,
+          // Use scheduled_publish_at as the displayed date if available — otherwise fall back to created_at.
+          // Without this, scheduled posts forever show their seed-into-DB date instead of when they actually went live.
+          createdAt: (p as any).scheduledPublishAt || p.createdAt,
         });
       });
     }

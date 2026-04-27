@@ -56,6 +56,19 @@ export function readingTime(content: string | null | undefined): number {
   return Math.max(1, Math.round(words / 200));
 }
 
+/**
+ * Pick the right "display date" for a blog post:
+ *   - If it has a scheduled_publish_at → that's the actual publish day, use it
+ *   - Otherwise fall back to created_at (for older posts that were inserted directly)
+ *
+ * Without this, every scheduled post would forever show its DB-seed date (e.g. Apr 24)
+ * instead of the day it actually went live.
+ */
+export function publishDate(post: { scheduledPublishAt?: any; createdAt: any }): Date {
+  const candidate = post.scheduledPublishAt || post.createdAt;
+  return candidate instanceof Date ? candidate : new Date(candidate);
+}
+
 /** Extract H2/H3 headings for table of contents */
 export type Heading = { level: 2 | 3; text: string; id: string };
 export function extractHeadings(markdown: string): Heading[] {

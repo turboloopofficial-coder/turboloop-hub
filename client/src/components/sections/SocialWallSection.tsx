@@ -22,6 +22,7 @@ import {
   type SocialPlatform,
   relativeTime,
 } from "@/lib/socialWallData";
+import { rotateAndRestamp } from "@/lib/dynamicRotation";
 import { getFlagUrl } from "@/lib/constants";
 
 const PLATFORM_META: Record<SocialPlatform, { icon: any; label: string; color: string; bgGradient: string }> = {
@@ -231,8 +232,17 @@ function PostCard({ post }: { post: SocialPost }) {
 export default function SocialWallSection() {
   const [activeFilter, setActiveFilter] = useState<SocialPlatform | "all">("all");
 
+  // Auto-rotate the social wall daily — separate the pinned posts (always first,
+  // never rotated) from the community posts (rotated + restamped each day).
+  const dynamicPool = useMemo(() => {
+    const pinned = SOCIAL_POSTS.filter((p) => p.pinned);
+    const community = SOCIAL_POSTS.filter((p) => !p.pinned);
+    // Rotate community posts by day so a different voice "just posted" each day
+    return [...pinned, ...rotateAndRestamp(community)];
+  }, []);
+
   const filtered = useMemo(() => {
-    let list = SOCIAL_POSTS;
+    let list = dynamicPool;
     if (activeFilter !== "all") {
       list = list.filter((p) => p.platform === activeFilter);
     }
@@ -242,7 +252,7 @@ export default function SocialWallSection() {
       if (!a.pinned && b.pinned) return 1;
       return a.hoursAgo - b.hoursAgo;
     });
-  }, [activeFilter]);
+  }, [activeFilter, dynamicPool]);
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: SOCIAL_POSTS.length };

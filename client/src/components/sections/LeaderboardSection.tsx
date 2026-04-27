@@ -5,6 +5,7 @@ import { Trophy, Medal, Award, Crown, TrendingUp, Flame, Sparkles } from "lucide
 import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
+import { dailyScoreDrift } from "@/lib/dynamicRotation";
 
 // Pseudo-random "trending" indicator that's stable per day per country.
 // Uses dayOfYear + country code to deterministically pick which countries
@@ -233,7 +234,9 @@ function PodiumPillar({ entry, delay }: { entry: PodiumEntry; delay: number }) {
 export default function LeaderboardSection() {
   const { data: leaderboard } = trpc.content.leaderboard.useQuery();
 
-  const entries = leaderboard && leaderboard.length > 0
+  // Apply small ±3 daily drift to scores so numbers feel alive day-to-day,
+  // without changing any country's actual position. Stable for the whole UTC day.
+  const entries = (leaderboard && leaderboard.length > 0
     ? leaderboard.map((e) => ({
         rank: e.rank,
         country: e.country,
@@ -245,7 +248,12 @@ export default function LeaderboardSection() {
     : COUNTRY_DATA.map((e) => ({
         ...e,
         tier: e.rank <= 3 ? (["gold", "silver", "bronze"][e.rank - 1] as "gold" | "silver" | "bronze") : ("none" as const),
-      }));
+      }))
+  ).map((e) => ({
+    ...e,
+    // Daily drift: -3..+3 points, deterministic per (country, day)
+    score: dailyScoreDrift(e.code, e.score, 3),
+  }));
 
   const top3 = entries.slice(0, 3) as PodiumEntry[];
   const rest = entries.slice(3);

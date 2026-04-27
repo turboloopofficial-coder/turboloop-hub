@@ -1,4 +1,4 @@
-import { eq, desc, asc } from "drizzle-orm";
+import { eq, desc, asc, and, isNotNull, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import {
@@ -53,9 +53,44 @@ export async function verifyAdminPassword(email: string, password: string): Prom
 }
 
 // ===== Blog Posts =====
+
+/**
+ * SELF-HEAL: publishes any blog post whose scheduled_publish_at <= now() and not yet published.
+ *
+ * Called from:
+ *   1. The Vercel cron handler (api/cron/publish-blog) — primary mechanism
+ *   2. The public listBlogPosts query — safety-net backup so even if Vercel cron
+ *      misses a day (auth issue, infra hiccup), the next visitor triggers a catch-up.
+ *
+ * Idempotent — safe to call any number of times. Returns slugs that were just published.
+ */
+export async function publishOverdueBlogs(): Promise<string[]> {
+  const db = getDb();
+  const now = new Date();
+  const due = await db
+    .select()
+    .from(blogPosts)
+    .where(
+      and(
+        eq(blogPosts.published, false),
+        isNotNull(blogPosts.scheduledPublishAt),
+        lte(blogPosts.scheduledPublishAt, now)
+      )
+    );
+
+  const published: string[] = [];
+  for (const post of due) {
+    await db.update(blogPosts).set({ published: true }).where(eq(blogPosts.id, post.id));
+    published.push(post.slug);
+  }
+  return published;
+}
+
 export async function listBlogPosts(publishedOnly = true) {
   const db = getDb();
+  // Self-heal on every public read — fire-and-forget, never block the response
   if (publishedOnly) {
+    publishOverdueBlogs().catch((e) => console.error("[publishOverdueBlogs]", e));
     return db.select().from(blogPosts).where(eq(blogPosts.published, true)).orderBy(desc(blogPosts.createdAt));
   }
   return db.select().from(blogPosts).orderBy(desc(blogPosts.createdAt));

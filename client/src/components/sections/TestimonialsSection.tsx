@@ -3,15 +3,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Quote, MessageSquareQuote, Star, Users } from "lucide-react";
 import { getFlagUrl } from "@/lib/constants";
 import { TESTIMONIALS, relativeTime } from "@/lib/testimonialsData";
+import { rotateAndRestamp } from "@/lib/dynamicRotation";
 import AnimatedSection from "@/components/AnimatedSection";
 
 export default function TestimonialsSection() {
   const [active, setActive] = useState(0);
   const timerRef = useRef<number | null>(null);
 
-  // Sort by recency so the freshest testimonials appear first
+  // Auto-rotate the pool by day so a different testimonial is "newest" every 24h.
+  // Then re-stamp the timestamps so the most recent always feels current.
+  // Result: every day a fresh voice is featured, without any manual updates.
   const ordered = useMemo(() => {
-    return [...TESTIMONIALS].sort((a, b) => a.hoursAgo - b.hoursAgo);
+    return rotateAndRestamp(TESTIMONIALS).sort((a, b) => a.hoursAgo - b.hoursAgo);
   }, []);
 
   useEffect(() => {

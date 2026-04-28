@@ -26,15 +26,23 @@
       "maxDuration": 10,
       "memory": 256
     },
+    "api/og-zoom.js": {
+      "maxDuration": 10,
+      "memory": 256
+    },
     "api/rss.js": {
       "maxDuration": 10,
       "memory": 256
+    },
+    "api/cron/master.js": {
+      "maxDuration": 60,
+      "memory": 512
     }
   },
   "crons": [
     {
-      "path": "/api/cron/publish-blog",
-      "schedule": "0 9 * * *"
+      "path": "/api/cron/master",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

@@ -14,7 +14,17 @@ const bundles = [
   {
     src: path.join(projectRoot, "server/_vercel/cron-publish-blog.ts"),
     out: path.join(projectRoot, "api/cron/publish-blog.js"),
-    label: "Cron: publish-blog",
+    label: "Cron: publish-blog (legacy)",
+  },
+  {
+    src: path.join(projectRoot, "server/_vercel/cron-master.ts"),
+    out: path.join(projectRoot, "api/cron/master.js"),
+    label: "Cron: master scheduler (every 5 min)",
+  },
+  {
+    src: path.join(projectRoot, "server/_vercel/og-zoom.ts"),
+    out: path.join(projectRoot, "api/og-zoom.js"),
+    label: "Zoom banner generator",
   },
   {
     src: path.join(projectRoot, "server/_vercel/sitemap.ts"),

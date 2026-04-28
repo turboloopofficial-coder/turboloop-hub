@@ -35,6 +35,18 @@
     <!-- Canonical -->
     <link rel="canonical" href="https://turboloop.tech/" />
 
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7CBRVBSG8H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7CBRVBSG8H', {
+        // Track route changes correctly for our SPA (manual page_view sent on every Wouter navigation below)
+        send_page_view: false
+      });
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

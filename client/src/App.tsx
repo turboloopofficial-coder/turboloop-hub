@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import PageLoader from "./components/PageLoader";
+import AnalyticsTracker from "./components/AnalyticsTracker";
 
 // Heavy pages — code-split so they don't bloat the homepage bundle
 const FeedPage = lazy(() => import("./pages/FeedPage"));
@@ -39,6 +40,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
+          <AnalyticsTracker />
           <Router />
         </TooltipProvider>
       </ThemeProvider>

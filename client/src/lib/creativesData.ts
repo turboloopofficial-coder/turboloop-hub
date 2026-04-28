@@ -14,6 +14,16 @@ export type CreativeBanner = {
   emoji: string;
   palette: CreativePalette;
   original: string;
+  /** Headline shown above the caption (e.g. "TurboLoop is NOT a Ponzi Scheme!") */
+  headline?: string;
+  /** Full caption body — markdown-ish, may contain **bold** markers */
+  caption?: string;
+  /** Single-sentence "The Fact:" callout */
+  fact?: string | null;
+  /** Hashtag array (each entry includes the leading #) */
+  hashtags?: string[];
+  /** Visual sequence number within its category */
+  visualNumber?: number | null;
 };
 
 export type CreativeCategoryDef = {
@@ -76,4 +86,25 @@ CREATIVE_CATEGORIES.sort((a, b) => SORT_ORDER.indexOf(a.id) - SORT_ORDER.indexOf
 export function bannersForCategory(id: string): CreativeBanner[] {
   if (id === "all") return ALL_CREATIVES;
   return ALL_CREATIVES.filter((c) => c.categoryId === id);
+}
+
+/** Strip markdown bold markers + trim — used for clean text output */
+export function stripMarkdown(s: string): string {
+  return (s || "").replace(/\*\*/g, "").replace(/\*/g, "").trim();
+}
+
+/**
+ * Build the full "share text" for a banner — combines headline + caption + fact
+ * + hashtags into one polished message that reads well in Telegram/X/WhatsApp.
+ */
+export function bannerShareText(banner: CreativeBanner): string {
+  const parts: string[] = [];
+  if (banner.headline) parts.push(`📌 ${stripMarkdown(banner.headline)}`);
+  if (banner.caption) parts.push(stripMarkdown(banner.caption));
+  if (banner.fact) parts.push(`The Fact: ${stripMarkdown(banner.fact)}`);
+  const tags = (banner.hashtags && banner.hashtags.length > 0)
+    ? banner.hashtags.join(" ")
+    : "#TurboLoop #DeFi #BSC";
+  parts.push(tags);
+  return parts.join("\n\n");
 }

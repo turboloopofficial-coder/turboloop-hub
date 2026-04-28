@@ -9,6 +9,7 @@
     { "source": "/rss.xml", "destination": "/api/rss" },
     { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
   ],
+  "trailingSlash": false,
   "functions": {
     "api/trpc/[trpc].js": {
       "maxDuration": 30,

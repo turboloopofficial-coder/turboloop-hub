@@ -1,0 +1,1839 @@
+{
+  "generatedAt": "2026-04-28T20:02:57.572Z",
+  "count": 141,
+  "items": [
+    {
+      "slug": "mythbuster-buster-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual1.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual1.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual10.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual10.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual2.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual2.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual3.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual3.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual4.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual4.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual5.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual5.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual6.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual6.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual7.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual7.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual8.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual8.png"
+    },
+    {
+      "slug": "mythbuster-buster-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/mythbuster/mythbuster-buster-visual9.jpg",
+      "categoryId": "mythbuster",
+      "categoryLabel": "Myth Busters",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#EF4444",
+        "via": "#F59E0B",
+        "to": "#7C3AED"
+      },
+      "original": "myth_buster_visual9.png"
+    },
+    {
+      "slug": "p10-ethics-leadership-ethics-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p10-ethics/p10-ethics-leadership-ethics-visual1.jpg",
+      "categoryId": "p10-ethics",
+      "categoryLabel": "P10 · Leadership Ethics",
+      "emoji": "🎯",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#EC4899",
+        "to": "#F59E0B"
+      },
+      "original": "pillar10_leadership_ethics_visual1.png"
+    },
+    {
+      "slug": "p10-ethics-leadership-ethics-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p10-ethics/p10-ethics-leadership-ethics-visual2.jpg",
+      "categoryId": "p10-ethics",
+      "categoryLabel": "P10 · Leadership Ethics",
+      "emoji": "🎯",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#EC4899",
+        "to": "#F59E0B"
+      },
+      "original": "pillar10_leadership_ethics_visual2.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual10.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual10.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual11",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual11.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual11.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual2.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual2.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual3.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual3.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual4.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual4.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual5.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual5.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual6.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual6.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual7.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual7.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual8.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual8.png"
+    },
+    {
+      "slug": "p1-math-math-of-sustainability-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p1-math/p1-math-math-of-sustainability-visual9.jpg",
+      "categoryId": "p1-math",
+      "categoryLabel": "P1 · Math of Sustainability",
+      "emoji": "📐",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#10B981",
+        "to": "#22D3EE"
+      },
+      "original": "pillar1_math_of_sustainability_visual9.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual1.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual1.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual10.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual10.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual11",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual11.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual11.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual12",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual12.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual12.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual2.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual2.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual3.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual3.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual4.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual4.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual5.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual5.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual6.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual6.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual7.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual7.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual8.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual8.png"
+    },
+    {
+      "slug": "p2-psychology-psychology-of-ownership-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p2-psychology/p2-psychology-psychology-of-ownership-visual9.jpg",
+      "categoryId": "p2-psychology",
+      "categoryLabel": "P2 · Psychology of Ownership",
+      "emoji": "🧠",
+      "palette": {
+        "from": "#7C3AED",
+        "via": "#A78BFA",
+        "to": "#EC4899"
+      },
+      "original": "pillar2_psychology_of_ownership_visual9.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual1.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual1.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual10.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual10.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual11",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual11.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual11.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual12",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual12.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual12.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual13",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual13.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual13.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual14",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual14.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual14.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual15",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual15.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual15.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual16",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual16.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual16.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual2.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual2.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual3.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual3.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual4.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual4.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual4-leadership",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual4-leadership.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual4_leadership.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual5.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual5.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual6.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual6.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual7.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual7.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual8.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual8.png"
+    },
+    {
+      "slug": "p3-multiplier-20-level-multiplier-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p3-multiplier/p3-multiplier-20-level-multiplier-visual9.jpg",
+      "categoryId": "p3-multiplier",
+      "categoryLabel": "P3 · 20-Level Multiplier",
+      "emoji": "🌐",
+      "palette": {
+        "from": "#EC4899",
+        "via": "#F472B6",
+        "to": "#7C3AED"
+      },
+      "original": "pillar3_20_level_multiplier_visual9.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual1.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual1.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual10.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual10.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual2.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual2.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual3.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual3.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual4.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual4.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual5.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual5.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual6.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual6.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual7.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual7.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual8.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual8.png"
+    },
+    {
+      "slug": "p4-risk-risk-management-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p4-risk/p4-risk-risk-management-visual9.jpg",
+      "categoryId": "p4-risk",
+      "categoryLabel": "P4 · Risk Management",
+      "emoji": "🛡",
+      "palette": {
+        "from": "#0F172A",
+        "via": "#475569",
+        "to": "#7C3AED"
+      },
+      "original": "pillar4_risk_management_visual9.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual1.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual1.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual2.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual2.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual3.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual3.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual4.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual4.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual5.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual5.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual6.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual6.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual7.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual7.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual8.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual8.png"
+    },
+    {
+      "slug": "p5-velocity-velocity-of-compounding-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p5-velocity/p5-velocity-velocity-of-compounding-visual9.jpg",
+      "categoryId": "p5-velocity",
+      "categoryLabel": "P5 · Velocity of Compounding",
+      "emoji": "⚡",
+      "palette": {
+        "from": "#F59E0B",
+        "via": "#FBBF24",
+        "to": "#EC4899"
+      },
+      "original": "pillar5_velocity_of_compounding_visual9.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual1.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual1.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual10.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual10.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual2.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual2.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual3.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual3.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual4.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual4.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual5.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual5.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual6.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual6.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual7.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual7.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual8.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual8.png"
+    },
+    {
+      "slug": "p6-trust-decentralized-trust-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p6-trust/p6-trust-decentralized-trust-visual9.jpg",
+      "categoryId": "p6-trust",
+      "categoryLabel": "P6 · Decentralized Trust",
+      "emoji": "🔗",
+      "palette": {
+        "from": "#0EA5E9",
+        "via": "#0891B2",
+        "to": "#10B981"
+      },
+      "original": "pillar6_decentralized_trust_visual9.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual1.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual1.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual10.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual10.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual2.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual2.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual3.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual3.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual4.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual4.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual5.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual5.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual6.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual6.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual7.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual7.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual8.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual8.png"
+    },
+    {
+      "slug": "p7-arbitrage-global-arbitrage-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p7-arbitrage/p7-arbitrage-global-arbitrage-visual9.jpg",
+      "categoryId": "p7-arbitrage",
+      "categoryLabel": "P7 · Global Arbitrage",
+      "emoji": "🌍",
+      "palette": {
+        "from": "#10B981",
+        "via": "#0891B2",
+        "to": "#7C3AED"
+      },
+      "original": "pillar7_global_arbitrage_visual9.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual1.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual1.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual10.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual10.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual2.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual2.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual3.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual3.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual4.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual4.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual5.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual5.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual6.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual6.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual7.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual7.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual8.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual8.png"
+    },
+    {
+      "slug": "p8-legacy-legacy-inheritance-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p8-legacy/p8-legacy-legacy-inheritance-visual9.jpg",
+      "categoryId": "p8-legacy",
+      "categoryLabel": "P8 · Legacy & Inheritance",
+      "emoji": "🏛",
+      "palette": {
+        "from": "#D97706",
+        "via": "#FBBF24",
+        "to": "#7C3AED"
+      },
+      "original": "pillar8_legacy_inheritance_visual9.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual1.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual1.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual10.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual10.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual2.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual2.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual3.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual3.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual4.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual4.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual5.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual5.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual6.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual6.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual7.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual7.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual8.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual8.png"
+    },
+    {
+      "slug": "p9-inflation-anti-inflation-shield-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/p9-inflation/p9-inflation-anti-inflation-shield-visual9.jpg",
+      "categoryId": "p9-inflation",
+      "categoryLabel": "P9 · Anti-Inflation Shield",
+      "emoji": "💎",
+      "palette": {
+        "from": "#1E40AF",
+        "via": "#0891B2",
+        "to": "#22D3EE"
+      },
+      "original": "pillar9_anti_inflation_shield_visual9.png"
+    },
+    {
+      "slug": "product-bible-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual1.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual1.png"
+    },
+    {
+      "slug": "product-bible-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual10.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual10.png"
+    },
+    {
+      "slug": "product-bible-visual11",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual11.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual11.png"
+    },
+    {
+      "slug": "product-bible-visual12",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual12.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual12.png"
+    },
+    {
+      "slug": "product-bible-visual13",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual13.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual13.png"
+    },
+    {
+      "slug": "product-bible-visual14",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual14.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual14.png"
+    },
+    {
+      "slug": "product-bible-visual15",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual15.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual15.png"
+    },
+    {
+      "slug": "product-bible-visual16",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual16.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual16.png"
+    },
+    {
+      "slug": "product-bible-visual17",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual17.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual17.png"
+    },
+    {
+      "slug": "product-bible-visual18",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual18.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual18.png"
+    },
+    {
+      "slug": "product-bible-visual19",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual19.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual19.png"
+    },
+    {
+      "slug": "product-bible-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual2.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual2.png"
+    },
+    {
+      "slug": "product-bible-visual20",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual20.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual20.png"
+    },
+    {
+      "slug": "product-bible-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual3.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual3.png"
+    },
+    {
+      "slug": "product-bible-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual4.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual4.png"
+    },
+    {
+      "slug": "product-bible-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual5.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual5.png"
+    },
+    {
+      "slug": "product-bible-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual6.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual6.png"
+    },
+    {
+      "slug": "product-bible-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual7.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual7.png"
+    },
+    {
+      "slug": "product-bible-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual8.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual8.png"
+    },
+    {
+      "slug": "product-bible-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/product/product-bible-visual9.jpg",
+      "categoryId": "product",
+      "categoryLabel": "Product Bible",
+      "emoji": "💎",
+      "palette": {
+        "from": "#0891B2",
+        "via": "#22D3EE",
+        "to": "#7C3AED"
+      },
+      "original": "product_bible_visual9.png"
+    },
+    {
+      "slug": "quickstart-start-visual1",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual1.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual1.png"
+    },
+    {
+      "slug": "quickstart-start-visual10",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual10.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual10.png"
+    },
+    {
+      "slug": "quickstart-start-visual2",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual2.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual2.png"
+    },
+    {
+      "slug": "quickstart-start-visual3",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual3.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual3.png"
+    },
+    {
+      "slug": "quickstart-start-visual4",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual4.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual4.png"
+    },
+    {
+      "slug": "quickstart-start-visual5",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual5.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual5.png"
+    },
+    {
+      "slug": "quickstart-start-visual6",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual6.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual6.png"
+    },
+    {
+      "slug": "quickstart-start-visual7",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual7.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual7.png"
+    },
+    {
+      "slug": "quickstart-start-visual8",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual8.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual8.png"
+    },
+    {
+      "slug": "quickstart-start-visual9",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/creatives/quickstart/quickstart-start-visual9.jpg",
+      "categoryId": "quickstart",
+      "categoryLabel": "Quick Start",
+      "emoji": "📘",
+      "palette": {
+        "from": "#10B981",
+        "via": "#34D399",
+        "to": "#0891B2"
+      },
+      "original": "quick_start_visual9.png"
+    }
+  ]
+}

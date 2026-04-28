@@ -1,273 +1,110 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
-import { X, Sparkles, Megaphone, Trophy, Star, BookOpen, Image as ImageIcon } from "lucide-react";
+import { X, Download, Sparkles, ImageIcon } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 import ShareButton from "@/components/ShareButton";
-import { CREATIVES, type Creative, type CreativeCategory } from "@/lib/creativesData";
-import { getFlagUrl } from "@/lib/constants";
+import { ALL_CREATIVES, CREATIVE_CATEGORIES, bannersForCategory, type CreativeBanner } from "@/lib/creativesData";
 
-const CATEGORIES: { id: CreativeCategory | "all"; label: string; icon: any; color: string }[] = [
-  { id: "all", label: "All", icon: ImageIcon, color: "#0F172A" },
-  { id: "announcement", label: "Announcements", icon: Megaphone, color: "#0891B2" },
-  { id: "promotion", label: "Promotions", icon: Sparkles, color: "#F59E0B" },
-  { id: "milestone", label: "Milestones", icon: Trophy, color: "#10B981" },
-  { id: "spotlight", label: "Spotlights", icon: Star, color: "#EC4899" },
-  { id: "education", label: "Education", icon: BookOpen, color: "#7C3AED" },
-];
+const PAGE_SIZE = 24;
 
-function CreativeCard({ creative, onOpen }: { creative: Creative; onOpen: () => void }) {
-  const isNew = creative.daysAgo <= 3;
+function CreativeCard({ banner, onOpen }: { banner: CreativeBanner; onOpen: () => void }) {
   return (
     <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 22 }}
       onClick={onOpen}
-      className="group relative cursor-pointer rounded-2xl overflow-hidden h-full"
+      className="group relative cursor-pointer rounded-2xl overflow-hidden aspect-square"
       style={{
-        boxShadow: `0 12px 30px -10px ${creative.gradient.from}50`,
+        background: `linear-gradient(135deg, ${banner.palette.from}10, ${banner.palette.via}08)`,
+        boxShadow: `0 12px 30px -12px ${banner.palette.from}30`,
       }}
     >
-      {/* Gradient cover */}
-      <div
-        className="relative aspect-[4/5] overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, ${creative.gradient.from} 0%, ${creative.gradient.via} 50%, ${creative.gradient.to} 100%)`,
-        }}
+      <img
+        src={banner.url}
+        alt={banner.categoryLabel}
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 rounded-full backdrop-blur-md text-[10px] font-bold tracking-[0.15em] uppercase"
+        style={{ background: "rgba(255,255,255,0.95)", color: banner.palette.from }}
       >
-        {/* Animated shimmer */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 45%, transparent 60%)",
-            backgroundSize: "200% 200%",
-          }}
-          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
-
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-30 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-
-        {/* Big emoji center */}
-        {creative.emoji && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span
-              className="text-9xl select-none transition-transform duration-700 group-hover:scale-110"
-              style={{
-                filter: "drop-shadow(0 8px 30px rgba(0,0,0,0.3))",
-              }}
-            >
-              {creative.emoji}
-            </span>
-          </div>
-        )}
-
-        {/* NEW badge */}
-        {isNew && (
-          <div
-            className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-black tracking-[0.2em] uppercase"
-            style={{
-              background: "white",
-              color: creative.gradient.from,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-            }}
-          >
-            ✨ New
-          </div>
-        )}
-
-        {/* Country flag */}
-        {creative.countryCode && (
-          <div className="absolute top-3 right-3 w-8 h-6 rounded-md overflow-hidden border-2 border-white/40 shadow-lg">
-            <img
-              src={getFlagUrl(creative.countryCode, 40)}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
-
-        {/* Bottom gradient + text */}
-        <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
-          <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/60 mb-1">
-            {creative.category}
-          </div>
-          <h3 className="text-base md:text-lg font-bold text-white leading-tight line-clamp-2 drop-shadow-lg">
-            {creative.title}
-          </h3>
-        </div>
-      </div>
-
-      {/* Footer with caption */}
-      <div className="p-4 bg-white">
-        <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-2">
-          {creative.caption}
-        </p>
-        {creative.byline && (
-          <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400">
-            {creative.byline}
-          </div>
-        )}
+        <span>{banner.emoji}</span>
+        <span>{banner.categoryLabel.replace(/^P\d+\s*·\s*/, "")}</span>
       </div>
     </motion.div>
   );
 }
 
-function CreativeLightbox({
-  creative,
-  onClose,
-}: {
-  creative: Creative;
-  onClose: () => void;
-}) {
+function Lightbox({ banner, onClose }: { banner: CreativeBanner; onClose: () => void }) {
   const modal = (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto"
-      style={{
-        background: "rgba(15,23,42,0.7)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-      }}
       onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto"
+      style={{ background: "rgba(15,23,42,0.78)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        initial={{ scale: 0.95, opacity: 0, y: 16 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+        exit={{ scale: 0.95, opacity: 0, y: 16 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-2xl rounded-3xl overflow-hidden bg-white my-auto"
+        className="relative w-full max-w-3xl rounded-3xl overflow-hidden bg-white my-auto"
         style={{ boxShadow: "0 40px 80px -20px rgba(15,23,42,0.5)" }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition"
+          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/95 hover:bg-white shadow-lg flex items-center justify-center transition"
           aria-label="Close"
         >
           <X className="w-5 h-5 text-slate-700" />
         </button>
 
-        {/* Big gradient header with emoji */}
-        <div
-          className="relative aspect-video overflow-hidden"
-          style={{
-            background: `linear-gradient(135deg, ${creative.gradient.from} 0%, ${creative.gradient.via} 50%, ${creative.gradient.to} 100%)`,
-          }}
-        >
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.2) 45%, transparent 60%)",
-              backgroundSize: "200% 200%",
-            }}
-            animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+        <div className="relative bg-black aspect-square md:aspect-[4/5]">
+          <img
+            src={banner.url}
+            alt={banner.categoryLabel}
+            className="w-full h-full object-contain"
           />
-          <div
-            className="absolute inset-0 opacity-30 pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
-              backgroundSize: "32px 32px",
-            }}
-          />
-          {creative.emoji && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span
-                className="text-[14rem] select-none"
-                style={{
-                  filter: "drop-shadow(0 12px 40px rgba(0,0,0,0.3))",
-                }}
-              >
-                {creative.emoji}
-              </span>
-            </div>
-          )}
         </div>
 
-        {/* Content */}
-        <div className="p-6 md:p-8">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="p-6 md:p-7">
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
             <div
               className="text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full"
+              style={{ background: `${banner.palette.from}15`, color: banner.palette.from }}
+            >
+              {banner.emoji} {banner.categoryLabel}
+            </div>
+          </div>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-3 leading-tight">
+            {banner.categoryLabel}
+          </h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={banner.url}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:scale-105"
               style={{
-                background: `${creative.gradient.from}15`,
-                color: creative.gradient.from,
+                background: `linear-gradient(135deg, ${banner.palette.from}, ${banner.palette.via})`,
+                color: "white",
+                boxShadow: `0 8px 24px -6px ${banner.palette.from}60`,
               }}
             >
-              {creative.category}
-            </div>
-            {creative.daysAgo <= 3 && (
-              <div
-                className="text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #10B981, #059669)",
-                  color: "white",
-                }}
-              >
-                ✨ New
-              </div>
-            )}
-            <span className="text-xs text-slate-400 ml-auto">
-              {creative.daysAgo === 0 ? "Today" : `${creative.daysAgo} days ago`}
-            </span>
-          </div>
-
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3 leading-tight">
-            {creative.title}
-          </h2>
-          <p className="text-base md:text-lg text-slate-600 leading-relaxed mb-6">
-            {creative.caption}
-          </p>
-          {creative.byline && (
-            <div className="text-xs font-bold tracking-wider uppercase text-slate-500 mb-6">
-              {creative.byline}
-            </div>
-          )}
-
-          <div className="flex flex-wrap items-center gap-3 pt-4" style={{ borderTop: "1px solid rgba(15,23,42,0.06)" }}>
-            {creative.url && (
-              <a
-                href={creative.url}
-                onClick={(e) => {
-                  if (creative.url?.startsWith("/")) {
-                    e.preventDefault();
-                    onClose();
-                    setTimeout(() => {
-                      const id = creative.url!.split("#")[1];
-                      if (id) document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-                    }, 200);
-                  }
-                }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:scale-105"
-                style={{
-                  background: `linear-gradient(135deg, ${creative.gradient.from}, ${creative.gradient.via})`,
-                  color: "white",
-                  boxShadow: `0 8px 24px -6px ${creative.gradient.from}60`,
-                }}
-              >
-                Learn more
-              </a>
-            )}
+              <Download className="w-4 h-4" />
+              Download
+            </a>
             <ShareButton
-              path={creative.url?.startsWith("/") ? creative.url : "/#creatives"}
-              message={`${creative.emoji ?? ""} ${creative.title}\n\n${creative.caption}`}
+              path="/#creatives"
+              message={`${banner.emoji} Turbo Loop · ${banner.categoryLabel}\n\nFresh creative from the Turbo Loop community library.`}
               variant="ghost"
               label="Share"
             />
@@ -276,91 +113,81 @@ function CreativeLightbox({
       </motion.div>
     </motion.div>
   );
-
-  return typeof document !== "undefined"
-    ? createPortal(modal, document.body)
-    : null;
+  return typeof document !== "undefined" ? createPortal(modal, document.body) : null;
 }
 
 export default function CreativesHubSection() {
-  const [activeCategory, setActiveCategory] = useState<CreativeCategory | "all">("all");
-  const [openCreative, setOpenCreative] = useState<Creative | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [openBanner, setOpenBanner] = useState<CreativeBanner | null>(null);
+  const [shown, setShown] = useState<number>(PAGE_SIZE);
 
-  const filtered = useMemo(() => {
-    let list = CREATIVES;
-    if (activeCategory !== "all") {
-      list = list.filter((c) => c.category === activeCategory);
-    }
-    return [...list].sort((a, b) => a.daysAgo - b.daysAgo);
-  }, [activeCategory]);
-
-  const counts = useMemo(() => {
-    const c: Record<string, number> = { all: CREATIVES.length };
-    CREATIVES.forEach((cr) => {
-      c[cr.category] = (c[cr.category] || 0) + 1;
-    });
-    return c;
-  }, []);
+  const filtered = useMemo(() => bannersForCategory(activeCategory), [activeCategory]);
+  const visible = filtered.slice(0, shown);
+  const hasMore = shown < filtered.length;
 
   return (
     <section id="creatives" className="section-spacing relative overflow-hidden">
-      {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div
           className="absolute top-20 -left-40 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(124,58,237,0.06), transparent 70%)",
-            filter: "blur(60px)",
-          }}
+          style={{ background: "radial-gradient(circle, rgba(124,58,237,0.06), transparent 70%)", filter: "blur(60px)" }}
         />
         <div
           className="absolute bottom-20 -right-40 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(8,145,178,0.06), transparent 70%)",
-            filter: "blur(60px)",
-          }}
+          style={{ background: "radial-gradient(circle, rgba(8,145,178,0.06), transparent 70%)", filter: "blur(60px)" }}
         />
       </div>
 
       <div className="container">
         <SectionHeading
-          label="Creatives & Banners"
+          label="Creatives Library"
           title="The Visual Story"
-          subtitle="Announcements, milestones, member spotlights, and campaigns — all in one place."
+          subtitle={`${ALL_CREATIVES.length} designed banners across ${CREATIVE_CATEGORIES.length} pillars — every one downloadable, every one shareable.`}
         />
 
-        {/* Category tabs */}
-        <AnimatedSection delay={0.1}>
+        {/* Category filter pills */}
+        <AnimatedSection delay={0.05}>
           <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {CATEGORIES.map((cat) => {
-              const Icon = cat.icon;
+            <button
+              onClick={() => { setActiveCategory("all"); setShown(PAGE_SIZE); }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all"
+              style={{
+                background: activeCategory === "all" ? "#0F172A" : "white",
+                color: activeCategory === "all" ? "white" : "#64748B",
+                border: `1px solid ${activeCategory === "all" ? "#0F172A" : "rgba(15,23,42,0.08)"}`,
+                boxShadow: activeCategory === "all" ? "0 8px 20px -6px rgba(15,23,42,0.4)" : "0 2px 6px -2px rgba(15,23,42,0.04)",
+              }}
+            >
+              <ImageIcon className="w-3.5 h-3.5" />
+              All
+              <span
+                className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                style={{ background: activeCategory === "all" ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.06)" }}
+              >
+                {ALL_CREATIVES.length}
+              </span>
+            </button>
+            {CREATIVE_CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.id;
-              const count = counts[cat.id] || 0;
               return (
                 <button
                   key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300"
+                  onClick={() => { setActiveCategory(cat.id); setShown(PAGE_SIZE); }}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all"
                   style={{
-                    background: isActive ? cat.color : "white",
+                    background: isActive ? "#0F172A" : "white",
                     color: isActive ? "white" : "#64748B",
-                    border: `1px solid ${isActive ? cat.color : "rgba(15,23,42,0.08)"}`,
-                    boxShadow: isActive
-                      ? `0 8px 20px -6px ${cat.color}50`
-                      : "0 2px 6px -2px rgba(15,23,42,0.04)",
+                    border: `1px solid ${isActive ? "#0F172A" : "rgba(15,23,42,0.08)"}`,
+                    boxShadow: isActive ? "0 8px 20px -6px rgba(15,23,42,0.4)" : "0 2px 6px -2px rgba(15,23,42,0.04)",
                   }}
                 >
-                  <Icon className="w-3.5 h-3.5" />
-                  {cat.label}
+                  <span>{cat.emoji}</span>
+                  {cat.label.replace(/^P\d+\s*·\s*/, "")}
                   <span
                     className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                    style={{
-                      background: isActive
-                        ? "rgba(255,255,255,0.25)"
-                        : "rgba(15,23,42,0.06)",
-                    }}
+                    style={{ background: isActive ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.06)" }}
                   >
-                    {count}
+                    {cat.count}
                   </span>
                 </button>
               );
@@ -368,42 +195,50 @@ export default function CreativesHubSection() {
           </div>
         </AnimatedSection>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+        {/* Banner grid — Pinterest-style square tiles */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
           <AnimatePresence mode="popLayout">
-            {filtered.map((creative, i) => (
+            {visible.map((banner, i) => (
               <motion.div
-                key={creative.id}
+                key={banner.slug}
                 layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, delay: Math.min(i * 0.04, 0.3) }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25, delay: Math.min(i * 0.02, 0.25) }}
               >
-                <CreativeCard
-                  creative={creative}
-                  onOpen={() => setOpenCreative(creative)}
-                />
+                <CreativeCard banner={banner} onOpen={() => setOpenBanner(banner)} />
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
 
+        {hasMore && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => setShown((s) => s + PAGE_SIZE)}
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 hover:scale-105"
+              style={{
+                background: "linear-gradient(135deg, #0891B2, #7C3AED)",
+                color: "white",
+                boxShadow: "0 12px 30px -8px rgba(8,145,178,0.5)",
+              }}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Load more — {filtered.length - shown} remaining
+            </button>
+          </div>
+        )}
+
         {filtered.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-slate-400">No creatives in this category yet.</p>
+            <p className="text-slate-400">No banners in this category yet.</p>
           </div>
         )}
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
-        {openCreative && (
-          <CreativeLightbox
-            creative={openCreative}
-            onClose={() => setOpenCreative(null)}
-          />
-        )}
+        {openBanner && <Lightbox banner={openBanner} onClose={() => setOpenBanner(null)} />}
       </AnimatePresence>
     </section>
   );

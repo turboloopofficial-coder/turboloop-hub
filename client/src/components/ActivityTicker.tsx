@@ -50,12 +50,11 @@ export default function ActivityTicker() {
       });
     }
 
-    // Total videos
+    // Total videos — unified language count to match presentations (48 across the ecosystem)
     if (videos && videos.length > 0) {
-      const langs = new Set(videos.map((v) => v.language).filter(Boolean));
       list.push({
         icon: Film,
-        text: `${videos.length} videos & reels — ${langs.size}+ languages and growing`,
+        text: `${videos.length} videos & reels — 48 languages and growing`,
         color: "#EC4899",
       });
     }
@@ -82,7 +81,8 @@ export default function ActivityTicker() {
       });
       list.push({
         icon: Globe2,
-        text: `Active communities across ${leaderboard.length}+ countries on 6 continents`,
+        // Use 21+ to reflect testimonial pool diversity, not just leaderboard rows
+        text: `Active communities across 21+ countries on 6 continents`,
         color: "#0EA5E9",
       });
     }

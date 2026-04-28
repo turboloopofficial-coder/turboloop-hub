@@ -12,6 +12,7 @@ import AnalyticsTracker from "./components/AnalyticsTracker";
 // Heavy pages — code-split so they don't bloat the homepage bundle
 const FeedPage = lazy(() => import("./pages/FeedPage"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const TopicPage = lazy(() => import("./pages/TopicPage"));
 const ReelPage = lazy(() => import("./pages/ReelPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
@@ -23,6 +24,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/feed" component={FeedPage} />
         <Route path="/blog/:slug" component={BlogPost} />
+        <Route path="/topic/:tag" component={TopicPage} />
         <Route path="/reels/:slug" component={ReelPage} />
         <Route path="/admin" component={() => <Redirect to="/admin/login" />} />
         <Route path="/admin/login" component={AdminLogin} />

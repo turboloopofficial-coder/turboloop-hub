@@ -3,7 +3,7 @@ import { SITE } from "@/lib/constants";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowLeft, Play, FileText, Image as ImageIcon, Filter, X, ExternalLink, Calendar, Clock, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowLeft, Play, FileText, Image as ImageIcon, Filter, X, ExternalLink, Calendar, Clock, ArrowRight, Sparkles, Search } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
 import { topicForSlug } from "@/lib/blogVisuals";
@@ -97,6 +97,7 @@ export default function FeedPage() {
   const { data: videos } = trpc.content.videos.useQuery();
   const { data: posts } = trpc.content.blogPosts.useQuery();
   const [filter, setFilter] = useState<ContentType>("all");
+  const [search, setSearch] = useState("");
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
 
   const seoTitle = "Content Feed — Videos, Articles & Updates | Turbo Loop";
@@ -144,9 +145,21 @@ export default function FeedPage() {
 
     items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-    if (filter === "all") return items;
-    return items.filter((i) => i.type === filter);
-  }, [videos, posts, filter]);
+    let filtered = filter === "all" ? items : items.filter((i) => i.type === filter);
+
+    if (search.trim()) {
+      const q = search.toLowerCase().trim();
+      filtered = filtered.filter((i) =>
+        (i.title || "").toLowerCase().includes(q) ||
+        (i.excerpt || "").toLowerCase().includes(q) ||
+        (i.content || "").toLowerCase().includes(q) ||
+        (i.category || "").toLowerCase().includes(q) ||
+        (i.language || "").toLowerCase().includes(q)
+      );
+    }
+
+    return filtered;
+  }, [videos, posts, filter, search]);
 
   // Featured = newest item, used as a hero card
   const featured = feedItems[0];
@@ -242,6 +255,47 @@ export default function FeedPage() {
           <p className="text-slate-500 mt-3 max-w-xl mx-auto">
             Articles, video tutorials, and ecosystem updates — all in one place.
           </p>
+        </div>
+
+        {/* Search bar */}
+        <div className="max-w-2xl mx-auto mb-6">
+          <div className="relative">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search articles, videos, topics..."
+              className="w-full pl-14 pr-12 py-4 rounded-2xl text-base text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300"
+              style={{
+                background: "white",
+                border: "1px solid rgba(15,23,42,0.08)",
+                boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = "rgba(8,145,178,0.4)";
+                e.currentTarget.style.boxShadow = "0 8px 24px -6px rgba(8,145,178,0.18)";
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "rgba(15,23,42,0.08)";
+                e.currentTarget.style.boxShadow = "0 4px 14px -4px rgba(15,23,42,0.06)";
+              }}
+            />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                aria-label="Clear search"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition"
+              >
+                <X className="w-3.5 h-3.5 text-slate-500" />
+              </button>
+            )}
+          </div>
+          {search && (
+            <div className="text-center mt-3 text-xs text-slate-500">
+              {feedItems.length} {feedItems.length === 1 ? "result" : "results"} for <span className="font-mono text-cyan-700">"{search}"</span>
+            </div>
+          )}
         </div>
 
         {/* Filter pills */}
@@ -533,7 +587,20 @@ export default function FeedPage() {
 
         {feedItems.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-slate-400">No content found for this filter.</p>
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-slate-100">
+              <Search className="h-7 w-7 text-slate-400" />
+            </div>
+            <p className="text-slate-500 mb-1">
+              {search ? `No matches for "${search}".` : "No content found for this filter."}
+            </p>
+            {(search || filter !== "all") && (
+              <button
+                onClick={() => { setSearch(""); setFilter("all"); }}
+                className="mt-3 text-cyan-600 hover:text-cyan-800 text-sm font-semibold"
+              >
+                Clear filters
+              </button>
+            )}
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@
   "framework": null,
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/rss.xml", "destination": "/api/rss" },
     { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "functions": {
@@ -22,6 +23,10 @@
       "memory": 256
     },
     "api/og.js": {
+      "maxDuration": 10,
+      "memory": 256
+    },
+    "api/rss.js": {
       "maxDuration": 10,
       "memory": 256
     }

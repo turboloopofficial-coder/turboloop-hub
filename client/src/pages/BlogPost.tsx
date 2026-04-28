@@ -10,6 +10,7 @@ import ReadingProgress from "@/components/ReadingProgress";
 import BackToTop from "@/components/BackToTop";
 import BlogContent from "@/components/BlogContent";
 import TableOfContents from "@/components/TableOfContents";
+import BlogFeedback from "@/components/BlogFeedback";
 import { paletteForSlug, topicForSlug, readingTime, extractHeadings, publishDate } from "@/lib/blogVisuals";
 
 export default function BlogPost() {
@@ -219,14 +220,17 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
           {/* Title overlay */}
           <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
             <div className="flex items-center gap-2 mb-3 flex-wrap">
-              <div
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm"
-                style={{ background: "rgba(255,255,255,0.95)" }}
-              >
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: palette.from }}>
-                  {topic.tag}
+              <Link href={`/topic/${topic.tag.toLowerCase()}`}>
+                <span
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm cursor-pointer hover:scale-105 transition-transform"
+                  style={{ background: "rgba(255,255,255,0.95)" }}
+                  title={`See all ${topic.tag} articles`}
+                >
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: palette.from }}>
+                    {topic.tag}
+                  </span>
                 </span>
-              </div>
+              </Link>
               <div
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm"
                 style={{ background: "rgba(15,23,42,0.45)" }}
@@ -305,8 +309,11 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
           />
         </div>
 
-        {/* Rich content with custom markdown */}
-        <BlogContent content={post.content} palette={palette} />
+        {/* Rich content with custom markdown + auto internal linking */}
+        <BlogContent content={post.content} palette={palette} slug={post.slug} />
+
+        {/* Was this helpful? feedback widget */}
+        <BlogFeedback slug={post.slug} palette={palette} />
 
         {/* End-of-article footer */}
         <div

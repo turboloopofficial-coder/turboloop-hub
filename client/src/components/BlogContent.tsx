@@ -10,12 +10,16 @@
 
 import { Streamdown } from "streamdown";
 import type { ReactNode } from "react";
+import { useMemo } from "react";
 import { Info, AlertTriangle, Lightbulb, Sparkles, Quote } from "lucide-react";
 import type { BlogPalette } from "@/lib/blogVisuals";
+import { autoLinkContent } from "@/lib/autoLinker";
 
 type Props = {
   content: string;
   palette: BlogPalette;
+  /** Current post's slug — used by auto-linker to avoid self-links */
+  slug?: string;
 };
 
 // Slugify text for heading anchor IDs (must match extractHeadings in blogVisuals.ts)
@@ -96,7 +100,10 @@ function CalloutBox({ kind, children }: { kind: CalloutKind; children: ReactNode
   );
 }
 
-export default function BlogContent({ content, palette }: Props) {
+export default function BlogContent({ content, palette, slug = "" }: Props) {
+  // Auto-inject internal links to related blogs (first-occurrence, plain-text only)
+  const linkedContent = useMemo(() => autoLinkContent(content, slug), [content, slug]);
+
   const components = {
     h2({ children, ...rest }: any) {
       const text = typeof children === "string" ? children : (Array.isArray(children) ? children.join("") : String(children ?? ""));
@@ -244,7 +251,7 @@ export default function BlogContent({ content, palette }: Props) {
 
   return (
     <div className="blog-content">
-      <Streamdown components={components as any}>{content}</Streamdown>
+      <Streamdown components={components as any}>{linkedContent}</Streamdown>
     </div>
   );
 }

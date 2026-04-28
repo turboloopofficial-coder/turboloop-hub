@@ -26,6 +26,11 @@ const bundles = [
     out: path.join(projectRoot, "api/og.js"),
     label: "OG image generator",
   },
+  {
+    src: path.join(projectRoot, "server/_vercel/rss.ts"),
+    out: path.join(projectRoot, "api/rss.js"),
+    label: "RSS feed",
+  },
 ];
 
 console.log("🔧 Bundling Vercel serverless handlers...\n");

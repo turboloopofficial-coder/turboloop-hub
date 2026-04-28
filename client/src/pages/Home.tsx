@@ -4,26 +4,34 @@ import BackToTop from "@/components/BackToTop";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Navbar from "@/components/Navbar";
 import ActivityTicker from "@/components/ActivityTicker";
+
 import HeroSection from "@/components/sections/HeroSection";
 import PartnersBar from "@/components/sections/PartnersBar";
 import ReelsSection from "@/components/sections/ReelsSection";
-import EcosystemSection from "@/components/sections/EcosystemSection";
-import LeaderboardSection from "@/components/sections/LeaderboardSection";
-import FlywheelSection from "@/components/sections/FlywheelSection";
-import PromotionsSection from "@/components/sections/PromotionsSection";
-import VideoSection from "@/components/sections/VideoSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import CreativesHubSection from "@/components/sections/CreativesHubSection";
-import SocialWallSection from "@/components/sections/SocialWallSection";
 import BlogSection from "@/components/sections/BlogSection";
-import EventsSection from "@/components/sections/EventsSection";
-import RoadmapSection from "@/components/sections/RoadmapSection";
-import TrustSection from "@/components/sections/TrustSection";
-import FaqSection from "@/components/sections/FaqSection";
+
+// New compact teaser sections — each links to a dedicated deep-dive page
+import HomeNumbersTeaser from "@/components/sections/HomeNumbersTeaser";
+import HomeSecurityTeaser from "@/components/sections/HomeSecurityTeaser";
+import HomePromotionsTeaser from "@/components/sections/HomePromotionsTeaser";
+import HomeTestimonialRotator from "@/components/sections/HomeTestimonialRotator";
+
 import Footer from "@/components/sections/Footer";
 import WelcomePopup from "@/components/WelcomePopup";
 import SEOHead from "@/components/SEOHead";
 
+/**
+ * Homepage — narrative-driven, 8 focused sections.
+ *
+ * The full content (LeaderboardSection, SocialWallSection, TestimonialsSection,
+ * CreativesHubSection, TrustSection, EventsSection, EcosystemSection, FlywheelSection,
+ * VideoSection, RoadmapSection, FaqSection, PromotionsSection) now lives on dedicated
+ * pages — each linked from the corresponding teaser section here.
+ *
+ * Rationale: a 17-section homepage is overwhelming and dilutes SEO weight. A focused
+ * narrative homepage with clear "see more →" CTAs drives users into the right depth
+ * AND lets each topic-page rank independently for its own keywords.
+ */
 export default function Home() {
   return (
     <div className="min-h-screen relative" style={{ background: "#F7F8FC" }}>
@@ -65,7 +73,6 @@ export default function Home() {
                 "query-input": "required name=search_term_string",
               },
             },
-            // FAQPage — surfaces these questions directly in Google search results
             {
               "@type": "FAQPage",
               "@id": "https://turboloop.tech/#faq",
@@ -73,62 +80,62 @@ export default function Home() {
                 {
                   "@type": "Question",
                   name: "What is Turbo Loop?",
-                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop is a complete DeFi ecosystem built on Binance Smart Chain. It combines six pillars — Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, and Smart Contract Security — into one self-sustaining platform. Unlike single-purpose protocols, Turbo Loop generates revenue from real economic activity through its Revenue Flywheel." },
+                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop is a complete DeFi ecosystem built on Binance Smart Chain. It combines six pillars — Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, and Smart Contract Security — into one self-sustaining platform." },
                 },
                 {
                   "@type": "Question",
                   name: "Where does the yield come from?",
-                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop generates yield from three real revenue sources: LP rewards from liquidity provision, Turbo Swap fees (0.3% per trade), and Turbo Buy fees from fiat-to-crypto conversions. These revenue streams create a self-reinforcing Velocity Cycle — the more the ecosystem is used, the more yield it generates." },
+                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop generates yield from three real revenue sources: LP rewards, Turbo Swap fees (0.3% per trade), and Turbo Buy fees from fiat-to-crypto conversions." },
                 },
                 {
                   "@type": "Question",
                   name: "Is Turbo Loop safe?",
-                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop is built on five pillars of security: the smart contract has been independently audited, ownership is permanently renounced, 100% of LP is locked, the contract is verified on BscScan, and all operations are 100% on-chain. The protocol offers a $100,000 bounty to anyone who can prove centralization in the smart contract." },
+                  acceptedAnswer: { "@type": "Answer", text: "Audited, renounced, LP locked, BscScan-verified, 100% on-chain. The protocol offers a $100,000 bounty to anyone who can prove centralization in the smart contract." },
                 },
                 {
                   "@type": "Question",
                   name: "How do I get started with Turbo Loop?",
-                  acceptedAnswer: { "@type": "Answer", text: "Five steps: (1) Connect MetaMask or Trust Wallet, (2) Buy BNB or USDT through Turbo Buy or transfer from an exchange, (3) Deposit USDT into the farming contract, (4) Earn daily yield from protocol revenue, and (5) Grow by referring others and climbing leadership ranks. Visit turboloop.io and click Launch App to begin." },
-                },
-                {
-                  "@type": "Question",
-                  name: "How does the Turbo Loop referral program work?",
-                  acceptedAnswer: { "@type": "Answer", text: "When you share your unique referral link and someone joins through it, you earn a percentage of their farming rewards across 20 levels. As your network grows, you can advance through five leadership ranks — Builder, Accelerator, Director, Executive, and Ambassador — each unlocking higher reward percentages." },
-                },
-                {
-                  "@type": "Question",
-                  name: "Can I withdraw my funds at any time?",
-                  acceptedAnswer: { "@type": "Answer", text: "Yes. You can withdraw your earned rewards at any time without penalties. You have three options: withdraw to your wallet, compound (reinvest) to increase your deposited amount and earn higher future yields, or a combination of both. The smart contract handles all withdrawals automatically on-chain." },
+                  acceptedAnswer: { "@type": "Answer", text: "Connect MetaMask or Trust Wallet, buy BNB or USDT, deposit USDT into the farming contract, earn daily yield from protocol revenue. Visit turboloop.io and click Launch App." },
                 },
               ],
             },
           ],
         }}
       />
+
       <ScrollProgress />
       <BackgroundEffects />
       <Navbar />
+
       <main className="relative z-10">
+        {/* 1. Hero */}
         <HeroSection />
-        <PartnersBar />
-        {/* Live activity ticker — sliding marquee of real events */}
+
+        {/* Activity ticker — sliding marquee of real events (under hero, narrow band) */}
         <ActivityTicker />
+
+        {/* 2. Partners bar */}
+        <PartnersBar />
+
+        {/* 3. The Numbers — animated stats → /community */}
+        <HomeNumbersTeaser />
+
+        {/* 4. Watch The Movement — Reels (already a horizontal carousel, perfect as-is) */}
         <ReelsSection />
-        {/* Blog moved up — primary content discovery + SEO weight */}
+
+        {/* 5. The Editorial — featured + recent blog posts → /feed */}
         <BlogSection />
-        <EventsSection />
-        <EcosystemSection />
-        <FlywheelSection />
-        <LeaderboardSection />
-        <CreativesHubSection />
-        <PromotionsSection />
-        <VideoSection />
-        <SocialWallSection />
-        <TestimonialsSection />
-        <RoadmapSection />
-        <TrustSection />
-        <FaqSection />
+
+        {/* 6. Trustless by Design — 5 pillars + quote → /security */}
+        <HomeSecurityTeaser />
+
+        {/* 7. Earn While You Build — $100K hero + 3 cards → /promotions */}
+        <HomePromotionsTeaser />
+
+        {/* 8. The Community Voice — single rotating testimonial → /community */}
+        <HomeTestimonialRotator />
       </main>
+
       <Footer />
       <FloatingLaunchButton />
       <BackToTop />

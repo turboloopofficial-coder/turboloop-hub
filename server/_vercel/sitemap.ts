@@ -8,6 +8,11 @@ const SITE = "https://turboloop.tech";
 const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string }> = [
   { path: "/", priority: "1.0", changefreq: "daily" },
   { path: "/feed", priority: "0.9", changefreq: "daily" },
+  // Dedicated topic pages (each ranks for its own keyword)
+  { path: "/security", priority: "0.85", changefreq: "weekly" },
+  { path: "/community", priority: "0.85", changefreq: "daily" },
+  { path: "/creatives", priority: "0.8", changefreq: "weekly" },
+  { path: "/roadmap", priority: "0.8", changefreq: "weekly" },
 ];
 
 function iso(d: Date | null | undefined): string {

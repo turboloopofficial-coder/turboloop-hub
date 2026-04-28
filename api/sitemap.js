@@ -12458,7 +12458,12 @@ var siteSettings = pgTable("site_settings", {
 var SITE = "https://turboloop.tech";
 var STATIC_ROUTES = [
   { path: "/", priority: "1.0", changefreq: "daily" },
-  { path: "/feed", priority: "0.9", changefreq: "daily" }
+  { path: "/feed", priority: "0.9", changefreq: "daily" },
+  // Dedicated topic pages (each ranks for its own keyword)
+  { path: "/security", priority: "0.85", changefreq: "weekly" },
+  { path: "/community", priority: "0.85", changefreq: "daily" },
+  { path: "/creatives", priority: "0.8", changefreq: "weekly" },
+  { path: "/roadmap", priority: "0.8", changefreq: "weekly" }
 ];
 function iso(d) {
   if (!d) return (/* @__PURE__ */ new Date()).toISOString();

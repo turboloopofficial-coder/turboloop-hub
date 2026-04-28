@@ -1,8 +1,32 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { trpc } from "@/lib/trpc";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, Volume2, VolumeX, X, ChevronLeft, ChevronRight, Sparkles, Loader2 } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, X, ChevronLeft, ChevronRight, Sparkles, Loader2, Download } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
+
+/**
+ * Trigger a true file download (instead of opening the video in the browser).
+ * Uses fetch + blob to bypass the browser's default "open inline" behavior for video URLs.
+ */
+async function downloadReel(videoUrl: string, title: string) {
+  try {
+    const res = await fetch(videoUrl);
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    // Sanitize filename — keep alphanumerics, spaces, dashes
+    const safeName = title.replace(/[^\w\s-]/g, "").replace(/\s+/g, "_").slice(0, 80);
+    a.download = `TurboLoop_${safeName}.mp4`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+  } catch (err) {
+    // Fallback: open in new tab and let user save manually
+    window.open(videoUrl, "_blank", "noopener,noreferrer");
+  }
+}
 
 /** Derive thumbnail URL from the reel's video URL.
  *  video: https://<r2>/reels/slug.mp4  →  thumb: https://<r2>/reel-thumbs/slug.jpg
@@ -326,9 +350,9 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
           ▸ Reel
         </div>
 
-        {/* Share button — top-left, stops propagation so it doesn't open the player */}
+        {/* Share + Download buttons — top-left, stops propagation so they don't open the player */}
         <div
-          className="absolute top-3 left-3"
+          className="absolute top-3 left-3 flex flex-col gap-2"
           onClick={(e) => e.stopPropagation()}
         >
           <ShareButton
@@ -337,6 +361,17 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
             variant="icon"
             className="!w-9 !h-9 !bg-white/95 hover:!bg-white !text-slate-700 !border-white/40 shadow-lg"
           />
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              downloadReel(reel.directUrl, reel.title);
+            }}
+            aria-label="Download reel"
+            title="Download MP4"
+            className="w-9 h-9 rounded-full bg-white/95 hover:bg-white text-slate-700 border border-white/40 shadow-lg flex items-center justify-center transition-all hover:scale-110"
+          >
+            <Download className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </motion.div>
@@ -453,6 +488,14 @@ function ReelPlayer({
             title={muted ? "Unmute" : "Mute"}
           >
             {muted ? <VolumeX className="w-5 h-5 text-white" /> : <Volume2 className="w-5 h-5 text-white" />}
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); downloadReel(reel.directUrl, reel.title); }}
+            className="w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center transition"
+            aria-label="Download reel"
+            title="Download MP4"
+          >
+            <Download className="w-5 h-5 text-white" />
           </button>
           <div onClick={(e) => e.stopPropagation()}>
             <ShareButton

@@ -1,10 +1,29 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, ExternalLink, Play, Pause, Volume2, VolumeX, ChevronRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, Play, Pause, Volume2, VolumeX, ChevronRight, Download } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
+
+/** Download a reel as a true file (instead of opening in browser). */
+async function downloadReel(videoUrl: string, title: string) {
+  try {
+    const res = await fetch(videoUrl);
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    const safeName = title.replace(/[^\w\s-]/g, "").replace(/\s+/g, "_").slice(0, 80);
+    a.download = `TurboLoop_${safeName}.mp4`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+  } catch {
+    window.open(videoUrl, "_blank", "noopener,noreferrer");
+  }
+}
 
 function slugFromUrl(videoUrl: string): string | null {
   try {
@@ -169,6 +188,19 @@ export default function ReelPage() {
                 variant="solid"
                 className="w-full !justify-center"
               />
+
+              <button
+                onClick={() => reel.directUrl && downloadReel(reel.directUrl, reel.title)}
+                className="mt-3 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-sm font-bold transition-all hover:scale-[1.02]"
+                style={{
+                  background: "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(167,139,250,0.15))",
+                  color: "white",
+                  border: "1px solid rgba(34,211,238,0.35)",
+                }}
+              >
+                <Download className="w-4 h-4" />
+                Download MP4
+              </button>
 
               <a
                 href={SITE.mainApp}

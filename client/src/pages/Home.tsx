@@ -44,7 +44,7 @@ export default function Home() {
               sameAs: [
                 "https://t.me/TurboLoop_Official",
                 "https://t.me/TurboLoop_Chat",
-                "https://x.com/Turbo_Loop",
+                "https://x.com/TurboLoop_io",
                 "https://www.youtube.com/@OfficialTurbo_Loop",
               ],
               description: "The complete DeFi ecosystem on Binance Smart Chain — sustainable yield, transparent by design.",

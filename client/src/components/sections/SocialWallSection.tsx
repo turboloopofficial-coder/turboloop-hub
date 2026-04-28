@@ -415,12 +415,12 @@ export default function SocialWallSection() {
               <p className="text-slate-400 text-sm md:text-base mb-6 max-w-md mx-auto">
                 Post about Turbo Loop on any platform with{" "}
                 <span className="font-mono text-cyan-300">#TurboLoop</span> or{" "}
-                <span className="font-mono text-cyan-300">@Turbo_Loop</span> — top
+                <span className="font-mono text-cyan-300">@TurboLoop_io</span> — top
                 posts get featured here every week.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <a
-                  href="https://x.com/Turbo_Loop"
+                  href="https://x.com/TurboLoop_io"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 hover:scale-105"

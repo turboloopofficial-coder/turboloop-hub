@@ -57,7 +57,7 @@ export default function SEOHead({
       { sel: "meta[name='twitter:description']", attr: "name", key: "twitter:description", content: description },
       { sel: "meta[name='twitter:image']", attr: "name", key: "twitter:image", content: image },
       { sel: "meta[name='twitter:url']", attr: "name", key: "twitter:url", content: canonicalUrl },
-      { sel: "meta[name='twitter:site']", attr: "name", key: "twitter:site", content: "@Turbo_Loop" },
+      { sel: "meta[name='twitter:site']", attr: "name", key: "twitter:site", content: "@TurboLoop_io" },
     ];
     if (publishedTime) {
       metas.push({ sel: "meta[property='article:published_time']", attr: "property", key: "article:published_time", content: publishedTime });

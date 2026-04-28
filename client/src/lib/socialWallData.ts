@@ -44,7 +44,7 @@ export type SocialPost = {
 };
 
 // TurboLoop's verified channels (from constants.ts):
-const X_OFFICIAL = "https://x.com/Turbo_Loop";
+const X_OFFICIAL = "https://x.com/TurboLoop_io";
 const YT_OFFICIAL = "https://www.youtube.com/@OfficialTurbo_Loop";
 const TG_COMMUNITY = "https://t.me/TurboLoop_Official";
 const TG_CHAT = "https://t.me/TurboLoop_Chat";
@@ -56,7 +56,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     id: "tl-x-official",
     platform: "x",
     author: "Turbo Loop",
-    handle: "Turbo_Loop",
+    handle: "TurboLoop_io",
     initials: "TL",
     avatarGradient: { from: "#0891B2", to: "#7C3AED" },
     content:
@@ -120,7 +120,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     initials: "MW",
     avatarGradient: { from: "#0891B2", to: "#0EA5E9" },
     content:
-      "Spent months looking for a protocol where the answer to every security question is 'check BscScan yourself.' Found it. @Turbo_Loop",
+      "Spent months looking for a protocol where the answer to every security question is 'check BscScan yourself.' Found it. @TurboLoop_io",
     url: "/#testimonials",
     countryCode: "de",
     hoursAgo: 9,
@@ -274,7 +274,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     initials: "ER",
     avatarGradient: { from: "#0EA5E9", to: "#7C3AED" },
     content:
-      "Audited @Turbo_Loop's contract. Clean. Auditable in an afternoon. That's rare in DeFi.",
+      "Audited @TurboLoop_io's contract. Clean. Auditable in an afternoon. That's rare in DeFi.",
     url: "/#testimonials",
     countryCode: "il",
     hoursAgo: 96,

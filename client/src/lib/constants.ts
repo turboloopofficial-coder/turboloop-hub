@@ -10,7 +10,7 @@ export const SITE = {
   socials: {
     telegramCommunity: "https://t.me/TurboLoop_Official",
     telegramChat: "https://t.me/TurboLoop_Chat",
-    twitter: "https://x.com/Turbo_Loop",
+    twitter: "https://x.com/TurboLoop_io",
     youtube: "https://www.youtube.com/@OfficialTurbo_Loop",
   },
 };

@@ -12503,115 +12503,84 @@ function pickByDay(arr, offset = 0) {
   const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
   return arr[(day + offset) % arr.length];
 }
-var BLOG_HEADLINES_MORNING = [
-  "\u{1F4F0} New on the blog this morning",
-  "\u2615 Today's read",
-  "\u{1F4D6} Fresh post \u2014 start your day with this",
-  "\u{1F305} Morning drop",
-  "\u2728 Just published",
-  "\u{1F4DA} Today's deep dive",
-  "\u{1F195} Fresh from the editorial",
-  "\u{1F525} New this morning",
-  "\u{1F4A1} Today's lesson",
-  "\u{1F3AF} Read of the day"
-];
-var BLOG_HEADLINES_EVENING = [
-  "\u{1F319} Evening read",
-  "\u{1F195} Fresh on the blog tonight",
-  "\u{1F4D6} Wrap up your day with this",
-  "\u270D\uFE0F Just published",
-  "\u{1F306} Evening drop",
-  "\u{1F4DA} Tonight's deep dive",
-  "\u{1F4AD} Worth your evening",
-  "\u{1F525} New tonight",
-  "\u{1F3AF} End-of-day read",
-  "\u{1F4F0} Late edition"
+var BLOG_HEADLINES = [
+  "\u{1F4D6} Today's read",
+  "\u{1F4D6} New on the blog",
+  "\u{1F4D6} Article of the day",
+  "\u{1F4D6} Fresh from the editorial",
+  "\u{1F4D6} Today's deep-dive",
+  "\u{1F4D6} Worth your evening",
+  "\u{1F4D6} Today's piece",
+  "\u{1F4D6} Just published"
 ];
 function blogPostCaption(opts) {
-  const pool = opts.slot === "morning" ? BLOG_HEADLINES_MORNING : BLOG_HEADLINES_EVENING;
-  const headline = pickByDay(pool, opts.slot === "morning" ? 0 : 7);
+  const headline = pickByDay(BLOG_HEADLINES);
   const title = tgEscape(opts.title);
-  const excerpt = opts.excerpt ? tgEscape(opts.excerpt.slice(0, 220)) : "";
+  const excerpt = opts.excerpt ? tgEscape(opts.excerpt.slice(0, 280)) : "";
   return `<b>${headline}</b>
 
 <b>${title}</b>${excerpt ? `
 
 ${excerpt}` : ""}
 
-#TurboLoop #DeFi #BSC`;
+turboloop.tech`;
 }
-var EN_T60 = [
-  "\u{1F30D} <b>One hour to the daily community call</b>\n\nNothing scheduled. No pitch deck. Just real questions, real answers, every day at 5 PM UTC.\n\nGrab a coffee. We'll see you there.",
-  "\u{1F4E3} <b>The community room opens in 1 hour</b>\n\nDaily, 5 PM UTC, English. 30 minutes max. Bring whatever's on your mind \u2014 security questions, math, strategy, the contract, anything.",
-  "\u23F0 <b>1 hour countdown \u2014 global community Zoom</b>\n\nSame link, same time, every day. People drop in for 5 minutes or stay the whole 30. Your call.",
-  "\u{1F399} <b>60 minutes until live</b>\n\nThis is where new community members get oriented and existing ones get questions answered. No filler.",
-  "\u{1F310} <b>Heads-up \u2014 daily call in 60 min</b>\n\nIf you've been meaning to ask something but haven't, today's the day. We answer everything.",
-  "\u{1F4A1} <b>1 hour to the daily Zoom</b>\n\nOne of those rare crypto sessions that's actually about teaching, not shilling. Free, public, every day."
-];
 var EN_T30 = [
-  "\u{1F399} <b>Live in 30 minutes</b>\n\nGlobal English daily call. 5 PM UTC. Same Zoom every day. New conversations.",
-  "\u23F0 <b>30 minutes \u2014 community room opens</b>\n\nTopics today are usually whatever the community brings. Bring yours.",
-  "\u{1F30D} <b>30 min countdown</b>\n\nThe daily English Zoom is where Turbo Loop community members from every continent meet. Tap to join.",
-  "\u{1F680} <b>Half an hour to live</b>\n\nThe Zoom that actually answers your questions. No script, just real conversation.",
-  "\u{1F4E3} <b>30 minutes</b>\n\nIf you've never been on one of these calls before, today's a good day to drop in and listen.",
-  "\u{1F4AC} <b>Daily English call \u2014 30 min away</b>\n\nQuestions, contract walkthroughs, strategy, community updates. Pick what you came for."
-];
-var EN_T15 = [
-  "\u26A1 <b>15 minutes to live</b>\n\nIf you want to join today, now's the time to grab the link.",
-  "\u{1F525} <b>Daily call goes live in 15</b>\n\nGet your Zoom open. Coffee in hand. Questions ready.",
-  "\u23F0 <b>15 minutes \u2014 community room opens</b>\n\nLast call before we go live.",
-  "\u{1F680} <b>Quarter hour to live</b>\n\nTap the link below. We start at the top of the hour, English, every day.",
-  "\u{1F4AC} <b>15 min countdown</b>\n\nThe community is gathering. Don't be the one who saw the message after.",
-  "\u{1F399} <b>15 minutes</b>\n\nDaily community call about to start. Open the link and you're in."
-];
-var EN_LIVE = [
-  "\u{1F534} <b>WE ARE LIVE</b>\n\nDaily community call has started. Tap the link below and join the room.",
-  "\u{1F399} <b>LIVE NOW \u2014 Daily English Zoom</b>\n\nDoors are open. Walk in.",
-  "\u{1F6A8} <b>Going live right now</b>\n\nGlobal English community call. Tap to join.",
-  "\u{1F7E2} <b>The room is open</b>\n\nDaily Zoom is live. Drop in anytime in the next 30 min.",
-  "\u{1F534} <b>STARTING NOW</b>\n\nDaily community call. English. Free. Open. Join.",
-  "\u{1F3AC} <b>Live</b>\n\nTap to join the daily community Zoom \u2014 happening right now."
-];
-var HI_T60 = [
-  "\u{1F30F} <b>1 ghante mein daily Hindi/Urdu Zoom</b>\n\nApne sawaal, apni zubaan mein. 9 PM IST, har din. Coffee taiyaar rakho.",
-  "\u{1F4E3} <b>Hindi/Urdu community call \u2014 1 hour countdown</b>\n\nSame link, same time, har din. 9 baje. Aaiye, baat karte hain.",
-  "\u23F0 <b>1 ghanta \u2014 daily Zoom call</b>\n\nReal questions, real answers, sab kuch Hindi/Urdu mein. Free aur sab ke liye.",
-  "\u{1F399} <b>60 minutes to live \u2014 Hindi/Urdu</b>\n\nNew members ke liye orientation, existing ke liye doubts clear. Drop in karein.",
-  "\u{1F310} <b>Heads-up \u2014 Hindi/Urdu Zoom in 60 min</b>\n\nAgar koi sawaal pucha nahin hai abhi tak, aaj ka din sahi hai.",
-  "\u{1F4A1} <b>1 ghante mein live</b>\n\nDaily Hindi/Urdu Zoom \u2014 DeFi seekhne ka best place, bina kisi marketing ke."
+  `<b>Daily English Call \u2014 live in 30 minutes.</b>
+
+A 30-minute community session. Drop in, ask anything, leave when you're ready.
+
+Today's room is open for: ecosystem questions, security walkthroughs, and strategy talk.`,
+  `<b>The Daily English Call begins in 30 minutes.</b>
+
+Same Zoom every day at 5 PM UTC. Bring whatever's on your mind \u2014 security, math, strategy, the contract, anything. We answer it in plain English.`,
+  `<b>30 minutes to the Daily Call.</b>
+
+This is the room where new community members get oriented and existing ones get questions answered. No script, no pitch \u2014 just real conversation.`,
+  `<b>Live in 30 minutes \u2014 Daily English Community Call.</b>
+
+What people usually walk away with: a clearer understanding of how the protocol actually works, and faces to put to the names in the channel.`,
+  `<b>Daily English Call \u2014 30 minutes.</b>
+
+If there's something you've been meaning to ask but haven't, today's a good day. Free, public, no agenda.`,
+  `<b>The community room opens in 30 minutes.</b>
+
+5 PM UTC. Same link every day. People drop in for 5 minutes or stay the whole 30. Your call.`,
+  `<b>30 minute countdown \u2014 Daily English Call.</b>
+
+Whether you're new to Turbo Loop or a regular, the door's open. Real questions, real answers, every weekday.`
 ];
 var HI_T30 = [
-  "\u{1F399} <b>30 minutes mein live</b>\n\nDaily Hindi/Urdu Zoom \u2014 9 PM IST. Same Zoom har din.",
-  "\u23F0 <b>Aadha ghanta \u2014 community room khulta hai</b>\n\nAap jo bhi sawaal layein, aaj poochiye.",
-  "\u{1F30F} <b>30 min countdown</b>\n\nHindi/Urdu community call mein members har desh se aate hain. Aap bhi judiye.",
-  "\u{1F680} <b>Half hour to live</b>\n\nZoom jisme actually questions answer hote hain \u2014 bina script ke.",
-  "\u{1F4E3} <b>30 minutes</b>\n\nPehli baar aa rahe hain? Aaj ka day perfect hai, aaiye sun lijiye.",
-  "\u{1F4AC} <b>Daily Hindi/Urdu call \u2014 30 min away</b>\n\nQuestions, contract walkthrough, strategy \u2014 jo chahiye sab."
-];
-var HI_T15 = [
-  "\u26A1 <b>15 minutes to live</b>\n\nAaj judna hai toh link abhi grab kar lijiye.",
-  "\u{1F525} <b>Daily Zoom 15 min mein</b>\n\nZoom open kar lijiye. Sawaal taiyaar rakhiye.",
-  "\u23F0 <b>15 minutes \u2014 Hindi/Urdu room opens</b>\n\nLast call before live.",
-  "\u{1F680} <b>Quarter hour to live</b>\n\nLink tap kariye. Hum 9 baje shuru karte hain, har din.",
-  "\u{1F4AC} <b>15 min countdown</b>\n\nCommunity gathering ho rahi hai. Aaiye.",
-  "\u{1F399} <b>15 minutes</b>\n\nDaily community call shuru hone wala hai. Link below."
-];
-var HI_LIVE = [
-  "\u{1F534} <b>HUM LIVE HAIN</b>\n\nDaily Hindi/Urdu call shuru ho gaya. Link tap kariye.",
-  "\u{1F399} <b>LIVE NOW \u2014 Hindi/Urdu Zoom</b>\n\nDoors are open. Aaiye.",
-  "\u{1F6A8} <b>Abhi live ja rahe hain</b>\n\nDaily Hindi/Urdu community call. Tap to join.",
-  "\u{1F7E2} <b>Room is open</b>\n\nZoom live hai. Agle 30 min mein kabhi bhi aa sakte ho.",
-  "\u{1F534} <b>STARTING NOW</b>\n\nDaily community call \u2014 Hindi/Urdu. Aaiye.",
-  "\u{1F3AC} <b>Live</b>\n\nDaily Zoom abhi live hai \u2014 tap karke join ho jayein."
+  `<b>Hindi/Urdu Daily Call \u2014 30 minute mein live.</b>
+
+Apne sawaal, apni zubaan mein. 30 minutes max. Aaiye, baat karte hain.
+
+Aaj ka topic: aap jo bhi sawaal layein, hum jawab denge.`,
+  `<b>30 minute mein Hindi/Urdu Daily Call shuru ho raha hai.</b>
+
+9 PM IST, har din. Real conversation \u2014 security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.`,
+  `<b>Aadha ghanta \u2014 community room khulta hai.</b>
+
+Daily Hindi/Urdu Zoom call. Naye members ke liye orientation, existing ke liye doubts clear. Aap jo bhi sawaal layein, aaj poochiye.`,
+  `<b>Hindi/Urdu Daily Call \u2014 30 minutes to live.</b>
+
+Yeh wo room hai jahan log Turbo Loop ke baare mein actually samajh paate hain \u2014 bina marketing, bina hype.`,
+  `<b>30 minute baad live \u2014 Hindi/Urdu Community Call.</b>
+
+Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa rahe hain? Drop in karo, sun lo.`,
+  `<b>Daily Hindi/Urdu Zoom \u2014 30 minute mein live.</b>
+
+DeFi seekhne ka best place \u2014 koi script nahin, koi pitch nahin. Just real conversation in your language.`,
+  `<b>Hindi/Urdu Community Call \u2014 30 min countdown.</b>
+
+Members har desh se aate hain. Aaiye, judiye, sawaal poochiye. Free aur open to everyone.`
 ];
 var POOLS = {
-  en: { T60: EN_T60, T30: EN_T30, T15: EN_T15, LIVE: EN_LIVE },
-  hi: { T60: HI_T60, T30: HI_T30, T15: HI_T15, LIVE: HI_LIVE }
+  en: EN_T30,
+  hi: HI_T30
 };
 function zoomReminderCaption(opts) {
-  const pool = POOLS[opts.lang][opts.tier];
-  const offset = { T60: 0, T30: 11, T15: 23, LIVE: 47 }[opts.tier];
-  const body = pickByDay(pool, offset);
+  const body = pickByDay(POOLS[opts.lang]);
   return `${body}
 
 \u{1F517} ${tgEscape(opts.meetingLink)}
@@ -12621,6 +12590,12 @@ function zoomReminderCaption(opts) {
 
 // server/_vercel/cron-master.ts
 var SITE = "https://turboloop.tech";
+function bannerUrlBlog(slug, title) {
+  return `${SITE}/api/og-banner?type=blog&title=${encodeURIComponent(title)}`;
+}
+function bannerUrlZoom(lang) {
+  return `${SITE}/api/og-banner?type=zoom&lang=${lang}`;
+}
 function todayKey() {
   return (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
 }
@@ -12648,17 +12623,16 @@ async function publishOverdueBlogs(db) {
   }
   return due;
 }
-var BRAND_LOGO_PNG = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png";
-async function announceBlogToTelegram(post, slot) {
+async function announceBlogToTelegram(post) {
   const url = `${SITE}/blog/${post.slug}`;
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
     url,
-    slot
+    slot: "evening"
   });
   await tgBroadcastPhoto({
-    photoUrl: BRAND_LOGO_PNG,
+    photoUrl: bannerUrlBlog(post.slug, post.title),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "\u{1F4D6} Read full article", url }]
@@ -12667,7 +12641,7 @@ async function announceBlogToTelegram(post, slot) {
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
   await tgBroadcastPhoto({
-    photoUrl: BRAND_LOGO_PNG,
+    photoUrl: bannerUrlZoom(lang),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "\u{1F399} Join Zoom now", url: meetingLink }]
@@ -12690,74 +12664,28 @@ async function handler(req, res) {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(Xs(dbUrl));
-    if (isInWindow(4, 0)) {
-      if (!await hasFiredToday(db, "blog:morning")) {
-        const due = await publishOverdueBlogs(db);
-        if (due.length > 0) {
-          for (const post of due) {
-            await announceBlogToTelegram(post, "morning");
-            log.push(`\u{1F4F0} Morning blog \u2192 ${post.slug}`);
-          }
-        } else {
-          log.push("\u{1F4F0} Morning slot: no overdue posts");
+    if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
+      const due = await publishOverdueBlogs(db);
+      if (due.length > 0) {
+        for (const post of due) {
+          await announceBlogToTelegram(post);
+          log.push(`\u{1F4F0} Daily blog \u2192 ${post.slug}`);
         }
-        await markFired(db, "blog:morning");
+      } else {
+        log.push("\u{1F4F0} No overdue blog posts to publish");
       }
-    }
-    if (isInWindow(14, 0)) {
-      if (!await hasFiredToday(db, "blog:evening")) {
-        const due = await publishOverdueBlogs(db);
-        if (due.length > 0) {
-          for (const post of due) {
-            await announceBlogToTelegram(post, "evening");
-            log.push(`\u{1F319} Evening blog \u2192 ${post.slug}`);
-          }
-        } else {
-          log.push("\u{1F319} Evening slot: no overdue posts");
-        }
-        await markFired(db, "blog:evening");
-      }
+      await markFired(db, "blog:evening");
     }
     await publishOverdueBlogs(db);
-    if (isInWindow(14, 30) && !await hasFiredToday(db, "zoom:hi:T60")) {
-      await sendZoomReminder("hi", "T60", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
-      await markFired(db, "zoom:hi:T60");
-      log.push("\u{1F399} HI T-60");
-    }
     if (isInWindow(15, 0) && !await hasFiredToday(db, "zoom:hi:T30")) {
       await sendZoomReminder("hi", "T30", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
       await markFired(db, "zoom:hi:T30");
-      log.push("\u{1F399} HI T-30");
-    }
-    if (isInWindow(15, 15) && !await hasFiredToday(db, "zoom:hi:T15")) {
-      await sendZoomReminder("hi", "T15", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
-      await markFired(db, "zoom:hi:T15");
-      log.push("\u{1F399} HI T-15");
-    }
-    if (isInWindow(15, 30) && !await hasFiredToday(db, "zoom:hi:LIVE")) {
-      await sendZoomReminder("hi", "LIVE", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
-      await markFired(db, "zoom:hi:LIVE");
-      log.push("\u{1F534} HI LIVE");
-    }
-    if (isInWindow(16, 0) && !await hasFiredToday(db, "zoom:en:T60")) {
-      await sendZoomReminder("en", "T60", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
-      await markFired(db, "zoom:en:T60");
-      log.push("\u{1F399} EN T-60");
+      log.push("\u{1F399} HI Zoom T-30");
     }
     if (isInWindow(16, 30) && !await hasFiredToday(db, "zoom:en:T30")) {
       await sendZoomReminder("en", "T30", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
       await markFired(db, "zoom:en:T30");
-      log.push("\u{1F399} EN T-30");
-    }
-    if (isInWindow(16, 45) && !await hasFiredToday(db, "zoom:en:T15")) {
-      await sendZoomReminder("en", "T15", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
-      await markFired(db, "zoom:en:T15");
-      log.push("\u{1F399} EN T-15");
-    }
-    if (isInWindow(17, 0) && !await hasFiredToday(db, "zoom:en:LIVE")) {
-      await sendZoomReminder("en", "LIVE", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
-      await markFired(db, "zoom:en:LIVE");
-      log.push("\u{1F534} EN LIVE");
+      log.push("\u{1F399} EN Zoom T-30");
     }
     res.statusCode = 200;
     res.end(JSON.stringify({ ok: true, ranAt: (/* @__PURE__ */ new Date()).toISOString(), fired: log }));

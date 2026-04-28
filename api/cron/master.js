@@ -12626,12 +12626,12 @@ function todayKey() {
 }
 async function hasFiredToday(db, key) {
   const fullKey = `lastFired:${key}:${todayKey()}`;
-  const r = await db.select().from(siteSettings).where(eq(siteSettings.key, fullKey)).limit(1);
+  const r = await db.select().from(siteSettings).where(eq(siteSettings.settingKey, fullKey)).limit(1);
   return r.length > 0;
 }
 async function markFired(db, key) {
   const fullKey = `lastFired:${key}:${todayKey()}`;
-  await db.insert(siteSettings).values({ key: fullKey, value: (/* @__PURE__ */ new Date()).toISOString() }).onConflictDoNothing();
+  await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: (/* @__PURE__ */ new Date()).toISOString() }).onConflictDoNothing();
 }
 function isInWindow(targetHour, targetMin, graceMin = 4) {
   const now = /* @__PURE__ */ new Date();

@@ -35,7 +35,7 @@ function todayKey(): string {
 
 async function hasFiredToday(db: ReturnType<typeof drizzle>, key: string): Promise<boolean> {
   const fullKey = `lastFired:${key}:${todayKey()}`;
-  const r = await db.select().from(siteSettings).where(eq(siteSettings.key, fullKey)).limit(1);
+  const r = await db.select().from(siteSettings).where(eq(siteSettings.settingKey, fullKey)).limit(1);
   return r.length > 0;
 }
 
@@ -43,7 +43,7 @@ async function markFired(db: ReturnType<typeof drizzle>, key: string): Promise<v
   const fullKey = `lastFired:${key}:${todayKey()}`;
   await db
     .insert(siteSettings)
-    .values({ key: fullKey, value: new Date().toISOString() })
+    .values({ settingKey: fullKey, settingValue: new Date().toISOString() })
     .onConflictDoNothing();
 }
 

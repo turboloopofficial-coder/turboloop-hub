@@ -74,9 +74,13 @@ async function publishOverdueBlogs(db: ReturnType<typeof drizzle>): Promise<type
   return due;
 }
 
+// Telegram's sendPhoto accepts only PNG/JPG/GIF (not SVG).
+// Until we have a PNG banner generator, we use the brand logo PNG and rely on
+// rich captions for the daily variety. Logo is already hosted as PNG on R2.
+const BRAND_LOGO_PNG = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png";
+
 async function announceBlogToTelegram(post: typeof blogPosts.$inferSelect, slot: "morning" | "evening"): Promise<void> {
   const url = `${SITE}/blog/${post.slug}`;
-  const photoUrl = `${SITE}/api/og?slug=${encodeURIComponent(post.slug)}`;
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
@@ -84,7 +88,7 @@ async function announceBlogToTelegram(post: typeof blogPosts.$inferSelect, slot:
     slot,
   });
   await tgBroadcastPhoto({
-    photoUrl,
+    photoUrl: BRAND_LOGO_PNG,
     caption,
     parseMode: "HTML",
     buttons: [{ text: "📖 Read full article", url }],
@@ -92,10 +96,9 @@ async function announceBlogToTelegram(post: typeof blogPosts.$inferSelect, slot:
 }
 
 async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<void> {
-  const photoUrl = `${SITE}/api/og-zoom?lang=${lang}&tier=${tier}`;
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
   await tgBroadcastPhoto({
-    photoUrl,
+    photoUrl: BRAND_LOGO_PNG,
     caption,
     parseMode: "HTML",
     buttons: [{ text: "🎙 Join Zoom now", url: meetingLink }],

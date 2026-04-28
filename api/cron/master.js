@@ -12648,9 +12648,9 @@ async function publishOverdueBlogs(db) {
   }
   return due;
 }
+var BRAND_LOGO_PNG = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png";
 async function announceBlogToTelegram(post, slot) {
   const url = `${SITE}/blog/${post.slug}`;
-  const photoUrl = `${SITE}/api/og?slug=${encodeURIComponent(post.slug)}`;
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
@@ -12658,17 +12658,16 @@ async function announceBlogToTelegram(post, slot) {
     slot
   });
   await tgBroadcastPhoto({
-    photoUrl,
+    photoUrl: BRAND_LOGO_PNG,
     caption,
     parseMode: "HTML",
     buttons: [{ text: "\u{1F4D6} Read full article", url }]
   });
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
-  const photoUrl = `${SITE}/api/og-zoom?lang=${lang}&tier=${tier}`;
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
   await tgBroadcastPhoto({
-    photoUrl,
+    photoUrl: BRAND_LOGO_PNG,
     caption,
     parseMode: "HTML",
     buttons: [{ text: "\u{1F399} Join Zoom now", url: meetingLink }]

@@ -17,12 +17,12 @@ var __copyProps = (to2, from, except2, desc2) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// server/_vercel/sitemap.ts
-var sitemap_exports = {};
-__export(sitemap_exports, {
+// server/_vercel/og.ts
+var og_exports = {};
+__export(og_exports, {
   default: () => handler
 });
-module.exports = __toCommonJS(sitemap_exports);
+module.exports = __toCommonJS(og_exports);
 
 // node_modules/@neondatabase/serverless/index.mjs
 var io = Object.create;
@@ -12454,129 +12454,164 @@ var siteSettings = pgTable("site_settings", {
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
 });
 
-// server/_vercel/sitemap.ts
-var SITE = "https://turboloop.tech";
-var STATIC_ROUTES = [
-  { path: "/", priority: "1.0", changefreq: "daily" },
-  { path: "/feed", priority: "0.9", changefreq: "daily" }
+// server/_vercel/og.ts
+var PALETTES = [
+  { from: "#0891B2", via: "#22D3EE", to: "#7C3AED" },
+  { from: "#7C3AED", via: "#A78BFA", to: "#EC4899" },
+  { from: "#10B981", via: "#34D399", to: "#0891B2" },
+  { from: "#D97706", via: "#FBBF24", to: "#EC4899" },
+  { from: "#0F172A", via: "#475569", to: "#7C3AED" },
+  { from: "#0891B2", via: "#10B981", to: "#F59E0B" },
+  { from: "#EC4899", via: "#F472B6", to: "#7C3AED" },
+  { from: "#1E40AF", via: "#0891B2", to: "#22D3EE" }
 ];
-function iso(d) {
-  if (!d) return (/* @__PURE__ */ new Date()).toISOString();
-  try {
-    return new Date(d).toISOString();
-  } catch {
-    return (/* @__PURE__ */ new Date()).toISOString();
-  }
+function paletteFor(slug) {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = h * 31 + slug.charCodeAt(i) >>> 0;
+  return PALETTES[h % PALETTES.length];
 }
-function esc(s) {
+var TOPIC_RULES = [
+  { keywords: ["security", "audit", "renounced", "lock", "verify", "100k"], emoji: "\u{1F6E1}", tag: "Security" },
+  { keywords: ["compound", "math", "yield", "apy", "apr", "return"], emoji: "\u{1F4C8}", tag: "Strategy" },
+  { keywords: ["referral", "leadership", "rank", "community", "global", "telegram", "zoom", "creator", "presenter", "leader"], emoji: "\u{1F310}", tag: "Community" },
+  { keywords: ["roadmap", "future", "phase", "vision"], emoji: "\u{1F680}", tag: "Roadmap" },
+  { keywords: ["beginner", "first", "guide", "metamask", "step", "playbook", "habits", "mistakes"], emoji: "\u{1F4D8}", tag: "Guide" },
+  { keywords: ["swap", "buy", "moonpay", "fiat", "onramp", "dex"], emoji: "\u{1F4B1}", tag: "Product" },
+  { keywords: ["flywheel", "revenue", "ecosystem", "complete", "what-is"], emoji: "\u2699", tag: "Protocol" },
+  { keywords: ["bsc", "ethereum", "blockchain", "transparency", "chain"], emoji: "\u26D3", tag: "Tech" },
+  { keywords: ["onboarding", "bonus", "challenge"], emoji: "\u{1F381}", tag: "Promo" },
+  { keywords: ["impermanent", "loss"], emoji: "\u{1F9EE}", tag: "Concepts" },
+  { keywords: ["token", "doesnt-have"], emoji: "\u{1F48E}", tag: "Philosophy" }
+];
+function topicFor(slug) {
+  const s = slug.toLowerCase();
+  for (const r of TOPIC_RULES) {
+    if (r.keywords.some((k) => s.includes(k))) return { emoji: r.emoji, tag: r.tag };
+  }
+  return { emoji: "\u2726", tag: "Article" };
+}
+function escapeXml(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
-function slugFromReelUrl(directUrl) {
-  try {
-    const u = new URL(directUrl);
-    const m2 = u.pathname.match(/\/reels\/([a-z0-9-]+)\.mp4$/i);
-    return m2 ? m2[1] : null;
-  } catch {
-    return null;
+function wrapTitle(title, maxCharsPerLine = 28) {
+  const words = title.split(/\s+/);
+  const lines = [];
+  let cur = "";
+  for (const w2 of words) {
+    if ((cur + " " + w2).trim().length <= maxCharsPerLine) {
+      cur = (cur + " " + w2).trim();
+    } else {
+      if (cur) lines.push(cur);
+      cur = w2;
+    }
+    if (lines.length >= 2 && cur.length > maxCharsPerLine) break;
   }
-}
-function thumbForReel(directUrl) {
-  try {
-    const u = new URL(directUrl);
-    u.pathname = u.pathname.replace(/^\/reels\//, "/reel-thumbs/").replace(/\.mp4$/i, ".jpg");
-    return u.toString();
-  } catch {
-    return "";
-  }
+  if (cur) lines.push(cur);
+  return lines.slice(0, 3);
 }
 async function handler(req, res) {
   try {
-    const url = process.env.DATABASE_URL;
-    if (!url) throw new Error("DATABASE_URL not set");
-    const db = drizzle(Xs(url));
-    const urls = [];
-    for (const s of STATIC_ROUTES) {
-      urls.push({ loc: `${SITE}${s.path}`, lastmod: (/* @__PURE__ */ new Date()).toISOString(), priority: s.priority, changefreq: s.changefreq });
-    }
-    const publishedPosts = await db.select().from(blogPosts).where(eq(blogPosts.published, true));
-    for (const p2 of publishedPosts) {
-      const lastmodDate = p2.updatedAt || p2.scheduledPublishAt || p2.createdAt;
-      urls.push({
-        loc: `${SITE}/blog/${p2.slug}`,
-        lastmod: iso(lastmodDate),
-        priority: "0.8",
-        changefreq: "weekly",
-        images: [{
-          loc: p2.coverImage || `${SITE}/api/og?slug=${p2.slug}`,
-          title: p2.title
-        }]
-      });
-    }
-    const allVideos = await db.select().from(videos);
-    for (const v2 of allVideos) {
-      if (v2.directUrl && !v2.youtubeUrl) {
-        const slug = slugFromReelUrl(v2.directUrl);
-        if (slug) {
-          urls.push({
-            loc: `${SITE}/reels/${slug}`,
-            lastmod: iso(v2.createdAt),
-            priority: "0.7",
-            changefreq: "monthly",
-            videos: [{
-              thumbnail: thumbForReel(v2.directUrl),
-              title: v2.title,
-              description: `${v2.title} \u2014 short explainer from Turbo Loop.`,
-              contentLoc: v2.directUrl
-            }]
-          });
+    const url = new URL(req.url || "/", "http://localhost");
+    const slug = url.searchParams.get("slug") || "";
+    let title = "Turbo Loop";
+    let isBlog = false;
+    if (slug) {
+      const dbUrl = process.env.DATABASE_URL;
+      if (dbUrl) {
+        try {
+          const db = drizzle(Xs(dbUrl));
+          const r = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
+          if (r[0]?.title) {
+            title = r[0].title;
+            isBlog = true;
+          }
+        } catch {
         }
       }
     }
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-` + urls.map((u) => {
-      let entry = `  <url>
-    <loc>${esc(u.loc)}</loc>
-    <lastmod>${u.lastmod}</lastmod>
-    <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
-`;
-      if (u.images) {
-        for (const img of u.images) {
-          entry += `    <image:image>
-      <image:loc>${esc(img.loc)}</image:loc>
-` + (img.title ? `      <image:title>${esc(img.title)}</image:title>
-` : "") + `    </image:image>
-`;
-        }
-      }
-      if (u.videos) {
-        for (const vid of u.videos) {
-          entry += `    <video:video>
-      <video:thumbnail_loc>${esc(vid.thumbnail)}</video:thumbnail_loc>
-      <video:title>${esc(vid.title)}</video:title>
-      <video:description>${esc(vid.description)}</video:description>
-` + (vid.contentLoc ? `      <video:content_loc>${esc(vid.contentLoc)}</video:content_loc>
-` : "") + `    </video:video>
-`;
-        }
-      }
-      entry += `  </url>`;
-      return entry;
-    }).join("\n") + `
-</urlset>
-`;
-    res.setHeader("Content-Type", "application/xml; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400");
+    const palette = paletteFor(slug || "default");
+    const topic = isBlog ? topicFor(slug) : { emoji: "\u{1F680}", tag: "Hub" };
+    const titleLines = wrapTitle(title);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${palette.from}"/>
+      <stop offset="50%" stop-color="${palette.via}"/>
+      <stop offset="100%" stop-color="${palette.to}"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="60%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background gradient -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern overlay -->
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Vignette -->
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+
+  <!-- Big topic emoji watermark (right side) -->
+  <text x="1130" y="510" font-size="280" text-anchor="end" opacity="0.85"
+        style="filter: drop-shadow(0 8px 30px rgba(0,0,0,0.3));">
+    ${topic.emoji}
+  </text>
+
+  <!-- Top brand row -->
+  <g transform="translate(80, 80)">
+    <rect x="0" y="0" rx="999" ry="999" width="200" height="48" fill="rgba(255,255,255,0.95)"/>
+    <text x="100" y="32" font-family="-apple-system, system-ui, sans-serif" font-weight="800"
+          font-size="14" fill="${palette.from}" text-anchor="middle" letter-spacing="3">
+      TURBO LOOP
+    </text>
+  </g>
+
+  <!-- Topic tag pill (top, next to brand) -->
+  <g transform="translate(300, 80)">
+    <rect x="0" y="0" rx="999" ry="999" width="${topic.tag.length * 11 + 50}" height="48" fill="rgba(15,23,42,0.6)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <text x="${(topic.tag.length * 11 + 50) / 2}" y="32" font-family="-apple-system, system-ui, sans-serif" font-weight="700"
+          font-size="14" fill="rgba(255,255,255,0.95)" text-anchor="middle" letter-spacing="2.5">
+      ${escapeXml(topic.tag.toUpperCase())}
+    </text>
+  </g>
+
+  <!-- Main title (multi-line) -->
+  ${titleLines.map((line2, i) => `
+  <text x="80" y="${290 + i * 90}" font-family="-apple-system, system-ui, sans-serif" font-weight="800"
+        font-size="${titleLines.length > 2 ? 64 : 76}" fill="white" letter-spacing="-2"
+        style="filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));">
+    ${escapeXml(line2)}
+  </text>
+  `).join("")}
+
+  <!-- Bottom brand row -->
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <text x="80" y="585" font-family="-apple-system, system-ui, sans-serif" font-weight="700"
+        font-size="22" fill="rgba(255,255,255,0.85)" letter-spacing="1">
+    turboloop.tech
+  </text>
+
+  <text x="1120" y="585" font-family="-apple-system, system-ui, sans-serif" font-weight="500"
+        font-size="18" fill="rgba(255,255,255,0.55)" letter-spacing="2" text-anchor="end">
+    ${isBlog ? "BLOG \xB7 5 MIN READ" : "THE COMPLETE DEFI ECOSYSTEM"}
+  </text>
+</svg>`;
+    res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800");
     res.statusCode = 200;
-    res.end(xml);
+    res.end(svg);
   } catch (err) {
-    console.error("[sitemap]", err);
+    console.error("[og]", err);
     res.statusCode = 500;
     res.setHeader("Content-Type", "text/plain");
-    res.end(`sitemap error: ${err?.message || err}`);
+    res.end(`og error: ${err?.message || err}`);
   }
 }
 /*! Bundled license information:

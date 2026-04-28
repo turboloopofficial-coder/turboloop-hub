@@ -20,22 +20,46 @@ export default function BlogPost() {
 
   const related = (allPosts ?? []).filter(p => p.slug !== slug).slice(0, 3);
 
+  // Per-blog OG image: dynamic SVG with title + topic emoji + brand
+  const ogImage = post ? `https://turboloop.tech/api/og?slug=${slug}` : undefined;
+
+  // Word count for richer schema (helps Google show reading time in results)
+  const wordCount = post?.content ? post.content.trim().split(/\s+/).length : undefined;
+
+  // Article schema with breadcrumbs (richer Google results)
   const jsonLd = post ? {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt || post.title,
-    datePublished: publishDate(post).toISOString(),
-    dateModified: post.updatedAt || publishDate(post).toISOString(),
-    author: { "@type": "Organization", name: "Turbo Loop" },
-    publisher: {
-      "@type": "Organization",
-      name: "Turbo Loop",
-      logo: { "@type": "ImageObject", url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png" },
-    },
-    mainEntityOfPage: { "@type": "WebPage", "@id": `https://turboloop.tech/blog/${slug}` },
-    image: post.coverImage || "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
-    articleBody: post.content,
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `https://turboloop.tech/blog/${slug}#article`,
+        headline: post.title,
+        description: post.excerpt || post.title,
+        datePublished: publishDate(post).toISOString(),
+        dateModified: post.updatedAt || publishDate(post).toISOString(),
+        author: { "@type": "Organization", name: "Turbo Loop", url: "https://turboloop.tech" },
+        publisher: {
+          "@type": "Organization",
+          name: "Turbo Loop",
+          logo: { "@type": "ImageObject", url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png" },
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": `https://turboloop.tech/blog/${slug}` },
+        image: ogImage,
+        articleBody: post.content,
+        wordCount,
+        articleSection: "DeFi",
+        keywords: ["Turbo Loop", "DeFi", "BSC", "Binance Smart Chain", "yield farming", "sustainable yield"],
+        inLanguage: "en",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://turboloop.tech" },
+          { "@type": "ListItem", position: 2, name: "Blog", item: "https://turboloop.tech/feed" },
+          { "@type": "ListItem", position: 3, name: post.title, item: `https://turboloop.tech/blog/${slug}` },
+        ],
+      },
+    ],
   } : undefined;
 
   return (
@@ -48,7 +72,7 @@ export default function BlogPost() {
           description={post.excerpt || post.title}
           path={`/blog/${post.slug}`}
           type="article"
-          image={post.coverImage || undefined}
+          image={post.coverImage || ogImage}
           publishedTime={publishDate(post).toISOString()}
           author="Turbo Loop"
           jsonLd={jsonLd}

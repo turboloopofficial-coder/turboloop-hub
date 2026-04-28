@@ -92782,9 +92782,27 @@ async function verifyAdminPassword(email3, password) {
   if (!admin) return false;
   return bcryptjs_default.compare(password, admin.passwordHash);
 }
+async function publishOverdueBlogs() {
+  const db = getDb();
+  const now = /* @__PURE__ */ new Date();
+  const due = await db.select().from(blogPosts).where(
+    and(
+      eq(blogPosts.published, false),
+      isNotNull(blogPosts.scheduledPublishAt),
+      lte(blogPosts.scheduledPublishAt, now)
+    )
+  );
+  const published = [];
+  for (const post of due) {
+    await db.update(blogPosts).set({ published: true }).where(eq(blogPosts.id, post.id));
+    published.push(post.slug);
+  }
+  return published;
+}
 async function listBlogPosts(publishedOnly = true) {
   const db = getDb();
   if (publishedOnly) {
+    publishOverdueBlogs().catch((e5) => console.error("[publishOverdueBlogs]", e5));
     return db.select().from(blogPosts).where(eq(blogPosts.published, true)).orderBy(desc(blogPosts.createdAt));
   }
   return db.select().from(blogPosts).orderBy(desc(blogPosts.createdAt));

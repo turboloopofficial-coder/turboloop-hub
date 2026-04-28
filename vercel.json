@@ -20,6 +20,10 @@
     "api/sitemap.js": {
       "maxDuration": 10,
       "memory": 256
+    },
+    "api/og.js": {
+      "maxDuration": 10,
+      "memory": 256
     }
   },
   "crons": [

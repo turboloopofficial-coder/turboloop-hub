@@ -52,7 +52,9 @@ function slugFromUrl(videoUrl: string): string {
 
 export default function ReelsSection() {
   const { data: videos } = trpc.content.videos.useQuery();
-  const reels = (videos ?? []).filter(v => v.directUrl && !v.youtubeUrl);
+  // Reels = short vertical 9:16 videos only. Cinematic films (16:9 long-form)
+  // live on /films and have their own embeds — exclude them here.
+  const reels = (videos ?? []).filter(v => v.directUrl && !v.youtubeUrl && v.category !== "cinematic");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 

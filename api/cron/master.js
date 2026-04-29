@@ -12587,14 +12587,36 @@ function zoomReminderCaption(opts) {
 \u{1F510} Passcode: <code>${tgEscape(opts.passcode)}</code>
 \u23F0 ${tgEscape(opts.timeLabel)}`;
 }
+function launchAnnouncementCaption() {
+  return `<b>TurboLoop.tech is live.</b>
+
+For the first time everything we've built \u2014 the protocol, the community, the security work, the creator network \u2014 has a home of its own. Not a landing page. A hub.
+
+<b>A few rooms worth visiting:</b>
+
+\u25B8 <a href="https://turboloop.tech/ecosystem">/ecosystem</a> \u2014 the six pillars, each with a deep-dive
+\u25B8 <a href="https://turboloop.tech/security">/security</a> \u2014 what's locked, what's audited, what's verifiable
+\u25B8 <a href="https://turboloop.tech/community">/community</a> \u2014 leaderboard, social wall, country leaders
+\u25B8 <a href="https://turboloop.tech/creatives">/creatives</a> \u2014 141 ready-to-share banners with captions in 48 languages
+\u25B8 <a href="https://turboloop.tech/feed">/feed</a> \u2014 long-form blog, updated weekly
+
+We didn't build this to look at. We built it so you have something to send when someone asks <i>"what is TurboLoop, really?"</i>
+
+Send it. Share it. Use the creatives. Translate them. Make it yours.`;
+}
 
 // server/_vercel/cron-master.ts
 var SITE = "https://turboloop.tech";
+var LAUNCH_FIRE_AT_UTC = "2026-04-29T12:00:00.000Z";
+var LAUNCH_GRACE_HOURS = 6;
 function bannerUrlBlog(slug, title) {
-  return `${SITE}/api/og-banner?type=blog&title=${encodeURIComponent(title)}`;
+  return `${SITE}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
 function bannerUrlZoom(lang) {
   return `${SITE}/api/og-banner?type=zoom&lang=${lang}`;
+}
+function bannerUrlLaunch() {
+  return `${SITE}/api/og-banner?type=launch`;
 }
 function todayKey() {
   return (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
@@ -12606,6 +12628,15 @@ async function hasFiredToday(db, key) {
 }
 async function markFired(db, key) {
   const fullKey = `lastFired:${key}:${todayKey()}`;
+  await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: (/* @__PURE__ */ new Date()).toISOString() }).onConflictDoNothing();
+}
+async function hasFiredEver(db, key) {
+  const fullKey = `oneShot:${key}`;
+  const r = await db.select().from(siteSettings).where(eq(siteSettings.settingKey, fullKey)).limit(1);
+  return r.length > 0;
+}
+async function markFiredEver(db, key) {
+  const fullKey = `oneShot:${key}`;
   await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: (/* @__PURE__ */ new Date()).toISOString() }).onConflictDoNothing();
 }
 function isInWindow(targetHour, targetMin, graceMin = 4) {
@@ -12664,6 +12695,23 @@ async function handler(req, res) {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(Xs(dbUrl));
+    {
+      const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
+      const now = /* @__PURE__ */ new Date();
+      const graceEnd = new Date(fireAt.getTime() + LAUNCH_GRACE_HOURS * 60 * 60 * 1e3);
+      const inWindow = now >= fireAt && now <= graceEnd;
+      if (inWindow && !await hasFiredEver(db, "launch:announcement")) {
+        const caption = launchAnnouncementCaption();
+        await tgBroadcastPhoto({
+          photoUrl: bannerUrlLaunch(),
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F310} Visit turboloop.tech", url: SITE }]
+        });
+        await markFiredEver(db, "launch:announcement");
+        log.push(`\u{1F680} Launch announcement fired (target ${LAUNCH_FIRE_AT_UTC})`);
+      }
+    }
     if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
       const due = await publishOverdueBlogs(db);
       if (due.length > 0) {

@@ -120,3 +120,27 @@ export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meet
 🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>
 ⏰ ${tgEscape(opts.timeLabel)}`;
 }
+
+// =========================================================
+// SITE LAUNCH ANNOUNCEMENT — fires once via cron-master
+// =========================================================
+// Refined v3 message: confident, premium, community-first. No timeline anchors,
+// no emoji walls, one CTA. ~640 chars in HTML — well under Telegram's 1024 limit.
+
+export function launchAnnouncementCaption(): string {
+  return `<b>TurboLoop.tech is live.</b>
+
+For the first time everything we've built — the protocol, the community, the security work, the creator network — has a home of its own. Not a landing page. A hub.
+
+<b>A few rooms worth visiting:</b>
+
+▸ <a href="https://turboloop.tech/ecosystem">/ecosystem</a> — the six pillars, each with a deep-dive
+▸ <a href="https://turboloop.tech/security">/security</a> — what's locked, what's audited, what's verifiable
+▸ <a href="https://turboloop.tech/community">/community</a> — leaderboard, social wall, country leaders
+▸ <a href="https://turboloop.tech/creatives">/creatives</a> — 141 ready-to-share banners with captions in 48 languages
+▸ <a href="https://turboloop.tech/feed">/feed</a> — long-form blog, updated weekly
+
+We didn't build this to look at. We built it so you have something to send when someone asks <i>"what is TurboLoop, really?"</i>
+
+Send it. Share it. Use the creatives. Translate them. Make it yours.`;
+}

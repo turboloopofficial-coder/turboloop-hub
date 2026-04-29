@@ -5,8 +5,12 @@
 //   2. Hindi/Urdu Zoom T-30 reminder         — 15:00 UTC (= 8:30 PM IST)
 //   3. English Zoom T-30 reminder            — 16:30 UTC (= 10:00 PM IST)
 //
+// One-shot tasks (fire once total, ever):
+//   - Site launch announcement: targets LAUNCH_FIRE_AT_UTC (set below)
+//
 // De-duplication via site_settings table — each task has a key like
 // `lastFired:zoom:en:T30:2026-04-29` so each task only sends once per day.
+// One-shot tasks use a date-less key so they only fire once across all time.
 
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { neon } from "@neondatabase/serverless";
@@ -14,17 +18,25 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings } from "../../drizzle/schema";
 import { tgBroadcastPhoto } from "./_telegram";
-import { blogPostCaption, zoomReminderCaption, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, type ZoomLang, type ZoomTier } from "./_messagePools";
 
 const SITE = "https://turboloop.tech";
+
+// One-shot launch announcement target — fires at this UTC moment, then never again.
+// Format: ISO 8601. The cron pings every 5 min so actual fire is within 5 min of this.
+const LAUNCH_FIRE_AT_UTC = "2026-04-29T12:00:00.000Z";
+const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire (in case of deploy delays)
 
 // Real PNG banner endpoints (Edge runtime, @vercel/og generates fresh PNG per request).
 // Daily palette rotation = "different banner every day" automatically.
 function bannerUrlBlog(slug: string, title: string): string {
-  return `${SITE}/api/og-banner?type=blog&title=${encodeURIComponent(title)}`;
+  return `${SITE}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
 function bannerUrlZoom(lang: ZoomLang): string {
   return `${SITE}/api/og-banner?type=zoom&lang=${lang}`;
+}
+function bannerUrlLaunch(): string {
+  return `${SITE}/api/og-banner?type=launch`;
 }
 
 function todayKey(): string {
@@ -39,6 +51,21 @@ async function hasFiredToday(db: ReturnType<typeof drizzle>, key: string): Promi
 
 async function markFired(db: ReturnType<typeof drizzle>, key: string): Promise<void> {
   const fullKey = `lastFired:${key}:${todayKey()}`;
+  await db
+    .insert(siteSettings)
+    .values({ settingKey: fullKey, settingValue: new Date().toISOString() })
+    .onConflictDoNothing();
+}
+
+// One-shot variants (no date suffix — fires once total, ever)
+async function hasFiredEver(db: ReturnType<typeof drizzle>, key: string): Promise<boolean> {
+  const fullKey = `oneShot:${key}`;
+  const r = await db.select().from(siteSettings).where(eq(siteSettings.settingKey, fullKey)).limit(1);
+  return r.length > 0;
+}
+
+async function markFiredEver(db: ReturnType<typeof drizzle>, key: string): Promise<void> {
+  const fullKey = `oneShot:${key}`;
   await db
     .insert(siteSettings)
     .values({ settingKey: fullKey, settingValue: new Date().toISOString() })
@@ -110,6 +137,29 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(neon(dbUrl));
+
+    // ============ 0. ONE-SHOT: SITE LAUNCH ANNOUNCEMENT ============
+    // Fires once when current time >= LAUNCH_FIRE_AT_UTC and within grace window,
+    // then never again (de-duplicated via oneShot:launch:announcement key).
+    // Scheduled in the morning (12:00 UTC) so it doesn't collide with the
+    // 14:00/15:00/16:30 UTC evening cluster.
+    {
+      const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
+      const now = new Date();
+      const graceEnd = new Date(fireAt.getTime() + LAUNCH_GRACE_HOURS * 60 * 60 * 1000);
+      const inWindow = now >= fireAt && now <= graceEnd;
+      if (inWindow && !(await hasFiredEver(db, "launch:announcement"))) {
+        const caption = launchAnnouncementCaption();
+        await tgBroadcastPhoto({
+          photoUrl: bannerUrlLaunch(),
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "🌐 Visit turboloop.tech", url: SITE }],
+        });
+        await markFiredEver(db, "launch:announcement");
+        log.push(`🚀 Launch announcement fired (target ${LAUNCH_FIRE_AT_UTC})`);
+      }
+    }
 
     // ============ 1. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============
     if (isInWindow(14, 0) && !(await hasFiredToday(db, "blog:evening"))) {

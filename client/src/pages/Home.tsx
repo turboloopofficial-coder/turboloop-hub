@@ -40,7 +40,7 @@ export default function Home() {
         description="Sustainable yield farming on BSC. Audited & renounced smart contract. 100% LP locked. Six DeFi primitives in one self-sustaining ecosystem. Global community across 6+ continents, 48 languages."
         path="/"
         type="website"
-        image="https://turboloop.tech/api/og"
+        image="https://turboloop.tech/api/og-banner?type=launch"
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [

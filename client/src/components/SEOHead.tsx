@@ -18,7 +18,10 @@ type Props = {
 };
 
 const SITE_ORIGIN = "https://turboloop.tech";
-const DEFAULT_IMAGE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png";
+// Default OG card for any page that doesn't specify its own image — points at the
+// dynamic launch banner Edge function so previews on Telegram/X/LinkedIn/WhatsApp
+// look like a real product launch instead of a logo on white.
+const DEFAULT_IMAGE = "https://turboloop.tech/api/og-banner?type=launch";
 
 /**
  * Updates document.title and meta tags on route changes.
@@ -50,6 +53,8 @@ export default function SEOHead({
       { sel: "meta[property='og:description']", attr: "property", key: "og:description", content: description },
       { sel: "meta[property='og:url']", attr: "property", key: "og:url", content: canonicalUrl },
       { sel: "meta[property='og:image']", attr: "property", key: "og:image", content: image },
+      { sel: "meta[property='og:image:width']", attr: "property", key: "og:image:width", content: "1200" },
+      { sel: "meta[property='og:image:height']", attr: "property", key: "og:image:height", content: "630" },
       { sel: "meta[property='og:type']", attr: "property", key: "og:type", content: type },
       { sel: "meta[property='og:site_name']", attr: "property", key: "og:site_name", content: "Turbo Loop" },
       { sel: "meta[name='twitter:card']", attr: "name", key: "twitter:card", content: "summary_large_image" },

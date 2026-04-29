@@ -1,6 +1,7 @@
 // Edge Function — generates real PNG banners for Telegram (1200x630).
 // /api/og-banner?type=zoom&lang=en — Zoom reminder banner
 // /api/og-banner?type=blog&slug=...  — Blog post banner (uses topic emoji + title)
+// /api/og-banner?type=launch         — Site launch banner (homepage OG + pinned post)
 //
 // Uses @vercel/og (Satori under the hood) — produces a real PNG that Telegram
 // accepts in sendPhoto. Each request returns a fresh image; we cache aggressively.
@@ -39,11 +40,250 @@ const TYPE_CONFIG = {
   blog:    { label: "Today on the Blog", subline: "turboloop.tech", emoji: "📖", accent: "NEW POST" },
 };
 
+// ============ LAUNCH BANNER ============
+// Premium site-launch announcement banner. Static layout (no per-day rotation —
+// this is the "permanent" homepage OG card pinned to the brand for consistency).
+function launchBanner() {
+  return new ImageResponse(
+    {
+      type: "div",
+      props: {
+        style: {
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #1E1B4B 100%)",
+          fontFamily: '"Inter", system-ui, sans-serif',
+          padding: "70px 90px",
+          position: "relative",
+          color: "white",
+        },
+        children: [
+          // Soft cyan radial glow — top-left, behind the headline
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                top: "-200px",
+                left: "-200px",
+                width: "700px",
+                height: "700px",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%)",
+              },
+            },
+          },
+          // Soft purple radial glow — bottom-right, accent
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                bottom: "-180px",
+                right: "-180px",
+                width: "600px",
+                height: "600px",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, rgba(124,58,237,0) 70%)",
+              },
+            },
+          },
+          // Top row — brand pill + LIVE badge
+          {
+            type: "div",
+            props: {
+              style: { display: "flex", gap: "14px", alignItems: "center" },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                      color: "white",
+                      padding: "12px 24px",
+                      borderRadius: "999px",
+                      fontSize: "16px",
+                      fontWeight: "800",
+                      letterSpacing: "3px",
+                      boxShadow: "0 8px 24px rgba(8,145,178,0.4)",
+                    },
+                    children: "TURBO LOOP",
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      background: "rgba(34,197,94,0.15)",
+                      border: "1px solid rgba(34,197,94,0.4)",
+                      color: "#86EFAC",
+                      padding: "12px 22px",
+                      borderRadius: "999px",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      letterSpacing: "3px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    },
+                    children: [
+                      {
+                        type: "div",
+                        props: {
+                          style: { width: "8px", height: "8px", borderRadius: "50%", background: "#22C55E" },
+                        },
+                      },
+                      "NOW LIVE",
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          // Spacer
+          { type: "div", props: { style: { flex: 1 } } },
+          // Headline block
+          {
+            type: "div",
+            props: {
+              style: { display: "flex", flexDirection: "column", gap: "18px", maxWidth: "1020px", position: "relative", zIndex: 2 },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "104px",
+                      fontWeight: "900",
+                      letterSpacing: "-4px",
+                      lineHeight: 0.98,
+                      textShadow: "0 8px 40px rgba(0,0,0,0.6)",
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "8px",
+                    },
+                    children: [
+                      "TurboLoop",
+                      {
+                        type: "span",
+                        props: {
+                          style: {
+                            background: "linear-gradient(135deg, #22D3EE 0%, #A78BFA 100%)",
+                            backgroundClip: "text",
+                            color: "transparent",
+                          },
+                          children: ".tech",
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "44px",
+                      fontWeight: "600",
+                      color: "rgba(255,255,255,0.92)",
+                      letterSpacing: "-1px",
+                      lineHeight: 1.1,
+                    },
+                    children: "The hub is live.",
+                  },
+                },
+                // Page list — comma-separated chips
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      marginTop: "12px",
+                      fontSize: "22px",
+                      fontWeight: "500",
+                      color: "rgba(203,213,225,0.85)",
+                      letterSpacing: "0.5px",
+                      lineHeight: 1.5,
+                    },
+                    children: "Ecosystem · Security · Community · Creatives · Editorial · Roadmap · Library · Promotions",
+                  },
+                },
+              ],
+            },
+          },
+          // Bottom row — stats strip + domain
+          {
+            type: "div",
+            props: {
+              style: {
+                marginTop: "50px",
+                paddingTop: "26px",
+                borderTop: "1px solid rgba(148,163,184,0.2)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                position: "relative",
+                zIndex: 2,
+              },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      display: "flex",
+                      gap: "32px",
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      color: "rgba(148,163,184,0.9)",
+                      letterSpacing: "1px",
+                    },
+                    children: [
+                      { type: "div", props: { children: "16 pages" } },
+                      { type: "div", props: { style: { color: "rgba(148,163,184,0.4)" }, children: "•" } },
+                      { type: "div", props: { children: "13 deep-dives" } },
+                      { type: "div", props: { style: { color: "rgba(148,163,184,0.4)" }, children: "•" } },
+                      { type: "div", props: { children: "48 languages" } },
+                    ],
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "22px",
+                      fontWeight: "700",
+                      color: "#22D3EE",
+                      letterSpacing: "1.5px",
+                    },
+                    children: "turboloop.tech",
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      width: 1200,
+      height: 630,
+      headers: {
+        // Cache long — launch banner is static, doesn't change per request
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
+  );
+}
+
 export default async function handler(req) {
   const url = new URL(req.url);
   const type = url.searchParams.get("type") || "zoom";
   const lang = url.searchParams.get("lang") || "en";
   const title = url.searchParams.get("title") || "";
+
+  // Site-launch banner — distinct layout, used as the homepage OG card
+  if (type === "launch") {
+    return launchBanner();
+  }
 
   // Decide config
   let cfg = TYPE_CONFIG.blog;

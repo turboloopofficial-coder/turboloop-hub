@@ -40,6 +40,267 @@ const TYPE_CONFIG = {
   blog:    { label: "Today on the Blog", subline: "turboloop.tech", emoji: "📖", accent: "NEW POST" },
 };
 
+// ============ TOPIC THEMES (for content-aware blog banners) ============
+// Each theme defines the visual identity for a post category — palette, emoji,
+// accent label, tagline. detectTopic() inspects the slug + title to choose.
+const TOPIC_THEMES = {
+  security:   { emoji: "🛡",  from: "#0891B2", via: "#1E40AF", to: "#0F172A", accent: "SECURITY",      tagline: "Trustless. Verifiable. Locked." },
+  yield:      { emoji: "📈", from: "#10B981", via: "#0891B2", to: "#0F172A", accent: "YIELD FARMING", tagline: "Real revenue. Daily yield." },
+  community:  { emoji: "👥", from: "#7C3AED", via: "#EC4899", to: "#1E1B4B", accent: "COMMUNITY",     tagline: "The people behind the protocol." },
+  swap:       { emoji: "💱", from: "#22D3EE", via: "#0891B2", to: "#1E1B4B", accent: "TURBO SWAP",    tagline: "Decentralized exchange, on-chain." },
+  buy:        { emoji: "💳", from: "#0891B2", via: "#7C3AED", to: "#0F172A", accent: "TURBO BUY",     tagline: "Fiat. On-chain. Instant." },
+  referral:   { emoji: "🔗", from: "#F59E0B", via: "#EC4899", to: "#1E1B4B", accent: "REFERRAL",      tagline: "Share. Earn. Compound." },
+  leadership: { emoji: "🏆", from: "#F59E0B", via: "#7C3AED", to: "#1E1B4B", accent: "LEADERSHIP",    tagline: "Build the network. Own a share." },
+  ecosystem:  { emoji: "⚙️", from: "#22D3EE", via: "#A78BFA", to: "#1E1B4B", accent: "ECOSYSTEM",     tagline: "Six pillars. One engine." },
+  roadmap:    { emoji: "🚀", from: "#EC4899", via: "#7C3AED", to: "#0F172A", accent: "ROADMAP",       tagline: "Where we're headed next." },
+  creatives:  { emoji: "🎨", from: "#A78BFA", via: "#EC4899", to: "#1E1B4B", accent: "CREATIVES",     tagline: "Banners. Captions. 48 languages." },
+  default:    { emoji: "📖", from: "#0891B2", via: "#7C3AED", to: "#1E1B4B", accent: "NEW POST",      tagline: "Fresh from the editorial." },
+};
+
+function detectTopic(slug, title) {
+  const text = `${slug || ""} ${title || ""}`.toLowerCase();
+  // Order matters — most specific patterns first
+  if (/leadership|leader.program|leader-program/.test(text)) return TOPIC_THEMES.leadership;
+  if (/security|audit|locked|renounced|trustless|smart.contract|hack|exploit|vuln/.test(text)) return TOPIC_THEMES.security;
+  if (/yield|farming|apy|reward|deposit|stake/.test(text)) return TOPIC_THEMES.yield;
+  if (/swap|liquidity|trading|amm|dex/.test(text)) return TOPIC_THEMES.swap;
+  if (/turbo.buy|turbo-buy|fiat|onramp|on.ramp|on-ramp/.test(text)) return TOPIC_THEMES.buy;
+  if (/referral|network|share|invite/.test(text)) return TOPIC_THEMES.referral;
+  if (/ecosystem|pillar|six.pillar/.test(text)) return TOPIC_THEMES.ecosystem;
+  if (/roadmap|future|next|phase/.test(text)) return TOPIC_THEMES.roadmap;
+  if (/creative|design|banner|caption/.test(text)) return TOPIC_THEMES.creatives;
+  if (/community|country|leaderboard|social|culture|telegram|zoom/.test(text)) return TOPIC_THEMES.community;
+  return TOPIC_THEMES.default;
+}
+
+function titleFontSize(title) {
+  const len = (title || "").length;
+  if (len < 30) return 86;
+  if (len < 50) return 70;
+  if (len < 70) return 58;
+  if (len < 90) return 50;
+  return 44;
+}
+
+// ============ BLOG BANNER (content-aware) ============
+// Premium per-post banner: topic-detected palette + topic emoji watermark +
+// auto-sized title + topic tagline + read-on-blog footer. Same visual DNA as
+// the launch banner (dark navy + cyan/purple glows) but accented per topic.
+function blogBanner(slug, title) {
+  const theme = detectTopic(slug, title);
+  const safeTitle = title || "Today on the blog";
+  const fontSize = titleFontSize(safeTitle);
+  const slugDisplay = slug ? `turboloop.tech/blog/${slug}` : "turboloop.tech/feed";
+
+  return new ImageResponse(
+    {
+      type: "div",
+      props: {
+        style: {
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          background: `linear-gradient(135deg, ${theme.from} 0%, ${theme.via} 50%, ${theme.to} 100%)`,
+          fontFamily: '"Inter", system-ui, sans-serif',
+          padding: "70px 90px",
+          position: "relative",
+          color: "white",
+        },
+        children: [
+          // Soft topic-color glow — top-left
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                top: "-180px",
+                left: "-180px",
+                width: "640px",
+                height: "640px",
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${theme.from}55 0%, ${theme.from}00 70%)`,
+              },
+            },
+          },
+          // Soft accent glow — bottom-right
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                bottom: "-160px",
+                right: "-160px",
+                width: "560px",
+                height: "560px",
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${theme.via}50 0%, ${theme.via}00 70%)`,
+              },
+            },
+          },
+          // Massive topic emoji — right-side watermark, low opacity
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                right: "60px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                fontSize: "340px",
+                opacity: 0.18,
+                lineHeight: 1,
+                filter: "drop-shadow(0 8px 40px rgba(0,0,0,0.5))",
+              },
+              children: theme.emoji,
+            },
+          },
+          // Top row: brand pill + topic accent pill
+          {
+            type: "div",
+            props: {
+              style: { display: "flex", gap: "12px", alignItems: "center", position: "relative", zIndex: 2 },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      background: "rgba(255,255,255,0.96)",
+                      color: theme.from,
+                      padding: "11px 22px",
+                      borderRadius: "999px",
+                      fontSize: "15px",
+                      fontWeight: "800",
+                      letterSpacing: "3px",
+                      boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+                    },
+                    children: "TURBO LOOP",
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      background: "rgba(15,23,42,0.55)",
+                      border: "1px solid rgba(255,255,255,0.25)",
+                      color: "rgba(255,255,255,0.95)",
+                      padding: "11px 22px",
+                      borderRadius: "999px",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      letterSpacing: "3px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    },
+                    children: [
+                      { type: "div", props: { style: { fontSize: "16px" }, children: theme.emoji } },
+                      theme.accent,
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          // Spacer
+          { type: "div", props: { style: { flex: 1 } } },
+          // Headline block — auto-sized title + topic tagline
+          {
+            type: "div",
+            props: {
+              style: { display: "flex", flexDirection: "column", gap: "20px", maxWidth: "920px", position: "relative", zIndex: 2 },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: `${fontSize}px`,
+                      fontWeight: "800",
+                      letterSpacing: "-2px",
+                      lineHeight: 1.05,
+                      textShadow: "0 8px 32px rgba(0,0,0,0.55)",
+                    },
+                    children: safeTitle,
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "26px",
+                      fontWeight: "500",
+                      color: "rgba(255,255,255,0.85)",
+                      letterSpacing: "-0.5px",
+                      fontStyle: "italic",
+                    },
+                    children: theme.tagline,
+                  },
+                },
+              ],
+            },
+          },
+          // Bottom row — slug + brand domain
+          {
+            type: "div",
+            props: {
+              style: {
+                marginTop: "46px",
+                paddingTop: "26px",
+                borderTop: "1px solid rgba(255,255,255,0.22)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                position: "relative",
+                zIndex: 2,
+              },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "20px",
+                      fontWeight: "600",
+                      color: "rgba(255,255,255,0.75)",
+                      letterSpacing: "1px",
+                    },
+                    children: slugDisplay,
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "20px",
+                      fontWeight: "700",
+                      color: "rgba(255,255,255,0.95)",
+                      letterSpacing: "2px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    },
+                    children: [
+                      { type: "div", props: { style: { fontSize: "16px" }, children: "📖" } },
+                      "READ ON THE BLOG",
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      width: 1200,
+      height: 630,
+      headers: {
+        // Per-post banner is deterministic (theme is derived from slug) so cache aggressively
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
+  );
+}
+
 // ============ LAUNCH BANNER ============
 // Premium site-launch announcement banner. Static layout (no per-day rotation —
 // this is the "permanent" homepage OG card pinned to the brand for consistency).
@@ -279,13 +540,19 @@ export default async function handler(req) {
   const type = url.searchParams.get("type") || "zoom";
   const lang = url.searchParams.get("lang") || "en";
   const title = url.searchParams.get("title") || "";
+  const slug = url.searchParams.get("slug") || "";
 
   // Site-launch banner — distinct layout, used as the homepage OG card
   if (type === "launch") {
     return launchBanner();
   }
 
-  // Decide config
+  // Content-aware blog banner — topic-detected palette + emoji per-post
+  if (type === "blog") {
+    return blogBanner(slug, title);
+  }
+
+  // Decide config (legacy path — kept for zoom + any unknown type fallback)
   let cfg = TYPE_CONFIG.blog;
   if (type === "zoom") cfg = lang === "hi" ? TYPE_CONFIG.zoom_hi : TYPE_CONFIG.zoom_en;
 

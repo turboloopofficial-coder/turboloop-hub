@@ -1,9 +1,10 @@
 // Master scheduler — runs every 5 minutes via cron-job.org pinger.
 //
-// Cleaner cadence (3 messages/day total):
+// Daily cadence (4 messages/day):
 //   1. Daily blog publish + Telegram announce — 14:00 UTC (= 7:30 PM IST)
 //   2. Hindi/Urdu Zoom T-30 reminder         — 15:00 UTC (= 8:30 PM IST)
 //   3. English Zoom T-30 reminder            — 16:30 UTC (= 10:00 PM IST)
+//   4. Cinematic Universe daily film         — 18:00 UTC (= 11:30 PM IST)
 //
 // One-shot tasks (fire once total, ever):
 //   - Site launch announcement: targets LAUNCH_FIRE_AT_UTC (set below)
@@ -18,7 +19,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings } from "../../drizzle/schema";
 import { tgBroadcastPhoto } from "./_telegram";
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
 
 const SITE = "https://turboloop.tech";
 
@@ -191,6 +192,19 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       await sendZoomReminder("en", "T30", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
       await markFired(db, "zoom:en:T30");
       log.push("🎙 EN Zoom T-30");
+    }
+
+    // ============ 4. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
+    if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {
+      const film = pickTodaysFilm();
+      await tgBroadcastPhoto({
+        photoUrl: cinematicPosterUrl(film),
+        caption: cinematicCaption(film),
+        parseMode: "HTML",
+        buttons: [{ text: "🎬 Watch full film", url: `${SITE}/films/${film.slug}` }],
+      });
+      await markFired(db, "cinematic:daily");
+      log.push(`🎬 Cinematic — S${film.season}E${film.episode}: ${film.slug}`);
     }
 
     res.statusCode = 200;

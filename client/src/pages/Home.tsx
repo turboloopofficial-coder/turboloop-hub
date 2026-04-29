@@ -15,6 +15,7 @@ import HomeNumbersTeaser from "@/components/sections/HomeNumbersTeaser";
 import HomeSecurityTeaser from "@/components/sections/HomeSecurityTeaser";
 import HomePromotionsTeaser from "@/components/sections/HomePromotionsTeaser";
 import HomeTestimonialRotator from "@/components/sections/HomeTestimonialRotator";
+import CinematicEmbed from "@/components/sections/CinematicEmbed";
 
 import Footer from "@/components/sections/Footer";
 import WelcomePopup from "@/components/WelcomePopup";
@@ -114,6 +115,13 @@ export default function Home() {
         {/* Activity ticker — sliding marquee of real events (under hero, narrow band) */}
         <ActivityTicker />
 
+        {/* "What is TurboLoop?" cinematic embed — answers the most-asked question in 60s */}
+        <CinematicEmbed
+          slug="what-is-turboloop"
+          label="Watch in 60 seconds"
+          pretitle="New here? Start with this."
+        />
+
         {/* 2. Partners bar */}
         <PartnersBar />
 
@@ -134,6 +142,13 @@ export default function Home() {
 
         {/* 8. The Community Voice — single rotating testimonial → /community */}
         <HomeTestimonialRotator />
+
+        {/* The Manifesto — emotional outro before footer */}
+        <CinematicEmbed
+          slug="manifesto"
+          label="The Manifesto"
+          pretitle="Your money. Your power. Your future."
+        />
       </main>
 
       <Footer />

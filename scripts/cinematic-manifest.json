@@ -1,0 +1,206 @@
+{
+  "_comment": "TurboLoop Cinematic Universe — 20 films across 4 seasons. Source of truth for upload-cinematic.mjs (R2), seed-cinematic.mjs (DB), and client/src/lib/cinematicUniverse.ts (frontend mirror).",
+  "downloadsRoot": "C:/Users/DEV NARSI/Downloads",
+  "films": [
+    {
+      "season": 1,
+      "episode": 1,
+      "slug": "bank-is-lying",
+      "title": "Your Bank is Lying to You",
+      "headline": "🚨 THE 0.01% LIE 🚨",
+      "tagline": "They make billions. You make pennies.",
+      "description": "They tell you your money is safe. They tell you 0.01% is a \"good return.\" But while your money sits in their vault losing value to inflation, they lend it out at 15%, 20%, even 30%. They make billions. You make pennies. This isn't a service — it's extraction. Decentralized finance has removed the middleman.",
+      "file": "YOUR BANK IS LYING TO YOU_1080p.mp4"
+    },
+    {
+      "season": 1,
+      "episode": 2,
+      "slug": "where-does-money-go",
+      "title": "Where Does Your Money Actually Go?",
+      "headline": "📊 THE 99.9% PROFIT SPLIT 📊",
+      "tagline": "You take the risk. They take the profit.",
+      "description": "The bank earns $10-$20 on your money. They pay for skyscrapers and CEO bonuses. They give you 1 cent. You take 100% of the inflation risk; they take 99.9% of the profit. TurboLoop flips the equation — by deploying your stablecoins directly into PancakeSwap V3 liquidity pools, the smart contract returns virtually 100% of the generated yield back to YOU.",
+      "file": "WHERE DOES YOUR MONEY ACTUALLY GO__1080p.mp4"
+    },
+    {
+      "season": 1,
+      "episode": 3,
+      "slug": "inflation-trap",
+      "title": "The Inflation Trap",
+      "headline": "🕵️ THE INVISIBLE THIEF 🕵️",
+      "tagline": "Your savings account is a slow-motion losing trade.",
+      "description": "If inflation is 5% and your bank pays you 1%, you are losing 4% of your wealth every single year. You aren't saving money — you are slowly going broke safely. To survive, you must outpace the thief. You need a yield that beats inflation. TurboLoop offers a shield, targeting up to 54% annual yield on stablecoins.",
+      "file": "THE INFLATION TRAP_2160p.mp4"
+    },
+    {
+      "season": 1,
+      "episode": 4,
+      "slug": "why-rich-stay-rich",
+      "title": "Why the Rich Stay Rich and You Don't",
+      "headline": "🚪 THE GATEKEEPERS ARE GONE 🚪",
+      "tagline": "Same yield strategies. No minimums. No gatekeepers.",
+      "description": "You were given a savings account at 0.01% and told investing is \"too risky.\" That wasn't protection. That was gatekeeping. Decentralized finance changed everything. The same yield-generating strategies used by billionaires are available to anyone with a smartphone and $50.",
+      "file": "WHY THE RICH STAY RICH AND YOU DO NOT_2160p.mp4"
+    },
+    {
+      "season": 1,
+      "episode": 5,
+      "slug": "system-not-built-for-you",
+      "title": "The System Was Never Built for You",
+      "headline": "📰 BREAKING THE OLD SYSTEM 📰",
+      "tagline": "Designed in 1913. By the powerful. For the powerful.",
+      "description": "2008: Banks gambled with your money and lost. The government bailed THEM out with YOUR tax dollars. 2020: Governments printed $13 trillion. Asset prices soared. The rich got richer. Your rent went up. The traditional financial system was designed in 1913 by the powerful, for the powerful. You were never meant to win. But a new system has emerged — built on blockchain, governed by code, open 24/7/365.",
+      "file": "THE SYSTEM WAS NEVER BUILT FOR YOU_1080p.mp4"
+    },
+    {
+      "season": 2,
+      "episode": 1,
+      "slug": "what-is-turboloop",
+      "title": "What is TurboLoop?",
+      "headline": "⚡ THE DEFI ENGINE ⚡",
+      "tagline": "No bank. No broker. Just you and the code.",
+      "description": "No bank. No broker. No middleman. Just you, and the code. You deposit stablecoins. The smart contract deploys them into optimized liquidity positions. Trading fees flow back to you as yield — up to 54% annually. Plus, a 20-level network creates multiple streams of income. This is not trust. This is math.",
+      "file": "WHAT IS TURBOLOOP__2160p_caption.mp4"
+    },
+    {
+      "season": 2,
+      "episode": 2,
+      "slug": "smart-contract-bank-manager",
+      "title": "The Smart Contract — Your New Bank Manager",
+      "headline": "🤖 CODE > CEOs 🤖",
+      "tagline": "It cannot be bribed. It cannot make mistakes.",
+      "description": "A smart contract replaces ALL of them. It's a self-executing program on the blockchain that follows exact rules, every time, without exception. It cannot be bribed. It cannot make mistakes. Because a smart contract costs fractions of a cent to execute, virtually 100% of the yield goes back to YOU. No CEO. No Board. No Building. Just Code.",
+      "file": "The Smart Contract — Your New Bank Manager_1080p.mp4"
+    },
+    {
+      "season": 2,
+      "episode": 3,
+      "slug": "54-percent-real-math",
+      "title": "How 54% is Real Math, Not Magic",
+      "headline": "🧮 THE MATH BEHIND 54% 🧮",
+      "tagline": "Concentrated liquidity. 10x to 50x amplified fees.",
+      "description": "PancakeSwap V3 processes billions in trading volume. Every trade generates a fee. Those fees go to liquidity providers. That's where YOUR yield comes from — real trading activity. TurboLoop uses concentrated liquidity, targeting where 90% of trades happen. This amplifies fee earnings by 10x to 50x compared to traditional methods. 54% isn't a promise. It's financial engineering.",
+      "file": "How 54 Percent is Real Math, Not Magic_1080p_caption.mp4"
+    },
+    {
+      "season": 2,
+      "episode": 4,
+      "slug": "20-level-network",
+      "title": "The 20-Level Network — Your Digital Empire",
+      "headline": "🌐 BUILD YOUR DIGITAL EMPIRE 🌐",
+      "tagline": "You build it once. It generates while you sleep.",
+      "description": "Every person in your network who earns yield generates a small percentage that flows up to you — generated additionally by the protocol, not taken from them. A traditional job pays you once for your time. A network pays you repeatedly for your initial effort. You build it once, and it generates income while you sleep. This is a digital distribution network.",
+      "file": "THE 20-LEVEL NETWORK — YOUR DIGITAL EMPIRE_1080p.mp4"
+    },
+    {
+      "season": 2,
+      "episode": 5,
+      "slug": "stablecoins-stay-safe",
+      "title": "Stablecoins — Why Your Money Stays Safe",
+      "headline": "🛡️ STABILITY MEETS GROWTH 🛡️",
+      "tagline": "Pegged to the dollar. Built for boring stability.",
+      "description": "A stablecoin (like USDT) is pegged to the US dollar. It doesn't go up or down. It's designed to be boring. TurboLoop operates exclusively with stablecoins. Your principal remains stable, and the 54% yield is earned ON TOP of that stable base. You get the growth of DeFi without the rollercoaster of crypto volatility.",
+      "file": "STABLECOINS — WHY YOUR MONEY STAYS SAFE_1080p.mp4"
+    },
+    {
+      "season": 3,
+      "episode": 1,
+      "slug": "code-is-law",
+      "title": "Code is Law — The Transparency Promise",
+      "headline": "📜 CODE IS LAW 📜",
+      "tagline": "You don't trust. You verify.",
+      "description": "In the new world, trust is built on code. A smart contract executes exactly as written. It cannot be altered. It cannot be overridden. The code is the law. TurboLoop operates in the open. Every line of code is public. Every transaction is traceable on the blockchain. You don't need to trust anyone — you verify everything yourself.",
+      "file": "CODE IS LAW — THE TRANSPARENCY PROMISE_1080p.mp4"
+    },
+    {
+      "season": 3,
+      "episode": 2,
+      "slug": "myth-buster-ponzi",
+      "title": "The Myth Buster — Ponzi vs. Real Yield",
+      "headline": "🛑 BUSTING THE PONZI MYTH 🛑",
+      "tagline": "Yield comes from real trades. Not recruitment.",
+      "description": "TurboLoop is different. Your yield comes from PancakeSwap V3 trading fees — generated by millions of real trades every day. This revenue exists whether TurboLoop has 100 users or 100,000 users. If no new members join TurboLoop, the existing liquidity pools STILL generate trading fees. Your yield STILL flows. The system is self-sustaining because the revenue comes from the market, not from recruitment.",
+      "file": "THE MYTH BUSTER — PONZI VS. REAL YIELD_1080p.mp4"
+    },
+    {
+      "season": 3,
+      "episode": 3,
+      "slug": "blockchain-never-lies-film",
+      "title": "The Blockchain Never Lies",
+      "headline": "🔗 THE INCORRUPTIBLE WITNESS 🔗",
+      "tagline": "Most complete financial record in human history.",
+      "description": "The blockchain shows everything. Every transaction. Every timestamp. Every wallet address. Nothing is hidden or edited. It is the most complete financial record in human history. With TurboLoop, you can verify every deposit, yield distribution, and withdrawal in real-time on BscScan. Because blockchain records cannot be changed, no one can falsify your earnings.",
+      "file": "THE BLOCKCHAIN NEVER LIES_1080p.mp4"
+    },
+    {
+      "season": 3,
+      "episode": 4,
+      "slug": "unbreakable-vault",
+      "title": "Security, Audits, and the Unbreakable Vault",
+      "headline": "🔐 THE UNBREAKABLE VAULT 🔐",
+      "tagline": "Immutable. Renounced. No backdoor. No kill switch.",
+      "description": "TurboLoop was built on three pillars of security: 1) The smart contract is immutable (cannot be changed). 2) Funds exist in decentralized liquidity pools (no central wallet to drain). 3) NO ADMIN KEYS — the developers renounced all access. No backdoor. No kill switch. Your bank can freeze your account. TurboLoop cannot. Your money is truly yours.",
+      "file": "SECURITY, AUDITS, AND THE UNBREAKABLE VAULT_1080p.mp4"
+    },
+    {
+      "season": 3,
+      "episode": 5,
+      "slug": "defi-vs-banks",
+      "title": "DeFi vs. Banks — The Final Comparison",
+      "headline": "⚖️ THE FINAL COMPARISON ⚖️",
+      "tagline": "Open 24/7/365. 3-5 seconds. Up to 54%. You keep it all.",
+      "description": "BANKS: Open 8 hours a day. DEFI: Open 24/7/365. BANKS: 3-5 days for a transfer. DEFI: 3-5 seconds. BANKS: 0.01% return, they keep 99% of the profit. DEFI: Up to 54% yield, you keep virtually 100% of the profit. BANKS: Can freeze your account anytime. DEFI: Immutable smart contracts, you have total control. The comparison is over. The choice is clear.",
+      "file": "DEFI VS. BANKS — THE FINAL COMPARISON_1080p.mp4"
+    },
+    {
+      "season": 4,
+      "episode": 1,
+      "slug": "global-revolution-lagos-london",
+      "title": "The Global Revolution — From Lagos to London",
+      "headline": "🌍 THE GLOBAL REVOLUTION 🌍",
+      "tagline": "Geography no longer determines your destiny.",
+      "description": "The same smart contract. The same math. The same opportunity. For the first time in financial history, geography does not determine your economic destiny. Traditional finance was built on exclusion. DeFi is built on inclusion. You only need a smartphone and the desire to change your financial future.",
+      "file": "THE GLOBAL REVOLUTION — FROM LAGOS TO LONDON_1080p.mp4"
+    },
+    {
+      "season": 4,
+      "episode": 2,
+      "slug": "compounding-secret",
+      "title": "The Compounding Secret — Time is Your Weapon",
+      "headline": "⏳ TIME IS YOUR WEAPON ⏳",
+      "tagline": "Your yield earns yield. The math accelerates.",
+      "description": "If you deposit $1,000 at 54% annual yield and reinvest: Year 1: $1,540. Year 2: $2,372. Year 3: $3,652. Your money didn't just grow. It accelerated. Your yield earns yield. Every day your money sits idle in a bank is a day of lost compounding. The best time to start was yesterday. The second best time is now.",
+      "file": "THE COMPOUNDING SECRET — TIME IS YOUR WEAPON_1080p.mp4"
+    },
+    {
+      "season": 4,
+      "episode": 3,
+      "slug": "build-your-legacy",
+      "title": "Build Your Legacy — Generational Wealth",
+      "headline": "🌳 BUILD YOUR LEGACY 🌳",
+      "tagline": "An inheritance that cannot be seized or inflated.",
+      "description": "TurboLoop offers a digital asset that works for your family 24/7. Your liquidity positions generate yield continuously. Your network grows while you sleep. Because it's on the blockchain, it cannot be seized or inflated away. This is not just an investment. It is an inheritance. A gift to the future.",
+      "file": "BUILD YOUR LEGACY — GENERATIONAL WEALTH_1080p.mp4"
+    },
+    {
+      "season": 4,
+      "episode": 4,
+      "slug": "leadership-path",
+      "title": "The Leadership Path — From Member to Leader",
+      "headline": "👑 THE LEADERSHIP PATH 👑",
+      "tagline": "Educate before you recruit. Create more leaders, not followers.",
+      "description": "Leadership is rewarded mathematically. Earn 5% bonuses on levels 1-10, and 10% on levels 11-20. This isn't taken from your team — it's generated additionally by the protocol. But true leadership is about integrity. The best leaders educate before they recruit. They build trust through transparency, not hype. A great leader creates more leaders, not followers.",
+      "file": "THE LEADERSHIP PATH — FROM MEMBER TO LEADER_1080p.mp4"
+    },
+    {
+      "season": 4,
+      "episode": 5,
+      "slug": "manifesto",
+      "title": "The TurboLoop Manifesto — Join the Sovereign Movement",
+      "headline": "⚡ THE SOVEREIGN MOVEMENT ⚡",
+      "tagline": "Your Money. Your Power. Your Future.",
+      "description": "TurboLoop is a declaration of financial independence. It is a community of sovereign individuals who refuse to accept 0.01% while banks earn 20% with their money. The math is proven. The code is live. The community is growing. The only thing missing is you. Your Money. Your Power. Your Future.",
+      "file": "THE TURBOLOOP MANIFESTO — JOIN THE SOVEREIGN MOVEMENT_1080p.mp4"
+    }
+  ]
+}

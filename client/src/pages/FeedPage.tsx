@@ -7,6 +7,7 @@ import { ArrowLeft, Play, FileText, Image as ImageIcon, Filter, X, ExternalLink,
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
 import { topicForSlug } from "@/lib/blogVisuals";
+import CinematicEmbed from "@/components/sections/CinematicEmbed";
 
 type ContentType = "all" | "video" | "article" | "update";
 
@@ -255,6 +256,16 @@ export default function FeedPage() {
           <p className="text-slate-500 mt-3 max-w-xl mx-auto">
             Articles, video tutorials, and ecosystem updates — all in one place.
           </p>
+        </div>
+
+        {/* Manifesto film — emotional anchor at top of feed */}
+        <div className="mb-8">
+          <CinematicEmbed
+            slug="manifesto"
+            label="The TurboLoop Cinematic Universe"
+            pretitle="Watch the manifesto. Then read the long-form."
+            compact
+          />
         </div>
 
         {/* Search bar */}

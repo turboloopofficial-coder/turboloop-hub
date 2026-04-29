@@ -2,6 +2,7 @@ import PageShell from "@/components/PageShell";
 import LeaderboardSection from "@/components/sections/LeaderboardSection";
 import SocialWallSection from "@/components/sections/SocialWallSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import CinematicEmbed from "@/components/sections/CinematicEmbed";
 
 export default function CommunityPage() {
   return (
@@ -29,6 +30,11 @@ export default function CommunityPage() {
         { label: "Security", href: "/security", emoji: "🛡", description: "Why people trust the contract" },
       ]}
     >
+      <CinematicEmbed
+        slug="global-revolution-lagos-london"
+        label="The story of the global movement"
+        pretitle="Same code. Same math. From Lagos to London."
+      />
       <LeaderboardSection />
       <SocialWallSection />
       <TestimonialsSection />

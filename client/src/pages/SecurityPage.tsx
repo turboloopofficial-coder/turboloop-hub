@@ -1,5 +1,6 @@
 import PageShell from "@/components/PageShell";
 import TrustSection from "@/components/sections/TrustSection";
+import CinematicEmbed from "@/components/sections/CinematicEmbed";
 
 export default function SecurityPage() {
   return (
@@ -27,7 +28,14 @@ export default function SecurityPage() {
         { label: "Community", href: "/community", emoji: "🌍", description: "21+ countries · 6 continents · 48 languages" },
       ]}
     >
+      <CinematicEmbed
+        slug="unbreakable-vault"
+        label="Watch the proof"
+        pretitle="Three pillars of security, in 60 seconds."
+      />
       <TrustSection />
+      <CinematicEmbed slug="code-is-law" label="Companion film" pretitle="Code is Law — The Transparency Promise" compact />
+      <CinematicEmbed slug="blockchain-never-lies-film" label="Companion film" pretitle="The Blockchain Never Lies" compact />
     </PageShell>
   );
 }

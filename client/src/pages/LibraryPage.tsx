@@ -2,15 +2,18 @@
 // Reuses VideoSection + presentation library from TrustSection (extracted via tRPC)
 
 import { useMemo, useState } from "react";
-import { Search, FileText, Play, Film, Download, ExternalLink } from "lucide-react";
+import { Search, FileText, Play, Film, Download, ExternalLink, Clapperboard } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { LANGUAGE_FLAGS, getFlagUrl } from "@/lib/constants";
 import PageShell from "@/components/PageShell";
 import AnimatedSection from "@/components/AnimatedSection";
 import VideoSection from "@/components/sections/VideoSection";
+import CinematicEmbed from "@/components/sections/CinematicEmbed";
+import { FILMS, SEASONS, type Season } from "@/lib/cinematicUniverse";
 
-type Tab = "all" | "videos" | "presentations";
+type Tab = "all" | "videos" | "presentations" | "cinematic";
 
 export default function LibraryPage() {
   const { data: presentations } = trpc.content.presentations.useQuery();
@@ -29,16 +32,17 @@ export default function LibraryPage() {
 
   const totalVideos = videos?.length || 0;
   const totalPdfs = presentations?.length || 0;
+  const totalFilms = FILMS.length;
 
   return (
     <PageShell
       title="Content Library"
-      description={`Watch, learn, download. ${totalVideos} videos and ${totalPdfs} presentations in 48 languages.`}
+      description={`Watch, learn, download. ${totalFilms} cinematic films, ${totalVideos} videos, and ${totalPdfs} presentations in 48 languages.`}
       path="/library"
       hero={{
         label: "Watch & Learn",
         heading: "Everything in one library.",
-        subtitle: `${totalVideos} videos and reels · ${totalPdfs} downloadable presentations · 48 languages. Search, filter, download.`,
+        subtitle: `${totalFilms} cinematic films · ${totalVideos} videos and reels · ${totalPdfs} downloadable presentations · 48 languages. Search, filter, download.`,
         palette: ["#0891B2", "#22D3EE", "#7C3AED"],
         emoji: "📚",
       }}
@@ -81,7 +85,8 @@ export default function LibraryPage() {
         <AnimatedSection delay={0.05}>
           <div className="flex justify-center gap-2 mb-10 flex-wrap">
             {[
-              { id: "all" as Tab, label: "All", count: totalVideos + totalPdfs, icon: Film },
+              { id: "all" as Tab, label: "All", count: totalVideos + totalPdfs + totalFilms, icon: Film },
+              { id: "cinematic" as Tab, label: "Films", count: totalFilms, icon: Clapperboard },
               { id: "videos" as Tab, label: "Videos", count: totalVideos, icon: Play },
               { id: "presentations" as Tab, label: "Presentations", count: totalPdfs, icon: FileText },
             ].map((t) => {
@@ -112,6 +117,50 @@ export default function LibraryPage() {
             })}
           </div>
         </AnimatedSection>
+
+        {/* Cinematic Universe block — premium 4-season anthology preview */}
+        {(tab === "all" || tab === "cinematic") && (
+          <section className="mb-16">
+            <AnimatedSection>
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3 bg-gradient-to-r from-purple-100 to-cyan-100 border border-purple-200/50">
+                  <Clapperboard className="w-3.5 h-3.5 text-purple-600" />
+                  <span className="text-xs font-semibold tracking-wider text-purple-700 uppercase">Cinematic Universe</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900" style={{ fontFamily: "var(--font-heading)" }}>
+                  20 films. 4 seasons. One story.
+                </h2>
+                <p className="text-slate-500 mt-2">
+                  From The Problem to The Movement — the full TurboLoop narrative.
+                </p>
+                <Link href="/films">
+                  <button className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105"
+                    style={{ background: "linear-gradient(135deg, #0891B2, #7C3AED)", color: "white", boxShadow: "0 8px 22px -6px rgba(8,145,178,0.45)" }}>
+                    <Play className="w-3.5 h-3.5 fill-white" />
+                    Open the Cinematic Universe →
+                  </button>
+                </Link>
+              </div>
+            </AnimatedSection>
+
+            {/* Quick preview — first film of each season */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+              {([1, 2, 3, 4] as Season[]).map((s) => {
+                const firstFilm = FILMS.find((f) => f.season === s && f.episode === 1);
+                if (!firstFilm) return null;
+                const info = SEASONS[s];
+                return (
+                  <div key={s}>
+                    <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-2 px-2" style={{ color: info.accent }}>
+                      {info.emoji} {info.name}
+                    </div>
+                    <CinematicEmbed slug={firstFilm.slug} compact />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Videos block (uses VideoSection) */}
         {(tab === "all" || tab === "videos") && (

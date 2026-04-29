@@ -12362,7 +12362,7 @@ function drizzle(...params) {
 })(drizzle || (drizzle = {}));
 
 // drizzle/schema.ts
-var videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "other"]);
+var videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "cinematic", "other"]);
 var eventStatusEnum = pgEnum("event_status", ["upcoming", "live", "completed", "recurring"]);
 var roadmapStatusEnum = pgEnum("roadmap_status", ["completed", "current", "upcoming"]);
 var adminCredentials = pgTable("admin_credentials", {
@@ -12386,6 +12386,15 @@ var blogPosts = pgTable("blog_posts", {
 var videos = pgTable("videos", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
+  // Cinematic Universe metadata — null for non-cinematic rows (existing reels/tutorials)
+  slug: varchar("slug", { length: 200 }).unique(),
+  description: text("description"),
+  headline: varchar("headline", { length: 500 }),
+  tagline: varchar("tagline", { length: 500 }),
+  season: integer("season"),
+  episode: integer("episode"),
+  posterUrl: varchar("poster_url", { length: 1e3 }),
+  // End cinematic block
   youtubeUrl: varchar("youtube_url", { length: 500 }),
   directUrl: varchar("direct_url", { length: 1e3 }),
   category: videoCategoryEnum("category").notNull(),
@@ -12587,6 +12596,49 @@ function zoomReminderCaption(opts) {
 \u{1F510} Passcode: <code>${tgEscape(opts.passcode)}</code>
 \u23F0 ${tgEscape(opts.timeLabel)}`;
 }
+var R2_BASE_FOR_CINEMATIC = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+var CINEMATIC_FILMS = [
+  { season: 1, episode: 1, slug: "bank-is-lying", title: "Your Bank is Lying to You", headline: "\u{1F6A8} THE 0.01% LIE \u{1F6A8}", tagline: "They make billions. You make pennies.", description: "They tell you your money is safe. They tell you 0.01% is a 'good return.' But while your money sits in their vault losing value to inflation, they lend it out at 15%, 20%, even 30%. They make billions. You make pennies. This isn't a service \u2014 it's extraction. Decentralized finance has removed the middleman." },
+  { season: 1, episode: 2, slug: "where-does-money-go", title: "Where Does Your Money Actually Go?", headline: "\u{1F4CA} THE 99.9% PROFIT SPLIT \u{1F4CA}", tagline: "You take the risk. They take the profit.", description: "The bank earns $10-$20 on your money. They pay for skyscrapers and CEO bonuses. They give you 1 cent. You take 100% of the inflation risk; they take 99.9% of the profit. TurboLoop flips the equation." },
+  { season: 1, episode: 3, slug: "inflation-trap", title: "The Inflation Trap", headline: "\u{1F575}\uFE0F THE INVISIBLE THIEF \u{1F575}\uFE0F", tagline: "Your savings account is a slow-motion losing trade.", description: "If inflation is 5% and your bank pays you 1%, you are losing 4% of your wealth every single year. You aren't saving money \u2014 you are slowly going broke safely." },
+  { season: 1, episode: 4, slug: "why-rich-stay-rich", title: "Why the Rich Stay Rich and You Don't", headline: "\u{1F6AA} THE GATEKEEPERS ARE GONE \u{1F6AA}", tagline: "Same yield strategies. No minimums. No gatekeepers.", description: "You were given a savings account at 0.01% and told investing is 'too risky.' That wasn't protection. That was gatekeeping." },
+  { season: 1, episode: 5, slug: "system-not-built-for-you", title: "The System Was Never Built for You", headline: "\u{1F4F0} BREAKING THE OLD SYSTEM \u{1F4F0}", tagline: "Designed in 1913. By the powerful. For the powerful.", description: "The traditional financial system was designed in 1913 by the powerful, for the powerful. You were never meant to win. But a new system has emerged \u2014 built on blockchain, governed by code, open 24/7/365." },
+  { season: 2, episode: 1, slug: "what-is-turboloop", title: "What is TurboLoop?", headline: "\u26A1 THE DEFI ENGINE \u26A1", tagline: "No bank. No broker. Just you and the code.", description: "You deposit stablecoins. The smart contract deploys them into optimized liquidity positions. Trading fees flow back to you as yield \u2014 up to 54% annually. This is not trust. This is math." },
+  { season: 2, episode: 2, slug: "smart-contract-bank-manager", title: "The Smart Contract \u2014 Your New Bank Manager", headline: "\u{1F916} CODE > CEOs \u{1F916}", tagline: "It cannot be bribed. It cannot make mistakes.", description: "A smart contract replaces ALL of them. It's a self-executing program on the blockchain that follows exact rules, every time, without exception." },
+  { season: 2, episode: 3, slug: "54-percent-real-math", title: "How 54% is Real Math, Not Magic", headline: "\u{1F9EE} THE MATH BEHIND 54% \u{1F9EE}", tagline: "Concentrated liquidity. 10x to 50x amplified fees.", description: "TurboLoop uses concentrated liquidity, targeting where 90% of trades happen. This amplifies fee earnings by 10x to 50x. 54% isn't a promise \u2014 it's financial engineering." },
+  { season: 2, episode: 4, slug: "20-level-network", title: "The 20-Level Network \u2014 Your Digital Empire", headline: "\u{1F310} BUILD YOUR DIGITAL EMPIRE \u{1F310}", tagline: "You build it once. It generates while you sleep.", description: "Every person in your network who earns yield generates a small percentage that flows up to you \u2014 generated additionally by the protocol, not taken from them." },
+  { season: 2, episode: 5, slug: "stablecoins-stay-safe", title: "Stablecoins \u2014 Why Your Money Stays Safe", headline: "\u{1F6E1}\uFE0F STABILITY MEETS GROWTH \u{1F6E1}\uFE0F", tagline: "Pegged to the dollar. Built for boring stability.", description: "TurboLoop operates exclusively with stablecoins. Your principal remains stable, and the 54% yield is earned ON TOP of that stable base." },
+  { season: 3, episode: 1, slug: "code-is-law", title: "Code is Law \u2014 The Transparency Promise", headline: "\u{1F4DC} CODE IS LAW \u{1F4DC}", tagline: "You don't trust. You verify.", description: "TurboLoop operates in the open. Every line of code is public. Every transaction is traceable on the blockchain. You don't need to trust anyone \u2014 you verify everything yourself." },
+  { season: 3, episode: 2, slug: "myth-buster-ponzi", title: "The Myth Buster \u2014 Ponzi vs. Real Yield", headline: "\u{1F6D1} BUSTING THE PONZI MYTH \u{1F6D1}", tagline: "Yield comes from real trades. Not recruitment.", description: "Your yield comes from PancakeSwap V3 trading fees \u2014 generated by millions of real trades every day. The system is self-sustaining because the revenue comes from the market, not from recruitment." },
+  { season: 3, episode: 3, slug: "blockchain-never-lies-film", title: "The Blockchain Never Lies", headline: "\u{1F517} THE INCORRUPTIBLE WITNESS \u{1F517}", tagline: "Most complete financial record in human history.", description: "With TurboLoop, you can verify every deposit, yield distribution, and withdrawal in real-time on BscScan. Because blockchain records cannot be changed, no one can falsify your earnings." },
+  { season: 3, episode: 4, slug: "unbreakable-vault", title: "Security, Audits, and the Unbreakable Vault", headline: "\u{1F510} THE UNBREAKABLE VAULT \u{1F510}", tagline: "Immutable. Renounced. No backdoor. No kill switch.", description: "Three pillars of security: immutable smart contract, decentralized liquidity pools, NO ADMIN KEYS. Your bank can freeze your account. TurboLoop cannot." },
+  { season: 3, episode: 5, slug: "defi-vs-banks", title: "DeFi vs. Banks \u2014 The Final Comparison", headline: "\u2696\uFE0F THE FINAL COMPARISON \u2696\uFE0F", tagline: "Open 24/7/365. 3-5 seconds. Up to 54%. You keep it all.", description: "BANKS: 8 hours, 3-5 days, 0.01%, can freeze you. DEFI: 24/7/365, 3-5 seconds, up to 54%, total control. The choice is clear." },
+  { season: 4, episode: 1, slug: "global-revolution-lagos-london", title: "The Global Revolution \u2014 From Lagos to London", headline: "\u{1F30D} THE GLOBAL REVOLUTION \u{1F30D}", tagline: "Geography no longer determines your destiny.", description: "The same smart contract. The same math. The same opportunity. For the first time in financial history, geography does not determine your economic destiny." },
+  { season: 4, episode: 2, slug: "compounding-secret", title: "The Compounding Secret \u2014 Time is Your Weapon", headline: "\u23F3 TIME IS YOUR WEAPON \u23F3", tagline: "Your yield earns yield. The math accelerates.", description: "Year 1: $1,540. Year 2: $2,372. Year 3: $3,652. Your money didn't just grow. It accelerated. The best time to start was yesterday. The second best time is now." },
+  { season: 4, episode: 3, slug: "build-your-legacy", title: "Build Your Legacy \u2014 Generational Wealth", headline: "\u{1F333} BUILD YOUR LEGACY \u{1F333}", tagline: "An inheritance that cannot be seized or inflated.", description: "TurboLoop offers a digital asset that works for your family 24/7. This is not just an investment. It is an inheritance. A gift to the future." },
+  { season: 4, episode: 4, slug: "leadership-path", title: "The Leadership Path \u2014 From Member to Leader", headline: "\u{1F451} THE LEADERSHIP PATH \u{1F451}", tagline: "Educate before you recruit. Create more leaders, not followers.", description: "Earn 5% bonuses on levels 1-10, and 10% on levels 11-20. But true leadership is about integrity. The best leaders educate before they recruit." },
+  { season: 4, episode: 5, slug: "manifesto", title: "The TurboLoop Manifesto \u2014 Join the Sovereign Movement", headline: "\u26A1 THE SOVEREIGN MOVEMENT \u26A1", tagline: "Your Money. Your Power. Your Future.", description: "TurboLoop is a declaration of financial independence. The math is proven. The code is live. The community is growing. The only thing missing is you." }
+];
+function pickTodaysFilm() {
+  return pickByDay(CINEMATIC_FILMS);
+}
+function cinematicCaption(film) {
+  const headline = tgEscape(film.headline);
+  const title = tgEscape(film.title);
+  const tagline = tgEscape(film.tagline);
+  const desc2 = tgEscape(film.description.slice(0, 600));
+  return `<b>${headline}</b>
+
+<b>${title}</b>
+<i>S${film.season} \xB7 E${film.episode} \u2014 ${tagline}</i>
+
+${desc2}
+
+\u{1F3AC} <b>Watch the full film:</b> https://turboloop.tech/films/${film.slug}`;
+}
+function cinematicPosterUrl(film) {
+  return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg`;
+}
 function launchAnnouncementCaption() {
   return `<b>TurboLoop.tech is live.</b>
 
@@ -12734,6 +12786,17 @@ async function handler(req, res) {
       await sendZoomReminder("en", "T30", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
       await markFired(db, "zoom:en:T30");
       log.push("\u{1F399} EN Zoom T-30");
+    }
+    if (isInWindow(18, 0) && !await hasFiredToday(db, "cinematic:daily")) {
+      const film = pickTodaysFilm();
+      await tgBroadcastPhoto({
+        photoUrl: cinematicPosterUrl(film),
+        caption: cinematicCaption(film),
+        parseMode: "HTML",
+        buttons: [{ text: "\u{1F3AC} Watch full film", url: `${SITE}/films/${film.slug}` }]
+      });
+      await markFired(db, "cinematic:daily");
+      log.push(`\u{1F3AC} Cinematic \u2014 S${film.season}E${film.episode}: ${film.slug}`);
     }
     res.statusCode = 200;
     res.end(JSON.stringify({ ok: true, ranAt: (/* @__PURE__ */ new Date()).toISOString(), fired: log }));

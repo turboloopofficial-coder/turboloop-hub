@@ -90937,7 +90937,7 @@ function drizzle(...params) {
 })(drizzle || (drizzle = {}));
 
 // drizzle/schema.ts
-var videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "other"]);
+var videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "cinematic", "other"]);
 var eventStatusEnum = pgEnum("event_status", ["upcoming", "live", "completed", "recurring"]);
 var roadmapStatusEnum = pgEnum("roadmap_status", ["completed", "current", "upcoming"]);
 var adminCredentials = pgTable("admin_credentials", {
@@ -90961,6 +90961,15 @@ var blogPosts = pgTable("blog_posts", {
 var videos = pgTable("videos", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
+  // Cinematic Universe metadata — null for non-cinematic rows (existing reels/tutorials)
+  slug: varchar("slug", { length: 200 }).unique(),
+  description: text("description"),
+  headline: varchar("headline", { length: 500 }),
+  tagline: varchar("tagline", { length: 500 }),
+  season: integer2("season"),
+  episode: integer2("episode"),
+  posterUrl: varchar("poster_url", { length: 1e3 }),
+  // End cinematic block
   youtubeUrl: varchar("youtube_url", { length: 500 }),
   directUrl: varchar("direct_url", { length: 1e3 }),
   category: videoCategoryEnum("category").notNull(),

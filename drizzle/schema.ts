@@ -2,7 +2,7 @@ import { pgTable, pgEnum, serial, integer, text, timestamp, varchar, boolean, js
 import { sql } from "drizzle-orm";
 
 // Enums
-export const videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "other"]);
+export const videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "cinematic", "other"]);
 export const eventStatusEnum = pgEnum("event_status", ["upcoming", "live", "completed", "recurring"]);
 export const roadmapStatusEnum = pgEnum("roadmap_status", ["completed", "current", "upcoming"]);
 
@@ -35,6 +35,15 @@ export type InsertBlogPost = typeof blogPosts.$inferInsert;
 export const videos = pgTable("videos", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
+  // Cinematic Universe metadata — null for non-cinematic rows (existing reels/tutorials)
+  slug: varchar("slug", { length: 200 }).unique(),
+  description: text("description"),
+  headline: varchar("headline", { length: 500 }),
+  tagline: varchar("tagline", { length: 500 }),
+  season: integer("season"),
+  episode: integer("episode"),
+  posterUrl: varchar("poster_url", { length: 1000 }),
+  // End cinematic block
   youtubeUrl: varchar("youtube_url", { length: 500 }),
   directUrl: varchar("direct_url", { length: 1000 }),
   category: videoCategoryEnum("category").notNull(),

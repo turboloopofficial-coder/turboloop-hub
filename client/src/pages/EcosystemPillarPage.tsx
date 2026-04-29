@@ -5,7 +5,9 @@ import { useRoute, Link } from "wouter";
 import { ArrowRight, ChevronRight, CheckCircle2 } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import AnimatedSection from "@/components/AnimatedSection";
+import CinematicEmbed from "@/components/sections/CinematicEmbed";
 import { getPillar, ECOSYSTEM_PILLARS } from "@/lib/ecosystemPillars";
+import { PILLAR_TO_FILM } from "@/lib/cinematicUniverse";
 
 export default function EcosystemPillarPage() {
   const [, params] = useRoute("/ecosystem/:slug");
@@ -70,6 +72,17 @@ export default function EcosystemPillarPage() {
             </span>
           </Link>
         </div>
+
+        {/* Companion film — auto-matched per pillar slug */}
+        {PILLAR_TO_FILM[pillar.slug] && (
+          <div className="mb-8 -mx-4">
+            <CinematicEmbed
+              slug={PILLAR_TO_FILM[pillar.slug]}
+              label="Watch this pillar in 60 seconds"
+              compact
+            />
+          </div>
+        )}
 
         {/* Key facts strip */}
         <AnimatedSection>

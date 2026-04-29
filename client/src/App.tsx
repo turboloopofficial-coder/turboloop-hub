@@ -25,6 +25,8 @@ const LibraryPage = lazy(() => import("./pages/LibraryPage"));
 const FaqPage = lazy(() => import("./pages/FaqPage"));
 const EcosystemPage = lazy(() => import("./pages/EcosystemPage"));
 const EcosystemPillarPage = lazy(() => import("./pages/EcosystemPillarPage"));
+const FilmsPage = lazy(() => import("./pages/FilmsPage"));
+const FilmPlayer = lazy(() => import("./pages/FilmPlayer"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
@@ -48,6 +50,8 @@ function Router() {
         <Route path="/faq" component={FaqPage} />
         <Route path="/ecosystem" component={EcosystemPage} />
         <Route path="/ecosystem/:slug" component={EcosystemPillarPage} />
+        <Route path="/films" component={FilmsPage} />
+        <Route path="/films/:slug" component={FilmPlayer} />
         <Route path="/admin" component={() => <Redirect to="/admin/login" />} />
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin/:rest*" component={AdminDashboard} />

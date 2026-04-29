@@ -5,6 +5,33 @@ import { eq } from "drizzle-orm";
 import { blogPosts, videos } from "../../drizzle/schema";
 
 const SITE = "https://turboloop.tech";
+const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+// 20 cinematic films — kept inline rather than imported from client/ to keep this Edge bundle small.
+// Each entry generates one /films/:slug URL with full <video:video> metadata.
+const CINEMATIC_FILMS: Array<{ slug: string; title: string; description: string }> = [
+  { slug: "bank-is-lying", title: "Your Bank is Lying to You", description: "They make billions. You make pennies. The 0.01% lie, exposed." },
+  { slug: "where-does-money-go", title: "Where Does Your Money Actually Go?", description: "You take 100% of the inflation risk. They take 99.9% of the profit." },
+  { slug: "inflation-trap", title: "The Inflation Trap", description: "Your savings account is a slow-motion losing trade." },
+  { slug: "why-rich-stay-rich", title: "Why the Rich Stay Rich and You Don't", description: "Same yield strategies. No minimums. No gatekeepers." },
+  { slug: "system-not-built-for-you", title: "The System Was Never Built for You", description: "Designed in 1913. By the powerful. For the powerful." },
+  { slug: "what-is-turboloop", title: "What is TurboLoop?", description: "No bank. No broker. Just you and the code." },
+  { slug: "smart-contract-bank-manager", title: "The Smart Contract — Your New Bank Manager", description: "It cannot be bribed. It cannot make mistakes." },
+  { slug: "54-percent-real-math", title: "How 54% is Real Math, Not Magic", description: "Concentrated liquidity. 10x to 50x amplified fees." },
+  { slug: "20-level-network", title: "The 20-Level Network — Your Digital Empire", description: "You build it once. It generates while you sleep." },
+  { slug: "stablecoins-stay-safe", title: "Stablecoins — Why Your Money Stays Safe", description: "Pegged to the dollar. Built for boring stability." },
+  { slug: "code-is-law", title: "Code is Law — The Transparency Promise", description: "You don't trust. You verify." },
+  { slug: "myth-buster-ponzi", title: "The Myth Buster — Ponzi vs. Real Yield", description: "Yield comes from real trades. Not recruitment." },
+  { slug: "blockchain-never-lies-film", title: "The Blockchain Never Lies", description: "Most complete financial record in human history." },
+  { slug: "unbreakable-vault", title: "Security, Audits, and the Unbreakable Vault", description: "Immutable. Renounced. No backdoor. No kill switch." },
+  { slug: "defi-vs-banks", title: "DeFi vs. Banks — The Final Comparison", description: "Open 24/7/365. 3-5 seconds. Up to 54%. You keep it all." },
+  { slug: "global-revolution-lagos-london", title: "The Global Revolution — From Lagos to London", description: "Geography no longer determines your destiny." },
+  { slug: "compounding-secret", title: "The Compounding Secret — Time is Your Weapon", description: "Your yield earns yield. The math accelerates." },
+  { slug: "build-your-legacy", title: "Build Your Legacy — Generational Wealth", description: "An inheritance that cannot be seized or inflated." },
+  { slug: "leadership-path", title: "The Leadership Path — From Member to Leader", description: "Educate before you recruit. Create more leaders, not followers." },
+  { slug: "manifesto", title: "The TurboLoop Manifesto — Join the Sovereign Movement", description: "Your Money. Your Power. Your Future." },
+];
+
 const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string }> = [
   { path: "/", priority: "1.0", changefreq: "daily" },
   { path: "/feed", priority: "0.9", changefreq: "daily" },
@@ -25,6 +52,8 @@ const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string 
   { path: "/ecosystem/referral-network", priority: "0.75", changefreq: "monthly" },
   { path: "/ecosystem/leadership-program", priority: "0.75", changefreq: "monthly" },
   { path: "/ecosystem/smart-contract-security", priority: "0.75", changefreq: "monthly" },
+  // Cinematic Universe hub
+  { path: "/films", priority: "0.85", changefreq: "weekly" },
 ];
 
 function iso(d: Date | null | undefined): string {
@@ -93,8 +122,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Reels (each as its own URL with VideoObject schema)
     const allVideos = await db.select().from(videos);
     for (const v of allVideos) {
-      // Reel = directUrl-only video (no youtubeUrl)
-      if (v.directUrl && !v.youtubeUrl) {
+      // Reel = directUrl-only video (no youtubeUrl) AND NOT cinematic (cinematic films are listed separately below)
+      if (v.directUrl && !v.youtubeUrl && v.category !== "cinematic") {
         const slug = slugFromReelUrl(v.directUrl);
         if (slug) {
           urls.push({
@@ -111,6 +140,25 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           });
         }
       }
+    }
+
+    // Cinematic Universe — 20 films, each with its own /films/:slug URL + full <video:video> schema
+    for (const f of CINEMATIC_FILMS) {
+      const videoUrl = `${R2_BASE}/cinematic/${f.slug}.mp4`;
+      const thumbUrl = `${R2_BASE}/cinematic-thumbs/${f.slug}.jpg`;
+      urls.push({
+        loc: `${SITE}/films/${f.slug}`,
+        lastmod: new Date().toISOString(),
+        priority: "0.8",
+        changefreq: "monthly",
+        images: [{ loc: thumbUrl, title: f.title }],
+        videos: [{
+          thumbnail: thumbUrl,
+          title: f.title,
+          description: f.description,
+          contentLoc: videoUrl,
+        }],
+      });
     }
 
     // Build XML with image: + video: namespaces

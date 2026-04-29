@@ -6,6 +6,7 @@ import { SITE } from "@/lib/constants";
 
 // Top-level nav links — each goes to a dedicated page
 const NAV_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
+  { label: "Ecosystem", href: "/ecosystem" },
   { label: "Community", href: "/community" },
   { label: "Blog", href: "/feed" },
   { label: "Security", href: "/security" },
@@ -14,10 +15,10 @@ const NAV_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
 
 // Resources dropdown — secondary pages
 const RESOURCES: Array<{ label: string; href: string; description: string; emoji: string }> = [
-  { label: "Library", href: "/feed", description: "Videos, presentations, and articles in 48 languages", emoji: "📚" },
+  { label: "Library", href: "/library", description: "Videos and presentations in 48 languages", emoji: "📚" },
   { label: "Creatives", href: "/creatives", description: "141 ready-to-share branded posts with captions", emoji: "🎨" },
-  { label: "Promotions", href: "/#promotions", description: "$100K bounty + creator and presenter programs", emoji: "🎁" },
-  { label: "FAQ", href: "/#faq", description: "Common questions answered", emoji: "❓" },
+  { label: "Promotions", href: "/promotions", description: "$100K bounty + creator and presenter programs", emoji: "🎁" },
+  { label: "FAQ", href: "/faq", description: "Common questions answered", emoji: "❓" },
 ];
 
 export default function Navbar() {

@@ -8,11 +8,23 @@ const SITE = "https://turboloop.tech";
 const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string }> = [
   { path: "/", priority: "1.0", changefreq: "daily" },
   { path: "/feed", priority: "0.9", changefreq: "daily" },
-  // Dedicated topic pages (each ranks for its own keyword)
+  // Phase 1 — main topic pages
   { path: "/security", priority: "0.85", changefreq: "weekly" },
   { path: "/community", priority: "0.85", changefreq: "daily" },
   { path: "/creatives", priority: "0.8", changefreq: "weekly" },
   { path: "/roadmap", priority: "0.8", changefreq: "weekly" },
+  // Phase 2 — additional pages
+  { path: "/promotions", priority: "0.8", changefreq: "weekly" },
+  { path: "/library", priority: "0.8", changefreq: "daily" },
+  { path: "/faq", priority: "0.7", changefreq: "monthly" },
+  // Ecosystem hub + 6 sub-pages
+  { path: "/ecosystem", priority: "0.85", changefreq: "weekly" },
+  { path: "/ecosystem/turbo-buy", priority: "0.75", changefreq: "monthly" },
+  { path: "/ecosystem/turbo-swap", priority: "0.75", changefreq: "monthly" },
+  { path: "/ecosystem/yield-farming", priority: "0.75", changefreq: "monthly" },
+  { path: "/ecosystem/referral-network", priority: "0.75", changefreq: "monthly" },
+  { path: "/ecosystem/leadership-program", priority: "0.75", changefreq: "monthly" },
+  { path: "/ecosystem/smart-contract-security", priority: "0.75", changefreq: "monthly" },
 ];
 
 function iso(d: Date | null | undefined): string {

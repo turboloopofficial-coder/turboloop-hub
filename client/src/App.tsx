@@ -19,6 +19,12 @@ const SecurityPage = lazy(() => import("./pages/SecurityPage"));
 const CommunityPage = lazy(() => import("./pages/CommunityPage"));
 const CreativesPage = lazy(() => import("./pages/CreativesPage"));
 const RoadmapPage = lazy(() => import("./pages/RoadmapPage"));
+// Phase 2 pages
+const PromotionsPage = lazy(() => import("./pages/PromotionsPage"));
+const LibraryPage = lazy(() => import("./pages/LibraryPage"));
+const FaqPage = lazy(() => import("./pages/FaqPage"));
+const EcosystemPage = lazy(() => import("./pages/EcosystemPage"));
+const EcosystemPillarPage = lazy(() => import("./pages/EcosystemPillarPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
@@ -36,6 +42,12 @@ function Router() {
         <Route path="/community" component={CommunityPage} />
         <Route path="/creatives" component={CreativesPage} />
         <Route path="/roadmap" component={RoadmapPage} />
+        {/* Phase 2 routes */}
+        <Route path="/promotions" component={PromotionsPage} />
+        <Route path="/library" component={LibraryPage} />
+        <Route path="/faq" component={FaqPage} />
+        <Route path="/ecosystem" component={EcosystemPage} />
+        <Route path="/ecosystem/:slug" component={EcosystemPillarPage} />
         <Route path="/admin" component={() => <Redirect to="/admin/login" />} />
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin/:rest*" component={AdminDashboard} />

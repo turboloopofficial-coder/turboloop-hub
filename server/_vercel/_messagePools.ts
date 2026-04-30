@@ -24,6 +24,19 @@ const BLOG_HEADLINES = [
   "📖 Worth your evening",
   "📖 Today's piece",
   "📖 Just published",
+  "📖 Hot off the editor",
+  "📖 Today's long-read",
+  "📖 The story today",
+  "📖 New chapter — TurboLoop blog",
+  "📖 Evening read",
+  "📖 Today's perspective",
+  "📖 New essay live",
+  "📖 The TurboLoop blog — today's piece",
+  "📖 Just dropped",
+  "📖 New on turboloop.tech",
+  "📖 Today's editorial",
+  "📖 Fresh perspective",
+  "📖 The Daily Read",
 ];
 
 export function blogPostCaption(opts: { title: string; excerpt: string | null; url: string; slot?: "morning" | "evening" }): string {
@@ -39,6 +52,7 @@ export function blogPostCaption(opts: { title: string; excerpt: string | null; u
 
 // English Zoom reminder — fires shortly before the daily call.
 // Calmer, clearer copy. No fixed-length references — calls run open-ended.
+// 21 variants — pool cycles every ~3 weeks before repeating.
 const EN_T30 = [
   `<b>The Daily English Call is starting soon.</b>
 
@@ -67,10 +81,67 @@ Same link, every day. Drop in for a few minutes, or stay the whole call. Your ch
   `<b>Daily English Call — kicks off soon.</b>
 
 Whether you're new to Turbo Loop or a regular, the door's open. Real questions, real answers — every day.`,
+
+  `<b>The English community room is about to open.</b>
+
+Most days, someone asks a question that everyone in the room was secretly wondering. Bring yours.`,
+
+  `<b>Daily English Call — almost live.</b>
+
+Direct line to the team, every single day. Use it.`,
+
+  `<b>The community Zoom is starting up.</b>
+
+We don't do scripts. We don't do hype. We do honest answers to whatever you bring.`,
+
+  `<b>English Daily Call — coming up.</b>
+
+A few minutes from now, there'll be ten or twenty people on Zoom, talking about TurboLoop in plain English. That should be you.`,
+
+  `<b>Daily English Call — door is opening.</b>
+
+Bring questions. Bring scepticism. Bring a friend who needs convincing. We'll handle all three.`,
+
+  `<b>Live shortly — English Community Call.</b>
+
+The deeper you dig, the better TurboLoop holds up. Today's a good day to dig.`,
+
+  `<b>The Daily English Call is lining up.</b>
+
+Whether you've been here for years or you joined yesterday, you'll learn something today.`,
+
+  `<b>English Community Call — going live.</b>
+
+This is where strategy gets sharper, and confusion gets cleared up. Real-time.`,
+
+  `<b>Daily English Call — kicks off in moments.</b>
+
+Bring the question you'd ask if you had the founder's number. That's basically what this is.`,
+
+  `<b>The English Daily Zoom — about to start.</b>
+
+Five minutes of your time today saves you five hours of guessing later. See you there.`,
+
+  `<b>Open room — Daily English Call.</b>
+
+Members from twenty-plus countries drop into this Zoom every day. Add your voice.`,
+
+  `<b>Daily English Call — almost live.</b>
+
+What's holding you back from going deeper on TurboLoop? Today's the day to find out.`,
+
+  `<b>The community Zoom opens shortly.</b>
+
+This is the simplest, most direct way to get a real answer about anything TurboLoop. Use it daily.`,
+
+  `<b>English Community Call — starting now.</b>
+
+Real conversation, real questions, real answers. No bots, no scripts, no marketing voice.`,
 ];
 
 // Hindi/Urdu Zoom reminder — fires shortly before the daily call.
 // Calmer, clearer copy. No fixed-length references — calls run open-ended.
+// 21 variants — pool cycles every ~3 weeks before repeating.
 const HI_T30 = [
   `<b>Hindi/Urdu Daily Call thodi der mein live hoga.</b>
 
@@ -101,6 +172,62 @@ DeFi seekhne ka best place — koi script nahin, koi pitch nahin. Just real conv
   `<b>Hindi/Urdu Community Call — shuru hone wala hai.</b>
 
 Members har desh se aate hain. Aaiye, judiye, sawaal poochiye. Free aur open to everyone.`,
+
+  `<b>Hindi/Urdu Daily Zoom — abhi shuru.</b>
+
+Apne dosto ko bhi le aaiye. Jitne zyada questions, utna behtar conversation.`,
+
+  `<b>Daily Hindi/Urdu Call — door khulne wala hai.</b>
+
+Roz wahi link. Roz wahi waqt. Aaj wahi sawaal jo aap kal poochna chahte the — leke aaiye.`,
+
+  `<b>Hindi/Urdu Community Call — live hone wala hai.</b>
+
+Strategy, security, contract — sab kuch apne language mein discuss karte hain. Bina kisi pressure ke.`,
+
+  `<b>Aaiye Hindi/Urdu Daily Zoom mein.</b>
+
+20+ countries ke members aate hain. Kahan se ho aap? Aaj batao.`,
+
+  `<b>Daily Hindi/Urdu Call — live ho raha hai.</b>
+
+Sab se direct answer paane ka tareeka. Bina YouTube, bina Twitter, bina kisi cheese ke beech mein.`,
+
+  `<b>Hindi/Urdu Daily Community — shuru hone ko hai.</b>
+
+Beginners ke liye welcome. Experienced members ke liye deep questions. Sab ke liye.`,
+
+  `<b>Hindi/Urdu Zoom — abhi live.</b>
+
+Sahi sawaal poocho, sahi jawab milega. Bilkul sidhi baat.`,
+
+  `<b>Daily Hindi/Urdu Call — about to begin.</b>
+
+Yahan log doubts clear karte hain, strategies share karte hain, aur naye dosto se milte hain.`,
+
+  `<b>Community room — Hindi/Urdu — open ho raha hai.</b>
+
+Apne family member ya dost ko jo TurboLoop samajhna chahta hai, aaj le aaiye. Best onboarding.`,
+
+  `<b>Hindi/Urdu Daily Zoom — kuch hi der mein.</b>
+
+Roz ek ya do questions aate hain jo aapke bhi mind mein hote hain. Aaj waala aap lekar aaiye.`,
+
+  `<b>Daily Hindi/Urdu Community Call — live shortly.</b>
+
+Trust through transparency. Hum samjhate hain, aap verify karte ho. Bilkul DeFi spirit.`,
+
+  `<b>Hindi/Urdu Zoom Community — abhi shuru.</b>
+
+Apni speed se seekho. Sun lo, samjho, sawaal pucho. Koi judgment nahin.`,
+
+  `<b>Hindi/Urdu Daily Call — live hone wala hai.</b>
+
+DeFi seekhna ho ya strategy refine karni ho — yahan dono milega. Free, sabke liye.`,
+
+  `<b>Daily Hindi/Urdu Zoom — shuru hone ko hai.</b>
+
+Number, math, contract — jo kuch bhi confuse karta hai, aaj poochiye. Real time, real answers.`,
 ];
 
 export type ZoomLang = "en" | "hi";
@@ -182,7 +309,9 @@ ${desc}
 }
 
 export function cinematicPosterUrl(film: CinematicFilm): string {
-  return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg`;
+  // ?v=2 forces Telegram to bypass its image cache after we regenerated the
+  // dark/bad posters. Bump if we ever regenerate again.
+  return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg?v=2`;
 }
 
 // =========================================================

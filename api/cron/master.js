@@ -12520,7 +12520,20 @@ var BLOG_HEADLINES = [
   "\u{1F4D6} Today's deep-dive",
   "\u{1F4D6} Worth your evening",
   "\u{1F4D6} Today's piece",
-  "\u{1F4D6} Just published"
+  "\u{1F4D6} Just published",
+  "\u{1F4D6} Hot off the editor",
+  "\u{1F4D6} Today's long-read",
+  "\u{1F4D6} The story today",
+  "\u{1F4D6} New chapter \u2014 TurboLoop blog",
+  "\u{1F4D6} Evening read",
+  "\u{1F4D6} Today's perspective",
+  "\u{1F4D6} New essay live",
+  "\u{1F4D6} The TurboLoop blog \u2014 today's piece",
+  "\u{1F4D6} Just dropped",
+  "\u{1F4D6} New on turboloop.tech",
+  "\u{1F4D6} Today's editorial",
+  "\u{1F4D6} Fresh perspective",
+  "\u{1F4D6} The Daily Read"
 ];
 function blogPostCaption(opts) {
   const headline = pickByDay(BLOG_HEADLINES);
@@ -12555,7 +12568,49 @@ If there's something you've been meaning to ask but haven't, today's a good day.
 Same link, every day. Drop in for a few minutes, or stay the whole call. Your choice.`,
   `<b>Daily English Call \u2014 kicks off soon.</b>
 
-Whether you're new to Turbo Loop or a regular, the door's open. Real questions, real answers \u2014 every day.`
+Whether you're new to Turbo Loop or a regular, the door's open. Real questions, real answers \u2014 every day.`,
+  `<b>The English community room is about to open.</b>
+
+Most days, someone asks a question that everyone in the room was secretly wondering. Bring yours.`,
+  `<b>Daily English Call \u2014 almost live.</b>
+
+Direct line to the team, every single day. Use it.`,
+  `<b>The community Zoom is starting up.</b>
+
+We don't do scripts. We don't do hype. We do honest answers to whatever you bring.`,
+  `<b>English Daily Call \u2014 coming up.</b>
+
+A few minutes from now, there'll be ten or twenty people on Zoom, talking about TurboLoop in plain English. That should be you.`,
+  `<b>Daily English Call \u2014 door is opening.</b>
+
+Bring questions. Bring scepticism. Bring a friend who needs convincing. We'll handle all three.`,
+  `<b>Live shortly \u2014 English Community Call.</b>
+
+The deeper you dig, the better TurboLoop holds up. Today's a good day to dig.`,
+  `<b>The Daily English Call is lining up.</b>
+
+Whether you've been here for years or you joined yesterday, you'll learn something today.`,
+  `<b>English Community Call \u2014 going live.</b>
+
+This is where strategy gets sharper, and confusion gets cleared up. Real-time.`,
+  `<b>Daily English Call \u2014 kicks off in moments.</b>
+
+Bring the question you'd ask if you had the founder's number. That's basically what this is.`,
+  `<b>The English Daily Zoom \u2014 about to start.</b>
+
+Five minutes of your time today saves you five hours of guessing later. See you there.`,
+  `<b>Open room \u2014 Daily English Call.</b>
+
+Members from twenty-plus countries drop into this Zoom every day. Add your voice.`,
+  `<b>Daily English Call \u2014 almost live.</b>
+
+What's holding you back from going deeper on TurboLoop? Today's the day to find out.`,
+  `<b>The community Zoom opens shortly.</b>
+
+This is the simplest, most direct way to get a real answer about anything TurboLoop. Use it daily.`,
+  `<b>English Community Call \u2014 starting now.</b>
+
+Real conversation, real questions, real answers. No bots, no scripts, no marketing voice.`
 ];
 var HI_T30 = [
   `<b>Hindi/Urdu Daily Call thodi der mein live hoga.</b>
@@ -12580,7 +12635,49 @@ Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa
 DeFi seekhne ka best place \u2014 koi script nahin, koi pitch nahin. Just real conversation in your language.`,
   `<b>Hindi/Urdu Community Call \u2014 shuru hone wala hai.</b>
 
-Members har desh se aate hain. Aaiye, judiye, sawaal poochiye. Free aur open to everyone.`
+Members har desh se aate hain. Aaiye, judiye, sawaal poochiye. Free aur open to everyone.`,
+  `<b>Hindi/Urdu Daily Zoom \u2014 abhi shuru.</b>
+
+Apne dosto ko bhi le aaiye. Jitne zyada questions, utna behtar conversation.`,
+  `<b>Daily Hindi/Urdu Call \u2014 door khulne wala hai.</b>
+
+Roz wahi link. Roz wahi waqt. Aaj wahi sawaal jo aap kal poochna chahte the \u2014 leke aaiye.`,
+  `<b>Hindi/Urdu Community Call \u2014 live hone wala hai.</b>
+
+Strategy, security, contract \u2014 sab kuch apne language mein discuss karte hain. Bina kisi pressure ke.`,
+  `<b>Aaiye Hindi/Urdu Daily Zoom mein.</b>
+
+20+ countries ke members aate hain. Kahan se ho aap? Aaj batao.`,
+  `<b>Daily Hindi/Urdu Call \u2014 live ho raha hai.</b>
+
+Sab se direct answer paane ka tareeka. Bina YouTube, bina Twitter, bina kisi cheese ke beech mein.`,
+  `<b>Hindi/Urdu Daily Community \u2014 shuru hone ko hai.</b>
+
+Beginners ke liye welcome. Experienced members ke liye deep questions. Sab ke liye.`,
+  `<b>Hindi/Urdu Zoom \u2014 abhi live.</b>
+
+Sahi sawaal poocho, sahi jawab milega. Bilkul sidhi baat.`,
+  `<b>Daily Hindi/Urdu Call \u2014 about to begin.</b>
+
+Yahan log doubts clear karte hain, strategies share karte hain, aur naye dosto se milte hain.`,
+  `<b>Community room \u2014 Hindi/Urdu \u2014 open ho raha hai.</b>
+
+Apne family member ya dost ko jo TurboLoop samajhna chahta hai, aaj le aaiye. Best onboarding.`,
+  `<b>Hindi/Urdu Daily Zoom \u2014 kuch hi der mein.</b>
+
+Roz ek ya do questions aate hain jo aapke bhi mind mein hote hain. Aaj waala aap lekar aaiye.`,
+  `<b>Daily Hindi/Urdu Community Call \u2014 live shortly.</b>
+
+Trust through transparency. Hum samjhate hain, aap verify karte ho. Bilkul DeFi spirit.`,
+  `<b>Hindi/Urdu Zoom Community \u2014 abhi shuru.</b>
+
+Apni speed se seekho. Sun lo, samjho, sawaal pucho. Koi judgment nahin.`,
+  `<b>Hindi/Urdu Daily Call \u2014 live hone wala hai.</b>
+
+DeFi seekhna ho ya strategy refine karni ho \u2014 yahan dono milega. Free, sabke liye.`,
+  `<b>Daily Hindi/Urdu Zoom \u2014 shuru hone ko hai.</b>
+
+Number, math, contract \u2014 jo kuch bhi confuse karta hai, aaj poochiye. Real time, real answers.`
 ];
 var POOLS = {
   en: EN_T30,
@@ -12635,7 +12732,7 @@ ${desc2}
 \u{1F3AC} <b>Watch the full film:</b> https://turboloop.tech/films/${film.slug}`;
 }
 function cinematicPosterUrl(film) {
-  return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg`;
+  return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg?v=2`;
 }
 function launchAnnouncementCaption() {
   return `<b>TurboLoop.tech is live.</b>

@@ -123,12 +123,12 @@ async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: str
 const ZOOM_EN = {
   link: "https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1",
   passcode: "669529",
-  timeLabel: "5:00 PM UTC daily · 30 min",
+  timeLabel: "5:00 PM UTC daily",
 };
 const ZOOM_HI = {
   link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
   passcode: "1234",
-  timeLabel: "9:00 PM IST daily · 30 min",
+  timeLabel: "9:00 PM IST daily",
 };
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {

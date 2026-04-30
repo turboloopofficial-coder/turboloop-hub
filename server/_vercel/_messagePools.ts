@@ -37,69 +37,68 @@ export function blogPostCaption(opts: { title: string; excerpt: string | null; u
 // ZOOM REMINDER TEMPLATES — T-30 only, calmer + clearer
 // =========================================================
 
-// English Zoom T-30 — "Daily English Call · live in 30"
-// Each variant: short setup + clear value + clear CTA. No emoji walls.
+// English Zoom reminder — fires shortly before the daily call.
+// Calmer, clearer copy. No fixed-length references — calls run open-ended.
 const EN_T30 = [
-  `<b>Daily English Call — live in 30 minutes.</b>
+  `<b>The Daily English Call is starting soon.</b>
 
-A 30-minute community session. Drop in, ask anything, leave when you're ready.
+Drop in, ask anything, stay as long as you like. Open room for ecosystem questions, security walkthroughs, and strategy talk.`,
 
-Today's room is open for: ecosystem questions, security walkthroughs, and strategy talk.`,
+  `<b>The Daily English Call is about to begin.</b>
 
-  `<b>The Daily English Call begins in 30 minutes.</b>
+Same Zoom, every day. Bring whatever's on your mind — security, math, strategy, the contract, anything. We answer it in plain English.`,
 
-Same Zoom every day at 5 PM UTC. Bring whatever's on your mind — security, math, strategy, the contract, anything. We answer it in plain English.`,
+  `<b>Daily Community Call — going live shortly.</b>
 
-  `<b>30 minutes to the Daily Call.</b>
+This is the room where new members get oriented and existing ones get their questions answered. No script. No pitch. Just real conversation.`,
 
-This is the room where new community members get oriented and existing ones get questions answered. No script, no pitch — just real conversation.`,
-
-  `<b>Live in 30 minutes — Daily English Community Call.</b>
+  `<b>Daily English Community Call — live shortly.</b>
 
 What people usually walk away with: a clearer understanding of how the protocol actually works, and faces to put to the names in the channel.`,
 
-  `<b>Daily English Call — 30 minutes.</b>
+  `<b>Daily English Call — about to begin.</b>
 
 If there's something you've been meaning to ask but haven't, today's a good day. Free, public, no agenda.`,
 
-  `<b>The community room opens in 30 minutes.</b>
+  `<b>The community room opens shortly.</b>
 
-5 PM UTC. Same link every day. People drop in for 5 minutes or stay the whole 30. Your call.`,
+Same link, every day. Drop in for a few minutes, or stay the whole call. Your choice.`,
 
-  `<b>30 minute countdown — Daily English Call.</b>
+  `<b>Daily English Call — kicks off soon.</b>
 
-Whether you're new to Turbo Loop or a regular, the door's open. Real questions, real answers, every weekday.`,
+Whether you're new to Turbo Loop or a regular, the door's open. Real questions, real answers — every day.`,
 ];
 
-// Hindi/Urdu Zoom T-30 — "Hindi/Urdu Daily Call · live in 30"
+// Hindi/Urdu Zoom reminder — fires shortly before the daily call.
+// Calmer, clearer copy. No fixed-length references — calls run open-ended.
 const HI_T30 = [
-  `<b>Hindi/Urdu Daily Call — 30 minute mein live.</b>
+  `<b>Hindi/Urdu Daily Call thodi der mein live hoga.</b>
 
-Apne sawaal, apni zubaan mein. 30 minutes max. Aaiye, baat karte hain.
+Apne sawaal, apni zubaan mein. Aaiye, baat karte hain.
 
 Aaj ka topic: aap jo bhi sawaal layein, hum jawab denge.`,
 
-  `<b>30 minute mein Hindi/Urdu Daily Call shuru ho raha hai.</b>
+  `<b>Hindi/Urdu Daily Call shuru hone wala hai.</b>
 
-9 PM IST, har din. Real conversation — security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.`,
+Har din. Real conversation — security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.`,
 
-  `<b>Aadha ghanta — community room khulta hai.</b>
+  `<b>Community room thodi der mein khulta hai.</b>
 
 Daily Hindi/Urdu Zoom call. Naye members ke liye orientation, existing ke liye doubts clear. Aap jo bhi sawaal layein, aaj poochiye.`,
 
-  `<b>Hindi/Urdu Daily Call — 30 minutes to live.</b>
+  `<b>Hindi/Urdu Daily Call — live hone wala hai.</b>
 
 Yeh wo room hai jahan log Turbo Loop ke baare mein actually samajh paate hain — bina marketing, bina hype.`,
 
-  `<b>30 minute baad live — Hindi/Urdu Community Call.</b>
+  `<b>Hindi/Urdu Community Call — abhi live hoga.</b>
 
 Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa rahe hain? Drop in karo, sun lo.`,
 
-  `<b>Daily Hindi/Urdu Zoom — 30 minute mein live.</b>
+  `<b>Daily Hindi/Urdu Zoom — live shortly.</b>
 
 DeFi seekhne ka best place — koi script nahin, koi pitch nahin. Just real conversation in your language.`,
 
-  `<b>Hindi/Urdu Community Call — 30 min countdown.</b>
+  `<b>Hindi/Urdu Community Call — shuru hone wala hai.</b>
 
 Members har desh se aate hain. Aaiye, judiye, sawaal poochiye. Free aur open to everyone.`,
 ];

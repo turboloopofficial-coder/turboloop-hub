@@ -101,6 +101,12 @@ jspm_packages/
 tmp/
 temp/
 
+# Local debug folders from poster regen + thumb scripts
+.tmp-*/
+.tmp-thumb-pick/
+.tmp-cinematic-thumbs/
+.tmp-regen/
+
 # Database
 *.db
 *.sqlite

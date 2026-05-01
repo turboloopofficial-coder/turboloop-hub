@@ -19,6 +19,7 @@ const RESOURCES: Array<{ label: string; href: string; description: string; emoji
   { label: "Library", href: "/library", description: "Videos and presentations in 48 languages", emoji: "📚" },
   { label: "Creatives", href: "/creatives", description: "141 ready-to-share branded posts with captions", emoji: "🎨" },
   { label: "Promotions", href: "/promotions", description: "$100K bounty + creator and presenter programs", emoji: "🎁" },
+  { label: "Submit Your Story", href: "/submit", description: "Share your testimonial, photo, video, or story", emoji: "✍️" },
   { label: "FAQ", href: "/faq", description: "Common questions answered", emoji: "❓" },
 ];
 

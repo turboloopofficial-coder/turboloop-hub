@@ -11,6 +11,8 @@ import {
   roadmapPhases,
   presentations, type InsertPresentation,
   siteSettings,
+  newsletterSignups,
+  contentSubmissions,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -253,4 +255,67 @@ export async function setSetting(key: string, value: string) {
       target: siteSettings.settingKey,
       set: { settingValue: value },
     });
+}
+
+// ===== Newsletter Signups =====
+export async function addNewsletterSignup(email: string, source: string | null = null) {
+  const db = getDb();
+  // Idempotent: ignore duplicate emails (user may submit twice — that's fine)
+  await db
+    .insert(newsletterSignups)
+    .values({ email: email.toLowerCase().trim(), source })
+    .onConflictDoNothing();
+}
+
+export async function listNewsletterSignups(limit = 1000) {
+  const db = getDb();
+  return await db.select().from(newsletterSignups).orderBy(desc(newsletterSignups.createdAt)).limit(limit);
+}
+
+export async function newsletterSignupCount(): Promise<number> {
+  const db = getDb();
+  const r = await db.select().from(newsletterSignups);
+  return r.length;
+}
+
+// ===== Content Submissions =====
+export async function createContentSubmission(input: {
+  type: string;
+  authorName: string;
+  authorContact?: string | null;
+  authorCountry?: string | null;
+  body: string;
+  fileUrl?: string | null;
+}) {
+  const db = getDb();
+  const result = await db
+    .insert(contentSubmissions)
+    .values({
+      type: input.type,
+      authorName: input.authorName,
+      authorContact: input.authorContact ?? null,
+      authorCountry: input.authorCountry ?? null,
+      body: input.body,
+      fileUrl: input.fileUrl ?? null,
+    })
+    .returning();
+  return result[0];
+}
+
+export async function listContentSubmissions(status?: "pending" | "approved" | "rejected") {
+  const db = getDb();
+  const query = db.select().from(contentSubmissions);
+  if (status) {
+    const r = await query.where(eq(contentSubmissions.status, status)).orderBy(desc(contentSubmissions.createdAt));
+    return r;
+  }
+  return await query.orderBy(desc(contentSubmissions.createdAt));
+}
+
+export async function updateContentSubmissionStatus(id: number, status: "pending" | "approved" | "rejected", adminNotes?: string) {
+  const db = getDb();
+  await db
+    .update(contentSubmissions)
+    .set({ status, adminNotes: adminNotes ?? null })
+    .where(eq(contentSubmissions.id, id));
 }

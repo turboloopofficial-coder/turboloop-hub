@@ -12462,6 +12462,29 @@ var siteSettings = pgTable("site_settings", {
   settingValue: text("setting_value").notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
 });
+var newsletterSignups = pgTable("newsletter_signups", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  source: varchar("source", { length: 100 }),
+  // "homepage", "footer", "blog", etc
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var contentSubmissionStatusEnum = pgEnum("content_submission_status", ["pending", "approved", "rejected"]);
+var contentSubmissions = pgTable("content_submissions", {
+  id: serial("id").primaryKey(),
+  type: varchar("type", { length: 50 }).notNull(),
+  // testimonial | photo | reel | story
+  authorName: varchar("author_name", { length: 200 }).notNull(),
+  authorContact: varchar("author_contact", { length: 320 }),
+  // email or telegram handle
+  authorCountry: varchar("author_country", { length: 100 }),
+  body: text("body").notNull(),
+  fileUrl: varchar("file_url", { length: 1e3 }),
+  // optional photo/video URL
+  status: contentSubmissionStatusEnum("status").default("pending").notNull(),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
 
 // server/_vercel/og.ts
 var PALETTES = [

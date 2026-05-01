@@ -138,3 +138,33 @@ export const siteSettings = pgTable("site_settings", {
   settingValue: text("setting_value").notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
 });
+
+// Newsletter signups — simple email collection. No service integration yet;
+// admin can export to CSV via Neon and import into Mailchimp/Resend/Brevo later.
+export const newsletterSignups = pgTable("newsletter_signups", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  source: varchar("source", { length: 100 }), // "homepage", "footer", "blog", etc
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type NewsletterSignup = typeof newsletterSignups.$inferSelect;
+
+// Community-submitted content (testimonials, photos, reels, stories) —
+// queued for admin moderation before showing on /community wall.
+export const contentSubmissionStatusEnum = pgEnum("content_submission_status", ["pending", "approved", "rejected"]);
+
+export const contentSubmissions = pgTable("content_submissions", {
+  id: serial("id").primaryKey(),
+  type: varchar("type", { length: 50 }).notNull(), // testimonial | photo | reel | story
+  authorName: varchar("author_name", { length: 200 }).notNull(),
+  authorContact: varchar("author_contact", { length: 320 }), // email or telegram handle
+  authorCountry: varchar("author_country", { length: 100 }),
+  body: text("body").notNull(),
+  fileUrl: varchar("file_url", { length: 1000 }), // optional photo/video URL
+  status: contentSubmissionStatusEnum("status").default("pending").notNull(),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ContentSubmission = typeof contentSubmissions.$inferSelect;

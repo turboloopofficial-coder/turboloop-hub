@@ -16,6 +16,7 @@ import HomeSecurityTeaser from "@/components/sections/HomeSecurityTeaser";
 import HomePromotionsTeaser from "@/components/sections/HomePromotionsTeaser";
 import HomeTestimonialRotator from "@/components/sections/HomeTestimonialRotator";
 import CinematicEmbed from "@/components/sections/CinematicEmbed";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 import Footer from "@/components/sections/Footer";
 import WelcomePopup from "@/components/WelcomePopup";
@@ -149,6 +150,9 @@ export default function Home() {
           label="The Manifesto"
           pretitle="Your money. Your power. Your future."
         />
+
+        {/* Newsletter signup — last conversion point before footer */}
+        <NewsletterSignup source="homepage" variant="card" />
       </main>
 
       <Footer />

@@ -1,6 +1,7 @@
 import { SITE } from "@/lib/constants";
-import { ExternalLink, ArrowUpRight, Send, MessageCircle, Twitter, Youtube, Shield, Zap, Globe } from "lucide-react";
+import { ExternalLink, ArrowUpRight, Send, MessageCircle, Twitter, Youtube, Shield, Zap, Globe, Mail } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 export default function Footer() {
   return (
@@ -58,6 +59,27 @@ export default function Footer() {
         />
 
         <div className="relative container py-16 md:py-20">
+          {/* Newsletter signup — sits above the CTA banner so it's the first thing in the footer */}
+          <div className="mb-12 pb-12 max-w-2xl mx-auto text-center"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase mb-4"
+              style={{ background: "rgba(34,211,238,0.12)", border: "1px solid rgba(34,211,238,0.25)", color: "#67E8F9" }}
+            >
+              <Mail className="w-3 h-3" />
+              Newsletter
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
+              Stay in the loop.
+            </h3>
+            <p className="text-slate-400 text-sm md:text-base mb-5 max-w-md mx-auto">
+              One update per week — new films, blog posts, and what's happening in the community. No hype, no spam.
+            </p>
+            <div className="max-w-md mx-auto">
+              <NewsletterSignup source="footer" variant="inline" />
+            </div>
+          </div>
+
           {/* Top CTA banner */}
           <div className="mb-14 flex flex-col md:flex-row items-center justify-between gap-6 pb-12"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}

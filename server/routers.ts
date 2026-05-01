@@ -12,6 +12,8 @@ import {
   listRoadmapPhases, updateRoadmapPhase,
   listPresentations, createPresentation, updatePresentation, deletePresentation,
   getSetting, setSetting,
+  addNewsletterSignup, listNewsletterSignups, newsletterSignupCount,
+  createContentSubmission, listContentSubmissions, updateContentSubmissionStatus,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -94,6 +96,130 @@ export const appRouter = router({
     roadmap: publicProcedure.query(() => listRoadmapPhases()),
     presentations: publicProcedure.query(() => listPresentations(true)),
     setting: publicProcedure.input(z.object({ key: z.string() })).query(({ input }) => getSetting(input.key)),
+  }),
+
+  // Public newsletter signup — no auth needed
+  newsletter: router({
+    signup: publicProcedure
+      .input(z.object({
+        email: z.string().email().max(320),
+        source: z.string().max(100).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await addNewsletterSignup(input.email, input.source ?? null);
+        return { success: true };
+      }),
+    // Admin-only: list + count
+    list: adminProcedure.query(() => listNewsletterSignups(2000)),
+    count: adminProcedure.query(() => newsletterSignupCount()),
+  }),
+
+  // AI Blog Drafter — admin-only. Calls Anthropic API to draft a polished
+  // blog post from a short topic prompt. The user reviews, edits, and saves
+  // via the existing blog manager.
+  aiDrafter: router({
+    draftBlog: adminProcedure
+      .input(z.object({
+        topic: z.string().min(3).max(500),
+        audienceLevel: z.enum(["newcomer", "intermediate", "expert"]).default("intermediate"),
+        notes: z.string().max(2000).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "ANTHROPIC_API_KEY not configured. Add it to Vercel environment variables to enable AI drafting.",
+          });
+        }
+        // Lazy-import the SDK so cold starts on non-AI routes don't pay for it
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+
+        const audienceGuide = {
+          newcomer: "complete crypto beginners — explain everything in plain English, define every term, no jargon",
+          intermediate: "people who know crypto but are new to TurboLoop — assume DeFi basics, focus on what makes TurboLoop unique",
+          expert: "experienced DeFi users — go deep on mechanics, math, and on-chain verifiability. Skip the basics.",
+        }[input.audienceLevel];
+
+        const systemPrompt = `You are a senior content writer for Turbo Loop, a transparent, audited DeFi yield protocol on Binance Smart Chain.
+
+Voice: confident, premium, community-first. No hype words ("MOON", "100x", "huge"). No emoji walls. Use story over feature lists. Specific facts beat generic claims (e.g. "141 banners in 48 languages" beats "lots of resources"). Match the tone of long-form Bloomberg or Stratechery essays — readable, dense, factually precise.
+
+Audience: ${audienceGuide}
+
+Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
+{
+  "title": "60-90 char SEO-friendly title",
+  "slug": "kebab-case-slug-no-trailing-dashes",
+  "excerpt": "150-220 char summary that makes people click",
+  "content": "Full markdown blog post — 800-1500 words, with H2 headings (##), H3 sub-headings (###), bullet lists, and at least one block quote (>) for emphasis. End with a 'Where to next' paragraph that links 2-3 relevant pages on turboloop.tech (use [link text](https://turboloop.tech/path) format)."
+}`;
+
+        const userPrompt = `Topic: ${input.topic}${input.notes ? `\n\nAdditional notes from the editor:\n${input.notes}` : ""}`;
+
+        const response = await client.messages.create({
+          model: "claude-opus-4-5",
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+        });
+
+        // Extract text content from the response
+        const textBlock = response.content.find((b) => b.type === "text");
+        if (!textBlock || textBlock.type !== "text") {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
+        }
+        const raw = textBlock.text.trim();
+
+        // Strip markdown code fences if Claude wrapped JSON in them
+        const cleaned = raw.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+
+        let draft: { title: string; slug: string; excerpt: string; content: string };
+        try {
+          draft = JSON.parse(cleaned);
+        } catch (err) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `Claude returned invalid JSON. Raw output (first 500 chars):\n${cleaned.slice(0, 500)}`,
+          });
+        }
+
+        return {
+          ...draft,
+          tokensUsed: {
+            input: response.usage.input_tokens,
+            output: response.usage.output_tokens,
+          },
+        };
+      }),
+  }),
+
+  // Public content submission + admin moderation
+  submissions: router({
+    submit: publicProcedure
+      .input(z.object({
+        type: z.enum(["testimonial", "photo", "reel", "story"]),
+        authorName: z.string().min(1).max(200),
+        authorContact: z.string().max(320).optional(),
+        authorCountry: z.string().max(100).optional(),
+        body: z.string().min(10).max(5000),
+        fileUrl: z.string().url().max(1000).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const created = await createContentSubmission(input);
+        return { success: true, id: created.id };
+      }),
+    list: adminProcedure
+      .input(z.object({ status: z.enum(["pending", "approved", "rejected"]).optional() }))
+      .query(({ input }) => listContentSubmissions(input.status)),
+    moderate: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["pending", "approved", "rejected"]),
+        adminNotes: z.string().optional(),
+      }))
+      .mutation(({ input }) => updateContentSubmissionStatus(input.id, input.status, input.adminNotes)),
   }),
 
   manage: router({

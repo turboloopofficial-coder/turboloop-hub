@@ -6,8 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, Save, LogOut, PenLine, Eye, EyeOff, X, ExternalLink, FileText, Settings } from "lucide-react";
+import { Loader2, Plus, Trash2, Save, LogOut, PenLine, Eye, EyeOff, X, ExternalLink, FileText, Settings, Sparkles, Inbox } from "lucide-react";
 import ImageUpload from "@/components/ImageUpload";
+import AIDrafter from "@/components/admin/AIDrafter";
+import SubmissionsManager from "@/components/admin/SubmissionsManager";
 
 
 // ============ Blog Manager ============
@@ -730,6 +732,8 @@ export default function AdminDashboard() {
 
         <Tabs defaultValue="blog" className="w-full">
           <TabsList className="mb-6 flex-wrap h-auto gap-1 p-1" style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(0,0,0,0.06)', borderRadius: '12px' }}>
+            <TabsTrigger value="ai-drafter" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"><Sparkles className="h-3.5 w-3.5 mr-1" />AI Drafter</TabsTrigger>
+            <TabsTrigger value="submissions" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"><Inbox className="h-3.5 w-3.5 mr-1" />Submissions</TabsTrigger>
             <TabsTrigger value="blog" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm">Blog Posts</TabsTrigger>
             <TabsTrigger value="videos" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm">Videos</TabsTrigger>
             <TabsTrigger value="events" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm">Events</TabsTrigger>
@@ -739,6 +743,8 @@ export default function AdminDashboard() {
             <TabsTrigger value="settings" className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"><Settings className="h-3.5 w-3.5 mr-1" />Settings</TabsTrigger>
           </TabsList>
 
+          <TabsContent value="ai-drafter"><AIDrafter /></TabsContent>
+          <TabsContent value="submissions"><SubmissionsManager /></TabsContent>
           <TabsContent value="blog"><BlogManager /></TabsContent>
           <TabsContent value="videos"><VideoManager /></TabsContent>
           <TabsContent value="events"><EventManager /></TabsContent>

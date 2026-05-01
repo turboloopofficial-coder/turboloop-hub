@@ -16,7 +16,8 @@ const NAV_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
 // Resources dropdown — secondary pages
 const RESOURCES: Array<{ label: string; href: string; description: string; emoji: string }> = [
   { label: "Films", href: "/films", description: "20-film cinematic universe across 4 seasons", emoji: "🎬" },
-  { label: "Library", href: "/library", description: "Videos and presentations in 48 languages", emoji: "📚" },
+  { label: "Learn (DeFi 101)", href: "/learn", description: "Plain-English DeFi explainers for beginners", emoji: "📚" },
+  { label: "Library", href: "/library", description: "Videos and presentations in 48 languages", emoji: "📂" },
   { label: "Creatives", href: "/creatives", description: "141 ready-to-share branded posts with captions", emoji: "🎨" },
   { label: "Promotions", href: "/promotions", description: "$100K bounty + creator and presenter programs", emoji: "🎁" },
   { label: "Submit Your Story", href: "/submit", description: "Share your testimonial, photo, video, or story", emoji: "✍️" },

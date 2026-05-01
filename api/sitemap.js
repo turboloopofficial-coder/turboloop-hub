@@ -12532,7 +12532,20 @@ var STATIC_ROUTES = [
   { path: "/ecosystem/leadership-program", priority: "0.75", changefreq: "monthly" },
   { path: "/ecosystem/smart-contract-security", priority: "0.75", changefreq: "monthly" },
   // Cinematic Universe hub
-  { path: "/films", priority: "0.85", changefreq: "weekly" }
+  { path: "/films", priority: "0.85", changefreq: "weekly" },
+  // Community submissions
+  { path: "/submit", priority: "0.7", changefreq: "monthly" },
+  // DeFi 101 hub
+  { path: "/learn", priority: "0.85", changefreq: "weekly" },
+  { path: "/learn/what-is-defi", priority: "0.75", changefreq: "monthly" },
+  { path: "/learn/what-is-a-smart-contract", priority: "0.75", changefreq: "monthly" },
+  { path: "/learn/what-is-a-stablecoin", priority: "0.75", changefreq: "monthly" },
+  { path: "/learn/what-is-yield-farming", priority: "0.75", changefreq: "monthly" },
+  { path: "/learn/how-to-verify-on-bscscan", priority: "0.75", changefreq: "monthly" },
+  // Comparison pages — high-intent search traffic
+  { path: "/vs/pancakeswap", priority: "0.8", changefreq: "monthly" },
+  { path: "/vs/aave", priority: "0.8", changefreq: "monthly" },
+  { path: "/vs/yearn", priority: "0.8", changefreq: "monthly" }
 ];
 function iso(d) {
   if (!d) return (/* @__PURE__ */ new Date()).toISOString();

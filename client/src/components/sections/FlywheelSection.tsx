@@ -280,8 +280,15 @@ function Flywheel({ activeNode }: { activeNode: number }) {
                   ? `0 0 0 5px ${node.color}25, 0 12px 35px -5px ${node.color}, inset -2px -2px 12px ${node.color}90, inset 3px 3px 10px rgba(255,255,255,0.35)`
                   : `0 8px 24px -4px ${node.color}70, inset -2px -2px 10px ${node.color}70, inset 3px 3px 10px rgba(255,255,255,0.3)`,
               }}
-              animate={isActive ? { scale: [1, 1.12, 1] } : { scale: 1 }}
-              transition={{ duration: 0.8 }}
+              // Active-state pulse uses its own per-animation transition (duration: 0.8s),
+              // separate from the mount transition above (the spring with stagger delay).
+              // Previously this used a second `transition` JSX prop which is illegal —
+              // duplicate attribute, the first was silently overwritten by the second.
+              animate={
+                isActive
+                  ? { scale: [1, 1.12, 1], transition: { duration: 0.8 } }
+                  : { scale: 1, transition: { duration: 0.8 } }
+              }
             >
               <span
                 className="font-bold text-2xl tabular-nums"

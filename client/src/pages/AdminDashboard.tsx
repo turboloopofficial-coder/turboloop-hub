@@ -676,6 +676,17 @@ export default function AdminDashboard() {
   const logoutMutation = trpc.admin.logout.useMutation();
   const [, navigate] = useLocation();
 
+  // CRITICAL: all hooks must run on every render — they MUST come before any
+  // conditional `return`. Previously this useEffect was placed AFTER the
+  // `if (isLoading) return ...` block, which caused React error #310
+  // ("Rendered fewer hooks than expected") on the second render once the
+  // auth check resolved. Hook count went from N to N+1 between renders.
+  useEffect(() => {
+    if (!isLoading && (error || !admin)) {
+      navigate("/admin/login");
+    }
+  }, [isLoading, error, admin, navigate]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}>
@@ -683,12 +694,6 @@ export default function AdminDashboard() {
       </div>
     );
   }
-
-  useEffect(() => {
-    if (!isLoading && (error || !admin)) {
-      navigate("/admin/login");
-    }
-  }, [isLoading, error, admin, navigate]);
 
   if (error || !admin) {
     return (

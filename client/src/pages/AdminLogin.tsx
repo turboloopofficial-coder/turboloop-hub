@@ -12,7 +12,10 @@ export default function AdminLogin() {
   const loginMutation = trpc.admin.login.useMutation({
     onSuccess: () => {
       toast.success("Login successful");
-      navigate("/admin");
+      // Redirect to /admin/dashboard not /admin — the bare /admin route
+      // is a Redirect back to /admin/login (would create a loop).
+      // Any path matching /admin/:rest* renders AdminDashboard.
+      navigate("/admin/dashboard");
     },
     onError: (err) => {
       toast.error(err.message || "Invalid credentials");

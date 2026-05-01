@@ -67,6 +67,9 @@ const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string 
   { path: "/vs/pancakeswap", priority: "0.8", changefreq: "monthly" },
   { path: "/vs/aave", priority: "0.8", changefreq: "monthly" },
   { path: "/vs/yearn", priority: "0.8", changefreq: "monthly" },
+  // Legal — low priority but indexable
+  { path: "/privacy", priority: "0.3", changefreq: "yearly" },
+  { path: "/terms",   priority: "0.3", changefreq: "yearly" },
 ];
 
 function iso(d: Date | null | undefined): string {

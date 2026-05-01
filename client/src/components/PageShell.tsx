@@ -11,6 +11,7 @@ import BackToTop from "@/components/BackToTop";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollProgress from "@/components/ScrollProgress";
 import SEOHead from "@/components/SEOHead";
+import SharePagePill from "@/components/SharePagePill";
 
 type RelatedLink = { label: string; href: string; emoji: string; description?: string };
 
@@ -63,13 +64,16 @@ export default function PageShell({ title, description, path, jsonLd, hero, brea
       <Navbar />
 
       <main className="relative z-10">
-        {/* Breadcrumb */}
+        {/* Breadcrumb + Share */}
         <div className="container pt-24 md:pt-28">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
-            <Link href="/"><span className="hover:text-slate-700 cursor-pointer">Home</span></Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-slate-600">{breadcrumbLabel || title}</span>
-          </nav>
+          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400">
+              <Link href="/"><span className="hover:text-slate-700 cursor-pointer">Home</span></Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-slate-600">{breadcrumbLabel || title}</span>
+            </nav>
+            <SharePagePill path={path} title={hero.heading} />
+          </div>
         </div>
 
         {/* Hero strip */}

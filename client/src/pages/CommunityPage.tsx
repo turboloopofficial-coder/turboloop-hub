@@ -3,6 +3,7 @@ import LeaderboardSection from "@/components/sections/LeaderboardSection";
 import SocialWallSection from "@/components/sections/SocialWallSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CinematicEmbed from "@/components/sections/CinematicEmbed";
+import FeaturedSubmissions from "@/components/sections/FeaturedSubmissions";
 
 export default function CommunityPage() {
   return (
@@ -36,6 +37,7 @@ export default function CommunityPage() {
         pretitle="Same code. Same math. From Lagos to London."
       />
       <LeaderboardSection />
+      <FeaturedSubmissions />
       <SocialWallSection />
       <TestimonialsSection />
     </PageShell>

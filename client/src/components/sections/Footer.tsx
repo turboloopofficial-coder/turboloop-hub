@@ -357,6 +357,10 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
               <p className="text-xs text-slate-500">
                 &copy; {new Date().getFullYear()} Turbo Loop. All rights reserved.
+                <span className="mx-2 text-slate-600">·</span>
+                <a href="/privacy" className="text-slate-400 hover:text-cyan-400 transition-colors">Privacy</a>
+                <span className="mx-2 text-slate-600">·</span>
+                <a href="/terms" className="text-slate-400 hover:text-cyan-400 transition-colors">Terms</a>
               </p>
               <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                 <p className="text-xs text-slate-500">

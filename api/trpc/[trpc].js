@@ -99750,6 +99750,19 @@ async function listContentSubmissions(status) {
   }
   return await query.orderBy(desc(contentSubmissions.createdAt));
 }
+async function listPublicApprovedSubmissions(limit = 12) {
+  const db = getDb();
+  const r5 = await db.select({
+    id: contentSubmissions.id,
+    type: contentSubmissions.type,
+    authorName: contentSubmissions.authorName,
+    authorCountry: contentSubmissions.authorCountry,
+    body: contentSubmissions.body,
+    fileUrl: contentSubmissions.fileUrl,
+    createdAt: contentSubmissions.createdAt
+  }).from(contentSubmissions).where(eq(contentSubmissions.status, "approved")).orderBy(desc(contentSubmissions.createdAt)).limit(limit);
+  return r5;
+}
 async function updateContentSubmissionStatus(id, status, adminNotes) {
   const db = getDb();
   await db.update(contentSubmissions).set({ status, adminNotes: adminNotes ?? null }).where(eq(contentSubmissions.id, id));
@@ -99988,6 +100001,9 @@ ${cleaned.slice(0, 500)}`
       return { success: true, id: created.id };
     }),
     list: adminProcedure.input(external_exports.object({ status: external_exports.enum(["pending", "approved", "rejected"]).optional() })).query(({ input }) => listContentSubmissions(input.status)),
+    /** Public read of approved submissions only — excludes PII (contact + admin notes).
+     *  Used by /community page's FeaturedSubmissions strip. */
+    publicApproved: publicProcedure.query(() => listPublicApprovedSubmissions(12)),
     moderate: adminProcedure.input(external_exports.object({
       id: external_exports.number(),
       status: external_exports.enum(["pending", "approved", "rejected"]),

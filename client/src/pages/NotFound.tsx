@@ -164,40 +164,37 @@ export default function NotFound() {
           style={{ borderTop: "1px solid rgba(15,23,42,0.06)" }}
         >
           <p className="text-xs text-slate-400 tracking-wider uppercase mb-4">
-            Or explore
+            Or jump straight to
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {[
-              { href: "/#ecosystem", label: "Ecosystem" },
-              { href: "/#flywheel", label: "Revenue Engine" },
-              { href: "/#videos", label: "Videos" },
-              { href: "/feed", label: "Blog" },
-              { href: "/#faq", label: "FAQ" },
+              { href: "/ecosystem",  label: "Ecosystem", emoji: "⚙" },
+              { href: "/films",      label: "Films",     emoji: "🎬" },
+              { href: "/feed",       label: "Blog",      emoji: "📖" },
+              { href: "/learn",      label: "DeFi 101",  emoji: "📚" },
+              { href: "/security",   label: "Security",  emoji: "🛡" },
+              { href: "/community",  label: "Community", emoji: "🌍" },
+              { href: "/creatives",  label: "Creatives", emoji: "🎨" },
+              { href: "/faq",        label: "FAQ",       emoji: "❓" },
             ].map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => {
-                  if (link.href.startsWith("/#")) {
-                    e.preventDefault();
-                    setLocation("/");
-                    setTimeout(() => {
-                      const id = link.href.split("#")[1];
-                      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
-                  }
-                }}
-                className="inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs font-semibold text-slate-600 transition-all duration-300 hover:text-cyan-700"
+                onClick={(e) => { e.preventDefault(); setLocation(link.href); }}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-slate-700 transition-all duration-300 hover:text-cyan-700 hover:scale-105"
                 style={{
                   background: "white",
                   border: "1px solid rgba(15,23,42,0.06)",
                 }}
               >
-                <Search className="w-3 h-3" />
+                <span>{link.emoji}</span>
                 {link.label}
               </a>
             ))}
           </div>
+          <p className="text-xs text-slate-400 mt-4">
+            or hit <kbd className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-600">Ctrl+K</kbd> to search
+          </p>
         </motion.div>
       </div>
     </div>

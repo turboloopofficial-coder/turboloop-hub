@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ExternalLink, ChevronDown } from "lucide-react";
+import { Menu, X, ExternalLink, ChevronDown, Search } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { SITE } from "@/lib/constants";
+import GlobalSearch from "@/components/GlobalSearch";
 
 // Top-level nav links — each goes to a dedicated page
 const NAV_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
@@ -28,6 +29,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [, setLocation] = useLocation();
 
@@ -35,6 +37,22 @@ export default function Navbar() {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Cmd+K (Mac) / Ctrl+K (Win/Linux) opens global search from anywhere
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((o) => !o);
+      } else if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
+        // Bare "/" key also opens search (GitHub/Slack style) when not typing in a field
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   // Close dropdown on outside click
@@ -155,8 +173,19 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Launch App */}
-          <div className="hidden md:flex items-center">
+          {/* Search + Launch App */}
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-slate-500 hover:text-slate-800 transition"
+              style={{ background: "rgba(15,23,42,0.04)", border: "1px solid rgba(15,23,42,0.06)" }}
+              title="Search the hub (Ctrl+K)"
+              aria-label="Search the hub"
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span className="hidden lg:inline text-xs">Search</span>
+              <kbd className="hidden lg:inline-flex items-center px-1 py-0.5 rounded text-[10px] font-mono text-slate-400 bg-white border border-slate-200">⌘K</kbd>
+            </button>
             <a
               href={SITE.mainApp}
               target="_blank"
@@ -180,12 +209,24 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile burger */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-slate-700 p-2">
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile: Search + burger */}
+          <div className="md:hidden flex items-center gap-1">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="text-slate-700 p-2"
+              aria-label="Search the hub"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="text-slate-700 p-2" aria-label={mobileOpen ? "Close menu" : "Open menu"}>
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </nav>
+
+      {/* Global search modal — Cmd+K / Ctrl+K / "/" */}
+      <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* Mobile menu */}
       <AnimatePresence>

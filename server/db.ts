@@ -312,6 +312,27 @@ export async function listContentSubmissions(status?: "pending" | "approved" | "
   return await query.orderBy(desc(contentSubmissions.createdAt));
 }
 
+/** Public-safe view — only approved, only fields safe to surface publicly.
+ *  Excludes authorContact (PII) and adminNotes (internal). */
+export async function listPublicApprovedSubmissions(limit = 12) {
+  const db = getDb();
+  const r = await db
+    .select({
+      id: contentSubmissions.id,
+      type: contentSubmissions.type,
+      authorName: contentSubmissions.authorName,
+      authorCountry: contentSubmissions.authorCountry,
+      body: contentSubmissions.body,
+      fileUrl: contentSubmissions.fileUrl,
+      createdAt: contentSubmissions.createdAt,
+    })
+    .from(contentSubmissions)
+    .where(eq(contentSubmissions.status, "approved"))
+    .orderBy(desc(contentSubmissions.createdAt))
+    .limit(limit);
+  return r;
+}
+
 export async function updateContentSubmissionStatus(id: number, status: "pending" | "approved" | "rejected", adminNotes?: string) {
   const db = getDb();
   await db

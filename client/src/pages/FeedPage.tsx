@@ -95,8 +95,9 @@ function CoverArt({ palette, slug }: { palette: typeof COVER_PALETTES[0]; slug: 
 }
 
 export default function FeedPage() {
-  const { data: videos } = trpc.content.videos.useQuery();
-  const { data: posts } = trpc.content.blogPosts.useQuery();
+  const { data: videos, isLoading: videosLoading } = trpc.content.videos.useQuery();
+  const { data: posts, isLoading: postsLoading } = trpc.content.blogPosts.useQuery();
+  const isLoading = videosLoading || postsLoading;
   const [filter, setFilter] = useState<ContentType>("all");
   const [search, setSearch] = useState("");
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
@@ -353,8 +354,29 @@ export default function FeedPage() {
           })}
         </div>
 
+        {/* Loading skeleton — shown while tRPC fetches videos + posts */}
+        {isLoading && (
+          <div>
+            {/* Featured hero skeleton */}
+            <div className="relative rounded-3xl overflow-hidden mb-10 animate-pulse" style={{ background: "rgba(15,23,42,0.04)", height: 320 }} />
+            {/* Grid skeletons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="rounded-2xl overflow-hidden animate-pulse" style={{ background: "rgba(15,23,42,0.04)" }}>
+                  <div style={{ aspectRatio: "16 / 10" }} />
+                  <div className="p-4">
+                    <div className="h-3 w-2/3 bg-slate-200/60 rounded mb-2" />
+                    <div className="h-3 w-full bg-slate-200/60 rounded mb-1" />
+                    <div className="h-3 w-4/5 bg-slate-200/60 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Featured hero — most recent item */}
-        {featured && filter === "all" && (
+        {!isLoading && featured && filter === "all" && (
           <div
             className="relative rounded-3xl overflow-hidden mb-10 cursor-pointer group"
             onClick={() => {

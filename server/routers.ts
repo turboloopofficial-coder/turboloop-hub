@@ -14,6 +14,7 @@ import {
   getSetting, setSetting,
   addNewsletterSignup, listNewsletterSignups, newsletterSignupCount,
   createContentSubmission, listContentSubmissions, updateContentSubmissionStatus,
+  listPublicApprovedSubmissions,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -216,6 +217,9 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
     list: adminProcedure
       .input(z.object({ status: z.enum(["pending", "approved", "rejected"]).optional() }))
       .query(({ input }) => listContentSubmissions(input.status)),
+    /** Public read of approved submissions only — excludes PII (contact + admin notes).
+     *  Used by /community page's FeaturedSubmissions strip. */
+    publicApproved: publicProcedure.query(() => listPublicApprovedSubmissions(12)),
     moderate: adminProcedure
       .input(z.object({
         id: z.number(),

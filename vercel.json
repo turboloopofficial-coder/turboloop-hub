@@ -12,7 +12,7 @@
   "trailingSlash": false,
   "functions": {
     "api/trpc/[trpc].js": {
-      "maxDuration": 30,
+      "maxDuration": 60,
       "memory": 1024
     },
     "api/cron/publish-blog.js": {

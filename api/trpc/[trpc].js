@@ -99944,8 +99944,8 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
 Additional notes from the editor:
 ${input.notes}` : ""}`;
       const response = await client.messages.create({
-        model: "claude-opus-4-5",
-        max_tokens: 4096,
+        model: "claude-sonnet-4-5",
+        max_tokens: 3e3,
         system: systemPrompt,
         messages: [{ role: "user", content: userPrompt }]
       });

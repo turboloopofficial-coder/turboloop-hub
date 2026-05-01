@@ -158,9 +158,12 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
 
         const userPrompt = `Topic: ${input.topic}${input.notes ? `\n\nAdditional notes from the editor:\n${input.notes}` : ""}`;
 
+        // Sonnet 4.5: ~3x faster than Opus, near-identical quality for editorial drafting.
+        // Faster model + capped max_tokens keeps generation well under the 60s function
+        // timeout on Vercel Hobby (Opus would routinely exceed it).
         const response = await client.messages.create({
-          model: "claude-opus-4-5",
-          max_tokens: 4096,
+          model: "claude-sonnet-4-5",
+          max_tokens: 3000,
           system: systemPrompt,
           messages: [{ role: "user", content: userPrompt }],
         });

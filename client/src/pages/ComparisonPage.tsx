@@ -105,11 +105,11 @@ export default function ComparisonPage() {
           </div>
         </AnimatedSection>
 
-        {/* Comparison table */}
+        {/* Comparison table — stacked card layout on mobile, 3-col grid on desktop */}
         <AnimatedSection delay={0.1}>
           <div className="rounded-2xl overflow-hidden mb-8" style={{ border: "1px solid rgba(15,23,42,0.06)" }}>
-            {/* Header row */}
-            <div className="grid grid-cols-[140px_1fr_1fr] sm:grid-cols-[180px_1fr_1fr] bg-slate-50 px-3 sm:px-5 py-3 text-[10px] font-bold tracking-[0.18em] uppercase text-slate-500">
+            {/* Header row — desktop only (mobile uses per-card labels) */}
+            <div className="hidden md:grid grid-cols-[180px_1fr_1fr] bg-slate-50 px-5 py-3 text-[10px] font-bold tracking-[0.18em] uppercase text-slate-500">
               <div>Category</div>
               <div className="text-cyan-700">TurboLoop</div>
               <div>{comparison.competitor}</div>
@@ -118,20 +118,31 @@ export default function ComparisonPage() {
             {comparison.rows.map((row, i) => (
               <div
                 key={i}
-                className="grid grid-cols-[140px_1fr_1fr] sm:grid-cols-[180px_1fr_1fr] px-3 sm:px-5 py-4 text-sm gap-2 items-start"
+                className="px-4 md:px-5 py-4 md:py-4 md:grid md:grid-cols-[180px_1fr_1fr] md:gap-2 md:items-start space-y-3 md:space-y-0 text-sm"
                 style={{
                   background: i % 2 === 0 ? "white" : "rgba(248,250,252,0.5)",
                   borderTop: "1px solid rgba(15,23,42,0.05)",
                 }}
               >
-                <div className="font-bold text-slate-700 text-xs sm:text-sm">{row.category}</div>
-                <div className={`flex items-start gap-1.5 ${row.turboloopWins ? "font-semibold text-slate-900" : "text-slate-700"}`}>
-                  {row.turboloopWins && <Check className="w-3.5 h-3.5 mt-0.5 shrink-0 text-emerald-600" />}
-                  <span>{row.turboloop}</span>
+                {/* Category (desktop column 1, mobile section heading) */}
+                <div className="font-bold text-slate-900 text-sm md:text-sm md:font-bold md:text-slate-700">
+                  {row.category}
                 </div>
-                <div className={`flex items-start gap-1.5 ${!row.turboloopWins ? "font-semibold text-slate-900" : "text-slate-700"}`}>
-                  {!row.turboloopWins && <Check className="w-3.5 h-3.5 mt-0.5 shrink-0 text-emerald-600" />}
-                  <span>{row.competitor}</span>
+                {/* TurboLoop value */}
+                <div className="flex items-start gap-2">
+                  <span className="md:hidden inline-flex items-center gap-1 text-[10px] font-bold tracking-[0.15em] uppercase text-cyan-700 shrink-0 pt-0.5">
+                    TL {row.turboloopWins && <Check className="w-3 h-3 text-emerald-600" />}
+                  </span>
+                  {row.turboloopWins && <Check className="hidden md:block w-3.5 h-3.5 mt-0.5 shrink-0 text-emerald-600" />}
+                  <span className={row.turboloopWins ? "font-semibold text-slate-900" : "text-slate-700"}>{row.turboloop}</span>
+                </div>
+                {/* Competitor value */}
+                <div className="flex items-start gap-2">
+                  <span className="md:hidden inline-flex items-center gap-1 text-[10px] font-bold tracking-[0.15em] uppercase text-slate-500 shrink-0 pt-0.5">
+                    {comparison.competitor.slice(0, 4).toUpperCase()} {!row.turboloopWins && <Check className="w-3 h-3 text-emerald-600" />}
+                  </span>
+                  {!row.turboloopWins && <Check className="hidden md:block w-3.5 h-3.5 mt-0.5 shrink-0 text-emerald-600" />}
+                  <span className={!row.turboloopWins ? "font-semibold text-slate-900" : "text-slate-700"}>{row.competitor}</span>
                 </div>
               </div>
             ))}

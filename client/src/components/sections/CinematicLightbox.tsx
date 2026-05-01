@@ -7,7 +7,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Download, Loader2, Play, ArrowRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Download, Loader2, Play, ArrowRight, VolumeX } from "lucide-react";
 import { type Film, getNextFilm, getPrevFilm, SEASONS } from "@/lib/cinematicUniverse";
 import ShareButton from "@/components/ShareButton";
 
@@ -38,6 +38,8 @@ interface Props {
 export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loading, setLoading] = useState(true);
+  const [muted, setMuted] = useState(false);
+  const [showUnmuteHint, setShowUnmuteHint] = useState(false);
 
   const next = film ? getNextFilm(film.slug) : undefined;
   const prev = film ? getPrevFilm(film.slug) : undefined;
@@ -59,10 +61,41 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
     };
   }, [film, next, prev, onClose, onSelectFilm]);
 
-  // Reset loading state when film changes
+  // Reset + autoplay-with-mobile-fallback when film changes
   useEffect(() => {
-    if (film) setLoading(true);
+    if (!film) return;
+    setLoading(true);
+    setMuted(false);
+    setShowUnmuteHint(false);
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.currentTime = 0;
+    // Try unmuted autoplay first (works on desktop with sound).
+    // If browser blocks (always on mobile + most desktops without prior interaction),
+    // fall back to muted autoplay so video at least starts, then show "tap to unmute" hint.
+    v.play().catch(() => {
+      v.muted = true;
+      setMuted(true);
+      setShowUnmuteHint(true);
+      // Auto-hide the hint after 4 seconds
+      setTimeout(() => setShowUnmuteHint(false), 4000);
+      v.play().catch(() => { /* even muted autoplay failed — user has to tap native play */ });
+    });
   }, [film?.slug]);
+
+  // Sync muted state when user toggles via native controls or our unmute button
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) v.muted = muted;
+  }, [muted]);
+
+  const unmute = () => {
+    setMuted(false);
+    setShowUnmuteHint(false);
+    const v = videoRef.current;
+    if (v) v.muted = false;
+  };
 
   return (
     <AnimatePresence>
@@ -130,12 +163,12 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
             </button>
           )}
 
-          {/* Main content — video left, info right */}
-          <div className="flex-1 flex flex-col lg:flex-row items-stretch justify-center pt-20 md:pt-24 pb-6 md:pb-8 px-4 md:px-12 gap-6 md:gap-8 overflow-hidden">
-            {/* Video */}
+          {/* Main content — video left, info right (mobile: video on top, panel scrolls below) */}
+          <div className="flex-1 flex flex-col lg:flex-row items-stretch justify-center pt-20 md:pt-24 pb-6 md:pb-8 px-4 md:px-12 gap-6 md:gap-8 overflow-y-auto lg:overflow-hidden">
+            {/* Video — capped height on mobile so it doesn't get squeezed by the side panel */}
             <div
               onClick={(e) => e.stopPropagation()}
-              className="flex-1 flex items-center justify-center min-h-0"
+              className="flex items-center justify-center shrink-0 lg:flex-1 lg:min-h-0"
             >
               <motion.div
                 key={film.slug}
@@ -145,7 +178,9 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
                 className="relative w-full rounded-2xl overflow-hidden bg-black shadow-2xl"
                 style={{
                   aspectRatio: "16 / 9",
-                  maxHeight: "calc(100vh - 200px)",
+                  // Cap to viewport-aware height so the video never overflows on either axis.
+                  // On mobile (no side panel beside) leave more room for the writeup below.
+                  maxHeight: "min(calc(100svh - 200px), calc(100vw * 9 / 16))",
                   maxWidth: "min(1280px, 100%)",
                 }}
               >
@@ -154,12 +189,16 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
                   src={film.url}
                   poster={film.posterUrl}
                   controls
-                  autoPlay
                   playsInline
                   preload="auto"
                   onCanPlay={() => setLoading(false)}
                   onWaiting={() => setLoading(true)}
                   onPlaying={() => setLoading(false)}
+                  onVolumeChange={(e) => {
+                    // If user unmutes via native controls, sync our state
+                    const v = e.currentTarget;
+                    if (!v.muted && muted) { setMuted(false); setShowUnmuteHint(false); }
+                  }}
                   className="w-full h-full object-contain"
                 />
                 {loading && (
@@ -167,13 +206,31 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
                     <Loader2 className="w-12 h-12 text-white/80 animate-spin" />
                   </div>
                 )}
+                {/* "Tap to unmute" hint — appears when autoplay started muted (mobile) */}
+                {showUnmuteHint && muted && !loading && (
+                  <button
+                    onClick={unmute}
+                    className="absolute top-4 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition hover:scale-105 backdrop-blur-md"
+                    style={{
+                      background: "rgba(15,23,42,0.85)",
+                      color: "white",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+                      animation: "fadeInDown 0.4s ease-out",
+                    }}
+                    aria-label="Unmute video"
+                  >
+                    <VolumeX className="w-4 h-4" />
+                    Tap to unmute
+                  </button>
+                )}
               </motion.div>
             </div>
 
             {/* Side panel — info + actions + up-next */}
             <aside
               onClick={(e) => e.stopPropagation()}
-              className="w-full lg:w-[380px] xl:w-[420px] shrink-0 overflow-y-auto rounded-2xl p-5 md:p-6 text-white"
+              className="w-full lg:w-[380px] xl:w-[420px] shrink-0 lg:overflow-y-auto rounded-2xl p-5 md:p-6 text-white"
               style={{
                 background: "rgba(15,23,42,0.7)",
                 border: "1px solid rgba(255,255,255,0.08)",

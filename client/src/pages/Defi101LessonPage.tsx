@@ -88,15 +88,16 @@ export default function Defi101LessonPage() {
         {/* Markdown content */}
         <AnimatedSection delay={0.05}>
           <article
-            className="prose prose-slate prose-lg max-w-none mb-10
+            className="prose prose-slate prose-lg max-w-none mb-10 break-long
               prose-headings:font-bold prose-headings:text-slate-900 prose-headings:tracking-tight
               prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
               prose-h3:text-xl prose-h3:mt-7 prose-h3:mb-3
               prose-p:text-slate-700 prose-p:leading-[1.75]
               prose-strong:text-slate-900 prose-strong:font-bold
               prose-ul:my-4 prose-li:my-1.5
-              prose-code:px-1.5 prose-code:py-0.5 prose-code:bg-slate-100 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
-              prose-a:text-cyan-700 prose-a:font-semibold hover:prose-a:text-cyan-900"
+              prose-code:px-1.5 prose-code:py-0.5 prose-code:bg-slate-100 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none prose-code:break-all
+              prose-pre:overflow-x-auto prose-pre:max-w-full
+              prose-a:text-cyan-700 prose-a:font-semibold hover:prose-a:text-cyan-900 prose-a:break-all"
             style={{ fontFamily: "var(--font-heading), Georgia, serif" }}
           >
             <Streamdown>{lesson.content}</Streamdown>

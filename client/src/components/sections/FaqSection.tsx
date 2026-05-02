@@ -19,14 +19,30 @@ import {
   Coins,
 } from "lucide-react";
 
-type CategoryId = "all" | "platform" | "earning" | "security" | "getting-started" | "community";
+type CategoryId =
+  | "all"
+  | "platform"
+  | "earning"
+  | "security"
+  | "getting-started"
+  | "community";
 
-const CATEGORIES: { id: CategoryId; label: string; icon: any; color: string }[] = [
+const CATEGORIES: {
+  id: CategoryId;
+  label: string;
+  icon: any;
+  color: string;
+}[] = [
   { id: "all", label: "All Questions", icon: BookOpen, color: "#0F172A" },
   { id: "platform", label: "Platform", icon: Sparkles, color: "#0891B2" },
   { id: "earning", label: "Earning", icon: Coins, color: "#10B981" },
   { id: "security", label: "Security", icon: Lock, color: "#7C3AED" },
-  { id: "getting-started", label: "Getting Started", icon: Zap, color: "#F59E0B" },
+  {
+    id: "getting-started",
+    label: "Getting Started",
+    icon: Zap,
+    color: "#F59E0B",
+  },
   { id: "community", label: "Community", icon: Users, color: "#EC4899" },
 ];
 
@@ -123,7 +139,17 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
-function FaqCard({ item, isOpen, onToggle, index }: { item: FaqItem; isOpen: boolean; onToggle: () => void; index: number }) {
+function FaqCard({
+  item,
+  isOpen,
+  onToggle,
+  index,
+}: {
+  item: FaqItem;
+  isOpen: boolean;
+  onToggle: () => void;
+  index: number;
+}) {
   const Icon = item.icon;
   return (
     <AnimatedSection delay={Math.min(index * 0.04, 0.3)}>
@@ -166,11 +192,16 @@ function FaqCard({ item, isOpen, onToggle, index }: { item: FaqItem; isOpen: boo
               background: isOpen
                 ? `linear-gradient(135deg, ${item.iconColor}, ${item.iconColor}cc)`
                 : item.iconBg,
-              boxShadow: isOpen ? `0 8px 20px -6px ${item.iconColor}50` : "none",
+              boxShadow: isOpen
+                ? `0 8px 20px -6px ${item.iconColor}50`
+                : "none",
               transition: "background 0.3s, box-shadow 0.3s",
             }}
           >
-            <Icon className="w-5 h-5 md:w-5 md:h-5" style={{ color: isOpen ? "white" : item.iconColor }} />
+            <Icon
+              className="w-5 h-5 md:w-5 md:h-5"
+              style={{ color: isOpen ? "white" : item.iconColor }}
+            />
           </motion.div>
 
           <div className="flex-1 min-w-0">
@@ -188,11 +219,16 @@ function FaqCard({ item, isOpen, onToggle, index }: { item: FaqItem; isOpen: boo
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
             style={{
-              background: isOpen ? `${item.iconColor}15` : "rgba(15,23,42,0.04)",
+              background: isOpen
+                ? `${item.iconColor}15`
+                : "rgba(15,23,42,0.04)",
               border: `1px solid ${isOpen ? `${item.iconColor}30` : "rgba(15,23,42,0.08)"}`,
             }}
           >
-            <Plus className="w-4 h-4" style={{ color: isOpen ? item.iconColor : "#64748B" }} />
+            <Plus
+              className="w-4 h-4"
+              style={{ color: isOpen ? item.iconColor : "#64748B" }}
+            />
           </motion.div>
         </button>
 
@@ -236,12 +272,14 @@ export default function FaqSection() {
   const filteredItems = useMemo(() => {
     let items = FAQ_ITEMS;
     if (activeCategory !== "all") {
-      items = items.filter((i) => i.category === activeCategory);
+      items = items.filter(i => i.category === activeCategory);
     }
     if (search.trim()) {
       const q = search.toLowerCase().trim();
       items = items.filter(
-        (i) => i.question.toLowerCase().includes(q) || i.answer.toLowerCase().includes(q)
+        i =>
+          i.question.toLowerCase().includes(q) ||
+          i.answer.toLowerCase().includes(q)
       );
     }
     return items;
@@ -249,7 +287,7 @@ export default function FaqSection() {
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: FAQ_ITEMS.length };
-    FAQ_ITEMS.forEach((i) => {
+    FAQ_ITEMS.forEach(i => {
       counts[i.category] = (counts[i.category] || 0) + 1;
     });
     return counts;
@@ -262,14 +300,16 @@ export default function FaqSection() {
         <div
           className="absolute -top-40 -left-40 w-96 h-96 rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(8,145,178,0.08), transparent 70%)",
+            background:
+              "radial-gradient(circle, rgba(8,145,178,0.08), transparent 70%)",
             filter: "blur(60px)",
           }}
         />
         <div
           className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(124,58,237,0.06), transparent 70%)",
+            background:
+              "radial-gradient(circle, rgba(124,58,237,0.06), transparent 70%)",
             filter: "blur(60px)",
           }}
         />
@@ -290,7 +330,7 @@ export default function FaqSection() {
               <input
                 type="text"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={e => setSearch(e.target.value)}
                 placeholder="Search questions..."
                 className="w-full pl-14 pr-5 py-4 rounded-2xl text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300"
                 style={{
@@ -298,13 +338,15 @@ export default function FaqSection() {
                   border: "1px solid rgba(15,23,42,0.08)",
                   boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
                 }}
-                onFocus={(e) => {
+                onFocus={e => {
                   e.currentTarget.style.borderColor = "rgba(8,145,178,0.4)";
-                  e.currentTarget.style.boxShadow = "0 8px 24px -6px rgba(8,145,178,0.15)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 24px -6px rgba(8,145,178,0.15)";
                 }}
-                onBlur={(e) => {
+                onBlur={e => {
                   e.currentTarget.style.borderColor = "rgba(15,23,42,0.08)";
-                  e.currentTarget.style.boxShadow = "0 4px 14px -4px rgba(15,23,42,0.06)";
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 14px -4px rgba(15,23,42,0.06)";
                 }}
               />
             </div>
@@ -313,7 +355,7 @@ export default function FaqSection() {
           {/* Category Tabs */}
           <AnimatedSection delay={0.15}>
             <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {CATEGORIES.map((cat) => {
+              {CATEGORIES.map(cat => {
                 const Icon = cat.icon;
                 const isActive = activeCategory === cat.id;
                 const count = categoryCounts[cat.id] || 0;
@@ -321,7 +363,7 @@ export default function FaqSection() {
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300"
+                    className="flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 rounded-full text-[11px] md:text-sm font-semibold transition-all duration-300"
                     style={{
                       background: isActive ? cat.color : "white",
                       color: isActive ? "white" : "#64748B",
@@ -336,7 +378,9 @@ export default function FaqSection() {
                     <span
                       className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
                       style={{
-                        background: isActive ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.06)",
+                        background: isActive
+                          ? "rgba(255,255,255,0.25)"
+                          : "rgba(15,23,42,0.06)",
                       }}
                     >
                       {count}
@@ -362,7 +406,9 @@ export default function FaqSection() {
                   <FaqCard
                     item={item}
                     isOpen={openId === item.id}
-                    onToggle={() => setOpenId(openId === item.id ? null : item.id)}
+                    onToggle={() =>
+                      setOpenId(openId === item.id ? null : item.id)
+                    }
                     index={index}
                   />
                 </motion.div>
@@ -375,11 +421,16 @@ export default function FaqSection() {
               <div className="text-center py-16">
                 <div
                   className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style={{ background: "white", border: "1px solid rgba(15,23,42,0.06)" }}
+                  style={{
+                    background: "white",
+                    border: "1px solid rgba(15,23,42,0.06)",
+                  }}
                 >
                   <Search className="h-7 w-7 text-slate-400" />
                 </div>
-                <p className="text-slate-500 text-sm mb-1">No questions match your search.</p>
+                <p className="text-slate-500 text-sm mb-1">
+                  No questions match your search.
+                </p>
                 <button
                   onClick={() => {
                     setSearch("");
@@ -395,9 +446,11 @@ export default function FaqSection() {
 
           {/* CTA below FAQ */}
           <AnimatedSection delay={0.5}>
-            <div className="mt-14 relative rounded-3xl overflow-hidden p-8 md:p-10 text-center"
+            <div
+              className="mt-14 relative rounded-3xl overflow-hidden p-8 md:p-10 text-center"
               style={{
-                background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
+                background:
+                  "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
                 border: "1px solid rgba(255,255,255,0.06)",
                 boxShadow: "0 30px 60px -20px rgba(15,23,42,0.4)",
               }}
@@ -406,7 +459,8 @@ export default function FaqSection() {
               <div
                 className="absolute inset-0 pointer-events-none opacity-50"
                 style={{
-                  background: "radial-gradient(ellipse at top, rgba(8,145,178,0.25), transparent 60%)",
+                  background:
+                    "radial-gradient(ellipse at top, rgba(8,145,178,0.25), transparent 60%)",
                 }}
               />
               {/* Grid pattern */}
@@ -423,7 +477,8 @@ export default function FaqSection() {
                 <div
                   className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4"
                   style={{
-                    background: "linear-gradient(135deg, rgba(8,145,178,0.2), rgba(124,58,237,0.2))",
+                    background:
+                      "linear-gradient(135deg, rgba(8,145,178,0.2), rgba(124,58,237,0.2))",
                     border: "1px solid rgba(255,255,255,0.1)",
                   }}
                 >
@@ -433,7 +488,8 @@ export default function FaqSection() {
                   Still have questions?
                 </h3>
                 <p className="text-slate-400 text-sm md:text-base mb-6 max-w-md mx-auto">
-                  Our community is active 24/7. Get answers from real members and the team.
+                  Our community is active 24/7. Get answers from real members
+                  and the team.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <a
@@ -442,7 +498,8 @@ export default function FaqSection() {
                     rel="noopener noreferrer"
                     className="group inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 hover:scale-105"
                     style={{
-                      background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                      background:
+                        "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
                       color: "white",
                       boxShadow: "0 10px 30px -8px rgba(8,145,178,0.5)",
                     }}

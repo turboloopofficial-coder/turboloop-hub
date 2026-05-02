@@ -87,7 +87,7 @@ export default function NewsletterSignup({
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-4 py-2.5 rounded-xl text-sm font-bold transition disabled:opacity-50"
+                className="px-4 py-3 rounded-xl text-base font-bold transition disabled:opacity-50"
                 style={{
                   background: "linear-gradient(135deg, #0891B2, #7C3AED)",
                   color: "white",

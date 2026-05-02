@@ -13,7 +13,12 @@ import ScrollProgress from "@/components/ScrollProgress";
 import SEOHead from "@/components/SEOHead";
 import SharePagePill from "@/components/SharePagePill";
 
-type RelatedLink = { label: string; href: string; emoji: string; description?: string };
+type RelatedLink = {
+  label: string;
+  href: string;
+  emoji: string;
+  description?: string;
+};
 
 type Props = {
   /** Page title shown in <title> + breadcrumb */
@@ -46,9 +51,22 @@ type Props = {
   related?: RelatedLink[];
 };
 
-const DEFAULT_PALETTE: [string, string, string] = ["#0891B2", "#22D3EE", "#7C3AED"];
+const DEFAULT_PALETTE: [string, string, string] = [
+  "#0891B2",
+  "#22D3EE",
+  "#7C3AED",
+];
 
-export default function PageShell({ title, description, path, jsonLd, hero, breadcrumbLabel, children, related }: Props) {
+export default function PageShell({
+  title,
+  description,
+  path,
+  jsonLd,
+  hero,
+  breadcrumbLabel,
+  children,
+  related,
+}: Props) {
   const palette = hero.palette || DEFAULT_PALETTE;
   return (
     <div className="min-h-screen relative" style={{ background: "#F7F8FC" }}>
@@ -66,9 +84,16 @@ export default function PageShell({ title, description, path, jsonLd, hero, brea
       <main className="relative z-10">
         {/* Breadcrumb + Share */}
         <div className="container pt-24 md:pt-28">
-          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400">
-              <Link href="/"><span className="hover:text-slate-700 cursor-pointer">Home</span></Link>
+          <div className="flex flex-col items-start gap-2 mb-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-1.5 text-xs text-slate-400"
+            >
+              <Link href="/">
+                <span className="hover:text-slate-700 cursor-pointer">
+                  Home
+                </span>
+              </Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-slate-600">{breadcrumbLabel || title}</span>
             </nav>
@@ -97,7 +122,12 @@ export default function PageShell({ title, description, path, jsonLd, hero, brea
             {hero.emoji && (
               <div
                 className="absolute -right-4 -bottom-12 select-none pointer-events-none"
-                style={{ fontSize: "16rem", lineHeight: 1, opacity: 0.85, filter: "drop-shadow(0 8px 30px rgba(0,0,0,0.2))" }}
+                style={{
+                  fontSize: "16rem",
+                  lineHeight: 1,
+                  opacity: 0.85,
+                  filter: "drop-shadow(0 8px 30px rgba(0,0,0,0.2))",
+                }}
               >
                 {hero.emoji}
               </div>
@@ -109,7 +139,10 @@ export default function PageShell({ title, description, path, jsonLd, hero, brea
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4 backdrop-blur-sm"
                 style={{ background: "rgba(255,255,255,0.95)" }}
               >
-                <span className="text-[10px] font-bold tracking-[0.25em] uppercase" style={{ color: palette[0] }}>
+                <span
+                  className="text-[10px] font-bold tracking-[0.25em] uppercase"
+                  style={{ color: palette[0] }}
+                >
                   {hero.label}
                 </span>
               </div>
@@ -135,13 +168,18 @@ export default function PageShell({ title, description, path, jsonLd, hero, brea
         {related && related.length > 0 && (
           <section className="container py-16 md:py-20">
             <div className="text-center mb-10">
-              <span className="text-xs font-bold tracking-[0.25em] uppercase text-slate-500">Keep exploring</span>
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mt-2" style={{ fontFamily: "var(--font-heading)" }}>
+              <span className="text-xs font-bold tracking-[0.25em] uppercase text-slate-500">
+                Keep exploring
+              </span>
+              <h2
+                className="text-2xl md:text-3xl font-bold text-slate-900 mt-2"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
                 Where to next?
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-              {related.map((r) => (
+              {related.map(r => (
                 <Link key={r.href} href={r.href}>
                   <div
                     className="group cursor-pointer p-6 rounded-2xl transition-all hover:-translate-y-1"
@@ -150,22 +188,30 @@ export default function PageShell({ title, description, path, jsonLd, hero, brea
                       border: "1px solid rgba(15,23,42,0.06)",
                       boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = "0 16px 30px -10px rgba(8,145,178,0.2)";
-                      e.currentTarget.style.borderColor = "rgba(8,145,178,0.25)";
+                    onMouseEnter={e => {
+                      e.currentTarget.style.boxShadow =
+                        "0 16px 30px -10px rgba(8,145,178,0.2)";
+                      e.currentTarget.style.borderColor =
+                        "rgba(8,145,178,0.25)";
                     }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = "0 4px 14px -4px rgba(15,23,42,0.06)";
+                    onMouseLeave={e => {
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 14px -4px rgba(15,23,42,0.06)";
                       e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
                     }}
                   >
                     <div className="text-3xl mb-3">{r.emoji}</div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-cyan-700 transition-colors">{r.label}</h3>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-cyan-700 transition-colors">
+                      {r.label}
+                    </h3>
                     {r.description && (
-                      <p className="text-sm text-slate-500 leading-relaxed mb-3">{r.description}</p>
+                      <p className="text-sm text-slate-500 leading-relaxed mb-3">
+                        {r.description}
+                      </p>
                     )}
                     <div className="inline-flex items-center gap-1 text-sm font-bold text-cyan-700">
-                      Open <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      Open{" "}
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </Link>

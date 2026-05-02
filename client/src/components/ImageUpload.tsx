@@ -11,7 +11,11 @@ interface ImageUploadProps {
   label?: string;
 }
 
-export default function ImageUpload({ value, onChange, label = "Image" }: ImageUploadProps) {
+export default function ImageUpload({
+  value,
+  onChange,
+  label = "Image",
+}: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const uploadImage = trpc.manage.uploadImage.useMutation();
@@ -68,7 +72,7 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
   return (
     <div className="space-y-2">
       <label className="text-slate-500 text-xs font-medium">{label}</label>
-      
+
       {/* Preview */}
       {value && (
         <div className="relative inline-block">
@@ -103,15 +107,19 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
           className="bg-cyan-600/10 text-cyan-700 border border-cyan-600/20 hover:bg-cyan-600/20"
         >
           {uploading ? (
-            <><Loader2 className="h-3 w-3 animate-spin mr-1" /> Uploading...</>
+            <>
+              <Loader2 className="h-3 w-3 animate-spin mr-1" /> Uploading...
+            </>
           ) : (
-            <><Upload className="h-3 w-3 mr-1" /> Upload Image</>
+            <>
+              <Upload className="h-3 w-3 mr-1" /> Upload Image
+            </>
           )}
         </Button>
         <span className="text-slate-400 text-xs">or</span>
         <Input
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           placeholder="Paste image URL..."
           className="bg-white/80 border-slate-200 text-slate-800 text-sm flex-1"
         />
@@ -120,10 +128,12 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
       {!value && (
         <div
           onClick={() => fileRef.current?.click()}
-          className="border-2 border-dashed border-slate-200 rounded-lg p-6 text-center cursor-pointer hover:border-cyan-500/30 transition-colors"
+          className="border-2 border-dashed border-slate-200 rounded-lg p-4 md:p-6 text-center cursor-pointer hover:border-cyan-500/30 transition-colors"
         >
           <ImageIcon className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-          <p className="text-xs text-slate-400">Click to upload or drag & drop</p>
+          <p className="text-xs text-slate-400">
+            Click to upload or drag & drop
+          </p>
           <p className="text-xs text-slate-400 mt-1">PNG, JPG, GIF up to 5MB</p>
         </div>
       )}

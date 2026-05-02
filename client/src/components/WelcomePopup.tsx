@@ -48,7 +48,10 @@ export default function WelcomePopup() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[100]"
-            style={{ background: "rgba(0,0,0,0.2)", backdropFilter: "blur(4px)" }}
+            style={{
+              background: "rgba(0,0,0,0.2)",
+              backdropFilter: "blur(4px)",
+            }}
             onClick={handleClose}
           />
 
@@ -58,7 +61,7 @@ export default function WelcomePopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[101] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[101] flex items-center justify-center px-5 py-6"
           >
             <div
               className="relative w-full max-w-lg rounded-2xl overflow-hidden"
@@ -66,14 +69,16 @@ export default function WelcomePopup() {
                 background: "rgba(255,255,255,0.85)",
                 backdropFilter: "blur(24px)",
                 border: "1px solid rgba(0,0,0,0.06)",
-                boxShadow: "0 25px 80px rgba(0,0,0,0.12), 0 8px 32px rgba(8,145,178,0.08)",
+                boxShadow:
+                  "0 25px 80px rgba(0,0,0,0.12), 0 8px 32px rgba(8,145,178,0.08)",
               }}
             >
               {/* Top accent gradient */}
               <div
                 className="h-1.5"
                 style={{
-                  background: "linear-gradient(90deg, #0891B2, #7C3AED, #0891B2)",
+                  background:
+                    "linear-gradient(90deg, #0891B2, #7C3AED, #0891B2)",
                 }}
               />
 
@@ -92,14 +97,16 @@ export default function WelcomePopup() {
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center"
                     style={{
-                      background: "linear-gradient(135deg, rgba(8,145,178,0.1), rgba(124,58,237,0.1))",
+                      background:
+                        "linear-gradient(135deg, rgba(8,145,178,0.1), rgba(124,58,237,0.1))",
                       border: "1px solid rgba(8,145,178,0.15)",
                     }}
                   >
                     <Sparkles className="h-6 w-6 text-cyan-600" />
                   </div>
                   <div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase"
+                    <span
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase"
                       style={{
                         background: "rgba(8,145,178,0.08)",
                         color: "#0891B2",
@@ -112,15 +119,21 @@ export default function WelcomePopup() {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold text-slate-800 mb-4" style={{ fontFamily: "var(--font-heading)" }}>
+                <h2
+                  className="text-2xl font-bold text-slate-800 mb-4"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
                   {title}
                 </h2>
 
                 {/* Message */}
                 <div className="text-sm text-slate-500 leading-relaxed space-y-3 mb-6 max-h-[40vh] overflow-y-auto pr-2">
-                  {message.split("\n").filter(Boolean).map((paragraph: string, i: number) => (
-                    <p key={i}>{paragraph}</p>
-                  ))}
+                  {message
+                    .split("\n")
+                    .filter(Boolean)
+                    .map((paragraph: string, i: number) => (
+                      <p key={i}>{paragraph}</p>
+                    ))}
                 </div>
 
                 {/* Actions */}

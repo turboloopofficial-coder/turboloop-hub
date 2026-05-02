@@ -1,5 +1,16 @@
 import { SITE } from "@/lib/constants";
-import { ExternalLink, ArrowUpRight, Send, MessageCircle, Twitter, Youtube, Shield, Zap, Globe, Mail } from "lucide-react";
+import {
+  ExternalLink,
+  ArrowUpRight,
+  Send,
+  MessageCircle,
+  Twitter,
+  Youtube,
+  Shield,
+  Zap,
+  Globe,
+  Mail,
+} from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
@@ -60,11 +71,17 @@ export default function Footer() {
 
         <div className="relative container py-16 md:py-20">
           {/* Newsletter signup — sits above the CTA banner so it's the first thing in the footer */}
-          <div className="mb-12 pb-12 max-w-2xl mx-auto text-center"
+          <div
+            className="mb-12 pb-12 max-w-2xl mx-auto text-center"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase mb-4"
-              style={{ background: "rgba(34,211,238,0.12)", border: "1px solid rgba(34,211,238,0.25)", color: "#67E8F9" }}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase mb-4"
+              style={{
+                background: "rgba(34,211,238,0.12)",
+                border: "1px solid rgba(34,211,238,0.25)",
+                color: "#67E8F9",
+              }}
             >
               <Mail className="w-3 h-3" />
               Newsletter
@@ -73,7 +90,8 @@ export default function Footer() {
               Stay in the loop.
             </h3>
             <p className="text-slate-400 text-sm md:text-base mb-5 max-w-md mx-auto">
-              One update per week — new films, blog posts, and what's happening in the community. No hype, no spam.
+              One update per week — new films, blog posts, and what's happening
+              in the community. No hype, no spam.
             </p>
             <div className="max-w-md mx-auto">
               <NewsletterSignup source="footer" variant="inline" />
@@ -81,7 +99,8 @@ export default function Footer() {
           </div>
 
           {/* Top CTA banner */}
-          <div className="mb-14 flex flex-col md:flex-row items-center justify-between gap-6 pb-12"
+          <div
+            className="mb-14 flex flex-col md:flex-row items-center justify-between gap-6 pb-12"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
           >
             <div className="text-center md:text-left">
@@ -132,7 +151,7 @@ export default function Footer() {
           </div>
 
           {/* Main columns */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
             {/* Brand */}
             <div className="md:col-span-4">
               <div className="flex items-center gap-3 mb-4">
@@ -170,7 +189,7 @@ export default function Footer() {
                   { icon: Shield, label: "Audited" },
                   { icon: Zap, label: "Renounced" },
                   { icon: Globe, label: "On-Chain" },
-                ].map((b) => (
+                ].map(b => (
                   <div
                     key={b.label}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase"
@@ -209,27 +228,26 @@ export default function Footer() {
                     icon: Youtube,
                     label: "YouTube",
                   },
-                ].map((s) => (
+                ].map(s => (
                   <a
                     key={s.label}
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+                    className="w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                     style={{
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.08)",
                       color: "#94A3B8",
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={e => {
                       e.currentTarget.style.background =
                         "linear-gradient(135deg, rgba(8,145,178,0.2), rgba(124,58,237,0.2))";
-                      e.currentTarget.style.borderColor =
-                        "rgba(8,145,178,0.4)";
+                      e.currentTarget.style.borderColor = "rgba(8,145,178,0.4)";
                       e.currentTarget.style.color = "#67E8F9";
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={e => {
                       e.currentTarget.style.background =
                         "rgba(255,255,255,0.04)";
                       e.currentTarget.style.borderColor =
@@ -254,7 +272,7 @@ export default function Footer() {
                   { href: "#leaderboard", label: "Global Growth" },
                   { href: "#flywheel", label: "Revenue Model" },
                   { href: "#promotions", label: "Promotions" },
-                ].map((link) => (
+                ].map(link => (
                   <li key={link.href}>
                     <a
                       href={link.href}
@@ -281,7 +299,7 @@ export default function Footer() {
                   { href: "#roadmap", label: "Roadmap" },
                   { href: "#trust", label: "Security & Audit" },
                   { href: "#faq", label: "FAQ" },
-                ].map((link) => (
+                ].map(link => (
                   <li key={link.href}>
                     <a
                       href={link.href}
@@ -356,11 +374,22 @@ export default function Footer() {
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
               <p className="text-xs text-slate-500">
-                &copy; {new Date().getFullYear()} Turbo Loop. All rights reserved.
+                &copy; {new Date().getFullYear()} Turbo Loop. All rights
+                reserved.
                 <span className="mx-2 text-slate-600">·</span>
-                <a href="/privacy" className="text-slate-400 hover:text-cyan-400 transition-colors">Privacy</a>
+                <a
+                  href="/privacy"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  Privacy
+                </a>
                 <span className="mx-2 text-slate-600">·</span>
-                <a href="/terms" className="text-slate-400 hover:text-cyan-400 transition-colors">Terms</a>
+                <a
+                  href="/terms"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  Terms
+                </a>
               </p>
               <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
                 <p className="text-xs text-slate-500">

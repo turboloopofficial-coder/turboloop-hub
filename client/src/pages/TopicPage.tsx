@@ -5,7 +5,14 @@
 import { useMemo } from "react";
 import { Link, useRoute } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ExternalLink, Calendar, Clock, ChevronRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  Calendar,
+  Clock,
+  ChevronRight,
+} from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { SITE } from "@/lib/constants";
 import {
@@ -20,83 +27,168 @@ import ReadingProgress from "@/components/ReadingProgress";
 import BackToTop from "@/components/BackToTop";
 
 // Topic slug → display config (must match the tags in lib/blogVisuals.ts)
-const TOPIC_INFO: Record<string, { label: string; emoji: string; description: string; palette: BlogPalette; intro: string }> = {
+const TOPIC_INFO: Record<
+  string,
+  {
+    label: string;
+    emoji: string;
+    description: string;
+    palette: BlogPalette;
+    intro: string;
+  }
+> = {
   security: {
     label: "Security",
     emoji: "🛡",
-    description: "Audits, renounced ownership, locked liquidity, and the bug bounty — the technical foundations that make Turbo Loop trustless.",
-    palette: { from: "#0891B2", via: "#22D3EE", to: "#7C3AED", soft: "#CFFAFE" },
-    intro: "Security in DeFi isn't a feature — it's the foundation. Every article here covers a technical pillar that you can verify yourself on BscScan.",
+    description:
+      "Audits, renounced ownership, locked liquidity, and the bug bounty — the technical foundations that make Turbo Loop trustless.",
+    palette: {
+      from: "#0891B2",
+      via: "#22D3EE",
+      to: "#7C3AED",
+      soft: "#CFFAFE",
+    },
+    intro:
+      "Security in DeFi isn't a feature — it's the foundation. Every article here covers a technical pillar that you can verify yourself on BscScan.",
   },
   strategy: {
     label: "Strategy",
     emoji: "📈",
-    description: "Compounding, yield mechanics, APY/APR math, and the strategies behind sustainable returns.",
-    palette: { from: "#10B981", via: "#34D399", to: "#0891B2", soft: "#A7F3D0" },
-    intro: "Math wins in DeFi. These strategy articles cover the mechanics behind sustainable yield, compounding cadence, and how to optimize your position over time.",
+    description:
+      "Compounding, yield mechanics, APY/APR math, and the strategies behind sustainable returns.",
+    palette: {
+      from: "#10B981",
+      via: "#34D399",
+      to: "#0891B2",
+      soft: "#A7F3D0",
+    },
+    intro:
+      "Math wins in DeFi. These strategy articles cover the mechanics behind sustainable yield, compounding cadence, and how to optimize your position over time.",
   },
   community: {
     label: "Community",
     emoji: "🌐",
-    description: "Referrals, leadership ranks, Telegram groups, daily Zooms, and the global Turbo Loop community.",
-    palette: { from: "#7C3AED", via: "#A78BFA", to: "#EC4899", soft: "#DDD6FE" },
-    intro: "DeFi without community is just code. These articles cover how the Turbo Loop community is built — from local meetups to global leadership programs.",
+    description:
+      "Referrals, leadership ranks, Telegram groups, daily Zooms, and the global Turbo Loop community.",
+    palette: {
+      from: "#7C3AED",
+      via: "#A78BFA",
+      to: "#EC4899",
+      soft: "#DDD6FE",
+    },
+    intro:
+      "DeFi without community is just code. These articles cover how the Turbo Loop community is built — from local meetups to global leadership programs.",
   },
   roadmap: {
     label: "Roadmap",
     emoji: "🚀",
-    description: "Where Turbo Loop is, where it's going, and what's been shipped so far.",
-    palette: { from: "#EC4899", via: "#F472B6", to: "#7C3AED", soft: "#FCE7F3" },
-    intro: "Six phases done, three to go. These articles track the project's progress and what's coming next.",
+    description:
+      "Where Turbo Loop is, where it's going, and what's been shipped so far.",
+    palette: {
+      from: "#EC4899",
+      via: "#F472B6",
+      to: "#7C3AED",
+      soft: "#FCE7F3",
+    },
+    intro:
+      "Six phases done, three to go. These articles track the project's progress and what's coming next.",
   },
   guide: {
     label: "Guides",
     emoji: "📘",
-    description: "Step-by-step guides for getting started, avoiding mistakes, and using Turbo Loop confidently.",
-    palette: { from: "#0EA5E9", via: "#0891B2", to: "#10B981", soft: "#E0F2FE" },
-    intro: "Practical, hands-on guides for everyone from first-day users to power compounders.",
+    description:
+      "Step-by-step guides for getting started, avoiding mistakes, and using Turbo Loop confidently.",
+    palette: {
+      from: "#0EA5E9",
+      via: "#0891B2",
+      to: "#10B981",
+      soft: "#E0F2FE",
+    },
+    intro:
+      "Practical, hands-on guides for everyone from first-day users to power compounders.",
   },
   product: {
     label: "Product",
     emoji: "💱",
-    description: "Deep dives on Turbo Swap, Turbo Buy, MoonPay integration, and the rest of the product surface.",
-    palette: { from: "#D97706", via: "#FBBF24", to: "#EC4899", soft: "#FED7AA" },
-    intro: "The product behind the protocol. How each piece works, why it exists, and how it ties together.",
+    description:
+      "Deep dives on Turbo Swap, Turbo Buy, MoonPay integration, and the rest of the product surface.",
+    palette: {
+      from: "#D97706",
+      via: "#FBBF24",
+      to: "#EC4899",
+      soft: "#FED7AA",
+    },
+    intro:
+      "The product behind the protocol. How each piece works, why it exists, and how it ties together.",
   },
   protocol: {
     label: "Protocol",
     emoji: "⚙",
-    description: "The Revenue Flywheel, the ecosystem, and the protocol-level mechanics that power Turbo Loop.",
-    palette: { from: "#0891B2", via: "#10B981", to: "#F59E0B", soft: "#CFFAFE" },
-    intro: "The protocol is the system. These articles cover how revenue flows, why it's sustainable, and how the pieces feed each other.",
+    description:
+      "The Revenue Flywheel, the ecosystem, and the protocol-level mechanics that power Turbo Loop.",
+    palette: {
+      from: "#0891B2",
+      via: "#10B981",
+      to: "#F59E0B",
+      soft: "#CFFAFE",
+    },
+    intro:
+      "The protocol is the system. These articles cover how revenue flows, why it's sustainable, and how the pieces feed each other.",
   },
   tech: {
     label: "Technology",
     emoji: "⛓",
-    description: "BSC vs Ethereum, blockchain transparency, on-chain mechanics, and the tech stack underneath.",
-    palette: { from: "#0F172A", via: "#475569", to: "#7C3AED", soft: "#E0E7FF" },
-    intro: "Tech-focused articles for users who want to understand what's actually running underneath.",
+    description:
+      "BSC vs Ethereum, blockchain transparency, on-chain mechanics, and the tech stack underneath.",
+    palette: {
+      from: "#0F172A",
+      via: "#475569",
+      to: "#7C3AED",
+      soft: "#E0E7FF",
+    },
+    intro:
+      "Tech-focused articles for users who want to understand what's actually running underneath.",
   },
   promo: {
     label: "Promotions",
     emoji: "🎁",
     description: "Active programs, bonuses, and community rewards.",
-    palette: { from: "#F59E0B", via: "#EC4899", to: "#7C3AED", soft: "#FED7AA" },
-    intro: "Live programs and limited-time opportunities for community members.",
+    palette: {
+      from: "#F59E0B",
+      via: "#EC4899",
+      to: "#7C3AED",
+      soft: "#FED7AA",
+    },
+    intro:
+      "Live programs and limited-time opportunities for community members.",
   },
   concepts: {
     label: "Concepts",
     emoji: "🧮",
-    description: "Concepts every DeFi user should know — explained clearly, with the Turbo Loop angle.",
-    palette: { from: "#7C3AED", via: "#EC4899", to: "#0891B2", soft: "#DDD6FE" },
-    intro: "Foundational concepts you need before going deep on any DeFi protocol.",
+    description:
+      "Concepts every DeFi user should know — explained clearly, with the Turbo Loop angle.",
+    palette: {
+      from: "#7C3AED",
+      via: "#EC4899",
+      to: "#0891B2",
+      soft: "#DDD6FE",
+    },
+    intro:
+      "Foundational concepts you need before going deep on any DeFi protocol.",
   },
   philosophy: {
     label: "Philosophy",
     emoji: "💎",
-    description: "The 'why' behind Turbo Loop's design choices — including why there's no native token.",
-    palette: { from: "#1E40AF", via: "#0891B2", to: "#22D3EE", soft: "#DBEAFE" },
-    intro: "Why we built it this way. The philosophy and design choices behind the protocol.",
+    description:
+      "The 'why' behind Turbo Loop's design choices — including why there's no native token.",
+    palette: {
+      from: "#1E40AF",
+      via: "#0891B2",
+      to: "#22D3EE",
+      soft: "#DBEAFE",
+    },
+    intro:
+      "Why we built it this way. The philosophy and design choices behind the protocol.",
   },
 };
 
@@ -112,17 +204,25 @@ export default function TopicPage() {
   const filtered = useMemo(() => {
     if (!posts) return [];
     return posts
-      .filter((p) => topicForSlug(p.slug).tag.toLowerCase() === info?.label.toLowerCase())
+      .filter(
+        p =>
+          topicForSlug(p.slug).tag.toLowerCase() === info?.label.toLowerCase()
+      )
       .sort((a, b) => publishDate(b).getTime() - publishDate(a).getTime());
   }, [posts, info]);
 
   if (!info) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#F7F8FC" }}>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#F7F8FC" }}
+      >
         <div className="text-center">
           <p className="text-slate-500 text-lg">Topic not found.</p>
           <Link href="/feed">
-            <button className="mt-4 text-cyan-600 hover:text-cyan-700 text-sm font-medium">← All articles</button>
+            <button className="mt-4 text-cyan-600 hover:text-cyan-700 text-sm font-medium">
+              ← All articles
+            </button>
           </Link>
         </div>
       </div>
@@ -155,9 +255,24 @@ export default function TopicPage() {
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://turboloop.tech" },
-          { "@type": "ListItem", position: 2, name: "Blog", item: "https://turboloop.tech/feed" },
-          { "@type": "ListItem", position: 3, name: info.label, item: `https://turboloop.tech/topic/${tagSlug}` },
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://turboloop.tech",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: "https://turboloop.tech/feed",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: info.label,
+            item: `https://turboloop.tech/topic/${tagSlug}`,
+          },
         ],
       },
     ],
@@ -166,7 +281,10 @@ export default function TopicPage() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)",
+      }}
     >
       <SEOHead
         title={`${info.label} — Turbo Loop Blog`}
@@ -204,7 +322,8 @@ export default function TopicPage() {
                   <span className="text-slate-800">Turbo</span>
                   <span
                     style={{
-                      background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                      background:
+                        "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
@@ -228,10 +347,17 @@ export default function TopicPage() {
 
       <div className="container max-w-5xl py-10">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400 mb-6">
-          <Link href="/"><span className="hover:text-slate-600 cursor-pointer">Home</span></Link>
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1.5 text-xs text-slate-400 mb-6"
+        >
+          <Link href="/">
+            <span className="hover:text-slate-600 cursor-pointer">Home</span>
+          </Link>
           <ChevronRight className="h-3 w-3" />
-          <Link href="/feed"><span className="hover:text-slate-600 cursor-pointer">Blog</span></Link>
+          <Link href="/feed">
+            <span className="hover:text-slate-600 cursor-pointer">Blog</span>
+          </Link>
           <ChevronRight className="h-3 w-3" />
           <span className="text-slate-500">{info.label}</span>
         </nav>
@@ -267,18 +393,28 @@ export default function TopicPage() {
               backgroundSize: "32px 32px",
             }}
           />
-          <div className="absolute -right-2 -bottom-12 select-none pointer-events-none" style={{ fontSize: "20rem", lineHeight: 1, opacity: 0.85 }}>
+          <div
+            className="absolute -right-2 -bottom-12 select-none pointer-events-none"
+            style={{ fontSize: "20rem", lineHeight: 1, opacity: 0.85 }}
+          >
             {info.emoji}
           </div>
 
           <div className="relative px-6 md:px-12 py-16 md:py-24 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.95)" }}>
-              <span className="text-[10px] font-bold tracking-[0.25em] uppercase" style={{ color: info.palette.from }}>
-                Topic · {filtered.length} {filtered.length === 1 ? "article" : "articles"}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4 backdrop-blur-sm"
+              style={{ background: "rgba(255,255,255,0.95)" }}
+            >
+              <span
+                className="text-[10px] font-bold tracking-[0.25em] uppercase"
+                style={{ color: info.palette.from }}
+              >
+                Topic · {filtered.length}{" "}
+                {filtered.length === 1 ? "article" : "articles"}
               </span>
             </div>
             <h1
-              className="text-4xl md:text-6xl font-bold text-white leading-[1.05] mb-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.05] mb-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               {info.label}
@@ -291,7 +427,7 @@ export default function TopicPage() {
 
         {/* Topic nav pills (link to other topics) */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {TOPIC_SLUGS.map((s) => {
+          {TOPIC_SLUGS.map(s => {
             const t = TOPIC_INFO[s];
             const isActive = s === tagSlug;
             return (
@@ -302,7 +438,9 @@ export default function TopicPage() {
                     background: isActive ? t.palette.from : "white",
                     color: isActive ? "white" : "#64748B",
                     border: `1px solid ${isActive ? t.palette.from : "rgba(15,23,42,0.08)"}`,
-                    boxShadow: isActive ? `0 6px 16px -4px ${t.palette.from}50` : "0 2px 6px -2px rgba(15,23,42,0.04)",
+                    boxShadow: isActive
+                      ? `0 6px 16px -4px ${t.palette.from}50`
+                      : "0 2px 6px -2px rgba(15,23,42,0.04)",
                   }}
                 >
                   <span>{t.emoji}</span>
@@ -316,17 +454,23 @@ export default function TopicPage() {
         {/* Posts grid */}
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-72 rounded-2xl animate-pulse" style={{ background: "rgba(0,0,0,0.04)" }} />
+            {[1, 2, 3].map(i => (
+              <div
+                key={i}
+                className="h-72 rounded-2xl animate-pulse"
+                style={{ background: "rgba(0,0,0,0.04)" }}
+              />
             ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-slate-400">No articles in this topic yet — check back soon.</p>
+            <p className="text-slate-400">
+              No articles in this topic yet — check back soon.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filtered.map((post) => {
+            {filtered.map(post => {
               const palette = paletteForSlug(post.slug);
               const topic = topicForSlug(post.slug);
               return (
@@ -339,13 +483,14 @@ export default function TopicPage() {
                       border: "1px solid rgba(15,23,42,0.06)",
                       boxShadow: "0 6px 20px -6px rgba(15,23,42,0.06)",
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={e => {
                       e.currentTarget.style.borderColor = `${palette.from}25`;
                       e.currentTarget.style.boxShadow = `0 16px 40px -10px ${palette.from}30`;
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={e => {
                       e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
-                      e.currentTarget.style.boxShadow = "0 6px 20px -6px rgba(15,23,42,0.06)";
+                      e.currentTarget.style.boxShadow =
+                        "0 6px 20px -6px rgba(15,23,42,0.06)";
                     }}
                   >
                     <div
@@ -354,22 +499,41 @@ export default function TopicPage() {
                         background: `linear-gradient(135deg, ${palette.from}, ${palette.via}, ${palette.to})`,
                       }}
                     >
-                      <span style={{ fontSize: "5.5rem", filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.25))" }}>
+                      <span
+                        style={{
+                          fontSize: "5.5rem",
+                          filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.25))",
+                        }}
+                      >
                         {topic.emoji}
                       </span>
                     </div>
                     <div className="p-6">
                       <div className="flex items-center gap-3 text-xs text-slate-400 mb-3">
-                        <span className="inline-flex items-center gap-1"><Calendar className="w-3 h-3" />{publishDate(post).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-                        <span className="inline-flex items-center gap-1"><Clock className="w-3 h-3" />{readingTime(post.content)} min</span>
+                        <span className="inline-flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {publishDate(post).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {readingTime(post.content)} min
+                        </span>
                       </div>
                       <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight line-clamp-2 transition-colors group-hover:text-cyan-700">
                         {post.title}
                       </h3>
                       {post.excerpt && (
-                        <p className="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-4">{post.excerpt}</p>
+                        <p className="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-4">
+                          {post.excerpt}
+                        </p>
                       )}
-                      <div className="inline-flex items-center gap-1.5 text-sm font-bold" style={{ color: palette.from }}>
+                      <div
+                        className="inline-flex items-center gap-1.5 text-sm font-bold"
+                        style={{ color: palette.from }}
+                      >
                         Read article
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </div>

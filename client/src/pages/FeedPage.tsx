@@ -3,7 +3,20 @@ import { SITE } from "@/lib/constants";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowLeft, Play, FileText, Image as ImageIcon, Filter, X, ExternalLink, Calendar, Clock, ArrowRight, Sparkles, Search } from "lucide-react";
+import {
+  ArrowLeft,
+  Play,
+  FileText,
+  Image as ImageIcon,
+  Filter,
+  X,
+  ExternalLink,
+  Calendar,
+  Clock,
+  ArrowRight,
+  Sparkles,
+  Search,
+} from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
 import { topicForSlug } from "@/lib/blogVisuals";
@@ -11,7 +24,11 @@ import CinematicEmbed from "@/components/sections/CinematicEmbed";
 
 type ContentType = "all" | "video" | "article" | "update";
 
-const CONTENT_TYPES: { value: ContentType; label: string; icon: typeof Play }[] = [
+const CONTENT_TYPES: {
+  value: ContentType;
+  label: string;
+  icon: typeof Play;
+}[] = [
   { value: "all", label: "All Content", icon: Filter },
   { value: "video", label: "Videos", icon: Play },
   { value: "article", label: "Articles", icon: FileText },
@@ -50,7 +67,13 @@ function readingTime(content: string | undefined | null): number {
 }
 
 /** Gradient cover art (when no real cover image is available) — used for articles and as fallback */
-function CoverArt({ palette, slug }: { palette: typeof COVER_PALETTES[0]; slug: string }) {
+function CoverArt({
+  palette,
+  slug,
+}: {
+  palette: (typeof COVER_PALETTES)[0];
+  slug: string;
+}) {
   const topic = topicForSlug(slug || "");
   return (
     <div
@@ -95,8 +118,10 @@ function CoverArt({ palette, slug }: { palette: typeof COVER_PALETTES[0]; slug: 
 }
 
 export default function FeedPage() {
-  const { data: videos, isLoading: videosLoading } = trpc.content.videos.useQuery();
-  const { data: posts, isLoading: postsLoading } = trpc.content.blogPosts.useQuery();
+  const { data: videos, isLoading: videosLoading } =
+    trpc.content.videos.useQuery();
+  const { data: posts, isLoading: postsLoading } =
+    trpc.content.blogPosts.useQuery();
   const isLoading = videosLoading || postsLoading;
   const [filter, setFilter] = useState<ContentType>("all");
   const [search, setSearch] = useState("");
@@ -111,7 +136,7 @@ export default function FeedPage() {
     const items: any[] = [];
 
     if (videos) {
-      videos.forEach((v) => {
+      videos.forEach(v => {
         const ytId = getYouTubeId(v.youtubeUrl);
         items.push({
           type: "video" as const,
@@ -129,7 +154,7 @@ export default function FeedPage() {
     }
 
     if (posts) {
-      posts.forEach((p) => {
+      posts.forEach(p => {
         items.push({
           type: "article" as const,
           id: `p-${p.id}`,
@@ -145,18 +170,23 @@ export default function FeedPage() {
       });
     }
 
-    items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    items.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
 
-    let filtered = filter === "all" ? items : items.filter((i) => i.type === filter);
+    let filtered =
+      filter === "all" ? items : items.filter(i => i.type === filter);
 
     if (search.trim()) {
       const q = search.toLowerCase().trim();
-      filtered = filtered.filter((i) =>
-        (i.title || "").toLowerCase().includes(q) ||
-        (i.excerpt || "").toLowerCase().includes(q) ||
-        (i.content || "").toLowerCase().includes(q) ||
-        (i.category || "").toLowerCase().includes(q) ||
-        (i.language || "").toLowerCase().includes(q)
+      filtered = filtered.filter(
+        i =>
+          (i.title || "").toLowerCase().includes(q) ||
+          (i.excerpt || "").toLowerCase().includes(q) ||
+          (i.content || "").toLowerCase().includes(q) ||
+          (i.category || "").toLowerCase().includes(q) ||
+          (i.language || "").toLowerCase().includes(q)
       );
     }
 
@@ -240,7 +270,7 @@ export default function FeedPage() {
             </span>
           </div>
           <h1
-            className="text-4xl md:text-5xl font-bold tracking-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             <span className="text-slate-800">Everything in </span>
@@ -276,7 +306,7 @@ export default function FeedPage() {
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               placeholder="Search articles, videos, topics..."
               className="w-full pl-14 pr-12 py-4 rounded-2xl text-base text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300"
               style={{
@@ -284,13 +314,15 @@ export default function FeedPage() {
                 border: "1px solid rgba(15,23,42,0.08)",
                 boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
               }}
-              onFocus={(e) => {
+              onFocus={e => {
                 e.currentTarget.style.borderColor = "rgba(8,145,178,0.4)";
-                e.currentTarget.style.boxShadow = "0 8px 24px -6px rgba(8,145,178,0.18)";
+                e.currentTarget.style.boxShadow =
+                  "0 8px 24px -6px rgba(8,145,178,0.18)";
               }}
-              onBlur={(e) => {
+              onBlur={e => {
                 e.currentTarget.style.borderColor = "rgba(15,23,42,0.08)";
-                e.currentTarget.style.boxShadow = "0 4px 14px -4px rgba(15,23,42,0.06)";
+                e.currentTarget.style.boxShadow =
+                  "0 4px 14px -4px rgba(15,23,42,0.06)";
               }}
             />
             {search && (
@@ -305,20 +337,21 @@ export default function FeedPage() {
           </div>
           {search && (
             <div className="text-center mt-3 text-xs text-slate-500">
-              {feedItems.length} {feedItems.length === 1 ? "result" : "results"} for <span className="font-mono text-cyan-700">"{search}"</span>
+              {feedItems.length} {feedItems.length === 1 ? "result" : "results"}{" "}
+              for <span className="font-mono text-cyan-700">"{search}"</span>
             </div>
           )}
         </div>
 
         {/* Filter pills */}
         <div className="flex items-center justify-center gap-2 mb-10 overflow-x-auto pb-2">
-          {CONTENT_TYPES.map((ct) => {
+          {CONTENT_TYPES.map(ct => {
             const Icon = ct.icon;
             const isActive = filter === ct.value;
             const count =
               ct.value === "all"
                 ? feedItems.length
-                : feedItems.filter((i) => i.type === ct.value).length;
+                : feedItems.filter(i => i.type === ct.value).length;
             return (
               <button
                 key={ct.value}
@@ -358,11 +391,18 @@ export default function FeedPage() {
         {isLoading && (
           <div>
             {/* Featured hero skeleton */}
-            <div className="relative rounded-3xl overflow-hidden mb-10 animate-pulse" style={{ background: "rgba(15,23,42,0.04)", height: 320 }} />
+            <div
+              className="relative rounded-3xl overflow-hidden mb-10 animate-pulse"
+              style={{ background: "rgba(15,23,42,0.04)", height: 320 }}
+            />
             {/* Grid skeletons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {[0, 1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="rounded-2xl overflow-hidden animate-pulse" style={{ background: "rgba(15,23,42,0.04)" }}>
+              {[0, 1, 2, 3, 4, 5].map(i => (
+                <div
+                  key={i}
+                  className="rounded-2xl overflow-hidden animate-pulse"
+                  style={{ background: "rgba(15,23,42,0.04)" }}
+                >
                   <div style={{ aspectRatio: "16 / 10" }} />
                   <div className="p-4">
                     <div className="h-3 w-2/3 bg-slate-200/60 rounded mb-2" />
@@ -437,16 +477,13 @@ export default function FeedPage() {
                   <span
                     className="text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full"
                     style={{
-                      background:
-                        "linear-gradient(135deg, #10B981, #059669)",
+                      background: "linear-gradient(135deg, #10B981, #059669)",
                       color: "white",
                     }}
                   >
                     ✨ Latest
                   </span>
-                  <span
-                    className="text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full bg-slate-100 text-slate-600"
-                  >
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
                     {featured.type === "video"
                       ? featured.category || "Video"
                       : "Article"}
@@ -499,7 +536,7 @@ export default function FeedPage() {
 
         {/* Feed Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {(filter === "all" ? rest : feedItems).map((item) => {
+          {(filter === "all" ? rest : feedItems).map(item => {
             const palette = paletteForKey(item.id);
             return (
               <motion.div
@@ -511,11 +548,11 @@ export default function FeedPage() {
                   border: "1px solid rgba(15,23,42,0.06)",
                   boxShadow: "0 6px 20px -6px rgba(15,23,42,0.06)",
                 }}
-                onMouseEnter={(e) => {
+                onMouseEnter={e => {
                   e.currentTarget.style.borderColor = `${palette.from}30`;
                   e.currentTarget.style.boxShadow = `0 25px 50px -12px ${palette.from}25, 0 8px 20px -4px rgba(15,23,42,0.06)`;
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={e => {
                   e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
                   e.currentTarget.style.boxShadow =
                     "0 6px 20px -6px rgba(15,23,42,0.06)";
@@ -624,11 +661,16 @@ export default function FeedPage() {
               <Search className="h-7 w-7 text-slate-400" />
             </div>
             <p className="text-slate-500 mb-1">
-              {search ? `No matches for "${search}".` : "No content found for this filter."}
+              {search
+                ? `No matches for "${search}".`
+                : "No content found for this filter."}
             </p>
             {(search || filter !== "all") && (
               <button
-                onClick={() => { setSearch(""); setFilter("all"); }}
+                onClick={() => {
+                  setSearch("");
+                  setFilter("all");
+                }}
                 className="mt-3 text-cyan-600 hover:text-cyan-800 text-sm font-semibold"
               >
                 Clear filters
@@ -642,12 +684,15 @@ export default function FeedPage() {
       {selectedVideo && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-          style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)" }}
+          style={{
+            background: "rgba(0,0,0,0.85)",
+            backdropFilter: "blur(8px)",
+          }}
           onClick={() => setSelectedVideo(null)}
         >
           <div
             className="relative w-full max-w-4xl"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedVideo(null)}
@@ -676,7 +721,9 @@ export default function FeedPage() {
             </div>
             <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
               <div>
-                <h3 className="text-lg font-bold text-white">{selectedVideo.title}</h3>
+                <h3 className="text-lg font-bold text-white">
+                  {selectedVideo.title}
+                </h3>
                 {selectedVideo.language && (
                   <p className="text-sm text-gray-400 mt-1">
                     {selectedVideo.language} · {selectedVideo.category}

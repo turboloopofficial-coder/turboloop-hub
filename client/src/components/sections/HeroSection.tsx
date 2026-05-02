@@ -1,6 +1,13 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink, ChevronDown, ShieldCheck, Lock, CheckCircle2, Globe2 } from "lucide-react";
+import {
+  ExternalLink,
+  ChevronDown,
+  ShieldCheck,
+  Lock,
+  CheckCircle2,
+  Globe2,
+} from "lucide-react";
 import { SITE } from "@/lib/constants";
 import ParticleCanvas from "@/components/ParticleCanvas";
 
@@ -22,7 +29,14 @@ function useCountUp(target: number, duration = 1500, start = 0) {
   return value;
 }
 
-function MagneticButton({ children, href, onClick, className, style, primary = false }: any) {
+function MagneticButton({
+  children,
+  href,
+  onClick,
+  className,
+  style,
+  primary = false,
+}: any) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -91,7 +105,12 @@ export default function HeroSection() {
           scale: [1, 1.12, 1],
           rotate: [0, -20, 0],
         }}
-        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
         className="absolute top-[10%] right-[5%] pointer-events-none"
         style={{
           width: "600px",
@@ -103,7 +122,12 @@ export default function HeroSection() {
       />
       <motion.div
         animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
         className="absolute bottom-[8%] left-[8%] pointer-events-none"
         style={{
           width: "550px",
@@ -123,7 +147,8 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-7"
           style={{
-            background: "linear-gradient(135deg, rgba(8,145,178,0.08), rgba(124,58,237,0.08))",
+            background:
+              "linear-gradient(135deg, rgba(8,145,178,0.08), rgba(124,58,237,0.08))",
             border: "1px solid rgba(8,145,178,0.15)",
             backdropFilter: "blur(10px)",
           }}
@@ -152,7 +177,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-bold leading-[0.88] mb-7"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[9rem] font-bold leading-[0.88] mb-7"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           <span className="text-slate-800">Turbo</span>
@@ -182,7 +207,10 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.65 }}
           className="text-lg md:text-2xl text-slate-600 max-w-2xl mx-auto mb-9 leading-relaxed font-light"
         >
-          Sustainable yield. <span className="font-normal text-slate-700">Transparent by design.</span>{" "}
+          Sustainable yield.{" "}
+          <span className="font-normal text-slate-700">
+            Transparent by design.
+          </span>{" "}
           <span className="font-normal text-slate-700">Open to everyone.</span>
         </motion.p>
 
@@ -199,13 +227,19 @@ export default function HeroSection() {
             style={{
               background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
               color: "#ffffff",
-              boxShadow: "0 10px 40px -8px rgba(8,145,178,0.5), 0 4px 18px -4px rgba(124,58,237,0.3)",
+              boxShadow:
+                "0 10px 40px -8px rgba(8,145,178,0.5), 0 4px 18px -4px rgba(124,58,237,0.3)",
             }}
           >
-            Launch App <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            Launch App{" "}
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </MagneticButton>
           <MagneticButton
-            onClick={() => document.querySelector("#reels")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() =>
+              document
+                .querySelector("#reels")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
             className="inline-flex items-center gap-2 px-9 py-4 rounded-xl font-semibold text-base text-slate-700 transition-all duration-300 hover:text-slate-900"
             style={{
               border: "1px solid rgba(0,0,0,0.1)",
@@ -241,9 +275,22 @@ export default function HeroSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-3xl mx-auto"
         >
           <StatCard value={langCount.toString()} suffix="" label="Languages" />
-          <StatCard value={videoCount.toString()} suffix="+" label="Videos & Reels" />
-          <StatCard value={continentCount.toString()} suffix="" label="Continents" />
-          <StatCard value={`$${challengeAmount}`} suffix="K" label="Bug Bounty" highlight />
+          <StatCard
+            value={videoCount.toString()}
+            suffix="+"
+            label="Videos & Reels"
+          />
+          <StatCard
+            value={continentCount.toString()}
+            suffix=""
+            label="Continents"
+          />
+          <StatCard
+            value={`$${challengeAmount}`}
+            suffix="K"
+            label="Bug Bounty"
+            highlight
+          />
         </motion.div>
       </div>
 
@@ -254,7 +301,9 @@ export default function HeroSection() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[10px] text-slate-400 tracking-[0.3em] uppercase">Explore</span>
+        <span className="text-[10px] text-slate-400 tracking-[0.3em] uppercase">
+          Explore
+        </span>
         <ChevronDown className="w-4 h-4 text-cyan-600/50 animate-scroll-hint" />
       </motion.div>
     </section>
@@ -270,7 +319,17 @@ function TrustBadge({ icon: Icon, label }: { icon: any; label: string }) {
   );
 }
 
-function StatCard({ value, suffix, label, highlight }: { value: string; suffix: string; label: string; highlight?: boolean }) {
+function StatCard({
+  value,
+  suffix,
+  label,
+  highlight,
+}: {
+  value: string;
+  suffix: string;
+  label: string;
+  highlight?: boolean;
+}) {
   return (
     <div
       className="group relative p-4 md:p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
@@ -278,7 +337,9 @@ function StatCard({ value, suffix, label, highlight }: { value: string; suffix: 
         background: highlight
           ? "linear-gradient(135deg, rgba(251,191,36,0.12), rgba(249,115,22,0.08))"
           : "rgba(255,255,255,0.7)",
-        border: highlight ? "1px solid rgba(251,191,36,0.3)" : "1px solid rgba(0,0,0,0.06)",
+        border: highlight
+          ? "1px solid rgba(251,191,36,0.3)"
+          : "1px solid rgba(0,0,0,0.06)",
         backdropFilter: "blur(12px)",
         boxShadow: "0 4px 20px -4px rgba(0,0,0,0.05)",
       }}

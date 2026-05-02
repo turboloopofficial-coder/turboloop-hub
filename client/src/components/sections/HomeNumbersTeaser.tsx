@@ -7,7 +7,17 @@ import { Link } from "wouter";
 import { ArrowRight, Globe2, Users, Languages, Trophy } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
-function CountUp({ target, suffix = "", duration = 1.4, prefix = "" }: { target: number; suffix?: string; duration?: number; prefix?: string }) {
+function CountUp({
+  target,
+  suffix = "",
+  duration = 1.4,
+  prefix = "",
+}: {
+  target: number;
+  suffix?: string;
+  duration?: number;
+  prefix?: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [v, setV] = useState(0);
@@ -24,14 +34,39 @@ function CountUp({ target, suffix = "", duration = 1.4, prefix = "" }: { target:
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
   }, [inView, target, duration]);
-  return <span ref={ref} className="tabular-nums">{prefix}{v}{suffix}</span>;
+  return (
+    <span ref={ref} className="tabular-nums">
+      {prefix}
+      {v}
+      {suffix}
+    </span>
+  );
 }
 
 const STATS = [
-  { icon: Languages, label: "Languages", target: 48, suffix: "", color: "#0891B2" },
-  { icon: Globe2,    label: "Countries",  target: 21, suffix: "+", color: "#7C3AED" },
-  { icon: Users,     label: "Continents", target: 6,  suffix: "",  color: "#EC4899" },
-  { icon: Trophy,    label: "Bug Bounty", target: 100, suffix: "K", prefix: "$", color: "#F59E0B" },
+  {
+    icon: Languages,
+    label: "Languages",
+    target: 48,
+    suffix: "",
+    color: "#0891B2",
+  },
+  {
+    icon: Globe2,
+    label: "Countries",
+    target: 21,
+    suffix: "+",
+    color: "#7C3AED",
+  },
+  { icon: Users, label: "Continents", target: 6, suffix: "", color: "#EC4899" },
+  {
+    icon: Trophy,
+    label: "Bug Bounty",
+    target: 100,
+    suffix: "K",
+    prefix: "$",
+    color: "#F59E0B",
+  },
 ];
 
 export default function HomeNumbersTeaser() {
@@ -40,8 +75,13 @@ export default function HomeNumbersTeaser() {
       <div className="container">
         <AnimatedSection>
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-cyan-700/80">By the Numbers</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mt-3 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+            <span className="text-xs font-bold tracking-[0.25em] uppercase text-cyan-700/80">
+              By the Numbers
+            </span>
+            <h2
+              className="text-3xl md:text-5xl font-bold text-slate-900 mt-3 leading-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               A truly global movement.
             </h2>
             <p className="text-base md:text-lg text-slate-500 mt-4 leading-relaxed">
@@ -67,7 +107,10 @@ export default function HomeNumbersTeaser() {
                 >
                   <div
                     className="absolute -top-12 -right-12 w-32 h-32 rounded-full pointer-events-none"
-                    style={{ background: `radial-gradient(circle, ${s.color}15, transparent 70%)`, filter: "blur(24px)" }}
+                    style={{
+                      background: `radial-gradient(circle, ${s.color}15, transparent 70%)`,
+                      filter: "blur(24px)",
+                    }}
                   />
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
@@ -78,8 +121,15 @@ export default function HomeNumbersTeaser() {
                   >
                     <Icon className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-3xl md:text-4xl font-bold text-slate-900 leading-none" style={{ fontFamily: "var(--font-heading)" }}>
-                    <CountUp target={s.target} suffix={s.suffix} prefix={s.prefix} />
+                  <div
+                    className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 leading-none"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    <CountUp
+                      target={s.target}
+                      suffix={s.suffix}
+                      prefix={s.prefix}
+                    />
                   </div>
                   <div className="text-xs font-bold tracking-[0.18em] uppercase text-slate-500 mt-2">
                     {s.label}

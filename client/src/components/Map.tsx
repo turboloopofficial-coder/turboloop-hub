@@ -150,6 +150,9 @@ export function MapView({
   }, [init]);
 
   return (
-    <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />
+    <div
+      ref={mapContainer}
+      className={cn("w-full h-80 md:h-[500px]", className)}
+    />
   );
 }

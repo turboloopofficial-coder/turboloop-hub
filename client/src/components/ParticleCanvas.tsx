@@ -18,9 +18,18 @@ export default function ParticleCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Respect prefers-reduced-motion — leave the canvas blank, no animation.
+    const reducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
+
+    // On phones the O(n²) connection loop can drop frames — halve the count.
+    const isSmallViewport = window.innerWidth < 768;
+
     let animId: number;
     let particles: Particle[] = [];
-    const count = 80;
+    const count = isSmallViewport ? 35 : 80;
     const maxDist = 120;
 
     const resize = () => {

@@ -7,8 +7,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Download, Loader2, Play, ArrowRight, VolumeX } from "lucide-react";
-import { type Film, getNextFilm, getPrevFilm, SEASONS } from "@/lib/cinematicUniverse";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Loader2,
+  Play,
+  ArrowRight,
+  VolumeX,
+} from "lucide-react";
+import {
+  type Film,
+  getNextFilm,
+  getPrevFilm,
+  SEASONS,
+} from "@/lib/cinematicUniverse";
 import ShareButton from "@/components/ShareButton";
 
 async function downloadFilm(videoUrl: string, title: string) {
@@ -18,7 +32,10 @@ async function downloadFilm(videoUrl: string, title: string) {
     const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = blobUrl;
-    const safeName = title.replace(/[^\w\s-]/g, "").replace(/\s+/g, "_").slice(0, 80);
+    const safeName = title
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "_")
+      .slice(0, 80);
     a.download = `TurboLoop_${safeName}.mp4`;
     document.body.appendChild(a);
     a.click();
@@ -35,7 +52,11 @@ interface Props {
   onSelectFilm: (film: Film) => void;
 }
 
-export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props) {
+export default function CinematicLightbox({
+  film,
+  onClose,
+  onSelectFilm,
+}: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loading, setLoading] = useState(true);
   const [muted, setMuted] = useState(false);
@@ -80,7 +101,9 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
       setShowUnmuteHint(true);
       // Auto-hide the hint after 4 seconds
       setTimeout(() => setShowUnmuteHint(false), 4000);
-      v.play().catch(() => { /* even muted autoplay failed — user has to tap native play */ });
+      v.play().catch(() => {
+        /* even muted autoplay failed — user has to tap native play */
+      });
     });
   }, [film?.slug]);
 
@@ -109,10 +132,11 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
           onClick={onClose}
         >
           {/* Top bar */}
-          <div
-            className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 md:p-6 pointer-events-none"
-          >
-            <div className="flex items-center gap-3 pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 md:p-6 pointer-events-none">
+            <div
+              className="flex items-center gap-3 pointer-events-auto"
+              onClick={e => e.stopPropagation()}
+            >
               <div
                 className="px-3 py-1.5 rounded-full text-[11px] font-bold tracking-[0.18em] uppercase backdrop-blur-md flex items-center gap-2"
                 style={{
@@ -122,7 +146,9 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
                 }}
               >
                 <span>{season.emoji}</span>
-                <span>S{film.season} · E{film.episode}</span>
+                <span>
+                  S{film.season} · E{film.episode}
+                </span>
               </div>
               <span className="hidden md:block text-white/85 text-sm font-semibold tracking-wide max-w-md truncate">
                 {film.title}
@@ -130,12 +156,15 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
             </div>
 
             <button
-              onClick={(e) => { e.stopPropagation(); onClose(); }}
+              onClick={e => {
+                e.stopPropagation();
+                onClose();
+              }}
               className="pointer-events-auto group flex items-center gap-2 pl-3 pr-5 py-3 rounded-full bg-white hover:bg-red-50 shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-200 hover:scale-105"
               aria-label="Close (Esc)"
             >
-              <span className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:from-red-600 group-hover:to-red-700 transition">
-                <X className="w-4 h-4 text-white" strokeWidth={3} />
+              <span className="w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:from-red-600 group-hover:to-red-700 transition">
+                <X className="w-5 h-5 text-white" strokeWidth={3} />
               </span>
               <span className="text-slate-800 text-sm font-bold">Close</span>
             </button>
@@ -144,7 +173,10 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
           {/* Side nav arrows */}
           {prev && (
             <button
-              onClick={(e) => { e.stopPropagation(); onSelectFilm(prev); }}
+              onClick={e => {
+                e.stopPropagation();
+                onSelectFilm(prev);
+              }}
               className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 flex items-center justify-center transition z-20"
               aria-label={`Previous: ${prev.title}`}
               title={`← ${prev.title}`}
@@ -154,7 +186,10 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
           )}
           {next && (
             <button
-              onClick={(e) => { e.stopPropagation(); onSelectFilm(next); }}
+              onClick={e => {
+                e.stopPropagation();
+                onSelectFilm(next);
+              }}
               className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 flex items-center justify-center transition z-20"
               aria-label={`Next: ${next.title}`}
               title={`${next.title} →`}
@@ -167,7 +202,7 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
           <div className="flex-1 flex flex-col lg:flex-row items-stretch justify-center pt-20 md:pt-24 pb-6 md:pb-8 px-4 md:px-12 gap-6 md:gap-8 overflow-y-auto lg:overflow-hidden">
             {/* Video — capped height on mobile so it doesn't get squeezed by the side panel */}
             <div
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
               className="flex items-center justify-center shrink-0 lg:flex-1 lg:min-h-0"
             >
               <motion.div
@@ -194,10 +229,13 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
                   onCanPlay={() => setLoading(false)}
                   onWaiting={() => setLoading(true)}
                   onPlaying={() => setLoading(false)}
-                  onVolumeChange={(e) => {
+                  onVolumeChange={e => {
                     // If user unmutes via native controls, sync our state
                     const v = e.currentTarget;
-                    if (!v.muted && muted) { setMuted(false); setShowUnmuteHint(false); }
+                    if (!v.muted && muted) {
+                      setMuted(false);
+                      setShowUnmuteHint(false);
+                    }
                   }}
                   className="w-full h-full object-contain"
                 />
@@ -229,7 +267,7 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
 
             {/* Side panel — info + actions + up-next */}
             <aside
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
               className="w-full lg:w-[380px] xl:w-[420px] shrink-0 lg:overflow-y-auto rounded-2xl p-5 md:p-6 text-white"
               style={{
                 background: "rgba(15,23,42,0.7)",
@@ -243,16 +281,24 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
               >
                 {season.emoji} {season.name}
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold leading-tight mb-2" style={{ fontFamily: "var(--font-heading)" }}>
+              <h2
+                className="text-2xl md:text-3xl font-bold leading-tight mb-2"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
                 {film.title}
               </h2>
-              <div className="text-base md:text-lg font-semibold mb-3 opacity-95" style={{ color: season.accent }}>
+              <div
+                className="text-base md:text-lg font-semibold mb-3 opacity-95"
+                style={{ color: season.accent }}
+              >
                 {film.headline}
               </div>
               <div className="text-sm font-medium opacity-80 italic mb-4 leading-relaxed">
                 {film.tagline}
               </div>
-              <p className="text-sm leading-relaxed opacity-90 mb-6">{film.description}</p>
+              <p className="text-sm leading-relaxed opacity-90 mb-6">
+                {film.description}
+              </p>
 
               {/* Action row */}
               <div className="flex flex-wrap gap-2 mb-5">
@@ -300,7 +346,9 @@ export default function CinematicLightbox({ film, onClose, onSelectFilm }: Props
                       <div className="text-sm font-bold leading-tight line-clamp-2 group-hover:text-cyan-300 transition">
                         {next.title}
                       </div>
-                      <div className="text-xs opacity-60 mt-1 line-clamp-1">{next.tagline}</div>
+                      <div className="text-xs opacity-60 mt-1 line-clamp-1">
+                        {next.tagline}
+                      </div>
                     </div>
                     <ArrowRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition" />
                   </div>

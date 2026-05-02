@@ -47,7 +47,11 @@ export default function SharePagePill({ path, title }: Props) {
   const nativeShare = async () => {
     if (typeof navigator !== "undefined" && (navigator as any).share) {
       try {
-        await (navigator as any).share({ title, url: fullUrl, text: shareText });
+        await (navigator as any).share({
+          title,
+          url: fullUrl,
+          text: shareText,
+        });
         return true;
       } catch {
         // User cancelled or unsupported — fall through to expanded menu
@@ -74,9 +78,9 @@ export default function SharePagePill({ path, title }: Props) {
         onClick={async () => {
           // Try native share on mobile first
           const used = await nativeShare();
-          if (!used) setOpen((o) => !o);
+          if (!used) setOpen(o => !o);
         }}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all"
+        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-bold transition-all"
         style={{
           background: "rgba(255,255,255,0.95)",
           color: "#0F172A",
@@ -85,7 +89,15 @@ export default function SharePagePill({ path, title }: Props) {
         }}
         aria-label="Share this page"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+        >
           <circle cx="18" cy="5" r="3" />
           <circle cx="6" cy="12" r="3" />
           <circle cx="18" cy="19" r="3" />
@@ -106,7 +118,9 @@ export default function SharePagePill({ path, title }: Props) {
           }}
         >
           <button
-            onClick={() => { copy(); }}
+            onClick={() => {
+              copy();
+            }}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 transition text-left"
           >
             {copied ? (
@@ -115,8 +129,12 @@ export default function SharePagePill({ path, title }: Props) {
               <Link2 className="w-4 h-4 text-slate-500 shrink-0" />
             )}
             <div className="min-w-0 flex-1">
-              <div className="text-sm font-bold text-slate-900">{copied ? "Copied!" : "Copy link"}</div>
-              <div className="text-[11px] text-slate-500 truncate">{fullUrl.replace(/^https:\/\//, "")}</div>
+              <div className="text-sm font-bold text-slate-900">
+                {copied ? "Copied!" : "Copy link"}
+              </div>
+              <div className="text-[11px] text-slate-500 truncate">
+                {fullUrl.replace(/^https:\/\//, "")}
+              </div>
             </div>
           </button>
           <a
@@ -127,7 +145,9 @@ export default function SharePagePill({ path, title }: Props) {
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 transition"
           >
             <Send className="w-4 h-4 shrink-0" style={{ color: "#0088cc" }} />
-            <div className="text-sm font-bold text-slate-900">Share on Telegram</div>
+            <div className="text-sm font-bold text-slate-900">
+              Share on Telegram
+            </div>
           </a>
           <a
             href={xHref}

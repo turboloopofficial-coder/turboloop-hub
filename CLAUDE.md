@@ -16,15 +16,15 @@ The site is restructured into a narrative homepage + ~25 dedicated topic pages (
 
 ## Stack
 
-| Layer | Tech |
-|-------|------|
-| UI | React 19, Vite 7, Tailwind CSS 4, wouter (router), framer-motion, Radix UI primitives, lucide-react, cmdk (Cmd+K search) |
-| API | tRPC v11 (router in `server/routers.ts`), zod validation, JWT cookie auth (jose) |
-| Data | Postgres on Neon (serverless), Drizzle ORM (`drizzle/schema.ts`), bcryptjs for admin password |
-| Storage | Cloudflare R2 via `@aws-sdk/client-s3` (image/PDF uploads) |
-| AI | `@anthropic-ai/sdk` — Sonnet 4.5 for blog drafting (admin-only) |
-| Infra | Vercel (static + serverless functions + native cron); external cron-job.org pinger every 5 min for the master scheduler |
-| Tests | Vitest, server-side only (`server/**/*.test.ts`) |
+| Layer   | Tech                                                                                                                     |
+| ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| UI      | React 19, Vite 7, Tailwind CSS 4, wouter (router), framer-motion, Radix UI primitives, lucide-react, cmdk (Cmd+K search) |
+| API     | tRPC v11 (router in `server/routers.ts`), zod validation, JWT cookie auth (jose)                                         |
+| Data    | Postgres on Neon (serverless), Drizzle ORM (`drizzle/schema.ts`), bcryptjs for admin password                            |
+| Storage | Cloudflare R2 via `@aws-sdk/client-s3` (image/PDF uploads)                                                               |
+| AI      | `@anthropic-ai/sdk` — Sonnet 4.5 for blog drafting (admin-only)                                                          |
+| Infra   | Vercel (static + serverless functions + native cron); external cron-job.org pinger every 5 min for the master scheduler  |
+| Tests   | Vitest, server-side only (`server/**/*.test.ts`)                                                                         |
 
 Path aliases: `@/*` → `client/src/*`, `@shared/*` → `shared/*`, `@assets/*` → `attached_assets/*`.
 
@@ -115,9 +115,10 @@ The same TypeScript backend runs two ways:
    - `server/_vercel/trpc-handler.ts` → `api/trpc/[trpc].js`
    - `server/_vercel/cron-master.ts` → `api/cron/master.js`
    - …etc for og, sitemap, rss, og-zoom, cron-publish-blog
-   These bundled `.js` files are **committed to git** (see `.gitignore` line 121) and deployed to Vercel as-is. Each `api/*` subdir has a `package.json` with `{"type":"commonjs"}` so Node loads them as CJS.
+     These bundled `.js` files are **committed to git** (see `.gitignore` line 121) and deployed to Vercel as-is. Each `api/*` subdir has a `package.json` with `{"type":"commonjs"}` so Node loads them as CJS.
 
 **Implications**:
+
 - Editing `server/routers.ts` → works in dev immediately, but for prod you must run `npm run build:api` and commit the regenerated `api/trpc/[trpc].js`.
 - Same for any change in `server/_vercel/*` or any of its imports (db.ts, storage.ts, drizzle/schema.ts).
 - The `vercel.json` `functions` block sets per-route memory + maxDuration. tRPC handler is 60s/1024MB.
@@ -160,7 +161,8 @@ If a tRPC call returns `UNAUTHORIZED` while on `/admin/*`, `main.tsx` auto-redir
 
 ## Environment variables
 
-Required (server/_core/env.ts + routers.ts):
+Required (server/\_core/env.ts + routers.ts):
+
 - `DATABASE_URL` — Neon Postgres connection string
 - `JWT_SECRET` — admin token signing key
 - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — single admin login
@@ -179,6 +181,46 @@ Set in Vercel project settings for prod; in `.env` locally (gitignored).
 - **Editing anything in `server/_vercel/` or its imports**: remember to `npm run build:api` and commit the regenerated `api/*.js`.
 - **Vite chunk splitting**: heavy libs (mermaid, shiki, react-syntax-highlighter, radix, framer-motion, lucide, trpc, markdown stack) are manually chunked in `vite.config.ts` so the homepage stays light. Adding a new heavy dep that's only used on one page? Consider adding a chunk rule.
 - **No README.md**: per repo state. Don't create one unless asked. This file is the entry point.
+
+## Deployment Protocol — direct push to main
+
+This repo runs in **fully-autonomous mode**: Claude pushes directly to `main`, no PR required. Vercel auto-deploys on push (~90s). To compensate for skipping PR review, **every push must run the full pre-push verification protocol below**. This is non-negotiable — never push broken code.
+
+### Pre-push verification (run in this order)
+
+1. `npm run check` — TypeScript must pass clean (zero errors).
+2. `npm run build` — Vite production build must succeed.
+3. **If any file in `server/_vercel/*` or its imports (`server/db.ts`, `server/storage.ts`, `drizzle/schema.ts`, `server/routers.ts`) was changed**: run `npm run build:api` and stage the regenerated `api/*.js` files with the same commit. Skipping this means dev works but prod is broken.
+4. `npm run test` — all server Vitest suites must pass.
+5. `npm run format` — re-stage any files Prettier touched.
+6. `git diff --staged` — read your own diff. Look for typos, missing imports, broken JSX, accidental `console.log`, leftover debug code.
+7. Commit with a clear message. Push to `origin/main`.
+8. **Smoke test live (~90s after push)**: curl the homepage + every route the change touched. Confirm `200` status. For routes that should reflect the change in HTML/CSS, confirm the change is visible (sitemap entry, new copy, etc.).
+9. Report what was checked, what passed, what shipped, and the live-verified URLs.
+
+### When to pause and ask, not ship
+
+The autonomous workflow has limits. Pause and ask the user before pushing if any of these are true:
+
+- The change touches **>5 files** in a single commit.
+- The change modifies **cron logic** (`server/_vercel/cron-master.ts`, `cron-publish-blog.ts`, `vercel.json` cron block).
+- The change modifies **auth** (`server/routers.ts` `adminProcedure`, JWT logic, `admin_credentials` table).
+- The change is a **schema migration** that runs against prod data (drizzle migrations are not auto-applied — `npm run db:push` is manual).
+- The change touches **>1 file in `server/_vercel/`** at once (high blast radius — both dev and prod paths affected).
+- A verification step **fails twice in a row** with different errors. Don't loop.
+- You'd describe the change as a **refactor** or **architectural** change rather than a feature/fix.
+
+In all other cases, ship autonomously.
+
+### Recovery
+
+If a push lands and breaks production:
+
+1. Identify the breaking commit via `git log --oneline -10` and Vercel's deploy log.
+2. Default action: `git revert <sha>` and push the revert. Don't try to fix-forward under pressure.
+3. Investigate the failure root cause in a follow-up commit.
+
+Force-pushes to main are **never** allowed under autonomous mode.
 
 ## Recent context (as of 2026-05-02)
 

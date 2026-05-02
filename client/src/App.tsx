@@ -70,7 +70,7 @@ function Router() {
               <Route path="/faq" component={FaqPage} />
               <Route path="/ecosystem" component={EcosystemPage} />
               <Route path="/ecosystem/:slug" component={EcosystemPillarPage} />
-              <Route path="/films" component={FilmsPage} />
+              <Route path="/films" component={() => <FilmsPage />} />
               <Route path="/films/:slug" component={FilmPlayer} />
               <Route path="/submit" component={SubmitPage} />
               <Route path="/vs/:slug" component={ComparisonPage} />
@@ -80,7 +80,10 @@ function Router() {
               <Route path="/privacy" component={PrivacyPage} />
               <Route path="/terms" component={TermsPage} />
               {/* Admin */}
-              <Route path="/admin" component={() => <Redirect to="/admin/login" />} />
+              <Route
+                path="/admin"
+                component={() => <Redirect to="/admin/login" />}
+              />
               <Route path="/admin/login" component={AdminLogin} />
               <Route path="/admin/:rest*" component={AdminDashboard} />
               <Route path="/404" component={NotFound} />

@@ -19,7 +19,12 @@ interface Props {
   subline?: string;
 }
 
-export default function NewsletterSignup({ source, variant = "card", headline, subline }: Props) {
+export default function NewsletterSignup({
+  source,
+  variant = "card",
+  headline,
+  subline,
+}: Props) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const signup = trpc.newsletter.signup.useMutation();
@@ -69,10 +74,10 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 disabled={submitting}
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm outline-none transition"
+                className="flex-1 px-4 py-2.5 rounded-xl text-base outline-none transition"
                 style={{
                   background: "rgba(255,255,255,0.06)",
                   border: "1px solid rgba(255,255,255,0.12)",
@@ -89,7 +94,11 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
                   boxShadow: "0 4px 14px -4px rgba(8,145,178,0.5)",
                 }}
               >
-                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : "Subscribe"}
+                {submitting ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Subscribe"
+                )}
               </button>
             </motion.form>
           )}
@@ -118,19 +127,31 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
           {/* Decorative glows */}
           <div
             className="absolute -top-32 -left-32 w-72 h-72 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, rgba(34,211,238,0.18) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, rgba(34,211,238,0.18) 0%, transparent 70%)",
+            }}
           />
           <div
             className="absolute -bottom-32 -right-32 w-72 h-72 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 70%)",
+            }}
           />
 
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-5 backdrop-blur-md"
-              style={{ background: "rgba(34,211,238,0.12)", border: "1px solid rgba(34,211,238,0.25)" }}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-5 backdrop-blur-md"
+              style={{
+                background: "rgba(34,211,238,0.12)",
+                border: "1px solid rgba(34,211,238,0.25)",
+              }}
             >
               <Mail className="w-3.5 h-3.5 text-cyan-300" />
-              <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-cyan-300">Newsletter</span>
+              <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-cyan-300">
+                Newsletter
+              </span>
             </div>
 
             <h2
@@ -140,7 +161,8 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
               {headline || "Stay in the loop."}
             </h2>
             <p className="text-base md:text-lg text-slate-300 mb-7 leading-relaxed max-w-xl">
-              {subline || "One update per week — new films, blog posts, and what's happening in the community. No hype, no spam, easy to unsubscribe."}
+              {subline ||
+                "One update per week — new films, blog posts, and what's happening in the community. No hype, no spam, easy to unsubscribe."}
             </p>
 
             <AnimatePresence mode="wait">
@@ -150,12 +172,19 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex items-center gap-3 px-5 py-4 rounded-2xl"
-                  style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.3)" }}
+                  style={{
+                    background: "rgba(34,197,94,0.12)",
+                    border: "1px solid rgba(34,197,94,0.3)",
+                  }}
                 >
                   <Check className="w-5 h-5 text-emerald-300 shrink-0" />
                   <div>
-                    <div className="text-sm font-bold text-emerald-300">You're subscribed.</div>
-                    <div className="text-xs text-emerald-200/80 mt-0.5">Watch your inbox — first update goes out within 7 days.</div>
+                    <div className="text-sm font-bold text-emerald-300">
+                      You're subscribed.
+                    </div>
+                    <div className="text-xs text-emerald-200/80 mt-0.5">
+                      Watch your inbox — first update goes out within 7 days.
+                    </div>
                   </div>
                 </motion.div>
               ) : (
@@ -170,7 +199,7 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     disabled={submitting}
                     autoComplete="email"
@@ -191,7 +220,11 @@ export default function NewsletterSignup({ source, variant = "card", headline, s
                       boxShadow: "0 8px 22px -6px rgba(8,145,178,0.5)",
                     }}
                   >
-                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : "Subscribe"}
+                    {submitting ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      "Subscribe"
+                    )}
                   </button>
                 </motion.form>
               )}

@@ -15,14 +15,54 @@ const NAV_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
 ];
 
 // Resources dropdown — secondary pages
-const RESOURCES: Array<{ label: string; href: string; description: string; emoji: string }> = [
-  { label: "Films", href: "/films", description: "20-film cinematic universe across 4 seasons", emoji: "🎬" },
-  { label: "Learn (DeFi 101)", href: "/learn", description: "Plain-English DeFi explainers for beginners", emoji: "📚" },
-  { label: "Library", href: "/library", description: "Videos and presentations in 48 languages", emoji: "📂" },
-  { label: "Creatives", href: "/creatives", description: "141 ready-to-share branded posts with captions", emoji: "🎨" },
-  { label: "Promotions", href: "/promotions", description: "$100K bounty + creator and presenter programs", emoji: "🎁" },
-  { label: "Submit Your Story", href: "/submit", description: "Share your testimonial, photo, video, or story", emoji: "✍️" },
-  { label: "FAQ", href: "/faq", description: "Common questions answered", emoji: "❓" },
+const RESOURCES: Array<{
+  label: string;
+  href: string;
+  description: string;
+  emoji: string;
+}> = [
+  {
+    label: "Films",
+    href: "/films",
+    description: "20-film cinematic universe across 4 seasons",
+    emoji: "🎬",
+  },
+  {
+    label: "Learn (DeFi 101)",
+    href: "/learn",
+    description: "Plain-English DeFi explainers for beginners",
+    emoji: "📚",
+  },
+  {
+    label: "Library",
+    href: "/library",
+    description: "Videos and presentations in 48 languages",
+    emoji: "📂",
+  },
+  {
+    label: "Creatives",
+    href: "/creatives",
+    description: "141 ready-to-share branded posts with captions",
+    emoji: "🎨",
+  },
+  {
+    label: "Promotions",
+    href: "/promotions",
+    description: "$100K bounty + creator and presenter programs",
+    emoji: "🎁",
+  },
+  {
+    label: "Submit Your Story",
+    href: "/submit",
+    description: "Share your testimonial, photo, video, or story",
+    emoji: "✍️",
+  },
+  {
+    label: "FAQ",
+    href: "/faq",
+    description: "Common questions answered",
+    emoji: "❓",
+  },
 ];
 
 export default function Navbar() {
@@ -44,8 +84,12 @@ export default function Navbar() {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setSearchOpen((o) => !o);
-      } else if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
+        setSearchOpen(o => !o);
+      } else if (
+        e.key === "/" &&
+        document.activeElement?.tagName !== "INPUT" &&
+        document.activeElement?.tagName !== "TEXTAREA"
+      ) {
         // Bare "/" key also opens search (GitHub/Slack style) when not typing in a field
         e.preventDefault();
         setSearchOpen(true);
@@ -59,11 +103,26 @@ export default function Navbar() {
   useEffect(() => {
     if (!resourcesOpen) return;
     const onDoc = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) setResourcesOpen(false);
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      )
+        setResourcesOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
   }, [resourcesOpen]);
+
+  // Lock body scroll while the mobile drawer is open — prevents the page
+  // behind the drawer from scrolling when users swipe inside it.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [mobileOpen]);
 
   const navigate = (href: string) => {
     setMobileOpen(false);
@@ -90,25 +149,36 @@ export default function Navbar() {
           background: scrolled ? "rgba(255, 255, 255, 0.78)" : "transparent",
           backdropFilter: scrolled ? "blur(24px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid transparent",
+          borderBottom: scrolled
+            ? "1px solid rgba(0,0,0,0.06)"
+            : "1px solid transparent",
           boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.04)" : "none",
         }}
       >
         <div className="container flex items-center justify-between h-16 md:h-20">
           {/* Brand */}
           <Link href="/">
-            <span className="flex items-center gap-2.5 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <span
+              className="flex items-center gap-2.5 group cursor-pointer"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
               <img
                 src={SITE.logo}
                 alt="Turbo Loop"
                 className="h-9 md:h-10 w-auto transition-transform duration-300 group-hover:scale-105"
-                style={{ filter: "drop-shadow(0 4px 12px rgba(8,145,178,0.2))" }}
+                style={{
+                  filter: "drop-shadow(0 4px 12px rgba(8,145,178,0.2))",
+                }}
               />
-              <span className="text-xl md:text-2xl font-bold tracking-tight hidden sm:inline" style={{ fontFamily: "var(--font-heading)" }}>
+              <span
+                className="text-xl md:text-2xl font-bold tracking-tight hidden sm:inline"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
                 <span className="text-slate-800">Turbo</span>
                 <span
                   style={{
-                    background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                    background:
+                      "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
@@ -121,7 +191,7 @@ export default function Navbar() {
 
           {/* Center nav (desktop) */}
           <div className="hidden md:flex items-center gap-7">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map(link => (
               <button
                 key={link.href}
                 onClick={() => navigate(link.href)}
@@ -134,11 +204,13 @@ export default function Navbar() {
             {/* Resources dropdown */}
             <div ref={dropdownRef} className="relative">
               <button
-                onClick={() => setResourcesOpen((o) => !o)}
+                onClick={() => setResourcesOpen(o => !o)}
                 className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-cyan-700 transition-colors duration-200 tracking-wide font-semibold"
               >
                 Resources
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${resourcesOpen ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform ${resourcesOpen ? "rotate-180" : ""}`}
+                />
               </button>
               <AnimatePresence>
                 {resourcesOpen && (
@@ -154,7 +226,7 @@ export default function Navbar() {
                       boxShadow: "0 20px 50px -10px rgba(15,23,42,0.15)",
                     }}
                   >
-                    {RESOURCES.map((r) => (
+                    {RESOURCES.map(r => (
                       <button
                         key={r.href}
                         onClick={() => navigate(r.href)}
@@ -162,8 +234,12 @@ export default function Navbar() {
                       >
                         <div className="text-2xl shrink-0">{r.emoji}</div>
                         <div className="min-w-0">
-                          <div className="text-sm font-bold text-slate-900 group-hover:text-cyan-700 transition-colors">{r.label}</div>
-                          <div className="text-xs text-slate-500 leading-relaxed">{r.description}</div>
+                          <div className="text-sm font-bold text-slate-900 group-hover:text-cyan-700 transition-colors">
+                            {r.label}
+                          </div>
+                          <div className="text-xs text-slate-500 leading-relaxed">
+                            {r.description}
+                          </div>
                         </div>
                       </button>
                     ))}
@@ -178,13 +254,18 @@ export default function Navbar() {
             <button
               onClick={() => setSearchOpen(true)}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-slate-500 hover:text-slate-800 transition"
-              style={{ background: "rgba(15,23,42,0.04)", border: "1px solid rgba(15,23,42,0.06)" }}
+              style={{
+                background: "rgba(15,23,42,0.04)",
+                border: "1px solid rgba(15,23,42,0.06)",
+              }}
               title="Search the hub (Ctrl+K)"
               aria-label="Search the hub"
             >
               <Search className="w-3.5 h-3.5" />
               <span className="hidden lg:inline text-xs">Search</span>
-              <kbd className="hidden lg:inline-flex items-center px-1 py-0.5 rounded text-[10px] font-mono text-slate-400 bg-white border border-slate-200">⌘K</kbd>
+              <kbd className="hidden lg:inline-flex items-center px-1 py-0.5 rounded text-[10px] font-mono text-slate-400 bg-white border border-slate-200">
+                ⌘K
+              </kbd>
             </button>
             <a
               href={SITE.mainApp}
@@ -196,12 +277,14 @@ export default function Navbar() {
                 color: "#ffffff",
                 boxShadow: "0 8px 24px -6px rgba(8,145,178,0.4)",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 12px 32px -6px rgba(8,145,178,0.55)";
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow =
+                  "0 12px 32px -6px rgba(8,145,178,0.55)";
                 e.currentTarget.style.transform = "translateY(-1px)";
               }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 24px -6px rgba(8,145,178,0.4)";
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow =
+                  "0 8px 24px -6px rgba(8,145,178,0.4)";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
@@ -213,13 +296,21 @@ export default function Navbar() {
           <div className="md:hidden flex items-center gap-1">
             <button
               onClick={() => setSearchOpen(true)}
-              className="text-slate-700 p-2"
+              className="text-slate-700 p-3 -m-1"
               aria-label="Search the hub"
             >
               <Search className="w-5 h-5" />
             </button>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="text-slate-700 p-2" aria-label={mobileOpen ? "Close menu" : "Open menu"}>
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="text-slate-700 p-3 -m-1"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -237,10 +328,16 @@ export default function Navbar() {
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 z-[60] md:hidden overflow-y-auto"
-            style={{ background: "rgba(255, 255, 255, 0.98)", backdropFilter: "blur(24px)" }}
+            style={{
+              background: "rgba(255, 255, 255, 0.98)",
+              backdropFilter: "blur(24px)",
+            }}
           >
             <div className="flex flex-col items-center justify-start min-h-full pt-20 pb-12 gap-3">
-              <button onClick={() => setMobileOpen(false)} className="absolute top-5 right-5 text-slate-400 p-2">
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="absolute top-5 right-5 text-slate-400 p-2"
+              >
                 <X className="w-7 h-7" />
               </button>
               {NAV_LINKS.map((link, i) => (
@@ -263,15 +360,19 @@ export default function Navbar() {
                 className="w-full max-w-xs mt-4 pt-6 flex flex-col gap-2"
                 style={{ borderTop: "1px solid rgba(15,23,42,0.06)" }}
               >
-                <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-slate-400 text-center mb-2">Resources</div>
-                {RESOURCES.map((r) => (
+                <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-slate-400 text-center mb-2">
+                  Resources
+                </div>
+                {RESOURCES.map(r => (
                   <button
                     key={r.href}
                     onClick={() => navigate(r.href)}
                     className="w-full text-left flex items-center gap-3 p-3 rounded-xl bg-slate-50/50"
                   >
                     <div className="text-xl">{r.emoji}</div>
-                    <div className="text-sm font-semibold text-slate-700">{r.label}</div>
+                    <div className="text-sm font-semibold text-slate-700">
+                      {r.label}
+                    </div>
                   </button>
                 ))}
               </motion.div>
@@ -283,7 +384,10 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-6 px-8 py-3 rounded-xl font-bold text-lg"
-                style={{ background: "linear-gradient(135deg, #0891B2, #7C3AED)", color: "#ffffff" }}
+                style={{
+                  background: "linear-gradient(135deg, #0891B2, #7C3AED)",
+                  color: "#ffffff",
+                }}
               >
                 Launch App
               </motion.a>

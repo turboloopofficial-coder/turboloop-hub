@@ -7,7 +7,13 @@ import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import AnimatedSection from "@/components/AnimatedSection";
 import CinematicLightbox from "@/components/sections/CinematicLightbox";
-import { FILMS, SEASONS, getFilmsBySeason, type Film, type Season } from "@/lib/cinematicUniverse";
+import {
+  FILMS,
+  SEASONS,
+  getFilmsBySeason,
+  type Film,
+  type Season,
+} from "@/lib/cinematicUniverse";
 
 interface FilmsPageProps {
   /** Optional auto-open film on mount — used by FilmPlayer (/films/:slug) */
@@ -15,7 +21,9 @@ interface FilmsPageProps {
 }
 
 export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
-  const initialFilm = autoOpenSlug ? FILMS.find((f) => f.slug === autoOpenSlug) || null : null;
+  const initialFilm = autoOpenSlug
+    ? FILMS.find(f => f.slug === autoOpenSlug) || null
+    : null;
   const [activeFilm, setActiveFilm] = useState<Film | null>(initialFilm);
 
   const seasons: Season[] = [1, 2, 3, 4];
@@ -28,7 +36,8 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
       hero={{
         label: "Cinematic Universe · 4 Seasons · 20 Films",
         heading: "The story, in 20 films.",
-        subtitle: "From The Problem to The Movement — watch the system being rewritten, season by season.",
+        subtitle:
+          "From The Problem to The Movement — watch the system being rewritten, season by season.",
         palette: ["#0F172A", "#7C3AED", "#22D3EE"],
         emoji: "🎬",
       }}
@@ -37,8 +46,9 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
         "@type": "CollectionPage",
         name: "TurboLoop Cinematic Universe",
         url: "https://turboloop.tech/films",
-        description: "20 films across 4 seasons covering the full TurboLoop story.",
-        hasPart: FILMS.map((f) => ({
+        description:
+          "20 films across 4 seasons covering the full TurboLoop story.",
+        hasPart: FILMS.map(f => ({
           "@type": "VideoObject",
           name: f.title,
           description: f.description,
@@ -49,9 +59,24 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
         })),
       }}
       related={[
-        { label: "Editorial (Blog)", href: "/feed", emoji: "📖", description: "13 long-form deep-dives — May–June" },
-        { label: "Library", href: "/library", emoji: "📚", description: "Reels, presentations, all videos" },
-        { label: "Creatives", href: "/creatives", emoji: "🎨", description: "141 banners with captions in 48 languages" },
+        {
+          label: "Editorial (Blog)",
+          href: "/feed",
+          emoji: "📖",
+          description: "13 long-form deep-dives — May–June",
+        },
+        {
+          label: "Library",
+          href: "/library",
+          emoji: "📚",
+          description: "Reels, presentations, all videos",
+        },
+        {
+          label: "Creatives",
+          href: "/creatives",
+          emoji: "🎨",
+          description: "141 banners with captions in 48 languages",
+        },
       ]}
     >
       <div className="container pb-16">
@@ -70,13 +95,15 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
               <Play className="w-4 h-4 fill-white" />
               Watch all 20 films from S1·E1
             </button>
-            <div className="text-xs text-slate-500 mt-3">~30-90 seconds each · English · Free · No login</div>
+            <div className="text-xs text-slate-500 mt-3">
+              ~30-90 seconds each · English · Free · No login
+            </div>
           </div>
         </AnimatedSection>
 
         {/* Seasons */}
         <div className="space-y-12 md:space-y-16">
-          {seasons.map((s) => (
+          {seasons.map(s => (
             <SeasonRow key={s} season={s} onSelectFilm={setActiveFilm} />
           ))}
         </div>
@@ -91,7 +118,13 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
   );
 }
 
-function SeasonRow({ season, onSelectFilm }: { season: Season; onSelectFilm: (f: Film) => void }) {
+function SeasonRow({
+  season,
+  onSelectFilm,
+}: {
+  season: Season;
+  onSelectFilm: (f: Film) => void;
+}) {
   const info = SEASONS[season];
   const films = getFilmsBySeason(season);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -112,10 +145,15 @@ function SeasonRow({ season, onSelectFilm }: { season: Season; onSelectFilm: (f:
             >
               {info.emoji} {info.name.split(" — ")[0]}
             </div>
-            <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+            <h2
+              className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               {info.name.split(" — ")[1]}
             </h2>
-            <p className="text-sm md:text-base text-slate-500 mt-2 max-w-2xl leading-relaxed">{info.theme}</p>
+            <p className="text-sm md:text-base text-slate-500 mt-2 max-w-2xl leading-relaxed">
+              {info.theme}
+            </p>
           </div>
           <div className="hidden md:flex items-center gap-2 shrink-0">
             <button
@@ -142,7 +180,13 @@ function SeasonRow({ season, onSelectFilm }: { season: Season; onSelectFilm: (f:
           style={{ scrollbarWidth: "none" }}
         >
           {films.map((film, i) => (
-            <EpisodeCard key={film.slug} film={film} index={i} accent={info.accent} onClick={() => onSelectFilm(film)} />
+            <EpisodeCard
+              key={film.slug}
+              film={film}
+              index={i}
+              accent={info.accent}
+              onClick={() => onSelectFilm(film)}
+            />
           ))}
         </div>
       </section>
@@ -150,7 +194,17 @@ function SeasonRow({ season, onSelectFilm }: { season: Season; onSelectFilm: (f:
   );
 }
 
-function EpisodeCard({ film, index, accent, onClick }: { film: Film; index: number; accent: string; onClick: () => void }) {
+function EpisodeCard({
+  film,
+  index,
+  accent,
+  onClick,
+}: {
+  film: Film;
+  index: number;
+  accent: string;
+  onClick: () => void;
+}) {
   return (
     <motion.button
       initial={{ opacity: 0, y: 20 }}
@@ -161,7 +215,7 @@ function EpisodeCard({ film, index, accent, onClick }: { film: Film; index: numb
       whileHover={{ y: -4 }}
       className="group relative shrink-0 snap-start text-left rounded-2xl overflow-hidden cursor-pointer"
       style={{
-        width: "min(360px, 80vw)",
+        width: "min(360px, calc(100vw - 2rem))",
         aspectRatio: "16 / 9",
         boxShadow: `0 12px 32px -10px ${accent}40, 0 4px 14px -4px rgba(0,0,0,0.1)`,
       }}
@@ -203,7 +257,10 @@ function EpisodeCard({ film, index, accent, onClick }: { film: Film; index: numb
             boxShadow: `0 8px 24px rgba(0,0,0,0.45), 0 0 0 4px ${accent}30`,
           }}
         >
-          <Play className="w-5 h-5 ml-0.5 fill-current" style={{ color: accent }} />
+          <Play
+            className="w-5 h-5 ml-0.5 fill-current"
+            style={{ color: accent }}
+          />
         </div>
       </div>
 
@@ -212,7 +269,9 @@ function EpisodeCard({ film, index, accent, onClick }: { film: Film; index: numb
         <h4 className="text-sm md:text-base font-bold leading-tight line-clamp-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
           {film.title}
         </h4>
-        <div className="text-[11px] text-white/80 mt-0.5 line-clamp-1">{film.tagline}</div>
+        <div className="text-[11px] text-white/80 mt-0.5 line-clamp-1">
+          {film.tagline}
+        </div>
       </div>
     </motion.button>
   );

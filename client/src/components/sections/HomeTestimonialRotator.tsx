@@ -12,32 +12,48 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 export default function HomeTestimonialRotator() {
   // Daily-rotating + restamped pool
-  const pool = useMemo(() => rotateAndRestamp(TESTIMONIALS).sort((a, b) => a.hoursAgo - b.hoursAgo), []);
+  const pool = useMemo(
+    () =>
+      rotateAndRestamp(TESTIMONIALS).sort((a, b) => a.hoursAgo - b.hoursAgo),
+    []
+  );
   const [active, setActive] = useState(0);
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     timerRef.current = window.setInterval(() => {
-      setActive((a) => (a + 1) % pool.length);
+      setActive(a => (a + 1) % pool.length);
     }, 7000);
-    return () => { if (timerRef.current) window.clearInterval(timerRef.current); };
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
   }, [pool.length]);
 
-  const pauseAuto = () => { if (timerRef.current) window.clearInterval(timerRef.current); };
+  const pauseAuto = () => {
+    if (timerRef.current) window.clearInterval(timerRef.current);
+  };
   const cur = pool[active];
 
   return (
     <section className="section-spacing relative">
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, rgba(8,145,178,0.04) 0%, transparent 60%)" }}
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(8,145,178,0.04) 0%, transparent 60%)",
+        }}
       />
 
       <div className="container relative z-10">
         <AnimatedSection>
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-cyan-700/80">Voices from the Community</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mt-3 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+            <span className="text-xs font-bold tracking-[0.25em] uppercase text-cyan-700/80">
+              Voices from the Community
+            </span>
+            <h2
+              className="text-3xl md:text-5xl font-bold text-slate-900 mt-3 leading-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               What builders are saying.
             </h2>
           </div>
@@ -59,21 +75,36 @@ export default function HomeTestimonialRotator() {
                 boxShadow: `0 20px 60px -16px ${cur.color}25`,
               }}
             >
-              <Quote className="absolute top-6 left-6 w-10 h-10 opacity-10" style={{ color: cur.color }} />
+              <Quote
+                className="absolute top-6 left-6 w-10 h-10 opacity-10"
+                style={{ color: cur.color }}
+              />
 
-              <p className="text-xl md:text-2xl text-slate-700 leading-relaxed font-light pt-6 mb-8" style={{ fontFamily: "var(--font-heading)" }}>
+              <p
+                className="text-xl md:text-2xl text-slate-700 leading-relaxed font-light pt-6 mb-8"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
                 "{cur.quote}"
               </p>
 
-              <div className="flex items-center gap-4 pt-4" style={{ borderTop: "1px solid rgba(15,23,42,0.05)" }}>
+              <div
+                className="flex items-center gap-4 pt-4"
+                style={{ borderTop: "1px solid rgba(15,23,42,0.05)" }}
+              >
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white relative overflow-hidden shrink-0"
-                  style={{ background: `linear-gradient(135deg, ${cur.color}, ${cur.color}cc)` }}
+                  style={{
+                    background: `linear-gradient(135deg, ${cur.color}, ${cur.color}cc)`,
+                  }}
                 >
-                  {cur.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                  {cur.name
+                    .split(" ")
+                    .map(n => n[0])
+                    .join("")
+                    .slice(0, 2)}
                   <img
                     src={getFlagUrl(cur.countryCode, 40)}
-                    alt=""
+                    alt={`Flag of ${cur.countryCode.toUpperCase()}`}
                     className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-white"
                   />
                 </div>
@@ -81,7 +112,9 @@ export default function HomeTestimonialRotator() {
                   <div className="font-bold text-slate-900">{cur.name}</div>
                   <div className="text-sm text-slate-500">{cur.role}</div>
                 </div>
-                <div className="text-xs text-slate-400 font-medium">{relativeTime(cur.hoursAgo)}</div>
+                <div className="text-xs text-slate-400 font-medium">
+                  {relativeTime(cur.hoursAgo)}
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -89,20 +122,35 @@ export default function HomeTestimonialRotator() {
           {/* Controls */}
           <div className="flex items-center justify-center gap-3 mt-6">
             <button
-              onClick={() => { pauseAuto(); setActive((a) => (a - 1 + pool.length) % pool.length); }}
+              onClick={() => {
+                pauseAuto();
+                setActive(a => (a - 1 + pool.length) % pool.length);
+              }}
               className="w-9 h-9 rounded-full flex items-center justify-center transition hover:scale-110"
-              style={{ background: "white", border: "1px solid rgba(15,23,42,0.08)", color: "#475569" }}
+              style={{
+                background: "white",
+                border: "1px solid rgba(15,23,42,0.08)",
+                color: "#475569",
+              }}
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <span className="text-xs font-mono text-slate-400 tabular-nums">
-              {(active + 1).toString().padStart(2, "0")} / {pool.length.toString().padStart(2, "0")}
+              {(active + 1).toString().padStart(2, "0")} /{" "}
+              {pool.length.toString().padStart(2, "0")}
             </span>
             <button
-              onClick={() => { pauseAuto(); setActive((a) => (a + 1) % pool.length); }}
+              onClick={() => {
+                pauseAuto();
+                setActive(a => (a + 1) % pool.length);
+              }}
               className="w-9 h-9 rounded-full flex items-center justify-center transition hover:scale-110"
-              style={{ background: "white", border: "1px solid rgba(15,23,42,0.08)", color: "#475569" }}
+              style={{
+                background: "white",
+                border: "1px solid rgba(15,23,42,0.08)",
+                color: "#475569",
+              }}
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-4 h-4" />

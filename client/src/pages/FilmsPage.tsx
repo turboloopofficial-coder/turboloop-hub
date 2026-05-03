@@ -31,7 +31,7 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
   return (
     <PageShell
       title="The TurboLoop Cinematic Universe"
-      description="20 films across 4 seasons. From The Problem to The Movement — watch how the financial system was never built for you, and how TurboLoop is rewriting it. Season 1 + 2 + 3 + 4, all in one place."
+      description="20 short films across 4 seasons — from The Problem to The Movement. The TurboLoop story, in cinema."
       path="/films"
       hero={{
         label: "Cinematic Universe · 4 Seasons · 20 Films",

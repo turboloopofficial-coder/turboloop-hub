@@ -25,6 +25,7 @@ import {
 import SEOHead from "@/components/SEOHead";
 import ReadingProgress from "@/components/ReadingProgress";
 import BackToTop from "@/components/BackToTop";
+import NotFound from "@/pages/NotFound";
 
 // Topic slug → display config (must match the tags in lib/blogVisuals.ts)
 const TOPIC_INFO: Record<
@@ -211,23 +212,7 @@ export default function TopicPage() {
       .sort((a, b) => publishDate(b).getTime() - publishDate(a).getTime());
   }, [posts, info]);
 
-  if (!info) {
-    return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ background: "#F7F8FC" }}
-      >
-        <div className="text-center">
-          <p className="text-slate-500 text-lg">Topic not found.</p>
-          <Link href="/feed">
-            <button className="mt-4 text-cyan-600 hover:text-cyan-700 text-sm font-medium">
-              ← All articles
-            </button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  if (!info) return <NotFound />;
 
   // SEO: ItemList schema + per-topic title/description for Google ranking
   const jsonLd = {

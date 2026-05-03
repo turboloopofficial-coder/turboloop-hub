@@ -14,6 +14,7 @@ import {
 import { SITE } from "@/lib/constants";
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
+import NotFound from "@/pages/NotFound";
 
 /** Download a reel as a true file (instead of opening in browser). */
 async function downloadReel(videoUrl: string, title: string) {
@@ -126,7 +127,7 @@ export default function ReelPage() {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-[100dvh]"
       style={{
         background: "linear-gradient(180deg, #0f172a 0%, #1e293b 100%)",
       }}
@@ -200,7 +201,11 @@ export default function ReelPage() {
             <div className="md:col-span-3">
               <div
                 className="relative rounded-2xl overflow-hidden bg-black shadow-2xl"
-                style={{ aspectRatio: "9 / 16", maxHeight: "80vh" }}
+                style={{
+                  aspectRatio: "9 / 16",
+                  maxHeight: "80dvh",
+                  transform: "translateZ(0)",
+                }}
               >
                 <video
                   ref={videoRef}
@@ -318,16 +323,9 @@ export default function ReelPage() {
               </div>
             </div>
           </div>
-        ) : (
-          <div className="text-center py-20 text-white/60">
-            <p>Reel not found.</p>
-            <Link href="/">
-              <button className="mt-4 text-cyan-400 hover:text-cyan-300 text-sm font-medium">
-                ← Back to home
-              </button>
-            </Link>
-          </div>
-        )}
+        ) : allVideos !== undefined ? (
+          <NotFound />
+        ) : null}
       </div>
     </div>
   );

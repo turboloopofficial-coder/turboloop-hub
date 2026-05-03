@@ -1,7 +1,14 @@
 import { trpc } from "@/lib/trpc";
 import { SITE } from "@/lib/constants";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, ExternalLink, ChevronRight, Calendar, Clock, ArrowRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  ChevronRight,
+  Calendar,
+  Clock,
+  ArrowRight,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import ShareButton from "@/components/ShareButton";
@@ -11,7 +18,14 @@ import BackToTop from "@/components/BackToTop";
 import BlogContent from "@/components/BlogContent";
 import TableOfContents from "@/components/TableOfContents";
 import BlogFeedback from "@/components/BlogFeedback";
-import { paletteForSlug, topicForSlug, readingTime, extractHeadings, publishDate } from "@/lib/blogVisuals";
+import {
+  paletteForSlug,
+  topicForSlug,
+  readingTime,
+  extractHeadings,
+  publishDate,
+} from "@/lib/blogVisuals";
+import NotFound from "@/pages/NotFound";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -22,49 +36,93 @@ export default function BlogPost() {
   const related = (allPosts ?? []).filter(p => p.slug !== slug).slice(0, 3);
 
   // Per-blog OG image: dynamic SVG with title + topic emoji + brand
-  const ogImage = post ? `https://turboloop.tech/api/og?slug=${slug}` : undefined;
+  const ogImage = post
+    ? `https://turboloop.tech/api/og?slug=${slug}`
+    : undefined;
 
   // Word count for richer schema (helps Google show reading time in results)
-  const wordCount = post?.content ? post.content.trim().split(/\s+/).length : undefined;
+  const wordCount = post?.content
+    ? post.content.trim().split(/\s+/).length
+    : undefined;
 
   // Article schema with breadcrumbs (richer Google results)
-  const jsonLd = post ? {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BlogPosting",
-        "@id": `https://turboloop.tech/blog/${slug}#article`,
-        headline: post.title,
-        description: post.excerpt || post.title,
-        datePublished: publishDate(post).toISOString(),
-        dateModified: post.updatedAt || publishDate(post).toISOString(),
-        author: { "@type": "Organization", name: "Turbo Loop", url: "https://turboloop.tech" },
-        publisher: {
-          "@type": "Organization",
-          name: "Turbo Loop",
-          logo: { "@type": "ImageObject", url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png" },
-        },
-        mainEntityOfPage: { "@type": "WebPage", "@id": `https://turboloop.tech/blog/${slug}` },
-        image: ogImage,
-        articleBody: post.content,
-        wordCount,
-        articleSection: "DeFi",
-        keywords: ["Turbo Loop", "DeFi", "BSC", "Binance Smart Chain", "yield farming", "sustainable yield"],
-        inLanguage: "en",
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://turboloop.tech" },
-          { "@type": "ListItem", position: 2, name: "Blog", item: "https://turboloop.tech/feed" },
-          { "@type": "ListItem", position: 3, name: post.title, item: `https://turboloop.tech/blog/${slug}` },
+  const jsonLd = post
+    ? {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "@id": `https://turboloop.tech/blog/${slug}#article`,
+            headline: post.title,
+            description: post.excerpt || post.title,
+            datePublished: publishDate(post).toISOString(),
+            dateModified: post.updatedAt || publishDate(post).toISOString(),
+            author: {
+              "@type": "Organization",
+              name: "Turbo Loop",
+              url: "https://turboloop.tech",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Turbo Loop",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
+              },
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://turboloop.tech/blog/${slug}`,
+            },
+            image: ogImage,
+            articleBody: post.content,
+            wordCount,
+            articleSection: "DeFi",
+            keywords: [
+              "Turbo Loop",
+              "DeFi",
+              "BSC",
+              "Binance Smart Chain",
+              "yield farming",
+              "sustainable yield",
+            ],
+            inLanguage: "en",
+          },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://turboloop.tech",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Blog",
+                item: "https://turboloop.tech/feed",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: post.title,
+                item: `https://turboloop.tech/blog/${slug}`,
+              },
+            ],
+          },
         ],
-      },
-    ],
-  } : undefined;
+      }
+    : undefined;
 
   return (
-    <div className="min-h-screen" style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)" }}>
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #f0fdfa 100%)",
+      }}
+    >
       <ReadingProgress />
       <BackToTop />
       {post && (
@@ -81,7 +139,14 @@ export default function BlogPost() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b" style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(20px)", borderColor: "rgba(0,0,0,0.06)" }}>
+      <header
+        className="sticky top-0 z-50 border-b"
+        style={{
+          background: "rgba(255,255,255,0.85)",
+          backdropFilter: "blur(20px)",
+          borderColor: "rgba(0,0,0,0.06)",
+        }}
+      >
         <div className="container flex items-center justify-between py-4">
           <div className="flex items-center gap-4">
             <Link href="/feed">
@@ -98,7 +163,8 @@ export default function BlogPost() {
                   <span className="text-slate-800">Turbo</span>
                   <span
                     style={{
-                      background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                      background:
+                        "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
@@ -122,29 +188,42 @@ export default function BlogPost() {
 
       <div className="container pt-8 pb-20">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400 mb-6 max-w-3xl mx-auto xl:mx-0 xl:ml-[calc(50%-24rem)]">
-          <Link href="/"><span className="hover:text-slate-600 cursor-pointer">Home</span></Link>
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1.5 text-xs text-slate-400 mb-6 max-w-3xl mx-auto xl:mx-0 xl:ml-[calc(50%-24rem)]"
+        >
+          <Link href="/">
+            <span className="hover:text-slate-600 cursor-pointer">Home</span>
+          </Link>
           <ChevronRight className="h-3 w-3" />
-          <Link href="/feed"><span className="hover:text-slate-600 cursor-pointer">Blog</span></Link>
+          <Link href="/feed">
+            <span className="hover:text-slate-600 cursor-pointer">Blog</span>
+          </Link>
           <ChevronRight className="h-3 w-3" />
-          <span className="text-slate-500 truncate max-w-[200px]">{post?.title || "Loading…"}</span>
+          <span className="text-slate-500 truncate max-w-[200px]">
+            {post?.title || "Loading…"}
+          </span>
         </nav>
 
         {isLoading ? (
           <div className="max-w-3xl mx-auto space-y-4">
-            <div className="h-8 rounded w-3/4 animate-pulse" style={{ background: "rgba(0,0,0,0.05)" }} />
-            <div className="h-4 rounded w-1/4 animate-pulse" style={{ background: "rgba(0,0,0,0.03)" }} />
-            <div className="h-64 rounded mt-8 animate-pulse" style={{ background: "rgba(0,0,0,0.03)" }} />
+            <div
+              className="h-8 rounded w-3/4 animate-pulse"
+              style={{ background: "rgba(0,0,0,0.05)" }}
+            />
+            <div
+              className="h-4 rounded w-1/4 animate-pulse"
+              style={{ background: "rgba(0,0,0,0.03)" }}
+            />
+            <div
+              className="h-64 rounded mt-8 animate-pulse"
+              style={{ background: "rgba(0,0,0,0.03)" }}
+            />
           </div>
         ) : post ? (
           <PostBody post={post} related={related} />
         ) : (
-          <div className="text-center py-20 max-w-3xl mx-auto">
-            <p className="text-slate-400 text-lg">Post not found.</p>
-            <Link href="/feed">
-              <button className="mt-4 text-cyan-600 hover:text-cyan-700 text-sm font-medium">← All posts</button>
-            </Link>
-          </div>
+          <NotFound />
         )}
       </div>
     </div>
@@ -159,7 +238,10 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
   const palette = paletteForSlug(post.slug);
   const topic = topicForSlug(post.slug);
   const minutes = readingTime(post.content);
-  const headings = useMemo(() => extractHeadings(post.content || ""), [post.content]);
+  const headings = useMemo(
+    () => extractHeadings(post.content || ""),
+    [post.content]
+  );
 
   return (
     <article className="grid grid-cols-1 xl:grid-cols-[260px_minmax(0,1fr)_260px] gap-8 max-w-7xl mx-auto">
@@ -175,7 +257,11 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
         >
           {post.coverImage ? (
             <div className="relative aspect-[2/1] overflow-hidden">
-              <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover" />
+              <img
+                src={post.coverImage}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             </div>
           ) : (
@@ -188,7 +274,8 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
               <motion.div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 45%, transparent 60%)",
+                  background:
+                    "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 45%, transparent 60%)",
                   backgroundSize: "200% 200%",
                 }}
                 animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
@@ -207,7 +294,8 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
                 className="absolute -right-2 -bottom-12 select-none pointer-events-none"
                 style={{
                   fontSize: "16rem",
-                  filter: "drop-shadow(0 8px 30px rgba(0,0,0,0.2)) opacity(0.85)",
+                  filter:
+                    "drop-shadow(0 8px 30px rgba(0,0,0,0.2)) opacity(0.85)",
                   lineHeight: 1,
                 }}
               >
@@ -226,7 +314,10 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
                   style={{ background: "rgba(255,255,255,0.95)" }}
                   title={`See all ${topic.tag} articles`}
                 >
-                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: palette.from }}>
+                  <span
+                    className="text-[10px] font-bold tracking-[0.2em] uppercase"
+                    style={{ color: palette.from }}
+                  >
                     {topic.tag}
                   </span>
                 </span>
@@ -249,7 +340,11 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
             <div className="flex items-center gap-4 text-white/90 text-sm flex-wrap">
               <span className="inline-flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" />
-                {publishDate(post).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                {publishDate(post).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />
@@ -270,7 +365,9 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
           >
             <div
               className="absolute left-0 top-4 bottom-4 w-1 rounded-r-full"
-              style={{ background: `linear-gradient(180deg, ${palette.from}, ${palette.via})` }}
+              style={{
+                background: `linear-gradient(180deg, ${palette.from}, ${palette.via})`,
+              }}
             />
             <p
               className="text-lg md:text-xl text-slate-700 leading-relaxed font-light pl-2"
@@ -298,7 +395,9 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
             </div>
             <div>
               <div className="text-sm font-bold text-slate-900">Turbo Loop</div>
-              <div className="text-xs text-slate-500">Official editorial · {topic.tag}</div>
+              <div className="text-xs text-slate-500">
+                Official editorial · {topic.tag}
+              </div>
             </div>
           </div>
           <ShareButton
@@ -310,7 +409,11 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
         </div>
 
         {/* Rich content with custom markdown + auto internal linking */}
-        <BlogContent content={post.content} palette={palette} slug={post.slug} />
+        <BlogContent
+          content={post.content}
+          palette={palette}
+          slug={post.slug}
+        />
 
         {/* Was this helpful? feedback widget */}
         <BlogFeedback slug={post.slug} palette={palette} />
@@ -326,8 +429,12 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
           <div className="flex items-center gap-3 mb-4">
             <span className="text-3xl">{topic.emoji}</span>
             <div>
-              <div className="text-sm font-bold text-slate-900">Enjoyed this post?</div>
-              <div className="text-xs text-slate-500">Share it — your referral code auto-attaches.</div>
+              <div className="text-sm font-bold text-slate-900">
+                Enjoyed this post?
+              </div>
+              <div className="text-xs text-slate-500">
+                Share it — your referral code auto-attaches.
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -359,7 +466,9 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
             <div className="flex items-center gap-3 mb-6">
               <div
                 className="h-px flex-1"
-                style={{ background: `linear-gradient(90deg, transparent, ${palette.from}30)` }}
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${palette.from}30)`,
+                }}
               />
               <span
                 className="text-[10px] font-bold tracking-[0.3em] uppercase"
@@ -369,11 +478,13 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
               </span>
               <div
                 className="h-px flex-1"
-                style={{ background: `linear-gradient(90deg, ${palette.from}30, transparent)` }}
+                style={{
+                  background: `linear-gradient(90deg, ${palette.from}30, transparent)`,
+                }}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {related.map((r) => {
+              {related.map(r => {
                 const rPalette = paletteForSlug(r.slug);
                 const rTopic = topicForSlug(r.slug);
                 return (
@@ -385,13 +496,15 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
                         border: "1px solid rgba(15,23,42,0.06)",
                         boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
                       }}
-                      onMouseEnter={(e) => {
+                      onMouseEnter={e => {
                         e.currentTarget.style.boxShadow = `0 16px 30px -10px ${rPalette.from}30`;
                         e.currentTarget.style.borderColor = `${rPalette.from}25`;
                       }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = "0 4px 14px -4px rgba(15,23,42,0.06)";
-                        e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
+                      onMouseLeave={e => {
+                        e.currentTarget.style.boxShadow =
+                          "0 4px 14px -4px rgba(15,23,42,0.06)";
+                        e.currentTarget.style.borderColor =
+                          "rgba(15,23,42,0.06)";
                       }}
                     >
                       <div
@@ -400,7 +513,12 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
                           background: `linear-gradient(135deg, ${rPalette.from}, ${rPalette.via}, ${rPalette.to})`,
                         }}
                       >
-                        <span style={{ fontSize: "5rem", filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))" }}>
+                        <span
+                          style={{
+                            fontSize: "5rem",
+                            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.2))",
+                          }}
+                        >
                           {rTopic.emoji}
                         </span>
                       </div>
@@ -415,7 +533,9 @@ function PostBody({ post, related }: { post: any; related: any[] }) {
                           {r.title}
                         </h3>
                         {r.excerpt && (
-                          <p className="text-xs text-slate-500 line-clamp-2">{r.excerpt}</p>
+                          <p className="text-xs text-slate-500 line-clamp-2">
+                            {r.excerpt}
+                          </p>
                         )}
                       </div>
                     </div>

@@ -3,6 +3,7 @@
 
 import { useRoute } from "wouter";
 import FilmsPage from "./FilmsPage";
+import NotFound from "./NotFound";
 import { getFilm } from "@/lib/cinematicUniverse";
 import SEOHead from "@/components/SEOHead";
 
@@ -11,7 +12,7 @@ export default function FilmPlayer() {
   const slug = params?.slug || "";
   const film = getFilm(slug);
 
-  if (!film) return <FilmsPage />;
+  if (!film) return <NotFound />;
 
   return (
     <>

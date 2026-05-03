@@ -14,12 +14,14 @@ export default function TestimonialsSection() {
   // Then re-stamp the timestamps so the most recent always feels current.
   // Result: every day a fresh voice is featured, without any manual updates.
   const ordered = useMemo(() => {
-    return rotateAndRestamp(TESTIMONIALS).sort((a, b) => a.hoursAgo - b.hoursAgo);
+    return rotateAndRestamp(TESTIMONIALS).sort(
+      (a, b) => a.hoursAgo - b.hoursAgo
+    );
   }, []);
 
   useEffect(() => {
     timerRef.current = window.setInterval(() => {
-      setActive((a) => (a + 1) % ordered.length);
+      setActive(a => (a + 1) % ordered.length);
     }, 7000);
     return () => {
       if (timerRef.current) window.clearInterval(timerRef.current);
@@ -78,11 +80,15 @@ export default function TestimonialsSection() {
             </span>
           </h2>
           <p className="text-slate-500 text-sm md:text-base mt-3">
-            {ordered.length} community members across {new Set(ordered.map(t => t.countryCode)).size}+ countries.
+            {ordered.length} community members across{" "}
+            {new Set(ordered.map(t => t.countryCode)).size}+ countries.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" onMouseEnter={pauseAutoplay}>
+        <div
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+          onMouseEnter={pauseAutoplay}
+        >
           {/* Featured testimonial — takes 2 cols */}
           <div className="lg:col-span-2 relative">
             <AnimatePresence mode="wait">
@@ -110,7 +116,8 @@ export default function TestimonialsSection() {
                   <div
                     className="absolute top-5 right-5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full"
                     style={{
-                      background: "linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.05))",
+                      background:
+                        "linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.05))",
                       border: "1px solid rgba(16,185,129,0.3)",
                     }}
                   >
@@ -128,7 +135,10 @@ export default function TestimonialsSection() {
                   {current.quote}
                 </p>
 
-                <div className="flex items-center gap-4 flex-wrap pt-4" style={{ borderTop: "1px solid rgba(15,23,42,0.05)" }}>
+                <div
+                  className="flex items-center gap-4 flex-wrap pt-4"
+                  style={{ borderTop: "1px solid rgba(15,23,42,0.05)" }}
+                >
                   <div
                     className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-lg text-white relative overflow-hidden shrink-0"
                     style={{
@@ -137,22 +147,24 @@ export default function TestimonialsSection() {
                   >
                     {current.name
                       .split(" ")
-                      .map((n) => n[0])
+                      .map(n => n[0])
                       .join("")
                       .slice(0, 2)}
                     <img
                       src={getFlagUrl(current.countryCode, 40)}
-                      alt=""
+                      alt={`Flag of ${current.countryCode.toUpperCase()}`}
                       className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-white"
                     />
                   </div>
                   <div className="min-w-0">
-                    <div className="font-bold text-slate-800">{current.name}</div>
+                    <div className="font-bold text-slate-800">
+                      {current.name}
+                    </div>
                     <div className="text-sm text-slate-500">{current.role}</div>
                   </div>
                   <div className="ml-auto flex items-center gap-3">
                     <div className="flex gap-0.5">
-                      {[1, 2, 3, 4, 5].map((i) => (
+                      {[1, 2, 3, 4, 5].map(i => (
                         <Star
                           key={i}
                           className="w-4 h-4 fill-yellow-400 text-yellow-400"
@@ -184,7 +196,7 @@ export default function TestimonialsSection() {
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
                   onClick={() => {
                     pauseAutoplay();
-                    setActive(ordered.findIndex((o) => o.id === t.id));
+                    setActive(ordered.findIndex(o => o.id === t.id));
                   }}
                   className="w-full text-left p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
                   style={{
@@ -192,13 +204,14 @@ export default function TestimonialsSection() {
                     border: `1px solid rgba(15,23,42,0.06)`,
                     boxShadow: "0 4px 14px -4px rgba(15,23,42,0.06)",
                   }}
-                  onMouseEnter={(e) => {
+                  onMouseEnter={e => {
                     e.currentTarget.style.borderColor = `${t.color}30`;
                     e.currentTarget.style.boxShadow = `0 12px 30px -10px ${t.color}30`;
                   }}
-                  onMouseLeave={(e) => {
+                  onMouseLeave={e => {
                     e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
-                    e.currentTarget.style.boxShadow = "0 4px 14px -4px rgba(15,23,42,0.06)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 14px -4px rgba(15,23,42,0.06)";
                   }}
                 >
                   <div className="flex items-center gap-2.5 mb-2">
@@ -210,12 +223,12 @@ export default function TestimonialsSection() {
                     >
                       {t.name
                         .split(" ")
-                        .map((n) => n[0])
+                        .map(n => n[0])
                         .join("")
                         .slice(0, 2)}
                       <img
                         src={getFlagUrl(t.countryCode, 40)}
-                        alt=""
+                        alt={`Flag of ${t.countryCode.toUpperCase()}`}
                         className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border border-white"
                       />
                     </div>
@@ -242,7 +255,9 @@ export default function TestimonialsSection() {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-500">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-cyan-600" />
-              <span>{new Set(ordered.map(t => t.countryCode)).size}+ countries</span>
+              <span>
+                {new Set(ordered.map(t => t.countryCode)).size}+ countries
+              </span>
             </div>
             <div className="w-px h-4 bg-slate-300 hidden sm:block" />
             <div className="flex items-center gap-2">

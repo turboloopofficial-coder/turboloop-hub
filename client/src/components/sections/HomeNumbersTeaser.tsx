@@ -1,43 +1,26 @@
 // Compact 4-stat row that lives on the homepage. Replaces the full LeaderboardSection
-// (which now lives at /community). Each stat is a count-up animation with a CTA below.
+// (which now lives at /community). Render the target value directly — the previous
+// count-up animation initialized state at 0 and caused a "0 / 0+ / 0 / $0K" flash on
+// first paint before the animation kicked in.
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Globe2, Users, Languages, Trophy } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
-function CountUp({
+function StatValue({
   target,
   suffix = "",
-  duration = 1.4,
   prefix = "",
 }: {
   target: number;
   suffix?: string;
-  duration?: number;
   prefix?: string;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const [v, setV] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    let raf = 0;
-    const start = performance.now();
-    const step = (now: number) => {
-      const p = Math.min((now - start) / (duration * 1000), 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setV(Math.round(eased * target));
-      if (p < 1) raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, target, duration]);
   return (
-    <span ref={ref} className="tabular-nums">
+    <span className="tabular-nums">
       {prefix}
-      {v}
+      {target}
       {suffix}
     </span>
   );
@@ -125,7 +108,7 @@ export default function HomeNumbersTeaser() {
                     className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 leading-none"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    <CountUp
+                    <StatValue
                       target={s.target}
                       suffix={s.suffix}
                       prefix={s.prefix}

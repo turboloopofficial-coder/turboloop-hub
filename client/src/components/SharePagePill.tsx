@@ -43,21 +43,22 @@ export default function SharePagePill({ path, title }: Props) {
   const telegramHref = `https://t.me/share/url?url=${encodeURIComponent(fullUrl)}&text=${encodeURIComponent(shareText)}`;
   const xHref = `https://x.com/intent/post?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(fullUrl)}`;
 
-  // Native Web Share API (great on mobile — opens the system sheet with all installed apps)
-  const nativeShare = async () => {
-    if (typeof navigator !== "undefined" && (navigator as any).share) {
-      try {
-        await (navigator as any).share({
-          title,
-          url: fullUrl,
-          text: shareText,
-        });
-        return true;
-      } catch {
-        // User cancelled or unsupported — fall through to expanded menu
-      }
+  // Native Web Share API (great on mobile — opens the system sheet with all installed apps).
+  // CRITICAL: distinguish AbortError (user dismissed the native sheet) from a real failure
+  // (API unavailable). If we treat them the same, we open the custom popup right after the
+  // user explicitly closed the native one — that's the "double share UI" bug.
+  const nativeShare = async (): Promise<
+    "shared" | "cancelled" | "unsupported"
+  > => {
+    if (typeof navigator === "undefined" || !(navigator as any).share)
+      return "unsupported";
+    try {
+      await (navigator as any).share({ title, url: fullUrl, text: shareText });
+      return "shared";
+    } catch (err: any) {
+      if (err?.name === "AbortError") return "cancelled";
+      return "unsupported";
     }
-    return false;
   };
 
   // Close popover on outside click
@@ -76,9 +77,10 @@ export default function SharePagePill({ path, title }: Props) {
       {/* Trigger button */}
       <button
         onClick={async () => {
-          // Try native share on mobile first
-          const used = await nativeShare();
-          if (!used) setOpen(o => !o);
+          // Try native share first. Only fall back to the custom popover when the
+          // API is unavailable — never after a user cancel.
+          const result = await nativeShare();
+          if (result === "unsupported") setOpen(o => !o);
         }}
         className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-bold transition-all"
         style={{

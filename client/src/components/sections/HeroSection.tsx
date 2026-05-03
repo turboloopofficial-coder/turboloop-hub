@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   ExternalLink,
   ChevronDown,
@@ -11,22 +11,11 @@ import {
 import { SITE } from "@/lib/constants";
 import ParticleCanvas from "@/components/ParticleCanvas";
 
-// Count-up hook for animated stats
-function useCountUp(target: number, duration = 1500, start = 0) {
-  const [value, setValue] = useState(start);
-  useEffect(() => {
-    let raf: number;
-    const startTime = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - startTime) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(start + (target - start) * eased));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [target, duration, start]);
-  return value;
+// Stats render their target value directly — the previous count-up animation
+// initialized at 0 and caused a "0 / 0 / 0 / $0K" flash on first paint above
+// the fold. With no animation the numbers appear instantly and stay stable.
+function useCountUp(target: number) {
+  return target;
 }
 
 function MagneticButton({

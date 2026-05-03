@@ -280,24 +280,34 @@ export default function SubmitPage() {
               <AnimatedSection delay={0.05}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2">
+                    <label
+                      htmlFor="submit-author-name"
+                      className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2"
+                    >
                       Your name *
                     </label>
                     <input
+                      id="submit-author-name"
                       type="text"
                       value={authorName}
                       onChange={e => setAuthorName(e.target.value)}
                       maxLength={200}
+                      required
+                      aria-required="true"
                       placeholder="First + last (or just a handle)"
                       className="w-full px-4 py-3 rounded-xl text-base bg-white outline-none transition"
                       style={{ border: "1px solid rgba(15,23,42,0.08)" }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2">
+                    <label
+                      htmlFor="submit-author-country"
+                      className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2"
+                    >
                       Country
                     </label>
                     <select
+                      id="submit-author-country"
                       value={authorCountry}
                       onChange={e => setAuthorCountry(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl text-base bg-white outline-none transition"
@@ -316,10 +326,14 @@ export default function SubmitPage() {
 
               <AnimatedSection delay={0.08}>
                 <div>
-                  <label className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2">
+                  <label
+                    htmlFor="submit-author-contact"
+                    className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2"
+                  >
                     Email or Telegram (optional)
                   </label>
                   <input
+                    id="submit-author-contact"
                     type="text"
                     value={authorContact}
                     onChange={e => setAuthorContact(e.target.value)}
@@ -334,17 +348,23 @@ export default function SubmitPage() {
               {/* Body */}
               <AnimatedSection delay={0.1}>
                 <div>
-                  <label className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2">
+                  <label
+                    htmlFor="submit-body"
+                    className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2"
+                  >
                     {type === "photo" || type === "reel"
                       ? "Caption / context *"
                       : "Your message *"}
                   </label>
                   <textarea
+                    id="submit-body"
                     value={body}
                     onChange={e => setBody(e.target.value)}
                     minLength={10}
                     maxLength={5000}
                     rows={6}
+                    required
+                    aria-required="true"
                     placeholder={
                       type === "testimonial"
                         ? "What's your TurboLoop experience? A few honest sentences."
@@ -370,10 +390,14 @@ export default function SubmitPage() {
               {(type === "photo" || type === "reel") && (
                 <AnimatedSection delay={0.12}>
                   <div>
-                    <label className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2">
+                    <label
+                      htmlFor="submit-file-url"
+                      className="block text-xs font-bold tracking-[0.15em] uppercase text-slate-500 mb-2"
+                    >
                       {type === "photo" ? "Photo URL" : "Video URL"}
                     </label>
                     <input
+                      id="submit-file-url"
                       type="url"
                       value={fileUrl}
                       onChange={e => setFileUrl(e.target.value)}

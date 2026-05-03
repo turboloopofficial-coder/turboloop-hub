@@ -7,7 +7,11 @@ import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 import ShareButton from "@/components/ShareButton";
 
-type VideoCategory = "presentation" | "how-to-join" | "withdraw-compound" | "other";
+type VideoCategory =
+  | "presentation"
+  | "how-to-join"
+  | "withdraw-compound"
+  | "other";
 
 const CATEGORY_LABELS: Record<VideoCategory, string> = {
   presentation: "Project Presentation",
@@ -17,33 +21,47 @@ const CATEGORY_LABELS: Record<VideoCategory, string> = {
 };
 
 function getYouTubeId(url: string): string | null {
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/
+  );
   return match ? match[1] : null;
 }
 
 export default function VideoSection() {
   const { data: allVideos } = trpc.content.videos.useQuery();
   // Exclude reels (directUrl-only videos) — they're shown in ReelsSection
-  const videos = useMemo(() => (allVideos ?? []).filter(v => v.youtubeUrl), [allVideos]);
-  const [activeCategory, setActiveCategory] = useState<VideoCategory>("presentation");
+  const videos = useMemo(
+    () => (allVideos ?? []).filter(v => v.youtubeUrl),
+    [allVideos]
+  );
+  const [activeCategory, setActiveCategory] =
+    useState<VideoCategory>("presentation");
   const [activeLanguage, setActiveLanguage] = useState<string>("all");
   const [playingId, setPlayingId] = useState<number | null>(null);
 
   const categories = useMemo(() => {
     if (!videos) return [];
-    const cats = Array.from(new Set(videos.map((v) => v.category))) as VideoCategory[];
-    return cats.filter((c) => c in CATEGORY_LABELS);
+    const cats = Array.from(
+      new Set(videos.map(v => v.category))
+    ) as VideoCategory[];
+    return cats.filter(c => c in CATEGORY_LABELS);
   }, [videos]);
 
   const languages = useMemo(() => {
     if (!videos) return [];
-    return Array.from(new Set(videos.filter((v) => v.category === activeCategory).map((v) => v.language)));
+    return Array.from(
+      new Set(
+        videos.filter(v => v.category === activeCategory).map(v => v.language)
+      )
+    );
   }, [videos, activeCategory]);
 
   const filteredVideos = useMemo(() => {
     if (!videos) return [];
     return videos.filter(
-      (v) => v.category === activeCategory && (activeLanguage === "all" || v.language === activeLanguage)
+      v =>
+        v.category === activeCategory &&
+        (activeLanguage === "all" || v.language === activeLanguage)
     );
   }, [videos, activeCategory, activeLanguage]);
 
@@ -58,13 +76,27 @@ export default function VideoSection() {
 
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-6">
-          {(categories.length > 0 ? categories : (["presentation", "how-to-join", "withdraw-compound"] as VideoCategory[])).map((cat) => (
+          {(categories.length > 0
+            ? categories
+            : ([
+                "presentation",
+                "how-to-join",
+                "withdraw-compound",
+              ] as VideoCategory[])
+          ).map(cat => (
             <button
               key={cat}
-              onClick={() => { setActiveCategory(cat); setActiveLanguage("all"); setPlayingId(null); }}
+              onClick={() => {
+                setActiveCategory(cat);
+                setActiveLanguage("all");
+                setPlayingId(null);
+              }}
               className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
               style={{
-                background: activeCategory === cat ? "rgba(8,145,178,0.1)" : "rgba(255,255,255,0.6)",
+                background:
+                  activeCategory === cat
+                    ? "rgba(8,145,178,0.1)"
+                    : "rgba(255,255,255,0.6)",
                 border: `1px solid ${activeCategory === cat ? "rgba(8,145,178,0.25)" : "rgba(0,0,0,0.06)"}`,
                 color: activeCategory === cat ? "#0891B2" : "#64748B",
               }}
@@ -77,30 +109,46 @@ export default function VideoSection() {
         {/* Language Filters with real flag images */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           <button
-            onClick={() => { setActiveLanguage("all"); setPlayingId(null); }}
+            onClick={() => {
+              setActiveLanguage("all");
+              setPlayingId(null);
+            }}
             className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300"
             style={{
-              background: activeLanguage === "all" ? "rgba(8,145,178,0.1)" : "rgba(255,255,255,0.6)",
+              background:
+                activeLanguage === "all"
+                  ? "rgba(8,145,178,0.1)"
+                  : "rgba(255,255,255,0.6)",
               border: `1px solid ${activeLanguage === "all" ? "rgba(8,145,178,0.25)" : "rgba(0,0,0,0.06)"}`,
               color: activeLanguage === "all" ? "#0891B2" : "#64748B",
             }}
           >
             All Languages
           </button>
-          {languages.map((lang) => {
+          {languages.map(lang => {
             const code = LANGUAGE_FLAGS[lang] || "un";
             return (
               <button
                 key={lang}
-                onClick={() => { setActiveLanguage(lang); setPlayingId(null); }}
+                onClick={() => {
+                  setActiveLanguage(lang);
+                  setPlayingId(null);
+                }}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300"
                 style={{
-                  background: activeLanguage === lang ? "rgba(8,145,178,0.1)" : "rgba(255,255,255,0.6)",
+                  background:
+                    activeLanguage === lang
+                      ? "rgba(8,145,178,0.1)"
+                      : "rgba(255,255,255,0.6)",
                   border: `1px solid ${activeLanguage === lang ? "rgba(8,145,178,0.25)" : "rgba(0,0,0,0.06)"}`,
                   color: activeLanguage === lang ? "#0891B2" : "#64748B",
                 }}
               >
-                <img src={getFlagUrl(code, 20)} alt={lang} className="w-4 h-3 object-cover rounded-sm" />
+                <img
+                  src={getFlagUrl(code, 20)}
+                  alt={lang}
+                  className="w-4 h-3 object-cover rounded-sm"
+                />
                 {lang}
               </button>
             );
@@ -110,12 +158,17 @@ export default function VideoSection() {
         {/* Video Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
           {filteredVideos.map((video, index) => {
-            const ytId = video.youtubeUrl ? getYouTubeId(video.youtubeUrl) : null;
+            const ytId = video.youtubeUrl
+              ? getYouTubeId(video.youtubeUrl)
+              : null;
             const isPlaying = playingId === video.id;
             const langCode = LANGUAGE_FLAGS[video.language || ""] || "un";
 
             return (
-              <AnimatedSection key={video.id} delay={Math.min(index * 0.05, 0.3)}>
+              <AnimatedSection
+                key={video.id}
+                delay={Math.min(index * 0.05, 0.3)}
+              >
                 <div
                   className="group rounded-2xl overflow-hidden transition-all duration-400 relative"
                   style={{
@@ -123,13 +176,15 @@ export default function VideoSection() {
                     border: "1px solid rgba(15,23,42,0.06)",
                     boxShadow: "0 6px 20px -6px rgba(15,23,42,0.06)",
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 25px 50px -12px rgba(8,145,178,0.25), 0 8px 20px -4px rgba(0,0,0,0.06)";
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow =
+                      "0 25px 50px -12px rgba(8,145,178,0.25), 0 8px 20px -4px rgba(0,0,0,0.06)";
                     e.currentTarget.style.borderColor = "rgba(8,145,178,0.25)";
                     e.currentTarget.style.transform = "translateY(-4px)";
                   }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 6px 20px -6px rgba(15,23,42,0.06)";
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 20px -6px rgba(15,23,42,0.06)";
                     e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
@@ -165,7 +220,11 @@ export default function VideoSection() {
                             border: "1px solid rgba(255,255,255,0.15)",
                           }}
                         >
-                          <img src={getFlagUrl(langCode, 40)} alt="" className="w-4 h-3 object-cover rounded-sm" />
+                          <img
+                            src={getFlagUrl(langCode, 40)}
+                            alt={`${video.language} flag`}
+                            className="w-4 h-3 object-cover rounded-sm"
+                          />
                           {video.language}
                         </div>
 
@@ -179,7 +238,13 @@ export default function VideoSection() {
                             border: "1px solid rgba(255,255,255,0.12)",
                           }}
                         >
-                          {video.category === "presentation" ? "Intro" : video.category === "how-to-join" ? "How-To" : video.category === "withdraw-compound" ? "Tutorial" : "Other"}
+                          {video.category === "presentation"
+                            ? "Intro"
+                            : video.category === "how-to-join"
+                              ? "How-To"
+                              : video.category === "withdraw-compound"
+                                ? "Tutorial"
+                                : "Other"}
                         </div>
 
                         {/* Play button — premium gradient */}
@@ -193,14 +258,18 @@ export default function VideoSection() {
                             whileTap={{ scale: 0.95 }}
                             className="w-16 h-16 rounded-full flex items-center justify-center relative"
                             style={{
-                              background: "linear-gradient(135deg, #ffffff, #f1f5f9)",
-                              boxShadow: "0 8px 25px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5)",
+                              background:
+                                "linear-gradient(135deg, #ffffff, #f1f5f9)",
+                              boxShadow:
+                                "0 8px 25px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5)",
                             }}
                           >
                             {/* Pulsing ring on hover */}
-                            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            <span
+                              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                               style={{
-                                background: "radial-gradient(circle, rgba(8,145,178,0.3), transparent)",
+                                background:
+                                  "radial-gradient(circle, rgba(8,145,178,0.3), transparent)",
                                 transform: "scale(1.5)",
                               }}
                             />
@@ -224,14 +293,19 @@ export default function VideoSection() {
                       <div
                         className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
                         style={{
-                          background: "linear-gradient(135deg, rgba(8,145,178,0.1), rgba(124,58,237,0.08))",
+                          background:
+                            "linear-gradient(135deg, rgba(8,145,178,0.1), rgba(124,58,237,0.08))",
                         }}
                       >
                         <Play className="w-3.5 h-3.5 text-cyan-600 fill-cyan-600 ml-0.5" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400">YouTube</div>
-                        <div className="text-xs font-semibold text-slate-700 truncate">{video.language}</div>
+                        <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400">
+                          YouTube
+                        </div>
+                        <div className="text-xs font-semibold text-slate-700 truncate">
+                          {video.language}
+                        </div>
                       </div>
                     </div>
                     <ShareButton
@@ -249,12 +323,18 @@ export default function VideoSection() {
 
         {filteredVideos.length === 0 && (
           <div className="text-center py-16">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-              style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.06)" }}
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              style={{
+                background: "rgba(255,255,255,0.6)",
+                border: "1px solid rgba(0,0,0,0.06)",
+              }}
             >
               <Film className="h-8 w-8 text-slate-400" />
             </div>
-            <p className="text-slate-400">No videos available for this filter. Try another category.</p>
+            <p className="text-slate-400">
+              No videos available for this filter. Try another category.
+            </p>
           </div>
         )}
       </div>

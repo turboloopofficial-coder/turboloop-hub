@@ -1,7 +1,18 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { trpc } from "@/lib/trpc";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, Volume2, VolumeX, X, ChevronLeft, ChevronRight, Sparkles, Loader2, Download } from "lucide-react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  Loader2,
+  Download,
+} from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 
 /**
@@ -16,7 +27,10 @@ async function downloadReel(videoUrl: string, title: string) {
     const a = document.createElement("a");
     a.href = blobUrl;
     // Sanitize filename — keep alphanumerics, spaces, dashes
-    const safeName = title.replace(/[^\w\s-]/g, "").replace(/\s+/g, "_").slice(0, 80);
+    const safeName = title
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "_")
+      .slice(0, 80);
     a.download = `TurboLoop_${safeName}.mp4`;
     document.body.appendChild(a);
     a.click();
@@ -34,7 +48,9 @@ async function downloadReel(videoUrl: string, title: string) {
 function thumbForReel(videoUrl: string): string {
   try {
     const u = new URL(videoUrl);
-    u.pathname = u.pathname.replace(/^\/reels\//, "/reel-thumbs/").replace(/\.mp4$/i, ".jpg");
+    u.pathname = u.pathname
+      .replace(/^\/reels\//, "/reel-thumbs/")
+      .replace(/\.mp4$/i, ".jpg");
     return u.toString();
   } catch {
     return "";
@@ -47,14 +63,18 @@ function slugFromUrl(videoUrl: string): string {
     const u = new URL(videoUrl);
     const m = u.pathname.match(/\/reels\/([a-z0-9-]+)\.mp4$/i);
     return m ? m[1] : "";
-  } catch { return ""; }
+  } catch {
+    return "";
+  }
 }
 
 export default function ReelsSection() {
   const { data: videos } = trpc.content.videos.useQuery();
   // Reels = short vertical 9:16 videos only. Cinematic films (16:9 long-form)
   // live on /films and have their own embeds — exclude them here.
-  const reels = (videos ?? []).filter(v => v.directUrl && !v.youtubeUrl && v.category !== "cinematic");
+  const reels = (videos ?? []).filter(
+    v => v.directUrl && !v.youtubeUrl && v.category !== "cinematic"
+  );
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -64,10 +84,10 @@ export default function ReelsSection() {
 
   const close = useCallback(() => setActiveIndex(null), []);
   const next = useCallback(() => {
-    setActiveIndex((i) => (i === null ? i : Math.min(reels.length - 1, i + 1)));
+    setActiveIndex(i => (i === null ? i : Math.min(reels.length - 1, i + 1)));
   }, [reels.length]);
   const prev = useCallback(() => {
-    setActiveIndex((i) => (i === null ? i : Math.max(0, i - 1)));
+    setActiveIndex(i => (i === null ? i : Math.max(0, i - 1)));
   }, []);
 
   // ESC to close, arrow keys to navigate
@@ -106,7 +126,9 @@ export default function ReelsSection() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3 bg-gradient-to-r from-purple-100 to-cyan-100 border border-purple-200/50">
               <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-              <span className="text-xs font-semibold tracking-wider text-purple-700 uppercase">New Reels</span>
+              <span className="text-xs font-semibold tracking-wider text-purple-700 uppercase">
+                New Reels
+              </span>
             </div>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight"
@@ -115,7 +137,8 @@ export default function ReelsSection() {
               <span className="text-slate-800">Watch The </span>
               <span
                 style={{
-                  background: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
+                  background:
+                    "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
@@ -124,7 +147,8 @@ export default function ReelsSection() {
               </span>
             </h2>
             <p className="text-slate-500 mt-2 max-w-xl">
-              Short explainers on why Turbo Loop is the safest, most transparent yield protocol in DeFi.
+              Short explainers on why Turbo Loop is the safest, most transparent
+              yield protocol in DeFi.
             </p>
           </div>
           <div className="hidden md:flex items-center gap-2">
@@ -151,7 +175,13 @@ export default function ReelsSection() {
           style={{ scrollbarWidth: "none" }}
         >
           {reels.map((reel, i) => (
-            <ReelCard key={reel.id} reel={reel} index={i} onOpen={() => setActiveIndex(i)} isDimmed={activeIndex !== null} />
+            <ReelCard
+              key={reel.id}
+              reel={reel}
+              index={i}
+              onOpen={() => setActiveIndex(i)}
+              isDimmed={activeIndex !== null}
+            />
           ))}
         </div>
       </div>
@@ -177,7 +207,12 @@ export default function ReelsSection() {
 // Vibrant gradient palette cycled per reel, shown behind dark/loading thumbs so cards
 // never look black. Picked deterministically from the slug so each reel always gets
 // the same color scheme.
-const REEL_GRADIENTS: Array<{ from: string; via: string; to: string; accent: string }> = [
+const REEL_GRADIENTS: Array<{
+  from: string;
+  via: string;
+  to: string;
+  accent: string;
+}> = [
   { from: "#0891B2", via: "#7C3AED", to: "#EC4899", accent: "#22D3EE" }, // cyan → purple → pink
   { from: "#7C3AED", via: "#EC4899", to: "#F59E0B", accent: "#A78BFA" }, // purple → pink → amber
   { from: "#10B981", via: "#0891B2", to: "#7C3AED", accent: "#34D399" }, // green → cyan → purple
@@ -188,11 +223,22 @@ const REEL_GRADIENTS: Array<{ from: string; via: string; to: string; accent: str
 
 function gradientForSlug(slug: string) {
   let hash = 0;
-  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  for (let i = 0; i < slug.length; i++)
+    hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
   return REEL_GRADIENTS[hash % REEL_GRADIENTS.length];
 }
 
-function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number; onOpen: () => void; isDimmed: boolean }) {
+function ReelCard({
+  reel,
+  index,
+  onOpen,
+  isDimmed,
+}: {
+  reel: any;
+  index: number;
+  onOpen: () => void;
+  isDimmed: boolean;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hovered, setHovered] = useState(false);
   const [thumbLoaded, setThumbLoaded] = useState(false);
@@ -355,7 +401,7 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
         {/* Share + Download buttons — top-left, stops propagation so they don't open the player */}
         <div
           className="absolute top-3 left-3 flex flex-col gap-2"
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
         >
           <ShareButton
             path={`/reels/${slug}`}
@@ -364,7 +410,7 @@ function ReelCard({ reel, index, onOpen, isDimmed }: { reel: any; index: number;
             className="!w-9 !h-9 !bg-white/95 hover:!bg-white !text-slate-700 !border-white/40 shadow-lg"
           />
           <button
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               downloadReel(reel.directUrl, reel.title);
             }}
@@ -408,9 +454,13 @@ function ReelPlayer({
     if (!v) return;
     v.currentTime = 0;
     v.muted = muted;
-    const onTime = () => setProgress(v.duration ? (v.currentTime / v.duration) * 100 : 0);
+    const onTime = () =>
+      setProgress(v.duration ? (v.currentTime / v.duration) * 100 : 0);
     const onWaiting = () => setLoading(true);
-    const onPlaying = () => { setLoading(false); setPlaying(true); };
+    const onPlaying = () => {
+      setLoading(false);
+      setPlaying(true);
+    };
     const onPause = () => setPlaying(false);
     const onLoaded = () => setLoading(false);
     v.addEventListener("timeupdate", onTime);
@@ -441,7 +491,8 @@ function ReelPlayer({
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) v.play(); else v.pause();
+    if (v.paused) v.play();
+    else v.pause();
   };
 
   const shareMessage = `🔥 ${reel.title} — watch this short on Turbo Loop, the complete DeFi ecosystem on Binance Smart Chain.`;
@@ -456,7 +507,10 @@ function ReelPlayer({
     >
       {/* FLOATING CLOSE BUTTON — always visible, top-right corner, impossible to miss */}
       <button
-        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        onClick={e => {
+          e.stopPropagation();
+          onClose();
+        }}
         className="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex items-center gap-2 pl-3 pr-5 py-3 rounded-full bg-white hover:bg-red-50 shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-200 hover:scale-105"
         aria-label="Close (Esc)"
         style={{ animation: "closeBtnPulse 2.2s ease-in-out infinite" }}
@@ -464,7 +518,9 @@ function ReelPlayer({
         <span className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:from-red-600 group-hover:to-red-700 transition">
           <X className="w-5 h-5 md:w-6 md:h-6 text-white" strokeWidth={3} />
         </span>
-        <span className="text-slate-800 text-sm md:text-base font-bold">Close</span>
+        <span className="text-slate-800 text-sm md:text-base font-bold">
+          Close
+        </span>
       </button>
 
       <style>{`
@@ -482,26 +538,41 @@ function ReelPlayer({
           </span>
         </div>
         {/* Spacer for close button (positioned absolute above) */}
-        <div className="flex items-center gap-2 pointer-events-auto" style={{ marginRight: "140px" }}>
+        <div
+          className="flex items-center gap-2 pointer-events-auto"
+          style={{ marginRight: "140px" }}
+        >
           <button
-            onClick={(e) => { e.stopPropagation(); setMuted(m => !m); }}
+            onClick={e => {
+              e.stopPropagation();
+              setMuted(m => !m);
+            }}
             className="w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center transition"
             aria-label={muted ? "Unmute" : "Mute"}
             title={muted ? "Unmute" : "Mute"}
           >
-            {muted ? <VolumeX className="w-5 h-5 text-white" /> : <Volume2 className="w-5 h-5 text-white" />}
+            {muted ? (
+              <VolumeX className="w-5 h-5 text-white" />
+            ) : (
+              <Volume2 className="w-5 h-5 text-white" />
+            )}
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); downloadReel(reel.directUrl, reel.title); }}
+            onClick={e => {
+              e.stopPropagation();
+              downloadReel(reel.directUrl, reel.title);
+            }}
             className="w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 flex items-center justify-center transition"
             aria-label="Download reel"
             title="Download MP4"
           >
             <Download className="w-5 h-5 text-white" />
           </button>
-          <div onClick={(e) => e.stopPropagation()}>
+          <div onClick={e => e.stopPropagation()}>
             <ShareButton
-              path={reel.directUrl ? `/reels/${slugFromUrl(reel.directUrl)}` : "/"}
+              path={
+                reel.directUrl ? `/reels/${slugFromUrl(reel.directUrl)}` : "/"
+              }
               message={shareMessage}
               variant="icon"
               className="!w-11 !h-11 !bg-white/15 hover:!bg-white/25 !border-white/20 !text-white"
@@ -513,7 +584,10 @@ function ReelPlayer({
       {/* Side nav */}
       {hasPrev && (
         <button
-          onClick={(e) => { e.stopPropagation(); onPrev(); }}
+          onClick={e => {
+            e.stopPropagation();
+            onPrev();
+          }}
           className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 flex items-center justify-center transition z-10"
           aria-label="Previous"
         >
@@ -522,7 +596,10 @@ function ReelPlayer({
       )}
       {hasNext && (
         <button
-          onClick={(e) => { e.stopPropagation(); onNext(); }}
+          onClick={e => {
+            e.stopPropagation();
+            onNext();
+          }}
           className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 flex items-center justify-center transition z-10"
           aria-label="Next"
         >
@@ -538,12 +615,16 @@ function ReelPlayer({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.96, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="relative h-full w-full max-w-md mx-auto flex items-center justify-center"
         >
           <div
             className="relative rounded-2xl overflow-hidden bg-black"
-            style={{ aspectRatio: "9 / 16", maxHeight: "calc(100vh - 180px)" }}
+            style={{
+              aspectRatio: "9 / 16",
+              maxHeight: "calc(100dvh - 180px)",
+              transform: "translateZ(0)",
+            }}
           >
             <video
               ref={videoRef}
@@ -576,7 +657,9 @@ function ReelPlayer({
             )}
             {/* Title + progress overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none">
-              <h3 className="text-white text-base md:text-lg font-semibold drop-shadow-lg">{reel.title}</h3>
+              <h3 className="text-white text-base md:text-lg font-semibold drop-shadow-lg">
+                {reel.title}
+              </h3>
             </div>
             {/* Progress bar at top */}
             <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10">

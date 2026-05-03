@@ -25,7 +25,10 @@ import {
 import { rotateAndRestamp } from "@/lib/dynamicRotation";
 import { getFlagUrl } from "@/lib/constants";
 
-const PLATFORM_META: Record<SocialPlatform, { icon: any; label: string; color: string; bgGradient: string }> = {
+const PLATFORM_META: Record<
+  SocialPlatform,
+  { icon: any; label: string; color: string; bgGradient: string }
+> = {
   x: {
     icon: Twitter,
     label: "X / Twitter",
@@ -99,20 +102,17 @@ function PostCard({ post }: { post: SocialPost }) {
         border: `1px solid rgba(15,23,42,0.06)`,
         boxShadow: "0 6px 20px -6px rgba(15,23,42,0.06)",
       }}
-      onMouseEnter={(e) => {
+      onMouseEnter={e => {
         e.currentTarget.style.borderColor = `${meta.color}30`;
         e.currentTarget.style.boxShadow = `0 25px 50px -12px ${meta.color}25, 0 8px 20px -4px rgba(15,23,42,0.06)`;
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={e => {
         e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
         e.currentTarget.style.boxShadow = "0 6px 20px -6px rgba(15,23,42,0.06)";
       }}
     >
       {/* Top platform stripe */}
-      <div
-        className="h-1 w-full"
-        style={{ background: meta.bgGradient }}
-      />
+      <div className="h-1 w-full" style={{ background: meta.bgGradient }} />
 
       <div className="p-4 md:p-5">
         {/* Header: avatar + name + handle + platform */}
@@ -127,7 +127,7 @@ function PostCard({ post }: { post: SocialPost }) {
             {post.countryCode && (
               <img
                 src={getFlagUrl(post.countryCode, 40)}
-                alt=""
+                alt={`Flag of ${post.countryCode.toUpperCase()}`}
                 className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-white"
               />
             )}
@@ -188,7 +188,10 @@ function PostCard({ post }: { post: SocialPost }) {
         )}
 
         {/* Footer: badges + open link */}
-        <div className="flex items-center gap-2 flex-wrap pt-3" style={{ borderTop: "1px solid rgba(15,23,42,0.04)" }}>
+        <div
+          className="flex items-center gap-2 flex-wrap pt-3"
+          style={{ borderTop: "1px solid rgba(15,23,42,0.04)" }}
+        >
           {isNew && (
             <span
               className="text-[10px] font-bold tracking-wider uppercase px-2 py-1 rounded-full"
@@ -211,7 +214,7 @@ function PostCard({ post }: { post: SocialPost }) {
               📌 Pinned
             </span>
           )}
-          {post.badges?.map((b) => (
+          {post.badges?.map(b => (
             <span
               key={b}
               className="text-[10px] font-bold tracking-wider uppercase px-2 py-1 rounded-full bg-slate-100 text-slate-600"
@@ -230,13 +233,15 @@ function PostCard({ post }: { post: SocialPost }) {
 }
 
 export default function SocialWallSection() {
-  const [activeFilter, setActiveFilter] = useState<SocialPlatform | "all">("all");
+  const [activeFilter, setActiveFilter] = useState<SocialPlatform | "all">(
+    "all"
+  );
 
   // Auto-rotate the social wall daily — separate the pinned posts (always first,
   // never rotated) from the community posts (rotated + restamped each day).
   const dynamicPool = useMemo(() => {
-    const pinned = SOCIAL_POSTS.filter((p) => p.pinned);
-    const community = SOCIAL_POSTS.filter((p) => !p.pinned);
+    const pinned = SOCIAL_POSTS.filter(p => p.pinned);
+    const community = SOCIAL_POSTS.filter(p => !p.pinned);
     // Rotate community posts by day so a different voice "just posted" each day
     return [...pinned, ...rotateAndRestamp(community)];
   }, []);
@@ -244,7 +249,7 @@ export default function SocialWallSection() {
   const filtered = useMemo(() => {
     let list = dynamicPool;
     if (activeFilter !== "all") {
-      list = list.filter((p) => p.platform === activeFilter);
+      list = list.filter(p => p.platform === activeFilter);
     }
     // Pinned first, then by recency
     return [...list].sort((a, b) => {
@@ -256,20 +261,24 @@ export default function SocialWallSection() {
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: SOCIAL_POSTS.length };
-    SOCIAL_POSTS.forEach((p) => {
+    SOCIAL_POSTS.forEach(p => {
       c[p.platform] = (c[p.platform] || 0) + 1;
     });
     return c;
   }, []);
 
   return (
-    <section id="social-wall" className="section-spacing relative overflow-hidden">
+    <section
+      id="social-wall"
+      className="section-spacing relative overflow-hidden"
+    >
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full"
           style={{
-            background: "radial-gradient(ellipse, rgba(8,145,178,0.05), transparent 60%)",
+            background:
+              "radial-gradient(ellipse, rgba(8,145,178,0.05), transparent 60%)",
             filter: "blur(80px)",
           }}
         />
@@ -304,7 +313,7 @@ export default function SocialWallSection() {
 
             {/* Platform filters */}
             <div className="flex flex-wrap justify-center gap-2">
-              {FILTERS.map((f) => {
+              {FILTERS.map(f => {
                 const isActive = activeFilter === f.id;
                 const meta = f.id === "all" ? null : PLATFORM_META[f.id];
                 const count = counts[f.id] || 0;
@@ -415,8 +424,8 @@ export default function SocialWallSection() {
               <p className="text-slate-400 text-sm md:text-base mb-6 max-w-md mx-auto">
                 Post about Turbo Loop on any platform with{" "}
                 <span className="font-mono text-cyan-300">#TurboLoop</span> or{" "}
-                <span className="font-mono text-cyan-300">@TurboLoop_io</span> — top
-                posts get featured here every week.
+                <span className="font-mono text-cyan-300">@TurboLoop_io</span> —
+                top posts get featured here every week.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <a

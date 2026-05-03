@@ -129,6 +129,7 @@ export default function CinematicLightbox({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col"
+          style={{ transform: "translateZ(0)" }}
           onClick={onClose}
         >
           {/* Top bar */}

@@ -1,5 +1,4 @@
 import ScrollProgress from "@/components/ScrollProgress";
-import FloatingLaunchButton from "@/components/FloatingLaunchButton";
 import BackToTop from "@/components/BackToTop";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Navbar from "@/components/Navbar";
@@ -38,8 +37,8 @@ export default function Home() {
   return (
     <div className="min-h-screen relative" style={{ background: "#F7F8FC" }}>
       <SEOHead
-        title="Turbo Loop — The Complete DeFi Ecosystem on Binance Smart Chain"
-        description="Sustainable yield farming on BSC. Audited & renounced smart contract. 100% LP locked. Six DeFi primitives in one self-sustaining ecosystem. Global community across 6+ continents, 48 languages."
+        title="Turbo Loop — Sustainable DeFi Yield on BSC"
+        description="Audited, renounced, 100% LP-locked yield farming on Binance Smart Chain. Six DeFi primitives, one self-sustaining ecosystem."
         path="/"
         type="website"
         image="https://turboloop.tech/api/og-banner?type=launch"
@@ -58,7 +57,8 @@ export default function Home() {
                 "https://x.com/TurboLoop_io",
                 "https://www.youtube.com/@OfficialTurbo_Loop",
               ],
-              description: "The complete DeFi ecosystem on Binance Smart Chain — sustainable yield, transparent by design.",
+              description:
+                "The complete DeFi ecosystem on Binance Smart Chain — sustainable yield, transparent by design.",
               foundingDate: "2026",
             },
             {
@@ -71,7 +71,11 @@ export default function Home() {
               inLanguage: "en",
               potentialAction: {
                 "@type": "SearchAction",
-                target: { "@type": "EntryPoint", urlTemplate: "https://turboloop.tech/feed?q={search_term_string}" },
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://turboloop.tech/feed?q={search_term_string}",
+                },
                 "query-input": "required name=search_term_string",
               },
             },
@@ -82,22 +86,34 @@ export default function Home() {
                 {
                   "@type": "Question",
                   name: "What is Turbo Loop?",
-                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop is a complete DeFi ecosystem built on Binance Smart Chain. It combines six pillars — Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, and Smart Contract Security — into one self-sustaining platform." },
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Turbo Loop is a complete DeFi ecosystem built on Binance Smart Chain. It combines six pillars — Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, and Smart Contract Security — into one self-sustaining platform.",
+                  },
                 },
                 {
                   "@type": "Question",
                   name: "Where does the yield come from?",
-                  acceptedAnswer: { "@type": "Answer", text: "Turbo Loop generates yield from three real revenue sources: LP rewards, Turbo Swap fees (0.3% per trade), and Turbo Buy fees from fiat-to-crypto conversions." },
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Turbo Loop generates yield from three real revenue sources: LP rewards, Turbo Swap fees (0.3% per trade), and Turbo Buy fees from fiat-to-crypto conversions.",
+                  },
                 },
                 {
                   "@type": "Question",
                   name: "Is Turbo Loop safe?",
-                  acceptedAnswer: { "@type": "Answer", text: "Audited, renounced, LP locked, BscScan-verified, 100% on-chain. The protocol offers a $100,000 bounty to anyone who can prove centralization in the smart contract." },
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Audited, renounced, LP locked, BscScan-verified, 100% on-chain. The protocol offers a $100,000 bounty to anyone who can prove centralization in the smart contract.",
+                  },
                 },
                 {
                   "@type": "Question",
                   name: "How do I get started with Turbo Loop?",
-                  acceptedAnswer: { "@type": "Answer", text: "Connect MetaMask or Trust Wallet, buy BNB or USDT, deposit USDT into the farming contract, earn daily yield from protocol revenue. Visit turboloop.io and click Launch App." },
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Connect MetaMask or Trust Wallet, buy BNB or USDT, deposit USDT into the farming contract, earn daily yield from protocol revenue. Visit turboloop.io and click Launch App.",
+                  },
                 },
               ],
             },
@@ -156,7 +172,6 @@ export default function Home() {
       </main>
 
       <Footer />
-      <FloatingLaunchButton />
       <BackToTop />
       <WelcomePopup />
     </div>

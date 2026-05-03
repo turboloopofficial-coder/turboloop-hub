@@ -2,8 +2,17 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Share2, X, Check, Twitter, Send as TelegramIcon, MessageCircle,
-  Mail, Sparkles, Link as LinkIcon, Linkedin, Facebook,
+  Share2,
+  X,
+  Check,
+  Twitter,
+  Send as TelegramIcon,
+  MessageCircle,
+  Mail,
+  Sparkles,
+  Link as LinkIcon,
+  Linkedin,
+  Facebook,
 } from "lucide-react";
 import { buildShareUrl, getReferralCode } from "@/lib/referral";
 
@@ -91,11 +100,17 @@ export default function ShareButton({
   const onTrigger = (e: React.MouseEvent) => {
     e.stopPropagation();
     const isMobile =
-      typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 768px)").matches;
     if (isMobile && (navigator as any).share) {
       (navigator as any)
         .share({ title: "Turbo Loop", text: message, url: shareUrl })
-        .catch(() => setOpen(true));
+        .catch((err: any) => {
+          // AbortError = user dismissed the native share sheet. Don't show
+          // the custom modal afterwards — that's the "double share UI" bug.
+          if (err?.name === "AbortError") return;
+          setOpen(true);
+        });
     } else {
       setOpen(true);
     }
@@ -150,8 +165,8 @@ export default function ShareButton({
     variant === "solid"
       ? "inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium text-white transition-all hover:opacity-90"
       : variant === "icon"
-      ? "inline-flex items-center justify-center w-9 h-9 rounded-full text-slate-500 bg-white/70 hover:bg-white hover:text-cyan-600 border border-slate-200/60 backdrop-blur-sm transition-all"
-      : "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:text-cyan-700 bg-white/60 hover:bg-white border border-slate-200/60 backdrop-blur-sm transition-all";
+        ? "inline-flex items-center justify-center w-9 h-9 rounded-full text-slate-500 bg-white/70 hover:bg-white hover:text-cyan-600 border border-slate-200/60 backdrop-blur-sm transition-all"
+        : "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:text-cyan-700 bg-white/60 hover:bg-white border border-slate-200/60 backdrop-blur-sm transition-all";
 
   const btnStyle =
     variant === "solid"
@@ -186,7 +201,7 @@ export default function ShareButton({
               boxShadow:
                 "0 30px 80px -20px rgba(15,23,42,0.4), 0 10px 25px -10px rgba(15,23,42,0.15)",
             }}
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             {/* Top gradient accent */}
             <div
@@ -239,7 +254,9 @@ export default function ShareButton({
                     <span className="block mt-1 text-emerald-600 font-medium">
                       ✓ Your referral{" "}
                       <code className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px]">
-                        {savedRef.length > 16 ? savedRef.slice(0, 6) + "…" + savedRef.slice(-4) : savedRef}
+                        {savedRef.length > 16
+                          ? savedRef.slice(0, 6) + "…" + savedRef.slice(-4)
+                          : savedRef}
                       </code>{" "}
                       is attached.
                     </span>
@@ -276,7 +293,7 @@ export default function ShareButton({
 
               {/* Share targets — 3x2 grid */}
               <div className="grid grid-cols-3 gap-2 mb-5">
-                {platforms.map((p) => (
+                {platforms.map(p => (
                   <a
                     key={p.key}
                     href={p.url}
@@ -303,11 +320,21 @@ export default function ShareButton({
               {/* Native share fallback (mobile) */}
               {typeof navigator !== "undefined" && (navigator as any).share && (
                 <button
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     (navigator as any)
-                      .share({ title: "Turbo Loop", text: message, url: shareUrl })
-                      .catch(() => {});
+                      .share({
+                        title: "Turbo Loop",
+                        text: message,
+                        url: shareUrl,
+                      })
+                      .catch((err: any) => {
+                        // Silent on AbortError (user dismissed); ignore others — the modal
+                        // already gives the user every share target via the grid above.
+                        if (err?.name !== "AbortError") {
+                          // No-op: the user can pick from the platform grid above.
+                        }
+                      });
                   }}
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-50 hover:bg-slate-100 transition mb-3"
                 >

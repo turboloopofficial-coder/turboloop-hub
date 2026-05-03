@@ -132,8 +132,14 @@ export default function CinematicLightbox({
           style={{ transform: "translateZ(0)" }}
           onClick={onClose}
         >
-          {/* Top bar */}
-          <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 md:p-6 pointer-events-none">
+          {/* Top bar — pads below the URL bar / notch via safe-area-inset-top so
+              the close button is reachable on iOS Safari + Android Chrome */}
+          <div
+            className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 md:p-6 pointer-events-none"
+            style={{
+              paddingTop: "max(1rem, env(safe-area-inset-top))",
+            }}
+          >
             <div
               className="flex items-center gap-3 pointer-events-auto"
               onClick={e => e.stopPropagation()}
@@ -199,8 +205,16 @@ export default function CinematicLightbox({
             </button>
           )}
 
-          {/* Main content — video left, info right (mobile: video on top, panel scrolls below) */}
-          <div className="flex-1 flex flex-col lg:flex-row items-stretch justify-center pt-20 md:pt-24 pb-6 md:pb-8 px-4 md:px-12 gap-6 md:gap-8 overflow-y-auto lg:overflow-hidden">
+          {/* Main content — video left, info right (mobile: video on top, panel scrolls below).
+              pt/pb add safe-area-inset on top of the regular padding so the video
+              doesn't hide behind the URL bar / notch on phones. */}
+          <div
+            className="flex-1 flex flex-col lg:flex-row items-stretch justify-center px-4 md:px-12 gap-6 md:gap-8 overflow-y-auto lg:overflow-hidden"
+            style={{
+              paddingTop: "calc(5rem + env(safe-area-inset-top))",
+              paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom))",
+            }}
+          >
             {/* Video — capped height on mobile so it doesn't get squeezed by the side panel */}
             <div
               onClick={e => e.stopPropagation()}

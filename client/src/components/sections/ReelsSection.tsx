@@ -505,15 +505,20 @@ function ReelPlayer({
       className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl"
       onClick={onClose}
     >
-      {/* FLOATING CLOSE BUTTON — always visible, top-right corner, impossible to miss */}
+      {/* FLOATING CLOSE BUTTON — always visible, top-right corner, impossible to miss.
+          The top offset includes safe-area-inset so the close button sits below
+          the URL bar on iOS/Android, not behind it. */}
       <button
         onClick={e => {
           e.stopPropagation();
           onClose();
         }}
-        className="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex items-center gap-2 pl-3 pr-5 py-3 rounded-full bg-white hover:bg-red-50 shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-200 hover:scale-105"
+        className="absolute right-4 md:right-6 z-30 group flex items-center gap-2 pl-3 pr-5 py-3 rounded-full bg-white hover:bg-red-50 shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-200 hover:scale-105"
         aria-label="Close (Esc)"
-        style={{ animation: "closeBtnPulse 2.2s ease-in-out infinite" }}
+        style={{
+          top: "max(1rem, env(safe-area-inset-top))",
+          animation: "closeBtnPulse 2.2s ease-in-out infinite",
+        }}
       >
         <span className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:from-red-600 group-hover:to-red-700 transition">
           <X className="w-5 h-5 md:w-6 md:h-6 text-white" strokeWidth={3} />
@@ -530,8 +535,11 @@ function ReelPlayer({
         }
       `}</style>
 
-      {/* Top bar (left side only — counter + mute + share) */}
-      <div className="absolute top-0 left-0 right-0 z-20 flex items-start justify-between p-4 md:p-6 pointer-events-none">
+      {/* Top bar (left side only — counter + mute + share) — pads below the URL bar */}
+      <div
+        className="absolute top-0 left-0 right-0 z-20 flex items-start justify-between p-4 md:p-6 pointer-events-none"
+        style={{ paddingTop: "max(1rem, env(safe-area-inset-top))" }}
+      >
         <div className="flex items-center gap-3 pointer-events-auto">
           <span className="text-white/70 text-sm md:text-base font-mono tracking-wider bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
             {position}

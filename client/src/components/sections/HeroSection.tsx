@@ -250,25 +250,29 @@ export default function HeroSection() {
           <TrustBadge
             icon={ShieldCheck}
             label="Independently Audited"
-            href="/security#audit"
+            href="https://hazecrypto.net/audit/TurboLoop"
+            external
           />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />
           <TrustBadge
             icon={Lock}
             label="LP 100% Locked"
-            href="/security#lp-lock"
+            href="https://bscscan.com/address/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb"
+            external
           />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />
           <TrustBadge
             icon={CheckCircle2}
             label="Ownership Renounced"
-            href="/security#renounced"
+            href="https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e"
+            external
           />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />
           <TrustBadge
             icon={Globe2}
             label="BscScan Verified"
-            href="/security#verified"
+            href="https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code"
+            external
           />
         </motion.div>
 
@@ -319,10 +323,13 @@ function TrustBadge({
   icon: Icon,
   label,
   href,
+  external,
 }: {
   icon: any;
   label: string;
   href?: string;
+  /** Open in new tab with rel="noopener noreferrer" — for off-site proof URLs */
+  external?: boolean;
 }) {
   const inner = (
     <>
@@ -334,8 +341,10 @@ function TrustBadge({
     return (
       <a
         href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
         className="flex items-center gap-2 text-slate-500 hover:text-cyan-700 transition-colors cursor-pointer"
-        aria-label={`${label} — see proof`}
+        aria-label={`${label} — verify on-chain`}
       >
         {inner}
       </a>

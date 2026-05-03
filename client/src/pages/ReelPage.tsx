@@ -143,12 +143,13 @@ export default function ReelPage() {
         />
       )}
 
-      {/* Header */}
+      {/* Header — pads below the URL bar / notch via safe-area-inset-top */}
       <header
         className="sticky top-0 z-50 border-b border-white/10"
         style={{
           background: "rgba(15,23,42,0.85)",
           backdropFilter: "blur(20px)",
+          paddingTop: "env(safe-area-inset-top)",
         }}
       >
         <div className="container flex items-center justify-between py-4">

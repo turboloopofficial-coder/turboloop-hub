@@ -8,16 +8,23 @@ export default function WelcomePopup() {
   const [open, setOpen] = useState(false);
 
   // Fetch admin-configurable welcome message
-  const { data: welcomeTitle } = trpc.content.setting.useQuery(
-    { key: "welcome_title" },
-    { staleTime: 60000 }
-  );
-  const { data: welcomeMessage } = trpc.content.setting.useQuery(
-    { key: "welcome_message" },
-    { staleTime: 60000 }
-  );
+  const { data: welcomeTitle, isLoading: isLoadingTitle } =
+    trpc.content.setting.useQuery(
+      { key: "welcome_title" },
+      { staleTime: 60000 }
+    );
+  const { data: welcomeMessage, isLoading: isLoadingMessage } =
+    trpc.content.setting.useQuery(
+      { key: "welcome_message" },
+      { staleTime: 60000 }
+    );
 
   useEffect(() => {
+    // Wait for tRPC data to land before showing the modal — otherwise the
+    // popup renders with the fallback copy and visibly resizes when the
+    // admin's longer/shorter text arrives. By gating on isLoading we render
+    // exactly once with the final content.
+    if (isLoadingTitle || isLoadingMessage) return;
     // Only show once per session
     const seen = sessionStorage.getItem("turboloop_welcome_seen");
     if (!seen) {
@@ -25,7 +32,7 @@ export default function WelcomePopup() {
       const timer = setTimeout(() => setOpen(true), 800);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isLoadingTitle, isLoadingMessage]);
 
   const handleClose = () => {
     setOpen(false);

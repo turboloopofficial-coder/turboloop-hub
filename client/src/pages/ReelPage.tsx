@@ -99,6 +99,24 @@ export default function ReelPage() {
     else v.pause();
   };
 
+  // Premium mobile UX: native fullscreen hides URL bar, gives true cinema mode.
+  // Standard requestFullscreen for Android/Chrome; webkitEnterFullscreen for iOS.
+  const enterFullscreen = () => {
+    const v = videoRef.current as any;
+    if (!v) return;
+    try {
+      if (typeof v.requestFullscreen === "function") {
+        v.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+      } else if (typeof v.webkitEnterFullscreen === "function") {
+        v.webkitEnterFullscreen();
+      } else if (typeof v.webkitRequestFullscreen === "function") {
+        v.webkitRequestFullscreen();
+      }
+    } catch {
+      /* noop */
+    }
+  };
+
   const thumb = reel ? thumbForReel(reel.directUrl!) : undefined;
 
   const jsonLd = reel
@@ -243,6 +261,22 @@ export default function ReelPage() {
                   )}
                 </button>
               </div>
+
+              {/* Watch Fullscreen — mobile premium CTA */}
+              <button
+                onClick={enterFullscreen}
+                className="md:hidden mt-3 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition active:scale-95"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)",
+                  color: "#0F172A",
+                  boxShadow: "0 8px 22px -6px rgba(0,0,0,0.4)",
+                }}
+                aria-label="Watch fullscreen"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                Watch Fullscreen
+              </button>
             </div>
 
             {/* Info + share */}

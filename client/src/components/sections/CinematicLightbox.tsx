@@ -120,6 +120,28 @@ export default function CinematicLightbox({
     if (v) v.muted = false;
   };
 
+  // Premium mobile UX: trigger native fullscreen on demand. Browser hides its
+  // URL bar entirely, video fills the actual screen, and native scrub/play
+  // controls are touch-optimized. Standard requestFullscreen for Android +
+  // Chrome desktop; webkitEnterFullscreen for iOS Safari (different API).
+  const enterFullscreen = () => {
+    const v = videoRef.current as any;
+    if (!v) return;
+    try {
+      if (typeof v.requestFullscreen === "function") {
+        v.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+      } else if (typeof v.webkitEnterFullscreen === "function") {
+        // iOS Safari uses a different (proprietary) fullscreen API on the
+        // <video> element. This launches the iOS native player overlay.
+        v.webkitEnterFullscreen();
+      } else if (typeof v.webkitRequestFullscreen === "function") {
+        v.webkitRequestFullscreen();
+      }
+    } catch {
+      // Fullscreen denied (e.g. user gesture missing) — just play inline
+    }
+  };
+
   return (
     <AnimatePresence>
       {film && season && (
@@ -206,16 +228,19 @@ export default function CinematicLightbox({
           )}
 
           {/* Main content — video left, info right (mobile: video on top, panel scrolls below).
-              pt/pb add safe-area-inset on top of the regular padding so the video
-              doesn't hide behind the URL bar / notch on phones. */}
+              pt/pb add safe-area-inset on top of regular padding so the close
+              button is reachable on iOS notch + Android URL bar. Mobile uses
+              tighter padding so the video gets more room. */}
           <div
-            className="flex-1 flex flex-col lg:flex-row items-stretch justify-center px-4 md:px-12 gap-6 md:gap-8 overflow-y-auto lg:overflow-hidden"
+            className="flex-1 flex flex-col lg:flex-row items-stretch justify-center px-3 md:px-12 gap-4 md:gap-8 overflow-y-auto lg:overflow-hidden"
             style={{
-              paddingTop: "calc(5rem + env(safe-area-inset-top))",
-              paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom))",
+              paddingTop: "calc(3.5rem + env(safe-area-inset-top))",
+              paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
             }}
           >
-            {/* Video — capped height on mobile so it doesn't get squeezed by the side panel */}
+            {/* Video — fills available width, sized by 16:9 ratio. On mobile
+                the video is the hero (no artificial maxHeight squeeze). On
+                desktop the side panel is beside it so we cap height. */}
             <div
               onClick={e => e.stopPropagation()}
               className="flex items-center justify-center shrink-0 lg:flex-1 lg:min-h-0"
@@ -228,9 +253,10 @@ export default function CinematicLightbox({
                 className="relative w-full rounded-2xl overflow-hidden bg-black shadow-2xl"
                 style={{
                   aspectRatio: "16 / 9",
-                  // Cap to viewport-aware height so the video never overflows on either axis.
-                  // On mobile (no side panel beside) leave more room for the writeup below.
-                  maxHeight: "min(calc(100svh - 200px), calc(100vw * 9 / 16))",
+                  // Desktop: cap so the side panel doesn't get squeezed.
+                  // Mobile: no upper cap — let the video fill the width × 9/16.
+                  // The user gets a "Watch Fullscreen" button below for true cinema mode.
+                  maxHeight: "min(calc(100dvh - 7rem), calc(100vw * 9 / 16))",
                   maxWidth: "min(1280px, 100%)",
                 }}
               >
@@ -278,6 +304,26 @@ export default function CinematicLightbox({
                   </button>
                 )}
               </motion.div>
+
+              {/* Watch Fullscreen — mobile-only premium CTA. On Android Chrome
+                  + iOS Safari this triggers the native fullscreen player which
+                  hides the URL bar entirely and gives the cinema-mode feel. */}
+              <button
+                onClick={enterFullscreen}
+                className="lg:hidden mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-bold transition hover:scale-105 active:scale-95 self-center"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)",
+                  color: "#0F172A",
+                  boxShadow:
+                    "0 10px 30px -8px rgba(0,0,0,0.45), 0 4px 12px -4px rgba(0,0,0,0.25)",
+                  border: "1px solid rgba(255,255,255,0.6)",
+                }}
+                aria-label="Watch fullscreen"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                Watch Fullscreen
+              </button>
             </div>
 
             {/* Side panel — info + actions + up-next */}
@@ -372,8 +418,8 @@ export default function CinematicLightbox({
             </aside>
           </div>
 
-          {/* Bottom hint */}
-          <div className="absolute bottom-2 left-0 right-0 text-center text-white/30 text-[10px] tracking-wider uppercase pointer-events-none">
+          {/* Bottom hint — desktop only (touch users have no Esc / arrow keys) */}
+          <div className="hidden md:block absolute bottom-2 left-0 right-0 text-center text-white/30 text-[10px] tracking-wider uppercase pointer-events-none">
             Esc to close · ← → to switch episodes · Click side panel to interact
           </div>
         </motion.div>

@@ -247,13 +247,29 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 1 }}
           className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-sm"
         >
-          <TrustBadge icon={ShieldCheck} label="Independently Audited" />
+          <TrustBadge
+            icon={ShieldCheck}
+            label="Independently Audited"
+            href="/security#audit"
+          />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />
-          <TrustBadge icon={Lock} label="LP 100% Locked" />
+          <TrustBadge
+            icon={Lock}
+            label="LP 100% Locked"
+            href="/security#lp-lock"
+          />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />
-          <TrustBadge icon={CheckCircle2} label="Ownership Renounced" />
+          <TrustBadge
+            icon={CheckCircle2}
+            label="Ownership Renounced"
+            href="/security#renounced"
+          />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />
-          <TrustBadge icon={Globe2} label="BscScan Verified" />
+          <TrustBadge
+            icon={Globe2}
+            label="BscScan Verified"
+            href="/security#verified"
+          />
         </motion.div>
 
         {/* Live stats row */}
@@ -299,13 +315,33 @@ export default function HeroSection() {
   );
 }
 
-function TrustBadge({ icon: Icon, label }: { icon: any; label: string }) {
-  return (
-    <div className="flex items-center gap-2 text-slate-500">
+function TrustBadge({
+  icon: Icon,
+  label,
+  href,
+}: {
+  icon: any;
+  label: string;
+  href?: string;
+}) {
+  const inner = (
+    <>
       <Icon className="w-4 h-4 text-cyan-600" />
       <span className="text-sm font-medium">{label}</span>
-    </div>
+    </>
   );
+  if (href) {
+    return (
+      <a
+        href={href}
+        className="flex items-center gap-2 text-slate-500 hover:text-cyan-700 transition-colors cursor-pointer"
+        aria-label={`${label} — see proof`}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return <div className="flex items-center gap-2 text-slate-500">{inner}</div>;
 }
 
 function StatCard({

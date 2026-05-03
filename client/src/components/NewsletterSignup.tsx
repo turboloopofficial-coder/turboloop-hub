@@ -77,6 +77,9 @@ export default function NewsletterSignup({
                 onChange={e => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 disabled={submitting}
+                aria-label="Email address for newsletter signup"
+                autoComplete="email"
+                required
                 className="flex-1 px-4 py-2.5 rounded-xl text-base outline-none transition"
                 style={{
                   background: "rgba(255,255,255,0.06)",
@@ -203,6 +206,8 @@ export default function NewsletterSignup({
                     placeholder="your@email.com"
                     disabled={submitting}
                     autoComplete="email"
+                    aria-label="Email address for newsletter signup"
+                    required
                     className="flex-1 px-5 py-3.5 rounded-xl text-base outline-none transition"
                     style={{
                       background: "rgba(255,255,255,0.06)",

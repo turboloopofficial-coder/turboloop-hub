@@ -68,6 +68,36 @@ export default function PageShell({
   related,
 }: Props) {
   const palette = hero.palette || DEFAULT_PALETTE;
+
+  // Build a BreadcrumbList by default so every PageShell page has one without
+  // each page repeating the boilerplate. If the page passes a jsonLd of its
+  // own, we merge it into a @graph alongside the breadcrumbs.
+  const SITE_ORIGIN = "https://turboloop.tech";
+  const breadcrumbList = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_ORIGIN,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: breadcrumbLabel || title,
+        item: `${SITE_ORIGIN}${path}`,
+      },
+    ],
+  };
+  const mergedJsonLd = jsonLd
+    ? // If the page already used @graph, append breadcrumbs to it; otherwise
+      // wrap both in a new @graph
+      Array.isArray((jsonLd as any)["@graph"])
+      ? { ...jsonLd, "@graph": [...(jsonLd as any)["@graph"], breadcrumbList] }
+      : { "@context": "https://schema.org", "@graph": [jsonLd, breadcrumbList] }
+    : { "@context": "https://schema.org", "@graph": [breadcrumbList] };
+
   return (
     <div className="min-h-screen relative" style={{ background: "#F7F8FC" }}>
       <SEOHead
@@ -75,7 +105,7 @@ export default function PageShell({
         description={description}
         path={path}
         type="website"
-        jsonLd={jsonLd}
+        jsonLd={mergedJsonLd}
       />
       <ScrollProgress />
       <BackgroundEffects />

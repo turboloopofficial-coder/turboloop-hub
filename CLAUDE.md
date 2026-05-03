@@ -170,6 +170,10 @@ Required (server/\_core/env.ts + routers.ts):
 - `ANTHROPIC_API_KEY` — AI Drafter (optional; feature throws helpful error if missing)
 - Telegram bot token + channel IDs (used by `_telegram.ts` — check that file for exact var names before changes)
 
+Optional client-side (must be `VITE_*` prefix so Vite bundles them):
+
+- `VITE_SENTRY_DSN` — error monitoring. Sign up at sentry.io (free tier covers ~5k errors/month), create a React project, copy the DSN, add to Vercel env. Without it, the Sentry SDK is a no-op (zero overhead, no network calls).
+
 Set in Vercel project settings for prod; in `.env` locally (gitignored).
 
 ## Conventions

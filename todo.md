@@ -70,3 +70,42 @@
 - [x] Upload all PDFs to storage via manus-upload-file (all 48 uploaded)
 - [x] Seed all 48 presentations into database with proper language names and flags
 - [x] Verify Presentations section displays all entries beautifully (flags, filters, download/view links working)
+
+## V10 — COMPREHENSIVE SITE AUDIT + 3-BATCH FIX (2026-05-02 → 2026-05-03)
+
+External browser audit of turboloop.tech + independent source audit. Combined
+findings into [AUDIT_2026_05_02.md](AUDIT_2026_05_02.md). Shipped in 3 batches
+via direct-push-to-main (per CLAUDE.md Deployment Protocol). 3 commits:
+`2c020fa` (P0), `18ff42d` (P1), `dd9ad94` (P2).
+
+### Critical (P0) — `2c020fa`
+- [x] Newsletter signup duplication on homepage — removed inline (Footer)
+- [x] 5 simultaneous Launch App CTAs reduced to ≤2 — removed FloatingLaunchButton from Home
+- [x] Loading flash on stats ("0 / 0+ / 0 / $0K") — replaced count-up with direct render in Hero + HomeNumbersTeaser
+- [x] /blog/* rendering 2 H1 tags — added h1→h2 demote in BlogContent.tsx Streamdown components
+- [x] Invalid blog/topic/reel/film slugs — render `<NotFound />` instead of fake "not found" inline
+- [x] SubmitPage form — added id/htmlFor linkage on all 5 fields, required + aria-required
+- [x] Mobile video disappear/scroll — replaced 100vh/80vh with 100dvh/80dvh; added transform: translateZ(0) for iOS compositor layer
+- [x] 14 missing alt texts — descriptive alt on cover images, country-flag overlays, language flags
+- [x] SEO meta over Google truncation limits — Home, Films, Ecosystem trimmed
+- [x] Share button AbortError → double-UI bug — distinguish AbortError (silent return) from real failure (custom fallback)
+- [x] (audit-added) Stale "16 pages. 13 deep-dives" copy in client/index.html
+
+### Important (P1) — `18ff42d`
+- [x] SharePagePill enforces 44px min tap target
+- [x] WelcomePopup close button 24px → 44px + aria-label
+- [x] Hero stats ↔ HomeNumbersTeaser stat overlap — differentiated (Hero = live signals, HomeNumbersTeaser = breadth + depth)
+- [x] (audit-added) HomePromotionsTeaser heading hierarchy — card titles h4 → h3
+- [x] (audit-added) FilmsPage heading hierarchy — episode card titles h4 → h3 (was h2 → h4 jump)
+
+### Polish (P2) — `dd9ad94`
+- [x] Trust badges in Hero — wrapped in `<a>` with anchor links to /security#audit / #lp-lock / #renounced / #verified, aria-label
+- [x] NewsletterSignup inputs — aria-label, autoComplete, required
+- [x] (audit-added) Removed dead code: client/src/components/Map.tsx, client/src/components/ManusDialog.tsx
+- [x] (audit-added) Removed leftover console.log in ComponentShowcase.tsx
+
+### Deferred (out of scope for this batch)
+- [ ] JSON-LD enrichment (BreadcrumbList on PageShell pages) — basic WebPage schema already present
+- [ ] Page length review (Home 15.1 screenfuls, Feed 13.8, Community 12.4, Security 11.6) — needs design pass
+- [ ] /security "106 small targets" — external audit likely tested /library; presentation cards there already adequate
+- [ ] Trust badge external proof URLs (audit PDF, BscScan tx links) — currently anchor links to /security; swap to real URLs once available

@@ -26,22 +26,18 @@ function StatValue({
   );
 }
 
+// Differentiated from the Hero stats (Languages / Videos+Reels / Continents / $100K).
+// Hero shows live signals; this section shows breadth + depth of the project.
 const STATS = [
-  {
-    icon: Languages,
-    label: "Languages",
-    target: 48,
-    suffix: "",
-    color: "#0891B2",
-  },
   {
     icon: Globe2,
     label: "Countries",
     target: 21,
     suffix: "+",
-    color: "#7C3AED",
+    color: "#0891B2",
   },
-  { icon: Users, label: "Continents", target: 6, suffix: "", color: "#EC4899" },
+  { icon: Languages, label: "Films", target: 20, suffix: "", color: "#7C3AED" },
+  { icon: Users, label: "Articles", target: 13, suffix: "+", color: "#EC4899" },
   {
     icon: Trophy,
     label: "Bug Bounty",

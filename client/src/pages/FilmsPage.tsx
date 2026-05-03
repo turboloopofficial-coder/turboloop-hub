@@ -266,9 +266,9 @@ function EpisodeCard({
 
       {/* Title */}
       <div className="absolute bottom-0 left-0 right-0 p-3.5 text-white">
-        <h4 className="text-sm md:text-base font-bold leading-tight line-clamp-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+        <h3 className="text-sm md:text-base font-bold leading-tight line-clamp-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
           {film.title}
-        </h4>
+        </h3>
         <div className="text-[11px] text-white/80 mt-0.5 line-clamp-1">
           {film.tagline}
         </div>

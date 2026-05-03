@@ -85,7 +85,8 @@ export default function WelcomePopup() {
               {/* Close button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200 z-10"
+                aria-label="Close welcome popup"
+                className="absolute top-3 right-3 p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200 z-10"
               >
                 <X className="h-5 w-5" />
               </button>

@@ -36,12 +36,18 @@ export default function HomePromotionsTeaser() {
       <div className="container">
         <AnimatedSection>
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-cyan-700/80">Active Programs</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mt-3 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+            <span className="text-xs font-bold tracking-[0.25em] uppercase text-cyan-700/80">
+              Active Programs
+            </span>
+            <h2
+              className="text-3xl md:text-5xl font-bold text-slate-900 mt-3 leading-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               Earn while you build.
             </h2>
             <p className="text-base md:text-lg text-slate-500 mt-4 leading-relaxed">
-              Four ways to earn — beyond yield farming. Create, present, refer, get rewarded.
+              Four ways to earn — beyond yield farming. Create, present, refer,
+              get rewarded.
             </p>
           </div>
         </AnimatedSection>
@@ -51,18 +57,23 @@ export default function HomePromotionsTeaser() {
           <div
             className="relative rounded-3xl overflow-hidden p-8 md:p-12 mb-6 max-w-5xl mx-auto"
             style={{
-              background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
+              background:
+                "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
               boxShadow: "0 30px 60px -20px rgba(15,23,42,0.4)",
             }}
           >
             <div
               className="absolute inset-0 pointer-events-none opacity-50"
-              style={{ background: "radial-gradient(ellipse at top right, rgba(245,158,11,0.25), transparent 60%)" }}
+              style={{
+                background:
+                  "radial-gradient(ellipse at top right, rgba(245,158,11,0.25), transparent 60%)",
+              }}
             />
             <div
               className="absolute inset-0 pointer-events-none opacity-30"
               style={{
-                backgroundImage: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
                 backgroundSize: "32px 32px",
               }}
             />
@@ -72,21 +83,29 @@ export default function HomePromotionsTeaser() {
                 <div
                   className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4"
                   style={{
-                    background: "linear-gradient(135deg, rgba(245,158,11,0.2), rgba(236,72,153,0.2))",
+                    background:
+                      "linear-gradient(135deg, rgba(245,158,11,0.2), rgba(236,72,153,0.2))",
                     border: "1px solid rgba(245,158,11,0.4)",
                   }}
                 >
                   <Trophy className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-amber-300">Open Bug Bounty</span>
+                  <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-amber-300">
+                    Open Bug Bounty
+                  </span>
                 </div>
-                <h3 className="text-5xl md:text-7xl font-bold text-white leading-none mb-3" style={{ fontFamily: "var(--font-heading)" }}>
+                <h3
+                  className="text-5xl md:text-7xl font-bold text-white leading-none mb-3"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
                   $100,000
                 </h3>
                 <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-2">
                   Smart Contract Challenge
                 </p>
                 <p className="text-sm md:text-base text-white/60 leading-relaxed max-w-md">
-                  Find any centralization in the contract. Submit on-chain proof. Get paid in USDT. Verifiable on-chain. Audited by independents.
+                  Find any centralization in the contract. Submit on-chain
+                  proof. Get paid in USDT. Verifiable on-chain. Audited by
+                  independents.
                 </p>
               </div>
               <Link href="/promotions">
@@ -122,13 +141,14 @@ export default function HomePromotionsTeaser() {
                       border: "1px solid rgba(15,23,42,0.06)",
                       boxShadow: "0 4px 14px -6px rgba(15,23,42,0.06)",
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={e => {
                       e.currentTarget.style.borderColor = `${c.color}25`;
                       e.currentTarget.style.boxShadow = `0 16px 30px -10px ${c.color}30`;
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={e => {
                       e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
-                      e.currentTarget.style.boxShadow = "0 4px 14px -6px rgba(15,23,42,0.06)";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 14px -6px rgba(15,23,42,0.06)";
                     }}
                   >
                     <div
@@ -140,10 +160,21 @@ export default function HomePromotionsTeaser() {
                     >
                       <Icon className="w-5 h-5 text-white" />
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900 mb-2" style={{ fontFamily: "var(--font-heading)" }}>{c.label}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed mb-3">{c.blurb}</p>
-                    <div className="inline-flex items-center gap-1 text-sm font-bold" style={{ color: c.color }}>
-                      Learn more <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    <h3
+                      className="text-lg font-bold text-slate-900 mb-2"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {c.label}
+                    </h3>
+                    <p className="text-sm text-slate-500 leading-relaxed mb-3">
+                      {c.blurb}
+                    </p>
+                    <div
+                      className="inline-flex items-center gap-1 text-sm font-bold"
+                      style={{ color: c.color }}
+                    >
+                      Learn more{" "}
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </motion.div>
                 </Link>

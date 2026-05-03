@@ -82,7 +82,7 @@ export default function SharePagePill({ path, title }: Props) {
           const result = await nativeShare();
           if (result === "unsupported") setOpen(o => !o);
         }}
-        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-bold transition-all"
+        className="inline-flex items-center gap-2 px-3.5 py-2 min-h-[44px] min-w-[44px] rounded-full text-sm font-bold transition-all"
         style={{
           background: "rgba(255,255,255,0.95)",
           color: "#0F172A",

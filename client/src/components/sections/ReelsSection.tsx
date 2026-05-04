@@ -14,6 +14,10 @@ import {
   Download,
 } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
+import {
+  playInFullscreen,
+  isMobileViewport,
+} from "@/lib/videoFullscreen";
 
 /**
  * Trigger a true file download (instead of opening the video in the browser).
@@ -179,7 +183,16 @@ export default function ReelsSection() {
               key={reel.id}
               reel={reel}
               index={i}
-              onOpen={() => setActiveIndex(i)}
+              onOpen={() => {
+                // Mobile: skip the modal and go straight to OS-native fullscreen
+                // (URL bar disappears, native scrub bar). Desktop: keep the
+                // custom modal — there's room for the share/download UI.
+                if (isMobileViewport() && reel.directUrl) {
+                  playInFullscreen({ url: reel.directUrl, title: reel.title });
+                } else {
+                  setActiveIndex(i);
+                }
+              }}
               isDimmed={activeIndex !== null}
             />
           ))}

@@ -28,20 +28,21 @@ if (SENTRY_DSN && import.meta.env.PROD) {
       Sentry.init({
         dsn: SENTRY_DSN,
         environment: import.meta.env.MODE,
-        // NOTE: Phase 2 will add `tunnel: "/api/monitor"` once the proxy
-        // endpoint is in place. Without the tunnel, Brave Shields + uBlock
-        // block direct requests to ingest.us.sentry.io (~30% of users).
+        // Tunnel through our origin so Brave Shields / uBlock can't drop
+        // events. The proxy at /api/monitor (server/_vercel/sentry-tunnel.ts)
+        // forwards envelopes to ingest.us.sentry.io.
+        tunnel: "/api/monitor",
         tracesSampleRate: 0.1,
         replaysSessionSampleRate: 0.0,
         replaysOnErrorSampleRate: 1.0,
         ignoreErrors: [
           // Stale-chunk reload handles these — don't double-report.
-          // Tightened pattern: only match the actual chunk-load failure
-          // shape, not any error mentioning "failed".
+          // Anchored patterns so we don't accidentally match any
+          // unrelated "...failed" error.
           /^Loading chunk \d+ failed/i,
-          /Failed to fetch dynamically imported module/i,
+          /^Failed to fetch dynamically imported module/i,
           /^Importing a module script failed/i,
-          /ResizeObserver loop (?:limit exceeded|completed with undelivered notifications)/i,
+          /^ResizeObserver loop (?:limit exceeded|completed with undelivered notifications)/i,
         ],
       });
       // Replay any errors that fired before Sentry was ready

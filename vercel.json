@@ -50,6 +50,10 @@
       "maxDuration": 10,
       "memory": 256
     },
+    "api/monitor.js": {
+      "maxDuration": 10,
+      "memory": 256
+    },
     "api/cron/master.js": {
       "maxDuration": 60,
       "memory": 512

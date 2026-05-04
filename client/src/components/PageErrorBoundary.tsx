@@ -52,9 +52,18 @@ export default class PageErrorBoundary extends Component<Props, State> {
       }
     }
 
-    // Log to console for debugging — could also pipe to an external service
-    // (Sentry, LogRocket, etc.) when you set one up.
     console.error("[PageErrorBoundary] Caught render error:", error, info);
+
+    // Forward to Sentry. SDK is lazy-loaded; if it isn't ready yet, the
+    // window-level error listener in main.tsx queues it for replay.
+    import("@sentry/react")
+      .then(Sentry => {
+        Sentry.captureException(error, {
+          tags: { boundary: "page", page: this.props.pageName ?? "unknown" },
+          contexts: { react: { componentStack: info.componentStack } },
+        });
+      })
+      .catch(() => {});
   }
 
   reset = () => {

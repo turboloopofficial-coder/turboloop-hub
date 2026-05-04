@@ -46,6 +46,11 @@ const bundles = [
     out: path.join(projectRoot, "api/social-meta.js"),
     label: "Social-bot OG previews",
   },
+  {
+    src: path.join(projectRoot, "server/_vercel/sentry-tunnel.ts"),
+    out: path.join(projectRoot, "api/monitor.js"),
+    label: "Sentry tunnel (Brave/adblock bypass)",
+  },
 ];
 
 console.log("🔧 Bundling Vercel serverless handlers...\n");

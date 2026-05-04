@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AlertTriangle, RotateCcw } from "lucide-react";
-import { Component, ReactNode } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -19,6 +19,20 @@ class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("[ErrorBoundary]", error, errorInfo);
+    // Sentry is lazy-loaded — fire-and-forget. If the SDK hasn't loaded
+    // yet, the window-level error listener in main.tsx queues it for
+    // replay once Sentry is ready.
+    import("@sentry/react")
+      .then(Sentry => {
+        Sentry.captureException(error, {
+          contexts: { react: { componentStack: errorInfo.componentStack } },
+        });
+      })
+      .catch(() => {});
   }
 
   render() {

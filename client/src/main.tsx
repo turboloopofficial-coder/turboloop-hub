@@ -77,6 +77,33 @@ if (SENTRY_DSN && import.meta.env.PROD) {
 // Capture ?ref= URL param on load (persists to localStorage)
 captureReferralFromUrl();
 
+// Native view transitions for SPA route changes (Chrome/Edge 111+).
+// Wouter calls history.pushState on Link clicks; we wrap it so each
+// navigation runs inside a startViewTransition() call — the browser
+// captures the BEFORE frame, runs our callback (which dispatches the
+// React re-render), captures AFTER, and animates the diff. The CSS
+// fallback in index.css customizes the default cross-fade timing.
+if (
+  typeof document !== "undefined" &&
+  typeof (document as any).startViewTransition === "function"
+) {
+  const origPushState = history.pushState.bind(history);
+  history.pushState = function (...args: Parameters<History["pushState"]>) {
+    try {
+      (document as any).startViewTransition(() => {
+        origPushState(...args);
+        // Wait one frame so React commits the new route inside the
+        // transition's "after" snapshot.
+        return new Promise<void>(resolve =>
+          requestAnimationFrame(() => resolve())
+        );
+      });
+    } catch {
+      origPushState(...args);
+    }
+  };
+}
+
 // React Query defaults — aggressive caching because the content tRPC
 // queries (blogs, videos, events, leaderboard, promotions, roadmap)
 // rarely change. With staleTime=5min, navigating between pages reuses

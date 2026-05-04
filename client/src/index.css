@@ -502,3 +502,45 @@ html {
   background: rgba(34, 211, 238, 0.2);
   color: #0a1628;
 }
+
+/* ========== MICROINTERACTION: PREMIUM PRESS FEEDBACK ==========
+   Subtle 100 ms scale-down on every button/anchor active state. Makes
+   every tap feel responsive without any per-component refactor. The
+   transition only applies on press because we use a duration of 100 ms
+   on :active and 0 on default — the recovery snaps back instantly.
+
+   Skips elements that already declare their own transform (framer-motion
+   sets inline transform style → CSS rule loses the cascade fight, so
+   no conflict). Skips disabled buttons. */
+@layer base {
+  button:not(:disabled):active,
+  a:active {
+    transform: scale(0.985);
+    transition: transform 90ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    button:active,
+    a:active {
+      transform: none;
+    }
+  }
+}
+
+/* ========== VIEW TRANSITIONS (SPA route changes, Chrome/Edge 111+) ==========
+   The pushState wrapper in main.tsx triggers a cross-fade between routes.
+   Tighter timing than the browser default (250 ms vs 200 ms) feels more
+   premium without crossing into "noticeable lag" territory. Honors
+   prefers-reduced-motion: instant snap when the user opts out. */
+@supports (view-transition-name: a) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
+  }
+}

@@ -37,7 +37,22 @@ if (SENTRY_DSN && import.meta.env.PROD) {
 // Capture ?ref= URL param on load (persists to localStorage)
 captureReferralFromUrl();
 
-const queryClient = new QueryClient();
+// React Query defaults — aggressive caching because the content tRPC
+// queries (blogs, videos, events, leaderboard, promotions, roadmap)
+// rarely change. With staleTime=5min, navigating between pages reuses
+// the cached data instead of refetching — feels instant. gcTime=30min
+// keeps the data in memory across short-lived tab closes.
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 30 * 60 * 1000, // 30 minutes
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1,
+    },
+  },
+});
 
 const redirectToAdminLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;

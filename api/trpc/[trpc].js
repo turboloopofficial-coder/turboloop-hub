@@ -100175,6 +100175,18 @@ async function createContext(opts) {
 }
 
 // server/_vercel/trpc-handler.ts
+var CACHEABLE_QUERY_PATHS = /* @__PURE__ */ new Set([
+  "content.blogPosts",
+  "content.blogPost",
+  "content.videos",
+  "content.events",
+  "content.leaderboard",
+  "content.promotions",
+  "content.roadmap",
+  "content.presentations",
+  "content.setting",
+  "submissions.publicApproved"
+]);
 var cachedApp = null;
 function getApp() {
   if (cachedApp) return cachedApp;
@@ -100185,7 +100197,20 @@ function getApp() {
     "/api/trpc",
     createExpressMiddleware({
       router: appRouter,
-      createContext
+      createContext,
+      // Set Cache-Control on responses for read-only public content. The
+      // CDN (Vercel/Cloudflare) caches the response by URL — different
+      // batches with different inputs each get their own cache entry.
+      responseMeta({ paths, type, errors }) {
+        if (type === "query" && errors.length === 0 && paths !== void 0 && paths.every((p3) => CACHEABLE_QUERY_PATHS.has(p3))) {
+          return {
+            headers: {
+              "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600"
+            }
+          };
+        }
+        return {};
+      }
     })
   );
   cachedApp = app;

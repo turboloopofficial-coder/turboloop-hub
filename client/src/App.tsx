@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -44,21 +43,19 @@ const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 function Router() {
-  // useLocation gives us the current path so we can key the AnimatePresence
-  // child to it — that triggers a fade transition on every route change.
+  // Native view-transitions API (wired in main.tsx by patching pushState)
+  // already handles cross-fades on Chrome/Edge/Brave. Other browsers get
+  // an instant route swap. No more framer-motion AnimatePresence wrapper —
+  // it was re-running on every navigation tap and cost real CPU on
+  // mid-range Android. We've also removed the only static `motion`
+  // imports from this file so the chunk is now 100% optional for routes
+  // that don't use motion (most of the app).
   const [location] = useLocation();
   return (
     <Suspense fallback={<PageLoader />}>
       <PageErrorBoundary>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={location}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-          >
-            <Switch location={location}>
+        <div key={location}>
+          <Switch location={location}>
               <Route path="/" component={Home} />
               <Route path="/feed" component={FeedPage} />
               <Route path="/blog/:slug" component={BlogPost} />
@@ -96,9 +93,8 @@ function Router() {
               <Route path="/404" component={NotFound} />
               <Route path="/offline" component={Offline} />
               <Route component={NotFound} />
-            </Switch>
-          </motion.div>
-        </AnimatePresence>
+          </Switch>
+        </div>
       </PageErrorBoundary>
     </Suspense>
   );

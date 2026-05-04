@@ -8,7 +8,6 @@
 // Nothing simulated. Nothing financial.
 
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { Sparkles, FileText, Film, Globe2, Trophy, Users, Calendar, Newspaper } from "lucide-react";
 
@@ -157,20 +156,29 @@ export default function ActivityTicker() {
         </span>
       </div>
 
-      {/* Marquee content */}
-      <motion.div
-        className="flex items-center gap-12 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 60,
-            ease: "linear",
-          },
-        }}
+      {/* Marquee content — CSS keyframe animation, not framer-motion. The
+          previous implementation used motion.div with animate={x: [0%, -50%]}
+          and Infinity repeat, which fed JS into the animation loop every
+          frame. CSS @keyframes runs on the compositor thread, so the main
+          thread is free to handle scrolling, taps, and other work. Big
+          win on mid-range Android. */}
+      <div
+        className="flex items-center gap-12 whitespace-nowrap activity-marquee"
         style={{ paddingLeft: "120px" }}
       >
+        <style>{`
+          @keyframes activity-marquee-scroll {
+            from { transform: translate3d(0, 0, 0); }
+            to   { transform: translate3d(-50%, 0, 0); }
+          }
+          .activity-marquee {
+            animation: activity-marquee-scroll 60s linear infinite;
+            will-change: transform;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .activity-marquee { animation: none; }
+          }
+        `}</style>
         {loop.map((item, i) => {
           const Icon = item.icon;
           return (
@@ -191,7 +199,7 @@ export default function ActivityTicker() {
             </div>
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 }

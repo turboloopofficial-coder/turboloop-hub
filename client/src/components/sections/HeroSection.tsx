@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import ParticleCanvas from "@/components/ParticleCanvas";
+import { isLowEndDevice } from "@/lib/deviceTier";
 
 // Stats render their target value directly — the previous count-up animation
 // initialized at 0 and caused a "0 / 0 / 0 / $0K" flash on first paint above
@@ -24,15 +25,16 @@ function MagneticButton({
   onClick,
   className,
   style,
-  primary = false,
 }: any) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 200, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 200, damping: 20 });
+  const lowEnd = isLowEndDevice();
 
   const onMove = (e: React.MouseEvent) => {
+    if (lowEnd) return;
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     mouseX.set((e.clientX - rect.left - rect.width / 2) * 0.2);
@@ -40,9 +42,30 @@ function MagneticButton({
   };
 
   const onLeave = () => {
+    if (lowEnd) return;
     mouseX.set(0);
     mouseY.set(0);
   };
+
+  // On low-end, render a plain anchor/button — no spring math, no
+  // motion values, no per-frame transform updates. Visually identical
+  // until the user mouses over (and most low-end users are on touch).
+  if (lowEnd) {
+    const Tag: any = href ? "a" : "button";
+    return (
+      <Tag
+        ref={ref as any}
+        href={href}
+        target={href ? "_blank" : undefined}
+        rel={href ? "noopener noreferrer" : undefined}
+        onClick={onClick}
+        style={style}
+        className={className}
+      >
+        {children}
+      </Tag>
+    );
+  }
 
   const Comp: any = motion[href ? "a" : "button"];
   return (
@@ -70,62 +93,89 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[94vh] flex items-center justify-center overflow-hidden pt-16 pb-10">
-      {/* Particle network background */}
-      <ParticleCanvas />
+      {/* Particle network background — skipped on low-end devices because
+          the 60fps Canvas2D loop with O(n²) connection rendering burns
+          15-25% CPU on Helio G96-class chips even after IntersectionObserver
+          gating. Static SVG dot grid in BackgroundEffects already provides
+          the textural feel without the cost. */}
+      {!isLowEndDevice() && <ParticleCanvas />}
 
-      {/* Animated aurora mesh */}
-      <motion.div
-        animate={{
-          scale: [1, 1.08, 1],
-          rotate: [0, 15, 0],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{
-          width: "1100px",
-          height: "1100px",
-          background:
-            "radial-gradient(circle, rgba(34,211,238,0.09) 0%, rgba(124,58,237,0.05) 40%, transparent 70%)",
-          filter: "blur(50px)",
-        }}
-      />
-      <motion.div
-        animate={{
-          scale: [1, 1.12, 1],
-          rotate: [0, -20, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-        className="absolute top-[10%] right-[5%] pointer-events-none"
-        style={{
-          width: "600px",
-          height: "600px",
-          background:
-            "radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 60%)",
-          filter: "blur(50px)",
-        }}
-      />
-      <motion.div
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-        className="absolute bottom-[8%] left-[8%] pointer-events-none"
-        style={{
-          width: "550px",
-          height: "550px",
-          background:
-            "radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 60%)",
-          filter: "blur(40px)",
-        }}
-      />
+      {/* Aurora mesh — animated on flagship devices, static gradient on
+          low-end. Three big blurred blobs with infinite framer-motion
+          scale/rotate animations were a major source of scroll jank +
+          phone heat on mid-range Android (Helio G96 etc): blur(40-50px)
+          on a 1100×1100 element re-rasterizes every frame.
+          Static fallback uses CSS radial gradients on a single layer —
+          GPU paints once, holds. Visually subtle difference. */}
+      {isLowEndDevice() ? (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle 600px at 50% 33%, rgba(34,211,238,0.09), rgba(124,58,237,0.05) 40%, transparent 70%), " +
+              "radial-gradient(circle 400px at 95% 10%, rgba(167,139,250,0.08), transparent 60%), " +
+              "radial-gradient(circle 350px at 8% 92%, rgba(34,211,238,0.06), transparent 60%)",
+          }}
+        />
+      ) : (
+        <>
+          <motion.div
+            animate={{
+              scale: [1, 1.08, 1],
+              rotate: [0, 15, 0],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{
+              width: "1100px",
+              height: "1100px",
+              background:
+                "radial-gradient(circle, rgba(34,211,238,0.09) 0%, rgba(124,58,237,0.05) 40%, transparent 70%)",
+              filter: "blur(50px)",
+              willChange: "transform",
+            }}
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.12, 1],
+              rotate: [0, -20, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+            className="absolute top-[10%] right-[5%] pointer-events-none"
+            style={{
+              width: "600px",
+              height: "600px",
+              background:
+                "radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 60%)",
+              filter: "blur(50px)",
+              willChange: "transform",
+            }}
+          />
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+            className="absolute bottom-[8%] left-[8%] pointer-events-none"
+            style={{
+              width: "550px",
+              height: "550px",
+              background:
+                "radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 60%)",
+              filter: "blur(40px)",
+              willChange: "transform",
+            }}
+          />
+        </>
+      )}
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 max-w-5xl mx-auto">
@@ -170,23 +220,43 @@ export default function HeroSection() {
           style={{ fontFamily: "var(--font-heading)" }}
         >
           <span className="text-slate-800">Turbo</span>
-          <motion.span
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="inline-block"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, #0891B2, #22D3EE, #7C3AED, #9333EA, #7C3AED, #22D3EE, #0891B2)",
-              backgroundSize: "300% 100%",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Loop
-          </motion.span>
+          {/* Animated gradient shimmer on "Loop" — text re-paints every
+              frame in framer-motion's animation loop, which is GPU-cheap
+              on flagships but burns CPU on mid-range Android. Low-end
+              gets a static gradient (visually 95% identical, zero
+              per-frame work). */}
+          {isLowEndDevice() ? (
+            <span
+              className="inline-block"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #0891B2, #22D3EE, #7C3AED, #9333EA)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Loop
+            </span>
+          ) : (
+            <motion.span
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+              className="inline-block"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #0891B2, #22D3EE, #7C3AED, #9333EA, #7C3AED, #22D3EE, #0891B2)",
+                backgroundSize: "300% 100%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Loop
+            </motion.span>
+          )}
         </motion.h1>
 
         {/* Subtitle */}

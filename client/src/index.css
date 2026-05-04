@@ -472,9 +472,21 @@ select:focus-visible,
 }
 .animate-aurora {
   animation: aurora-drift 20s ease-in-out infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 .animate-aurora-reverse {
   animation: aurora-drift-reverse 25s ease-in-out infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora,
+  .animate-aurora-reverse {
+    animation: none;
+  }
 }
 
 /* ========== SMOOTH SCROLLING ========== */

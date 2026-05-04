@@ -92,6 +92,16 @@
          on-demand by the BlogContent chunk via CSS). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- R2 CDN: every below-the-fold image (reel thumbs, film posters, blog
+         covers, language flags, partner logos) is served from this origin.
+         Pre-connecting saves the DNS+TLS roundtrip (~150 ms on mobile) when
+         the user scrolls past the hero and below-the-fold images start
+         loading. -->
+    <link
+      rel="preconnect"
+      href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev"
+      crossorigin
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
       rel="stylesheet"

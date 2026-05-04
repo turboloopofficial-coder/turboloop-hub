@@ -7,7 +7,7 @@
 //
 // Nothing simulated. Nothing financial.
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { Sparkles, FileText, Film, Globe2, Trophy, Users, Calendar, Newspaper } from "lucide-react";
@@ -19,11 +19,27 @@ type TickerItem = {
 };
 
 export default function ActivityTicker() {
-  const { data: blogPosts } = trpc.content.blogPosts.useQuery();
-  const { data: videos } = trpc.content.videos.useQuery();
-  const { data: presentations } = trpc.content.presentations.useQuery();
-  const { data: events } = trpc.content.events.useQuery();
-  const { data: leaderboard } = trpc.content.leaderboard.useQuery();
+  // Defer the 5 tRPC queries until AFTER the page is interactive. The
+  // ticker is below-the-fold and nothing time-sensitive — it can wait a
+  // beat so it doesn't compete with the hero for network or main thread.
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const ric = (window as any).requestIdleCallback as
+      | ((cb: () => void, opts?: { timeout: number }) => number)
+      | undefined;
+    if (typeof ric === "function") {
+      const id = ric(() => setEnabled(true), { timeout: 2000 });
+      return () => (window as any).cancelIdleCallback?.(id);
+    }
+    const t = setTimeout(() => setEnabled(true), 600);
+    return () => clearTimeout(t);
+  }, []);
+
+  const { data: blogPosts } = trpc.content.blogPosts.useQuery(undefined, { enabled });
+  const { data: videos } = trpc.content.videos.useQuery(undefined, { enabled });
+  const { data: presentations } = trpc.content.presentations.useQuery(undefined, { enabled });
+  const { data: events } = trpc.content.events.useQuery(undefined, { enabled });
+  const { data: leaderboard } = trpc.content.leaderboard.useQuery(undefined, { enabled });
 
   const items = useMemo<TickerItem[]>(() => {
     const list: TickerItem[] = [];

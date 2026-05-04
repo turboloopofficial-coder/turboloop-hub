@@ -7,6 +7,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, Sparkles } from "lucide-react";
 import { type Film, getFilm, SEASONS } from "@/lib/cinematicUniverse";
+import { isMobileViewport, playInFullscreen } from "@/lib/videoFullscreen";
 import CinematicLightbox from "./CinematicLightbox";
 
 interface Props {
@@ -20,7 +21,12 @@ interface Props {
   compact?: boolean;
 }
 
-export default function CinematicEmbed({ slug, label, pretitle, compact = false }: Props) {
+export default function CinematicEmbed({
+  slug,
+  label,
+  pretitle,
+  compact = false,
+}: Props) {
   const film = getFilm(slug);
   const [activeFilm, setActiveFilm] = useState<Film | null>(null);
 
@@ -34,20 +40,36 @@ export default function CinematicEmbed({ slug, label, pretitle, compact = false 
           {label && (
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-4 h-4" style={{ color: season.accent }} />
-              <span className="text-[11px] font-bold tracking-[0.25em] uppercase" style={{ color: season.accent }}>
+              <span
+                className="text-[11px] font-bold tracking-[0.25em] uppercase"
+                style={{ color: season.accent }}
+              >
                 {label}
               </span>
             </div>
           )}
 
           {!compact && pretitle && (
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+            <h3
+              className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 leading-tight"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               {pretitle}
             </h3>
           )}
 
           <motion.button
-            onClick={() => setActiveFilm(film)}
+            onClick={() => {
+              // Mobile: skip the lightbox modal (URL bar fights it). Go
+              // straight to native fullscreen — phone hides browser chrome,
+              // video uses 100% of the screen, native scrub controls.
+              // Desktop: open the lightbox with side panel + episode nav.
+              if (isMobileViewport()) {
+                playInFullscreen({ url: film.url, title: film.title });
+              } else {
+                setActiveFilm(film);
+              }
+            }}
             whileHover={{ y: -3 }}
             transition={{ type: "spring", stiffness: 320, damping: 24 }}
             className="group relative w-full rounded-2xl overflow-hidden cursor-pointer block"
@@ -84,7 +106,9 @@ export default function CinematicEmbed({ slug, label, pretitle, compact = false 
               }}
             >
               <span>{season.emoji}</span>
-              <span>S{film.season} · E{film.episode}</span>
+              <span>
+                S{film.season} · E{film.episode}
+              </span>
             </div>
 
             {/* Top-right "FILM" pill */}
@@ -128,7 +152,10 @@ export default function CinematicEmbed({ slug, label, pretitle, compact = false 
             <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-left">
               <div
                 className="text-xs md:text-sm font-bold tracking-wide opacity-95 mb-1"
-                style={{ color: season.accent === "#0891B2" ? "#22D3EE" : season.accent }}
+                style={{
+                  color:
+                    season.accent === "#0891B2" ? "#22D3EE" : season.accent,
+                }}
               >
                 {film.headline}
               </div>

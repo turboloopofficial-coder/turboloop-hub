@@ -15,6 +15,7 @@ import { SITE } from "@/lib/constants";
 import SEOHead from "@/components/SEOHead";
 import ShareButton from "@/components/ShareButton";
 import NotFound from "@/pages/NotFound";
+import { playInFullscreen } from "@/lib/videoFullscreen";
 
 /** Download a reel as a true file (instead of opening in browser). */
 async function downloadReel(videoUrl: string, title: string) {
@@ -99,22 +100,12 @@ export default function ReelPage() {
     else v.pause();
   };
 
-  // Premium mobile UX: native fullscreen hides URL bar, gives true cinema mode.
-  // Standard requestFullscreen for Android/Chrome; webkitEnterFullscreen for iOS.
+  // Premium mobile UX: spawn a temp video element and put it in true
+  // native fullscreen. URL bar disappears, video uses 100% of the screen,
+  // native scrub controls. Same pattern as /films card tap.
   const enterFullscreen = () => {
-    const v = videoRef.current as any;
-    if (!v) return;
-    try {
-      if (typeof v.requestFullscreen === "function") {
-        v.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
-      } else if (typeof v.webkitEnterFullscreen === "function") {
-        v.webkitEnterFullscreen();
-      } else if (typeof v.webkitRequestFullscreen === "function") {
-        v.webkitRequestFullscreen();
-      }
-    } catch {
-      /* noop */
-    }
+    if (!reel?.directUrl) return;
+    playInFullscreen({ url: reel.directUrl, title: reel.title });
   };
 
   const thumb = reel ? thumbForReel(reel.directUrl!) : undefined;

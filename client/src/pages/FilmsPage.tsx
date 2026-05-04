@@ -20,11 +20,118 @@ interface FilmsPageProps {
   autoOpenSlug?: string;
 }
 
+/**
+ * Mobile-first premium video playback: tapping a film card on mobile bypasses
+ * the desktop lightbox modal entirely and goes STRAIGHT to native fullscreen.
+ * This is what YouTube / Netflix / Apple TV do on phones — the URL bar
+ * disappears, the video uses 100% of the actual screen, native scrub controls.
+ *
+ * Must be called synchronously from the click handler so the user gesture
+ * context is still alive when we call requestFullscreen / webkitEnterFullscreen
+ * (browsers reject these APIs without an active gesture).
+ *
+ * Cleanup: when the user exits fullscreen (back button / exit-fullscreen tap)
+ * the temporary video element is removed and they're back on the films page.
+ */
+function playFilmInFullscreen(film: Film): void {
+  const v = document.createElement("video");
+  v.src = film.url;
+  v.controls = true;
+  v.autoplay = true;
+  v.preload = "auto";
+  // playsInline lets iOS try inline first; we still call webkitEnterFullscreen
+  // explicitly to force the native player overlay
+  v.playsInline = true;
+  v.setAttribute("title", film.title);
+  // Hide the temp element from page flow when not in fullscreen
+  v.style.position = "fixed";
+  v.style.inset = "0";
+  v.style.width = "100%";
+  v.style.height = "100%";
+  v.style.background = "black";
+  v.style.zIndex = "10000";
+  document.body.appendChild(v);
+
+  const cleanup = () => {
+    try {
+      v.pause();
+    } catch {}
+    v.remove();
+    document.removeEventListener("fullscreenchange", onFsChange);
+    (document as any).removeEventListener?.(
+      "webkitfullscreenchange",
+      onFsChange
+    );
+    v.removeEventListener("ended", cleanup);
+    v.removeEventListener("webkitendfullscreen" as any, cleanup);
+  };
+  const onFsChange = () => {
+    const fsEl =
+      document.fullscreenElement || (document as any).webkitFullscreenElement;
+    if (!fsEl) cleanup();
+  };
+  document.addEventListener("fullscreenchange", onFsChange);
+  (document as any).addEventListener?.("webkitfullscreenchange", onFsChange);
+  v.addEventListener("ended", cleanup);
+  // iOS Safari: native player exit fires this event
+  v.addEventListener("webkitendfullscreen" as any, cleanup);
+
+  // Start playback (browser may need this before fullscreen)
+  v.play().catch(() => {});
+
+  // Try standard fullscreen API first (Android Chrome, modern desktop)
+  const tryStandardFs = (v as any).requestFullscreen;
+  // iOS Safari: proprietary API on the <video> element
+  const tryWebkitFs = (v as any).webkitEnterFullscreen;
+
+  if (typeof tryStandardFs === "function") {
+    tryStandardFs.call(v, { navigationUI: "hide" }).catch(() => {
+      // Standard rejected — try webkit fallback (older iOS)
+      if (typeof tryWebkitFs === "function") {
+        v.addEventListener("loadedmetadata", () => tryWebkitFs.call(v), {
+          once: true,
+        });
+      }
+    });
+  } else if (typeof tryWebkitFs === "function") {
+    // iOS Safari needs metadata loaded before fullscreen
+    if (v.readyState >= 1) {
+      tryWebkitFs.call(v);
+    } else {
+      v.addEventListener("loadedmetadata", () => tryWebkitFs.call(v), {
+        once: true,
+      });
+    }
+  } else {
+    // No fullscreen API available — leave the inline overlay as-is.
+    // User can use the close gesture (we add a tap-anywhere-to-close listener).
+    v.addEventListener("click", cleanup);
+  }
+}
+
+function isMobileViewport(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 768px)").matches
+  );
+}
+
 export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
   const initialFilm = autoOpenSlug
     ? FILMS.find(f => f.slug === autoOpenSlug) || null
     : null;
   const [activeFilm, setActiveFilm] = useState<Film | null>(initialFilm);
+
+  // Click handler: on mobile, go STRAIGHT to native fullscreen (bypass the
+  // lightbox modal entirely — the inline player fights with the URL bar).
+  // On desktop, use the existing lightbox with side panel + episode nav.
+  const handleSelectFilm = (film: Film) => {
+    if (isMobileViewport()) {
+      playFilmInFullscreen(film);
+    } else {
+      setActiveFilm(film);
+    }
+  };
 
   const seasons: Season[] = [1, 2, 3, 4];
 
@@ -84,7 +191,7 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
         <AnimatedSection>
           <div className="text-center mb-12">
             <button
-              onClick={() => setActiveFilm(FILMS[0])}
+              onClick={() => handleSelectFilm(FILMS[0])}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all hover:scale-105"
               style={{
                 background: "linear-gradient(135deg, #0891B2, #7C3AED)",
@@ -104,7 +211,7 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
         {/* Seasons */}
         <div className="space-y-12 md:space-y-16">
           {seasons.map(s => (
-            <SeasonRow key={s} season={s} onSelectFilm={setActiveFilm} />
+            <SeasonRow key={s} season={s} onSelectFilm={handleSelectFilm} />
           ))}
         </div>
       </div>
@@ -112,7 +219,7 @@ export default function FilmsPage({ autoOpenSlug }: FilmsPageProps = {}) {
       <CinematicLightbox
         film={activeFilm}
         onClose={() => setActiveFilm(null)}
-        onSelectFilm={setActiveFilm}
+        onSelectFilm={handleSelectFilm}
       />
     </PageShell>
   );

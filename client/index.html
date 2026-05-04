@@ -70,10 +70,18 @@
       type="image/png"
       href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png"
     />
-    <link
-      rel="apple-touch-icon"
-      href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png"
-    />
+    <link rel="apple-touch-icon" href="/pwa/apple-touch-icon.png" />
+
+    <!-- PWA — installable to home screen, opens fullscreen, offline-capable.
+         The manifest.json + service worker (registered in main.tsx) enable
+         "Add to Home Screen" on Android Chrome, Edge, Brave, Samsung Internet,
+         and the modern Safari install gesture on iOS. -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TurboLoop" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="TurboLoop" />
 
     <!-- Canonical -->
     <link rel="canonical" href="https://turboloop.tech/" />

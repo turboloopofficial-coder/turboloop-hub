@@ -10,9 +10,11 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import PageLoader from "./components/PageLoader";
 import AnalyticsTracker from "./components/AnalyticsTracker";
+import InstallPrompt from "./components/InstallPrompt";
 
 // Heavy pages — code-split so they don't bloat the homepage bundle
 const FeedPage = lazy(() => import("./pages/FeedPage"));
+const Offline = lazy(() => import("./pages/Offline"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const TopicPage = lazy(() => import("./pages/TopicPage"));
 const ReelPage = lazy(() => import("./pages/ReelPage"));
@@ -87,6 +89,7 @@ function Router() {
               <Route path="/admin/login" component={AdminLogin} />
               <Route path="/admin/:rest*" component={AdminDashboard} />
               <Route path="/404" component={NotFound} />
+              <Route path="/offline" component={Offline} />
               <Route component={NotFound} />
             </Switch>
           </motion.div>
@@ -104,6 +107,7 @@ function App() {
           <Toaster />
           <AnalyticsTracker />
           <Router />
+          <InstallPrompt />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

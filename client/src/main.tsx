@@ -77,6 +77,21 @@ if (SENTRY_DSN && import.meta.env.PROD) {
 // Capture ?ref= URL param on load (persists to localStorage)
 captureReferralFromUrl();
 
+// Service worker registration — only in PROD. In dev the SW is disabled in
+// vite.config.ts to avoid stale-asset confusion. The plugin auto-generates
+// /sw.js + /registerSW.js at build time. We register manually (rather than
+// using injectRegister: "auto") so we can control timing — register AFTER
+// hydration so SW install doesn't compete with first paint for CPU.
+if ("serviceWorker" in navigator && import.meta.env.PROD) {
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      navigator.serviceWorker
+        .register("/sw.js", { scope: "/" })
+        .catch(err => console.warn("[SW] register failed:", err));
+    }, 1500);
+  });
+}
+
 // Native view transitions for SPA route changes (Chrome/Edge 111+).
 // Wouter calls history.pushState on Link clicks; we wrap it so each
 // navigation runs inside a startViewTransition() call — the browser

@@ -2,9 +2,81 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    // Service worker + PWA wiring. We hand-wrote client/public/manifest.json
+    // so the plugin only generates the SW; manifest stays under our control.
+    // Strategy:
+    //  - precache the app shell (HTML + critical chunks) on install
+    //  - cacheFirst with 30-day expiry for R2 images
+    //  - networkOnly (pass-through) for tRPC — data freshness matters
+    //  - offline fallback to / (the SPA shell renders an Offline page if the
+    //    user navigates somewhere not in cache)
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: false, // we register manually in main.tsx
+      manifest: false, // use our hand-written client/public/manifest.json
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
+        globIgnores: [
+          "**/mermaid-*.js",
+          "**/syntax-highlight-*.js",
+          "**/markdown-*.js",
+        ],
+        // Don't precache the giant blog-only chunks; they only load on /blog/*
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+        navigateFallback: "/index.html",
+        navigateFallbackDenylist: [/^\/api\//, /^\/admin/],
+        runtimeCaching: [
+          {
+            // R2-hosted images (logos, posters, reel thumbs, flags)
+            urlPattern:
+              /^https:\/\/pub-1d13f4e7ccfa4575bc04b75045f1b1b1\.r2\.dev\/.*\.(?:png|jpg|jpeg|webp|svg|gif)$/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "r2-images",
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // Google Fonts CSS
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: { cacheName: "google-fonts-stylesheets" },
+          },
+          {
+            // Google Fonts files
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-files",
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // tRPC + sentry tunnel + everything under /api/ — never cache.
+            // Stale data here means stale leaderboards, broken Sentry, etc.
+            urlPattern: /\/api\/.*/i,
+            handler: "NetworkOnly",
+          },
+        ],
+      },
+      devOptions: {
+        // Enable the SW in `npm run dev` so we can verify locally without
+        // doing a full prod build cycle.
+        enabled: false,
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),

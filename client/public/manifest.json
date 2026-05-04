@@ -1,0 +1,53 @@
+{
+  "name": "Turbo Loop — Complete DeFi Ecosystem",
+  "short_name": "TurboLoop",
+  "description": "Sustainable yield, decentralized swaps, and fiat-to-crypto on one audited smart contract on Binance Smart Chain.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0891B2",
+  "background_color": "#0F172A",
+  "lang": "en",
+  "categories": ["finance", "education", "social"],
+  "icons": [
+    {
+      "src": "/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Launch App",
+      "short_name": "App",
+      "url": "https://turboloop.io",
+      "description": "Open the TurboLoop dApp"
+    },
+    {
+      "name": "Films",
+      "short_name": "Films",
+      "url": "/films",
+      "description": "Watch the TurboLoop cinematic universe"
+    },
+    {
+      "name": "Submit Story",
+      "short_name": "Submit",
+      "url": "/submit",
+      "description": "Share your TurboLoop story"
+    }
+  ]
+}

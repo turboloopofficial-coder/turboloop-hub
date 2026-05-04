@@ -1,0 +1,236 @@
+/* TurboLoop — global stylesheet for the Next.js rebuild.
+   Single source of typography, spacing, and color across all pages.
+   The previous SPA had inline style={{ ... }} everywhere; from here on,
+   utility classes consume CSS variables defined in :root + .dark. */
+
+@import "tailwindcss";
+
+/* ════════════════════════════════════════════════════════════
+   THEME — CSS variables driven from lib/tokens.ts
+   ════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: light;
+
+  /* Color */
+  --c-bg: #f7f8fc;
+  --c-surface: #ffffff;
+  --c-border: rgba(15, 23, 42, 0.08);
+  --c-border-strong: rgba(15, 23, 42, 0.16);
+  --c-text: #0f172a;
+  --c-text-muted: #64748b;
+  --c-text-subtle: #94a3b8;
+  --c-brand-cyan: #0891b2;
+  --c-brand-purple: #7c3aed;
+  --c-brand-gradient: linear-gradient(135deg, #0891b2 0%, #7c3aed 100%);
+  --c-brand-gradient-wide: linear-gradient(
+    135deg,
+    #0891b2 0%,
+    #22d3ee 50%,
+    #7c3aed 100%
+  );
+  --c-success: #10b981;
+  --c-warning: #f59e0b;
+  --c-danger: #ef4444;
+
+  /* Radius */
+  --r-sm: 0.375rem;
+  --r-md: 0.625rem;
+  --r-lg: 0.875rem;
+  --r-xl: 1.25rem;
+  --r-2xl: 1.75rem;
+
+  /* Shadow */
+  --s-sm: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.06);
+  --s-md: 0 4px 14px -4px rgba(15, 23, 42, 0.08),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+  --s-lg: 0 12px 30px -8px rgba(15, 23, 42, 0.12),
+    0 4px 14px -4px rgba(15, 23, 42, 0.06);
+  --s-xl: 0 24px 60px -16px rgba(15, 23, 42, 0.18),
+    0 8px 24px -8px rgba(15, 23, 42, 0.08);
+  --s-brand: 0 12px 30px -8px rgba(8, 145, 178, 0.45),
+    0 4px 14px -4px rgba(124, 58, 237, 0.25);
+
+  /* Layout */
+  --gutter: 1.25rem;
+  --nav-h: 56px;
+
+  /* Motion */
+  --m-instant: 100ms;
+  --m-quick: 200ms;
+  --m-smooth: 350ms;
+  --m-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2rem;
+    --nav-h: 72px;
+  }
+}
+
+.dark {
+  color-scheme: dark;
+  --c-bg: #0f172a;
+  --c-surface: #1e293b;
+  --c-border: rgba(255, 255, 255, 0.08);
+  --c-border-strong: rgba(255, 255, 255, 0.16);
+  --c-text: #f8fafc;
+  --c-text-muted: #cbd5e1;
+  --c-text-subtle: #64748b;
+  --s-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --s-md: 0 4px 14px -4px rgba(0, 0, 0, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+  --s-lg: 0 12px 30px -8px rgba(0, 0, 0, 0.5),
+    0 4px 14px -4px rgba(0, 0, 0, 0.3);
+  --s-xl: 0 24px 60px -16px rgba(0, 0, 0, 0.6),
+    0 8px 24px -8px rgba(0, 0, 0, 0.3);
+}
+
+/* Auto dark mode based on system preference unless user has set a
+   theme manually (the explicit .dark class wins). */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --c-bg: #0f172a;
+    --c-surface: #1e293b;
+    --c-border: rgba(255, 255, 255, 0.08);
+    --c-border-strong: rgba(255, 255, 255, 0.16);
+    --c-text: #f8fafc;
+    --c-text-muted: #cbd5e1;
+    --c-text-subtle: #64748b;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   TAILWIND THEME EXTENSION (v4 inline syntax)
+   ════════════════════════════════════════════════════════════ */
+@theme {
+  /* Single brand font. Geist 400/500/600/700 only — no Inter, no Geist Mono. */
+  --font-sans:
+    "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-display: var(--font-sans);
+
+  /* Custom Tailwind colors that consume the CSS vars (so dark mode is automatic). */
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-border-default: var(--c-border);
+  --color-border-strong: var(--c-border-strong);
+  --color-fg: var(--c-text);
+  --color-fg-muted: var(--c-text-muted);
+  --color-fg-subtle: var(--c-text-subtle);
+  --color-brand-cyan: var(--c-brand-cyan);
+  --color-brand-purple: var(--c-brand-purple);
+  --color-success: var(--c-success);
+  --color-warning: var(--c-warning);
+  --color-danger: var(--c-danger);
+
+  /* Radius scale. */
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-2xl: var(--r-2xl);
+
+  /* Shadow scale. */
+  --shadow-sm: var(--s-sm);
+  --shadow-md: var(--s-md);
+  --shadow-lg: var(--s-lg);
+  --shadow-xl: var(--s-xl);
+  --shadow-brand: var(--s-brand);
+}
+
+/* ════════════════════════════════════════════════════════════
+   BASE STYLES — apply across the whole app
+   ════════════════════════════════════════════════════════════ */
+* {
+  border-color: var(--c-border);
+}
+
+html {
+  /* Smooth scrolling, but respect reduced motion. */
+  scroll-behavior: smooth;
+  /* iOS Safari: prevent rubber-band overscroll on the body. */
+  overscroll-behavior-y: contain;
+  /* Prevent layout shift on font load — Geist is preloaded. */
+  font-family: var(--font-sans);
+  /* Always use the dynamic viewport height — handles iOS URL bar correctly. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  /* Mobile-first reading optimization. */
+  font-feature-settings: "ss01", "cv11"; /* Geist's stylistic alternates */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Account for the fixed bottom CTA bar on mobile. */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PRESS FEEDBACK — global active state on every interactive elem
+   Honored by all browsers; framer-motion components override
+   with their own inline transforms.
+   ════════════════════════════════════════════════════════════ */
+@layer base {
+  button:not(:disabled):active,
+  a:active,
+  [role="button"]:active {
+    transform: scale(0.985);
+    transition: transform 90ms ease-out;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SELECTION
+   ════════════════════════════════════════════════════════════ */
+::selection {
+  background: rgba(34, 211, 238, 0.25);
+  color: var(--c-text);
+}
+
+/* ════════════════════════════════════════════════════════════
+   SCROLLBAR — premium, thin, brand-tinted
+   ════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.4);
+}
+
+/* ════════════════════════════════════════════════════════════
+   FOCUS RINGS — keyboard-only, brand-tinted, never on click
+   ════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--c-brand-cyan);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}

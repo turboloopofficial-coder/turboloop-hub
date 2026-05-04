@@ -7,6 +7,17 @@
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/rss.xml", "destination": "/api/rss" },
+    {
+      "source": "/(blog|reels|films|topic|vs|learn|ecosystem)/(.*)",
+      "destination": "/api/social-meta",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(bot|Bot|BOT|Telegram|WhatsApp|facebook|Facebook|Twitter|twitter|LinkedIn|linkedin|Discord|discord|Slack|slack|crawler|Crawler|spider|Spider|preview|Preview|SkypeUriPreview|YandexBot|baidu|DuckDuckBot|Applebot).*"
+        }
+      ]
+    },
     { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "trailingSlash": false,
@@ -32,6 +43,10 @@
       "memory": 256
     },
     "api/rss.js": {
+      "maxDuration": 10,
+      "memory": 256
+    },
+    "api/social-meta.js": {
       "maxDuration": 10,
       "memory": 256
     },

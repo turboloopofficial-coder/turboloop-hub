@@ -41,6 +41,11 @@ const bundles = [
     out: path.join(projectRoot, "api/rss.js"),
     label: "RSS feed",
   },
+  {
+    src: path.join(projectRoot, "server/_vercel/social-meta.ts"),
+    out: path.join(projectRoot, "api/social-meta.js"),
+    label: "Social-bot OG previews",
+  },
 ];
 
 console.log("🔧 Bundling Vercel serverless handlers...\n");

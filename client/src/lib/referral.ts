@@ -52,5 +52,12 @@ export function buildShareUrl(path: string): string {
   const ref = getReferralCode();
   const url = new URL(path, window.location.origin);
   if (ref) url.searchParams.set("ref", ref);
+  // Cache-bust for OG previews. Telegram/X/LinkedIn cache previews per-URL
+  // forever; sharing the same URL after a server-side fix won't refresh.
+  // An hourly-rotating param means each new share is treated as a new URL
+  // by social platforms → they re-fetch the (now-correct) OG tags. The
+  // canonical link in <head> still points to the un-busted URL, so SEO
+  // isn't affected.
+  url.searchParams.set("s", String(Math.floor(Date.now() / 3600000)));
   return url.toString();
 }

@@ -147,6 +147,8 @@ export default function VideoSection() {
                 <img
                   src={getFlagUrl(code, 20)}
                   alt={lang}
+                  loading="lazy"
+                  decoding="async"
                   className="w-4 h-3 object-cover rounded-sm"
                 />
                 {lang}
@@ -204,6 +206,8 @@ export default function VideoSection() {
                           <img
                             src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
                             alt={video.title}
+                            loading="lazy"
+                            decoding="async"
                             className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
                         )}
@@ -223,6 +227,8 @@ export default function VideoSection() {
                           <img
                             src={getFlagUrl(langCode, 40)}
                             alt={`${video.language} flag`}
+                            loading="lazy"
+                            decoding="async"
                             className="w-4 h-3 object-cover rounded-sm"
                           />
                           {video.language}

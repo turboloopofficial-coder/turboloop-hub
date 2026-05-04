@@ -146,6 +146,8 @@ function PodiumPillar({ entry, delay }: { entry: PodiumEntry; delay: number }) {
           <img
             src={getFlagUrl(entry.code, 160)}
             alt={entry.country}
+            loading="lazy"
+            decoding="async"
             className="w-16 h-11 md:w-20 md:h-14 object-cover block"
           />
         </div>
@@ -347,6 +349,8 @@ export default function LeaderboardSection() {
                     <img
                       src={getFlagUrl(entry.code, 80)}
                       alt={entry.country}
+                      loading="lazy"
+                      decoding="async"
                       className="w-11 h-7 md:w-12 md:h-8 object-cover block"
                     />
                   </div>

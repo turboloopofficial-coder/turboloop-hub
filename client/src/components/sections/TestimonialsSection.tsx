@@ -153,6 +153,8 @@ export default function TestimonialsSection() {
                     <img
                       src={getFlagUrl(current.countryCode, 40)}
                       alt={`Flag of ${current.countryCode.toUpperCase()}`}
+                      loading="lazy"
+                      decoding="async"
                       className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-white"
                     />
                   </div>
@@ -229,6 +231,8 @@ export default function TestimonialsSection() {
                       <img
                         src={getFlagUrl(t.countryCode, 40)}
                         alt={`Flag of ${t.countryCode.toUpperCase()}`}
+                        loading="lazy"
+                        decoding="async"
                         className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border border-white"
                       />
                     </div>

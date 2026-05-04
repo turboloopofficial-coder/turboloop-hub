@@ -105,6 +105,8 @@ export default function HomeTestimonialRotator() {
                   <img
                     src={getFlagUrl(cur.countryCode, 40)}
                     alt={`Flag of ${cur.countryCode.toUpperCase()}`}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-white"
                   />
                 </div>

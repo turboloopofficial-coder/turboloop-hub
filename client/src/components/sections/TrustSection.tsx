@@ -409,6 +409,8 @@ export default function TrustSection() {
                       <img
                         src={getFlagUrl(code, 20)}
                         alt={lang}
+                        loading="lazy"
+                        decoding="async"
                         className="w-4 h-3 object-cover rounded-sm"
                       />
                       {lang} ({count})
@@ -476,6 +478,8 @@ export default function TrustSection() {
                           <img
                             src={getFlagUrl(langCode, 20)}
                             alt={pres.language || ""}
+                            loading="lazy"
+                            decoding="async"
                             className="w-4 h-3 object-cover rounded-sm"
                           />
                           <span className="text-xs text-slate-500 font-medium">

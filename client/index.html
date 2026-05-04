@@ -86,14 +86,14 @@
       href="https://turboloop.tech/rss.xml"
     />
 
-    <!-- Fonts — preconnect early so DNS+TLS for fonts.gstatic.com is warm
-         when the browser hits the @font-face URLs in our CSS. preload the
-         critical Geist 600 weight (used for body + UI) so it's in cache
-         before the bundle parses CSS. -->
+    <!-- Fonts — Geist only, 4 weights (was 3 families × 16 weights = ~150 KB
+         saved). Inter dropped (Geist covers all roles). Geist Mono dropped
+         from initial load (only used in code blocks on blog posts; loaded
+         on-demand by the BlogContent chunk via CSS). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -196,11 +196,34 @@
   <body>
     <div id="root">
       <div class="initial-loader">
-        <img
+        <!-- Inline SVG logo — no R2 round-trip, no CORS console error,
+             no ~250 ms wait for the image to fetch before the loader shows. -->
+        <svg
           class="initial-loader-logo"
-          src="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png"
-          alt="Turbo Loop"
-        />
+          viewBox="0 0 80 80"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Turbo Loop"
+        >
+          <defs>
+            <linearGradient id="tlg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0891B2" />
+              <stop offset="100%" stop-color="#7C3AED" />
+            </linearGradient>
+          </defs>
+          <circle cx="40" cy="40" r="36" fill="url(#tlg)" opacity="0.12" />
+          <circle
+            cx="40"
+            cy="40"
+            r="28"
+            fill="none"
+            stroke="url(#tlg)"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-dasharray="120 60"
+            transform="rotate(-90 40 40)"
+          />
+          <circle cx="40" cy="40" r="10" fill="url(#tlg)" />
+        </svg>
         <div class="initial-loader-ring"></div>
       </div>
     </div>

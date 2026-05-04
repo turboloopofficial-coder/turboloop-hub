@@ -439,12 +439,16 @@ export default function FeedPage() {
                   <img
                     src={featured.thumbnail}
                     alt={featured.title}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 ) : featured.coverImage ? (
                   <img
                     src={featured.coverImage}
                     alt={featured.title}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 ) : (
@@ -572,6 +576,8 @@ export default function FeedPage() {
                       <img
                         src={item.thumbnail}
                         alt={item.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -593,6 +599,8 @@ export default function FeedPage() {
                     <img
                       src={item.coverImage}
                       alt={item.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (

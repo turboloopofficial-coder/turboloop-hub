@@ -292,6 +292,8 @@ export default function LibraryPage() {
                             <img
                               src={getFlagUrl(langCode, 20)}
                               alt={`${pres.language} flag`}
+                              loading="lazy"
+                              decoding="async"
                               className="w-4 h-3 object-cover rounded-sm"
                             />
                             <span className="text-xs text-slate-500 font-medium">

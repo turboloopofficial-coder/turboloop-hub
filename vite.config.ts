@@ -19,6 +19,24 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     chunkSizeWarningLimit: 800,
+    // Exclude heavy code-only-on-blog chunks from <link rel="modulepreload">.
+    // Without this, Vite emits a preload tag for EVERY chunk on the home
+    // page → browser eagerly downloads mermaid (2.7 MB) + syntax-highlight
+    // (9.5 MB) on a route that never uses them. With this, those chunks
+    // only load when streamdown actually executes mermaid/shiki — i.e.
+    // when a blog post with a fenced code block or mermaid diagram renders.
+    modulePreload: {
+      resolveDependencies: (_filename, deps) => {
+        return deps.filter(
+          d =>
+            !d.includes("/mermaid-") &&
+            !d.includes("/syntax-highlight-") &&
+            !d.includes("/markdown-") &&
+            !d.includes("/code-block-") &&
+            !d.includes("/wardley-")
+        );
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: (id) => {

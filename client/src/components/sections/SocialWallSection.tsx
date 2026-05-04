@@ -128,6 +128,8 @@ function PostCard({ post }: { post: SocialPost }) {
               <img
                 src={getFlagUrl(post.countryCode, 40)}
                 alt={`Flag of ${post.countryCode.toUpperCase()}`}
+                loading="lazy"
+                decoding="async"
                 className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-white"
               />
             )}

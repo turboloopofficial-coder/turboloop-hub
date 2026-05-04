@@ -3,35 +3,74 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { createRoot } from "react-dom/client";
 import superjson from "superjson";
-import * as Sentry from "@sentry/react";
 import App from "./App";
 import "./index.css";
 import { captureReferralFromUrl } from "./lib/referral";
 
-// Sentry — only initializes if VITE_SENTRY_DSN is set in Vercel env.
-// Without a DSN, this is a no-op. Sign up at sentry.io (free tier covers
-// up to 5k errors/month), copy the DSN, add as VITE_SENTRY_DSN in Vercel.
+// Sentry — DEFERRED loading. Setup if VITE_SENTRY_DSN is set in Vercel env.
+// We dynamic-import the SDK after page interactive so Sentry's ~80 KB doesn't
+// block first paint. Errors thrown BEFORE Sentry loads are captured by a
+// pre-init queue and replayed once the SDK is ready, so nothing is lost.
 const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN as string | undefined;
+const PRE_INIT_QUEUE: Array<{ event: ErrorEvent | PromiseRejectionEvent }> = [];
+
 if (SENTRY_DSN && import.meta.env.PROD) {
-  Sentry.init({
-    dsn: SENTRY_DSN,
-    environment: import.meta.env.MODE,
-    // Sample 10% of transactions in production for performance monitoring
-    tracesSampleRate: 0.1,
-    // Capture replays for 10% of sessions, 100% of sessions with errors
-    replaysSessionSampleRate: 0.0,
-    replaysOnErrorSampleRate: 1.0,
-    // Filter out the noise we already handle ourselves
-    ignoreErrors: [
-      // Stale-chunk reload handles these — don't double-report
-      /Loading chunk \S+ failed/i,
-      /Failed to fetch dynamically imported module/i,
-      /Importing a module script failed/i,
-      // Browser extensions & third-party noise
-      /ResizeObserver loop/i,
-      /Non-Error promise rejection captured/i,
-    ],
-  });
+  // Capture errors thrown before Sentry SDK is loaded
+  const onError = (e: ErrorEvent) => PRE_INIT_QUEUE.push({ event: e });
+  const onRejection = (e: PromiseRejectionEvent) =>
+    PRE_INIT_QUEUE.push({ event: e });
+  window.addEventListener("error", onError);
+  window.addEventListener("unhandledrejection", onRejection);
+
+  const initSentry = async () => {
+    try {
+      const Sentry = await import("@sentry/react");
+      Sentry.init({
+        dsn: SENTRY_DSN,
+        environment: import.meta.env.MODE,
+        // NOTE: Phase 2 will add `tunnel: "/api/monitor"` once the proxy
+        // endpoint is in place. Without the tunnel, Brave Shields + uBlock
+        // block direct requests to ingest.us.sentry.io (~30% of users).
+        tracesSampleRate: 0.1,
+        replaysSessionSampleRate: 0.0,
+        replaysOnErrorSampleRate: 1.0,
+        ignoreErrors: [
+          // Stale-chunk reload handles these — don't double-report.
+          // Tightened pattern: only match the actual chunk-load failure
+          // shape, not any error mentioning "failed".
+          /^Loading chunk \d+ failed/i,
+          /Failed to fetch dynamically imported module/i,
+          /^Importing a module script failed/i,
+          /ResizeObserver loop (?:limit exceeded|completed with undelivered notifications)/i,
+        ],
+      });
+      // Replay any errors that fired before Sentry was ready
+      for (const { event } of PRE_INIT_QUEUE) {
+        if (event instanceof ErrorEvent && event.error) {
+          Sentry.captureException(event.error);
+        } else if (event instanceof PromiseRejectionEvent) {
+          Sentry.captureException(event.reason);
+        }
+      }
+      PRE_INIT_QUEUE.length = 0;
+      // The window listeners we added are now redundant — Sentry installs
+      // its own. Remove ours to avoid double-reporting.
+      window.removeEventListener("error", onError);
+      window.removeEventListener("unhandledrejection", onRejection);
+    } catch (err) {
+      // Sentry SDK failed to load (rare; CDN issue?). App keeps working.
+      console.warn("[Sentry] SDK lazy-load failed:", err);
+    }
+  };
+
+  const ric = (window as any).requestIdleCallback as
+    | ((cb: () => void, opts?: { timeout: number }) => void)
+    | undefined;
+  if (typeof ric === "function") {
+    ric(initSentry, { timeout: 4000 });
+  } else {
+    window.addEventListener("load", () => setTimeout(initSentry, 1500));
+  }
 }
 
 // Capture ?ref= URL param on load (persists to localStorage)

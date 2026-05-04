@@ -27,10 +27,11 @@ export default function ParticleCanvas() {
     // On phones the O(n²) connection loop can drop frames — halve the count.
     const isSmallViewport = window.innerWidth < 768;
 
-    let animId: number;
+    let animId: number | null = null;
     let particles: Particle[] = [];
     const count = isSmallViewport ? 35 : 80;
     const maxDist = 120;
+    let isVisible = true;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -88,11 +89,46 @@ export default function ParticleCanvas() {
 
       animId = requestAnimationFrame(draw);
     };
-    draw();
+
+    const start = () => {
+      if (animId === null) draw();
+    };
+    const stop = () => {
+      if (animId !== null) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    };
+
+    // Pause animation when canvas scrolls out of viewport — saves CPU and
+    // keeps scroll smooth for the rest of the page.
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver === "function") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) start();
+          else stop();
+        },
+        { rootMargin: "100px" }
+      );
+      observer.observe(canvas);
+    } else {
+      start();
+    }
+
+    // Also pause when the tab is hidden — no point burning CPU in background
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else if (isVisible) start();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
-      cancelAnimationFrame(animId);
+      stop();
+      observer?.disconnect();
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 

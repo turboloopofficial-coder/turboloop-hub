@@ -128,6 +128,8 @@ export default function Footer() {
                 <img
                   src={SITE.logo}
                   alt="Turbo Loop"
+                  loading="lazy"
+                  decoding="async"
                   className="h-11 w-auto"
                   style={{
                     filter: "drop-shadow(0 8px 20px rgba(8,145,178,0.3))",

@@ -47,7 +47,7 @@ const variantClass: Record<Variant, string> = {
   // single most important action on a screen. Never two on the same page.
   primary: [
     "text-white",
-    "bg-[var(--c-brand-gradient)]",
+    "bg-brand",
     "shadow-[var(--s-brand)]",
     "hover:shadow-[var(--s-xl)]",
   ].join(" "),

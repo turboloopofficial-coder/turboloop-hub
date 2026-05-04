@@ -68,10 +68,7 @@ export function Heading({
     <Tag
       className={cn(
         tierClass[tier],
-        gradient && [
-          "bg-clip-text text-transparent",
-          "bg-[var(--c-brand-gradient-wide)]",
-        ],
+        gradient && "text-brand-wide",
         className
       )}
     >

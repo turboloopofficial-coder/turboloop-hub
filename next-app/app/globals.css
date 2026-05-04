@@ -187,6 +187,32 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   BRAND GRADIENT UTILITIES
+   Tailwind 4's `bg-[var(--c-brand-gradient)]` arbitrary value
+   resolves to background-color, not background-image, which silently
+   breaks gradient elements. Define the classes once, use them
+   everywhere we want the brand gradient.
+   ════════════════════════════════════════════════════════════ */
+.bg-brand {
+  background-image: var(--c-brand-gradient);
+}
+.bg-brand-wide {
+  background-image: var(--c-brand-gradient-wide);
+}
+.text-brand {
+  background-image: var(--c-brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-brand-wide {
+  background-image: var(--c-brand-gradient-wide);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ════════════════════════════════════════════════════════════
    PRESS FEEDBACK — global active state on every interactive elem
    Honored by all browsers; framer-motion components override
    with their own inline transforms.

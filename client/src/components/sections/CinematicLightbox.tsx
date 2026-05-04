@@ -243,7 +243,7 @@ export default function CinematicLightbox({
                 desktop the side panel is beside it so we cap height. */}
             <div
               onClick={e => e.stopPropagation()}
-              className="flex items-center justify-center shrink-0 lg:flex-1 lg:min-h-0"
+              className="flex flex-col items-center justify-center shrink-0 lg:flex-1 lg:min-h-0 w-full"
             >
               <motion.div
                 key={film.slug}

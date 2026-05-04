@@ -335,8 +335,10 @@ export async function listPublicApprovedSubmissions(limit = 12) {
 
 export async function updateContentSubmissionStatus(id: number, status: "pending" | "approved" | "rejected", adminNotes?: string) {
   const db = getDb();
-  await db
+  const rows = await db
     .update(contentSubmissions)
     .set({ status, adminNotes: adminNotes ?? null })
-    .where(eq(contentSubmissions.id, id));
+    .where(eq(contentSubmissions.id, id))
+    .returning();
+  return rows[0] ?? null;
 }

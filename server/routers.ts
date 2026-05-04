@@ -203,7 +203,20 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
   submissions: router({
     submit: publicProcedure
       .input(z.object({
-        type: z.enum(["testimonial", "photo", "reel", "story"]),
+        // testimonial/photo/reel/story = community contributions.
+        // creator_apply = "Creator Star" program application.
+        // presenter_apply = "Local Presenter" program application.
+        // Both apply kinds reuse the same moderation flow as content
+        // submissions — admin sees them in the same dashboard, can
+        // approve/reject the same way.
+        type: z.enum([
+          "testimonial",
+          "photo",
+          "reel",
+          "story",
+          "creator_apply",
+          "presenter_apply",
+        ]),
         authorName: z.string().min(1).max(200),
         authorContact: z.string().max(320).optional(),
         authorCountry: z.string().max(100).optional(),
@@ -212,7 +225,30 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
       }))
       .mutation(async ({ input }) => {
         const created = await createContentSubmission(input);
+        // Fire-and-forget: send confirmation email if RESEND_API_KEY is set.
+        // Falls through silently when env is missing or send fails — must
+        // never block the submission flow.
+        const { sendSubmissionReceivedEmail } = await import("./email");
+        sendSubmissionReceivedEmail({
+          to: input.authorContact,
+          name: input.authorName,
+          kind: input.type,
+        }).catch(() => {});
         return { success: true, id: created.id };
+      }),
+    byIds: publicProcedure
+      .input(z.object({ ids: z.array(z.number()).max(50) }))
+      .query(async ({ input }) => {
+        if (input.ids.length === 0) return [];
+        const all = await listContentSubmissions();
+        return all
+          .filter(s => input.ids.includes(s.id))
+          .map(s => ({
+            id: s.id,
+            type: s.type,
+            status: s.status,
+            createdAt: s.createdAt,
+          }));
       }),
     list: adminProcedure
       .input(z.object({ status: z.enum(["pending", "approved", "rejected"]).optional() }))
@@ -226,7 +262,23 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         status: z.enum(["pending", "approved", "rejected"]),
         adminNotes: z.string().optional(),
       }))
-      .mutation(({ input }) => updateContentSubmissionStatus(input.id, input.status, input.adminNotes)),
+      .mutation(async ({ input }) => {
+        const updated = await updateContentSubmissionStatus(
+          input.id,
+          input.status,
+          input.adminNotes
+        );
+        if (input.status === "approved" && updated) {
+          // Notify the contributor when approved (best-effort, never blocks).
+          const { sendSubmissionApprovedEmail } = await import("./email");
+          sendSubmissionApprovedEmail({
+            to: updated.authorContact ?? null,
+            name: updated.authorName,
+            kind: updated.type,
+          }).catch(() => {});
+        }
+        return updated;
+      }),
   }),
 
   manage: router({

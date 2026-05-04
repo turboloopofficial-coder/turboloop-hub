@@ -15,7 +15,23 @@ import {
 } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import AnimatedSection from "@/components/AnimatedSection";
+import ShareButton from "@/components/ShareButton";
 import { trpc } from "@/lib/trpc";
+import { Link } from "wouter";
+
+// Persist successful submission ids on the device so /my-submissions
+// can show their status without requiring auth. Store as a JSON array
+// of numbers under a single localStorage key.
+const SUBMISSION_IDS_KEY = "turboloop_submission_ids";
+function rememberSubmission(id: number) {
+  try {
+    const raw = localStorage.getItem(SUBMISSION_IDS_KEY);
+    const existing = raw ? JSON.parse(raw) : [];
+    const set = new Set<number>(Array.isArray(existing) ? existing : []);
+    set.add(id);
+    localStorage.setItem(SUBMISSION_IDS_KEY, JSON.stringify(Array.from(set)));
+  } catch {}
+}
 
 type SubmissionType = "testimonial" | "photo" | "reel" | "story";
 
@@ -86,7 +102,11 @@ export default function SubmitPage() {
   const [fileUrl, setFileUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const submit = trpc.submissions.submit.useMutation();
+  const submit = trpc.submissions.submit.useMutation({
+    onSuccess: data => {
+      if (data?.id) rememberSubmission(data.id);
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,31 +217,46 @@ export default function SubmitPage() {
                 Got it. Thank you.
               </h2>
               <p className="text-slate-600 mb-7 max-w-md mx-auto leading-relaxed">
-                We'll review your submission within 48 hours. If it gets
-                featured, we'll reach out via the contact you provided.
+                We'll review within 48 hours. If you gave us a contact, you'll
+                get an email when it's approved. Track status anytime — it
+                stays on this device.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-5">
+                <Link href="/my-submissions">
+                  <button
+                    className="px-5 py-2.5 rounded-xl text-sm font-bold transition hover:scale-105"
+                    style={{
+                      background: "linear-gradient(135deg, #0891B2, #7C3AED)",
+                      color: "white",
+                      boxShadow: "0 8px 22px -6px rgba(8,145,178,0.4)",
+                    }}
+                  >
+                    Track status
+                  </button>
+                </Link>
                 <button
                   onClick={reset}
-                  className="px-5 py-2.5 rounded-xl text-sm font-bold transition hover:scale-105"
-                  style={{
-                    background: "linear-gradient(135deg, #0891B2, #7C3AED)",
-                    color: "white",
-                    boxShadow: "0 8px 22px -6px rgba(8,145,178,0.4)",
-                  }}
-                >
-                  Submit another
-                </button>
-                <a
-                  href="/community"
                   className="px-5 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:text-slate-900 transition"
                   style={{
                     background: "rgba(15,23,42,0.04)",
                     border: "1px solid rgba(15,23,42,0.08)",
                   }}
                 >
-                  Visit /community
-                </a>
+                  Submit another
+                </button>
+              </div>
+              <div className="pt-4 border-t border-slate-200/50">
+                <p className="text-xs text-slate-400 mb-3">
+                  Tell people you contributed:
+                </p>
+                <div className="flex justify-center">
+                  <ShareButton
+                    path="/community"
+                    message="🚀 Just shared my TurboLoop story — the safest yield protocol in DeFi. Check the community page."
+                    label="Share that you contributed"
+                    variant="solid"
+                  />
+                </div>
               </div>
             </motion.div>
           ) : (

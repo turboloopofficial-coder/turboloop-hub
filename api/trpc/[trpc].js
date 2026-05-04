@@ -4944,7 +4944,7 @@ var require_raw_body = __commonJS({
       var limit = bytes.parse(opts.limit);
       var length = opts.length != null && !isNaN(opts.length) ? parseInt(opts.length, 10) : null;
       if (done) {
-        return readStream(stream, encoding, length, limit, wrap2(done));
+        return readStream(stream, encoding, length, limit, wrap3(done));
       }
       return new Promise(function executor(resolve, reject) {
         readStream(stream, encoding, length, limit, function onRead(err, buf) {
@@ -5070,7 +5070,7 @@ var require_raw_body = __commonJS({
         return {};
       }
     }
-    function wrap2(fn) {
+    function wrap3(fn) {
       var res;
       if (asyncHooks.AsyncResource) {
         res = new asyncHooks.AsyncResource(fn.name || "bound-anonymous-fn");
@@ -5155,7 +5155,7 @@ var require_on_finished = __commonJS({
         defer(listener, null, msg);
         return msg;
       }
-      attachListener(msg, wrap2(listener));
+      attachListener(msg, wrap3(listener));
       return msg;
     }
     function isFinished(msg) {
@@ -5230,7 +5230,7 @@ var require_on_finished = __commonJS({
         return {};
       }
     }
-    function wrap2(fn) {
+    function wrap3(fn) {
       var res;
       if (asyncHooks.AsyncResource) {
         res = new asyncHooks.AsyncResource(fn.name || "bound-anonymous-fn");
@@ -18886,7 +18886,7 @@ var require_router = __commonJS({
       var done = restore(out, req, "baseUrl", "next", "params");
       req.next = next;
       if (req.method === "OPTIONS") {
-        done = wrap2(done, function(old, err) {
+        done = wrap3(done, function(old, err) {
           if (err || options.length === 0) return old(err);
           sendOptionsResponse(res, options, old);
         });
@@ -19186,7 +19186,7 @@ var require_router = __commonJS({
         next(err);
       }
     }
-    function wrap2(old, fn) {
+    function wrap3(old, fn) {
       return function proxy() {
         var args = new Array(arguments.length + 1);
         args[0] = old;
@@ -67415,6 +67415,93 @@ var init_sdk = __esm({
   }
 });
 
+// server/email.ts
+var email_exports = {};
+__export(email_exports, {
+  sendSubmissionApprovedEmail: () => sendSubmissionApprovedEmail,
+  sendSubmissionReceivedEmail: () => sendSubmissionReceivedEmail
+});
+async function sendEmail({ to: to2, subject, html }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM ?? "TurboLoop <hello@turboloop.tech>";
+  if (!apiKey || !to2) return;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to2)) return;
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({ from, to: to2, subject, html }),
+      signal: AbortSignal.timeout(8e3)
+    });
+    if (!res.ok) {
+      console.warn(`[email] resend ${res.status}: ${await res.text()}`);
+    }
+  } catch (err) {
+    console.warn("[email] send failed:", err?.message || err);
+  }
+}
+async function sendSubmissionReceivedEmail(p3) {
+  const label = KIND_LABEL[p3.kind] ?? "submission";
+  await sendEmail({
+    to: p3.to,
+    subject: `We got your ${label} \u2014 TurboLoop`,
+    html: wrap2(
+      `Thanks, ${p3.name}.`,
+      `<p>We received your <b>${label}</b> and it's queued for review.</p>
+       <p>Most submissions are reviewed within 48 hours. You'll get another email the moment it's approved.</p>
+       <p style="margin-top:24px;"><a href="${SITE}/my-submissions" style="display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#0891B2,#7C3AED);color:white;text-decoration:none;font-weight:700;font-size:14px;">Check status</a></p>`
+    )
+  });
+}
+async function sendSubmissionApprovedEmail(p3) {
+  const label = KIND_LABEL[p3.kind] ?? "submission";
+  await sendEmail({
+    to: p3.to,
+    subject: `You're live on TurboLoop \xB7 share it`,
+    html: wrap2(
+      `Approved, ${p3.name}.`,
+      `<p>Your <b>${label}</b> just went live on TurboLoop.</p>
+       <p>Share it \u2014 your contribution helps the community grow, and we boost the contributors who push hardest.</p>
+       <p style="margin-top:24px;"><a href="${SITE}/community" style="display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#0891B2,#7C3AED);color:white;text-decoration:none;font-weight:700;font-size:14px;">See it live</a></p>`
+    )
+  });
+}
+var API, SITE, wrap2, KIND_LABEL;
+var init_email = __esm({
+  "server/email.ts"() {
+    "use strict";
+    API = "https://api.resend.com/emails";
+    SITE = "https://turboloop.tech";
+    wrap2 = (heading, body) => `
+<!doctype html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F7F8FC;padding:32px 16px;margin:0;">
+  <div style="max-width:520px;margin:0 auto;background:white;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px -8px rgba(15,23,42,0.08);">
+    <div style="background:linear-gradient(135deg,#0891B2,#7C3AED);padding:24px 28px;color:white;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.85;margin-bottom:6px;">TurboLoop</div>
+      <div style="font-size:22px;font-weight:700;line-height:1.2;">${heading}</div>
+    </div>
+    <div style="padding:28px;color:#0F172A;line-height:1.6;font-size:15px;">
+      ${body}
+      <div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(15,23,42,0.08);font-size:12px;color:#64748B;">
+        <a href="${SITE}" style="color:#0891B2;text-decoration:none;font-weight:600;">turboloop.tech</a>
+        &nbsp;\xB7&nbsp; The complete DeFi ecosystem on Binance Smart Chain
+      </div>
+    </div>
+  </div>
+</body></html>`;
+    KIND_LABEL = {
+      testimonial: "testimonial",
+      photo: "photo",
+      reel: "reel",
+      story: "story",
+      creator_apply: "Creator Star application",
+      presenter_apply: "Local Presenter application"
+    };
+  }
+});
+
 // server/_vercel/trpc-handler.ts
 var trpc_handler_exports = {};
 __export(trpc_handler_exports, {
@@ -99765,7 +99852,8 @@ async function listPublicApprovedSubmissions(limit = 12) {
 }
 async function updateContentSubmissionStatus(id, status, adminNotes) {
   const db = getDb();
-  await db.update(contentSubmissions).set({ status, adminNotes: adminNotes ?? null }).where(eq(contentSubmissions.id, id));
+  const rows = await db.update(contentSubmissions).set({ status, adminNotes: adminNotes ?? null }).where(eq(contentSubmissions.id, id)).returning();
+  return rows[0] ?? null;
 }
 
 // server/storage.ts
@@ -99990,7 +100078,20 @@ ${cleaned.slice(0, 500)}`
   // Public content submission + admin moderation
   submissions: router({
     submit: publicProcedure.input(external_exports.object({
-      type: external_exports.enum(["testimonial", "photo", "reel", "story"]),
+      // testimonial/photo/reel/story = community contributions.
+      // creator_apply = "Creator Star" program application.
+      // presenter_apply = "Local Presenter" program application.
+      // Both apply kinds reuse the same moderation flow as content
+      // submissions — admin sees them in the same dashboard, can
+      // approve/reject the same way.
+      type: external_exports.enum([
+        "testimonial",
+        "photo",
+        "reel",
+        "story",
+        "creator_apply",
+        "presenter_apply"
+      ]),
       authorName: external_exports.string().min(1).max(200),
       authorContact: external_exports.string().max(320).optional(),
       authorCountry: external_exports.string().max(100).optional(),
@@ -99998,7 +100099,24 @@ ${cleaned.slice(0, 500)}`
       fileUrl: external_exports.string().url().max(1e3).optional()
     })).mutation(async ({ input }) => {
       const created = await createContentSubmission(input);
+      const { sendSubmissionReceivedEmail: sendSubmissionReceivedEmail2 } = await Promise.resolve().then(() => (init_email(), email_exports));
+      sendSubmissionReceivedEmail2({
+        to: input.authorContact,
+        name: input.authorName,
+        kind: input.type
+      }).catch(() => {
+      });
       return { success: true, id: created.id };
+    }),
+    byIds: publicProcedure.input(external_exports.object({ ids: external_exports.array(external_exports.number()).max(50) })).query(async ({ input }) => {
+      if (input.ids.length === 0) return [];
+      const all = await listContentSubmissions();
+      return all.filter((s) => input.ids.includes(s.id)).map((s) => ({
+        id: s.id,
+        type: s.type,
+        status: s.status,
+        createdAt: s.createdAt
+      }));
     }),
     list: adminProcedure.input(external_exports.object({ status: external_exports.enum(["pending", "approved", "rejected"]).optional() })).query(({ input }) => listContentSubmissions(input.status)),
     /** Public read of approved submissions only — excludes PII (contact + admin notes).
@@ -100008,7 +100126,23 @@ ${cleaned.slice(0, 500)}`
       id: external_exports.number(),
       status: external_exports.enum(["pending", "approved", "rejected"]),
       adminNotes: external_exports.string().optional()
-    })).mutation(({ input }) => updateContentSubmissionStatus(input.id, input.status, input.adminNotes))
+    })).mutation(async ({ input }) => {
+      const updated = await updateContentSubmissionStatus(
+        input.id,
+        input.status,
+        input.adminNotes
+      );
+      if (input.status === "approved" && updated) {
+        const { sendSubmissionApprovedEmail: sendSubmissionApprovedEmail2 } = await Promise.resolve().then(() => (init_email(), email_exports));
+        sendSubmissionApprovedEmail2({
+          to: updated.authorContact ?? null,
+          name: updated.authorName,
+          kind: updated.type
+        }).catch(() => {
+        });
+      }
+      return updated;
+    })
   }),
   manage: router({
     listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),

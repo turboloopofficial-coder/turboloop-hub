@@ -240,6 +240,23 @@ export default function HeroSection() {
           </MagneticButton>
         </motion.div>
 
+        {/* Tertiary text link — surfaces the contribution path. Doesn't
+            compete with primary "Launch App" CTA, just keeps the
+            funnel-to-contributor visible from the hero. */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.95 }}
+          className="text-center mb-10"
+        >
+          <a
+            href="/submit"
+            className="text-sm text-slate-500 hover:text-cyan-700 underline decoration-slate-300 hover:decoration-cyan-500 underline-offset-4 transition"
+          >
+            Or share your story →
+          </a>
+        </motion.div>
+
         {/* Trust badges row */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

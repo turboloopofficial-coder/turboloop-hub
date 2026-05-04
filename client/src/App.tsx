@@ -33,6 +33,8 @@ const EcosystemPillarPage = lazy(() => import("./pages/EcosystemPillarPage"));
 const FilmsPage = lazy(() => import("./pages/FilmsPage"));
 const FilmPlayer = lazy(() => import("./pages/FilmPlayer"));
 const SubmitPage = lazy(() => import("./pages/SubmitPage"));
+const ApplyPage = lazy(() => import("./pages/ApplyPage"));
+const MySubmissionsPage = lazy(() => import("./pages/MySubmissionsPage"));
 const ComparisonPage = lazy(() => import("./pages/ComparisonPage"));
 const Defi101Page = lazy(() => import("./pages/Defi101Page"));
 const Defi101LessonPage = lazy(() => import("./pages/Defi101LessonPage"));
@@ -76,6 +78,8 @@ function Router() {
               <Route path="/films" component={() => <FilmsPage />} />
               <Route path="/films/:slug" component={FilmPlayer} />
               <Route path="/submit" component={SubmitPage} />
+              <Route path="/apply" component={ApplyPage} />
+              <Route path="/my-submissions" component={MySubmissionsPage} />
               <Route path="/vs/:slug" component={ComparisonPage} />
               <Route path="/learn" component={Defi101Page} />
               <Route path="/learn/:slug" component={Defi101LessonPage} />

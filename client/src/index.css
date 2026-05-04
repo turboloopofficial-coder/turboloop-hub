@@ -515,6 +515,17 @@ html {
   color: #0a1628;
 }
 
+/* ========== MOBILE BOTTOM CTA SPACER ==========
+   The fixed MobileCTABar (~70 px tall + safe-area inset) sits at the
+   bottom of every mobile route. Without bottom padding on the body, the
+   bar covers footer content. md+ breakpoints don't render the bar so no
+   padding is added there. */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  }
+}
+
 /* ========== MICROINTERACTION: PREMIUM PRESS FEEDBACK ==========
    Subtle 100 ms scale-down on every button/anchor active state. Makes
    every tap feel responsive without any per-component refactor. The

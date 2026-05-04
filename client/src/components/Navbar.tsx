@@ -14,13 +14,35 @@ const NAV_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
   { label: "Roadmap", href: "/roadmap" },
 ];
 
-// Resources dropdown — secondary pages
+// Resources dropdown — secondary pages. Order matters: visitors only ever
+// see the top 2-3 items (rest is below the fold of the dropdown). Submit,
+// Promotions, and Creatives are the highest-conversion items, so they go
+// first now (was: buried at positions 4–6). Films/Library/Learn are
+// passive content discovery and sit lower.
 const RESOURCES: Array<{
   label: string;
   href: string;
   description: string;
   emoji: string;
 }> = [
+  {
+    label: "Submit Your Story",
+    href: "/submit",
+    description: "Share your testimonial, photo, video, or story",
+    emoji: "✍️",
+  },
+  {
+    label: "Promotions",
+    href: "/promotions",
+    description: "$100K bounty + creator and presenter programs",
+    emoji: "🎁",
+  },
+  {
+    label: "Creatives",
+    href: "/creatives",
+    description: "141 ready-to-share branded posts with captions",
+    emoji: "🎨",
+  },
   {
     label: "Films",
     href: "/films",
@@ -38,24 +60,6 @@ const RESOURCES: Array<{
     href: "/library",
     description: "Videos and presentations in 48 languages",
     emoji: "📂",
-  },
-  {
-    label: "Creatives",
-    href: "/creatives",
-    description: "141 ready-to-share branded posts with captions",
-    emoji: "🎨",
-  },
-  {
-    label: "Promotions",
-    href: "/promotions",
-    description: "$100K bounty + creator and presenter programs",
-    emoji: "🎁",
-  },
-  {
-    label: "Submit Your Story",
-    href: "/submit",
-    description: "Share your testimonial, photo, video, or story",
-    emoji: "✍️",
   },
   {
     label: "FAQ",

@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import PageLoader from "./components/PageLoader";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import InstallPrompt from "./components/InstallPrompt";
+import MobileCTABar from "./components/MobileCTABar";
 
 // Heavy pages — code-split so they don't bloat the homepage bundle
 const FeedPage = lazy(() => import("./pages/FeedPage"));
@@ -107,6 +108,7 @@ function App() {
           <Toaster />
           <AnalyticsTracker />
           <Router />
+          <MobileCTABar />
           <InstallPrompt />
         </TooltipProvider>
       </ThemeProvider>

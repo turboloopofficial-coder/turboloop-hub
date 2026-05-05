@@ -82,6 +82,26 @@ export async function submitSubmission(
   return first.result.data.json;
 }
 
+/** Newsletter signup — POSTs email to the legacy tRPC newsletter.signup
+ *  endpoint. Silent success/error; calling code shows feedback. */
+export async function newsletterSignup(
+  email: string,
+  source = "homepage"
+): Promise<{ success: boolean }> {
+  const url = `${API_BASE}/api/trpc/newsletter.signup?batch=1`;
+  const body = { 0: { json: { email, source } } };
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Signup failed: HTTP ${res.status}`);
+  const out = (await res.json()) as Array<TRPCEnvelope<{ success: boolean }>>;
+  const first = out?.[0];
+  if (first?.error) throw new Error(first.error.message ?? "Signup failed");
+  return first?.result?.data?.json ?? { success: false };
+}
+
 /** Fetch the status of a list of submission ids. Returns rows the
  *  server has — silently drops any id we don't have permission to see
  *  or that's been deleted. */

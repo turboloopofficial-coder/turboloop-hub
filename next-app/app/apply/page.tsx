@@ -217,7 +217,7 @@ export default function ApplyPage() {
                   maxLength={200}
                   required
                   placeholder="First + last (or just a handle)"
-                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
                 />
               </div>
               <div>
@@ -227,7 +227,7 @@ export default function ApplyPage() {
                 <select
                   value={country}
                   onChange={e => setCountry(e.target.value)}
-                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
                 >
                   <option value="">— pick yours —</option>
                   {COUNTRIES.map(c => (
@@ -251,7 +251,7 @@ export default function ApplyPage() {
                 maxLength={320}
                 required
                 placeholder="hello@you.com or @yourhandle"
-                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
               />
             </div>
 
@@ -287,7 +287,7 @@ export default function ApplyPage() {
                 onChange={e => setFileUrl(e.target.value)}
                 maxLength={1000}
                 placeholder={current.filePlaceholder}
-                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
               />
             </div>
 

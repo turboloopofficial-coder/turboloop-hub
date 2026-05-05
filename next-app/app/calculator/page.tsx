@@ -105,7 +105,7 @@ export default function CalculatorPage() {
                 <button
                   key={amt}
                   onClick={() => setDeposit(amt)}
-                  className="px-3 h-8 rounded-full text-xs font-bold border border-[var(--c-border)] bg-[var(--c-surface)] hover:bg-[var(--c-bg)] active:scale-95 transition"
+                  className="px-4 min-h-[44px] rounded-full text-xs font-bold border border-[var(--c-border)] bg-[var(--c-surface)] hover:bg-[var(--c-bg)] active:scale-95 transition"
                 >
                   ${amt.toLocaleString()}
                 </button>

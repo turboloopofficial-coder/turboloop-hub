@@ -31,16 +31,29 @@ function playInFullscreen(url: string, title?: string) {
   v.autoplay = true;
   v.preload = "auto";
   v.playsInline = true;
+  // Required attributes for inline mobile playback (iOS especially) so
+  // the video doesn't pop out into the OS player and the page doesn't
+  // scroll out from underneath it.
+  v.setAttribute("playsinline", "");
+  v.setAttribute("webkit-playsinline", "");
   if (title) v.setAttribute("title", title);
   v.style.cssText =
     "position:fixed;inset:0;width:100%;height:100%;background:black;z-index:10000;opacity:0;pointer-events:none;";
   document.body.appendChild(v);
+
+  // Lock body scroll while the fullscreen video is mounted. iOS Safari
+  // otherwise will scroll the page underneath the fullscreen layer when
+  // the dynamic toolbar resizes, making the video appear to "scroll
+  // away." Restore on cleanup.
+  const prevOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
 
   const cleanup = () => {
     try {
       v.pause();
     } catch {}
     v.remove();
+    document.body.style.overflow = prevOverflow;
     document.removeEventListener("fullscreenchange", onFs);
     (document as any).removeEventListener?.("webkitfullscreenchange", onFs);
   };

@@ -33,7 +33,7 @@ import { EventsSection } from "@components/sections/EventsSection";
 import { TestimonialSection } from "@components/sections/TestimonialSection";
 import { SocialWallSection } from "@components/sections/SocialWallSection";
 import { ManifestoSection } from "@components/sections/ManifestoSection";
-import { NewsletterCTASection } from "@components/sections/NewsletterCTASection";
+import { NewsletterSection } from "@components/sections/NewsletterSection";
 import { Reveal } from "@components/Reveal";
 
 const TRUST_BADGES = [
@@ -221,7 +221,7 @@ export default function HomePage() {
         <ManifestoSection />
       </Reveal>
       <Reveal>
-        <NewsletterCTASection />
+        <NewsletterSection />
       </Reveal>
     </main>
   );

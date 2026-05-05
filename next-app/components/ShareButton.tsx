@@ -183,7 +183,7 @@ export function ShareButton({
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--c-text-muted)] hover:bg-[rgba(15,23,42,0.06)] active:scale-95 transition"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-[var(--c-text-muted)] hover:bg-[rgba(15,23,42,0.06)] active:scale-95 transition"
                 aria-label="Close"
               >
                 <X className="w-4 h-4" />

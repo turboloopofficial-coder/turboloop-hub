@@ -80,10 +80,18 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
-        className="md:hidden inline-flex items-center gap-2 px-3 h-11 rounded-[var(--r-lg)] text-white shadow-[var(--s-brand)] active:scale-95 transition"
+        onClick={e => {
+          // Defensive: stop the click from propagating to ancestor handlers
+          // (Resources dropdown wraps a parent ref-listener; toast/menu
+          // overlays could intercept). Some browsers also synthesize a
+          // mouseenter on tap, which is harmless here but blocked anyway.
+          e.stopPropagation();
+          setOpen(true);
+        }}
+        className="md:hidden inline-flex items-center gap-2 px-3 min-h-[44px] h-11 rounded-[var(--r-lg)] text-white shadow-[var(--s-brand)] active:scale-95 transition"
         style={{ background: "var(--c-brand-gradient)" }}
         aria-label="Open menu"
+        aria-expanded={open}
         type="button"
       >
         <HamburgerIcon />

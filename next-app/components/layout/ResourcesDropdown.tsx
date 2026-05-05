@@ -1,8 +1,10 @@
 "use client";
 
-// Resources dropdown for the desktop nav. Hover-to-open on mouse,
-// click-to-toggle on keyboard/touch. Links to all secondary pages
-// (Submit, Apply, Promotions, Creatives, Library, Learn, Roadmap, FAQ).
+// Resources dropdown for the desktop nav. Click-to-toggle (works on
+// both mouse and touch). Previous hover-based version broke on touch:
+// mouseenter fires as a synthetic event when the user taps, then onClick
+// toggles it back closed in the same gesture — net result, panel never
+// stayed visible. Click-only is reliable everywhere.
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -31,18 +33,13 @@ export function ResourcesDropdown() {
   }, [open]);
 
   return (
-    <div
-      ref={ref}
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div ref={ref} className="relative">
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
         aria-haspopup="true"
         aria-expanded={open}
-        className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-sm font-semibold text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition-colors"
+        className="inline-flex items-center gap-1 px-3 min-h-[44px] rounded-[var(--r-md)] text-sm font-semibold text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition-colors"
       >
         Resources
         <ChevronDown

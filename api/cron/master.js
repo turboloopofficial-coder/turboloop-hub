@@ -12757,6 +12757,85 @@ ${desc2}
 function cinematicPosterUrl(film) {
   return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg?v=2`;
 }
+var MONTHLY_AMOUNTS = [50, 100, 250, 500, 1e3, 2500, 5e3, 1e4, 25e3, 5e4];
+var MONTHLY_COMPOUND_BANNERS = [
+  ...MONTHLY_AMOUNTS.map((monthly) => ({
+    lang: "en",
+    monthly,
+    filename: `monthly-en-${monthly}.png`
+  })),
+  ...MONTHLY_AMOUNTS.map((monthly) => ({
+    lang: "de",
+    monthly,
+    filename: `monthly-de-${monthly}.png`
+  }))
+];
+var R2_BASE_FOR_BANNERS = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+function monthlyBannerUrl(b) {
+  return `${R2_BASE_FOR_BANNERS}/monthly-banners/${b.filename}`;
+}
+function pickTodaysMonthlyBanner() {
+  const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
+  const lang = day % 2 === 0 ? "en" : "de";
+  const pool = MONTHLY_COMPOUND_BANNERS.filter((b) => b.lang === lang);
+  return pool[day % pool.length];
+}
+var MONTHLY_CAPTION_EN = [
+  `<b>If you put in this much per month \u2014 what does the math actually look like?</b>
+
+The image above isn't a promise. It's a projection from the public TurboLoop yield model: stablecoin LP fees, compounded monthly, no team-controlled levers.
+
+Run your own numbers. Compare it with what your bank pays. Decide.`,
+  `<b>Compounding doesn't shout. It just keeps stacking.</b>
+
+The number on the right side of the image isn't where this stops \u2014 it's where the curve starts pulling away from a savings account.
+
+Stablecoin yield. On-chain. Verifiable any day on BscScan.`,
+  `<b>$0.01 vs. real yield \u2014 over the years that gap eats people alive.</b>
+
+The projection above shows what the same monthly contribution looks like if it stays in TurboLoop instead of an account paying you almost nothing.
+
+Numbers, not narrative. Look at it. Run your own.`,
+  `<b>Today's compounding example \u2014 same math, different starting line.</b>
+
+Wherever you start, the curve has the same shape. The difference is where you stand on it three or five years from now.`,
+  `<b>This is what monthly discipline + on-chain yield does to a portfolio.</b>
+
+We don't sell sizzle. We show the projection, link to the contract, and let the math sit there.`
+];
+var MONTHLY_CAPTION_DE = [
+  `<b>Das hier ist, was monatliches Sparen + DeFi-Rendite ergibt \u2014 schwarz auf wei\xDF.</b>
+
+Die Zahl rechts ist keine Garantie. Sie ist eine Projektion aus dem TurboLoop-Modell \u2014 stabile LP-Geb\xFChren, monatliche Reinvestition, ohne Team-Hebel.
+
+Rechne nach. Vergleich mit deinem Girokonto. Entscheide selbst.`,
+  `<b>Zinseszins macht keinen L\xE4rm. Er sammelt einfach weiter.</b>
+
+Die Kurve oben zeigt, wie aus einem monatlichen Beitrag echtes Verm\xF6gen wird \u2014 mit Stablecoin-Yield statt 0,01 % Tagesgeld.
+
+Alles auf BscScan \xFCberpr\xFCfbar. Jederzeit.`,
+  `<b>Heute zur Veranschaulichung: dein Monatsbeitrag in der TurboLoop-Mathematik.</b>
+
+Wo du anf\xE4ngst, ist egal. Die Form der Kurve bleibt. Wichtig ist nur, wo du in drei oder f\xFCnf Jahren stehst.`,
+  `<b>0,01 % vs. echte Rendite \u2014 \xFCber Jahre frisst diese L\xFCcke ganze Verm\xF6gen auf.</b>
+
+Die Projektion oben zeigt, wie derselbe Monatsbeitrag in TurboLoop w\xE4chst statt auf einem Konto zu erodieren.
+
+Zahlen, kein Marketing. Schau hin. Rechne nach.`,
+  `<b>So sieht monatliche Disziplin + On-Chain-Yield in der Realit\xE4t aus.</b>
+
+Wir verkaufen kein Theater. Wir zeigen die Projektion, verlinken den Contract, und lassen die Mathematik sprechen.`
+];
+function monthlyCompoundingCaption(b) {
+  const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
+  const body = pickByDay(pool);
+  const cta = b.lang === "en" ? `
+
+\u{1F4B8} Run your numbers: https://turboloop.tech/yield-calculator` : `
+
+\u{1F4B8} Rechne deine Zahlen: https://turboloop.tech/yield-calculator`;
+  return body + cta;
+}
 function launchAnnouncementCaption() {
   return `<b>TurboLoop.tech is live.</b>
 
@@ -12774,6 +12853,30 @@ We didn't build this to look at. We built it so you have something to send when 
 
 Send it. Share it. Use the creatives. Translate them. Make it yours.`;
 }
+
+// shared/zoomEvents.ts
+var ZOOM_EN = {
+  lang: "en",
+  title: "Daily English Community Call",
+  description: "Every day. Bring your questions. Real people, real answers \u2014 no pitch, no pressure.",
+  link: "https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1",
+  passcode: "669529",
+  timeLabel: "5:00 PM UTC daily",
+  startUtcMin: 17 * 60,
+  // 17:00 UTC
+  durationMin: 120
+};
+var ZOOM_HI = {
+  lang: "hi",
+  title: "Daily Hindi / Urdu Call",
+  description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902.",
+  link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
+  passcode: "1234",
+  timeLabel: "9:00 PM IST daily",
+  startUtcMin: 15 * 60 + 30,
+  // 15:30 UTC = 9:00 PM IST
+  durationMin: 120
+};
 
 // server/_vercel/cron-master.ts
 var SITE = "https://turboloop.tech";
@@ -12849,16 +12952,6 @@ async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
     buttons: [{ text: "\u{1F399} Join Zoom now", url: meetingLink }]
   });
 }
-var ZOOM_EN = {
-  link: "https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1",
-  passcode: "669529",
-  timeLabel: "5:00 PM UTC daily"
-};
-var ZOOM_HI = {
-  link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
-  passcode: "1234",
-  timeLabel: "9:00 PM IST daily"
-};
 async function handler(req, res) {
   const log = [];
   res.setHeader("Content-Type", "application/json");
@@ -12882,6 +12975,23 @@ async function handler(req, res) {
         await markFiredEver(db, "launch:announcement");
         log.push(`\u{1F680} Launch announcement fired (target ${LAUNCH_FIRE_AT_UTC})`);
       }
+    }
+    if (isInWindow(12, 0) && !await hasFiredToday(db, "monthly:compound")) {
+      const banner = pickTodaysMonthlyBanner();
+      const caption = monthlyCompoundingCaption(banner);
+      await tgBroadcastPhoto({
+        photoUrl: monthlyBannerUrl(banner),
+        caption,
+        parseMode: "HTML",
+        buttons: [
+          {
+            text: banner.lang === "de" ? "\u{1F4B8} Yield-Rechner \xF6ffnen" : "\u{1F4B8} Open the yield calculator",
+            url: `${SITE}/yield-calculator`
+          }
+        ]
+      });
+      await markFired(db, "monthly:compound");
+      log.push(`\u{1F4B5} Monthly compound \u2014 ${banner.lang.toUpperCase()} $${banner.monthly}`);
     }
     if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
       const due = await publishOverdueBlogs(db);

@@ -103,10 +103,36 @@ export interface Presentation {
   createdAt: string;
 }
 
+export interface LeaderboardEntry {
+  id: number;
+  rank: number;
+  country: string;
+  countryCode: string;
+  description: string;
+  score: number;
+  updatedAt: string;
+}
+
+/** Public-facing approved submission row — same shape as
+ *  listPublicApprovedSubmissions on the server (no PII fields). */
+export interface PublicSubmission {
+  id: number;
+  type: string;
+  authorName: string;
+  authorCountry: string | null;
+  body: string;
+  fileUrl: string | null;
+  createdAt: string;
+}
+
 export const api = {
   blogPosts: () => fetchTRPC<BlogPost[]>("content.blogPosts"),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
   videos: () => fetchTRPC<Video[]>("content.videos"),
   presentations: () => fetchTRPC<Presentation[]>("content.presentations"),
+  leaderboard: () =>
+    fetchTRPC<LeaderboardEntry[]>("content.leaderboard"),
+  publicApprovedSubmissions: () =>
+    fetchTRPC<PublicSubmission[]>("submissions.publicApproved"),
 };

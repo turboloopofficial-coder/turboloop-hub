@@ -1,15 +1,19 @@
-// SocialWallSection — masonry-ish grid of community voices. Pulls from
-// the testimonials data (already in lib/testimonialsData.ts), shows
-// 9 cards (3 columns desktop, 1 mobile), each with country flag, name,
-// role, quote.
+// SocialWallSection — masonry-ish grid of community voices.
 //
-// Static. Server component. Zero client JS.
+// Pulls approved testimonials from the submissions.publicApproved tRPC
+// query at build time (ISR every 5 min). Falls back to the static
+// TESTIMONIALS pool when the API is unreachable, the DB has no approved
+// rows yet, or every approved row is filtered out (we only render
+// type="testimonial" submissions — photo/reel/story need different layouts).
+//
+// Server component — zero client JS shipped.
 
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
-import { TESTIMONIALS } from "@lib/testimonialsData";
-import { getFlagUrl } from "@lib/constants";
+import { TESTIMONIALS, type Testimonial } from "@lib/testimonialsData";
+import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
+import { api } from "@lib/api";
 import { Send as TelegramIcon, Twitter, MessageCircle } from "lucide-react";
 
 const PLATFORM_META: Record<
@@ -22,9 +26,41 @@ const PLATFORM_META: Record<
   default: { icon: MessageCircle, color: "#0891B2" },
 };
 
-export function SocialWallSection() {
-  // 9 testimonials, mixed lengths so the grid feels organic.
-  const wall = TESTIMONIALS.slice(0, 9);
+/** Map a country *name* (as stored in submissions.authorCountry) to the
+ *  ISO code our flag CDN expects. Unknown country names render without a
+ *  flag rather than a broken image. */
+const COUNTRY_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
+  COUNTRY_DATA.map(c => [c.country.toLowerCase(), c.code])
+);
+
+function codeForCountry(name: string | null): string | null {
+  if (!name) return null;
+  return COUNTRY_NAME_TO_CODE[name.trim().toLowerCase()] ?? null;
+}
+
+async function loadWall(): Promise<Testimonial[]> {
+  try {
+    const rows = await api.publicApprovedSubmissions();
+    const testimonialsOnly = (rows ?? []).filter(
+      r => r.type === "testimonial"
+    );
+    if (testimonialsOnly.length === 0) throw new Error("no approved testimonials");
+    return testimonialsOnly.slice(0, 9).map((r, i) => ({
+      id: `db-${r.id}`,
+      quote: r.body,
+      name: r.authorName,
+      role: r.authorCountry ?? "",
+      countryCode: codeForCountry(r.authorCountry) ?? "",
+      color: "#0891B2",
+      hoursAgo: i,
+    }));
+  } catch {
+    return TESTIMONIALS.slice(0, 9);
+  }
+}
+
+export async function SocialWallSection() {
+  const wall = await loadWall();
 
   return (
     <section className="py-12 md:py-20">
@@ -45,8 +81,6 @@ export function SocialWallSection() {
           </p>
         </div>
 
-        {/* Masonry-ish grid using CSS columns. Each card sits naturally
-            in the column flow without explicit layout JS. */}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-5 [&>*]:mb-4 md:[&>*]:mb-5">
           {wall.map(t => {
             const meta = PLATFORM_META.default;

@@ -1,5 +1,10 @@
-// LeaderboardSection — top-10 country leaderboard. Static data
-// (COUNTRY_DATA in lib/constants), animated medal tiers + score bars.
+// LeaderboardSection — top-10 country leaderboard.
+//
+// Fetches via the content.leaderboard tRPC query at build time (ISR every
+// 5 min). Falls back to COUNTRY_DATA from lib/constants when the API is
+// unreachable or empty so the home page never renders blank in an outage.
+//
+// Server component — zero client JS shipped.
 
 import Link from "next/link";
 import { Trophy, ArrowRight } from "lucide-react";
@@ -7,6 +12,7 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
+import { api } from "@lib/api";
 
 const MEDAL_COLOR: Record<string, { bg: string; ring: string; emoji: string }> =
   {
@@ -16,9 +22,56 @@ const MEDAL_COLOR: Record<string, { bg: string; ring: string; emoji: string }> =
     none: { bg: "transparent", ring: "transparent", emoji: "" },
   };
 
-export function LeaderboardSection() {
-  const top = COUNTRY_DATA.slice(0, 10);
+interface LeaderboardRow {
+  rank: number;
+  country: string;
+  /** Lowercase ISO 3166-1 alpha-2 (e.g. "de"). Schema stores it as varchar
+   *  with no enforced casing — normalise here so flag URLs always work. */
+  code: string;
+  description: string;
+  score: number;
+  /** Derived from rank: 1→gold, 2→silver, 3→bronze, else none */
+  medal: "gold" | "silver" | "bronze" | "none";
+}
+
+function medalForRank(rank: number): LeaderboardRow["medal"] {
+  if (rank === 1) return "gold";
+  if (rank === 2) return "silver";
+  if (rank === 3) return "bronze";
+  return "none";
+}
+
+async function loadLeaderboard(): Promise<LeaderboardRow[]> {
+  try {
+    const rows = await api.leaderboard();
+    if (!rows || rows.length === 0) throw new Error("empty");
+    return rows.map(r => ({
+      rank: r.rank,
+      country: r.country,
+      code: r.countryCode.toLowerCase(),
+      description: r.description,
+      score: r.score,
+      medal: medalForRank(r.rank),
+    }));
+  } catch {
+    // tRPC unreachable, DB empty, or schema drift — fall through to static
+    // seed data so the section still renders meaningfully.
+    return COUNTRY_DATA.map(c => ({
+      rank: c.rank,
+      country: c.country,
+      code: c.code,
+      description: c.description,
+      score: c.score,
+      medal: c.medal as LeaderboardRow["medal"],
+    }));
+  }
+}
+
+export async function LeaderboardSection() {
+  const all = await loadLeaderboard();
+  const top = all.slice(0, 10);
   const max = top[0]?.score ?? 100;
+
   return (
     <section className="py-12 md:py-20">
       <Container width="default">

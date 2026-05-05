@@ -12,6 +12,7 @@ import { useState } from "react";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
+import { Magnetic } from "@components/ui/Magnetic";
 import { newsletterSignup } from "@lib/submitApi";
 import { haptic } from "@lib/haptic";
 
@@ -123,20 +124,22 @@ export function NewsletterSection() {
                     }
                     className="flex-1 min-h-[52px] px-5 rounded-[var(--r-lg)] text-base text-[var(--c-text)] bg-white outline-none border-2 border-transparent focus:border-white/60 focus:ring-2 focus:ring-white/40 placeholder:text-[var(--c-text-subtle)]"
                   />
-                  <button
-                    type="submit"
-                    disabled={busy}
-                    className="inline-flex items-center justify-center gap-2 min-h-[52px] px-7 rounded-[var(--r-lg)] text-base font-bold bg-white text-[var(--c-text)] hover:bg-white/95 shadow-[var(--s-lg)] transition active:scale-[0.985] disabled:opacity-60"
-                  >
-                    {busy ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                    ) : (
-                      <>
-                        Subscribe
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
+                  <Magnetic strength={6}>
+                    <button
+                      type="submit"
+                      disabled={busy}
+                      className="inline-flex items-center justify-center gap-2 min-h-[52px] px-7 rounded-[var(--r-lg)] text-base font-bold bg-white text-[var(--c-text)] hover:bg-white/95 shadow-[var(--s-lg)] transition active:scale-[0.985] disabled:opacity-60"
+                    >
+                      {busy ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <>
+                          Subscribe
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </Magnetic>
                 </div>
 
                 {/* Inline validation / error */}

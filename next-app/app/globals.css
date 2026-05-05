@@ -187,6 +187,29 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   FLUID TYPOGRAPHY — bare h1/h2/h3 scale with the viewport.
+   Only applies to elements without explicit Tailwind size utilities;
+   `text-xl` etc. are class-based and stay more specific than these
+   element selectors, so the existing Heading / prose-blog rules win
+   wherever they're present.
+   ════════════════════════════════════════════════════════════ */
+:where(h1) {
+  font-size: clamp(1.75rem, 1.4rem + 1.75vw, 3rem);   /* 28 → 48 px */
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+:where(h2) {
+  font-size: clamp(1.375rem, 1.15rem + 1.15vw, 2.25rem); /* 22 → 36 px */
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+:where(h3) {
+  font-size: clamp(1.125rem, 1rem + 0.65vw, 1.625rem);   /* 18 → 26 px */
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+/* ════════════════════════════════════════════════════════════
    BLOG PROSE — typography for rendered markdown blog posts.
    Mirrors the typography ladder from lib/tokens.ts so blog content
    doesn't drift from the rest of the site.

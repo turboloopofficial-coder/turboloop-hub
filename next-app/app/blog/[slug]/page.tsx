@@ -65,7 +65,7 @@ export async function generateMetadata({
         {
           url:
             post.coverImage ??
-            `https://turboloop.tech/api/og?slug=${post.slug}`,
+            `https://api.turboloop.tech/api/og?slug=${post.slug}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -78,7 +78,7 @@ export async function generateMetadata({
       description: post.excerpt ?? "",
       images: [
         post.coverImage ??
-          `https://turboloop.tech/api/og?slug=${post.slug}`,
+          `https://api.turboloop.tech/api/og?slug=${post.slug}`,
       ],
     },
   };
@@ -111,7 +111,7 @@ export default async function BlogPostPage({
     description: post.excerpt ?? "",
     image:
       post.coverImage ??
-      `https://turboloop.tech/api/og?slug=${post.slug}`,
+      `https://api.turboloop.tech/api/og?slug=${post.slug}`,
     datePublished: post.createdAt,
     dateModified: post.updatedAt ?? post.createdAt,
     mainEntityOfPage: `https://turboloop.tech/blog/${post.slug}`,

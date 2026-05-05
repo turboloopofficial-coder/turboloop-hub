@@ -49,7 +49,11 @@ export const metadata: Metadata = {
       "Audited, renounced, 100% LP-locked yield farming on Binance Smart Chain. The complete TurboLoop hub.",
     images: [
       {
-        url: "/api/og-banner?type=launch",
+        // Absolute URL pointing at the legacy Vercel project where /api/og-banner
+        // actually lives. metadataBase is the public Next.js host (turboloop.tech)
+        // which doesn't serve /api/og-banner — every OG fetch from Telegram/Twitter
+        // was hitting 404 via the apex→www redirect chain.
+        url: "https://api.turboloop.tech/api/og-banner?type=launch",
         width: 1200,
         height: 630,
         alt: "TurboLoop.tech — the hub is live.",
@@ -62,7 +66,7 @@ export const metadata: Metadata = {
     title: "TurboLoop.tech — the hub is live",
     description:
       "Audited, renounced, 100% LP-locked yield farming on Binance Smart Chain.",
-    images: ["/api/og-banner?type=launch"],
+    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
   },
   // No manifest yet on the new app — the PWA from the legacy SPA caused
   // service-worker conflicts; we'll re-introduce a fresh manifest after

@@ -58,11 +58,12 @@ export function ResourcesDropdown() {
           id={PANEL_ID}
           role="menu"
           aria-label="Resources"
-          className="absolute right-0 top-full mt-2 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-xl)] p-2 grid grid-cols-1 gap-1"
+          className="absolute right-0 top-full mt-2 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-xl)] p-2 grid grid-cols-1 gap-1 backdrop-blur-xl backdrop-saturate-150"
           style={{
-            // Explicit background — don't rely on CSS var resolution
-            // timing during first paint. Matches surface in both themes.
-            background: "var(--c-surface, #ffffff)",
+            // Glass: surface tint at 78 % keeps menu items readable while
+            // letting the page bleed through. Solid var fallback (#ffffff)
+            // covers the first-paint window before the variable resolves.
+            background: "color-mix(in oklab, var(--c-surface, #ffffff) 78%, transparent)",
           }}
         >
           {RESOURCE_LINKS.map(link => (

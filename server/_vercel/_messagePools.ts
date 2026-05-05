@@ -315,6 +315,124 @@ export function cinematicPosterUrl(film: CinematicFilm): string {
 }
 
 // =========================================================
+// MONTHLY COMPOUNDING — daily projection banner
+// =========================================================
+// 20 pre-rendered 1200x630 PNGs live in R2 under monthly-banners/.
+// 10 amounts × 2 languages (English / German). The cron alternates the
+// language by even/odd day-of-year, then picks today's amount from the
+// 10-item pool with the same daily rotation used for blog headlines.
+// Source files & upload tooling: scripts/upload-monthly-banners.mjs.
+
+export type MonthlyBannerLang = "en" | "de";
+
+export interface MonthlyCompoundBanner {
+  lang: MonthlyBannerLang;
+  /** Monthly contribution figure in USD (50 → 50000) */
+  monthly: number;
+  /** R2 object key under monthly-banners/, e.g. "monthly-en-50.png" */
+  filename: string;
+}
+
+const MONTHLY_AMOUNTS = [50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000];
+
+export const MONTHLY_COMPOUND_BANNERS: MonthlyCompoundBanner[] = [
+  ...MONTHLY_AMOUNTS.map(monthly => ({
+    lang: "en" as const,
+    monthly,
+    filename: `monthly-en-${monthly}.png`,
+  })),
+  ...MONTHLY_AMOUNTS.map(monthly => ({
+    lang: "de" as const,
+    monthly,
+    filename: `monthly-de-${monthly}.png`,
+  })),
+];
+
+const R2_BASE_FOR_BANNERS = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+export function monthlyBannerUrl(b: MonthlyCompoundBanner): string {
+  return `${R2_BASE_FOR_BANNERS}/monthly-banners/${b.filename}`;
+}
+
+/** Pick today's monthly banner. Language alternates by day-of-year parity
+ *  (even = EN, odd = DE) so EN/DE land roughly half the days each. The
+ *  amount cycles through MONTHLY_AMOUNTS at the same daily rate. */
+export function pickTodaysMonthlyBanner(): MonthlyCompoundBanner {
+  const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+  const lang: MonthlyBannerLang = day % 2 === 0 ? "en" : "de";
+  const pool = MONTHLY_COMPOUND_BANNERS.filter(b => b.lang === lang);
+  return pool[day % pool.length];
+}
+
+const MONTHLY_CAPTION_EN = [
+  `<b>If you put in this much per month — what does the math actually look like?</b>
+
+The image above isn't a promise. It's a projection from the public TurboLoop yield model: stablecoin LP fees, compounded monthly, no team-controlled levers.
+
+Run your own numbers. Compare it with what your bank pays. Decide.`,
+
+  `<b>Compounding doesn't shout. It just keeps stacking.</b>
+
+The number on the right side of the image isn't where this stops — it's where the curve starts pulling away from a savings account.
+
+Stablecoin yield. On-chain. Verifiable any day on BscScan.`,
+
+  `<b>$0.01 vs. real yield — over the years that gap eats people alive.</b>
+
+The projection above shows what the same monthly contribution looks like if it stays in TurboLoop instead of an account paying you almost nothing.
+
+Numbers, not narrative. Look at it. Run your own.`,
+
+  `<b>Today's compounding example — same math, different starting line.</b>
+
+Wherever you start, the curve has the same shape. The difference is where you stand on it three or five years from now.`,
+
+  `<b>This is what monthly discipline + on-chain yield does to a portfolio.</b>
+
+We don't sell sizzle. We show the projection, link to the contract, and let the math sit there.`,
+];
+
+const MONTHLY_CAPTION_DE = [
+  `<b>Das hier ist, was monatliches Sparen + DeFi-Rendite ergibt — schwarz auf weiß.</b>
+
+Die Zahl rechts ist keine Garantie. Sie ist eine Projektion aus dem TurboLoop-Modell — stabile LP-Gebühren, monatliche Reinvestition, ohne Team-Hebel.
+
+Rechne nach. Vergleich mit deinem Girokonto. Entscheide selbst.`,
+
+  `<b>Zinseszins macht keinen Lärm. Er sammelt einfach weiter.</b>
+
+Die Kurve oben zeigt, wie aus einem monatlichen Beitrag echtes Vermögen wird — mit Stablecoin-Yield statt 0,01 % Tagesgeld.
+
+Alles auf BscScan überprüfbar. Jederzeit.`,
+
+  `<b>Heute zur Veranschaulichung: dein Monatsbeitrag in der TurboLoop-Mathematik.</b>
+
+Wo du anfängst, ist egal. Die Form der Kurve bleibt. Wichtig ist nur, wo du in drei oder fünf Jahren stehst.`,
+
+  `<b>0,01 % vs. echte Rendite — über Jahre frisst diese Lücke ganze Vermögen auf.</b>
+
+Die Projektion oben zeigt, wie derselbe Monatsbeitrag in TurboLoop wächst statt auf einem Konto zu erodieren.
+
+Zahlen, kein Marketing. Schau hin. Rechne nach.`,
+
+  `<b>So sieht monatliche Disziplin + On-Chain-Yield in der Realität aus.</b>
+
+Wir verkaufen kein Theater. Wir zeigen die Projektion, verlinken den Contract, und lassen die Mathematik sprechen.`,
+];
+
+export function monthlyCompoundingCaption(b: MonthlyCompoundBanner): string {
+  const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
+  const body = pickByDay(pool);
+  // Caption already pre-formatted with <b> / paragraph breaks; the image
+  // above carries the actual numbers, so keep the text high-signal.
+  const cta =
+    b.lang === "en"
+      ? `\n\n💸 Run your numbers: https://turboloop.tech/yield-calculator`
+      : `\n\n💸 Rechne deine Zahlen: https://turboloop.tech/yield-calculator`;
+  return body + cta;
+}
+
+// =========================================================
 // SITE LAUNCH ANNOUNCEMENT — fires once via cron-master
 // =========================================================
 // Refined v3 message: confident, premium, community-first. No timeline anchors,

@@ -1,10 +1,12 @@
 // Master scheduler — runs every 5 minutes via cron-job.org pinger.
 //
-// Daily cadence (4 messages/day):
-//   1. Daily blog publish + Telegram announce — 14:00 UTC (= 7:30 PM IST)
-//   2. Hindi/Urdu Zoom T-30 reminder         — 15:00 UTC (= 8:30 PM IST)
-//   3. English Zoom T-30 reminder            — 16:30 UTC (= 10:00 PM IST)
-//   4. Cinematic Universe daily film         — 18:00 UTC (= 11:30 PM IST)
+// Daily cadence (5 messages/day):
+//   1. Monthly Compounding banner            — 12:00 UTC (= 5:30 PM IST)
+//      Alternates EN/DE by day-of-year parity, cycles $50→$50,000.
+//   2. Daily blog publish + Telegram announce — 14:00 UTC (= 7:30 PM IST)
+//   3. Hindi/Urdu Zoom T-30 reminder         — 15:00 UTC (= 8:30 PM IST)
+//   4. English Zoom T-30 reminder            — 16:30 UTC (= 10:00 PM IST)
+//   5. Cinematic Universe daily film         — 18:00 UTC (= 11:30 PM IST)
 //
 // One-shot tasks (fire once total, ever):
 //   - Site launch announcement: targets LAUNCH_FIRE_AT_UTC (set below)
@@ -19,7 +21,8 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings } from "../../drizzle/schema";
 import { tgBroadcastPhoto } from "./_telegram";
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { ZOOM_EN, ZOOM_HI } from "../../shared/zoomEvents";
 
 // Public-facing host. Used in Telegram message bodies and "Visit / Read /
 // Watch" buttons that point users to the live Next.js site.
@@ -128,17 +131,6 @@ async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: str
   });
 }
 
-const ZOOM_EN = {
-  link: "https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1",
-  passcode: "669529",
-  timeLabel: "5:00 PM UTC daily",
-};
-const ZOOM_HI = {
-  link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
-  passcode: "1234",
-  timeLabel: "9:00 PM IST daily",
-};
-
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   const log: string[] = [];
   res.setHeader("Content-Type", "application/json");
@@ -170,7 +162,29 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
     }
 
-    // ============ 1. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============
+    // ============ 1. MONTHLY COMPOUNDING BANNER: 12:00 UTC = 5:30 PM IST ============
+    // Alternates EN/DE by day-of-year parity; cycles through 10 amounts each.
+    if (isInWindow(12, 0) && !(await hasFiredToday(db, "monthly:compound"))) {
+      const banner = pickTodaysMonthlyBanner();
+      const caption = monthlyCompoundingCaption(banner);
+      await tgBroadcastPhoto({
+        photoUrl: monthlyBannerUrl(banner),
+        caption,
+        parseMode: "HTML",
+        buttons: [
+          {
+            text: banner.lang === "de"
+              ? "💸 Yield-Rechner öffnen"
+              : "💸 Open the yield calculator",
+            url: `${SITE}/yield-calculator`,
+          },
+        ],
+      });
+      await markFired(db, "monthly:compound");
+      log.push(`💵 Monthly compound — ${banner.lang.toUpperCase()} $${banner.monthly}`);
+    }
+
+    // ============ 2. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============
     if (isInWindow(14, 0) && !(await hasFiredToday(db, "blog:evening"))) {
       const due = await publishOverdueBlogs(db);
       if (due.length > 0) {
@@ -188,21 +202,21 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // because hasFiredToday gates the Telegram call)
     await publishOverdueBlogs(db);
 
-    // ============ 2. HINDI/URDU ZOOM T-30: 15:00 UTC = 8:30 PM IST ============
+    // ============ 3. HINDI/URDU ZOOM T-30: 15:00 UTC = 8:30 PM IST ============
     if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
       await sendZoomReminder("hi", "T30", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
       await markFired(db, "zoom:hi:T30");
       log.push("🎙 HI Zoom T-30");
     }
 
-    // ============ 3. ENGLISH ZOOM T-30: 16:30 UTC = 10:00 PM IST ============
+    // ============ 4. ENGLISH ZOOM T-30: 16:30 UTC = 10:00 PM IST ============
     if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
       await sendZoomReminder("en", "T30", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
       await markFired(db, "zoom:en:T30");
       log.push("🎙 EN Zoom T-30");
     }
 
-    // ============ 4. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
+    // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
     if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {
       const film = pickTodaysFilm();
       await tgBroadcastPhoto({

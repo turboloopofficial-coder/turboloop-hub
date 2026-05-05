@@ -69,9 +69,11 @@ const NUMERIC_KEYS = [50000, 10000, 5000, 2000, 1500, 1000, 500, 100, 50];
 function matchKey(filename) {
   const name = filename.toLowerCase().replace(/\.[^.]+$/, ""); // strip extension
 
-  // Grand Master — multiple aliases people commonly use.
+  // Grand Master — multiple aliases people commonly use, including the
+  // German variants (gesamt = "total", übersicht = "overview", abschluss
+  // = "conclusion") that tend to come up in finale/summary banners.
   if (
-    /grand[-_\s]*master|\bgm\b|legend|elite|premium|top[-_\s]*tier|finale/.test(
+    /grand[-_\s]*master|\bgm\b|legend|elite|premium|top[-_\s]*tier|finale|gesamt|uebersicht|übersicht|abschluss|gipfel|maximal/.test(
       name
     )
   ) {

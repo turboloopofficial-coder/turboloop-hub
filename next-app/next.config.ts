@@ -27,13 +27,38 @@ const config: NextConfig = {
     // from these libraries instead of the whole bundle.
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
-  // The legacy SPA at / (Vite build) is being migrated. While we're
-  // building the new app under /next-app, keep both alive: Vercel can
-  // route specific paths to this Next.js app via rewrites once we're
-  // ready to cut over. For now, this app deploys to a separate Vercel
-  // project so production is never disturbed.
   poweredByHeader: false,
   reactStrictMode: true,
+  // Custom HTTP headers — critical for the cache nuclear strategy.
+  // /sw.js MUST never be cached, otherwise Brave keeps serving the
+  // legacy Workbox SW and ignores my self-killer. /reset triggers
+  // Clear-Site-Data: * for users who get manually nudged there.
+  async headers() {
+    return [
+      {
+        source: "/sw.js",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-cache, no-store, must-revalidate, max-age=0",
+          },
+          { key: "Service-Worker-Allowed", value: "/" },
+          { key: "Content-Type", value: "application/javascript" },
+        ],
+      },
+      {
+        source: "/reset",
+        headers: [
+          // The nuclear option — clears EVERYTHING for this origin.
+          { key: "Clear-Site-Data", value: '"*"' },
+          {
+            key: "Cache-Control",
+            value: "no-cache, no-store, must-revalidate, max-age=0",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default config;

@@ -10,8 +10,12 @@
 // api.turboloop.tech (legacy app moved to subdomain) and these helpers
 // keep working without any change.
 
+// Forms POST to the legacy tRPC API at api.turboloop.tech, which is
+// the SAME Vercel project that previously served turboloop.tech — just
+// reachable at a new subdomain so it keeps working when the new
+// Next.js build takes over the apex domain at cutover.
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE ?? "https://turboloop.tech";
+  process.env.NEXT_PUBLIC_API_BASE ?? "https://api.turboloop.tech";
 
 export type SubmissionType =
   | "testimonial"

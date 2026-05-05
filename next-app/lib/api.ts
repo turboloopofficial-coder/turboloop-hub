@@ -13,7 +13,14 @@
 // and the response is baked into the static HTML. Visitors see plain
 // HTML — no client-side fetch, no loading skeletons, no JS spinning.
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "https://turboloop.tech";
+// Post-cutover, turboloop.tech serves the new Next.js app — but the
+// legacy tRPC API + admin dashboard live at api.turboloop.tech (same
+// Vercel project that previously served turboloop.tech, just renamed).
+// Pointing the build-time fetcher there means forms + /admin keep
+// working forever, even after the cutover. Override with
+// NEXT_PUBLIC_API_BASE in dev if you're running the API locally.
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE ?? "https://api.turboloop.tech";
 
 interface TRPCResponse<T> {
   result?: { data?: { json?: T } };

@@ -86,9 +86,20 @@ export interface Video {
   createdAt: string;
 }
 
+export interface Presentation {
+  id: number;
+  title: string;
+  language: string | null;
+  fileUrl: string | null;
+  sortOrder: number;
+  published: boolean;
+  createdAt: string;
+}
+
 export const api = {
   blogPosts: () => fetchTRPC<BlogPost[]>("content.blogPosts"),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
   videos: () => fetchTRPC<Video[]>("content.videos"),
+  presentations: () => fetchTRPC<Presentation[]>("content.presentations"),
 };

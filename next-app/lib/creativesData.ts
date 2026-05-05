@@ -50,6 +50,8 @@ const CATEGORY_DESCRIPTIONS: Record<string, string> = {
   "p8-legacy": "Legacy and inheritance in a permissionless world.",
   "p9-inflation": "Stablecoin yield as an inflation shield.",
   "p10-ethics": "Leadership ethics in decentralized communities.",
+  "monthly-projections":
+    "Monthly contribution → projected balance, in English and German. Branded social-ready visuals for $50 to $50,000 / month.",
 };
 
 /**
@@ -74,8 +76,10 @@ export const CREATIVE_CATEGORIES: CreativeCategoryDef[] = Array.from(
   count: ALL_CREATIVES.filter((c) => c.categoryId === cat.id).length,
 }));
 
-// Sort categories: pillars 1-10 first by number, then mythbuster/product/quickstart
+// Sort categories: monthly projections lead (newest, most timely set),
+// then pillars 1-10 by number, then the original lifestyle categories.
 const SORT_ORDER: string[] = [
+  "monthly-projections",
   "p1-math", "p2-psychology", "p3-multiplier", "p4-risk", "p5-velocity",
   "p6-trust", "p7-arbitrage", "p8-legacy", "p9-inflation", "p10-ethics",
   "mythbuster", "product", "quickstart",

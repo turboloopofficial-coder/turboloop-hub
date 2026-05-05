@@ -22,7 +22,13 @@ import { Heading } from "@components/ui/Heading";
 import { ShareButton } from "@components/ShareButton";
 import { ReadingProgress } from "@components/ReadingProgress";
 import { Breadcrumbs } from "@components/Breadcrumbs";
-import { api, type BlogPost } from "@lib/api";
+import {
+  api,
+  blogCoverUrl,
+  blogDisplayDate,
+  blogOgBannerUrl,
+  type BlogPost,
+} from "@lib/api";
 
 export const revalidate = 300;
 export const dynamicParams = true; // allow new posts without redeploy
@@ -63,9 +69,7 @@ export async function generateMetadata({
       modifiedTime: post.updatedAt ?? undefined,
       images: [
         {
-          url:
-            post.coverImage ??
-            `https://api.turboloop.tech/api/og?slug=${post.slug}`,
+          url: blogCoverUrl(post),
           width: 1200,
           height: 630,
           alt: post.title,
@@ -76,10 +80,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt ?? "",
-      images: [
-        post.coverImage ??
-          `https://api.turboloop.tech/api/og?slug=${post.slug}`,
-      ],
+      images: [blogCoverUrl(post)],
     },
   };
 }
@@ -104,15 +105,14 @@ export default async function BlogPostPage({
   const rawHtml = await marked.parse(post.content, { breaks: true });
   const cleanHtml = DOMPurify.sanitize(rawHtml as string);
 
+  const displayDate = blogDisplayDate(post);
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt ?? "",
-    image:
-      post.coverImage ??
-      `https://api.turboloop.tech/api/og?slug=${post.slug}`,
-    datePublished: post.createdAt,
+    image: blogCoverUrl(post),
+    datePublished: displayDate ?? post.createdAt,
     dateModified: post.updatedAt ?? post.createdAt,
     mainEntityOfPage: `https://turboloop.tech/blog/${post.slug}`,
     publisher: {
@@ -152,10 +152,13 @@ export default async function BlogPostPage({
             All articles
           </Link>
 
-          <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-brand-cyan)] mb-3">
-            {formatDate(post.createdAt)}
-            {post.readingTime ? ` · ${post.readingTime} min read` : ""}
-          </div>
+          {(displayDate || post.readingTime) && (
+            <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-brand-cyan)] mb-3">
+              {displayDate ? formatDate(displayDate) : null}
+              {displayDate && post.readingTime ? " · " : ""}
+              {post.readingTime ? `${post.readingTime} min read` : ""}
+            </div>
+          )}
 
           <Heading tier="h1" className="mb-5">
             {post.title}
@@ -168,23 +171,22 @@ export default async function BlogPostPage({
           )}
         </Container>
 
-        {post.coverImage && (
-          <Container width="wide" className="mb-10 md:mb-14">
-            <div
-              className="relative w-full rounded-[var(--r-2xl)] overflow-hidden shadow-[var(--s-lg)]"
-              style={{ aspectRatio: "16 / 9" }}
-            >
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 1280px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          </Container>
-        )}
+        <Container width="wide" className="mb-10 md:mb-14">
+          <div
+            className="relative w-full rounded-[var(--r-2xl)] overflow-hidden shadow-[var(--s-lg)] bg-[var(--c-bg)]"
+            style={{ aspectRatio: "16 / 9" }}
+          >
+            <Image
+              src={blogCoverUrl(post)}
+              alt={post.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 1280px"
+              className="object-cover"
+              priority
+              unoptimized={!post.coverImage}
+            />
+          </div>
+        </Container>
 
         {/* Body */}
         <Container width="narrow">

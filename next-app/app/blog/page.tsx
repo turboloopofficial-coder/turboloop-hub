@@ -1,14 +1,18 @@
 // /blog (alias /feed) — editorial index. Build-time fetch from the
-// existing tRPC API at turboloop.tech. Posts are rendered as static
+// existing tRPC API at api.turboloop.tech. Posts are rendered as static
 // HTML; revalidates every 5 minutes (ISR) so newly-published posts
 // surface within minutes without redeploying.
+//
+// Cover images use blogCoverUrl() — author cover when set, otherwise the
+// generated og-banner PNG. The date strip uses scheduledPublishAt and
+// hides itself rather than printing a meaningless bulk-seed date.
 
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
-import { api } from "@lib/api";
+import { api, blogCoverUrl, blogDisplayDate } from "@lib/api";
 
 export const revalidate = 300; // 5 min
 
@@ -32,15 +36,16 @@ export default async function BlogIndex() {
     .blogPosts()
     .then(p => p.filter(post => post.published));
 
-  // Sort newest first
-  const sorted = posts
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+  // Newest-first ordering by intended publish date when present, falling
+  // back to createdAt for posts without a schedule.
+  const sorted = posts.slice().sort((a, b) => {
+    const aT = new Date(a.scheduledPublishAt ?? a.createdAt).getTime();
+    const bT = new Date(b.scheduledPublishAt ?? b.createdAt).getTime();
+    return bT - aT;
+  });
 
   const [featured, ...rest] = sorted;
+  const featuredDate = featured ? blogDisplayDate(featured) : null;
 
   return (
     <main className="relative pb-12 md:pb-20">
@@ -74,28 +79,22 @@ export default async function BlogIndex() {
           >
             <div className="md:flex md:items-stretch">
               <div
-                className="relative md:flex-1 md:max-w-[55%]"
+                className="relative md:flex-1 md:max-w-[55%] bg-[var(--c-bg)]"
                 style={{ aspectRatio: "16 / 10" }}
               >
-                {featured.coverImage ? (
-                  <Image
-                    src={featured.coverImage}
-                    alt={featured.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 55vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    priority
-                  />
-                ) : (
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: "var(--c-brand-gradient-wide)" }}
-                  />
-                )}
+                <Image
+                  src={blogCoverUrl(featured)}
+                  alt={featured.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  priority
+                  unoptimized={!featured.coverImage}
+                />
               </div>
               <div className="p-6 md:p-10 md:flex-1 md:flex md:flex-col md:justify-center">
                 <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-brand-cyan)] mb-3">
-                  Featured · {formatDate(featured.createdAt)}
+                  Featured{featuredDate ? ` · ${formatDate(featuredDate)}` : ""}
                 </div>
                 <h2 className="text-2xl md:text-4xl font-bold text-[var(--c-text)] leading-tight tracking-tight mb-3">
                   {featured.title}
@@ -115,48 +114,48 @@ export default async function BlogIndex() {
 
         {/* Rest of posts as a grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {rest.map(post => (
-            <Link
-              key={post.id}
-              href={`/blog/${post.slug}`}
-              className="group block rounded-[var(--r-xl)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition active:scale-[0.99]"
-            >
-              <div
-                className="relative w-full"
-                style={{ aspectRatio: "16 / 10" }}
+          {rest.map(post => {
+            const displayDate = blogDisplayDate(post);
+            return (
+              <Link
+                key={post.id}
+                href={`/blog/${post.slug}`}
+                className="group block rounded-[var(--r-xl)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition active:scale-[0.99]"
               >
-                {post.coverImage ? (
+                <div
+                  className="relative w-full bg-[var(--c-bg)]"
+                  style={{ aspectRatio: "16 / 10" }}
+                >
                   <Image
-                    src={post.coverImage}
+                    src={blogCoverUrl(post)}
                     alt={post.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
+                    unoptimized={!post.coverImage}
                   />
-                ) : (
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: "var(--c-brand-gradient)" }}
-                  />
-                )}
-              </div>
-              <div className="p-5">
-                <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
-                  {formatDate(post.createdAt)}
-                  {post.readingTime ? ` · ${post.readingTime} min read` : ""}
                 </div>
-                <h3 className="text-base font-bold text-[var(--c-text)] leading-snug mb-2 line-clamp-2">
-                  {post.title}
-                </h3>
-                {post.excerpt && (
-                  <p className="text-sm text-[var(--c-text-muted)] leading-relaxed line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                )}
-              </div>
-            </Link>
-          ))}
+                <div className="p-5">
+                  {(displayDate || post.readingTime) && (
+                    <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
+                      {displayDate ? formatDate(displayDate) : null}
+                      {displayDate && post.readingTime ? " · " : ""}
+                      {post.readingTime ? `${post.readingTime} min read` : ""}
+                    </div>
+                  )}
+                  <h3 className="text-base font-bold text-[var(--c-text)] leading-snug mb-2 line-clamp-2">
+                    {post.title}
+                  </h3>
+                  {post.excerpt && (
+                    <p className="text-sm text-[var(--c-text-muted)] leading-relaxed line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {sorted.length === 0 && (

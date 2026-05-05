@@ -75,8 +75,48 @@ export interface BlogPost {
   coverImage: string | null;
   readingTime: number | null;
   published: boolean;
+  /** Intended publish moment — set by the editor or seed script. The cron
+   *  flips `published` to true once now ≥ this timestamp. Use this rather
+   *  than createdAt for any user-facing date display, since createdAt
+   *  reflects the bulk seed time and is meaningless to the reader. */
+  scheduledPublishAt: string | null;
   createdAt: string;
   updatedAt: string | null;
+}
+
+/** R2-hosted /api/og-banner PNG that the legacy Vercel project generates per
+ *  request (1200×630, palette rotates daily). Suitable as both cover image
+ *  fallback in cards AND social OG meta — Telegram/X/WhatsApp render it
+ *  reliably; the older /api/og SVG endpoint did not. */
+export function blogOgBannerUrl(post: { slug: string; title: string }): string {
+  const params = new URLSearchParams({
+    type: "blog",
+    slug: post.slug,
+    title: post.title,
+  });
+  return `https://api.turboloop.tech/api/og-banner?${params.toString()}`;
+}
+
+/** Resolved cover image — author-set coverImage if present, else the
+ *  generated og-banner PNG. Never returns null so cards can stop dealing
+ *  with a "no image" branch and the cheap brand-gradient fallback. */
+export function blogCoverUrl(post: {
+  slug: string;
+  title: string;
+  coverImage: string | null;
+}): string {
+  return post.coverImage ?? blogOgBannerUrl(post);
+}
+
+/** Best-effort "this article was published on" date for UI display.
+ *  Returns null when nothing trustworthy is available — callers hide the
+ *  date strip rather than show a misleading bulk-insert createdAt. */
+export function blogDisplayDate(post: BlogPost): string | null {
+  if (post.scheduledPublishAt) {
+    const t = new Date(post.scheduledPublishAt).getTime();
+    if (Number.isFinite(t) && t <= Date.now()) return post.scheduledPublishAt;
+  }
+  return null;
 }
 
 export interface Video {

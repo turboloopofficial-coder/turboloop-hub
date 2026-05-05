@@ -1,5 +1,10 @@
 // "Editorial" — 3 most recent blog posts on the homepage.
 // Build-time fetch; ISR-revalidates every 5 min.
+//
+// Cover images fall back to the og-banner PNG (real branded preview) — no
+// more cheap purple-blue gradients. Display date prefers scheduledPublishAt
+// over the bulk-seed createdAt; if neither is meaningful the date strip
+// is hidden entirely rather than shown wrong.
 
 import Link from "next/link";
 import Image from "next/image";
@@ -7,7 +12,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
-import { api } from "@lib/api";
+import { api, blogCoverUrl, blogDisplayDate } from "@lib/api";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -23,10 +28,13 @@ export async function HomeBlogSection() {
     const all = await api.blogPosts();
     posts = all
       .filter(p => p.published)
-      .sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
+      .sort((a, b) => {
+        // Sort by intended publish date when set; createdAt as a tie-breaker
+        // for posts without a schedule.
+        const aT = new Date(a.scheduledPublishAt ?? a.createdAt).getTime();
+        const bT = new Date(b.scheduledPublishAt ?? b.createdAt).getTime();
+        return bT - aT;
+      })
       .slice(0, 3);
   } catch {
     return null;
@@ -59,55 +67,55 @@ export async function HomeBlogSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {posts.map(post => (
-            <Link
-              key={post.id}
-              href={`/blog/${post.slug}`}
-              className="group block"
-            >
-              <Card
-                elevation="raised"
-                padding="none"
-                interactive
-                className="h-full overflow-hidden flex flex-col"
+          {posts.map(post => {
+            const displayDate = blogDisplayDate(post);
+            return (
+              <Link
+                key={post.id}
+                href={`/blog/${post.slug}`}
+                className="group block"
               >
-                <div
-                  className="relative w-full"
-                  style={{ aspectRatio: "16 / 10" }}
+                <Card
+                  elevation="raised"
+                  padding="none"
+                  interactive
+                  className="h-full overflow-hidden flex flex-col"
                 >
-                  {post.coverImage ? (
+                  <div
+                    className="relative w-full bg-[var(--c-bg)]"
+                    style={{ aspectRatio: "16 / 10" }}
+                  >
                     <Image
-                      src={post.coverImage}
+                      src={blogCoverUrl(post)}
                       alt={post.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      unoptimized={!post.coverImage}
                     />
-                  ) : (
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: "var(--c-brand-gradient)" }}
-                    />
-                  )}
-                </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
-                    {formatDate(post.createdAt)}
-                    {post.readingTime ? ` · ${post.readingTime} min read` : ""}
                   </div>
-                  <h3 className="text-base font-bold text-[var(--c-text)] leading-snug mb-2 line-clamp-2">
-                    {post.title}
-                  </h3>
-                  {post.excerpt && (
-                    <p className="text-sm text-[var(--c-text-muted)] leading-relaxed line-clamp-3 flex-1">
-                      {post.excerpt}
-                    </p>
-                  )}
-                </div>
-              </Card>
-            </Link>
-          ))}
+                  <div className="p-5 flex-1 flex flex-col">
+                    {(displayDate || post.readingTime) && (
+                      <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
+                        {displayDate ? formatDate(displayDate) : null}
+                        {displayDate && post.readingTime ? " · " : ""}
+                        {post.readingTime ? `${post.readingTime} min read` : ""}
+                      </div>
+                    )}
+                    <h3 className="text-base font-bold text-[var(--c-text)] leading-snug mb-2 line-clamp-2">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && (
+                      <p className="text-sm text-[var(--c-text-muted)] leading-relaxed line-clamp-3 flex-1">
+                        {post.excerpt}
+                      </p>
+                    )}
+                  </div>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </Container>
     </section>

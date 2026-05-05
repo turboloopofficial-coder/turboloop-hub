@@ -497,6 +497,33 @@ Das ist keine Einstiegs-Projektion. Das ist die Steigung am oberen Ende der Kurv
 
 Gleicher verzichteter Contract. Gleicher Liquiditätspool. Gleiche Mathematik. Nur länger gehalten als die meisten Menschen bereit sind, irgendetwas zu halten.`;
 
+// Hashtag stacks. Ordered most-on-brand → most-discovery so Telegram's
+// auto-link previews still highlight the strongest tags if the message
+// gets clipped. EN and DE pools mirror each other in topic but speak to
+// the search behaviours of each audience.
+const MONTHLY_HASHTAGS_EN = [
+  "#TurboLoop",
+  "#Compounding",
+  "#StableYield",
+  "#OnChain",
+  "#DeFi",
+  "#PancakeSwapV3",
+  "#Transparency",
+  "#WealthBuilding",
+  "#MonthlyDiscipline",
+];
+const MONTHLY_HASHTAGS_DE = [
+  "#TurboLoop",
+  "#Zinseszins",
+  "#StabilerYield",
+  "#OnChain",
+  "#DeFi",
+  "#PancakeSwapV3",
+  "#Transparenz",
+  "#Vermögensaufbau",
+  "#Sparplan",
+];
+
 export function monthlyCompoundingCaption(b: MonthlyCompoundBanner): string {
   let body: string;
   if (b.key === GRAND_MASTER_KEY) {
@@ -508,13 +535,18 @@ export function monthlyCompoundingCaption(b: MonthlyCompoundBanner): string {
     const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
     body = pickByDay(pool);
   }
-  // Caption already pre-formatted with <b> / paragraph breaks; the image
-  // above carries the actual numbers, so keep the text high-signal.
+  // Body is pre-formatted with <b> / paragraph breaks; the banner image
+  // above the message carries the dollar figure so the body stays
+  // high-signal. CTA → yield calculator. Hashtag block on a dedicated
+  // line so Telegram can highlight each one as a chip.
   const cta =
     b.lang === "en"
       ? `\n\n💸 Run your numbers: https://turboloop.tech/yield-calculator`
       : `\n\n💸 Rechne deine Zahlen: https://turboloop.tech/yield-calculator`;
-  return body + cta;
+  const tags =
+    "\n\n" +
+    (b.lang === "en" ? MONTHLY_HASHTAGS_EN : MONTHLY_HASHTAGS_DE).join(" ");
+  return body + cta + tags;
 }
 
 // =========================================================

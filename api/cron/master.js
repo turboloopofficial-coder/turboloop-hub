@@ -12877,6 +12877,28 @@ var MONTHLY_CAPTION_GRAND_MASTER_DE = `<b>Die Grand-Master-Stufe \u2014 wie Zins
 Das ist keine Einstiegs-Projektion. Das ist die Steigung am oberen Ende der Kurve, dort wo Jahrzehnte monatlicher Disziplin auf ein transparentes On-Chain-System treffen, das seine Regeln nie \xE4ndert.
 
 Gleicher verzichteter Contract. Gleicher Liquidit\xE4tspool. Gleiche Mathematik. Nur l\xE4nger gehalten als die meisten Menschen bereit sind, irgendetwas zu halten.`;
+var MONTHLY_HASHTAGS_EN = [
+  "#TurboLoop",
+  "#Compounding",
+  "#StableYield",
+  "#OnChain",
+  "#DeFi",
+  "#PancakeSwapV3",
+  "#Transparency",
+  "#WealthBuilding",
+  "#MonthlyDiscipline"
+];
+var MONTHLY_HASHTAGS_DE = [
+  "#TurboLoop",
+  "#Zinseszins",
+  "#StabilerYield",
+  "#OnChain",
+  "#DeFi",
+  "#PancakeSwapV3",
+  "#Transparenz",
+  "#Verm\xF6gensaufbau",
+  "#Sparplan"
+];
 function monthlyCompoundingCaption(b) {
   let body;
   if (b.key === GRAND_MASTER_KEY) {
@@ -12890,7 +12912,8 @@ function monthlyCompoundingCaption(b) {
 \u{1F4B8} Run your numbers: https://turboloop.tech/yield-calculator` : `
 
 \u{1F4B8} Rechne deine Zahlen: https://turboloop.tech/yield-calculator`;
-  return body + cta;
+  const tags = "\n\n" + (b.lang === "en" ? MONTHLY_HASHTAGS_EN : MONTHLY_HASHTAGS_DE).join(" ");
+  return body + cta + tags;
 }
 function launchAnnouncementCaption() {
   return `<b>TurboLoop.tech is live.</b>

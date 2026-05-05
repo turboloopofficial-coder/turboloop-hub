@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
-import { BrandMark } from "@components/BrandMark";
+import { Brand } from "@components/Brand";
 
 const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href: string; external?: boolean }> }> = [
   {
@@ -53,7 +53,7 @@ export function Footer() {
           {/* Brand block — spans 2 cols on desktop, full row on mobile */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <BrandMark size={32} />
+              <Brand size={36} />
               <div className="font-bold text-xl tracking-tight">
                 <span className="text-[var(--c-text)]">Turbo</span>
                 <span className="bg-brand bg-clip-text text-transparent">

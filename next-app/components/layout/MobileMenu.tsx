@@ -6,7 +6,7 @@
 import { useEffect, useState } from "react";
 import { Rocket } from "lucide-react";
 import Link from "next/link";
-import { BrandMark } from "@components/BrandMark";
+import { Brand } from "@components/Brand";
 
 // Inline SVG icons — bypassing lucide-react for the hamburger + close
 // because lucide's stroke-rendered icons sometimes vanish on certain
@@ -81,11 +81,13 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-[var(--r-md)] bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] active:scale-95 transition"
+        className="md:hidden inline-flex items-center gap-2 px-3 h-11 rounded-[var(--r-lg)] text-white shadow-[var(--s-brand)] active:scale-95 transition"
+        style={{ background: "var(--c-brand-gradient)" }}
         aria-label="Open menu"
         type="button"
       >
         <HamburgerIcon />
+        <span className="text-xs font-bold tracking-wider uppercase">Menu</span>
       </button>
 
       {open && (
@@ -107,7 +109,7 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 font-bold text-lg tracking-tight"
             >
-              <BrandMark size={26} />
+              <Brand size={28} />
               <span>
                 <span className="text-[var(--c-text)]">Turbo</span>
                 <span className="bg-brand bg-clip-text text-transparent">

@@ -21,6 +21,7 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ShareButton } from "@components/ShareButton";
 import { ReadingProgress } from "@components/ReadingProgress";
+import { Breadcrumbs } from "@components/Breadcrumbs";
 import { api, type BlogPost } from "@lib/api";
 
 export const revalidate = 300;
@@ -111,6 +112,13 @@ export default async function BlogPostPage({
       {/* Hero (cover image + title) */}
       <article>
         <Container width="narrow" className="pt-6 md:pt-10">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Blog", href: "/blog" },
+              { label: post.title },
+            ]}
+          />
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-sm text-[var(--c-text-muted)] hover:text-[var(--c-text)] mb-6 transition-colors"

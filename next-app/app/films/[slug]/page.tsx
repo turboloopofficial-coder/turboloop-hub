@@ -17,6 +17,7 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ShareButton } from "@components/ShareButton";
 import { DownloadButton } from "@components/DownloadButton";
+import { Breadcrumbs } from "@components/Breadcrumbs";
 import {
   FILMS,
   SEASONS,
@@ -91,6 +92,13 @@ export default async function FilmDetailPage({
   return (
     <main className="relative pb-12 md:pb-20">
       <Container width="wide" className="pt-6 md:pt-10">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Films", href: "/films" },
+            { label: film.title },
+          ]}
+        />
         {/* Back link */}
         <Link
           href="/films"

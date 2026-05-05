@@ -7,7 +7,7 @@ import { Container } from "@components/ui/Container";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { ResourcesDropdown } from "./ResourcesDropdown";
-import { BrandMark } from "@components/BrandMark";
+import { Brand } from "@components/Brand";
 
 export const PRIMARY_LINKS = [
   { label: "Ecosystem", href: "/ecosystem" },
@@ -79,13 +79,13 @@ export function Navbar() {
     >
       <Container width="wide" className="!px-[var(--gutter)]">
         <div className="flex items-center justify-between h-[var(--nav-h)]">
-          {/* Logo: SVG brand mark + wordmark */}
+          {/* Logo — real R2 vortex mark + wordmark */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-lg tracking-tight"
+            className="flex items-center gap-2.5 font-bold text-lg tracking-tight group"
             aria-label="TurboLoop home"
           >
-            <BrandMark size={28} />
+            <Brand size={32} hoverable />
             <span className="hidden sm:inline">
               <span className="text-[var(--c-text)]">Turbo</span>
               <span className="bg-brand bg-clip-text text-transparent">

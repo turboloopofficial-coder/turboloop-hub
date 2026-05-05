@@ -24,6 +24,7 @@ import { ActivityTicker } from "@components/sections/ActivityTicker";
 import { PartnersBar } from "@components/sections/PartnersBar";
 import { FilmsTeaserSection } from "@components/sections/FilmsTeaserSection";
 import { NumbersSection } from "@components/sections/NumbersSection";
+import { LeaderboardSection } from "@components/sections/LeaderboardSection";
 import { HomeReelsSection } from "@components/sections/HomeReelsSection";
 import { HomeBlogSection } from "@components/sections/HomeBlogSection";
 import { SecurityPillarsSection } from "@components/sections/SecurityPillarsSection";
@@ -32,6 +33,7 @@ import { EventsSection } from "@components/sections/EventsSection";
 import { TestimonialSection } from "@components/sections/TestimonialSection";
 import { ManifestoSection } from "@components/sections/ManifestoSection";
 import { NewsletterCTASection } from "@components/sections/NewsletterCTASection";
+import { Reveal } from "@components/Reveal";
 
 const TRUST_BADGES = [
   {
@@ -180,41 +182,43 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Live activity strip — narrow, dark band right under the hero */}
       <ActivityTicker />
-
-      {/* "What is TurboLoop?" cinematic teaser */}
-      <FilmsTeaserSection />
-
-      {/* Trust strip: built on, audited by, integrated with */}
-      <PartnersBar />
-
-      {/* Real numbers — proof of reach */}
-      <NumbersSection />
-
-      {/* Reels carousel — short-form content */}
-      <HomeReelsSection />
-
-      {/* Editorial — 3 most recent blog posts */}
-      <HomeBlogSection />
-
-      {/* Security pillars — doubt-killer */}
-      <SecurityPillarsSection />
-
-      {/* $100K bounty + Creator + Presenter */}
-      <PromotionsSection />
-
-      {/* Daily Zoom in 12+ languages */}
-      <EventsSection />
-
-      {/* Single curated testimonial */}
-      <TestimonialSection />
-
-      {/* The Manifesto — final cinematic embed */}
-      <ManifestoSection />
-
-      {/* Last conversion point */}
-      <NewsletterCTASection />
+      <Reveal>
+        <FilmsTeaserSection />
+      </Reveal>
+      <Reveal>
+        <PartnersBar />
+      </Reveal>
+      <Reveal>
+        <NumbersSection />
+      </Reveal>
+      <Reveal>
+        <LeaderboardSection />
+      </Reveal>
+      <Reveal>
+        <HomeReelsSection />
+      </Reveal>
+      <Reveal>
+        <HomeBlogSection />
+      </Reveal>
+      <Reveal>
+        <SecurityPillarsSection />
+      </Reveal>
+      <Reveal>
+        <PromotionsSection />
+      </Reveal>
+      <Reveal>
+        <EventsSection />
+      </Reveal>
+      <Reveal>
+        <TestimonialSection />
+      </Reveal>
+      <Reveal>
+        <ManifestoSection />
+      </Reveal>
+      <Reveal>
+        <NewsletterCTASection />
+      </Reveal>
     </main>
   );
 }

@@ -1,31 +1,78 @@
 // Navbar — sticky top nav, mobile-first.
-//
-// Mobile (<md): logo + hamburger. The hamburger opens a full-screen drawer.
-// Desktop (md+): logo + 5 primary links + Launch App button on the right.
-//
-// Server-renderable. Uses a tiny client island ONLY for the hamburger
-// open/close state. Everything else is static — no JS for the desktop
-// nav. Big TTI win on mobile.
+// Mobile (<md): logo + hamburger drawer.
+// Desktop (md+): logo + 5 primary links + Resources dropdown + theme + Launch App.
 
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
+import { ResourcesDropdown } from "./ResourcesDropdown";
 
-const PRIMARY_LINKS = [
+export const PRIMARY_LINKS = [
   { label: "Ecosystem", href: "/ecosystem" },
   { label: "Community", href: "/community" },
-  { label: "Blog", href: "/feed" },
+  { label: "Blog", href: "/blog" },
   { label: "Security", href: "/security" },
   { label: "Films", href: "/films" },
-];
+] as const;
+
+export const RESOURCE_LINKS = [
+  {
+    label: "Submit Your Story",
+    href: "/submit",
+    description: "Share your testimonial, photo, video, or story",
+    emoji: "✍️",
+  },
+  {
+    label: "Apply to Earn",
+    href: "/apply",
+    description: "Creator Star + Local Presenter programs",
+    emoji: "⭐",
+  },
+  {
+    label: "Promotions",
+    href: "/promotions",
+    description: "$100K bounty + paid programs",
+    emoji: "🎁",
+  },
+  {
+    label: "Creatives",
+    href: "/creatives",
+    description: "141 ready-to-share branded banners",
+    emoji: "🎨",
+  },
+  {
+    label: "Library",
+    href: "/library",
+    description: "Videos and presentations in 48 languages",
+    emoji: "📂",
+  },
+  {
+    label: "Learn (DeFi 101)",
+    href: "/learn",
+    description: "Plain-English DeFi explainers",
+    emoji: "📚",
+  },
+  {
+    label: "Roadmap",
+    href: "/roadmap",
+    description: "What's built. What's next.",
+    emoji: "🗺️",
+  },
+  {
+    label: "FAQ",
+    href: "/faq",
+    description: "Common questions answered",
+    emoji: "❓",
+  },
+] as const;
 
 export function Navbar() {
   return (
     <header
       className="sticky top-0 z-[var(--z-nav,50)] backdrop-blur-md border-b border-[var(--c-border)]"
       style={{
-        background: "color-mix(in oklab, var(--c-bg) 85%, transparent)",
+        background: "color-mix(in oklab, var(--c-bg) 88%, transparent)",
         paddingTop: "env(safe-area-inset-top)",
       }}
     >
@@ -53,6 +100,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <ResourcesDropdown />
           </nav>
 
           {/* Right side: theme toggle + desktop Launch App + mobile burger */}
@@ -66,7 +114,10 @@ export function Navbar() {
             >
               Launch App →
             </a>
-            <MobileMenu links={PRIMARY_LINKS} />
+            <MobileMenu
+              primaryLinks={PRIMARY_LINKS}
+              resourceLinks={RESOURCE_LINKS}
+            />
           </div>
         </div>
       </Container>

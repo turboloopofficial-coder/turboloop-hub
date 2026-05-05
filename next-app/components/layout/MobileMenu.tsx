@@ -1,18 +1,32 @@
 "use client";
 
-// Mobile menu drawer. Trigger is the hamburger button (md:hidden), drawer
-// covers the viewport on tap. Two link groups: primary nav + Resources.
+// Mobile menu drawer. Two-part component:
+//   1) The trigger (gradient MENU button) rendered inline in the navbar.
+//   2) The drawer (full-viewport overlay) rendered via createPortal to
+//      document.body so no ancestor transform / overflow / sticky stacking
+//      context can hide it. Mounted only when open === true.
+//
+// Critical fixes after the v1 mount-failure bug:
+//   - PRIMARY_LINKS / RESOURCE_LINKS imported from nav-links (leaf
+//     module), not from Navbar — eliminates the circular import that
+//     left props undefined at first client render and caused .map() to
+//     crash silently inside the drawer.
+//   - createPortal to document.body — drawer is a top-level DOM node,
+//     guaranteed not to be hidden by any sticky/transformed ancestor.
+//   - Explicit fallback colors via CSS-var-with-default
+//     (`var(--c-bg, #ffffff)`) so the drawer renders opaque even if
+//     theme vars haven't applied yet (or never apply due to hydration
+//     ordering).
+//   - Inline SVG icons (no lucide dep) so glyphs render on every mobile
+//     browser regardless of font/icon-font load timing.
 
 import { useEffect, useState } from "react";
-import { Rocket } from "lucide-react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Brand } from "@components/Brand";
+import { PRIMARY_LINKS, RESOURCE_LINKS } from "./nav-links";
 
-// Inline SVG icons — bypassing lucide-react for the hamburger + close
-// because lucide's stroke-rendered icons sometimes vanish on certain
-// mobile browsers (Brave + Samsung Internet) when the parent button has
-// no explicit text-color. Inline currentColor SVG always renders.
-const HamburgerIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+const HamburgerIcon = () => (
   <svg
     width="20"
     height="20"
@@ -22,7 +36,6 @@ const HamburgerIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
     strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={className}
     aria-hidden="true"
   >
     <line x1="3" y1="6" x2="21" y2="6" />
@@ -31,7 +44,7 @@ const HamburgerIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-const CloseIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+const CloseIcon = () => (
   <svg
     width="20"
     height="20"
@@ -41,7 +54,6 @@ const CloseIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
     strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={className}
     aria-hidden="true"
   >
     <line x1="18" y1="6" x2="6" y2="18" />
@@ -49,20 +61,32 @@ const CloseIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-type LinkItem = {
-  readonly label: string;
-  readonly href: string;
-  readonly description?: string;
-  readonly emoji?: string;
-};
+const RocketIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+  </svg>
+);
 
-interface MobileMenuProps {
-  primaryLinks: readonly LinkItem[];
-  resourceLinks: readonly LinkItem[];
-}
+const DRAWER_ID = "mobile-menu-drawer";
 
-export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
+export function MobileMenu() {
   const [open, setOpen] = useState(false);
+  // Track whether we've mounted on the client so createPortal doesn't
+  // attempt to use document during SSR.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!open) return;
@@ -77,14 +101,173 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
     };
   }, [open]);
 
+  const drawer =
+    mounted && open
+      ? createPortal(
+          <div
+            id={DRAWER_ID}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            className="fixed inset-0 md:hidden overflow-y-auto"
+            style={{
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              zIndex: 9999,
+              background: "var(--c-bg, #ffffff)",
+              paddingTop: "env(safe-area-inset-top)",
+              paddingBottom: "env(safe-area-inset-bottom)",
+            }}
+            onClick={() => setOpen(false)}
+          >
+            {/* Sticky header inside drawer */}
+            <div
+              className="sticky top-0 flex items-center justify-between h-14 px-4 border-b z-10"
+              style={{
+                background: "var(--c-bg, #ffffff)",
+                borderColor: "var(--c-border, rgba(15,23,42,0.08))",
+              }}
+              onClick={e => e.stopPropagation()}
+            >
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 font-bold text-lg tracking-tight"
+              >
+                <Brand size={28} />
+                <span>
+                  <span style={{ color: "var(--c-text, #0f172a)" }}>
+                    Turbo
+                  </span>
+                  <span className="bg-brand bg-clip-text text-transparent">
+                    Loop
+                  </span>
+                </span>
+              </Link>
+              <button
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[var(--r-md)] active:scale-95 transition"
+                style={{
+                  background: "var(--c-surface, #f7f8fc)",
+                  color: "var(--c-text, #0f172a)",
+                  border: "1px solid var(--c-border, rgba(15,23,42,0.08))",
+                }}
+                aria-label="Close menu"
+                type="button"
+              >
+                <CloseIcon />
+              </button>
+            </div>
+
+            {/* Drawer body */}
+            <div
+              className="px-4 py-6"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Primary nav links */}
+              <nav
+                className="flex flex-col gap-1 mb-8"
+                aria-label="Primary"
+              >
+                {PRIMARY_LINKS.map(link => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between py-4 min-h-[44px] text-base font-bold border-b"
+                    style={{
+                      color: "var(--c-text, #0f172a)",
+                      borderColor:
+                        "var(--c-border, rgba(15,23,42,0.08))",
+                    }}
+                  >
+                    {link.label}
+                    <span style={{ color: "var(--c-text-subtle, #94A3B8)" }}>
+                      →
+                    </span>
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Resources */}
+              <div className="mb-8">
+                <div
+                  className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-3"
+                  style={{ color: "var(--c-text-subtle, #94A3B8)" }}
+                >
+                  Resources
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  {RESOURCE_LINKS.map(link => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-start gap-3 p-3 min-h-[44px] rounded-[var(--r-md)] active:scale-[0.98] transition"
+                      style={{
+                        background: "var(--c-surface, #f7f8fc)",
+                        border:
+                          "1px solid var(--c-border, rgba(15,23,42,0.08))",
+                      }}
+                    >
+                      <div
+                        className="text-xl w-9 h-9 flex items-center justify-center rounded-[var(--r-md)] flex-shrink-0"
+                        style={{
+                          background:
+                            "color-mix(in oklab, var(--c-brand-cyan) 8%, transparent)",
+                        }}
+                        aria-hidden
+                      >
+                        {link.emoji}
+                      </div>
+                      <div className="min-w-0">
+                        <div
+                          className="text-sm font-bold"
+                          style={{ color: "var(--c-text, #0f172a)" }}
+                        >
+                          {link.label}
+                        </div>
+                        {link.description && (
+                          <div
+                            className="text-xs mt-0.5 leading-snug"
+                            style={{
+                              color:
+                                "var(--c-text-muted, #64748B)",
+                            }}
+                          >
+                            {link.description}
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Primary CTA */}
+              <a
+                href="https://turboloop.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center gap-2 w-full px-5 h-[52px] min-h-[44px] rounded-[var(--r-lg)] text-base font-bold text-white shadow-[var(--s-brand)] active:scale-[0.985] transition"
+                style={{ background: "var(--c-brand-gradient)" }}
+              >
+                <RocketIcon />
+                Launch App
+              </a>
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
+
   return (
     <>
       <button
         onClick={e => {
-          // Defensive: stop the click from propagating to ancestor handlers
-          // (Resources dropdown wraps a parent ref-listener; toast/menu
-          // overlays could intercept). Some browsers also synthesize a
-          // mouseenter on tap, which is harmless here but blocked anyway.
           e.stopPropagation();
           setOpen(true);
         }}
@@ -92,121 +275,13 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
         style={{ background: "var(--c-brand-gradient)" }}
         aria-label="Open menu"
         aria-expanded={open}
+        aria-controls={DRAWER_ID}
         type="button"
       >
         <HamburgerIcon />
         <span className="text-xs font-bold tracking-wider uppercase">Menu</span>
       </button>
-
-      {open && (
-        <div
-          className="fixed inset-0 z-[var(--z-modal,70)] md:hidden bg-[var(--c-bg)] overflow-y-auto"
-          style={{
-            paddingTop: "env(safe-area-inset-top)",
-            paddingBottom: "env(safe-area-inset-bottom)",
-          }}
-          onClick={() => setOpen(false)}
-        >
-          {/* Sticky header */}
-          <div
-            className="sticky top-0 flex items-center justify-between h-[var(--nav-h)] px-[var(--gutter)] border-b border-[var(--c-border)] bg-[var(--c-bg)] z-10"
-            onClick={e => e.stopPropagation()}
-          >
-            <Link
-              href="/"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 font-bold text-lg tracking-tight"
-            >
-              <Brand size={28} />
-              <span>
-                <span className="text-[var(--c-text)]">Turbo</span>
-                <span className="bg-brand bg-clip-text text-transparent">
-                  Loop
-                </span>
-              </span>
-            </Link>
-            <button
-              onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center w-11 h-11 rounded-[var(--r-md)] bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] hover:bg-[var(--c-bg)] active:scale-95 transition"
-              aria-label="Close menu"
-              type="button"
-            >
-              <CloseIcon />
-            </button>
-          </div>
-
-          {/* Drawer body */}
-          <div
-            className="px-[var(--gutter)] py-6"
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Primary nav links */}
-            <nav className="flex flex-col gap-1 mb-8">
-              {primaryLinks.map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-between py-4 text-base font-bold text-[var(--c-text)] border-b border-[var(--c-border)]"
-                >
-                  {link.label}
-                  <span className="text-[var(--c-text-subtle)]">→</span>
-                </Link>
-              ))}
-            </nav>
-
-            {/* Resources */}
-            <div className="mb-8">
-              <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] mb-3">
-                Resources
-              </div>
-              <div className="grid grid-cols-1 gap-2">
-                {resourceLinks.map(link => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-start gap-3 p-3 rounded-[var(--r-md)] bg-[var(--c-surface)] border border-[var(--c-border)] active:scale-[0.98] transition"
-                  >
-                    <div
-                      className="text-xl w-9 h-9 flex items-center justify-center rounded-[var(--r-md)] flex-shrink-0"
-                      style={{
-                        background:
-                          "color-mix(in oklab, var(--c-brand-cyan) 8%, transparent)",
-                      }}
-                      aria-hidden
-                    >
-                      {link.emoji}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-sm font-bold text-[var(--c-text)]">
-                        {link.label}
-                      </div>
-                      {link.description && (
-                        <div className="text-xs text-[var(--c-text-muted)] mt-0.5 leading-snug">
-                          {link.description}
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Primary CTA */}
-            <a
-              href="https://turboloop.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center gap-2 w-full px-5 h-[52px] rounded-[var(--r-lg)] text-base font-bold text-white bg-brand shadow-[var(--s-brand)] active:scale-[0.985] transition"
-            >
-              <Rocket className="w-4 h-4" />
-              Launch App
-            </a>
-          </div>
-        </div>
-      )}
+      {drawer}
     </>
   );
 }

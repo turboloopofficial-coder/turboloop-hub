@@ -8,65 +8,10 @@ import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { ResourcesDropdown } from "./ResourcesDropdown";
 import { Brand } from "@components/Brand";
+import { PRIMARY_LINKS, RESOURCE_LINKS } from "./nav-links";
 
-export const PRIMARY_LINKS = [
-  { label: "Ecosystem", href: "/ecosystem" },
-  { label: "Community", href: "/community" },
-  { label: "Blog", href: "/blog" },
-  { label: "Security", href: "/security" },
-  { label: "Films", href: "/films" },
-] as const;
-
-export const RESOURCE_LINKS = [
-  {
-    label: "Submit Your Story",
-    href: "/submit",
-    description: "Share your testimonial, photo, video, or story",
-    emoji: "✍️",
-  },
-  {
-    label: "Apply to Earn",
-    href: "/apply",
-    description: "Creator Star + Local Presenter programs",
-    emoji: "⭐",
-  },
-  {
-    label: "Promotions",
-    href: "/promotions",
-    description: "$100K bounty + paid programs",
-    emoji: "🎁",
-  },
-  {
-    label: "Creatives",
-    href: "/creatives",
-    description: "141 ready-to-share branded banners",
-    emoji: "🎨",
-  },
-  {
-    label: "Library",
-    href: "/library",
-    description: "Videos and presentations in 48 languages",
-    emoji: "📂",
-  },
-  {
-    label: "Learn (DeFi 101)",
-    href: "/learn",
-    description: "Plain-English DeFi explainers",
-    emoji: "📚",
-  },
-  {
-    label: "Roadmap",
-    href: "/roadmap",
-    description: "What's built. What's next.",
-    emoji: "🗺️",
-  },
-  {
-    label: "FAQ",
-    href: "/faq",
-    description: "Common questions answered",
-    emoji: "❓",
-  },
-] as const;
+// Re-export for any existing import paths.
+export { PRIMARY_LINKS, RESOURCE_LINKS };
 
 export function Navbar() {
   return (
@@ -124,10 +69,7 @@ export function Navbar() {
             >
               Launch App →
             </a>
-            <MobileMenu
-              primaryLinks={PRIMARY_LINKS}
-              resourceLinks={RESOURCE_LINKS}
-            />
+            <MobileMenu />
           </div>
         </div>
       </Container>

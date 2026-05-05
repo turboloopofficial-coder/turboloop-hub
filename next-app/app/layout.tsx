@@ -18,6 +18,7 @@ import { Footer } from "@components/layout/Footer";
 import { MobileBottomCTA } from "@components/layout/MobileBottomCTA";
 import { ToastProvider } from "@components/Toast";
 import { CommandPalette } from "@components/CommandPalette";
+import { WelcomePopup } from "@components/WelcomePopup";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turboloop.tech"),
@@ -240,6 +241,7 @@ export default function RootLayout({
           <Footer />
           <MobileBottomCTA />
           <CommandPalette />
+          <WelcomePopup />
         </ToastProvider>
       </body>
     </html>

@@ -138,13 +138,13 @@ export function BannerCard({
 
     if (downloaded && copied) {
       showToast(
-        "Image saved + caption copied — paste both in your chat",
+        "Image downloaded + caption copied to clipboard — paste both in your chat app",
         "success"
       );
       haptic("success");
     } else if (downloaded) {
       showToast(
-        "Image saved to Downloads — open Telegram, attach + write your message",
+        "Image downloaded — open your chat app, attach + write your message",
         "info"
       );
     } else if (copied) {

@@ -2,17 +2,25 @@
 
 // Single creative tile on /creatives. Two action buttons:
 //
-//  - Share: tries hardest to attach the actual image to the share sheet
-//    rather than dump a link. On mobile (iOS Safari 15+, Chrome Android
-//    89+) the Web Share API supports files; we fetch the R2 PNG, wrap it
-//    in a File, and pass it via navigator.share({ files }). Telegram /
-//    WhatsApp / Photos / etc. then receive a real image attachment plus
-//    the captioned text body.
+//  - Share: two-step strategy.
 //
-//    Browsers without files support fall back to a text-only share.
-//    Browsers without Web Share at all (most desktop) get the desktop
-//    flow: caption text copied to clipboard + the image opened in a new
-//    tab so the user can right-click → save, or drag into a chat.
+//    1. Try navigator.share({ files }) DIRECTLY (no canShare gate).
+//       Brave Android and some Chromium forks misreport canShare even
+//       when the actual share call with a File would succeed; gating on
+//       canShare locks those users out of the file-share path. Catching
+//       the error after the attempt is the more permissive approach.
+//
+//    2. If that throws (anything other than AbortError, which means the
+//       user dismissed the sheet): download the PNG to the device AND
+//       copy the caption to the clipboard, then surface a single toast
+//       — "Image saved + caption copied — paste both in your chat".
+//       The user opens Telegram / WhatsApp manually, attaches from
+//       gallery, pastes the caption. Two taps instead of one, but
+//       guaranteed to deliver the branded creative + caption every time.
+//
+//    Skipping the old text-only navigator.share fallback on purpose:
+//    sharing just a URL preview defeats the entire point of the share
+//    button — that's what triggered this rewrite.
 //
 //  - Download: forces an attachment download via blob → temporary <a>.
 
@@ -56,58 +64,101 @@ export function BannerCard({
 
     const shareText = bannerShareText(banner);
     const title = banner.headline || `TurboLoop · ${catLabel}`;
-
-    // ── Path 1: Web Share API with files (mobile, the premium path) ──
-    // canShare({ files }) gates the actual file-share capability — even
-    // when navigator.share exists, files may not be supported (e.g.
-    // Firefox Android implements share without files). The fetch happens
-    // before the share call so the share sheet is offered with the
-    // attachment ready to go.
-    const file = await fetchAsFile(banner);
-    if (
-      file &&
+    const canWebShare =
       typeof navigator !== "undefined" &&
-      "canShare" in navigator &&
-      typeof navigator.share === "function" &&
-      navigator.canShare({ files: [file] })
-    ) {
-      try {
-        await navigator.share({ title, text: shareText, files: [file] });
-        haptic("success");
-        return;
-      } catch (err: any) {
-        // AbortError = user dismissed the sheet. Anything else = fall
-        // through to the next path.
-        if (err?.name === "AbortError") return;
+      typeof navigator.share === "function";
+
+    // ── Step 1: Try Web Share with files DIRECTLY (no canShare gate) ──
+    // Brave Android, some Chromium forks, and a handful of mobile WebViews
+    // return canShare({ files }) === false even when navigator.share with
+    // files would actually work. Gating up front locks those users out of
+    // the premium path; trying the call and catching is more permissive.
+    if (canWebShare) {
+      const file = await fetchAsFile(banner);
+      if (file) {
+        try {
+          await navigator.share({
+            title,
+            text: shareText,
+            files: [file],
+          });
+          haptic("success");
+          return; // ← happy path: native share sheet did its job
+        } catch (err: any) {
+          if (err?.name === "AbortError") {
+            // User opened the share sheet and dismissed it. Don't fall
+            // through to the download fallback — they've made their
+            // choice and a surprise download would be confusing.
+            return;
+          }
+          // Anything else (TypeError "files is not supported", NotAllowed
+          // -Error, etc.) → this browser can't share files. Fall through
+          // to Step 2.
+        }
       }
     }
 
-    // ── Path 2: Web Share API, text + url only (mobile, partial impl) ──
-    // Telegram / WhatsApp will at least preview the URL; not as good as
-    // a file attach but better than the desktop fallback.
-    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-      try {
-        await navigator.share({ title, text: shareText, url: banner.url });
-        haptic("success");
-        return;
-      } catch (err: any) {
-        if (err?.name === "AbortError") return;
-      }
-    }
+    // ── Step 2: Combined fallback — download image AND copy caption ──
+    // The user gets BOTH pieces ready to paste/attach in Telegram or
+    // WhatsApp manually. Two taps instead of one share-sheet tap, but
+    // guaranteed delivery of the branded creative + the captioned text.
+    let downloaded = false;
+    let copied = false;
 
-    // ── Path 3: Desktop fallback ──────────────────────────────────────
-    // Copy the full captioned message to the clipboard AND pop the image
-    // open in a new tab so the user can right-click → "Save image" or
-    // drag the tab onto a chat window. Toast confirms both actions.
     try {
-      await navigator.clipboard.writeText(`${shareText}\n\n${banner.url}`);
-      window.open(banner.url, "_blank", "noopener,noreferrer");
-      showToast("Caption copied + image opened in new tab", "success");
+      const response = await fetch(banner.url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = blobUrl;
+      a.download = safeFilename(banner);
+      document.body.appendChild(a);
+      a.click();
+      // Mobile browsers process the click async — wait before revoking
+      // or some implementations cancel the download mid-stream.
+      window.setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+        if (a.parentNode) document.body.removeChild(a);
+      }, 1000);
+      downloaded = true;
     } catch {
-      // Clipboard blocked (e.g. http context, obscure browser): just
-      // pop the image so the user has *something* to grab.
+      // Cross-origin or network glitch — fall through; we'll pop the
+      // image in a new tab as a last resort below.
+    }
+
+    try {
+      // Caption only — no URL appended. The user already has the image
+      // file from the download step; they don't need a link too.
+      await navigator.clipboard.writeText(shareText);
+      copied = true;
+    } catch {
+      // Clipboard blocked (rare on Android, possible in insecure contexts).
+    }
+
+    if (downloaded && copied) {
+      showToast(
+        "Image saved + caption copied — paste both in your chat",
+        "success"
+      );
+      haptic("success");
+    } else if (downloaded) {
+      showToast(
+        "Image saved to Downloads — open Telegram, attach + write your message",
+        "info"
+      );
+    } else if (copied) {
+      // Couldn't download but got the caption — open the image so the
+      // user can long-press → "Save image" manually.
       window.open(banner.url, "_blank", "noopener,noreferrer");
-      showToast("Image opened in new tab — long-press to save", "info");
+      showToast(
+        "Caption copied — long-press the image in the new tab to save",
+        "info"
+      );
+    } else {
+      // Neither worked — minimum viable fallback: just open the image.
+      window.open(banner.url, "_blank", "noopener,noreferrer");
+      showToast("Image opened — long-press to save", "info");
     }
   };
 

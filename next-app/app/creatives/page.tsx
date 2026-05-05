@@ -10,15 +10,16 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
+import { BannerCard } from "@components/creatives/BannerCard";
 import {
   ALL_CREATIVES,
   CREATIVE_CATEGORIES,
 } from "@lib/creativesData";
 
 export const metadata: Metadata = {
-  title: "Creatives — 141 Ready-to-Share Banners",
+  title: "Creatives — Ready-to-Share Banners",
   description:
-    "141 designed banners with captions, organized by ecosystem pillar. Free for the community to share on Telegram, X, WhatsApp.",
+    "Designed banners with captions, organized by ecosystem pillar. Free for the community to share on Telegram, X, WhatsApp.",
   alternates: { canonical: "https://turboloop.tech/creatives" },
 };
 
@@ -27,7 +28,7 @@ export default function CreativesPage() {
     <main className="relative pb-12 md:pb-20">
       <PageHero
         eyebrow="Branded Library"
-        title="141 banners. Ready to share."
+        title={`${ALL_CREATIVES.length} banners. Ready to share.`}
         subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
       />
 
@@ -65,40 +66,7 @@ export default function CreativesPage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                 {items.map(banner => (
-                  <a
-                    key={banner.slug}
-                    href={banner.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block rounded-[var(--r-lg)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition active:scale-[0.99]"
-                  >
-                    <div
-                      className="relative w-full"
-                      style={{ aspectRatio: "1 / 1" }}
-                    >
-                      <Image
-                        src={banner.url}
-                        alt={banner.headline ?? `${cat.label} banner`}
-                        fill
-                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                    {banner.headline && (
-                      <div className="p-3">
-                        <div
-                          className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase mb-1"
-                          style={{ color: banner.palette.from }}
-                        >
-                          {cat.label}
-                        </div>
-                        <div className="text-xs font-semibold text-[var(--c-text)] line-clamp-2">
-                          {banner.headline}
-                        </div>
-                      </div>
-                    )}
-                  </a>
+                  <BannerCard key={banner.slug} banner={banner} catLabel={cat.label} />
                 ))}
               </div>
             </section>

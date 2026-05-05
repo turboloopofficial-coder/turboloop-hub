@@ -49,12 +49,23 @@ export function PromotionsSection() {
           </p>
         </div>
 
-        {/* Hero card — $100K bounty (largest, brand gradient) */}
-        <Card
-          elevation="prominent"
-          padding="lg"
-          className="mb-5 md:mb-6 text-center md:text-left md:flex md:items-center md:justify-between md:gap-8 relative overflow-hidden"
-        >
+        {/* Hero card — $100K bounty.
+            Wrapped in a relative container so we can paint a soft brand
+            glow ring outside the card edge. The glow is a blurred
+            gradient at 40 % alpha; cheap to render (one large blurred
+            box) and reads as "this card matters" without the stripey
+            CSS-gradient-border tricks that go pixely on Brave + Android. */}
+        <div className="relative mb-5 md:mb-6 group/glow">
+          <div
+            aria-hidden="true"
+            className="absolute -inset-1 rounded-[calc(var(--r-xl)+0.25rem)] opacity-60 group-hover/glow:opacity-90 blur-2xl pointer-events-none transition-opacity duration-500"
+            style={{ background: "var(--c-brand-gradient-wide)" }}
+          />
+          <Card
+            elevation="prominent"
+            padding="lg"
+            className="relative text-center md:text-left md:flex md:items-center md:justify-between md:gap-8 overflow-hidden"
+          >
           <div
             className="absolute inset-0 -z-10 opacity-10 pointer-events-none"
             style={{ background: "var(--c-brand-gradient)" }}
@@ -82,14 +93,15 @@ export function PromotionsSection() {
           >
             Read the rules →
           </a>
-        </Card>
+          </Card>
+        </div>
 
         {/* Program cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
           {PROGRAMS.map(p => {
             const Icon = p.icon;
             return (
-              <Card key={p.title} elevation="raised" padding="lg">
+              <Card key={p.title} elevation="raised" padding="lg" interactive>
                 <div className="w-11 h-11 rounded-[var(--r-lg)] bg-brand flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5 text-white" />
                 </div>

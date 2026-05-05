@@ -120,7 +120,7 @@ export default async function BlogIndex() {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group block rounded-[var(--r-xl)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition active:scale-[0.99]"
+                className="group block rounded-[var(--r-xl)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-xl)] hover:-translate-y-1 transition-[transform,box-shadow] duration-[var(--m-smooth)] ease-[var(--m-standard)] active:scale-[0.99]"
               >
                 <div
                   className="relative w-full bg-[var(--c-bg)]"

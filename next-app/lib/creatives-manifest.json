@@ -3868,34 +3868,6 @@
       "visualNumber": 2
     },
     {
-      "slug": "monthly-en-250",
-      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-250.png",
-      "categoryId": "monthly-projections",
-      "categoryLabel": "Monthly Compounding Projections",
-      "emoji": "📈",
-      "palette": {
-        "from": "#065F46",
-        "via": "#10B981",
-        "to": "#0891B2"
-      },
-      "original": "monthly-en-250.png",
-      "headline": "Save $250/month — the TurboLoop projection",
-      "caption": "Here's what a **$250/month** contribution looks like inside the TurboLoop math: stable LP fees from PancakeSwap V3, compounded monthly, with no team-controlled levers and no hidden mechanics.\n\nNo promises — a projection from the public yield model. Verifiable any day on BscScan. Download the visual, share it, or use it as a quiet proof of what monthly discipline does in a transparent on-chain system.",
-      "fact": "Compounding is mathematics, not marketing. Stable yield, sustained over years, fundamentally reshapes the wealth-building curve.",
-      "hashtags": [
-        "#TurboLoop",
-        "#Compounding",
-        "#StableYield",
-        "#OnChain",
-        "#DeFi",
-        "#PancakeSwapV3",
-        "#Transparency",
-        "#WealthBuilding",
-        "#MonthlyDiscipline"
-      ],
-      "visualNumber": 3
-    },
-    {
       "slug": "monthly-en-500",
       "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-500.png",
       "categoryId": "monthly-projections",
@@ -3921,7 +3893,7 @@
         "#WealthBuilding",
         "#MonthlyDiscipline"
       ],
-      "visualNumber": 4
+      "visualNumber": 3
     },
     {
       "slug": "monthly-en-1000",
@@ -3949,11 +3921,11 @@
         "#WealthBuilding",
         "#MonthlyDiscipline"
       ],
-      "visualNumber": 5
+      "visualNumber": 4
     },
     {
-      "slug": "monthly-en-2500",
-      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-2500.png",
+      "slug": "monthly-en-1500",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-1500.png",
       "categoryId": "monthly-projections",
       "categoryLabel": "Monthly Compounding Projections",
       "emoji": "📈",
@@ -3962,9 +3934,37 @@
         "via": "#10B981",
         "to": "#0891B2"
       },
-      "original": "monthly-en-2500.png",
-      "headline": "Save $2,500/month — the TurboLoop projection",
-      "caption": "Here's what a **$2,500/month** contribution looks like inside the TurboLoop math: stable LP fees from PancakeSwap V3, compounded monthly, with no team-controlled levers and no hidden mechanics.\n\nNo promises — a projection from the public yield model. Verifiable any day on BscScan. Download the visual, share it, or use it as a quiet proof of what monthly discipline does in a transparent on-chain system.",
+      "original": "monthly-en-1500.png",
+      "headline": "Save $1,500/month — the TurboLoop projection",
+      "caption": "Here's what a **$1,500/month** contribution looks like inside the TurboLoop math: stable LP fees from PancakeSwap V3, compounded monthly, with no team-controlled levers and no hidden mechanics.\n\nNo promises — a projection from the public yield model. Verifiable any day on BscScan. Download the visual, share it, or use it as a quiet proof of what monthly discipline does in a transparent on-chain system.",
+      "fact": "Compounding is mathematics, not marketing. Stable yield, sustained over years, fundamentally reshapes the wealth-building curve.",
+      "hashtags": [
+        "#TurboLoop",
+        "#Compounding",
+        "#StableYield",
+        "#OnChain",
+        "#DeFi",
+        "#PancakeSwapV3",
+        "#Transparency",
+        "#WealthBuilding",
+        "#MonthlyDiscipline"
+      ],
+      "visualNumber": 5
+    },
+    {
+      "slug": "monthly-en-2000",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-2000.png",
+      "categoryId": "monthly-projections",
+      "categoryLabel": "Monthly Compounding Projections",
+      "emoji": "📈",
+      "palette": {
+        "from": "#065F46",
+        "via": "#10B981",
+        "to": "#0891B2"
+      },
+      "original": "monthly-en-2000.png",
+      "headline": "Save $2,000/month — the TurboLoop projection",
+      "caption": "Here's what a **$2,000/month** contribution looks like inside the TurboLoop math: stable LP fees from PancakeSwap V3, compounded monthly, with no team-controlled levers and no hidden mechanics.\n\nNo promises — a projection from the public yield model. Verifiable any day on BscScan. Download the visual, share it, or use it as a quiet proof of what monthly discipline does in a transparent on-chain system.",
       "fact": "Compounding is mathematics, not marketing. Stable yield, sustained over years, fundamentally reshapes the wealth-building curve.",
       "hashtags": [
         "#TurboLoop",
@@ -4036,34 +4036,6 @@
       "visualNumber": 8
     },
     {
-      "slug": "monthly-en-25000",
-      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-25000.png",
-      "categoryId": "monthly-projections",
-      "categoryLabel": "Monthly Compounding Projections",
-      "emoji": "📈",
-      "palette": {
-        "from": "#065F46",
-        "via": "#10B981",
-        "to": "#0891B2"
-      },
-      "original": "monthly-en-25000.png",
-      "headline": "Save $25,000/month — the TurboLoop projection",
-      "caption": "Here's what a **$25,000/month** contribution looks like inside the TurboLoop math: stable LP fees from PancakeSwap V3, compounded monthly, with no team-controlled levers and no hidden mechanics.\n\nNo promises — a projection from the public yield model. Verifiable any day on BscScan. Download the visual, share it, or use it as a quiet proof of what monthly discipline does in a transparent on-chain system.",
-      "fact": "Compounding is mathematics, not marketing. Stable yield, sustained over years, fundamentally reshapes the wealth-building curve.",
-      "hashtags": [
-        "#TurboLoop",
-        "#Compounding",
-        "#StableYield",
-        "#OnChain",
-        "#DeFi",
-        "#PancakeSwapV3",
-        "#Transparency",
-        "#WealthBuilding",
-        "#MonthlyDiscipline"
-      ],
-      "visualNumber": 9
-    },
-    {
       "slug": "monthly-en-50000",
       "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-50000.png",
       "categoryId": "monthly-projections",
@@ -4088,6 +4060,34 @@
         "#Transparency",
         "#WealthBuilding",
         "#MonthlyDiscipline"
+      ],
+      "visualNumber": 9
+    },
+    {
+      "slug": "monthly-en-grand-master",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-en-grand-master.png",
+      "categoryId": "monthly-projections",
+      "categoryLabel": "Monthly Compounding Projections",
+      "emoji": "📈",
+      "palette": {
+        "from": "#065F46",
+        "via": "#10B981",
+        "to": "#0891B2"
+      },
+      "original": "monthly-en-grand-master.png",
+      "headline": "Grand Master tier — compounding at full conviction",
+      "caption": "The Grand Master projection isn't an entry slope — it's the **top of the curve**: decades of monthly discipline meeting a transparent on-chain system that never changes its rules.\n\nSame renounced contract. Same liquidity pool. Same math. Just held longer than most people are willing to hold anything.",
+      "fact": "Compounding is mathematics, not marketing. Stable yield, sustained over years, fundamentally reshapes the wealth-building curve.",
+      "hashtags": [
+        "#TurboLoop",
+        "#Compounding",
+        "#StableYield",
+        "#OnChain",
+        "#DeFi",
+        "#PancakeSwapV3",
+        "#Transparency",
+        "#GrandMaster",
+        "#FullConviction"
       ],
       "visualNumber": 10
     },
@@ -4148,34 +4148,6 @@
       "visualNumber": 12
     },
     {
-      "slug": "monthly-de-250",
-      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-250.png",
-      "categoryId": "monthly-projections",
-      "categoryLabel": "Monthly Compounding Projections",
-      "emoji": "📈",
-      "palette": {
-        "from": "#065F46",
-        "via": "#10B981",
-        "to": "#0891B2"
-      },
-      "original": "monthly-de-250.png",
-      "headline": "Monatlich $250 sparen — die TurboLoop-Hochrechnung",
-      "caption": "So sieht ein Monatsbeitrag von **$250** in der TurboLoop-Mathematik aus: stabile LP-Gebühren von PancakeSwap V3, monatlich reinvestiert, ohne Team-Hebel und ohne versteckte Mechanik.\n\nKeine Versprechen — eine Projektion aus dem öffentlichen Yield-Modell. Alles auf BscScan überprüfbar, jederzeit. Lade dir die Grafik herunter, teile sie, oder zeig sie als Beweis dafür, was monatliche Disziplin in einem transparenten Ökosystem bewirken kann.",
-      "fact": "Zinseszins ist mathematisch — kein Marketing. Stabile Renditen über Jahre verändern den Vermögensaufbau erheblich.",
-      "hashtags": [
-        "#TurboLoop",
-        "#Zinseszins",
-        "#StabilerYield",
-        "#OnChain",
-        "#DeFi",
-        "#PancakeSwapV3",
-        "#Transparenz",
-        "#Vermögensaufbau",
-        "#Sparplan"
-      ],
-      "visualNumber": 13
-    },
-    {
       "slug": "monthly-de-500",
       "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-500.png",
       "categoryId": "monthly-projections",
@@ -4201,7 +4173,7 @@
         "#Vermögensaufbau",
         "#Sparplan"
       ],
-      "visualNumber": 14
+      "visualNumber": 13
     },
     {
       "slug": "monthly-de-1000",
@@ -4229,11 +4201,11 @@
         "#Vermögensaufbau",
         "#Sparplan"
       ],
-      "visualNumber": 15
+      "visualNumber": 14
     },
     {
-      "slug": "monthly-de-2500",
-      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-2500.png",
+      "slug": "monthly-de-1500",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-1500.png",
       "categoryId": "monthly-projections",
       "categoryLabel": "Monthly Compounding Projections",
       "emoji": "📈",
@@ -4242,9 +4214,37 @@
         "via": "#10B981",
         "to": "#0891B2"
       },
-      "original": "monthly-de-2500.png",
-      "headline": "Monatlich $2,500 sparen — die TurboLoop-Hochrechnung",
-      "caption": "So sieht ein Monatsbeitrag von **$2,500** in der TurboLoop-Mathematik aus: stabile LP-Gebühren von PancakeSwap V3, monatlich reinvestiert, ohne Team-Hebel und ohne versteckte Mechanik.\n\nKeine Versprechen — eine Projektion aus dem öffentlichen Yield-Modell. Alles auf BscScan überprüfbar, jederzeit. Lade dir die Grafik herunter, teile sie, oder zeig sie als Beweis dafür, was monatliche Disziplin in einem transparenten Ökosystem bewirken kann.",
+      "original": "monthly-de-1500.png",
+      "headline": "Monatlich $1,500 sparen — die TurboLoop-Hochrechnung",
+      "caption": "So sieht ein Monatsbeitrag von **$1,500** in der TurboLoop-Mathematik aus: stabile LP-Gebühren von PancakeSwap V3, monatlich reinvestiert, ohne Team-Hebel und ohne versteckte Mechanik.\n\nKeine Versprechen — eine Projektion aus dem öffentlichen Yield-Modell. Alles auf BscScan überprüfbar, jederzeit. Lade dir die Grafik herunter, teile sie, oder zeig sie als Beweis dafür, was monatliche Disziplin in einem transparenten Ökosystem bewirken kann.",
+      "fact": "Zinseszins ist mathematisch — kein Marketing. Stabile Renditen über Jahre verändern den Vermögensaufbau erheblich.",
+      "hashtags": [
+        "#TurboLoop",
+        "#Zinseszins",
+        "#StabilerYield",
+        "#OnChain",
+        "#DeFi",
+        "#PancakeSwapV3",
+        "#Transparenz",
+        "#Vermögensaufbau",
+        "#Sparplan"
+      ],
+      "visualNumber": 15
+    },
+    {
+      "slug": "monthly-de-2000",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-2000.png",
+      "categoryId": "monthly-projections",
+      "categoryLabel": "Monthly Compounding Projections",
+      "emoji": "📈",
+      "palette": {
+        "from": "#065F46",
+        "via": "#10B981",
+        "to": "#0891B2"
+      },
+      "original": "monthly-de-2000.png",
+      "headline": "Monatlich $2,000 sparen — die TurboLoop-Hochrechnung",
+      "caption": "So sieht ein Monatsbeitrag von **$2,000** in der TurboLoop-Mathematik aus: stabile LP-Gebühren von PancakeSwap V3, monatlich reinvestiert, ohne Team-Hebel und ohne versteckte Mechanik.\n\nKeine Versprechen — eine Projektion aus dem öffentlichen Yield-Modell. Alles auf BscScan überprüfbar, jederzeit. Lade dir die Grafik herunter, teile sie, oder zeig sie als Beweis dafür, was monatliche Disziplin in einem transparenten Ökosystem bewirken kann.",
       "fact": "Zinseszins ist mathematisch — kein Marketing. Stabile Renditen über Jahre verändern den Vermögensaufbau erheblich.",
       "hashtags": [
         "#TurboLoop",
@@ -4316,34 +4316,6 @@
       "visualNumber": 18
     },
     {
-      "slug": "monthly-de-25000",
-      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-25000.png",
-      "categoryId": "monthly-projections",
-      "categoryLabel": "Monthly Compounding Projections",
-      "emoji": "📈",
-      "palette": {
-        "from": "#065F46",
-        "via": "#10B981",
-        "to": "#0891B2"
-      },
-      "original": "monthly-de-25000.png",
-      "headline": "Monatlich $25,000 sparen — die TurboLoop-Hochrechnung",
-      "caption": "So sieht ein Monatsbeitrag von **$25,000** in der TurboLoop-Mathematik aus: stabile LP-Gebühren von PancakeSwap V3, monatlich reinvestiert, ohne Team-Hebel und ohne versteckte Mechanik.\n\nKeine Versprechen — eine Projektion aus dem öffentlichen Yield-Modell. Alles auf BscScan überprüfbar, jederzeit. Lade dir die Grafik herunter, teile sie, oder zeig sie als Beweis dafür, was monatliche Disziplin in einem transparenten Ökosystem bewirken kann.",
-      "fact": "Zinseszins ist mathematisch — kein Marketing. Stabile Renditen über Jahre verändern den Vermögensaufbau erheblich.",
-      "hashtags": [
-        "#TurboLoop",
-        "#Zinseszins",
-        "#StabilerYield",
-        "#OnChain",
-        "#DeFi",
-        "#PancakeSwapV3",
-        "#Transparenz",
-        "#Vermögensaufbau",
-        "#Sparplan"
-      ],
-      "visualNumber": 19
-    },
-    {
       "slug": "monthly-de-50000",
       "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-50000.png",
       "categoryId": "monthly-projections",
@@ -4368,6 +4340,34 @@
         "#Transparenz",
         "#Vermögensaufbau",
         "#Sparplan"
+      ],
+      "visualNumber": 19
+    },
+    {
+      "slug": "monthly-de-grand-master",
+      "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/monthly-banners/monthly-de-grand-master.png",
+      "categoryId": "monthly-projections",
+      "categoryLabel": "Monthly Compounding Projections",
+      "emoji": "📈",
+      "palette": {
+        "from": "#065F46",
+        "via": "#10B981",
+        "to": "#0891B2"
+      },
+      "original": "monthly-de-grand-master.png",
+      "headline": "Grand-Master-Stufe — Zinseszins auf voller Überzeugung",
+      "caption": "Die Grand-Master-Hochrechnung zeigt nicht den Einstieg — sie zeigt die **Steigung am oberen Ende der Kurve**: jahrzehntelange monatliche Disziplin in einem transparenten On-Chain-System, dessen Regeln sich nie ändern.\n\nGleicher verzichteter Smart Contract. Gleicher Liquiditätspool. Gleiche Mathematik. Nur länger gehalten als die meisten Menschen bereit sind, irgendetwas zu halten.",
+      "fact": "Zinseszins ist mathematisch — kein Marketing. Stabile Renditen über Jahre verändern den Vermögensaufbau erheblich.",
+      "hashtags": [
+        "#TurboLoop",
+        "#Zinseszins",
+        "#StabilerYield",
+        "#OnChain",
+        "#DeFi",
+        "#PancakeSwapV3",
+        "#Transparenz",
+        "#GrandMaster",
+        "#FullConviction"
       ],
       "visualNumber": 20
     }

@@ -318,33 +318,60 @@ export function cinematicPosterUrl(film: CinematicFilm): string {
 // MONTHLY COMPOUNDING — daily projection banner
 // =========================================================
 // 20 pre-rendered 1200x630 PNGs live in R2 under monthly-banners/.
-// 10 amounts × 2 languages (English / German). The cron alternates the
-// language by even/odd day-of-year, then picks today's amount from the
-// 10-item pool with the same daily rotation used for blog headlines.
-// Source files & upload tooling: scripts/upload-monthly-banners.mjs.
+// 10 keys × 2 languages (English / German):
+//   50, 100, 500, 1000, 1500, 2000, 5000, 10000, 50000, grand-master.
+//
+// The pool is ordered EN-50, EN-100, ..., EN-grand-master, DE-50, ...,
+// DE-grand-master. The cron picks `pool[dayOfYear % 20]` so every banner
+// fires once per 20-day cycle in a strict, predictable sequence — no
+// language gets skipped, no amount gets skipped. Source files & upload
+// tooling: scripts/upload-monthly-banners.mjs.
 
 export type MonthlyBannerLang = "en" | "de";
 
+/** Special filename suffix reserved for the aspirational top tier. Has
+ *  no numeric monthly amount; rendered as "Grand Master" in any UI. */
+export const GRAND_MASTER_KEY = "grand-master" as const;
+
+/** Filename suffix after "monthly-<lang>-". A number means the banner
+ *  shows that monthly contribution; "grand-master" is the finale tier. */
+export type MonthlyBannerKey = number | typeof GRAND_MASTER_KEY;
+
 export interface MonthlyCompoundBanner {
   lang: MonthlyBannerLang;
-  /** Monthly contribution figure in USD (50 → 50000) */
-  monthly: number;
+  /** Numeric monthly amount in USD, or "grand-master" for the finale */
+  key: MonthlyBannerKey;
   /** R2 object key under monthly-banners/, e.g. "monthly-en-50.png" */
   filename: string;
 }
 
-const MONTHLY_AMOUNTS = [50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000];
+const MONTHLY_KEYS: MonthlyBannerKey[] = [
+  50,
+  100,
+  500,
+  1000,
+  1500,
+  2000,
+  5000,
+  10000,
+  50000,
+  GRAND_MASTER_KEY,
+];
+
+function fileKey(k: MonthlyBannerKey): string {
+  return typeof k === "number" ? String(k) : k;
+}
 
 export const MONTHLY_COMPOUND_BANNERS: MonthlyCompoundBanner[] = [
-  ...MONTHLY_AMOUNTS.map(monthly => ({
-    lang: "en" as const,
-    monthly,
-    filename: `monthly-en-${monthly}.png`,
+  ...MONTHLY_KEYS.map<MonthlyCompoundBanner>(k => ({
+    lang: "en",
+    key: k,
+    filename: `monthly-en-${fileKey(k)}.png`,
   })),
-  ...MONTHLY_AMOUNTS.map(monthly => ({
-    lang: "de" as const,
-    monthly,
-    filename: `monthly-de-${monthly}.png`,
+  ...MONTHLY_KEYS.map<MonthlyCompoundBanner>(k => ({
+    lang: "de",
+    key: k,
+    filename: `monthly-de-${fileKey(k)}.png`,
   })),
 ];
 
@@ -354,14 +381,12 @@ export function monthlyBannerUrl(b: MonthlyCompoundBanner): string {
   return `${R2_BASE_FOR_BANNERS}/monthly-banners/${b.filename}`;
 }
 
-/** Pick today's monthly banner. Language alternates by day-of-year parity
- *  (even = EN, odd = DE) so EN/DE land roughly half the days each. The
- *  amount cycles through MONTHLY_AMOUNTS at the same daily rate. */
+/** Pick today's monthly banner. Walks the full ordered pool sequentially
+ *  by day-of-year — every one of the 20 banners fires exactly once per
+ *  20-day cycle, no language or amount ever gets skipped. */
 export function pickTodaysMonthlyBanner(): MonthlyCompoundBanner {
   const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
-  const lang: MonthlyBannerLang = day % 2 === 0 ? "en" : "de";
-  const pool = MONTHLY_COMPOUND_BANNERS.filter(b => b.lang === lang);
-  return pool[day % pool.length];
+  return MONTHLY_COMPOUND_BANNERS[day % MONTHLY_COMPOUND_BANNERS.length];
 }
 
 // Calmer, premium register. Each variant emphasises one of the three
@@ -457,9 +482,32 @@ Eingaben: ein fester Monatsbeitrag, das öffentliche Stablecoin-Yield-Band, das 
 Ergebnis: die Linie rechts. Keine der drei Eingaben verlangt Vertrauen — nur die Geduld, sie laufen zu lassen.`,
 ];
 
+// Dedicated caption for the "grand-master" finale tier — different
+// register from the numeric tiers because there's no fixed monthly
+// figure on the image, just the aspirational ceiling.
+const MONTHLY_CAPTION_GRAND_MASTER_EN = `<b>The Grand Master tier — what compounding looks like at full conviction.</b>
+
+This isn't an entry projection. It's the slope at the top of the curve, where decades of monthly discipline meet a transparent on-chain system that never changes its rules.
+
+Same renounced contract. Same liquidity pool. Same math. Just held longer than most people are willing to hold anything.`;
+
+const MONTHLY_CAPTION_GRAND_MASTER_DE = `<b>Die Grand-Master-Stufe — wie Zinseszins mit voller Überzeugung aussieht.</b>
+
+Das ist keine Einstiegs-Projektion. Das ist die Steigung am oberen Ende der Kurve, dort wo Jahrzehnte monatlicher Disziplin auf ein transparentes On-Chain-System treffen, das seine Regeln nie ändert.
+
+Gleicher verzichteter Contract. Gleicher Liquiditätspool. Gleiche Mathematik. Nur länger gehalten als die meisten Menschen bereit sind, irgendetwas zu halten.`;
+
 export function monthlyCompoundingCaption(b: MonthlyCompoundBanner): string {
-  const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
-  const body = pickByDay(pool);
+  let body: string;
+  if (b.key === GRAND_MASTER_KEY) {
+    body =
+      b.lang === "en"
+        ? MONTHLY_CAPTION_GRAND_MASTER_EN
+        : MONTHLY_CAPTION_GRAND_MASTER_DE;
+  } else {
+    const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
+    body = pickByDay(pool);
+  }
   // Caption already pre-formatted with <b> / paragraph breaks; the image
   // above carries the actual numbers, so keep the text high-signal.
   const cta =

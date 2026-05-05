@@ -12757,17 +12757,32 @@ ${desc2}
 function cinematicPosterUrl(film) {
   return `${R2_BASE_FOR_CINEMATIC}/cinematic-thumbs/${film.slug}.jpg?v=2`;
 }
-var MONTHLY_AMOUNTS = [50, 100, 250, 500, 1e3, 2500, 5e3, 1e4, 25e3, 5e4];
+var GRAND_MASTER_KEY = "grand-master";
+var MONTHLY_KEYS = [
+  50,
+  100,
+  500,
+  1e3,
+  1500,
+  2e3,
+  5e3,
+  1e4,
+  5e4,
+  GRAND_MASTER_KEY
+];
+function fileKey(k) {
+  return typeof k === "number" ? String(k) : k;
+}
 var MONTHLY_COMPOUND_BANNERS = [
-  ...MONTHLY_AMOUNTS.map((monthly) => ({
+  ...MONTHLY_KEYS.map((k) => ({
     lang: "en",
-    monthly,
-    filename: `monthly-en-${monthly}.png`
+    key: k,
+    filename: `monthly-en-${fileKey(k)}.png`
   })),
-  ...MONTHLY_AMOUNTS.map((monthly) => ({
+  ...MONTHLY_KEYS.map((k) => ({
     lang: "de",
-    monthly,
-    filename: `monthly-de-${monthly}.png`
+    key: k,
+    filename: `monthly-de-${fileKey(k)}.png`
   }))
 ];
 var R2_BASE_FOR_BANNERS = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
@@ -12776,9 +12791,7 @@ function monthlyBannerUrl(b) {
 }
 function pickTodaysMonthlyBanner() {
   const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
-  const lang = day % 2 === 0 ? "en" : "de";
-  const pool = MONTHLY_COMPOUND_BANNERS.filter((b) => b.lang === lang);
-  return pool[day % pool.length];
+  return MONTHLY_COMPOUND_BANNERS[day % MONTHLY_COMPOUND_BANNERS.length];
 }
 var MONTHLY_CAPTION_EN = [
   `<b>Compounding has a shape. This is what it looks like.</b>
@@ -12854,9 +12867,24 @@ Eingaben: ein fester Monatsbeitrag, das \xF6ffentliche Stablecoin-Yield-Band, da
 
 Ergebnis: die Linie rechts. Keine der drei Eingaben verlangt Vertrauen \u2014 nur die Geduld, sie laufen zu lassen.`
 ];
+var MONTHLY_CAPTION_GRAND_MASTER_EN = `<b>The Grand Master tier \u2014 what compounding looks like at full conviction.</b>
+
+This isn't an entry projection. It's the slope at the top of the curve, where decades of monthly discipline meet a transparent on-chain system that never changes its rules.
+
+Same renounced contract. Same liquidity pool. Same math. Just held longer than most people are willing to hold anything.`;
+var MONTHLY_CAPTION_GRAND_MASTER_DE = `<b>Die Grand-Master-Stufe \u2014 wie Zinseszins mit voller \xDCberzeugung aussieht.</b>
+
+Das ist keine Einstiegs-Projektion. Das ist die Steigung am oberen Ende der Kurve, dort wo Jahrzehnte monatlicher Disziplin auf ein transparentes On-Chain-System treffen, das seine Regeln nie \xE4ndert.
+
+Gleicher verzichteter Contract. Gleicher Liquidit\xE4tspool. Gleiche Mathematik. Nur l\xE4nger gehalten als die meisten Menschen bereit sind, irgendetwas zu halten.`;
 function monthlyCompoundingCaption(b) {
-  const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
-  const body = pickByDay(pool);
+  let body;
+  if (b.key === GRAND_MASTER_KEY) {
+    body = b.lang === "en" ? MONTHLY_CAPTION_GRAND_MASTER_EN : MONTHLY_CAPTION_GRAND_MASTER_DE;
+  } else {
+    const pool = b.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
+    body = pickByDay(pool);
+  }
   const cta = b.lang === "en" ? `
 
 \u{1F4B8} Run your numbers: https://turboloop.tech/yield-calculator` : `
@@ -13019,7 +13047,8 @@ async function handler(req, res) {
         ]
       });
       await markFired(db, "monthly:compound");
-      log.push(`\u{1F4B5} Monthly compound \u2014 ${banner.lang.toUpperCase()} $${banner.monthly}`);
+      const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+      log.push(`\u{1F4B5} Monthly compound \u2014 ${banner.lang.toUpperCase()} ${label}`);
     }
     if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
       const due = await publishOverdueBlogs(db);

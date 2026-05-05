@@ -53,8 +53,11 @@ export function Card({
         paddingClass[padding],
         interactive && [
           "cursor-pointer transition-[transform,box-shadow]",
-          "duration-[var(--m-quick)] ease-[var(--m-standard)]",
-          "hover:-translate-y-0.5 hover:shadow-[var(--s-lg)]",
+          "duration-[var(--m-smooth)] ease-[var(--m-standard)]",
+          // Deeper lift on hover — feels weightier than the previous
+          // 0.5 nudge, lands at the diffused --s-xl shadow stack so the
+          // card visibly floats off the page.
+          "hover:-translate-y-1 hover:shadow-[var(--s-xl)]",
         ],
         className
       )}

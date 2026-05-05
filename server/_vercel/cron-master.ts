@@ -181,7 +181,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         ],
       });
       await markFired(db, "monthly:compound");
-      log.push(`💵 Monthly compound — ${banner.lang.toUpperCase()} $${banner.monthly}`);
+      const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+      log.push(`💵 Monthly compound — ${banner.lang.toUpperCase()} ${label}`);
     }
 
     // ============ 2. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============

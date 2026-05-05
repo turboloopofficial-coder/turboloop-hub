@@ -4,12 +4,14 @@
 //   node scripts/upload-monthly-banners.mjs                                 # uses scripts/source/monthly-banners/
 //   node scripts/upload-monthly-banners.mjs ./path/to/your/banners          # override source dir
 //
-// Expects each image at <source>/monthly-<lang>-<amount>.png where
+// Expects each image at <source>/monthly-<lang>-<key>.png where
 //   lang = en | de
-//   amount ∈ { 50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000 }
+//   key  ∈ { 50, 100, 500, 1000, 1500, 2000, 5000, 10000, 50000, grand-master }
 //
-// Files that don't exist are skipped with a warning so you can upload
-// partial batches during preview without aborting the whole run.
+// "grand-master" is the special closing tier — no fixed monthly amount,
+// shown as the aspirational top of the projection set. Files that don't
+// exist are skipped with a warning so you can upload partial batches
+// during preview without aborting the whole run.
 
 import "dotenv/config";
 import fs from "node:fs";
@@ -45,7 +47,20 @@ const s3 = new S3Client({
   },
 });
 
-const AMOUNTS = [50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000];
+// Filename suffixes (key after "monthly-<lang>-"). 9 numeric tiers plus
+// the special "grand-master" finale = 10 banners per language.
+const KEYS = [
+  "50",
+  "100",
+  "500",
+  "1000",
+  "1500",
+  "2000",
+  "5000",
+  "10000",
+  "50000",
+  "grand-master",
+];
 const LANGS = ["en", "de"];
 const KEY_PREFIX = "monthly-banners/";
 
@@ -92,8 +107,8 @@ async function main() {
   let uploaded = 0;
   let missing = 0;
   for (const lang of LANGS) {
-    for (const monthly of AMOUNTS) {
-      const filename = `monthly-${lang}-${monthly}.png`;
+    for (const k of KEYS) {
+      const filename = `monthly-${lang}-${k}.png`;
       const localPath = path.join(sourceDir, filename);
       const key = `${KEY_PREFIX}${filename}`;
       if (!fs.existsSync(localPath)) {
@@ -111,7 +126,7 @@ async function main() {
   }
 
   console.log(
-    `\n✅ Done. Uploaded ${uploaded}/${LANGS.length * AMOUNTS.length} banners (${missing} missing).`
+    `\n✅ Done. Uploaded ${uploaded}/${LANGS.length * KEYS.length} banners (${missing} missing).`
   );
 }
 

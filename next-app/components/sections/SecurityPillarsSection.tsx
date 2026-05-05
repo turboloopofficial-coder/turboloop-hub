@@ -76,7 +76,7 @@ export function SecurityPillarsSection() {
           {PILLARS.map(pillar => {
             const Icon = pillar.icon;
             return (
-              <Card key={pillar.title} elevation="raised" padding="lg">
+              <Card key={pillar.title} elevation="raised" padding="lg" interactive>
                 <div className="w-11 h-11 rounded-[var(--r-lg)] bg-brand flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5 text-white" />
                 </div>

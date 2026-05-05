@@ -187,6 +187,93 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   BLOG PROSE — typography for rendered markdown blog posts.
+   Mirrors the typography ladder from lib/tokens.ts so blog content
+   doesn't drift from the rest of the site.
+   ════════════════════════════════════════════════════════════ */
+.prose-blog {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--c-text);
+}
+.prose-blog > * + * {
+  margin-top: 1.4em;
+}
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 2em;
+}
+.prose-blog h1 { font-size: 2rem; }
+.prose-blog h2 { font-size: 1.5rem; }
+.prose-blog h3 { font-size: 1.25rem; }
+.prose-blog p {
+  color: var(--c-text);
+}
+.prose-blog a {
+  color: var(--c-brand-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(8, 145, 178, 0.3);
+  font-weight: 500;
+}
+.prose-blog a:hover {
+  text-decoration-color: var(--c-brand-cyan);
+}
+.prose-blog ul,
+.prose-blog ol {
+  padding-left: 1.5em;
+}
+.prose-blog ul { list-style-type: disc; }
+.prose-blog ol { list-style-type: decimal; }
+.prose-blog li {
+  margin-top: 0.5em;
+}
+.prose-blog blockquote {
+  border-left: 3px solid var(--c-brand-cyan);
+  padding-left: 1.25em;
+  font-style: italic;
+  color: var(--c-text-muted);
+}
+.prose-blog code {
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Code", monospace;
+  font-size: 0.9em;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  padding: 0.15em 0.4em;
+}
+.prose-blog pre {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 1em;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+.prose-blog pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.prose-blog img {
+  border-radius: var(--r-lg);
+  margin: 1.5em 0;
+}
+.prose-blog hr {
+  border: none;
+  border-top: 1px solid var(--c-border);
+  margin: 2.5em 0;
+}
+.prose-blog strong {
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+/* ════════════════════════════════════════════════════════════
    BRAND GRADIENT UTILITIES
    Tailwind 4's `bg-[var(--c-brand-gradient)]` arbitrary value
    resolves to background-color, not background-image, which silently

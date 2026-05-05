@@ -347,3 +347,57 @@ body {
   outline-offset: 2px;
   border-radius: var(--r-sm);
 }
+
+/* ════════════════════════════════════════════════════════════
+   IMAGE SHIMMER PLACEHOLDER — used as a CSS background under
+   <Image> elements while they load. Subtle gradient sweeps left
+   to right, ~1.5 s loop. Honors prefers-reduced-motion.
+   ════════════════════════════════════════════════════════════ */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.04) 0%,
+    rgba(15, 23, 42, 0.08) 50%,
+    rgba(15, 23, 42, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+.dark .shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIEW TRANSITIONS — native cross-fade between routes (Chrome,
+   Edge, Brave 111+). Provides a subtle 220ms decelerate fade
+   that makes navigation feel like a native app rather than a
+   blink-and-load web page. Wired via main.tsx pushState wrap
+   in the legacy SPA; in Next.js the App Router auto-applies
+   view-transition-name to the root element.
+   ════════════════════════════════════════════════════════════ */
+@supports (view-transition-name: a) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 240ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
+  }
+}

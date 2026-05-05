@@ -101,6 +101,24 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Apply the user's saved theme synchronously, before any paint,
+            so dark-mode users never see a flash of light theme. The
+            script is tiny + inlined; it reads localStorage and adds the
+            .dark or .light class to <html> before React hydrates. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var stored = localStorage.getItem('turboloop_theme');
+                  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme = stored || (prefersDark ? 'dark' : 'light');
+                  document.documentElement.classList.add(theme);
+                } catch (e) {}
+              })();
+            `.trim(),
+          }}
+        />
         {/* Geist font — only the 4 weights we actually use. Preloaded so
             the hero never flashes the system fallback. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -10,6 +10,7 @@
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
 const PRIMARY_LINKS = [
   { label: "Ecosystem", href: "/ecosystem" },
@@ -54,8 +55,9 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Right side: desktop Launch App button + mobile menu trigger */}
-          <div className="flex items-center gap-2">
+          {/* Right side: theme toggle + desktop Launch App + mobile burger */}
+          <div className="flex items-center gap-1 md:gap-2">
+            <ThemeToggle />
             <a
               href="https://turboloop.io"
               target="_blank"

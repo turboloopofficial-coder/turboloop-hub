@@ -93,6 +93,22 @@ export default function SubmitPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  // Track which fields have been blurred (touched) so inline errors
+  // show only after the user has interacted, not on initial render.
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const markTouched = (field: string) =>
+    setTouched(prev => ({ ...prev, [field]: true }));
+
+  // Real-time per-field error derivation (not state — recomputed each
+  // render so it tracks input changes immediately).
+  const nameError =
+    touched.authorName && authorName.trim().length === 0
+      ? "Your name is required."
+      : null;
+  const bodyError =
+    touched.body && body.trim().length < 10
+      ? "Please write at least 10 characters."
+      : null;
 
   const reset = () => {
     setType("testimonial");
@@ -103,6 +119,7 @@ export default function SubmitPage() {
     setFileUrl("");
     setError(null);
     setSuccess(false);
+    setTouched({});
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -248,11 +265,23 @@ export default function SubmitPage() {
                   type="text"
                   value={authorName}
                   onChange={e => setAuthorName(e.target.value)}
+                  onBlur={() => markTouched("authorName")}
                   maxLength={200}
                   required
+                  aria-invalid={!!nameError}
+                  aria-describedby={nameError ? "submit-name-err" : undefined}
                   placeholder="First + last (or just a handle)"
-                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                  className={`w-full px-4 h-12 min-h-[44px] rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30 ${nameError ? "border-red-500 focus:border-red-500" : "border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"}`}
                 />
+                {nameError && (
+                  <p
+                    id="submit-name-err"
+                    role="alert"
+                    className="mt-1.5 text-xs text-red-600 dark:text-red-400"
+                  >
+                    {nameError}
+                  </p>
+                )}
               </div>
               <div>
                 <label
@@ -265,7 +294,7 @@ export default function SubmitPage() {
                   id="submit-country"
                   value={authorCountry}
                   onChange={e => setAuthorCountry(e.target.value)}
-                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
                 >
                   <option value="">— pick yours —</option>
                   {COUNTRIES.map(c => (
@@ -292,7 +321,7 @@ export default function SubmitPage() {
                 onChange={e => setAuthorContact(e.target.value)}
                 maxLength={320}
                 placeholder="So we can reach out if we feature you"
-                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
               />
             </div>
 
@@ -310,6 +339,9 @@ export default function SubmitPage() {
                 id="submit-body"
                 value={body}
                 onChange={e => setBody(e.target.value)}
+                onBlur={() => markTouched("body")}
+                aria-invalid={!!bodyError}
+                aria-describedby={bodyError ? "submit-body-err" : undefined}
                 minLength={10}
                 maxLength={5000}
                 rows={6}
@@ -323,11 +355,24 @@ export default function SubmitPage() {
                         ? "Describe the photo — meetup, country group, your setup..."
                         : "Describe the video — what's it about?"
                 }
-                className="w-full px-4 py-3 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition resize-y border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                className={`w-full px-4 py-3 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition resize-y border focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30 ${bodyError ? "border-red-500 focus:border-red-500" : "border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"}`}
                 style={{ minHeight: "150px" }}
               />
-              <div className="text-xs text-[var(--c-text-subtle)] mt-1.5 text-right">
-                {body.length} / 5000
+              <div className="flex items-center justify-between mt-1.5">
+                {bodyError ? (
+                  <p
+                    id="submit-body-err"
+                    role="alert"
+                    className="text-xs text-red-600 dark:text-red-400"
+                  >
+                    {bodyError}
+                  </p>
+                ) : (
+                  <span />
+                )}
+                <div className="text-xs text-[var(--c-text-subtle)]">
+                  {body.length} / 5000
+                </div>
               </div>
             </div>
 
@@ -350,7 +395,7 @@ export default function SubmitPage() {
                       ? "https://imgur.com/..."
                       : "https://youtube.com/... or https://t.me/..."
                   }
-                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)]"
+                  className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
                 />
                 <p className="text-xs text-[var(--c-text-subtle)] mt-1.5">
                   {type === "photo"

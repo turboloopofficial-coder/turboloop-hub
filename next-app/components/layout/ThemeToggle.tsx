@@ -46,7 +46,7 @@ export function ThemeToggle() {
     return (
       <div
         aria-hidden="true"
-        className="w-9 h-9 rounded-[var(--r-md)]"
+        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-[var(--r-md)]"
       />
     );
   }
@@ -54,7 +54,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="inline-flex items-center justify-center w-9 h-9 rounded-[var(--r-md)] text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.06)] dark:hover:bg-[rgba(255,255,255,0.06)] transition-colors active:scale-95"
+      className="inline-flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[var(--r-md)] text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.06)] dark:hover:bg-[rgba(255,255,255,0.06)] transition-colors active:scale-95"
       aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
       title={theme === "dark" ? "Light mode" : "Dark mode"}
     >

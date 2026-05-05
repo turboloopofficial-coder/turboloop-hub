@@ -12777,16 +12777,17 @@ Send it. Share it. Use the creatives. Translate them. Make it yours.`;
 
 // server/_vercel/cron-master.ts
 var SITE = "https://turboloop.tech";
+var BANNER_HOST = "https://api.turboloop.tech";
 var LAUNCH_FIRE_AT_UTC = "2026-04-29T12:00:00.000Z";
 var LAUNCH_GRACE_HOURS = 6;
 function bannerUrlBlog(slug, title) {
-  return `${SITE}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
+  return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
 function bannerUrlZoom(lang) {
-  return `${SITE}/api/og-banner?type=zoom&lang=${lang}`;
+  return `${BANNER_HOST}/api/og-banner?type=zoom&lang=${lang}`;
 }
 function bannerUrlLaunch() {
-  return `${SITE}/api/og-banner?type=launch`;
+  return `${BANNER_HOST}/api/og-banner?type=launch`;
 }
 function todayKey() {
   return (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);

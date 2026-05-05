@@ -1,8 +1,19 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import express, { type Express } from "express";
+import cors from "cors";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "../routers";
 import { createContext } from "../_core/context";
+
+// Origins allowed to call this API (tRPC mutations from forms etc.).
+// www.turboloop.tech is the production Next.js host; the apex (turboloop.tech)
+// 307s to www but include both so a direct apex fetch still works. localhost
+// covers the Next dev server on :3001.
+const CORS_ALLOWED_ORIGINS = [
+  "https://www.turboloop.tech",
+  "https://turboloop.tech",
+  "http://localhost:3001",
+];
 
 // Procedures that are safe to cache at the CDN edge — they're public reads
 // of content that rarely changes minute-to-minute. blogs/videos/events/etc.
@@ -30,6 +41,12 @@ function getApp(): Express {
   const app = express();
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ limit: "10mb", extended: true }));
+  app.use(
+    cors({
+      origin: CORS_ALLOWED_ORIGINS,
+      credentials: true,
+    })
+  );
   app.use(
     "/api/trpc",
     createExpressMiddleware({

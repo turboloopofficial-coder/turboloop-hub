@@ -9,9 +9,16 @@ import Image from "next/image";
 import { Play } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
+import { getFilm } from "@lib/cinematicUniverse";
 
+// Single source of truth lives in cinematicUniverse.ts — the previous
+// hardcoded films-posters/* path was a 404 on R2 (the actual key is under
+// cinematic-thumbs/). Reuse the canonical posterUrl so the cache-buster
+// version bump applies here too.
+const FILM = getFilm("what-is-turboloop");
 const POSTER_URL =
-  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/films-posters/what-is-turboloop.jpg";
+  FILM?.posterUrl ??
+  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/cinematic-thumbs/what-is-turboloop.jpg";
 
 export function FilmsTeaserSection() {
   return (

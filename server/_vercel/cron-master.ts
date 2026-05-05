@@ -21,7 +21,15 @@ import { blogPosts, siteSettings } from "../../drizzle/schema";
 import { tgBroadcastPhoto } from "./_telegram";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
 
+// Public-facing host. Used in Telegram message bodies and "Visit / Read /
+// Watch" buttons that point users to the live Next.js site.
 const SITE = "https://turboloop.tech";
+
+// /api/og-banner only exists on the legacy Vercel project (api.turboloop.tech),
+// not on the new Next.js app at turboloop.tech. Telegram fetches photoUrl
+// server-side, so it MUST resolve to the host that actually serves the PNG.
+// Public-facing URLs in captions/buttons stay on SITE.
+const BANNER_HOST = "https://api.turboloop.tech";
 
 // One-shot launch announcement target — fires at this UTC moment, then never again.
 // Format: ISO 8601. The cron pings every 5 min so actual fire is within 5 min of this.
@@ -31,13 +39,13 @@ const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire 
 // Real PNG banner endpoints (Edge runtime, @vercel/og generates fresh PNG per request).
 // Daily palette rotation = "different banner every day" automatically.
 function bannerUrlBlog(slug: string, title: string): string {
-  return `${SITE}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
+  return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
 function bannerUrlZoom(lang: ZoomLang): string {
-  return `${SITE}/api/og-banner?type=zoom&lang=${lang}`;
+  return `${BANNER_HOST}/api/og-banner?type=zoom&lang=${lang}`;
 }
 function bannerUrlLaunch(): string {
-  return `${SITE}/api/og-banner?type=launch`;
+  return `${BANNER_HOST}/api/og-banner?type=launch`;
 }
 
 function todayKey(): string {

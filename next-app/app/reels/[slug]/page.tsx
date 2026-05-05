@@ -14,6 +14,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
+import { ShareButton } from "@components/ShareButton";
+import { DownloadButton } from "@components/DownloadButton";
 import { api, type Video } from "@lib/api";
 import { ReelPlayer } from "./ReelPlayer";
 
@@ -149,6 +151,24 @@ export default async function ReelDetailPage({
               A short explainer on why TurboLoop is the safest, most
               transparent yield protocol in DeFi.
             </p>
+
+            {/* Share + Download row */}
+            <div className="flex gap-2 mb-3">
+              <ShareButton
+                path={`/reels/${slug}`}
+                message={`🎬 ${reel.title} — watch on Turbo Loop`}
+                variant="primary"
+                label="Share"
+                className="flex-1"
+              />
+              <DownloadButton
+                url={reel.directUrl}
+                title={reel.title}
+                extension="mp4"
+                variant="ghost"
+                label="Save"
+              />
+            </div>
 
             <a
               href="https://turboloop.io"

@@ -15,6 +15,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
+import { ShareButton } from "@components/ShareButton";
+import { DownloadButton } from "@components/DownloadButton";
 import {
   FILMS,
   SEASONS,
@@ -129,6 +131,22 @@ export default async function FilmDetailPage({
 
         {/* Video player — client island */}
         <FilmPlayer film={film} />
+
+        {/* Action row — Share + Download */}
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-5">
+          <ShareButton
+            path={`/films/${film.slug}`}
+            message={`🎬 ${film.title} — ${film.tagline}`}
+            variant="primary"
+            label="Share film"
+          />
+          <DownloadButton
+            url={film.url}
+            title={film.title}
+            extension="mp4"
+            label="Download MP4"
+          />
+        </div>
 
         {/* Description */}
         <div className="max-w-3xl mt-10">

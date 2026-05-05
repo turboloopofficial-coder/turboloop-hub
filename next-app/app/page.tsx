@@ -128,6 +128,27 @@ export default function HomePage() {
               Or share your story →
             </a>
 
+            {/* Scroll indicator — animated chevron under the hero,
+                visible on tall viewports, hidden after first scroll */}
+            <div className="hidden md:flex flex-col items-center mt-12 text-[var(--c-text-subtle)]">
+              <span className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-2">
+                Scroll
+              </span>
+              <span className="block w-[1px] h-8 bg-gradient-to-b from-[var(--c-text-subtle)] to-transparent animate-scroll-cue" />
+              <style>{`
+                @keyframes scroll-cue {
+                  0%, 100% { transform: translateY(0); opacity: 0.7; }
+                  50%      { transform: translateY(8px); opacity: 0.3; }
+                }
+                .animate-scroll-cue {
+                  animation: scroll-cue 1.8s ease-in-out infinite;
+                }
+                @media (prefers-reduced-motion: reduce) {
+                  .animate-scroll-cue { animation: none; }
+                }
+              `}</style>
+            </div>
+
             {/* Trust badges — 2-column grid on mobile, single row on desktop */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-12">
               {TRUST_BADGES.map(({ icon: Icon, label, href }) => (

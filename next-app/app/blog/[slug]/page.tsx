@@ -19,6 +19,8 @@ import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
+import { ShareButton } from "@components/ShareButton";
+import { ReadingProgress } from "@components/ReadingProgress";
 import { api, type BlogPost } from "@lib/api";
 
 export const revalidate = 300;
@@ -103,6 +105,9 @@ export default async function BlogPostPage({
 
   return (
     <main className="relative pb-12 md:pb-20">
+      {/* Reading progress bar — pinned to top, fills as user scrolls */}
+      <ReadingProgress />
+
       {/* Hero (cover image + title) */}
       <article>
         <Container width="narrow" className="pt-6 md:pt-10">
@@ -154,6 +159,24 @@ export default async function BlogPostPage({
             className="prose-blog text-[var(--c-text)]"
             dangerouslySetInnerHTML={{ __html: cleanHtml }}
           />
+
+          {/* End-of-article share strip — encourages onward sharing */}
+          <div className="mt-12 pt-8 border-t border-[var(--c-border)] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-1">
+                Found this useful?
+              </div>
+              <div className="text-base font-bold text-[var(--c-text)]">
+                Pass it along.
+              </div>
+            </div>
+            <ShareButton
+              path={`/blog/${post.slug}`}
+              message={`📖 ${post.title}${post.excerpt ? ` — ${post.excerpt}` : ""}`}
+              variant="primary"
+              label="Share article"
+            />
+          </div>
         </Container>
       </article>
     </main>

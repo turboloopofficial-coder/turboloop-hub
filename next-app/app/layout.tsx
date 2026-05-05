@@ -16,6 +16,7 @@ import "./globals.css";
 import { Navbar } from "@components/layout/Navbar";
 import { Footer } from "@components/layout/Footer";
 import { MobileBottomCTA } from "@components/layout/MobileBottomCTA";
+import { ToastProvider } from "@components/Toast";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turboloop.tech"),
@@ -176,10 +177,12 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[var(--c-bg)] text-[var(--c-text)] antialiased">
-        <Navbar />
-        {children}
-        <Footer />
-        <MobileBottomCTA />
+        <ToastProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <MobileBottomCTA />
+        </ToastProvider>
       </body>
     </html>
   );

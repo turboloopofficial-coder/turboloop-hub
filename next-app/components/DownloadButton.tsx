@@ -8,6 +8,7 @@
 import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { showToast } from "./Toast";
+import { haptic } from "@lib/haptic";
 
 interface DownloadButtonProps {
   /** Direct file URL (R2 .mp4 / .pdf / etc.) */
@@ -62,6 +63,7 @@ export function DownloadButton({
       document.body.removeChild(a);
       // Free the blob after the browser has a chance to read it.
       setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
+      haptic("success");
       showToast("Download started", "success");
     } catch (err: any) {
       // Cross-origin blob fetch blocked? Fall back to opening in new tab —

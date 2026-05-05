@@ -104,8 +104,33 @@ export default async function BlogPostPage({
   const rawHtml = await marked.parse(post.content, { breaks: true });
   const cleanHtml = DOMPurify.sanitize(rawHtml as string);
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt ?? "",
+    image:
+      post.coverImage ??
+      `https://turboloop.tech/api/og?slug=${post.slug}`,
+    datePublished: post.createdAt,
+    dateModified: post.updatedAt ?? post.createdAt,
+    mainEntityOfPage: `https://turboloop.tech/blog/${post.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "Turbo Loop",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
+      },
+    },
+  };
+
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Reading progress bar — pinned to top, fills as user scrolls */}
       <ReadingProgress />
 

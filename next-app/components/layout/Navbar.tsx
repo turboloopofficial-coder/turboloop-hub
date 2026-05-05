@@ -108,8 +108,13 @@ export function Navbar() {
             <ResourcesDropdown />
           </nav>
 
-          {/* Right side: theme toggle + desktop Launch App + mobile burger */}
+          {/* Right side: search hint + theme toggle + desktop Launch App + mobile burger */}
           <div className="flex items-center gap-1 md:gap-2">
+            {/* Visible Cmd+K hint — actual palette listens globally. */}
+            <kbd className="hidden lg:inline-flex items-center gap-1.5 px-2 h-8 rounded-[var(--r-md)] text-xs font-mono text-[var(--c-text-muted)] bg-[var(--c-surface)] border border-[var(--c-border)]">
+              <span className="text-base leading-none">⌘</span>
+              <span>K</span>
+            </kbd>
             <ThemeToggle />
             <a
               href="https://turboloop.io"

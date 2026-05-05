@@ -23,6 +23,7 @@ import {
   rememberSubmissionId,
   type SubmissionType,
 } from "@lib/submitApi";
+import { haptic } from "@lib/haptic";
 
 const TYPE_OPTIONS: Array<{
   value: SubmissionType;
@@ -128,8 +129,10 @@ export default function SubmitPage() {
         fileUrl: fileUrl.trim() || undefined,
       });
       rememberSubmissionId(result.id);
+      haptic("success");
       setSuccess(true);
     } catch (err: any) {
+      haptic("error");
       setError(err?.message || "Submission failed. Please try again.");
     } finally {
       setSubmitting(false);

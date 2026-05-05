@@ -24,6 +24,7 @@ import {
   Mail,
 } from "lucide-react";
 import { showToast } from "./Toast";
+import { haptic } from "@lib/haptic";
 
 interface ShareButtonProps {
   /** Path on turboloop.tech to share, e.g. "/films/manifesto" */
@@ -95,6 +96,7 @@ export function ShareButton({
     try {
       await navigator.clipboard.writeText(fullText);
       setCopied(true);
+      haptic("success");
       showToast("Link copied", "success");
       setTimeout(() => setCopied(false), 1800);
     } catch {

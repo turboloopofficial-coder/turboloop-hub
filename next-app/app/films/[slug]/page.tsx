@@ -89,8 +89,31 @@ export default async function FilmDetailPage({
   const next = getNextFilm(slug);
   const prev = getPrevFilm(slug);
 
+  const videoJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: film.title,
+    description: `${film.headline} · ${film.tagline}`,
+    thumbnailUrl: film.posterUrl,
+    contentUrl: film.url,
+    embedUrl: `https://turboloop.tech/films/${film.slug}`,
+    uploadDate: "2026-01-01",
+    publisher: {
+      "@type": "Organization",
+      name: "Turbo Loop",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
+      },
+    },
+  };
+
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }}
+      />
       <Container width="wide" className="pt-6 md:pt-10">
         <Breadcrumbs
           items={[

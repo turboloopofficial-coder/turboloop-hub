@@ -14,6 +14,7 @@ import {
   rememberSubmissionId,
   type SubmissionType,
 } from "@lib/submitApi";
+import { haptic } from "@lib/haptic";
 
 type Program = Extract<SubmissionType, "creator_apply" | "presenter_apply">;
 
@@ -107,8 +108,10 @@ export default function ApplyPage() {
         fileUrl: fileUrl.trim() || undefined,
       });
       rememberSubmissionId(result.id);
+      haptic("success");
       setSuccess(true);
     } catch (err: any) {
+      haptic("error");
       setError(err?.message || "Application failed. Please try again.");
     } finally {
       setSubmitting(false);

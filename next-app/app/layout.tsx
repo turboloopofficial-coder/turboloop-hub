@@ -84,9 +84,51 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://turboloop.tech/",
     types: {
-      "application/rss+xml": "https://turboloop.tech/rss.xml",
+      "application/rss+xml": "https://turboloop.tech/feed.xml",
     },
   },
+};
+
+// Site-wide JSON-LD — identifies the org + the site for rich search
+// snippets. Rendered once in the root layout's <head>.
+const SITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://turboloop.tech/#organization",
+      name: "Turbo Loop",
+      url: "https://turboloop.tech",
+      logo: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
+      sameAs: [
+        "https://t.me/TurboLoop_Official",
+        "https://t.me/TurboLoop_Chat",
+        "https://x.com/TurboLoop_io",
+        "https://www.youtube.com/@OfficialTurbo_Loop",
+      ],
+      description:
+        "The complete DeFi ecosystem on Binance Smart Chain — sustainable yield, transparent by design.",
+      foundingDate: "2026",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://turboloop.tech/#website",
+      url: "https://turboloop.tech",
+      name: "Turbo Loop",
+      description: "The complete DeFi ecosystem on Binance Smart Chain.",
+      publisher: { "@id": "https://turboloop.tech/#organization" },
+      inLanguage: "en",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate:
+            "https://turboloop.tech/blog?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
 };
 
 export const viewport: Viewport = {
@@ -184,6 +226,11 @@ export default function RootLayout({
           rel="preconnect"
           href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev"
           crossOrigin="anonymous"
+        />
+        {/* Site-wide structured data for search rich snippets. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }}
         />
       </head>
       <body className="bg-[var(--c-bg)] text-[var(--c-text)] antialiased">

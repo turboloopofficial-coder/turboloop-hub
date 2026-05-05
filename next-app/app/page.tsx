@@ -31,6 +31,7 @@ import { SecurityPillarsSection } from "@components/sections/SecurityPillarsSect
 import { PromotionsSection } from "@components/sections/PromotionsSection";
 import { EventsSection } from "@components/sections/EventsSection";
 import { TestimonialSection } from "@components/sections/TestimonialSection";
+import { SocialWallSection } from "@components/sections/SocialWallSection";
 import { ManifestoSection } from "@components/sections/ManifestoSection";
 import { NewsletterCTASection } from "@components/sections/NewsletterCTASection";
 import { Reveal } from "@components/Reveal";
@@ -212,6 +213,9 @@ export default function HomePage() {
       </Reveal>
       <Reveal>
         <TestimonialSection />
+      </Reveal>
+      <Reveal>
+        <SocialWallSection />
       </Reveal>
       <Reveal>
         <ManifestoSection />

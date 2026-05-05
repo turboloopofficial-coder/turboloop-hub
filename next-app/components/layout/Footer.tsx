@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
+import { BrandMark } from "@components/BrandMark";
 
 const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href: string; external?: boolean }> }> = [
   {
@@ -51,11 +52,14 @@ export function Footer() {
         <div className="py-12 md:py-16 grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand block — spans 2 cols on desktop, full row on mobile */}
           <div className="col-span-2 md:col-span-1">
-            <div className="font-bold text-xl tracking-tight mb-3">
-              <span className="text-[var(--c-text)]">Turbo</span>
-              <span className="bg-brand bg-clip-text text-transparent">
-                Loop
-              </span>
+            <div className="flex items-center gap-2 mb-3">
+              <BrandMark size={32} />
+              <div className="font-bold text-xl tracking-tight">
+                <span className="text-[var(--c-text)]">Turbo</span>
+                <span className="bg-brand bg-clip-text text-transparent">
+                  Loop
+                </span>
+              </div>
             </div>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
               The complete DeFi ecosystem on Binance Smart Chain. Audited.

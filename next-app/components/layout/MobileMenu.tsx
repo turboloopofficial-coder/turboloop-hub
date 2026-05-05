@@ -4,8 +4,50 @@
 // covers the viewport on tap. Two link groups: primary nav + Resources.
 
 import { useEffect, useState } from "react";
-import { Menu, X, Rocket } from "lucide-react";
+import { Rocket } from "lucide-react";
 import Link from "next/link";
+import { BrandMark } from "@components/BrandMark";
+
+// Inline SVG icons — bypassing lucide-react for the hamburger + close
+// because lucide's stroke-rendered icons sometimes vanish on certain
+// mobile browsers (Brave + Samsung Internet) when the parent button has
+// no explicit text-color. Inline currentColor SVG always renders.
+const HamburgerIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+const CloseIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
 
 type LinkItem = {
   readonly label: string;
@@ -39,10 +81,11 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-[var(--r-md)] text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.06)] active:scale-95 transition"
+        className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-[var(--r-md)] bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] active:scale-95 transition"
         aria-label="Open menu"
+        type="button"
       >
-        <Menu className="w-5 h-5" />
+        <HamburgerIcon />
       </button>
 
       {open && (
@@ -64,17 +107,21 @@ export function MobileMenu({ primaryLinks, resourceLinks }: MobileMenuProps) {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 font-bold text-lg tracking-tight"
             >
-              <span className="text-[var(--c-text)]">Turbo</span>
-              <span className="bg-brand bg-clip-text text-transparent">
-                Loop
+              <BrandMark size={26} />
+              <span>
+                <span className="text-[var(--c-text)]">Turbo</span>
+                <span className="bg-brand bg-clip-text text-transparent">
+                  Loop
+                </span>
               </span>
             </Link>
             <button
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center w-11 h-11 rounded-[var(--r-md)] text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.06)] active:scale-95 transition"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-[var(--r-md)] bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] hover:bg-[var(--c-bg)] active:scale-95 transition"
               aria-label="Close menu"
+              type="button"
             >
-              <X className="w-5 h-5" />
+              <CloseIcon />
             </button>
           </div>
 

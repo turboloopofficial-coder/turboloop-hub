@@ -1,15 +1,20 @@
 "use client";
 
 // Resources dropdown for the desktop nav. Click-to-toggle (works on
-// both mouse and touch). Previous hover-based version broke on touch:
-// mouseenter fires as a synthetic event when the user taps, then onClick
-// toggles it back closed in the same gesture — net result, panel never
-// stayed visible. Click-only is reliable everywhere.
+// both mouse and touch). Panel renders inline via absolute positioning.
+//
+// Critical fix from previous version: imports RESOURCE_LINKS from
+// nav-links (leaf module), NOT from Navbar (which would be a circular
+// import — Navbar imports this component). Circular imports leave
+// constants undefined at first client render → .map() throws → React
+// silently swallows the error → button toggles but panel never mounts.
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { RESOURCE_LINKS } from "./Navbar";
+import { RESOURCE_LINKS } from "./nav-links";
+
+const PANEL_ID = "nav-resources-panel";
 
 export function ResourcesDropdown() {
   const [open, setOpen] = useState(false);
@@ -37,8 +42,9 @@ export function ResourcesDropdown() {
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        aria-haspopup="true"
+        aria-haspopup="menu"
         aria-expanded={open}
+        aria-controls={PANEL_ID}
         className="inline-flex items-center gap-1 px-3 min-h-[44px] rounded-[var(--r-md)] text-sm font-semibold text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition-colors"
       >
         Resources
@@ -49,41 +55,44 @@ export function ResourcesDropdown() {
 
       {open && (
         <div
+          id={PANEL_ID}
           role="menu"
-          className="absolute right-0 top-full pt-2 z-50 w-[380px]"
+          aria-label="Resources"
+          className="absolute right-0 top-full mt-2 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-xl)] p-2 grid grid-cols-1 gap-1"
+          style={{
+            // Explicit background — don't rely on CSS var resolution
+            // timing during first paint. Matches surface in both themes.
+            background: "var(--c-surface, #ffffff)",
+          }}
         >
-          <div
-            className="rounded-[var(--r-xl)] bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-xl)] p-2 grid grid-cols-1 gap-1"
-          >
-            {RESOURCE_LINKS.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-start gap-3 p-3 rounded-[var(--r-md)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition group"
-                role="menuitem"
+          {RESOURCE_LINKS.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              role="menuitem"
+              className="flex items-start gap-3 p-3 rounded-[var(--r-md)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition group"
+            >
+              <div
+                className="text-2xl flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-[var(--r-md)]"
+                style={{
+                  background:
+                    "color-mix(in oklab, var(--c-brand-cyan) 8%, transparent)",
+                }}
+                aria-hidden="true"
               >
-                <div
-                  className="text-2xl flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-[var(--r-md)]"
-                  style={{
-                    background:
-                      "color-mix(in oklab, var(--c-brand-cyan) 8%, transparent)",
-                  }}
-                  aria-hidden="true"
-                >
-                  {link.emoji}
+                {link.emoji}
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-bold text-[var(--c-text)] group-hover:text-[var(--c-brand-cyan)] transition-colors">
+                  {link.label}
                 </div>
-                <div className="min-w-0">
-                  <div className="text-sm font-bold text-[var(--c-text)] group-hover:text-[var(--c-brand-cyan)] transition-colors">
-                    {link.label}
-                  </div>
-                  <div className="text-xs text-[var(--c-text-muted)] mt-0.5 leading-snug">
-                    {link.description}
-                  </div>
+                <div className="text-xs text-[var(--c-text-muted)] mt-0.5 leading-snug">
+                  {link.description}
                 </div>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
         </div>
       )}
     </div>

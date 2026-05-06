@@ -24,6 +24,7 @@
 //
 //  - Download: forces an attachment download via blob → temporary <a>.
 
+import { useState } from "react";
 import Image from "next/image";
 import { Download, Share2 } from "lucide-react";
 import { CreativeBanner, bannerShareText } from "@lib/creativesData";
@@ -58,6 +59,11 @@ export function BannerCard({
   banner: CreativeBanner;
   catLabel: string;
 }) {
+  // Image-load state — drives the opacity fade-in + the skeleton pulse
+  // behind the image. Start false on every render so SSR/hydration
+  // doesn't race ahead of the actual image load event.
+  const [loaded, setLoaded] = useState(false);
+
   const handleShare = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -219,13 +225,25 @@ export function BannerCard({
         className="cursor-pointer block focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)]"
       >
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
+          {/* Skeleton placeholder pulses underneath until the actual
+              image fires onLoad. Keeps the grid from collapsing while
+              the fetch is in flight. */}
+          {!loaded && (
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[var(--c-surface)] animate-pulse"
+            />
+          )}
           <Image
             src={banner.url}
             alt={banner.headline ?? `${catLabel} banner`}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className={`object-cover group-hover:scale-105 transition-[transform,opacity] duration-500 ${
+              loaded ? "opacity-100" : "opacity-0"
+            }`}
             loading="lazy"
+            onLoad={() => setLoaded(true)}
           />
           {/* Subtle dark gradient overlay on hover — adds depth without
               washing the banner content. */}
@@ -258,7 +276,7 @@ export function BannerCard({
           <button
             onClick={handleShare}
             type="button"
-            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md bg-[rgba(15,23,42,0.04)] dark:bg-[rgba(255,255,255,0.04)] text-[var(--c-text)] hover:bg-brand hover:text-white text-xs font-semibold transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 min-h-[44px] py-2.5 md:min-h-0 md:py-1.5 px-2 rounded-md bg-[rgba(15,23,42,0.04)] dark:bg-[rgba(255,255,255,0.04)] text-[var(--c-text)] hover:bg-brand hover:text-white text-xs font-semibold transition-colors"
             title="Share with image and caption"
             aria-label="Share banner with image and caption"
           >
@@ -268,7 +286,7 @@ export function BannerCard({
           <button
             onClick={handleDownload}
             type="button"
-            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md bg-[rgba(15,23,42,0.04)] dark:bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(15,23,42,0.08)] dark:hover:bg-[rgba(255,255,255,0.08)] text-xs font-medium transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 min-h-[44px] py-2.5 md:min-h-0 md:py-1.5 px-2 rounded-md bg-[rgba(15,23,42,0.04)] dark:bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(15,23,42,0.08)] dark:hover:bg-[rgba(255,255,255,0.08)] text-xs font-medium transition-colors"
             title="Download image"
             aria-label="Download banner"
           >

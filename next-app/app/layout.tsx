@@ -19,6 +19,7 @@ import { MobileBottomCTA } from "@components/layout/MobileBottomCTA";
 import { ToastProvider } from "@components/Toast";
 import { CommandPalette } from "@components/CommandPalette";
 import { WelcomePopup } from "@components/WelcomePopup";
+import { BackToTop } from "@components/ui/BackToTop";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turboloop.tech"),
@@ -239,13 +240,23 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[var(--c-bg)] text-[var(--c-text)] antialiased">
+        {/* Skip link — keyboard users can jump straight to main content
+            without tabbing through the entire navbar. Off-screen until
+            focused, then floats into the top-left corner. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-[var(--r-md)] focus:bg-[var(--c-surface)] focus:text-[var(--c-text)] focus:shadow-[var(--s-lg)] focus:border focus:border-[var(--c-border-strong)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)]"
+        >
+          Skip to content
+        </a>
         <ToastProvider>
           <Navbar />
-          {children}
+          <div id="main-content">{children}</div>
           <Footer />
           <MobileBottomCTA />
           <CommandPalette />
           <WelcomePopup />
+          <BackToTop />
         </ToastProvider>
       </body>
     </html>

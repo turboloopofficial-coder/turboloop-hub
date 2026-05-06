@@ -188,29 +188,50 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/*
+        Section order tells the marketing story:
+          1. Hero + Trust Badges (above)         — what is this
+          2. ActivityTicker                       — live pulse
+          3. NumbersSection                       — proof of scale
+          4. PartnersBar                          — social proof
+          5. SecurityPillarsSection (post-divider)— answer "is it safe?"
+          6. FilmsTeaserSection                   — now show the story
+          7. HomeReelsSection                     — more visual content
+          8. LeaderboardSection (post-divider)    — community achievement
+          9. TestimonialSection                   — real voices
+         10. HomeBlogSection                      — deep dives
+         11. PromotionsSection (post-divider)     — incentives to act
+         12. EventsSection                        — what's happening
+         13. SocialWallSection                    — proof wall
+         14. ManifestoSection (post-divider)      — emotional close
+         15. NewsletterSection                    — final CTA
+      */}
       <ActivityTicker />
       <Reveal>
-        <FilmsTeaserSection />
+        <NumbersSection />
       </Reveal>
       <Reveal>
         <PartnersBar />
       </Reveal>
       <SectionDivider />
       <Reveal>
-        <NumbersSection />
+        <SecurityPillarsSection />
       </Reveal>
       <Reveal>
-        <LeaderboardSection />
+        <FilmsTeaserSection />
       </Reveal>
       <Reveal>
         <HomeReelsSection />
       </Reveal>
-      <Reveal>
-        <HomeBlogSection />
-      </Reveal>
       <SectionDivider />
       <Reveal>
-        <SecurityPillarsSection />
+        <LeaderboardSection />
+      </Reveal>
+      <Reveal>
+        <TestimonialSection />
+      </Reveal>
+      <Reveal>
+        <HomeBlogSection />
       </Reveal>
       <SectionDivider />
       <Reveal>
@@ -220,12 +241,9 @@ export default function HomePage() {
         <EventsSection />
       </Reveal>
       <Reveal>
-        <TestimonialSection />
-      </Reveal>
-      <SectionDivider />
-      <Reveal>
         <SocialWallSection />
       </Reveal>
+      <SectionDivider />
       <Reveal>
         <ManifestoSection />
       </Reveal>

@@ -541,8 +541,8 @@ export function monthlyCompoundingCaption(b: MonthlyCompoundBanner): string {
   // line so Telegram can highlight each one as a chip.
   const cta =
     b.lang === "en"
-      ? `\n\n💸 Run your numbers: https://turboloop.tech/yield-calculator`
-      : `\n\n💸 Rechne deine Zahlen: https://turboloop.tech/yield-calculator`;
+      ? `\n\n💸 Run your numbers: https://turboloop.tech/calculator`
+      : `\n\n💸 Rechne deine Zahlen: https://turboloop.tech/calculator`;
   const tags =
     "\n\n" +
     (b.lang === "en" ? MONTHLY_HASHTAGS_EN : MONTHLY_HASHTAGS_DE).join(" ");

@@ -14,11 +14,33 @@ import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
 
 export const revalidate = 600;
 
+const COMMUNITY_OG_TITLE = "Global Community — TurboLoop";
+const COMMUNITY_OG_DESC = "Voices from 14+ countries across 6 continents.";
+
 export const metadata: Metadata = {
   title: "Community — TurboLoop Around the World",
   description:
     "Voices from the TurboLoop community across 14+ countries on 6 continents. Daily Zoom sessions in 12+ languages. Always open.",
   alternates: { canonical: "https://turboloop.tech/community" },
+  openGraph: {
+    title: COMMUNITY_OG_TITLE,
+    description: COMMUNITY_OG_DESC,
+    url: "https://turboloop.tech/community",
+    images: [
+      {
+        url: "https://api.turboloop.tech/api/og-banner?type=launch",
+        width: 1200,
+        height: 630,
+        alt: COMMUNITY_OG_TITLE,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: COMMUNITY_OG_TITLE,
+    description: COMMUNITY_OG_DESC,
+    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
+  },
 };
 
 export default function CommunityPage() {

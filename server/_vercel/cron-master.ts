@@ -176,7 +176,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             text: banner.lang === "de"
               ? "💸 Yield-Rechner öffnen"
               : "💸 Open the yield calculator",
-            url: `${SITE}/yield-calculator`,
+            url: `${SITE}/calculator`,
           },
         ],
       });

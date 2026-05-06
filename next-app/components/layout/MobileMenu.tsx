@@ -23,6 +23,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Brand } from "@components/Brand";
 import { PRIMARY_LINKS, RESOURCE_LINKS } from "./nav-links";
 
@@ -83,19 +84,34 @@ const DRAWER_ID = "mobile-menu-drawer";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
+  // `entered` flips a tick after the drawer mounts so the slide-in
+  // transition has a from-state to animate from. Without this two-step,
+  // the initial render lands at the final transform and there's nothing
+  // to animate.
+  const [entered, setEntered] = useState(false);
   // Track whether we've mounted on the client so createPortal doesn't
   // attempt to use document during SSR.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setEntered(false);
+      return;
+    }
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    // Two-frame delay so the initial style commits before we flip to the
+    // entered state — single rAF can be merged with the mount paint.
+    const raf1 = requestAnimationFrame(() =>
+      requestAnimationFrame(() => setEntered(true))
+    );
     const onKey = (e: KeyboardEvent) =>
       e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
+      cancelAnimationFrame(raf1);
       document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
     };
@@ -119,6 +135,13 @@ export function MobileMenu() {
               background: "var(--c-bg, #ffffff)",
               paddingTop: "env(safe-area-inset-top)",
               paddingBottom: "env(safe-area-inset-bottom)",
+              // Slide-in from the right + fade. From-state on first paint,
+              // to-state once `entered` flips after rAF. Reduced-motion
+              // users get an instant transition.
+              transform: entered ? "translateX(0)" : "translateX(8%)",
+              opacity: entered ? 1 : 0,
+              transition:
+                "transform 280ms cubic-bezier(0.16,1,0.3,1), opacity 240ms cubic-bezier(0.16,1,0.3,1)",
             }}
             onClick={() => setOpen(false)}
           >
@@ -171,24 +194,40 @@ export function MobileMenu() {
                 className="flex flex-col gap-1 mb-8"
                 aria-label="Primary"
               >
-                {PRIMARY_LINKS.map(link => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center justify-between py-4 min-h-[44px] text-base font-bold border-b"
-                    style={{
-                      color: "var(--c-text, #0f172a)",
-                      borderColor:
-                        "var(--c-border, rgba(15,23,42,0.08))",
-                    }}
-                  >
-                    {link.label}
-                    <span style={{ color: "var(--c-text-subtle, #94A3B8)" }}>
-                      →
-                    </span>
-                  </Link>
-                ))}
+                {PRIMARY_LINKS.map(link => {
+                  // Highlight the active page so users always know where
+                  // they are — uses startsWith so e.g. /blog/[slug] still
+                  // marks the Blog link as active.
+                  const isActive =
+                    pathname === link.href ||
+                    pathname?.startsWith(link.href + "/") === true;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
+                      className="flex items-center justify-between py-4 min-h-[48px] text-base font-bold border-b"
+                      style={{
+                        color: isActive
+                          ? "var(--c-brand-cyan, #0891b2)"
+                          : "var(--c-text, #0f172a)",
+                        borderColor: "var(--c-border, rgba(15,23,42,0.08))",
+                      }}
+                    >
+                      {link.label}
+                      <span
+                        style={{
+                          color: isActive
+                            ? "var(--c-brand-cyan, #0891b2)"
+                            : "var(--c-text-subtle, #94A3B8)",
+                        }}
+                      >
+                        →
+                      </span>
+                    </Link>
+                  );
+                })}
               </nav>
 
               {/* Resources */}

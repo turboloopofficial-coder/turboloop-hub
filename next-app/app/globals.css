@@ -474,6 +474,16 @@ body {
   background: rgba(34, 211, 238, 0.4);
 }
 
+/* Used by horizontal-scroll rails (creatives category nav, reels carousel)
+   where the scrollbar would feel like UI clutter. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* ════════════════════════════════════════════════════════════
    FOCUS RINGS — keyboard-only, brand-tinted, never on click
    ════════════════════════════════════════════════════════════ */

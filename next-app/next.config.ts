@@ -33,6 +33,18 @@ const config: NextConfig = {
   // /sw.js MUST never be cached, otherwise Brave keeps serving the
   // legacy Workbox SW and ignores my self-killer. /reset triggers
   // Clear-Site-Data: * for users who get manually nudged there.
+  // Permanent redirect for any /yield-calculator links that pre-date the
+  // rename. The page now lives at /calculator; anything else (Telegram
+  // archives, blog posts, screenshots) gets transparently redirected.
+  async redirects() {
+    return [
+      {
+        source: "/yield-calculator",
+        destination: "/calculator",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

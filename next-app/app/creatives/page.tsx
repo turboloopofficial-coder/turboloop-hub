@@ -5,22 +5,43 @@
 // download. The actual banner images load lazily as they scroll.
 
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Container } from "@components/ui/Container";
-import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { BannerCard } from "@components/creatives/BannerCard";
+import { CreativesCategoryNav } from "@components/creatives/CreativesCategoryNav";
 import {
   ALL_CREATIVES,
   CREATIVE_CATEGORIES,
 } from "@lib/creativesData";
 
+const TITLE = `${ALL_CREATIVES.length}+ Ready-to-Share Banners — TurboLoop`;
+const DESCRIPTION =
+  "Pre-designed branded images with captions. Free for the community.";
+
 export const metadata: Metadata = {
-  title: "Creatives — Ready-to-Share Banners",
-  description:
-    "Designed banners with captions, organized by ecosystem pillar. Free for the community to share on Telegram, X, WhatsApp.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "https://turboloop.tech/creatives" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://turboloop.tech/creatives",
+    images: [
+      {
+        url: "https://api.turboloop.tech/api/og-banner?type=launch",
+        width: 1200,
+        height: 630,
+        alt: TITLE,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
+  },
 };
 
 export default function CreativesPage() {
@@ -31,6 +52,8 @@ export default function CreativesPage() {
         title={`${ALL_CREATIVES.length} banners. Ready to share.`}
         subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
       />
+
+      <CreativesCategoryNav categories={CREATIVE_CATEGORIES} />
 
       <Container width="wide">
         {CREATIVE_CATEGORIES.map(cat => {

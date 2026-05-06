@@ -12909,9 +12909,9 @@ function monthlyCompoundingCaption(b) {
   }
   const cta = b.lang === "en" ? `
 
-\u{1F4B8} Run your numbers: https://turboloop.tech/yield-calculator` : `
+\u{1F4B8} Run your numbers: https://turboloop.tech/calculator` : `
 
-\u{1F4B8} Rechne deine Zahlen: https://turboloop.tech/yield-calculator`;
+\u{1F4B8} Rechne deine Zahlen: https://turboloop.tech/calculator`;
   const tags = "\n\n" + (b.lang === "en" ? MONTHLY_HASHTAGS_EN : MONTHLY_HASHTAGS_DE).join(" ");
   return body + cta + tags;
 }
@@ -13065,7 +13065,7 @@ async function handler(req, res) {
         buttons: [
           {
             text: banner.lang === "de" ? "\u{1F4B8} Yield-Rechner \xF6ffnen" : "\u{1F4B8} Open the yield calculator",
-            url: `${SITE}/yield-calculator`
+            url: `${SITE}/calculator`
           }
         ]
       });

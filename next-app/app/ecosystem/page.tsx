@@ -10,11 +10,34 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 
+const ECO_OG_TITLE = "The Ecosystem — TurboLoop";
+const ECO_OG_DESC =
+  "Six pillars, one engine. Turbo Buy, Swap, Yield, Referral, Leadership, Security.";
+
 export const metadata: Metadata = {
   title: "Ecosystem — Six Pillars, One Self-Sustaining Engine",
   description:
     "TurboLoop is six DeFi primitives working as one: Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, Smart Contract Security.",
   alternates: { canonical: "https://turboloop.tech/ecosystem" },
+  openGraph: {
+    title: ECO_OG_TITLE,
+    description: ECO_OG_DESC,
+    url: "https://turboloop.tech/ecosystem",
+    images: [
+      {
+        url: "https://api.turboloop.tech/api/og-banner?type=launch",
+        width: 1200,
+        height: 630,
+        alt: ECO_OG_TITLE,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ECO_OG_TITLE,
+    description: ECO_OG_DESC,
+    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
+  },
 };
 
 export default function EcosystemIndexPage() {

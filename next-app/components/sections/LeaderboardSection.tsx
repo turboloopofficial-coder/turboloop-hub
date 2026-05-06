@@ -13,6 +13,7 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
 import { api } from "@lib/api";
+import { Reveal } from "@components/Reveal";
 
 const MEDAL_COLOR: Record<string, { bg: string; ring: string; emoji: string }> =
   {
@@ -105,12 +106,12 @@ export async function LeaderboardSection() {
             const medal = MEDAL_COLOR[c.medal];
             const pct = (c.score / max) * 100;
             return (
-              <Card
-                key={c.country}
-                elevation="raised"
-                padding="md"
-                className="flex items-center gap-3"
-              >
+              <Reveal key={c.country} delayMs={i * 60}>
+                <Card
+                  elevation="raised"
+                  padding="md"
+                  className="flex items-center gap-3 h-full"
+                >
                 <div
                   className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0"
                   style={{
@@ -153,7 +154,8 @@ export async function LeaderboardSection() {
                     style={{ color: medal.ring }}
                   />
                 )}
-              </Card>
+                </Card>
+              </Reveal>
             );
           })}
         </div>

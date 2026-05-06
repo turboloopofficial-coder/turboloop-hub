@@ -17,12 +17,13 @@ export { PRIMARY_LINKS, RESOURCE_LINKS };
 export function Navbar() {
   return (
     <header
-      className="sticky top-0 z-[var(--z-nav,50)] backdrop-blur-xl backdrop-saturate-150 border-b border-[var(--c-border)]"
+      className="sticky top-0 z-[var(--z-nav,50)] backdrop-blur-xl backdrop-saturate-150 tl-nav-border"
       style={{
         // Glass: more transparent than before so the blur reads, with a
         // surface-tinted veil so contrast against hero gradients is still
         // safe. backdrop-saturate-150 keeps brand colours behind the bar
-        // looking lively rather than washed out.
+        // looking lively rather than washed out. The bottom border is now
+        // a brand-gradient ::after via .tl-nav-border (globals.css).
         background: "color-mix(in oklab, var(--c-bg) 65%, transparent)",
         paddingTop: "env(safe-area-inset-top)",
       }}

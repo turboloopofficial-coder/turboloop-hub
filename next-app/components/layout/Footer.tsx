@@ -47,7 +47,20 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-[var(--c-border)] bg-[var(--c-surface)] mt-16">
+    <footer
+      className="relative bg-[var(--c-surface)] mt-16"
+      style={{
+        // Soft brand-cyan glow centred at the top edge — adds the
+        // "premium curtain" feel without an outright graphic.
+        backgroundImage:
+          "radial-gradient(ellipse 600px 200px at 50% 0%, rgba(8,145,178,0.03), transparent 70%)",
+      }}
+    >
+      {/* Gradient hairline replacing the old flat border-t */}
+      <div
+        aria-hidden="true"
+        className="h-px bg-gradient-to-r from-transparent via-[var(--c-brand-cyan)]/20 to-transparent"
+      />
       <Container width="wide">
         <div className="py-12 md:py-16 grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand block — spans 2 cols on desktop, full row on mobile */}

@@ -20,6 +20,7 @@ import { ShieldCheck, Lock, CheckCircle2, Globe2, Rocket } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
+import { SectionDivider } from "@components/ui/SectionDivider";
 import { ActivityTicker } from "@components/sections/ActivityTicker";
 import { PartnersBar } from "@components/sections/PartnersBar";
 import { FilmsTeaserSection } from "@components/sections/FilmsTeaserSection";
@@ -62,10 +63,14 @@ const TRUST_BADGES = [
 export default function HomePage() {
   return (
     <main className="relative">
-      {/* Static decorative background — fixed, no animation, GPU paints once */}
+      {/* Aurora background — three brand-tinted radial gradients stitched
+          across a 200 % canvas, slid horizontally on a 15 s loop via
+          .aurora-bg in globals.css. Reads as a slow, expensive shimmer
+          rather than a busy animation. Reduced-motion users get the
+          static composition (animation disabled in CSS). */}
       <div
         aria-hidden="true"
-        className="fixed inset-0 -z-10 pointer-events-none"
+        className="fixed inset-0 -z-10 pointer-events-none aurora-bg"
         style={{
           background:
             "radial-gradient(ellipse 800px 600px at 15% 12%, rgba(34,211,238,0.10), transparent 60%), " +
@@ -152,30 +157,30 @@ export default function HomePage() {
               `}</style>
             </div>
 
-            {/* Trust badges — 2-column grid on mobile, single row on desktop */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-12">
+            {/* Trust badges — glassmorphism row with brand-gradient icon
+                circles. Each tile lifts on hover (Card + .tl-card-glow
+                via interactive) for the "premium chip" feel. */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
               {TRUST_BADGES.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group"
+                  className="group block backdrop-blur-sm rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition-[transform,box-shadow] duration-[var(--m-smooth)] ease-[var(--m-standard)] tl-card-glow px-4 py-3 flex items-center gap-3 text-left"
+                  style={{
+                    background: "color-mix(in oklab, var(--c-surface) 60%, transparent)",
+                  }}
                 >
-                  <Card
-                    elevation="flat"
-                    padding="sm"
-                    interactive
-                    className="flex items-center gap-2 text-left h-full"
+                  <span
+                    className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-brand shadow-[var(--s-brand)]"
+                    aria-hidden="true"
                   >
-                    <Icon
-                      className="w-4 h-4 text-[var(--c-brand-cyan)] flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="text-xs font-semibold text-[var(--c-text)] leading-tight">
-                      {label}
-                    </span>
-                  </Card>
+                    <Icon className="w-5 h-5 text-white" />
+                  </span>
+                  <span className="text-xs font-semibold text-[var(--c-text)] leading-tight">
+                    {label}
+                  </span>
                 </a>
               ))}
             </div>
@@ -190,6 +195,7 @@ export default function HomePage() {
       <Reveal>
         <PartnersBar />
       </Reveal>
+      <SectionDivider />
       <Reveal>
         <NumbersSection />
       </Reveal>
@@ -202,9 +208,11 @@ export default function HomePage() {
       <Reveal>
         <HomeBlogSection />
       </Reveal>
+      <SectionDivider />
       <Reveal>
         <SecurityPillarsSection />
       </Reveal>
+      <SectionDivider />
       <Reveal>
         <PromotionsSection />
       </Reveal>
@@ -214,6 +222,7 @@ export default function HomePage() {
       <Reveal>
         <TestimonialSection />
       </Reveal>
+      <SectionDivider />
       <Reveal>
         <SocialWallSection />
       </Reveal>

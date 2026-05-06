@@ -58,6 +58,9 @@ export function Card({
           // 0.5 nudge, lands at the diffused --s-xl shadow stack so the
           // card visibly floats off the page.
           "hover:-translate-y-1 hover:shadow-[var(--s-xl)]",
+          // Brand-gradient halo behind the card on hover/focus.
+          // Definition lives in globals.css; the class only opts in.
+          "tl-card-glow",
         ],
         className
       )}

@@ -7,12 +7,40 @@
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";
+import { CountUp } from "@components/ui/CountUp";
+import { Reveal } from "@components/Reveal";
 
+// `target` drives the animated counter; the visual prefix/suffix
+// preserves the original "48", "20", "6+", "$100K" reads.
 const STATS = [
-  { value: "48", label: "Languages", help: "Supported across content" },
-  { value: "20", label: "Films", help: "Cinematic universe complete" },
-  { value: "6+", label: "Continents", help: "Active community presence" },
-  { value: "$100K", label: "Bounty", help: "For proof of centralization" },
+  {
+    target: 48,
+    prefix: "",
+    suffix: "",
+    label: "Languages",
+    help: "Supported across content",
+  },
+  {
+    target: 20,
+    prefix: "",
+    suffix: "",
+    label: "Films",
+    help: "Cinematic universe complete",
+  },
+  {
+    target: 6,
+    prefix: "",
+    suffix: "+",
+    label: "Continents",
+    help: "Active community presence",
+  },
+  {
+    target: 100,
+    prefix: "$",
+    suffix: "K",
+    label: "Bounty",
+    help: "For proof of centralization",
+  },
 ];
 
 export function NumbersSection() {
@@ -34,23 +62,28 @@ export function NumbersSection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
-          {STATS.map(stat => (
-            <Card
-              key={stat.label}
-              elevation="raised"
-              padding="md"
-              className="text-center"
-            >
-              <div className="bg-brand bg-clip-text text-transparent text-4xl md:text-5xl font-extrabold tracking-tight leading-none">
-                {stat.value}
-              </div>
-              <div className="mt-2 text-sm font-bold text-[var(--c-text)]">
-                {stat.label}
-              </div>
-              <div className="mt-1 text-xs text-[var(--c-text-muted)] leading-snug">
-                {stat.help}
-              </div>
-            </Card>
+          {STATS.map((stat, idx) => (
+            <Reveal key={stat.label} delayMs={idx * 100}>
+              <Card
+                elevation="raised"
+                padding="md"
+                className="text-center h-full"
+              >
+                <div className="bg-brand bg-clip-text text-transparent text-4xl md:text-5xl font-extrabold tracking-tight leading-none tabular-nums">
+                  <CountUp
+                    target={stat.target}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                  />
+                </div>
+                <div className="mt-2 text-sm font-bold text-[var(--c-text)]">
+                  {stat.label}
+                </div>
+                <div className="mt-1 text-xs text-[var(--c-text-muted)] leading-snug">
+                  {stat.help}
+                </div>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </Container>

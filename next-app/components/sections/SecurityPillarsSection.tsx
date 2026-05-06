@@ -11,6 +11,7 @@ import {
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";
+import { Reveal } from "@components/Reveal";
 
 const PILLARS = [
   {
@@ -73,32 +74,34 @@ export function SecurityPillarsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {PILLARS.map(pillar => {
+          {PILLARS.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
-              <Card key={pillar.title} elevation="raised" padding="lg" interactive>
-                <div className="w-11 h-11 rounded-[var(--r-lg)] bg-brand flex items-center justify-center mb-4">
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-                <Heading tier="title" as="h3" className="mb-2">
-                  {pillar.title}
-                </Heading>
-                <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">
-                  {pillar.body}
-                </p>
-                <a
-                  href={pillar.proofHref}
-                  target={pillar.proofHref.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    pillar.proofHref.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
-                >
-                  {pillar.proofLabel} →
-                </a>
-              </Card>
+              <Reveal key={pillar.title} delayMs={idx * 80}>
+                <Card elevation="raised" padding="lg" interactive className="h-full">
+                  <div className="w-11 h-11 rounded-[var(--r-lg)] bg-brand flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <Heading tier="title" as="h3" className="mb-2">
+                    {pillar.title}
+                  </Heading>
+                  <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">
+                    {pillar.body}
+                  </p>
+                  <a
+                    href={pillar.proofHref}
+                    target={pillar.proofHref.startsWith("http") ? "_blank" : undefined}
+                    rel={
+                      pillar.proofHref.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
+                  >
+                    {pillar.proofLabel} →
+                  </a>
+                </Card>
+              </Reveal>
             );
           })}
         </div>

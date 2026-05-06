@@ -329,17 +329,123 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   PRESS FEEDBACK — global active state on every interactive elem
+   PRESS FEEDBACK — global active state on every interactive elem.
    Honored by all browsers; framer-motion components override
-   with their own inline transforms.
+   with their own inline transforms. Tightened from 0.985→0.97 +
+   80 ms so button presses feel decisive rather than mushy on
+   touch.
    ════════════════════════════════════════════════════════════ */
 @layer base {
   button:not(:disabled):active,
   a:active,
   [role="button"]:active {
-    transform: scale(0.985);
-    transition: transform 90ms ease-out;
+    transform: scale(0.97);
+    transition: transform 80ms ease-out;
   }
+  /* Brand-gradient buttons get a brief brightness dip on tap so the
+     gradient actually reads as "pressed" — scale alone gets lost on
+     tightly-saturated colours. */
+  .bg-brand:active {
+    filter: brightness(0.92);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   INTERACTIVE CARD GLOW — when a Card has the `interactive` prop
+   it picks up `.tl-card-glow` (see ui/Card.tsx). The pseudo
+   sits behind the card, takes the brand gradient, blurs it, and
+   eases in on hover/focus. Cheap (one repaint) and respects
+   reduced motion.
+   ════════════════════════════════════════════════════════════ */
+.tl-card-glow {
+  position: relative;
+}
+.tl-card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--c-brand-gradient);
+  filter: blur(12px);
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  pointer-events: none;
+}
+.tl-card-glow:hover::before,
+.tl-card-glow:focus-within::before {
+  opacity: 0.3;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-card-glow::before {
+    transition: none;
+  }
+  .tl-card-glow:hover::before,
+  .tl-card-glow:focus-within::before {
+    opacity: 0.15;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   AURORA — hero decorative background. 3 colour stops moving
+   across a 200 % canvas, 15 s loop. Pairs with the page-level
+   gradient definition; the keyframe just slides background-
+   position. Very cheap on the GPU (no transforms, just paint).
+   ════════════════════════════════════════════════════════════ */
+@keyframes aurora {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.aurora-bg {
+  background-size: 200% 200%;
+  animation: aurora 15s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   NAVBAR GRADIENT BOTTOM BORDER — replaces a flat 1 px border
+   with a fading brand-gradient hairline. Applied via a class on
+   the <header>; the existing border-b utility is dropped on the
+   element so the ::after is the only seam.
+   ════════════════════════════════════════════════════════════ */
+.tl-nav-border::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(8, 145, 178, 0.15),
+    rgba(124, 58, 237, 0.15),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BANNER CARD TOP ACCENT — 1 px gradient bar across the top of
+   each /creatives card, drawn from the per-banner palette via
+   --banner-accent-from/to inline custom props.
+   ════════════════════════════════════════════════════════════ */
+.banner-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--banner-accent-from, var(--c-brand-cyan)),
+    var(--banner-accent-to, var(--c-brand-purple))
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ════════════════════════════════════════════════════════════

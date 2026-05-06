@@ -187,15 +187,38 @@ export function BannerCard({
     }
   };
 
+  // Open the full image in a new tab. Used by the image area's onClick
+  // — replaces the previous <a href target=_blank> wrapper that was
+  // intercepting click events meant for the Share/Download buttons.
+  const openImage = () => {
+    window.open(banner.url, "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <div className="group block rounded-[var(--r-lg)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition active:scale-[0.99] relative">
-      <a
-        href={banner.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block"
+    <div
+      className="group relative rounded-[var(--r-lg)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition active:scale-[0.99] banner-card"
+      style={{
+        // 1 px brand-gradient top accent — declared inline so the colours
+        // can pull from the per-banner palette without polluting the
+        // global stylesheet. Implemented as a ::before in globals.css.
+        ["--banner-accent-from" as any]: banner.palette.from,
+        ["--banner-accent-to" as any]: banner.palette.to,
+      }}
+    >
+      <div
+        onClick={openImage}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openImage();
+          }
+        }}
+        aria-label={`Open ${banner.headline ?? catLabel} full size`}
+        className="cursor-pointer block focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)]"
       >
-        <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
           <Image
             src={banner.url}
             alt={banner.headline ?? `${catLabel} banner`}
@@ -204,18 +227,27 @@ export function BannerCard({
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
+          {/* Subtle dark gradient overlay on hover — adds depth without
+              washing the banner content. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          />
         </div>
-      </a>
+      </div>
 
       <div className="p-3 flex flex-col gap-2">
         {banner.headline && (
           <div>
-            <div
-              className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase mb-1"
-              style={{ color: banner.palette.from }}
+            <span
+              className="inline-flex items-center px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.16em] uppercase mb-2"
+              style={{
+                color: banner.palette.from,
+                background: `${banner.palette.from}15`,
+              }}
             >
               {catLabel}
-            </div>
+            </span>
             <div className="text-xs font-semibold text-[var(--c-text)] line-clamp-2">
               {banner.headline}
             </div>
@@ -226,7 +258,7 @@ export function BannerCard({
           <button
             onClick={handleShare}
             type="button"
-            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md bg-[rgba(15,23,42,0.04)] dark:bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(15,23,42,0.08)] dark:hover:bg-[rgba(255,255,255,0.08)] text-xs font-medium transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md bg-[rgba(15,23,42,0.04)] dark:bg-[rgba(255,255,255,0.04)] text-[var(--c-text)] hover:bg-brand hover:text-white text-xs font-semibold transition-colors"
             title="Share with image and caption"
             aria-label="Share banner with image and caption"
           >

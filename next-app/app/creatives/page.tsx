@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     url: "https://turboloop.tech/creatives",
     images: [
       {
-        url: "https://api.turboloop.tech/api/og-banner?type=launch",
+        url: "https://api.turboloop.tech/api/og-banner?type=creatives",
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
+    images: ["https://api.turboloop.tech/api/og-banner?type=creatives"],
   },
 };
 

@@ -16,11 +16,30 @@ import { api, blogCoverUrl, blogDisplayDate } from "@lib/api";
 
 export const revalidate = 300; // 5 min
 
+const BLOG_OG_TITLE = "Editorial — TurboLoop";
+const BLOG_OG_DESC = "Deep-dives on yield, security, and the math.";
+const BLOG_OG_IMAGE =
+  "https://api.turboloop.tech/api/og-banner?type=blog-listing";
+
 export const metadata: Metadata = {
   title: "Editorial — TurboLoop Blog",
   description:
     "Deep dives on DeFi, yield, security, and the TurboLoop ecosystem. Plain English. No fluff.",
   alternates: { canonical: "https://turboloop.tech/blog" },
+  openGraph: {
+    title: BLOG_OG_TITLE,
+    description: BLOG_OG_DESC,
+    url: "https://turboloop.tech/blog",
+    images: [
+      { url: BLOG_OG_IMAGE, width: 1200, height: 630, alt: BLOG_OG_TITLE },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: BLOG_OG_TITLE,
+    description: BLOG_OG_DESC,
+    images: [BLOG_OG_IMAGE],
+  },
 };
 
 function formatDate(iso: string) {

@@ -18,17 +18,29 @@ import {
   getFilmsBySeason,
 } from "@lib/cinematicUniverse";
 
+const FILMS_OG_TITLE = "Cinematic Universe — TurboLoop";
+const FILMS_OG_DESC = "20 films. 4 seasons. One story.";
+const FILMS_OG_IMAGE = "https://api.turboloop.tech/api/og-banner?type=films";
+
 export const metadata: Metadata = {
   title: "Cinematic Universe — 20 Films Across 4 Seasons",
   description:
     "From The Problem to The Movement — the full TurboLoop story told in 20 films. Watch each season free.",
   alternates: { canonical: "https://turboloop.tech/films" },
   openGraph: {
-    title: "TurboLoop Cinematic Universe",
-    description:
-      "20 films. 4 seasons. One story — from The Problem to The Movement.",
+    title: FILMS_OG_TITLE,
+    description: FILMS_OG_DESC,
     url: "https://turboloop.tech/films",
     type: "website",
+    images: [
+      { url: FILMS_OG_IMAGE, width: 1200, height: 630, alt: FILMS_OG_TITLE },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: FILMS_OG_TITLE,
+    description: FILMS_OG_DESC,
+    images: [FILMS_OG_IMAGE],
   },
 };
 

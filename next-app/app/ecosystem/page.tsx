@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: "https://turboloop.tech/ecosystem",
     images: [
       {
-        url: "https://api.turboloop.tech/api/og-banner?type=launch",
+        url: "https://api.turboloop.tech/api/og-banner?type=ecosystem",
         width: 1200,
         height: 630,
         alt: ECO_OG_TITLE,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: ECO_OG_TITLE,
     description: ECO_OG_DESC,
-    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
+    images: ["https://api.turboloop.tech/api/og-banner?type=ecosystem"],
   },
 };
 

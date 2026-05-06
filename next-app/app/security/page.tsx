@@ -16,11 +16,29 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 
+const SEC_OG_TITLE = "Security Architecture — TurboLoop";
+const SEC_OG_DESC = "Audited. Renounced. 100% LP Locked. $100K Bounty.";
+const SEC_OG_IMAGE = "https://api.turboloop.tech/api/og-banner?type=security";
+
 export const metadata: Metadata = {
   title: "Security — Audited, Renounced, LP-Locked",
   description:
     "Independently audited by Haze Crypto. Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
   alternates: { canonical: "https://turboloop.tech/security" },
+  openGraph: {
+    title: SEC_OG_TITLE,
+    description: SEC_OG_DESC,
+    url: "https://turboloop.tech/security",
+    images: [
+      { url: SEC_OG_IMAGE, width: 1200, height: 630, alt: SEC_OG_TITLE },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEC_OG_TITLE,
+    description: SEC_OG_DESC,
+    images: [SEC_OG_IMAGE],
+  },
 };
 
 const PILLARS = [

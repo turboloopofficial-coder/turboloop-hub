@@ -535,6 +535,211 @@ function launchBanner() {
   );
 }
 
+// ============ PAGE BANNER (per-route hero) ============
+// Single reusable generator for /calculator, /community, /security, etc.
+// Same visual DNA as launchBanner — dark navy backbone, two soft radial
+// glows, brand pill + accent pill, large title + subtitle, theme emoji
+// watermark on the right at low opacity, brand-domain footer on the left.
+// `theme` is a TOPIC_THEMES entry or an inline equivalent.
+function pageBanner(title, subtitle, emoji, theme) {
+  const safeTitle = title || "";
+  const fontSize = titleFontSize(safeTitle);
+  return new ImageResponse(
+    {
+      type: "div",
+      props: {
+        style: {
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          background: `linear-gradient(135deg, ${theme.from} 0%, ${theme.via} 50%, ${theme.to} 100%)`,
+          fontFamily: '"Inter", system-ui, sans-serif',
+          padding: "70px 90px",
+          position: "relative",
+          color: "white",
+        },
+        children: [
+          // Top-left soft glow in the theme's primary colour.
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                top: "-180px",
+                left: "-180px",
+                width: "640px",
+                height: "640px",
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${theme.from}55 0%, ${theme.from}00 70%)`,
+              },
+            },
+          },
+          // Bottom-right accent glow.
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                bottom: "-160px",
+                right: "-160px",
+                width: "560px",
+                height: "560px",
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${theme.via}50 0%, ${theme.via}00 70%)`,
+              },
+            },
+          },
+          // Massive emoji watermark at 50% opacity, bottom-right corner.
+          {
+            type: "div",
+            props: {
+              style: {
+                position: "absolute",
+                right: "60px",
+                bottom: "70px",
+                fontSize: "320px",
+                opacity: 0.5,
+                lineHeight: 1,
+                filter: "drop-shadow(0 8px 40px rgba(0,0,0,0.5))",
+              },
+              children: emoji,
+            },
+          },
+          // Top row: brand pill + theme accent pill.
+          {
+            type: "div",
+            props: {
+              style: { display: "flex", gap: "12px", alignItems: "center", position: "relative", zIndex: 2 },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      background: "rgba(255,255,255,0.96)",
+                      color: theme.from,
+                      padding: "11px 22px",
+                      borderRadius: "999px",
+                      fontSize: "15px",
+                      fontWeight: "800",
+                      letterSpacing: "3px",
+                      boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+                    },
+                    children: "TURBO LOOP",
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      background: "rgba(15,23,42,0.55)",
+                      border: "1px solid rgba(255,255,255,0.25)",
+                      color: "rgba(255,255,255,0.95)",
+                      padding: "11px 22px",
+                      borderRadius: "999px",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      letterSpacing: "3px",
+                    },
+                    children: theme.accent,
+                  },
+                },
+              ],
+            },
+          },
+          // Spacer
+          { type: "div", props: { style: { flex: 1 } } },
+          // Headline + subtitle block.
+          {
+            type: "div",
+            props: {
+              style: { display: "flex", flexDirection: "column", gap: "20px", maxWidth: "920px", position: "relative", zIndex: 2 },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: `${fontSize}px`,
+                      fontWeight: "800",
+                      letterSpacing: "-2px",
+                      lineHeight: 1.05,
+                      textShadow: "0 8px 32px rgba(0,0,0,0.55)",
+                    },
+                    children: safeTitle,
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "26px",
+                      fontWeight: "500",
+                      color: "rgba(255,255,255,0.85)",
+                      letterSpacing: "-0.5px",
+                      lineHeight: 1.3,
+                    },
+                    children: subtitle || "",
+                  },
+                },
+              ],
+            },
+          },
+          // Footer strip — brand domain on the left, theme tagline on right.
+          {
+            type: "div",
+            props: {
+              style: {
+                marginTop: "46px",
+                paddingTop: "26px",
+                borderTop: "1px solid rgba(255,255,255,0.22)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                position: "relative",
+                zIndex: 2,
+              },
+              children: [
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "20px",
+                      fontWeight: "700",
+                      color: "rgba(255,255,255,0.95)",
+                      letterSpacing: "1.5px",
+                    },
+                    children: "turboloop.tech",
+                  },
+                },
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      fontSize: "18px",
+                      fontWeight: "600",
+                      color: "rgba(255,255,255,0.75)",
+                      letterSpacing: "1px",
+                      fontStyle: "italic",
+                    },
+                    children: theme.tagline || "",
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      width: 1200,
+      height: 630,
+      headers: {
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
+  );
+}
+
 export default async function handler(req) {
   const url = new URL(req.url);
   const type = url.searchParams.get("type") || "zoom";
@@ -550,6 +755,72 @@ export default async function handler(req) {
   // Content-aware blog banner — topic-detected palette + emoji per-post
   if (type === "blog") {
     return blogBanner(slug, title);
+  }
+
+  // Per-route page banners — share the same pageBanner() generator with
+  // theme-specific palette + copy. New types can be added by mirroring
+  // this block.
+  if (type === "calculator") {
+    return pageBanner(
+      "Yield Calculator",
+      "Run the numbers. See the projection.",
+      "📊",
+      TOPIC_THEMES.yield,
+    );
+  }
+  if (type === "community") {
+    return pageBanner(
+      "Global Community",
+      "Voices from 14+ countries across 6 continents.",
+      "🌍",
+      TOPIC_THEMES.community,
+    );
+  }
+  if (type === "security") {
+    return pageBanner(
+      "Security Architecture",
+      "Audited. Renounced. 100% LP locked. $100K bounty.",
+      "🛡",
+      TOPIC_THEMES.security,
+    );
+  }
+  if (type === "ecosystem") {
+    return pageBanner(
+      "The Ecosystem",
+      "Six pillars. One engine. Complete DeFi.",
+      "⚙️",
+      TOPIC_THEMES.ecosystem,
+    );
+  }
+  if (type === "films") {
+    return pageBanner(
+      "Cinematic Universe",
+      "20 films. 4 seasons. One story.",
+      "🎬",
+      {
+        from: "#0F172A",
+        via: "#7C3AED",
+        to: "#EC4899",
+        accent: "FILMS",
+        tagline: "From The Problem to The Movement.",
+      },
+    );
+  }
+  if (type === "creatives") {
+    return pageBanner(
+      "161+ Banners",
+      "Pre-designed. Ready to share. Free for the community.",
+      "🎨",
+      TOPIC_THEMES.creatives,
+    );
+  }
+  if (type === "blog-listing") {
+    return pageBanner(
+      "Editorial",
+      "Deep-dives on yield, security, and the math.",
+      "📖",
+      TOPIC_THEMES.default,
+    );
   }
 
   // Decide config (legacy path — kept for zoom + any unknown type fallback)

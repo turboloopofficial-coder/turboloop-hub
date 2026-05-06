@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "https://turboloop.tech/community",
     images: [
       {
-        url: "https://api.turboloop.tech/api/og-banner?type=launch",
+        url: "https://api.turboloop.tech/api/og-banner?type=community",
         width: 1200,
         height: 630,
         alt: COMMUNITY_OG_TITLE,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: COMMUNITY_OG_TITLE,
     description: COMMUNITY_OG_DESC,
-    images: ["https://api.turboloop.tech/api/og-banner?type=launch"],
+    images: ["https://api.turboloop.tech/api/og-banner?type=community"],
   },
 };
 

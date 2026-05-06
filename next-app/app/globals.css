@@ -428,6 +428,55 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   CALCULATOR PROJECTION ─ shimmer + scale-pulse on value change.
+   Used by app/calculator/page.tsx. Both keyframes are paint-only
+   (no layout) so the GPU handles them cheaply. Reduced-motion
+   users get the static end state.
+   ════════════════════════════════════════════════════════════ */
+@keyframes tl-shimmer-sweep {
+  0%   { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
+}
+.tl-shimmer-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.tl-shimmer-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 100%
+  );
+  transform: translateX(-110%);
+  animation: tl-shimmer-sweep 4.5s ease-in-out infinite;
+}
+
+@keyframes tl-value-pulse {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+.tl-value-pulse {
+  animation: tl-value-pulse 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+  display: inline-block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-shimmer-overlay::before { animation: none; opacity: 0; }
+  .tl-value-pulse { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
    BANNER CARD TOP ACCENT — 1 px gradient bar across the top of
    each /creatives card, drawn from the per-banner palette via
    --banner-accent-from/to inline custom props.

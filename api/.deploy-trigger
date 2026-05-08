@@ -1,0 +1,7 @@
+// Sentinel file. Touched whenever we need to nudge the api Vercel
+// project's GitHub webhook back to life — the project occasionally
+// stops auto-deploying and a path-touch inside api/ is the lightest
+// way to wake it up. No file extension so Vercel never tries to load
+// it as a Function.
+//
+// Last touched: 2026-05-08 — for og-banner pageBanner deploy.

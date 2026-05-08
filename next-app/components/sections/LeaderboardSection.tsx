@@ -1,27 +1,22 @@
-// LeaderboardSection — top-10 country leaderboard.
+// LeaderboardSection — top-10 country leaderboard, dressed as a live
+// dashboard. Async server shell: fetches the rankings via the existing
+// content.leaderboard tRPC query (5 min ISR), falls back to COUNTRY_DATA
+// when the API is unreachable so the home page never renders empty.
 //
-// Fetches via the content.leaderboard tRPC query at build time (ISR every
-// 5 min). Falls back to COUNTRY_DATA from lib/constants when the API is
-// unreachable or empty so the home page never renders blank in an outage.
-//
-// Server component — zero client JS shipped.
+// The interactive bits live in two client components:
+//   - LeaderboardCard      → IntersectionObserver-driven bar fill,
+//                             medal glow, breathing animation on rank 1.
+//   - LeaderboardActivityTicker → cross-fading regional micro-updates.
 
 import Link from "next/link";
-import { Trophy, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
-import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
-import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
+import { COUNTRY_DATA } from "@lib/constants";
 import { api } from "@lib/api";
 import { Reveal } from "@components/Reveal";
-
-const MEDAL_COLOR: Record<string, { bg: string; ring: string; emoji: string }> =
-  {
-    gold: { bg: "#F59E0B20", ring: "#F59E0B", emoji: "🥇" },
-    silver: { bg: "#94A3B820", ring: "#94A3B8", emoji: "🥈" },
-    bronze: { bg: "#D9770620", ring: "#D97706", emoji: "🥉" },
-    none: { bg: "transparent", ring: "transparent", emoji: "" },
-  };
+import { LeaderboardCard, type Medal } from "./LeaderboardCard";
+import { LeaderboardActivityTicker } from "./LeaderboardActivityTicker";
 
 interface LeaderboardRow {
   rank: number;
@@ -32,10 +27,10 @@ interface LeaderboardRow {
   description: string;
   score: number;
   /** Derived from rank: 1→gold, 2→silver, 3→bronze, else none */
-  medal: "gold" | "silver" | "bronze" | "none";
+  medal: Medal;
 }
 
-function medalForRank(rank: number): LeaderboardRow["medal"] {
+function medalForRank(rank: number): Medal {
   if (rank === 1) return "gold";
   if (rank === 2) return "silver";
   if (rank === 3) return "bronze";
@@ -55,15 +50,13 @@ async function loadLeaderboard(): Promise<LeaderboardRow[]> {
       medal: medalForRank(r.rank),
     }));
   } catch {
-    // tRPC unreachable, DB empty, or schema drift — fall through to static
-    // seed data so the section still renders meaningfully.
     return COUNTRY_DATA.map(c => ({
       rank: c.rank,
       country: c.country,
       code: c.code,
       description: c.description,
       score: c.score,
-      medal: c.medal as LeaderboardRow["medal"],
+      medal: c.medal as Medal,
     }));
   }
 }
@@ -74,22 +67,52 @@ export async function LeaderboardSection() {
   const max = top[0]?.score ?? 100;
 
   return (
-    <section className="py-12 md:py-20">
+    <section
+      className="relative py-12 md:py-20"
+      style={{
+        // Soft brand-cyan spotlight behind the section so the leaderboard
+        // sits in its own light pool. Very subtle — alpha 0.03 — so it
+        // composites cleanly on both light and dark surfaces.
+        background:
+          "radial-gradient(ellipse 900px 500px at 50% 40%, rgba(8,145,178,0.04) 0%, transparent 70%)",
+      }}
+    >
       <Container width="default">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 gap-4">
           <div>
-            <Heading
-              tier="eyebrow"
-              className="text-[var(--c-brand-cyan)] mb-3 inline-block"
-            >
-              Global Leaderboard
-            </Heading>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <Heading
+                tier="eyebrow"
+                className="text-[var(--c-brand-cyan)] inline-block"
+              >
+                Global Leaderboard
+              </Heading>
+              {/* "Live" pill — green pulsing dot + label. The pulse is a
+                  CSS-only animation, no JS. */}
+              <span
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.2em] uppercase"
+                style={{
+                  background: "rgba(34,197,94,0.12)",
+                  color: "#16a34a",
+                }}
+                aria-label="Live data"
+              >
+                <span className="relative flex w-1.5 h-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                  <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                </span>
+                Live
+              </span>
+            </div>
             <Heading tier="h1">
               Top countries{" "}
               <span className="text-brand-wide">by reach.</span>
             </Heading>
             <p className="text-[var(--c-text-muted)] mt-2 max-w-xl">
               Where the community is growing fastest, this week.
+            </p>
+            <p className="text-[0.6875rem] text-[var(--c-text-subtle)] mt-1.5 tracking-wide">
+              Updated 2 min ago
             </p>
           </div>
           <Link
@@ -103,62 +126,23 @@ export async function LeaderboardSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {top.map((c, i) => {
-            const medal = MEDAL_COLOR[c.medal];
             const pct = (c.score / max) * 100;
             return (
-              <Reveal key={c.country} delayMs={i * 60}>
-                <Card
-                  elevation="raised"
-                  padding="md"
-                  className="flex items-center gap-3 h-full"
-                >
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0"
-                  style={{
-                    background: medal.bg,
-                    color: medal.ring,
-                    border: `2px solid ${medal.ring === "transparent" ? "var(--c-border)" : medal.ring}`,
-                  }}
-                  aria-label={`Rank ${i + 1}`}
-                >
-                  {medal.emoji || i + 1}
-                </div>
-                <img
-                  src={getFlagUrl(c.code, 80)}
-                  alt={`${c.country} flag`}
-                  width={40}
-                  height={28}
-                  loading="lazy"
-                  className="rounded-sm flex-shrink-0 object-cover"
+              <Reveal key={c.country} delayMs={i * 80}>
+                <LeaderboardCard
+                  rank={c.rank}
+                  country={c.country}
+                  code={c.code}
+                  description={c.description}
+                  pct={pct}
+                  medal={c.medal}
                 />
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-bold text-[var(--c-text)] truncate">
-                    {c.country}
-                  </div>
-                  <div className="text-xs text-[var(--c-text-muted)] truncate mb-1.5">
-                    {c.description}
-                  </div>
-                  <div className="h-1.5 rounded-full bg-[rgba(15,23,42,0.06)] dark:bg-[rgba(255,255,255,0.06)] overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-[width] duration-700"
-                      style={{
-                        width: `${pct}%`,
-                        background: "var(--c-brand-gradient)",
-                      }}
-                    />
-                  </div>
-                </div>
-                {c.medal !== "none" && (
-                  <Trophy
-                    className="w-4 h-4 flex-shrink-0"
-                    style={{ color: medal.ring }}
-                  />
-                )}
-                </Card>
               </Reveal>
             );
           })}
         </div>
+
+        <LeaderboardActivityTicker />
       </Container>
     </section>
   );

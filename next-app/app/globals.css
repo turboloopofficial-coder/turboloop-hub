@@ -428,6 +428,49 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   LEADERBOARD — live-feel polish.
+   ─ tl-bar-shimmer:  thin moving sheen that runs across each
+     bar after it has filled. Looks like the bar is "breathing".
+   ─ tl-rank1-breathe: outer cyan glow that swells over 3 s on
+     the #1 rank card. Drama for the leader without being noisy.
+   Both honour prefers-reduced-motion.
+   ════════════════════════════════════════════════════════════ */
+@keyframes tl-bar-shimmer {
+  0%   { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
+}
+.tl-bar-shimmer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  transform: translateX(-110%);
+  animation: tl-bar-shimmer 2.4s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+@keyframes tl-rank1-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.18), 0 0 16px 0 rgba(8, 145, 178, 0.12); }
+  50%      { box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.45), 0 0 36px 6px rgba(8, 145, 178, 0.30); }
+}
+.tl-rank1-breathe {
+  animation: tl-rank1-breathe 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-bar-shimmer { animation: none; opacity: 0; }
+  .tl-rank1-breathe { animation: none; box-shadow: 0 0 0 1px rgba(8,145,178,0.25); }
+}
+
+/* ════════════════════════════════════════════════════════════
    CALCULATOR PROJECTION ─ shimmer + scale-pulse on value change.
    Used by app/calculator/page.tsx. Both keyframes are paint-only
    (no layout) so the GPU handles them cheaply. Reduced-motion

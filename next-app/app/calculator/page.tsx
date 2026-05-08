@@ -98,7 +98,7 @@ export default function CalculatorPage() {
           {/* ─── PROJECTION (right on desktop, top on mobile) ─── */}
           <div className="order-first md:order-last">
             <div
-              className="relative rounded-[var(--r-2xl)] p-7 md:p-10 overflow-hidden text-white shadow-[var(--s-xl)] h-full"
+              className="relative rounded-[var(--r-2xl)] p-6 md:p-10 overflow-hidden text-white shadow-[var(--s-xl)] h-full"
               style={{
                 background: "var(--c-brand-gradient-wide)",
                 backgroundSize: "200% 200%",
@@ -128,7 +128,7 @@ export default function CalculatorPage() {
                   <div className="text-sm text-white/80 mb-1.5">
                     After {plan.days} days
                   </div>
-                  <div className="text-4xl md:text-5xl font-extrabold leading-none tabular-nums">
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-none tabular-nums break-all">
                     <span key={`a-${pulseKey}`} className="tl-value-pulse">
                       ${fmt(result.planEnd)}
                     </span>
@@ -142,7 +142,7 @@ export default function CalculatorPage() {
                   <div className="text-sm text-white/80 mb-1.5">
                     If compounded for a full year
                   </div>
-                  <div className="text-2xl md:text-3xl font-extrabold leading-none tabular-nums">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-none tabular-nums break-all">
                     <span key={`b-${pulseKey}`} className="tl-value-pulse">
                       ${fmt(result.yearEnd)}
                     </span>
@@ -161,7 +161,7 @@ export default function CalculatorPage() {
               <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] mb-3">
                 1 · Pick your plan
               </div>
-              <div className="grid grid-cols-2 gap-2.5 mb-7">
+              <div className="grid grid-cols-2 gap-2 md:gap-2.5 mb-7">
                 {PLANS.map((p, i) => {
                   const Icon = p.icon;
                   const active = i === planIdx;
@@ -171,7 +171,7 @@ export default function CalculatorPage() {
                       onClick={() => setPlanIdx(i)}
                       type="button"
                       aria-pressed={active}
-                      className="relative text-left p-3.5 rounded-[var(--r-lg)] backdrop-blur-sm transition-[transform,box-shadow] duration-[var(--m-smooth)] ease-[var(--m-standard)] hover:-translate-y-0.5 active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)] focus-visible:ring-offset-2"
+                      className="relative text-left p-3 md:p-3.5 rounded-[var(--r-lg)] backdrop-blur-sm transition-[transform,box-shadow] duration-[var(--m-smooth)] ease-[var(--m-standard)] hover:-translate-y-0.5 active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)] focus-visible:ring-offset-2 min-w-0"
                       style={{
                         background: active
                           ? "color-mix(in oklab, var(--c-brand-cyan) 6%, var(--c-surface) 90%)"
@@ -210,13 +210,13 @@ export default function CalculatorPage() {
                           {p.days} days
                         </div>
                       </div>
-                      <div className="text-base font-bold text-[var(--c-text)]">
+                      <div className="text-sm md:text-base font-bold text-[var(--c-text)] truncate">
                         {p.label}
                       </div>
-                      <div className="text-sm font-bold text-brand mt-0.5">
+                      <div className="text-sm font-bold text-brand mt-0.5 tabular-nums">
                         Up to {(p.apy * 100).toFixed(0)}% APY
                       </div>
-                      <div className="text-[0.6875rem] text-[var(--c-text-muted)] mt-1.5 leading-snug line-clamp-2">
+                      <div className="text-[0.6875rem] text-[var(--c-text-muted)] mt-1.5 leading-snug line-clamp-2 hidden sm:block">
                         {p.blurb}
                       </div>
                     </button>

@@ -18,7 +18,7 @@ import { PageHero } from "@components/layout/PageHero";
 
 const SEC_OG_TITLE = "Security Architecture — TurboLoop";
 const SEC_OG_DESC = "Audited. Renounced. 100% LP Locked. $100K Bounty.";
-const SEC_OG_IMAGE = "https://api.turboloop.tech/api/og-banner?type=security";
+const SEC_OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=security";
 
 export const metadata: Metadata = {
   title: "Security — Audited, Renounced, LP-Locked",

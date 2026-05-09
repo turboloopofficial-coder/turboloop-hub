@@ -19,7 +19,7 @@ export const revalidate = 300; // 5 min
 const BLOG_OG_TITLE = "Editorial — TurboLoop";
 const BLOG_OG_DESC = "Deep-dives on yield, security, and the math.";
 const BLOG_OG_IMAGE =
-  "https://api.turboloop.tech/api/og-banner?type=blog-listing";
+  "https://www.turboloop.tech/api/og-banner?type=blog-listing";
 
 export const metadata: Metadata = {
   title: "Editorial — TurboLoop Blog",

@@ -94,7 +94,7 @@ export function blogOgBannerUrl(post: { slug: string; title: string }): string {
     slug: post.slug,
     title: post.title,
   });
-  return `https://api.turboloop.tech/api/og-banner?${params.toString()}`;
+  return `https://www.turboloop.tech/api/og-banner?${params.toString()}`;
 }
 
 /** Resolved cover image — author-set coverImage if present, else the

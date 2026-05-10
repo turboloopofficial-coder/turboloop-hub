@@ -38,7 +38,7 @@ export const RESOURCE_LINKS = [
   {
     label: "Creatives",
     href: "/creatives",
-    description: "161+ ready-to-share branded banners",
+    description: "Ready-to-share branded banners",
     emoji: "🎨",
   },
   {

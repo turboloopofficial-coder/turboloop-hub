@@ -15,7 +15,7 @@ import {
   CREATIVE_CATEGORIES,
 } from "@lib/creativesData";
 
-const TITLE = `${ALL_CREATIVES.length}+ Ready-to-Share Banners — TurboLoop`;
+const TITLE = "Ready-to-Share Banners — TurboLoop";
 const DESCRIPTION =
   "Pre-designed branded images with captions. Free for the community.";
 
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     url: "https://turboloop.tech/creatives",
     images: [
       {
-        url: "https://www.turboloop.tech/api/og-banner?type=creatives",
+        url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-creatives.png",
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["https://www.turboloop.tech/api/og-banner?type=creatives"],
+    images: ["https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-creatives.png"],
   },
 };
 
@@ -49,7 +49,7 @@ export default function CreativesPage() {
     <main className="relative pb-12 md:pb-20">
       <PageHero
         eyebrow="Branded Library"
-        title={`${ALL_CREATIVES.length} banners. Ready to share.`}
+        title="Premium banners. Ready to share."
         subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
       />
 

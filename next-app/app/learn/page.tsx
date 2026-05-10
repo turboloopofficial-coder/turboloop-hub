@@ -8,11 +8,28 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { LESSONS } from "@lib/defi101";
 
+const LEARN_OG_IMAGE =
+  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-learn.png";
+const LEARN_OG_TITLE = "Learn DeFi — Plain-English Explainers";
+const LEARN_OG_DESC =
+  "DeFi 101: short, beginner-friendly explainers on yield, smart contracts, stablecoins, and more. Zero jargon.";
+
 export const metadata: Metadata = {
-  title: "Learn DeFi — Plain-English Explainers",
-  description:
-    "DeFi 101: short, beginner-friendly explainers on yield, smart contracts, stablecoins, and more. Zero jargon.",
+  title: LEARN_OG_TITLE,
+  description: LEARN_OG_DESC,
   alternates: { canonical: "https://turboloop.tech/learn" },
+  openGraph: {
+    title: LEARN_OG_TITLE,
+    description: LEARN_OG_DESC,
+    url: "https://turboloop.tech/learn",
+    images: [{ url: LEARN_OG_IMAGE, width: 1200, height: 630, alt: LEARN_OG_TITLE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: LEARN_OG_TITLE,
+    description: LEARN_OG_DESC,
+    images: [LEARN_OG_IMAGE],
+  },
 };
 
 export default function LearnIndexPage() {

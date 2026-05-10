@@ -5,11 +5,28 @@ import type { Metadata } from "next";
 import { Container } from "@components/ui/Container";
 import { PageHero } from "@components/layout/PageHero";
 
+const FAQ_OG_IMAGE =
+  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-faq.png";
+const FAQ_OG_TITLE = "FAQ — Common Questions About TurboLoop";
+const FAQ_OG_DESC =
+  "What is TurboLoop? Where does the yield come from? Is it safe? How do I start? Plain answers, no fluff.";
+
 export const metadata: Metadata = {
-  title: "FAQ — Common Questions About TurboLoop",
-  description:
-    "What is TurboLoop? Where does the yield come from? Is it safe? How do I start? Plain answers, no fluff.",
+  title: FAQ_OG_TITLE,
+  description: FAQ_OG_DESC,
   alternates: { canonical: "https://turboloop.tech/faq" },
+  openGraph: {
+    title: FAQ_OG_TITLE,
+    description: FAQ_OG_DESC,
+    url: "https://turboloop.tech/faq",
+    images: [{ url: FAQ_OG_IMAGE, width: 1200, height: 630, alt: FAQ_OG_TITLE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: FAQ_OG_TITLE,
+    description: FAQ_OG_DESC,
+    images: [FAQ_OG_IMAGE],
+  },
 };
 
 const FAQS: Array<{ category: string; items: Array<{ q: string; a: string }> }> = [

@@ -6,11 +6,28 @@ import { Check, Zap, Compass } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { PageHero } from "@components/layout/PageHero";
 
+const ROADMAP_OG_IMAGE =
+  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-roadmap.png";
+const ROADMAP_OG_TITLE = "Roadmap — What's Built, What's Next";
+const ROADMAP_OG_DESC =
+  "TurboLoop is live and the smart contract is final. The roadmap is about reach, education, and community — not feature creep.";
+
 export const metadata: Metadata = {
-  title: "Roadmap — What's Built, What's Next",
-  description:
-    "TurboLoop is live and the smart contract is final. The roadmap is about reach, education, and community — not feature creep.",
+  title: ROADMAP_OG_TITLE,
+  description: ROADMAP_OG_DESC,
   alternates: { canonical: "https://turboloop.tech/roadmap" },
+  openGraph: {
+    title: ROADMAP_OG_TITLE,
+    description: ROADMAP_OG_DESC,
+    url: "https://turboloop.tech/roadmap",
+    images: [{ url: ROADMAP_OG_IMAGE, width: 1200, height: 630, alt: ROADMAP_OG_TITLE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ROADMAP_OG_TITLE,
+    description: ROADMAP_OG_DESC,
+    images: [ROADMAP_OG_IMAGE],
+  },
 };
 
 type Status = "done" | "live" | "next";

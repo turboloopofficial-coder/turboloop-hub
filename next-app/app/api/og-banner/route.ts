@@ -789,7 +789,7 @@ export async function GET(req: Request) {
     );
   if (type === "creatives")
     return pageBanner(
-      "161+ Banners",
+      "Creatives Library",
       "Pre-designed. Ready to share. Free for the community.",
       "🎨",
       TOPIC_THEMES.creatives,

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "https://turboloop.tech/community",
     images: [
       {
-        url: "https://www.turboloop.tech/api/og-banner?type=community",
+        url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-community.png",
         width: 1200,
         height: 630,
         alt: COMMUNITY_OG_TITLE,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: COMMUNITY_OG_TITLE,
     description: COMMUNITY_OG_DESC,
-    images: ["https://www.turboloop.tech/api/og-banner?type=community"],
+    images: ["https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-community.png"],
   },
 };
 

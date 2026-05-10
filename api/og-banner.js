@@ -808,7 +808,7 @@ export default async function handler(req) {
   }
   if (type === "creatives") {
     return pageBanner(
-      "161+ Banners",
+      "Creatives Library",
       "Pre-designed. Ready to share. Free for the community.",
       "🎨",
       TOPIC_THEMES.creatives,

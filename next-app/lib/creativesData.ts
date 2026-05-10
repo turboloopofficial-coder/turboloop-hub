@@ -52,6 +52,8 @@ const CATEGORY_DESCRIPTIONS: Record<string, string> = {
   "p10-ethics": "Leadership ethics in decentralized communities.",
   "monthly-projections":
     "Monthly contribution → projected balance, in English and German. Branded social-ready visuals for $50 to $50,000 / month.",
+  "hub-spotlight":
+    "Premium banners promoting specific Hub pages. Perfect for sharing links.",
 };
 
 /**
@@ -80,6 +82,7 @@ export const CREATIVE_CATEGORIES: CreativeCategoryDef[] = Array.from(
 // then pillars 1-10 by number, then the original lifestyle categories.
 const SORT_ORDER: string[] = [
   "monthly-projections",
+  "hub-spotlight",
   "p1-math", "p2-psychology", "p3-multiplier", "p4-risk", "p5-velocity",
   "p6-trust", "p7-arbitrage", "p8-legacy", "p9-inflation", "p10-ethics",
   "mythbuster", "product", "quickstart",

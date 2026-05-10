@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: "https://turboloop.tech/calculator",
     images: [
       {
-        url: "https://www.turboloop.tech/api/og-banner?type=calculator",
+        url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-calculator.png",
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["https://www.turboloop.tech/api/og-banner?type=calculator"],
+    images: ["https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-calculator.png"],
   },
 };
 

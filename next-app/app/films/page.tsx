@@ -20,7 +20,7 @@ import {
 
 const FILMS_OG_TITLE = "Cinematic Universe — TurboLoop";
 const FILMS_OG_DESC = "20 films. 4 seasons. One story.";
-const FILMS_OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=films";
+const FILMS_OG_IMAGE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-films.png";
 
 export const metadata: Metadata = {
   title: "Cinematic Universe — 20 Films Across 4 Seasons",

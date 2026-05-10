@@ -572,3 +572,686 @@ We didn't build this to look at. We built it so you have something to send when 
 
 Send it. Share it. Use the creatives. Translate them. Make it yours.`;
 }
+
+// =========================================================
+// HUB PROMOTION — daily page spotlight (14 pages × 3 variants = 42 total)
+// =========================================================
+// Premium banners stored in R2 under hub-promo/ folder. Each entry has:
+// page slug, url path, banner filename, pre-formatted HTML caption, and
+// the inline-keyboard button copy. pickByDay cycles through the full
+// 42-entry pool, so the rotation repeats every 6 weeks.
+
+const R2_BASE_HUB_PROMO = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+export interface HubPromoEntry {
+  page: string;
+  url: string;
+  /** filename inside the hub-promo/ folder on R2 */
+  banner: string;
+  /** pre-formatted HTML body (rendered with parseMode: "HTML") */
+  caption: string;
+  buttonText: string;
+  buttonUrl: string;
+}
+
+export const HUB_PROMOTION_POOL: HubPromoEntry[] = [
+  // ── Day 1: Yield Calculator (Variant A) ──
+  {
+    page: "calculator",
+    url: "/calculator",
+    banner: "hub-promo-calculator.png",
+    caption: `<b>📊 WHAT DOES YOUR NUMBER LOOK LIKE?</b>
+
+Everyone talks about compounding. Few actually run the numbers for their own situation.
+
+$100/month. $500/month. $5,000/month.
+The math doesn't care about your starting point — it rewards consistency.
+
+#TurboLoop #YieldCalculator #Compounding #DeFi #OnChain #FinancialFreedom`,
+    buttonText: "📊 Run your projection",
+    buttonUrl: "https://turboloop.tech/calculator",
+  },
+  // ── Day 1: Yield Calculator (Variant B) ──
+  {
+    page: "calculator",
+    url: "/calculator",
+    banner: "hub-promo-calculator.png",
+    caption: `<b>⚡ THE CALCULATOR DOESN'T LIE</b>
+
+No promises. No projections we control. Just the public yield model from PancakeSwap V3 — applied to whatever amount you choose.
+
+Pick your deposit. See the curve. Decide for yourself.
+
+#TurboLoop #Compounding #StableYield #Transparency #Calculator`,
+    buttonText: "⚡ See the curve",
+    buttonUrl: "https://turboloop.tech/calculator",
+  },
+  // ── Day 1: Yield Calculator (Variant C) ──
+  {
+    page: "calculator",
+    url: "/calculator",
+    banner: "hub-promo-calculator.png",
+    caption: `<b>🧮 MOST PEOPLE GUESS. SMART PEOPLE CALCULATE.</b>
+
+What does $1,000/month look like after 12 months of compounding at stable LP fees?
+
+The answer isn't what you expect.
+It's better.
+
+#TurboLoop #CompoundInterest #DeFi #WealthBuilding #Mathematics`,
+    buttonText: "🧮 Calculate now",
+    buttonUrl: "https://turboloop.tech/calculator",
+  },
+  // ── Day 2: Security Architecture (Variant A) ──
+  {
+    page: "security",
+    url: "/security",
+    banner: "hub-promo-security.png",
+    caption: `<b>🔐 THREE QUESTIONS BEFORE YOU TRUST ANYTHING WITH YOUR MONEY:</b>
+
+1. Can anyone freeze your funds?
+2. Is the code public and audited?
+3. Are there admin keys?
+
+TurboLoop: No. Yes. No.
+
+#TurboLoop #Security #SmartContract #Audited #Renounced #DeFiSafety`,
+    buttonText: "🔐 See security architecture",
+    buttonUrl: "https://turboloop.tech/security",
+  },
+  // ── Day 2: Security Architecture (Variant B) ──
+  {
+    page: "security",
+    url: "/security",
+    banner: "hub-promo-security.png",
+    caption: `<b>🛡️ YOUR BANK CAN FREEZE YOUR ACCOUNT TOMORROW.</b>
+
+No warning. No explanation. Legal in most countries.
+
+TurboLoop's smart contract is renounced. Immutable. No admin keys. No kill switch. No one — including us — can touch your funds.
+
+#TurboLoop #Decentralized #NoAdminKeys #Immutable #OnChain`,
+    buttonText: "🛡️ Verify it yourself",
+    buttonUrl: "https://turboloop.tech/security",
+  },
+  // ── Day 2: Security Architecture (Variant C) ──
+  {
+    page: "security",
+    url: "/security",
+    banner: "hub-promo-security.png",
+    caption: `<b>⚖️ "BUT IS IT SAFE?"</b>
+
+The most important question. And the one most projects avoid answering clearly.
+
+We don't avoid it. We built an entire page around it.
+
+Audits. Renounced ownership. Locked liquidity. Zero admin access.
+
+#TurboLoop #Security #Transparency #Audited #TrustVerify`,
+    buttonText: "⚖️ Read the breakdown",
+    buttonUrl: "https://turboloop.tech/security",
+  },
+  // ── Day 3: Global Community (Variant A) ──
+  {
+    page: "community",
+    url: "/community",
+    banner: "hub-promo-community.png",
+    caption: `<b>🌍 14+ COUNTRIES. 6 CONTINENTS. ONE PROTOCOL.</b>
+
+From Lagos to London. From Jakarta to São Paulo. The same smart contract serves everyone equally.
+
+No geographic restrictions. No tier-based access. Same math, same opportunity.
+
+#TurboLoop #GlobalCommunity #DeFi #FinancialInclusion #Borderless`,
+    buttonText: "🌍 See the global map",
+    buttonUrl: "https://turboloop.tech/community",
+  },
+  // ── Day 3: Global Community (Variant B) ──
+  {
+    page: "community",
+    url: "/community",
+    banner: "hub-promo-community.png",
+    caption: `<b>📡 THE MAP IS GROWING EVERY WEEK.</b>
+
+Germany leads Europe. Nigeria leads Africa. Indonesia leads Southeast Asia. India is accelerating.
+
+Where does your country stand?
+
+#TurboLoop #Community #Global #Leaderboard #Growth`,
+    buttonText: "📡 Check the leaderboard",
+    buttonUrl: "https://turboloop.tech/community",
+  },
+  // ── Day 3: Global Community (Variant C) ──
+  {
+    page: "community",
+    url: "/community",
+    banner: "hub-promo-community.png",
+    caption: `<b>🤝 YOU'RE NOT ALONE IN THIS.</b>
+
+Thousands of people across 14+ countries made the same decision you're considering.
+
+They verified. They calculated. They joined.
+
+#TurboLoop #Community #SocialProof #Together #DeFi`,
+    buttonText: "🤝 Meet the community",
+    buttonUrl: "https://turboloop.tech/community",
+  },
+  // ── Day 4: Cinematic Films (Variant A) ──
+  {
+    page: "films",
+    url: "/films",
+    banner: "hub-promo-films.png",
+    caption: `<b>🎬 HAVE YOU WATCHED THE FILMS YET?</b>
+
+20 episodes. 4 seasons. Each one explains a different piece of the TurboLoop system — in cinematic quality.
+
+Not a webinar. Not a slideshow. A film series.
+
+#TurboLoop #CinematicUniverse #DeFiFilms #Education #Watch`,
+    buttonText: "🎬 Watch now",
+    buttonUrl: "https://turboloop.tech/films",
+  },
+  // ── Day 4: Cinematic Films (Variant B) ──
+  {
+    page: "films",
+    url: "/films",
+    banner: "hub-promo-films.png",
+    caption: `<b>🎥 MOST PROJECTS WRITE WHITEPAPERS.</b>
+
+We made films.
+
+4 seasons of cinematic content explaining compounding, security, network effects, and the global revolution — in a format you actually want to watch.
+
+#TurboLoop #Films #CinematicSeries #DeFiEducation #Visual`,
+    buttonText: "🎥 Start Season 1",
+    buttonUrl: "https://turboloop.tech/films",
+  },
+  // ── Day 4: Cinematic Films (Variant C) ──
+  {
+    page: "films",
+    url: "/films",
+    banner: "hub-promo-films.png",
+    caption: `<b>📽️ 60 SECONDS TO UNDERSTAND TURBOLOOP.</b>
+
+Don't read. Watch.
+
+Each film is crafted to explain one concept clearly, beautifully, and without jargon.
+
+#TurboLoop #ShortFilms #Cinematic #LearnDeFi #Visual`,
+    buttonText: "📽️ Pick any episode",
+    buttonUrl: "https://turboloop.tech/films",
+  },
+  // ── Day 5: Creative Banners (Variant A) ──
+  {
+    page: "creatives",
+    url: "/creatives",
+    banner: "hub-promo-creatives.png",
+    caption: `<b>🎨 161 BANNERS. READY TO SHARE.</b>
+
+Monthly projections. Security visuals. Community graphics. Ecosystem explainers.
+
+Download any banner. Share it with your network. The message is already written for you.
+
+#TurboLoop #Creatives #Marketing #ShareReady #Community`,
+    buttonText: "🎨 Browse all",
+    buttonUrl: "https://turboloop.tech/creatives",
+  },
+  // ── Day 5: Creative Banners (Variant B) ──
+  {
+    page: "creatives",
+    url: "/creatives",
+    banner: "hub-promo-creatives.png",
+    caption: `<b>📱 YOUR NEXT WHATSAPP STATUS IS READY.</b>
+
+Pick a banner. Tap share. Done.
+
+161 premium visuals with pre-written captions — designed for Telegram, WhatsApp, Instagram, and X.
+
+No design skills needed.
+
+#TurboLoop #Banners #SocialMedia #ShareReady #Premium`,
+    buttonText: "📱 Get yours",
+    buttonUrl: "https://turboloop.tech/creatives",
+  },
+  // ── Day 5: Creative Banners (Variant C) ──
+  {
+    page: "creatives",
+    url: "/creatives",
+    banner: "hub-promo-creatives.png",
+    caption: `<b>🖼️ WANT TO SHARE TURBOLOOP BUT DON'T KNOW WHAT TO SAY?</b>
+
+We solved that.
+
+Every banner comes with a compelling caption, hashtags, and a clear message. Just tap Share and pick where to send it.
+
+161 options waiting.
+
+#TurboLoop #Creatives #EasySharing #Community #Marketing`,
+    buttonText: "🖼️ Pick a banner",
+    buttonUrl: "https://turboloop.tech/creatives",
+  },
+  // ── Day 6: Ecosystem (Variant A) ──
+  {
+    page: "ecosystem",
+    url: "/ecosystem",
+    banner: "hub-promo-ecosystem.png",
+    caption: `<b>🔄 THE FULL PICTURE — IN ONE PAGE.</b>
+
+How does the yield come from PancakeSwap V3?
+How does the 20-level network work?
+Where does every dollar flow?
+
+One page. Complete clarity.
+
+#TurboLoop #Ecosystem #HowItWorks #Transparency #DeFi`,
+    buttonText: "🔄 Explore",
+    buttonUrl: "https://turboloop.tech/ecosystem",
+  },
+  // ── Day 6: Ecosystem (Variant B) ──
+  {
+    page: "ecosystem",
+    url: "/ecosystem",
+    banner: "hub-promo-ecosystem.png",
+    caption: `<b>🧩 EVER WONDER WHERE THE YIELD ACTUALLY COMES FROM?</b>
+
+Not from new deposits. Not from recruitment. From PancakeSwap V3 trading fees — generated by millions of real trades every day.
+
+The ecosystem page breaks it all down. Visually.
+
+#TurboLoop #RealYield #PancakeSwap #Ecosystem #Transparency`,
+    buttonText: "🧩 See the flow",
+    buttonUrl: "https://turboloop.tech/ecosystem",
+  },
+  // ── Day 6: Ecosystem (Variant C) ──
+  {
+    page: "ecosystem",
+    url: "/ecosystem",
+    banner: "hub-promo-ecosystem.png",
+    caption: `<b>⚙️ MOST PROTOCOLS HIDE THE PLUMBING.</b>
+
+We made it the main page.
+
+Smart contract → PancakeSwap V3 → LP fees → Auto-compound → Your wallet. Every step visible. Every transaction traceable.
+
+#TurboLoop #Ecosystem #OnChain #Verifiable #DeFi`,
+    buttonText: "⚙️ See how it works",
+    buttonUrl: "https://turboloop.tech/ecosystem",
+  },
+  // ── Day 7: Blog (Variant A) ──
+  {
+    page: "blog",
+    url: "/blog",
+    banner: "hub-promo-blog.png",
+    caption: `<b>📚 DEEP DIVES THAT ACTUALLY MATTER.</b>
+
+Not fluff. Not hype. Real analysis of stablecoin yields, compounding mathematics, and on-chain transparency.
+
+Written for people who think before they invest.
+
+#TurboLoop #Blog #DeFiEducation #Research #Knowledge`,
+    buttonText: "📚 Read",
+    buttonUrl: "https://turboloop.tech/blog",
+  },
+  // ── Day 7: Blog (Variant B) ──
+  {
+    page: "blog",
+    url: "/blog",
+    banner: "hub-promo-blog.png",
+    caption: `<b>🔬 RESEARCH YOU CAN ACTUALLY VERIFY.</b>
+
+Every claim in our blog links to an on-chain source. Every number is traceable. Every statement is falsifiable.
+
+That's the standard we hold ourselves to.
+
+#TurboLoop #Blog #OnChain #Transparency #Research`,
+    buttonText: "🔬 Read the latest",
+    buttonUrl: "https://turboloop.tech/blog",
+  },
+  // ── Day 7: Blog (Variant C) ──
+  {
+    page: "blog",
+    url: "/blog",
+    banner: "hub-promo-blog.png",
+    caption: `<b>📖 THE BLOG ISN'T MARKETING. IT'S EDUCATION.</b>
+
+We write about what matters: how compounding works, why security architecture matters, what makes real yield different from Ponzi yield.
+
+No sales pitch. Just signal.
+
+#TurboLoop #Blog #Education #Signal #DeFi`,
+    buttonText: "📖 Start reading",
+    buttonUrl: "https://turboloop.tech/blog",
+  },
+  // ── Day 8: Roadmap (Variant A) ──
+  {
+    page: "roadmap",
+    url: "/roadmap",
+    banner: "hub-promo-roadmap.png",
+    caption: `<b>🗺️ WHAT'S COMING NEXT?</b>
+
+The Hub is live. The calculator works. The films are streaming. The community is growing.
+
+But we're just getting started.
+
+#TurboLoop #Roadmap #Future #Building #DeFi`,
+    buttonText: "🗺️ See the roadmap",
+    buttonUrl: "https://turboloop.tech/roadmap",
+  },
+  // ── Day 8: Roadmap (Variant B) ──
+  {
+    page: "roadmap",
+    url: "/roadmap",
+    banner: "hub-promo-roadmap.png",
+    caption: `<b>🚧 BUILT IN PUBLIC. SHIPPED IN PUBLIC.</b>
+
+Every milestone we hit, you see it. Every feature we plan, you know about it before it ships.
+
+That's what "built in public" actually means.
+
+#TurboLoop #Roadmap #BuildInPublic #Transparency #Shipping`,
+    buttonText: "🚧 See what's next",
+    buttonUrl: "https://turboloop.tech/roadmap",
+  },
+  // ── Day 8: Roadmap (Variant C) ──
+  {
+    page: "roadmap",
+    url: "/roadmap",
+    banner: "hub-promo-roadmap.png",
+    caption: `<b>📍 THE JOURNEY ISN'T OVER. IT'S ACCELERATING.</b>
+
+Phase 1: Protocol live ✓
+Phase 2: Hub launched ✓
+Phase 3: Global expansion ← you are here
+
+What comes after? The roadmap tells all.
+
+#TurboLoop #Roadmap #Growth #Milestones #DeFi`,
+    buttonText: "📍 View the timeline",
+    buttonUrl: "https://turboloop.tech/roadmap",
+  },
+  // ── Day 9: FAQ (Variant A) ──
+  {
+    page: "faq",
+    url: "/faq",
+    banner: "hub-promo-faq.png",
+    caption: `<b>❓ EVERY QUESTION. ANSWERED.</b>
+
+"Is it a Ponzi?" — No. Here's why.
+"Can I lose my money?" — Here's the risk breakdown.
+"How do I withdraw?" — Anytime. No lock-up.
+
+40+ questions, zero BS.
+
+#TurboLoop #FAQ #Questions #Transparency #Honest`,
+    buttonText: "❓ Read the FAQ",
+    buttonUrl: "https://turboloop.tech/faq",
+  },
+  // ── Day 9: FAQ (Variant B) ──
+  {
+    page: "faq",
+    url: "/faq",
+    banner: "hub-promo-faq.png",
+    caption: `<b>🤔 STILL HAVE DOUBTS? GOOD.</b>
+
+Doubt is healthy. Skepticism is smart. We don't want blind believers — we want informed participants.
+
+That's why we answered 40+ hard questions publicly. Including the uncomfortable ones.
+
+#TurboLoop #FAQ #Skepticism #DYOR #Transparency`,
+    buttonText: "🤔 Get answers",
+    buttonUrl: "https://turboloop.tech/faq",
+  },
+  // ── Day 9: FAQ (Variant C) ──
+  {
+    page: "faq",
+    url: "/faq",
+    banner: "hub-promo-faq.png",
+    caption: `<b>💬 THE QUESTIONS EVERYONE ASKS (BUT FEW PROJECTS ANSWER)</b>
+
+"Where does the yield come from?"
+"What happens if PancakeSwap goes down?"
+"Can the team rug?"
+
+We answer them all. Publicly. Permanently.
+
+#TurboLoop #FAQ #HardQuestions #Transparency #DeFi`,
+    buttonText: "💬 See all answers",
+    buttonUrl: "https://turboloop.tech/faq",
+  },
+  // ── Day 10: Leaderboard (Variant A) ──
+  {
+    page: "leaderboard",
+    url: "/#leaderboard",
+    banner: "hub-promo-leaderboard.png",
+    caption: `<b>🏆 WHO'S LEADING THIS WEEK?</b>
+
+The global leaderboard updates in real-time. Countries competing. Communities growing. Numbers climbing.
+
+Is your country on the board?
+
+#TurboLoop #Leaderboard #Competition #Global #Community`,
+    buttonText: "🏆 Check rankings",
+    buttonUrl: "https://turboloop.tech/#leaderboard",
+  },
+  // ── Day 10: Leaderboard (Variant B) ──
+  {
+    page: "leaderboard",
+    url: "/#leaderboard",
+    banner: "hub-promo-leaderboard.png",
+    caption: `<b>📊 THE NUMBERS DON'T LIE. THE LEADERBOARD PROVES IT.</b>
+
+Real deposits. Real countries. Real growth — tracked live on the homepage.
+
+Some countries are sprinting. Others are just waking up. Where's yours?
+
+#TurboLoop #Leaderboard #LiveData #Global #Growth`,
+    buttonText: "📊 See live rankings",
+    buttonUrl: "https://turboloop.tech/#leaderboard",
+  },
+  // ── Day 10: Leaderboard (Variant C) ──
+  {
+    page: "leaderboard",
+    url: "/#leaderboard",
+    banner: "hub-promo-leaderboard.png",
+    caption: `<b>🥇 FRIENDLY COMPETITION. GLOBAL SCALE.</b>
+
+Germany vs Nigeria. Indonesia vs Turkey. India vs Brazil.
+
+The leaderboard isn't just numbers — it's communities proving what's possible.
+
+#TurboLoop #Leaderboard #Countries #Competition #DeFi`,
+    buttonText: "🥇 Join the race",
+    buttonUrl: "https://turboloop.tech/#leaderboard",
+  },
+  // ── Day 11: Calculator German (Variant A) ──
+  {
+    page: "calculator-de",
+    url: "/calculator",
+    banner: "hub-promo-calculator-de.png",
+    caption: `<b>🇩🇪 RECHNE SELBST NACH.</b>
+
+Kein Versprechen. Keine Garantie. Nur die öffentliche Rendite aus PancakeSwap V3 — angewandt auf deinen Betrag.
+
+Wähle deine Einzahlung. Sieh die Kurve. Entscheide selbst.
+
+#TurboLoop #Zinseszins #Rendite #DeFi #Transparenz #Rechner`,
+    buttonText: "💸 Rendite-Rechner öffnen",
+    buttonUrl: "https://turboloop.tech/calculator",
+  },
+  // ── Day 11: Calculator German (Variant B) ──
+  {
+    page: "calculator-de",
+    url: "/calculator",
+    banner: "hub-promo-calculator-de.png",
+    caption: `<b>🇩🇪 DIE MEISTEN RATEN. KLUGE LEUTE RECHNEN.</b>
+
+Was passiert mit 500€/Monat nach 12 Monaten Zinseszins bei stabilen LP-Gebühren?
+
+Die Antwort überrascht. Positiv.
+
+#TurboLoop #Zinseszins #Rechner #DeFi #Rendite #Deutschland`,
+    buttonText: "🧮 Jetzt berechnen",
+    buttonUrl: "https://turboloop.tech/calculator",
+  },
+  // ── Day 11: Calculator German (Variant C) ──
+  {
+    page: "calculator-de",
+    url: "/calculator",
+    banner: "hub-promo-calculator-de.png",
+    caption: `<b>🇩🇪 DEINE ZAHLEN. DEINE ENTSCHEIDUNG.</b>
+
+Der Rendite-Rechner zeigt dir genau, was Zinseszins mit deinem Betrag macht. Keine Versprechen — nur Mathematik.
+
+100€, 500€ oder 5.000€/Monat? Die Kurve spricht für sich.
+
+#TurboLoop #Zinseszins #Mathematik #DeFi #Transparenz #Rechner`,
+    buttonText: "📊 Rechner öffnen",
+    buttonUrl: "https://turboloop.tech/calculator",
+  },
+  // ── Day 12: Code Is Law Film (Variant A) ──
+  {
+    page: "code-is-law",
+    url: "/films/code-is-law",
+    banner: "hub-promo-code-is-law.png",
+    caption: `<b>🎬 EMPFEHLUNG: "CODE IS LAW"</b>
+
+Season 3, Episode 1.
+
+"You don't trust. You verify."
+
+Every line of code is public. Every transaction is traceable. This film explains why that matters more than any promise ever could.
+
+#TurboLoop #CodeIsLaw #Transparency #Film #Verify`,
+    buttonText: "🎬 Watch now",
+    buttonUrl: "https://turboloop.tech/films/code-is-law",
+  },
+  // ── Day 12: Code Is Law Film (Variant B) ──
+  {
+    page: "code-is-law",
+    url: "/films/code-is-law",
+    banner: "hub-promo-code-is-law.png",
+    caption: `<b>📜 "YOU DON'T TRUST. YOU VERIFY."</b>
+
+The single most important principle in DeFi — explained in under 2 minutes.
+
+If you watch one TurboLoop film, make it this one.
+
+#TurboLoop #CodeIsLaw #Verify #DeFi #Film #Trust`,
+    buttonText: "📜 Watch the film",
+    buttonUrl: "https://turboloop.tech/films/code-is-law",
+  },
+  // ── Day 12: Code Is Law Film (Variant C) ──
+  {
+    page: "code-is-law",
+    url: "/films/code-is-law",
+    banner: "hub-promo-code-is-law.png",
+    caption: `<b>⚖️ IN DEFI, THE CODE IS THE CONTRACT.</b>
+
+No lawyers. No fine print. No "terms may change." The smart contract does exactly what it says — forever.
+
+This film shows you why that's revolutionary.
+
+#TurboLoop #CodeIsLaw #SmartContract #Immutable #Film`,
+    buttonText: "⚖️ Watch",
+    buttonUrl: "https://turboloop.tech/films/code-is-law",
+  },
+  // ── Day 13: Apply / Join (Variant A) ──
+  {
+    page: "apply",
+    url: "/apply",
+    banner: "hub-promo-apply.png",
+    caption: `<b>🚀 YOUR SPOT IS OPEN.</b>
+
+The protocol doesn't wait. The yield compounds daily. The community grows hourly.
+
+The only thing missing is your decision.
+
+#TurboLoop #JoinNow #DeFi #Opportunity #StartToday`,
+    buttonText: "🚀 Apply now",
+    buttonUrl: "https://turboloop.tech/apply",
+  },
+  // ── Day 13: Apply / Join (Variant B) ──
+  {
+    page: "apply",
+    url: "/apply",
+    banner: "hub-promo-apply.png",
+    caption: `<b>🚪 THE DOOR IS OPEN. BUT NOT FOREVER.</b>
+
+Every day you wait, the compounding curve starts one day later. The math is simple: earlier = more.
+
+The application takes 2 minutes.
+
+#TurboLoop #Apply #Compounding #DeFi #StartNow`,
+    buttonText: "🚪 Start your application",
+    buttonUrl: "https://turboloop.tech/apply",
+  },
+  // ── Day 13: Apply / Join (Variant C) ──
+  {
+    page: "apply",
+    url: "/apply",
+    banner: "hub-promo-apply.png",
+    caption: `<b>⏰ THE BEST TIME WAS YESTERDAY. THE SECOND BEST IS NOW.</b>
+
+You've read the blog. You've watched the films. You've run the calculator.
+
+Now what?
+
+#TurboLoop #Apply #Decision #DeFi #Action`,
+    buttonText: "⏰ Take the next step",
+    buttonUrl: "https://turboloop.tech/apply",
+  },
+  // ── Day 14: Learn Hub (Variant A) ──
+  {
+    page: "learn",
+    url: "/learn",
+    banner: "hub-promo-learn.png",
+    caption: `<b>🎓 NEW HERE? START WITH THIS.</b>
+
+The Learn Hub walks you through everything — step by step. No jargon. No assumptions. Just clarity.
+
+From "What is DeFi?" to "How do I compound?" — all covered.
+
+#TurboLoop #Learn #Education #Beginner #DeFi #StartHere`,
+    buttonText: "🎓 Begin learning",
+    buttonUrl: "https://turboloop.tech/learn",
+  },
+  // ── Day 14: Learn Hub (Variant B) ──
+  {
+    page: "learn",
+    url: "/learn",
+    banner: "hub-promo-learn.png",
+    caption: `<b>📘 DON'T INVEST IN WHAT YOU DON'T UNDERSTAND.</b>
+
+That's rule #1. And we take it seriously.
+
+The Learn Hub exists so you never have to invest blind. Every concept, explained simply.
+
+#TurboLoop #Learn #DYOR #Education #Understanding`,
+    buttonText: "📘 Start here",
+    buttonUrl: "https://turboloop.tech/learn",
+  },
+  // ── Day 14: Learn Hub (Variant C) ──
+  {
+    page: "learn",
+    url: "/learn",
+    banner: "hub-promo-learn.png",
+    caption: `<b>🧠 FROM ZERO TO DEFI IN 10 MINUTES.</b>
+
+The Learn Hub is designed for complete beginners. No crypto jargon. No assumed knowledge. Just a clear path from "I'm curious" to "I understand."
+
+#TurboLoop #Learn #Beginner #DeFi #Education #FromZero`,
+    buttonText: "🧠 Start your journey",
+    buttonUrl: "https://turboloop.tech/learn",
+  },
+];
+
+/** Pick today's hub promo — cycles through all 42 entries deterministically
+ *  via pickByDay so each entry fires exactly once per 42-day window. */
+export function pickTodaysHubPromo(): HubPromoEntry {
+  return pickByDay(HUB_PROMOTION_POOL);
+}
+
+/** R2 URL for an entry's banner (CDN-cached, 1y immutable). */
+export function hubPromoBannerUrl(promo: HubPromoEntry): string {
+  return `${R2_BASE_HUB_PROMO}/hub-promo/${promo.banner}`;
+}

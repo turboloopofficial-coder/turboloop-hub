@@ -1,6 +1,8 @@
 // Master scheduler — runs every 5 minutes via cron-job.org pinger.
 //
-// Daily cadence (5 messages/day):
+// Daily cadence (6 messages/day):
+//   0. Hub page promotion                    — 09:00 UTC (= 2:30 PM IST)
+//      Rotates 14 pages × 3 caption variants = 42-day cycle.
 //   1. Monthly Compounding banner            — 12:00 UTC (= 5:30 PM IST)
 //      Alternates EN/DE by day-of-year parity, cycles $50→$50,000.
 //   2. Daily blog publish + Telegram announce — 14:00 UTC (= 7:30 PM IST)
@@ -21,7 +23,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings } from "../../drizzle/schema";
 import { tgBroadcastPhoto } from "./_telegram";
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { ZOOM_EN, ZOOM_HI } from "../../shared/zoomEvents";
 
 // Public-facing host. Used in Telegram message bodies and "Visit / Read /
@@ -32,7 +34,7 @@ const SITE = "https://turboloop.tech";
 // not on the new Next.js app at turboloop.tech. Telegram fetches photoUrl
 // server-side, so it MUST resolve to the host that actually serves the PNG.
 // Public-facing URLs in captions/buttons stay on SITE.
-const BANNER_HOST = "https://api.turboloop.tech";
+const BANNER_HOST = "https://www.turboloop.tech";
 
 // One-shot launch announcement target — fires at this UTC moment, then never again.
 // Format: ISO 8601. The cron pings every 5 min so actual fire is within 5 min of this.
@@ -160,6 +162,21 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         await markFiredEver(db, "launch:announcement");
         log.push(`🚀 Launch announcement fired (target ${LAUNCH_FIRE_AT_UTC})`);
       }
+    }
+
+    // ============ 0. HUB PROMOTION: 09:00 UTC = 2:30 PM IST ============
+    // Rotates through 14 Hub pages × 3 caption variants = 42-day cycle.
+    // Each post drives traffic to a specific page with a premium banner.
+    if (isInWindow(9, 0) && !(await hasFiredToday(db, "hubPromo"))) {
+      const promo = pickTodaysHubPromo();
+      await tgBroadcastPhoto({
+        photoUrl: hubPromoBannerUrl(promo),
+        caption: promo.caption,
+        parseMode: "HTML",
+        buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+      });
+      await markFired(db, "hubPromo");
+      log.push(`🌐 Hub promo — ${promo.page}`);
     }
 
     // ============ 1. MONTHLY COMPOUNDING BANNER: 12:00 UTC = 5:30 PM IST ============

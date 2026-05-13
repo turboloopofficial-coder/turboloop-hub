@@ -48,7 +48,7 @@ const PROGRAMS: Array<{
     icon: Mic,
     headline: "$100/month to host weekly Zoom sessions.",
     description:
-      "Lead a community in your language. We provide the deck, the schedule, and the support — you bring the energy.",
+      "Lead a community in your language. We provide the deck, the schedule, and the support — you bring the energy. For physical meetup sponsorship and the full Local Presenter Program, visit /events.",
     bodyLabel: "Tell us about you",
     bodyPlaceholder:
       "What languages can you host in? Have you done public speaking / streaming before? Roughly how many people are in your local crypto community?",
@@ -201,6 +201,14 @@ export default function ApplyPage() {
                 <p className="text-sm text-[var(--c-text-muted)] mt-1.5 leading-relaxed max-w-md mx-auto">
                   {current.description}
                 </p>
+                {current.id === "presenter_apply" && (
+                  <Link
+                    href="/events"
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline mt-3"
+                  >
+                    Full Local Presenter Program & meetup funding →
+                  </Link>
+                )}
               </div>
             </div>
 

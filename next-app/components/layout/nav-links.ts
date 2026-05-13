@@ -11,6 +11,7 @@
 export const PRIMARY_LINKS = [
   { label: "Ecosystem", href: "/ecosystem" },
   { label: "Community", href: "/community" },
+  { label: "Events", href: "/events" },
   { label: "Blog", href: "/blog" },
   { label: "Security", href: "/security" },
   { label: "Films", href: "/films" },

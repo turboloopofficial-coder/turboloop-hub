@@ -299,12 +299,13 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
       .mutation(async ({ input }) => {
         const created = await createEventApplication(input);
 
-        // Telegram support notification — fire-and-forget. The DB write
-        // is the source of truth; if Telegram is misconfigured or down,
-        // ops still sees the row in the admin dashboard.
+        // Telegram support notification — fire-and-forget, routed ONLY
+        // to the dedicated support group. The DB write is the source of
+        // truth; if TELEGRAM_SUPPORT_CHAT isn't configured, we skip the
+        // notification silently rather than spilling event applications
+        // into the public announcement channel or main chat.
         const token = process.env.TELEGRAM_BOT_TOKEN;
-        const supportChatId =
-          process.env.TELEGRAM_SUPPORT_CHAT || process.env.TELEGRAM_CHAT;
+        const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT;
         if (token && supportChatId) {
           const { tgSendMessage } = await import("./_vercel/_telegram");
           const msg =

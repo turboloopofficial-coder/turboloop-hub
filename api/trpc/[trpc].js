@@ -100560,7 +100560,7 @@ ${cleaned.slice(0, 500)}`
     })).mutation(async ({ input }) => {
       const created = await createEventApplication(input);
       const token = process.env.TELEGRAM_BOT_TOKEN;
-      const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT || process.env.TELEGRAM_CHAT;
+      const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT;
       if (token && supportChatId) {
         const { tgSendMessage: tgSendMessage2 } = await Promise.resolve().then(() => (init_telegram(), telegram_exports));
         const msg = `\u{1F389} <b>New Event Application</b>

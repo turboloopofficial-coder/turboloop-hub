@@ -15,6 +15,7 @@ import {
   addNewsletterSignup, listNewsletterSignups, newsletterSignupCount,
   createContentSubmission, listContentSubmissions, updateContentSubmissionStatus,
   listPublicApprovedSubmissions,
+  createEventApplication, listEventApplications,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -279,6 +280,62 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         }
         return updated;
       }),
+
+    /** Event application from /events — Local Presenter / meetup
+     *  sponsorship form. Stores the row + pings the support Telegram so
+     *  ops can triage. Public procedure so the marketing site can
+     *  submit without auth; Zod gates the schema. */
+    submitEventApplication: publicProcedure
+      .input(z.object({
+        walletAddress: z.string().min(10).max(100),
+        teamSize: z.number().int().min(0),
+        tier: z.enum(["local", "city", "regional", "national"]),
+        cityCountry: z.string().min(2).max(200),
+        expectedAttendees: z.number().int().min(1),
+        requestedDate: z.string().min(2).max(100),
+        whatsappNumber: z.string().min(5).max(50),
+        telegramId: z.string().min(2).max(100),
+      }))
+      .mutation(async ({ input }) => {
+        const created = await createEventApplication(input);
+
+        // Telegram support notification — fire-and-forget. The DB write
+        // is the source of truth; if Telegram is misconfigured or down,
+        // ops still sees the row in the admin dashboard.
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const supportChatId =
+          process.env.TELEGRAM_SUPPORT_CHAT || process.env.TELEGRAM_CHAT;
+        if (token && supportChatId) {
+          const { tgSendMessage } = await import("./_vercel/_telegram");
+          const msg =
+            `🎉 <b>New Event Application</b>\n\n` +
+            `<b>Tier:</b> ${input.tier}\n` +
+            `<b>Location:</b> ${input.cityCountry}\n` +
+            `<b>Date:</b> ${input.requestedDate}\n` +
+            `<b>Attendees:</b> ${input.expectedAttendees}\n` +
+            `<b>Team Size:</b> ${input.teamSize}\n\n` +
+            `<b>Contact:</b>\n` +
+            `TG: ${input.telegramId}\n` +
+            `WA: ${input.whatsappNumber}\n` +
+            `Wallet: <code>${input.walletAddress}</code>`;
+          tgSendMessage(token, {
+            chatId: supportChatId,
+            text: msg,
+            parseMode: "HTML",
+          }).catch(() => {});
+        }
+
+        return { success: true, id: created.id };
+      }),
+
+    /** Admin-only list of all event applications, optionally filtered
+     *  by status. Mirrors the content-submissions list shape so the
+     *  same dashboard can render both. */
+    listEventApplications: adminProcedure
+      .input(z.object({
+        status: z.enum(["pending", "approved", "rejected"]).optional(),
+      }))
+      .query(({ input }) => listEventApplications(input.status)),
   }),
 
   manage: router({

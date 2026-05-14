@@ -168,3 +168,30 @@ export const contentSubmissions = pgTable("content_submissions", {
 });
 
 export type ContentSubmission = typeof contentSubmissions.$inferSelect;
+
+// Event applications — Local Presenter / meetup sponsorship submissions
+// from /events. Distinct table because the schema is different from
+// content submissions (no body/file, but wallet address + tier + date).
+export const eventApplicationStatusEnum = pgEnum("event_application_status", [
+  "pending",
+  "approved",
+  "rejected",
+]);
+
+export const eventApplications = pgTable("event_applications", {
+  id: serial("id").primaryKey(),
+  walletAddress: varchar("wallet_address", { length: 100 }).notNull(),
+  teamSize: integer("team_size").notNull(),
+  tier: varchar("tier", { length: 50 }).notNull(), // local | city | regional | national
+  cityCountry: varchar("city_country", { length: 200 }).notNull(),
+  expectedAttendees: integer("expected_attendees").notNull(),
+  requestedDate: varchar("requested_date", { length: 100 }).notNull(),
+  whatsappNumber: varchar("whatsapp_number", { length: 50 }).notNull(),
+  telegramId: varchar("telegram_id", { length: 100 }).notNull(),
+  status: eventApplicationStatusEnum("status").default("pending").notNull(),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type EventApplication = typeof eventApplications.$inferSelect;
+export type InsertEventApplication = typeof eventApplications.$inferInsert;

@@ -82,6 +82,45 @@ export async function submitSubmission(
   return first.result.data.json;
 }
 
+export interface EventApplicationInput {
+  walletAddress: string;
+  teamSize: number;
+  tier: "local" | "city" | "regional" | "national";
+  cityCountry: string;
+  expectedAttendees: number;
+  requestedDate: string;
+  whatsappNumber: string;
+  telegramId: string;
+}
+
+/** POST a Local Presenter / meetup sponsorship application.
+ *  Hits submissions.submitEventApplication on the legacy tRPC API. */
+export async function submitEventApplication(
+  input: EventApplicationInput
+): Promise<{ success: boolean; id: number }> {
+  const url = `${API_BASE}/api/trpc/submissions.submitEventApplication?batch=1`;
+  const body = { 0: { json: input } };
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    throw new Error(`Event application failed: HTTP ${res.status}`);
+  }
+  const out = (await res.json()) as Array<
+    TRPCEnvelope<{ success: boolean; id: number }>
+  >;
+  const first = out?.[0];
+  if (first?.error) {
+    throw new Error(first.error.message ?? "Event application failed");
+  }
+  if (!first?.result?.data?.json) {
+    throw new Error("Event application returned no data");
+  }
+  return first.result.data.json;
+}
+
 /** Newsletter signup — POSTs email to the legacy tRPC newsletter.signup
  *  endpoint. Silent success/error; calling code shows feedback. */
 export async function newsletterSignup(

@@ -12485,6 +12485,26 @@ var contentSubmissions = pgTable("content_submissions", {
   adminNotes: text("admin_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
+var eventApplicationStatusEnum = pgEnum("event_application_status", [
+  "pending",
+  "approved",
+  "rejected"
+]);
+var eventApplications = pgTable("event_applications", {
+  id: serial("id").primaryKey(),
+  walletAddress: varchar("wallet_address", { length: 100 }).notNull(),
+  teamSize: integer("team_size").notNull(),
+  tier: varchar("tier", { length: 50 }).notNull(),
+  // local | city | regional | national
+  cityCountry: varchar("city_country", { length: 200 }).notNull(),
+  expectedAttendees: integer("expected_attendees").notNull(),
+  requestedDate: varchar("requested_date", { length: 100 }).notNull(),
+  whatsappNumber: varchar("whatsapp_number", { length: 50 }).notNull(),
+  telegramId: varchar("telegram_id", { length: 100 }).notNull(),
+  status: eventApplicationStatusEnum("status").default("pending").notNull(),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
 
 // server/_vercel/_telegram.ts
 var TG_API = "https://api.telegram.org/bot";

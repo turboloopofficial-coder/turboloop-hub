@@ -67780,6 +67780,96 @@ var init_email = __esm({
   }
 });
 
+// server/_vercel/_telegram.ts
+var telegram_exports = {};
+__export(telegram_exports, {
+  tgBroadcastMessage: () => tgBroadcastMessage,
+  tgBroadcastPhoto: () => tgBroadcastPhoto,
+  tgEscape: () => tgEscape,
+  tgSendMessage: () => tgSendMessage,
+  tgSendPhoto: () => tgSendPhoto
+});
+function inlineKeyboard(buttons) {
+  if (!buttons || buttons.length === 0) return void 0;
+  return { inline_keyboard: [buttons.map((b5) => ({ text: b5.text, url: b5.url }))] };
+}
+async function tgSendPhoto(token, msg) {
+  const body = {
+    chat_id: msg.chatId,
+    photo: msg.photoUrl,
+    caption: msg.caption,
+    parse_mode: msg.parseMode || "HTML"
+  };
+  const kb = inlineKeyboard(msg.buttons);
+  if (kb) body.reply_markup = kb;
+  try {
+    const r5 = await fetch(`${TG_API}${token}/sendPhoto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    const data2 = await r5.json();
+    if (!data2?.ok) return { ok: false, error: data2?.description || `HTTP ${r5.status}` };
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: String(err?.message || err) };
+  }
+}
+async function tgSendMessage(token, msg) {
+  const body = {
+    chat_id: msg.chatId,
+    text: msg.text,
+    parse_mode: msg.parseMode || "HTML",
+    disable_web_page_preview: msg.disablePreview === true
+  };
+  const kb = inlineKeyboard(msg.buttons);
+  if (kb) body.reply_markup = kb;
+  try {
+    const r5 = await fetch(`${TG_API}${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    const data2 = await r5.json();
+    if (!data2?.ok) return { ok: false, error: data2?.description || `HTTP ${r5.status}` };
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: String(err?.message || err) };
+  }
+}
+async function tgBroadcastPhoto(msg) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return [];
+  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+  const results = [];
+  for (const chatId of dests) {
+    const r5 = await tgSendPhoto(token, { ...msg, chatId });
+    results.push({ chatId, ...r5 });
+  }
+  return results;
+}
+async function tgBroadcastMessage(msg) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return [];
+  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+  const results = [];
+  for (const chatId of dests) {
+    const r5 = await tgSendMessage(token, { ...msg, chatId });
+    results.push({ chatId, ...r5 });
+  }
+  return results;
+}
+function tgEscape(s) {
+  return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+var TG_API;
+var init_telegram = __esm({
+  "server/_vercel/_telegram.ts"() {
+    "use strict";
+    TG_API = "https://api.telegram.org/bot";
+  }
+});
+
 // server/_vercel/trpc-handler.ts
 var trpc_handler_exports = {};
 __export(trpc_handler_exports, {
@@ -98182,6 +98272,26 @@ var contentSubmissions = pgTable("content_submissions", {
   adminNotes: text("admin_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
+var eventApplicationStatusEnum = pgEnum("event_application_status", [
+  "pending",
+  "approved",
+  "rejected"
+]);
+var eventApplications = pgTable("event_applications", {
+  id: serial("id").primaryKey(),
+  walletAddress: varchar("wallet_address", { length: 100 }).notNull(),
+  teamSize: integer2("team_size").notNull(),
+  tier: varchar("tier", { length: 50 }).notNull(),
+  // local | city | regional | national
+  cityCountry: varchar("city_country", { length: 200 }).notNull(),
+  expectedAttendees: integer2("expected_attendees").notNull(),
+  requestedDate: varchar("requested_date", { length: 100 }).notNull(),
+  whatsappNumber: varchar("whatsapp_number", { length: 50 }).notNull(),
+  telegramId: varchar("telegram_id", { length: 100 }).notNull(),
+  status: eventApplicationStatusEnum("status").default("pending").notNull(),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
 
 // node_modules/bcryptjs/index.js
 var import_crypto = __toESM(require("crypto"), 1);
@@ -100134,6 +100244,18 @@ async function updateContentSubmissionStatus(id, status, adminNotes) {
   const rows = await db.update(contentSubmissions).set({ status, adminNotes: adminNotes ?? null }).where(eq(contentSubmissions.id, id)).returning();
   return rows[0] ?? null;
 }
+async function createEventApplication(input) {
+  const db = getDb();
+  const result = await db.insert(eventApplications).values(input).returning();
+  return result[0];
+}
+async function listEventApplications(status) {
+  const db = getDb();
+  if (status) {
+    return db.select().from(eventApplications).where(eq(eventApplications.status, status)).orderBy(desc(eventApplications.createdAt));
+  }
+  return db.select().from(eventApplications).orderBy(desc(eventApplications.createdAt));
+}
 
 // server/storage.ts
 var import_client_s3 = __toESM(require_dist_cjs71(), 1);
@@ -100421,7 +100543,53 @@ ${cleaned.slice(0, 500)}`
         });
       }
       return updated;
-    })
+    }),
+    /** Event application from /events — Local Presenter / meetup
+     *  sponsorship form. Stores the row + pings the support Telegram so
+     *  ops can triage. Public procedure so the marketing site can
+     *  submit without auth; Zod gates the schema. */
+    submitEventApplication: publicProcedure.input(external_exports.object({
+      walletAddress: external_exports.string().min(10).max(100),
+      teamSize: external_exports.number().int().min(0),
+      tier: external_exports.enum(["local", "city", "regional", "national"]),
+      cityCountry: external_exports.string().min(2).max(200),
+      expectedAttendees: external_exports.number().int().min(1),
+      requestedDate: external_exports.string().min(2).max(100),
+      whatsappNumber: external_exports.string().min(5).max(50),
+      telegramId: external_exports.string().min(2).max(100)
+    })).mutation(async ({ input }) => {
+      const created = await createEventApplication(input);
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT || process.env.TELEGRAM_CHAT;
+      if (token && supportChatId) {
+        const { tgSendMessage: tgSendMessage2 } = await Promise.resolve().then(() => (init_telegram(), telegram_exports));
+        const msg = `\u{1F389} <b>New Event Application</b>
+
+<b>Tier:</b> ${input.tier}
+<b>Location:</b> ${input.cityCountry}
+<b>Date:</b> ${input.requestedDate}
+<b>Attendees:</b> ${input.expectedAttendees}
+<b>Team Size:</b> ${input.teamSize}
+
+<b>Contact:</b>
+TG: ${input.telegramId}
+WA: ${input.whatsappNumber}
+Wallet: <code>${input.walletAddress}</code>`;
+        tgSendMessage2(token, {
+          chatId: supportChatId,
+          text: msg,
+          parseMode: "HTML"
+        }).catch(() => {
+        });
+      }
+      return { success: true, id: created.id };
+    }),
+    /** Admin-only list of all event applications, optionally filtered
+     *  by status. Mirrors the content-submissions list shape so the
+     *  same dashboard can render both. */
+    listEventApplications: adminProcedure.input(external_exports.object({
+      status: external_exports.enum(["pending", "approved", "rejected"]).optional()
+    })).query(({ input }) => listEventApplications(input.status))
   }),
   manage: router({
     listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),

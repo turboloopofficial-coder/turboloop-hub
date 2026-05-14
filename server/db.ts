@@ -13,6 +13,7 @@ import {
   siteSettings,
   newsletterSignups,
   contentSubmissions,
+  eventApplications, type InsertEventApplication,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -341,4 +342,28 @@ export async function updateContentSubmissionStatus(id: number, status: "pending
     .where(eq(contentSubmissions.id, id))
     .returning();
   return rows[0] ?? null;
+}
+
+// ===== Event Applications (Local Presenter / meetup sponsorship) =====
+export async function createEventApplication(input: InsertEventApplication) {
+  const db = getDb();
+  const result = await db.insert(eventApplications).values(input).returning();
+  return result[0];
+}
+
+export async function listEventApplications(
+  status?: "pending" | "approved" | "rejected"
+) {
+  const db = getDb();
+  if (status) {
+    return db
+      .select()
+      .from(eventApplications)
+      .where(eq(eventApplications.status, status))
+      .orderBy(desc(eventApplications.createdAt));
+  }
+  return db
+    .select()
+    .from(eventApplications)
+    .orderBy(desc(eventApplications.createdAt));
 }

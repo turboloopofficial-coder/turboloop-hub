@@ -15255,7 +15255,7 @@ async function handler(req, res) {
       ).limit(25);
       const apiKey = process.env.YOUTUBE_API_KEY;
       const tgToken = process.env.TELEGRAM_BOT_TOKEN;
-      const supportChat = process.env.TELEGRAM_SUPPORT_CHAT;
+      const supportChat = process.env.TELEGRAM_SUBMISSIONS_CHAT;
       for (const row of dueRows) {
         if (await hasFiredEver(db, `creatorReminder:${row.id}`)) continue;
         let viewCount = row.viewCount ?? null;

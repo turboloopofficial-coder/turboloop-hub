@@ -244,12 +244,15 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           kind: input.type,
         }).catch(() => {});
 
-        // Telegram support notification — routed ONLY to
-        // TELEGRAM_SUPPORT_CHAT, never the public announcement chat.
+        // Telegram notification — routed to the dedicated
+        // "TurboLoop Submissions & Applications" group via
+        // TELEGRAM_SUBMISSIONS_CHAT. Event applications use a
+        // different chat (TELEGRAM_SUPPORT_CHAT) — they're more
+        // operationally sensitive and deserve their own funnel.
         // If the env var isn't set, the notify is skipped silently;
         // ops still has the row in the admin dashboard either way.
         const token = process.env.TELEGRAM_BOT_TOKEN;
-        const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT;
+        const supportChatId = process.env.TELEGRAM_SUBMISSIONS_CHAT;
         if (token && supportChatId) {
           const { tgSendMessage } = await import("./_vercel/_telegram");
           const headlineEmoji =

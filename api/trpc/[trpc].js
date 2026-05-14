@@ -100591,7 +100591,7 @@ ${cleaned.slice(0, 500)}`
       }).catch(() => {
       });
       const token = process.env.TELEGRAM_BOT_TOKEN;
-      const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT;
+      const supportChatId = process.env.TELEGRAM_SUBMISSIONS_CHAT;
       if (token && supportChatId) {
         const { tgSendMessage: tgSendMessage2 } = await Promise.resolve().then(() => (init_telegram(), telegram_exports));
         const headlineEmoji = input.type === "creator_apply" ? "\u2B50" : input.type === "presenter_apply" ? "\u{1F399}" : input.type === "testimonial" ? "\u{1F4AC}" : input.type === "photo" ? "\u{1F4F8}" : input.type === "reel" ? "\u{1F3AC}" : "\u{1F4DD}";
@@ -100627,7 +100627,7 @@ ${cleaned.slice(0, 500)}`
         createdAt: s.createdAt
       }));
     }),
-    list: adminProcedure.input(external_exports.object({ status: external_exports.enum(["pending", "approved", "rejected"]).optional() })).query(({ input }) => listContentSubmissions(input.status)),
+    list: adminProcedure.input(external_exports.object({ status: external_exports.enum(["pending", "approved", "payment_due", "paid", "rejected"]).optional() })).query(({ input }) => listContentSubmissions(input.status)),
     /** Public read of approved submissions only — excludes PII (contact + admin notes).
      *  Used by /community page's FeaturedSubmissions strip. */
     publicApproved: publicProcedure.query(() => listPublicApprovedSubmissions(12)),

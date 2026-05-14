@@ -27,6 +27,7 @@ import { FilmsTeaserSection } from "@components/sections/FilmsTeaserSection";
 import { NumbersSection } from "@components/sections/NumbersSection";
 import { LeaderboardSection } from "@components/sections/LeaderboardSection";
 import { HomeReelsSection } from "@components/sections/HomeReelsSection";
+import { HomeGlobalReelsSection } from "@components/sections/HomeGlobalReelsSection";
 import { HomeBlogSection } from "@components/sections/HomeBlogSection";
 import { SecurityPillarsSection } from "@components/sections/SecurityPillarsSection";
 import { PromotionsSection } from "@components/sections/PromotionsSection";
@@ -222,6 +223,12 @@ export default function HomePage() {
       </Reveal>
       <Reveal>
         <HomeReelsSection />
+      </Reveal>
+      <Reveal>
+        {/* Multi-language reels — companion to the English HomeReelsSection
+            above. Tabs let visitors switch between EN / DE / ID without
+            leaving the home flow. */}
+        <HomeGlobalReelsSection />
       </Reveal>
       <SectionDivider />
       <Reveal>

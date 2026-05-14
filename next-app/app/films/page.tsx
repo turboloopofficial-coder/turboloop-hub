@@ -10,19 +10,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { Container } from "@components/ui/Container";
-import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
+import { Reveal } from "@components/Reveal";
+import { ReelGalleryCard } from "@components/reels/ReelGalleryCard";
 import {
   FILMS,
   SEASONS,
   type Season,
   getFilmsBySeason,
 } from "@lib/cinematicUniverse";
-import {
-  MULTI_LANG_REELS,
-  REEL_LANGUAGES,
-  type ReelTrack,
-} from "@lib/reelsData";
+import { MULTI_LANG_REELS, REEL_LANGUAGES } from "@lib/reelsData";
 
 const FILMS_OG_TITLE = "Cinematic Universe — TurboLoop";
 const FILMS_OG_DESC = "20 films. 4 seasons. One story.";
@@ -181,112 +178,100 @@ export default function FilmsIndexPage() {
         );
       })}
 
-      {/* ─── Shorts / Reels — multi-language tutorials ──────────────
-          Three logical reels × three languages = 9 vertical clips.
-          Layout: one row per language so visitors can scan by lang
-          and tap the one in theirs. Mobile keeps everything
-          single-column; desktop goes 3-up per language band. */}
-      <section className="relative pt-6 pb-12 md:pb-20 border-t border-[var(--c-border)] mt-10 md:mt-14">
+      {/* ─── Shorts & Reels — multi-language tutorials ──────────────
+          Premium aurora-backed section. Section header → language
+          bands → 3-up grid of ReelGalleryCard (share + download).
+          Each card staggers in via the existing Reveal IntersectionObserver
+          (idx * 80ms) so the grid cascades as the user scrolls. */}
+      <section className="relative pt-12 md:pt-20 pb-12 md:pb-20 border-t border-[var(--c-border)] mt-10 md:mt-14 overflow-hidden">
+        {/* Aurora wash — same drift keyframe as homepage, brand-tinted */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 pointer-events-none aurora-bg"
+          style={{
+            background:
+              "radial-gradient(ellipse 900px 500px at 20% 25%, rgba(34,211,238,0.06), transparent 60%), " +
+              "radial-gradient(ellipse 700px 450px at 85% 70%, rgba(167,139,250,0.06), transparent 60%)",
+          }}
+        />
+
         <Container width="default">
-          <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12">
+          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
             <Heading
               tier="eyebrow"
               className="text-[var(--c-brand-cyan)] mb-3 inline-block"
             >
-              Shorts & Reels
+              Global Reels
             </Heading>
             <Heading tier="h2" as="h2" className="mb-3">
-              Tutorials, in your language.
+              Every language. Every{" "}
+              <span className="text-brand-wide">story.</span>
             </Heading>
             <p className="text-[var(--c-text-muted)] leading-relaxed">
-              Quick, mobile-first walkthroughs of the things people
-              actually ask — withdrawals, investments, and verifying the
-              LP lock yourself. Available in English, Deutsch, and
-              Bahasa Indonesia.
+              Mobile-first walkthroughs of the questions people actually
+              ask — how to withdraw, how investment returns work, how to
+              verify the LP lock yourself. Captioned and shipped in
+              English, Deutsch, and Bahasa Indonesia.
             </p>
           </div>
 
-          {REEL_LANGUAGES.map(lang => {
+          {REEL_LANGUAGES.map((lang, langIdx) => {
             const reels = MULTI_LANG_REELS[lang.code];
             return (
-              <div key={lang.code} className="mb-10 md:mb-14 last:mb-0">
-                <div className="flex items-center gap-3 mb-4 md:mb-5">
+              <div
+                key={lang.code}
+                className="mb-12 md:mb-16 last:mb-0"
+              >
+                {/* Glowing language pill — brand-cyan halo via box-shadow,
+                    backdrop-blur so it reads as glassmorphism. */}
+                <div className="flex items-center gap-3 mb-5 md:mb-6">
                   <span
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase"
                     style={{
                       color: "var(--c-brand-cyan)",
                       background:
-                        "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
-                      border: "1px solid var(--c-border)",
+                        "color-mix(in oklab, var(--c-brand-cyan) 8%, transparent)",
+                      border:
+                        "1px solid color-mix(in oklab, var(--c-brand-cyan) 35%, transparent)",
+                      boxShadow:
+                        "0 0 18px color-mix(in oklab, var(--c-brand-cyan) 22%, transparent)",
+                      backdropFilter: "blur(8px)",
+                      WebkitBackdropFilter: "blur(8px)",
                     }}
                   >
-                    <span aria-hidden="true">{lang.flag}</span>
-                    {lang.code.toUpperCase()}
-                  </span>
-                  <span className="text-sm font-bold text-[var(--c-text-muted)]">
+                    <span className="text-base leading-none" aria-hidden="true">
+                      {lang.flag}
+                    </span>
                     {lang.label}
+                  </span>
+                  <span className="text-xs text-[var(--c-text-muted)] tabular-nums">
+                    {reels.length} reels
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-                  {reels.map(reel => (
-                    <ReelCard key={`${lang.code}-${reel.id}`} reel={reel} />
+                  {reels.map((reel, idx) => (
+                    <Reveal
+                      key={`${lang.code}-${reel.id}`}
+                      delayMs={idx * 80}
+                    >
+                      <ReelGalleryCard reel={reel} />
+                    </Reveal>
                   ))}
                 </div>
+
+                {/* Gradient divider between language bands (skip the last) */}
+                {langIdx < REEL_LANGUAGES.length - 1 && (
+                  <div
+                    aria-hidden="true"
+                    className="h-px max-w-md mx-auto mt-12 md:mt-16 bg-gradient-to-r from-transparent via-[var(--c-brand-cyan)]/25 to-transparent"
+                  />
+                )}
               </div>
             );
           })}
         </Container>
       </section>
     </main>
-  );
-}
-
-/* ── ReelCard — vertical-format card with thumbnail + click-to-play
-      <video>. Native controls keep the bundle lean; preload="none"
-      ensures we don't fetch megabytes of MP4 the user never plays. */
-
-function ReelCard({ reel }: { reel: ReelTrack }) {
-  return (
-    <Card
-      elevation="raised"
-      padding="none"
-      interactive
-      className="h-full overflow-hidden flex flex-col"
-    >
-      <div
-        className="relative w-full bg-black"
-        style={{ aspectRatio: "9 / 16" }}
-      >
-        <video
-          src={reel.videoUrl}
-          poster={reel.thumbUrl}
-          controls
-          preload="none"
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        {/* Language badge sits on the video, top-left */}
-        <span
-          className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.16em] uppercase"
-          style={{
-            color: "white",
-            background: "rgba(15,23,42,0.7)",
-            border: "1px solid rgba(255,255,255,0.18)",
-            backdropFilter: "blur(4px)",
-          }}
-        >
-          {reel.lang.toUpperCase()}
-        </span>
-      </div>
-      <div className="p-4 flex-1 flex flex-col">
-        <h3 className="text-sm font-bold text-[var(--c-text)] leading-snug mb-1.5">
-          {reel.title}
-        </h3>
-        <p className="text-xs text-[var(--c-text-muted)] leading-relaxed line-clamp-3">
-          {reel.description}
-        </p>
-      </div>
-    </Card>
   );
 }

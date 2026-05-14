@@ -161,7 +161,18 @@ export default function EventsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          {/* Adaptive grid: 1 event → centered featured card, 2 → side
+              by side, 3+ → 3-up. Keeps a single-event view (the Lagos
+              soft launch right now) from looking sparse. */}
+          <div
+            className={
+              PAST_EVENTS.length === 1
+                ? "max-w-3xl mx-auto"
+                : PAST_EVENTS.length === 2
+                  ? "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5"
+                  : "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5"
+            }
+          >
             {PAST_EVENTS.map(ev => (
               <PastEventCard key={ev.id} ev={ev} />
             ))}
@@ -201,53 +212,7 @@ export default function EventsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
               {UPCOMING_EVENTS.map(ev => (
-                <Card
-                  key={ev.id}
-                  elevation="raised"
-                  padding="lg"
-                  interactive
-                  className="h-full"
-                >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div>
-                      <h3 className="text-base font-bold text-[var(--c-text)] leading-tight">
-                        {ev.title}
-                      </h3>
-                      <div className="text-xs text-[var(--c-text-muted)] mt-1">
-                        <span className="mr-1.5" aria-hidden="true">
-                          {ev.flag}
-                        </span>
-                        {ev.location} · {ev.date}
-                      </div>
-                    </div>
-                    <span
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.14em] uppercase"
-                      style={{
-                        color: "var(--c-brand-cyan)",
-                        background:
-                          "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
-                      }}
-                    >
-                      👥 {ev.coAttendCount} attending
-                    </span>
-                  </div>
-                  <div className="text-sm text-[var(--c-text-muted)] mb-4">
-                    Hosted by{" "}
-                    <span className="text-[var(--c-text)] font-bold">
-                      {ev.hostName}
-                    </span>
-                  </div>
-                  {ev.registrationUrl && (
-                    <a
-                      href={ev.registrationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] transition active:scale-[0.985]"
-                    >
-                      Register →
-                    </a>
-                  )}
-                </Card>
+                <UpcomingEventCard key={ev.id} ev={ev} />
               ))}
             </div>
           )}
@@ -634,6 +599,110 @@ export default function EventsPage() {
   );
 }
 
+/* ── Upcoming event card — banner image header + optional invite video
+      + meta + register CTA. The video tag is inline (no modal) with
+      preload="none" so bandwidth is zero until the user hits play. ── */
+
+function UpcomingEventCard({
+  ev,
+}: {
+  ev: (typeof UPCOMING_EVENTS)[number];
+}) {
+  return (
+    <Card
+      elevation="raised"
+      padding="none"
+      interactive
+      className="h-full overflow-hidden flex flex-col"
+    >
+      {/* Hero image (banner). Falls back to the brand-gradient
+          backstop when no imageUrl is set (Berlin/Dubai teasers). */}
+      <div
+        className="relative w-full"
+        style={{
+          aspectRatio: "16 / 9",
+          background:
+            "linear-gradient(135deg, #0891B2 0%, #1E40AF 50%, #1E1B4B 100%)",
+        }}
+      >
+        {ev.imageUrl && (
+          <Image
+            src={ev.imageUrl}
+            alt={`${ev.title} banner`}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+            loading="lazy"
+            unoptimized
+          />
+        )}
+        <span
+          className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.14em] uppercase"
+          style={{
+            color: "var(--c-brand-cyan)",
+            background: "rgba(15,23,42,0.6)",
+            border: "1px solid rgba(34,211,238,0.4)",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          👥 {ev.coAttendCount} attending
+        </span>
+      </div>
+
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-base font-bold text-[var(--c-text)] leading-tight mb-1">
+          {ev.title}
+        </h3>
+        <div className="text-xs text-[var(--c-text-muted)] mb-3 leading-relaxed">
+          <span className="mr-1.5" aria-hidden="true">
+            {ev.flag}
+          </span>
+          {ev.location}
+        </div>
+        <div className="text-sm font-semibold text-[var(--c-text)] mb-3 tabular-nums">
+          {ev.date}
+        </div>
+        <div className="text-sm text-[var(--c-text-muted)] mb-4">
+          Hosted by{" "}
+          <span className="text-[var(--c-text)] font-bold">
+            {ev.hostName}
+          </span>
+        </div>
+
+        {/* Invite video — inline, lazy-loaded. Native controls so we
+            don't ship a player runtime. Only renders when this event
+            has one (the Lagos PH event does; Berlin / Dubai don't). */}
+        {ev.videoUrl && (
+          <div className="mb-4">
+            <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
+              Invitation video
+            </div>
+            <video
+              src={ev.videoUrl}
+              poster={ev.imageUrl}
+              controls
+              preload="none"
+              playsInline
+              className="w-full rounded-[var(--r-md)] bg-black"
+            />
+          </div>
+        )}
+
+        {ev.registrationUrl && (
+          <a
+            href={ev.registrationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] transition active:scale-[0.985] mt-auto self-start"
+          >
+            Register →
+          </a>
+        )}
+      </div>
+    </Card>
+  );
+}
+
 /* ── Past event card — photo header + stats + verified glow ───────── */
 
 function PastEventCard({
@@ -648,8 +717,10 @@ function PastEventCard({
       interactive
       className="h-full overflow-hidden flex flex-col"
     >
-      {/* Photo header — gradient backstop shows through if the file
-          isn't in next-app/public/images/events/ yet. */}
+      {/* Hero header — playable <video> when ev.videoUrl is set
+          (Lagos), otherwise the image (or gradient fallback). The
+          video uses imageUrl as its poster frame so the first paint is
+          a real photo, not a black box. */}
       <div
         className="relative w-full"
         style={{
@@ -658,7 +729,19 @@ function PastEventCard({
             "linear-gradient(135deg, #0891B2 0%, #1E40AF 50%, #1E1B4B 100%)",
         }}
       >
-        {ev.imageUrl && (
+        {ev.videoUrl ? (
+          // controls + preload="none" keeps the bandwidth cost zero
+          // until the user actually taps play. poster gives the
+          // gallery look-and-feel without paying for the MP4.
+          <video
+            src={ev.videoUrl}
+            poster={ev.imageUrl}
+            controls
+            preload="none"
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : ev.imageUrl ? (
           <Image
             src={ev.imageUrl}
             alt={`${ev.location} meetup`}
@@ -668,11 +751,11 @@ function PastEventCard({
             loading="lazy"
             unoptimized
           />
-        )}
-        {/* Verified glow chip sits on the image */}
+        ) : null}
+        {/* Verified glow chip sits on the hero */}
         {ev.verified && (
           <span
-            className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.14em] uppercase"
+            className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.14em] uppercase"
             style={{
               color: "#A7F3D0",
               background: "rgba(6,78,59,0.7)",
@@ -685,27 +768,52 @@ function PastEventCard({
             Verified
           </span>
         )}
-        {/* Bottom fade for legibility on the flag/location strip */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"
-        />
-        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
-          <div>
-            <div className="text-2xl leading-none mb-1" aria-hidden="true">
-              {ev.flag}
+        {/* Bottom fade for legibility on the flag/location strip.
+            When the hero is a video, the native controls render along
+            this bottom area — we keep the gradient subtle so it
+            doesn't fight the controls. */}
+        {!ev.videoUrl && (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"
+            />
+            <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
+              <div>
+                <div className="text-2xl leading-none mb-1" aria-hidden="true">
+                  {ev.flag}
+                </div>
+                <h3 className="text-base font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+                  {ev.location}
+                </h3>
+              </div>
+              <div className="text-xs text-white/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">
+                {ev.date}
+              </div>
             </div>
-            <h3 className="text-base font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
-              {ev.location}
-            </h3>
-          </div>
-          <div className="text-xs text-white/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">
-            {ev.date}
-          </div>
-        </div>
+          </>
+        )}
       </div>
 
       <div className="p-5">
+        {/* When the hero is a video the title/location/date overlay
+            isn't rendered on the image, so surface those here. */}
+        {ev.videoUrl && (
+          <div className="mb-3">
+            {ev.title && (
+              <h3 className="text-base font-bold text-[var(--c-text)] leading-tight mb-1">
+                {ev.title}
+              </h3>
+            )}
+            <div className="text-xs text-[var(--c-text-muted)]">
+              <span className="mr-1.5" aria-hidden="true">
+                {ev.flag}
+              </span>
+              {ev.location} · {ev.date}
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center gap-2 mb-3">
           <Users className="w-3.5 h-3.5 text-[var(--c-brand-cyan)]" />
           <span className="text-sm font-bold text-[var(--c-text)] tabular-nums">

@@ -1,20 +1,28 @@
 // Static data for the /events page — past events, upcoming events,
-// organizer leaderboard, sponsorship tiers, and community roles.
+// organizer leaderboard, sponsorship tiers, community roles, meetup
+// kit, and the Wall-of-Proof gallery.
 //
-// All hand-curated. No DB read — this is the "what we've done + who we
-// reward" page, calibrated to the current state of the program.
+// All media lives on R2 under turboloop-assets, served by the public
+// pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev hostname.
 
 export type EventTier = "local" | "city" | "regional" | "national";
 
 export type PastEvent = {
   id: string;
+  /** Display title (line 1 on the card) */
+  title?: string;
   location: string;
   flag: string;
   date: string;
   attendees: number;
   achievements: string[];
   verified: boolean;
+  /** Optional poster / thumbnail JPEG */
   imageUrl?: string;
+  /** Optional MP4 — when set the card renders a playable hero video
+   *  instead of the static imageUrl. imageUrl (if provided) is used
+   *  as the video's poster frame. */
+  videoUrl?: string;
 };
 
 export type UpcomingEvent = {
@@ -26,6 +34,10 @@ export type UpcomingEvent = {
   hostName: string;
   coAttendCount: number;
   registrationUrl?: string;
+  /** Optional banner image for the card hero */
+  imageUrl?: string;
+  /** Optional invitation MP4 played in a modal/inline */
+  videoUrl?: string;
 };
 
 export type OrganizerRank = {
@@ -36,67 +48,65 @@ export type OrganizerRank = {
   role: string;
 };
 
-// imageUrl points at /images/events/* in next-app/public/. The card
-// component falls back to a brand gradient if the file is missing, so
-// it's safe to ship the page before the real photos are dropped in.
+const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
 export const PAST_EVENTS: PastEvent[] = [
   {
-    id: "pe-1",
-    location: "Lagos, Nigeria",
+    id: "pe-lagos-2026-04",
+    title: "Turbo Loop Successful Soft Launch",
+    location: "Radisson Hotels, GRA Ikeja, Lagos",
     flag: "🇳🇬",
-    date: "Oct 15, 2025",
+    date: "Apr 4, 2026",
     attendees: 120,
     achievements: [
-      "Local presenter program launched",
-      "15+ wallet setups completed live",
+      "Local Presenter Program launched live on stage",
+      "15+ wallet setups completed during the floor session",
+      "Hosted at Radisson Hotels — first Tier 2 City Seminar",
     ],
     verified: true,
-    imageUrl: "/images/events/lagos-event.jpg",
+    imageUrl: `${R2}/events/past/lagos/lagos-4.jpg`,
+    videoUrl: `${R2}/events/past/lagos/main.mp4`,
   },
+];
+
+export const UPCOMING_EVENTS: UpcomingEvent[] = [
+  // Real — Port Harcourt business launch dinner.
   {
-    id: "pe-2",
-    location: "Dubai, UAE",
+    id: "ue-ph-2026-05",
+    title: "Business Launch Dinner — Port Harcourt",
+    location:
+      "IBK Hotel & Suites, Road 3B House 19, Queens Park Estate, Rumuodara/Eneka Road, Port Harcourt",
+    flag: "🇳🇬",
+    date: "Sat, May 23, 2026 · 11:00 AM prompt",
+    hostName: "TurboLoop Nigeria",
+    coAttendCount: 86,
+    registrationUrl: "https://t.me/TurboLoop_Official",
+    imageUrl: `${R2}/events/upcoming/port-harcourt-banner.jpg`,
+    videoUrl: `${R2}/events/upcoming/port-harcourt-invite.mp4`,
+  },
+  // Berlin — placeholder/teaser entry for the EU launch wave.
+  {
+    id: "ue-berlin-2026-06",
+    title: "TurboLoop DACH Roundtable",
+    location: "Soho House Berlin, Torstraße 1, 10119 Berlin, Germany",
+    flag: "🇩🇪",
+    date: "Sat, Jun 13, 2026 · 6:00 PM CET",
+    hostName: "TurboLoop DACH",
+    coAttendCount: 42,
+    registrationUrl: "https://t.me/TurboLoop_Official",
+  },
+  // Dubai — placeholder for the GCC quarterly.
+  {
+    id: "ue-dubai-2026-06",
+    title: "Global Yield Summit — Dubai",
+    location: "Address Sky View, Downtown Dubai, UAE",
     flag: "🇦🇪",
-    date: "Nov 02, 2025",
-    attendees: 45,
-    achievements: [
-      "VIP networking session",
-      "High-net-worth onboardings",
-    ],
-    verified: true,
-    imageUrl: "/images/events/dubai-event.jpg",
-  },
-  {
-    id: "pe-3",
-    location: "Mumbai, India",
-    flag: "🇮🇳",
-    date: "Dec 10, 2025",
-    attendees: 85,
-    achievements: [
-      "Hindi-language presentation",
-      "Community Telegram group created",
-    ],
-    verified: true,
-    imageUrl: "/images/events/mumbai-event.jpg",
+    date: "Sat, Jun 20, 2026 · 7:30 PM GST",
+    hostName: "TurboLoop GCC",
+    coAttendCount: 68,
+    registrationUrl: "https://t.me/TurboLoop_Official",
   },
 ];
-
-/** Wall of Proof — masonry grid of past meetup photos shown right
- *  below the hero. Drop real JPGs into next-app/public/images/events/
- *  to replace the placeholders; missing files just fall back to the
- *  brand gradient overlay. */
-export const WALL_OF_PROOF: Array<{ src: string; alt: string }> = [
-  { src: "/images/events/wall-1.jpg", alt: "Lagos meetup — onboarding session" },
-  { src: "/images/events/wall-2.jpg", alt: "Dubai VIP networking floor" },
-  { src: "/images/events/wall-3.jpg", alt: "Mumbai Hindi-language Q&A" },
-  { src: "/images/events/wall-4.jpg", alt: "Local presenter on stage" },
-  { src: "/images/events/wall-5.jpg", alt: "Attendees networking" },
-  { src: "/images/events/wall-6.jpg", alt: "Live wallet setup demo" },
-  { src: "/images/events/wall-7.jpg", alt: "Branded stage backdrop" },
-  { src: "/images/events/wall-8.jpg", alt: "Community group photo" },
-];
-
-export const UPCOMING_EVENTS: UpcomingEvent[] = [];
 
 export const ORGANIZER_LEADERBOARD: OrganizerRank[] = [
   {
@@ -215,9 +225,7 @@ export const COMMUNITY_ROLES = [
 
 /** Tier-gated meetup kit — every approved organizer ships with a
  *  baseline kit (digital assets) and unlocks additional physical /
- *  production goods as they move up the tier ladder. Used in the
- *  "Meetup Kit" grid on /events. The "tier gate" copy lives inside
- *  the title for clarity at a glance. */
+ *  production goods as they move up the tier ladder. */
 export const MEETUP_KIT = [
   {
     title: "Digital Assets (All Tiers)",
@@ -244,3 +252,17 @@ export const MEETUP_KIT = [
     icon: "🎥",
   },
 ] as const;
+
+/** Wall of Proof — masonry grid of past meetup photos shown right
+ *  below the hero. All Lagos soft-launch photos for now (more events
+ *  ship more photos here over time). */
+export const WALL_OF_PROOF: Array<{ src: string; alt: string }> = [
+  { src: `${R2}/events/past/lagos/lagos-1.jpg`, alt: "Lagos soft launch — venue overview" },
+  { src: `${R2}/events/past/lagos/lagos-2.jpg`, alt: "Lagos soft launch — attendee welcome" },
+  { src: `${R2}/events/past/lagos/lagos-3.jpg`, alt: "Lagos soft launch — onboarding session" },
+  { src: `${R2}/events/past/lagos/lagos-4.jpg`, alt: "Lagos soft launch — main stage" },
+  { src: `${R2}/events/past/lagos/lagos-5.jpg`, alt: "Lagos soft launch — Q&A floor" },
+  { src: `${R2}/events/past/lagos/lagos-6.jpg`, alt: "Lagos soft launch — networking break" },
+  { src: `${R2}/events/past/lagos/lagos-7.jpg`, alt: "Lagos soft launch — group photo" },
+  { src: `${R2}/events/past/lagos/lagos-8.jpg`, alt: "Lagos soft launch — closing remarks" },
+];

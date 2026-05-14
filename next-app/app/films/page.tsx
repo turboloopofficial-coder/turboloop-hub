@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { Container } from "@components/ui/Container";
+import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import {
   FILMS,
@@ -17,6 +18,11 @@ import {
   type Season,
   getFilmsBySeason,
 } from "@lib/cinematicUniverse";
+import {
+  MULTI_LANG_REELS,
+  REEL_LANGUAGES,
+  type ReelTrack,
+} from "@lib/reelsData";
 
 const FILMS_OG_TITLE = "Cinematic Universe — TurboLoop";
 const FILMS_OG_DESC = "20 films. 4 seasons. One story.";
@@ -174,6 +180,113 @@ export default function FilmsIndexPage() {
           </section>
         );
       })}
+
+      {/* ─── Shorts / Reels — multi-language tutorials ──────────────
+          Three logical reels × three languages = 9 vertical clips.
+          Layout: one row per language so visitors can scan by lang
+          and tap the one in theirs. Mobile keeps everything
+          single-column; desktop goes 3-up per language band. */}
+      <section className="relative pt-6 pb-12 md:pb-20 border-t border-[var(--c-border)] mt-10 md:mt-14">
+        <Container width="default">
+          <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12">
+            <Heading
+              tier="eyebrow"
+              className="text-[var(--c-brand-cyan)] mb-3 inline-block"
+            >
+              Shorts & Reels
+            </Heading>
+            <Heading tier="h2" as="h2" className="mb-3">
+              Tutorials, in your language.
+            </Heading>
+            <p className="text-[var(--c-text-muted)] leading-relaxed">
+              Quick, mobile-first walkthroughs of the things people
+              actually ask — withdrawals, investments, and verifying the
+              LP lock yourself. Available in English, Deutsch, and
+              Bahasa Indonesia.
+            </p>
+          </div>
+
+          {REEL_LANGUAGES.map(lang => {
+            const reels = MULTI_LANG_REELS[lang.code];
+            return (
+              <div key={lang.code} className="mb-10 md:mb-14 last:mb-0">
+                <div className="flex items-center gap-3 mb-4 md:mb-5">
+                  <span
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase"
+                    style={{
+                      color: "var(--c-brand-cyan)",
+                      background:
+                        "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
+                      border: "1px solid var(--c-border)",
+                    }}
+                  >
+                    <span aria-hidden="true">{lang.flag}</span>
+                    {lang.code.toUpperCase()}
+                  </span>
+                  <span className="text-sm font-bold text-[var(--c-text-muted)]">
+                    {lang.label}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                  {reels.map(reel => (
+                    <ReelCard key={`${lang.code}-${reel.id}`} reel={reel} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </Container>
+      </section>
     </main>
+  );
+}
+
+/* ── ReelCard — vertical-format card with thumbnail + click-to-play
+      <video>. Native controls keep the bundle lean; preload="none"
+      ensures we don't fetch megabytes of MP4 the user never plays. */
+
+function ReelCard({ reel }: { reel: ReelTrack }) {
+  return (
+    <Card
+      elevation="raised"
+      padding="none"
+      interactive
+      className="h-full overflow-hidden flex flex-col"
+    >
+      <div
+        className="relative w-full bg-black"
+        style={{ aspectRatio: "9 / 16" }}
+      >
+        <video
+          src={reel.videoUrl}
+          poster={reel.thumbUrl}
+          controls
+          preload="none"
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Language badge sits on the video, top-left */}
+        <span
+          className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.16em] uppercase"
+          style={{
+            color: "white",
+            background: "rgba(15,23,42,0.7)",
+            border: "1px solid rgba(255,255,255,0.18)",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          {reel.lang.toUpperCase()}
+        </span>
+      </div>
+      <div className="p-4 flex-1 flex flex-col">
+        <h3 className="text-sm font-bold text-[var(--c-text)] leading-snug mb-1.5">
+          {reel.title}
+        </h3>
+        <p className="text-xs text-[var(--c-text-muted)] leading-relaxed line-clamp-3">
+          {reel.description}
+        </p>
+      </div>
+    </Card>
   );
 }

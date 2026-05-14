@@ -10,21 +10,20 @@
 // Sections, in order:
 //   1. PageHero
 //   2. Wall of Proof — masonry photo gallery for instant social proof
-//   3. Past events grid (photo header + stats + verified glow)
-//   4. Upcoming events (empty state routes the eye to "Get Funded")
-//   5. Organizer leaderboard (top 3 medal styling)
-//   6. Sponsorship tiers (the 50/50 funding model, 4 cards)
-//   7. Career path (City Ambassador → Regional Director → Global Presenter)
-//   8. Meetup Kit (4-item tier-gated grid)
-//   9. Application form (writes to DB + pings support TG)
-//  10. Terms & Conditions (collapsible)
+//   3. Past events — featured card per event + a media gallery
+//      (videos block + photos block, every item share/downloadable)
+//   4. Upcoming events (banner + invite video on PH, teasers on others)
+//   5. Sponsorship tiers (the 50/50 funding model, 4 cards)
+//   6. Career path (City Ambassador → Regional Director → Global Presenter)
+//   7. Meetup Kit (4-item tier-gated grid)
+//   8. Application form (writes to DB + pings support TG)
+//   9. Terms & Conditions (collapsible)
 
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
   CheckCircle2,
-  Trophy,
   ArrowDown,
   Users,
   Calendar,
@@ -38,10 +37,10 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { WallOfProof } from "@components/events/WallOfProof";
 import { EventApplicationForm } from "@components/events/EventApplicationForm";
+import { MediaGalleryCard } from "@components/events/MediaGalleryCard";
 import {
   PAST_EVENTS,
   UPCOMING_EVENTS,
-  ORGANIZER_LEADERBOARD,
   SPONSORSHIP_TIERS,
   COMMUNITY_ROLES,
   MEETUP_KIT,
@@ -76,12 +75,6 @@ export const metadata: Metadata = {
     description: EVENTS_OG_DESC,
     images: [EVENTS_OG_IMAGE],
   },
-};
-
-const MEDAL: Record<number, { ring: string; bg: string; emoji: string }> = {
-  0: { ring: "#F59E0B", bg: "#F59E0B20", emoji: "🥇" },
-  1: { ring: "#94A3B8", bg: "#94A3B820", emoji: "🥈" },
-  2: { ring: "#D97706", bg: "#D9770620", emoji: "🥉" },
 };
 
 export default function EventsPage() {
@@ -177,6 +170,67 @@ export default function EventsPage() {
               <PastEventCard key={ev.id} ev={ev} />
             ))}
           </div>
+
+          {/* Media galleries — one per past event that has photos/videos
+              attached. For the Lagos soft-launch this renders a video
+              gallery (main + 5 clips, all share/downloadable) followed
+              by a photo gallery (6 captioned shots). */}
+          {PAST_EVENTS.map(ev => {
+            const hasVideos = ev.videos && ev.videos.length > 0;
+            const hasPhotos = ev.photos && ev.photos.length > 0;
+            if (!hasVideos && !hasPhotos) return null;
+            // Premium share-text suffix shared by every gallery item.
+            const ctx = `${ev.title ?? ev.location} · ${ev.date}`;
+            return (
+              <div key={`gallery-${ev.id}`} className="mt-10 md:mt-14">
+                {hasVideos && (
+                  <div className="mb-10 md:mb-14">
+                    <div className="flex items-baseline justify-between mb-4 md:mb-5 gap-3 flex-wrap">
+                      <Heading tier="title" as="h3" className="text-lg">
+                        Videos from the floor
+                      </Heading>
+                      <span className="text-xs text-[var(--c-text-subtle)] tabular-nums">
+                        {ev.videos!.length} clips · tap to play
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                      {ev.videos!.map((v, idx) => (
+                        <MediaGalleryCard
+                          key={`v-${ev.id}-${idx}`}
+                          item={{ type: "video", ...v }}
+                          shareContext={ctx}
+                          hashtags="#TurboLoop #SoftLaunch #Lagos #DeFi"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {hasPhotos && (
+                  <div>
+                    <div className="flex items-baseline justify-between mb-4 md:mb-5 gap-3 flex-wrap">
+                      <Heading tier="title" as="h3" className="text-lg">
+                        Photo gallery
+                      </Heading>
+                      <span className="text-xs text-[var(--c-text-subtle)] tabular-nums">
+                        {ev.photos!.length} photos · share or save
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                      {ev.photos!.map((p, idx) => (
+                        <MediaGalleryCard
+                          key={`p-${ev.id}-${idx}`}
+                          item={{ type: "photo", ...p }}
+                          shareContext={ctx}
+                          hashtags="#TurboLoop #SoftLaunch #Lagos #DeFi"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </section>
 
         {/* ─── Section 4 · Upcoming Events ─────────────────────────── */}
@@ -218,90 +272,7 @@ export default function EventsPage() {
           )}
         </section>
 
-        {/* ─── Section 5 · Organizer Leaderboard ───────────────────── */}
-        <section className="mb-14 md:mb-20">
-          <div className="flex items-end justify-between mb-6 md:mb-8 gap-4 flex-col md:flex-row">
-            <div>
-              <Heading tier="h2" as="h2">
-                Top organizers, this season.
-              </Heading>
-              <p className="text-[var(--c-text-muted)] mt-2 max-w-xl">
-                The leaders who actually show up. Ranked by verified events
-                hosted.
-              </p>
-            </div>
-          </div>
-
-          <Card elevation="raised" padding="none" className="overflow-hidden">
-            <div className="hidden md:grid grid-cols-12 gap-3 px-5 py-3 text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] border-b border-[var(--c-border)] bg-[var(--c-bg)]">
-              <div className="col-span-1">Rank</div>
-              <div className="col-span-4">Name</div>
-              <div className="col-span-2 tabular-nums">Events</div>
-              <div className="col-span-2 tabular-nums">Team</div>
-              <div className="col-span-3">Role</div>
-            </div>
-            {ORGANIZER_LEADERBOARD.map((o, i) => {
-              const medal = MEDAL[i];
-              return (
-                <div
-                  key={o.name}
-                  className="grid grid-cols-12 gap-3 px-5 py-4 items-center border-b border-[var(--c-border)] last:border-b-0"
-                >
-                  <div className="col-span-2 md:col-span-1">
-                    <span
-                      className="inline-flex items-center justify-center w-9 h-9 rounded-full text-sm font-bold tabular-nums"
-                      style={
-                        medal
-                          ? {
-                              background: medal.bg,
-                              color: medal.ring,
-                              border: `2px solid ${medal.ring}`,
-                            }
-                          : {
-                              background: "var(--c-bg)",
-                              color: "var(--c-text-subtle)",
-                              border: "2px solid var(--c-border)",
-                            }
-                      }
-                    >
-                      {medal ? medal.emoji : i + 1}
-                    </span>
-                  </div>
-                  <div className="col-span-10 md:col-span-4 min-w-0">
-                    <div className="text-sm font-bold text-[var(--c-text)] truncate flex items-center gap-2">
-                      <span aria-hidden="true">{o.country}</span>
-                      {o.name}
-                    </div>
-                    <div className="md:hidden text-xs text-[var(--c-text-muted)] mt-0.5 tabular-nums">
-                      {o.eventsHosted} events · team {o.teamSize}
-                    </div>
-                  </div>
-                  <div className="hidden md:block col-span-2 text-sm text-[var(--c-text)] font-semibold tabular-nums">
-                    {o.eventsHosted}
-                  </div>
-                  <div className="hidden md:block col-span-2 text-sm text-[var(--c-text)] font-semibold tabular-nums">
-                    {o.teamSize}
-                  </div>
-                  <div className="col-span-12 md:col-span-3 mt-1 md:mt-0">
-                    <span
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.625rem] font-bold tracking-[0.14em] uppercase"
-                      style={{
-                        color: "var(--c-brand-cyan)",
-                        background:
-                          "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
-                      }}
-                    >
-                      <Trophy className="w-3 h-3" />
-                      {o.role}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </Card>
-        </section>
-
-        {/* ─── Section 6 · Sponsorship Tiers ───────────────────────── */}
+        {/* ─── Section 5 · Sponsorship Tiers ───────────────────────── */}
         <section id="get-funded" className="mb-14 md:mb-20 scroll-mt-24">
           <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12">
             <Heading
@@ -393,7 +364,7 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* ─── Section 7 · Career Path ─────────────────────────────── */}
+        {/* ─── Section 6 · Career Path ─────────────────────────────── */}
         <section className="mb-14 md:mb-20">
           <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
             <Heading
@@ -472,7 +443,7 @@ export default function EventsPage() {
           </p>
         </section>
 
-        {/* ─── Section 8 · Meetup Kit ──────────────────────────────── */}
+        {/* ─── Section 7 · Meetup Kit ──────────────────────────────── */}
         <section className="mb-14 md:mb-20">
           <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
             <Heading
@@ -513,12 +484,12 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* ─── Section 9 · Application Form ────────────────────────── */}
+        {/* ─── Section 8 · Application Form ────────────────────────── */}
         <section id="apply" className="mb-10 md:mb-14 scroll-mt-24">
           <EventApplicationForm />
         </section>
 
-        {/* ─── Section 10 · Terms & support handle ─────────────────── */}
+        {/* ─── Section 9 · Terms & support handle ──────────────────── */}
         <section className="mb-8">
           <details className="rounded-[var(--r-md)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 text-sm group max-w-3xl mx-auto">
             <summary className="cursor-pointer font-bold text-[var(--c-text)] list-none flex items-center justify-between">

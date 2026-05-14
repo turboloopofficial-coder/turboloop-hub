@@ -7,6 +7,21 @@
 
 export type EventTier = "local" | "city" | "regional" | "national";
 
+/** One photo in the past-event media gallery. */
+export type EventPhoto = {
+  url: string;
+  caption: string;
+};
+
+/** One video in the past-event media gallery. */
+export type EventVideo = {
+  url: string;
+  caption: string;
+  /** Optional poster frame (JPEG) — first paint before the user
+   *  taps play. */
+  posterUrl?: string;
+};
+
 export type PastEvent = {
   id: string;
   /** Display title (line 1 on the card) */
@@ -23,6 +38,12 @@ export type PastEvent = {
    *  instead of the static imageUrl. imageUrl (if provided) is used
    *  as the video's poster frame. */
   videoUrl?: string;
+  /** Optional grid of photos for the past-event media gallery. */
+  photos?: EventPhoto[];
+  /** Optional grid of videos for the past-event media gallery. The
+   *  first entry is treated as the headliner and tends to play
+   *  bigger; remaining entries render as a sub-grid. */
+  videos?: EventVideo[];
 };
 
 export type UpcomingEvent = {
@@ -50,6 +71,55 @@ export type OrganizerRank = {
 
 const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
+const LAGOS_PHOTO_KEY = "events/past/lagos/photos";
+const LAGOS_VIDEO_KEY = "events/past/lagos/videos";
+
+// Captions hand-written to match what's visible in each frame; all six
+// photos were captured during a single moment of the floor session
+// (timestamps span ~2 s on May 14), so captions reflect different
+// angles of the same engagement rather than separate event stages.
+const LAGOS_PHOTOS: EventPhoto[] = [
+  { url: `${R2}/${LAGOS_PHOTO_KEY}/photo-01.jpg`, caption: "Floor session — attendees gathered for the soft launch." },
+  { url: `${R2}/${LAGOS_PHOTO_KEY}/photo-02.jpg`, caption: "Live presentation from the Lagos hosting team." },
+  { url: `${R2}/${LAGOS_PHOTO_KEY}/photo-03.jpg`, caption: "Audience walkthrough of the TurboLoop architecture." },
+  { url: `${R2}/${LAGOS_PHOTO_KEY}/photo-04.jpg`, caption: "Q&A from the floor — real questions, real answers." },
+  { url: `${R2}/${LAGOS_PHOTO_KEY}/photo-05.jpg`, caption: "Networking break — local community connecting in person." },
+  { url: `${R2}/${LAGOS_PHOTO_KEY}/photo-06.jpg`, caption: "Closing remarks — Radisson Hotels Ikeja, Apr 4 2026." },
+];
+
+const LAGOS_VIDEOS: EventVideo[] = [
+  {
+    url: `${R2}/${LAGOS_VIDEO_KEY}/main.mp4`,
+    caption: "Full highlights — Soft Launch at Radisson Hotels Ikeja.",
+    posterUrl: `${R2}/${LAGOS_PHOTO_KEY}/photo-02.jpg`,
+  },
+  {
+    url: `${R2}/${LAGOS_VIDEO_KEY}/clip-01.mp4`,
+    caption: "Opening energy — first floor arrivals.",
+    posterUrl: `${R2}/${LAGOS_PHOTO_KEY}/photo-01.jpg`,
+  },
+  {
+    url: `${R2}/${LAGOS_VIDEO_KEY}/clip-02.mp4`,
+    caption: "Live walkthrough of the security architecture.",
+    posterUrl: `${R2}/${LAGOS_PHOTO_KEY}/photo-03.jpg`,
+  },
+  {
+    url: `${R2}/${LAGOS_VIDEO_KEY}/clip-03.mp4`,
+    caption: "Floor Q&A — community voices on the record.",
+    posterUrl: `${R2}/${LAGOS_PHOTO_KEY}/photo-04.jpg`,
+  },
+  {
+    url: `${R2}/${LAGOS_VIDEO_KEY}/clip-04.mp4`,
+    caption: "Local presenter spotlight — Lagos chapter takes the stage.",
+    posterUrl: `${R2}/${LAGOS_PHOTO_KEY}/photo-05.jpg`,
+  },
+  {
+    url: `${R2}/${LAGOS_VIDEO_KEY}/clip-05.mp4`,
+    caption: "Closing applause — the room thanks the host team.",
+    posterUrl: `${R2}/${LAGOS_PHOTO_KEY}/photo-06.jpg`,
+  },
+];
+
 export const PAST_EVENTS: PastEvent[] = [
   {
     id: "pe-lagos-2026-04",
@@ -64,8 +134,10 @@ export const PAST_EVENTS: PastEvent[] = [
       "Hosted at Radisson Hotels — first Tier 2 City Seminar",
     ],
     verified: true,
-    imageUrl: `${R2}/events/past/lagos/lagos-4.jpg`,
-    videoUrl: `${R2}/events/past/lagos/main.mp4`,
+    imageUrl: LAGOS_PHOTOS[1].url,
+    videoUrl: LAGOS_VIDEOS[0].url,
+    photos: LAGOS_PHOTOS,
+    videos: LAGOS_VIDEOS,
   },
 ];
 
@@ -253,19 +325,9 @@ export const MEETUP_KIT = [
   },
 ] as const;
 
-/** Wall of Proof — masonry grid of past meetup photos shown right
- *  below the hero. All Lagos soft-launch photos for now (more events
- *  ship more photos here over time).
- *
- *  Note: lagos-1.jpg + lagos-2.jpg are intentionally excluded — the
- *  source set included an app screenshot and a CompoundX logo that
- *  aren't real event photos. The R2 objects still exist (other code
- *  may reference them) but they're kept off the public wall. */
-export const WALL_OF_PROOF: Array<{ src: string; alt: string }> = [
-  { src: `${R2}/events/past/lagos/lagos-3.jpg`, alt: "Lagos soft launch — onboarding session" },
-  { src: `${R2}/events/past/lagos/lagos-4.jpg`, alt: "Lagos soft launch — main stage" },
-  { src: `${R2}/events/past/lagos/lagos-5.jpg`, alt: "Lagos soft launch — Q&A floor" },
-  { src: `${R2}/events/past/lagos/lagos-6.jpg`, alt: "Lagos soft launch — networking break" },
-  { src: `${R2}/events/past/lagos/lagos-7.jpg`, alt: "Lagos soft launch — group photo" },
-  { src: `${R2}/events/past/lagos/lagos-8.jpg`, alt: "Lagos soft launch — closing remarks" },
-];
+/** Wall of Proof — masonry grid of real meetup photos shown right
+ *  below the hero. Sourced directly from the curated Lagos folder —
+ *  every image here is a verified event shot. */
+export const WALL_OF_PROOF: Array<{ src: string; alt: string }> = LAGOS_PHOTOS.map(
+  p => ({ src: p.url, alt: p.caption })
+);

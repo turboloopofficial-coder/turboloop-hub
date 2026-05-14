@@ -255,10 +255,13 @@ export const MEETUP_KIT = [
 
 /** Wall of Proof — masonry grid of past meetup photos shown right
  *  below the hero. All Lagos soft-launch photos for now (more events
- *  ship more photos here over time). */
+ *  ship more photos here over time).
+ *
+ *  Note: lagos-1.jpg + lagos-2.jpg are intentionally excluded — the
+ *  source set included an app screenshot and a CompoundX logo that
+ *  aren't real event photos. The R2 objects still exist (other code
+ *  may reference them) but they're kept off the public wall. */
 export const WALL_OF_PROOF: Array<{ src: string; alt: string }> = [
-  { src: `${R2}/events/past/lagos/lagos-1.jpg`, alt: "Lagos soft launch — venue overview" },
-  { src: `${R2}/events/past/lagos/lagos-2.jpg`, alt: "Lagos soft launch — attendee welcome" },
   { src: `${R2}/events/past/lagos/lagos-3.jpg`, alt: "Lagos soft launch — onboarding session" },
   { src: `${R2}/events/past/lagos/lagos-4.jpg`, alt: "Lagos soft launch — main stage" },
   { src: `${R2}/events/past/lagos/lagos-5.jpg`, alt: "Lagos soft launch — Q&A floor" },

@@ -9,6 +9,7 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
+import { ProgramsSection } from "@components/apply/ProgramsSection";
 import {
   submitSubmission,
   rememberSubmissionId,
@@ -121,11 +122,17 @@ export default function ApplyPage() {
   return (
     <main className="relative pb-12 md:pb-20">
       <PageHero
-        eyebrow="Get Paid"
-        title="Earn while you build the movement."
-        subtitle="Two paid programs: Creator Star ($10–$100/video) and Local Presenter ($100/month). Apply in one minute — we review within 48 h."
+        eyebrow="Apply to Earn"
+        title="Apply to TurboLoop Programs."
+        subtitle="Two ways to earn alongside the protocol — make content that gets views, or host community calls in your language. Both pay in stablecoins, both apply right here on this page."
       />
 
+      {/* Programs explainer — tier table + Community Builder card.
+          Renders above the form so visitors can read what they're
+          applying for, then scroll to the form (anchored at #apply). */}
+      <ProgramsSection />
+
+      <section id="apply" className="scroll-mt-24">
       <Container width="narrow">
         {success ? (
           <Card
@@ -322,6 +329,7 @@ export default function ApplyPage() {
           </form>
         )}
       </Container>
+      </section>
     </main>
   );
 }

@@ -1,8 +1,9 @@
-// CreatorProgramsSection — two side-by-side cards on /creatives that
-// surface the Star Content Creator payout tiers and the Community
-// Builder monthly stipend. CTA on both routes to @TurboLoop_Support
-// on Telegram; the actual application form lives on /submit
-// (type=creator_apply) and /careers (type=presenter_apply).
+// ProgramsSection — two side-by-side cards on /apply explaining the
+// Star Content Creator payout tiers and the Community Builder
+// monthly stipend. Creator Star CTA anchors down to the application
+// form rendered on the same /apply page (#apply); Builder CTA links
+// to Telegram support; "Open roles" routes to /careers for the
+// language-specific Zoom Presenter listings.
 //
 // Server component, no client JS.
 
@@ -28,7 +29,7 @@ const CREATOR_TIERS = [
   { views: "1,000,000", payout: "$1,000" },
 ] as const;
 
-export function CreatorProgramsSection() {
+export function ProgramsSection() {
   return (
     <section className="py-12 md:py-16">
       <Container width="default">
@@ -118,10 +119,10 @@ export function CreatorProgramsSection() {
 
             <div className="flex flex-wrap gap-3">
               <a
-                href="/submit?type=creator_apply"
+                href="#apply"
                 className="inline-flex items-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
               >
-                Apply now →
+                Apply now ↓
               </a>
               <a
                 href={SUPPORT_URL}

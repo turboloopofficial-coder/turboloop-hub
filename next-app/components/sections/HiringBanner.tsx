@@ -35,13 +35,24 @@ export function HiringBanner() {
               bring the room.
             </p>
           </div>
-          <Link
-            href="/careers"
-            className="inline-flex items-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985] flex-shrink-0 mt-4 md:mt-0"
-          >
-            See open roles
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          {/* Two CTAs: primary Apply on /apply (the programs hub +
+              form), secondary "See roles" on /careers for the
+              language-specific listings. */}
+          <div className="flex flex-wrap gap-2 mt-4 md:mt-0 flex-shrink-0">
+            <Link
+              href="/apply"
+              className="inline-flex items-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+            >
+              Apply now
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/careers"
+              className="inline-flex items-center gap-2 px-4 h-11 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] transition active:scale-[0.985]"
+            >
+              See roles
+            </Link>
+          </div>
         </Card>
       </Container>
     </section>

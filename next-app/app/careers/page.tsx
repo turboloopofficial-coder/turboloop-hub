@@ -152,10 +152,10 @@ export default function CareersPage() {
         <p className="text-center text-sm text-[var(--c-text-muted)] mt-10">
           Not a presenter role?{" "}
           <Link
-            href="/submit?type=creator_apply"
+            href="/apply"
             className="font-bold text-[var(--c-brand-cyan)] hover:underline"
           >
-            Try the Creator Star program
+            See all earning programs
           </Link>{" "}
           or{" "}
           <Link

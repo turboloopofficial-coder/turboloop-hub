@@ -10,7 +10,6 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { BannerCard } from "@components/creatives/BannerCard";
 import { CreativesCategoryNav } from "@components/creatives/CreativesCategoryNav";
-import { CreatorProgramsSection } from "@components/creatives/CreatorProgramsSection";
 import {
   ALL_CREATIVES,
   CREATIVE_CATEGORIES,
@@ -53,8 +52,6 @@ export default function CreativesPage() {
         title="Premium banners. Ready to share."
         subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
       />
-
-      <CreatorProgramsSection />
 
       <CreativesCategoryNav categories={CREATIVE_CATEGORIES} />
 

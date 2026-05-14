@@ -152,16 +152,33 @@ export type NewsletterSignup = typeof newsletterSignups.$inferSelect;
 
 // Community-submitted content (testimonials, photos, reels, stories) —
 // queued for admin moderation before showing on /community wall.
-export const contentSubmissionStatusEnum = pgEnum("content_submission_status", ["pending", "approved", "rejected"]);
+// Status lifecycle: pending → approved → payment_due → paid. Rejection
+// is a terminal branch off any of the prior states. The payment_due /
+// paid states are used by the Creator Star payout flow (admin queues a
+// payout after view-count verification, marks paid once stablecoins ship).
+export const contentSubmissionStatusEnum = pgEnum("content_submission_status", [
+  "pending",
+  "approved",
+  "payment_due",
+  "paid",
+  "rejected",
+]);
 
 export const contentSubmissions = pgTable("content_submissions", {
   id: serial("id").primaryKey(),
-  type: varchar("type", { length: 50 }).notNull(), // testimonial | photo | reel | story
+  type: varchar("type", { length: 50 }).notNull(), // testimonial | photo | reel | story | creator_apply | presenter_apply
   authorName: varchar("author_name", { length: 200 }).notNull(),
   authorContact: varchar("author_contact", { length: 320 }), // email or telegram handle
   authorCountry: varchar("author_country", { length: 100 }),
   body: text("body").notNull(),
   fileUrl: varchar("file_url", { length: 1000 }), // optional photo/video URL
+  // Creator Star payout fields — set by the /submit form for
+  // creator_apply submissions and updated by the 44-day reminder cron.
+  walletAddress: varchar("wallet_address", { length: 100 }),
+  youtubeUrl: varchar("youtube_url", { length: 500 }),
+  viewCount: integer("view_count"),
+  viewCountCheckedAt: timestamp("view_count_checked_at"),
+  payoutAmountUsd: integer("payout_amount_usd"),
   status: contentSubmissionStatusEnum("status").default("pending").notNull(),
   adminNotes: text("admin_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -195,3 +212,26 @@ export const eventApplications = pgTable("event_applications", {
 
 export type EventApplication = typeof eventApplications.$inferSelect;
 export type InsertEventApplication = typeof eventApplications.$inferInsert;
+
+// Social Wall videos — community YouTube content surfaced on the
+// homepage social wall. Distinct from `videos` (which holds the
+// cinematic universe + production reels) because the curation flow,
+// metadata, and source-of-truth (YouTube IDs) are different.
+export const socialWallVideos = pgTable("social_wall_videos", {
+  id: serial("id").primaryKey(),
+  youtubeId: varchar("youtube_id", { length: 20 }).notNull().unique(),
+  title: varchar("title", { length: 500 }).notNull(),
+  channelTitle: varchar("channel_title", { length: 200 }),
+  thumbnailUrl: varchar("thumbnail_url", { length: 500 }),
+  viewCount: integer("view_count"),
+  durationSec: integer("duration_sec"),
+  language: varchar("language", { length: 10 }),
+  approved: boolean("approved").default(false).notNull(),
+  featured: boolean("featured").default(false).notNull(),
+  sortOrder: integer("sort_order").default(0).notNull(),
+  fetchedAt: timestamp("fetched_at").defaultNow().notNull(),
+  approvedAt: timestamp("approved_at"),
+});
+
+export type SocialWallVideo = typeof socialWallVideos.$inferSelect;
+export type InsertSocialWallVideo = typeof socialWallVideos.$inferInsert;

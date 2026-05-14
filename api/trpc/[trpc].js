@@ -98256,11 +98256,17 @@ var newsletterSignups = pgTable("newsletter_signups", {
   // "homepage", "footer", "blog", etc
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
-var contentSubmissionStatusEnum = pgEnum("content_submission_status", ["pending", "approved", "rejected"]);
+var contentSubmissionStatusEnum = pgEnum("content_submission_status", [
+  "pending",
+  "approved",
+  "payment_due",
+  "paid",
+  "rejected"
+]);
 var contentSubmissions = pgTable("content_submissions", {
   id: serial("id").primaryKey(),
   type: varchar("type", { length: 50 }).notNull(),
-  // testimonial | photo | reel | story
+  // testimonial | photo | reel | story | creator_apply | presenter_apply
   authorName: varchar("author_name", { length: 200 }).notNull(),
   authorContact: varchar("author_contact", { length: 320 }),
   // email or telegram handle
@@ -98268,6 +98274,13 @@ var contentSubmissions = pgTable("content_submissions", {
   body: text("body").notNull(),
   fileUrl: varchar("file_url", { length: 1e3 }),
   // optional photo/video URL
+  // Creator Star payout fields — set by the /submit form for
+  // creator_apply submissions and updated by the 44-day reminder cron.
+  walletAddress: varchar("wallet_address", { length: 100 }),
+  youtubeUrl: varchar("youtube_url", { length: 500 }),
+  viewCount: integer2("view_count"),
+  viewCountCheckedAt: timestamp("view_count_checked_at"),
+  payoutAmountUsd: integer2("payout_amount_usd"),
   status: contentSubmissionStatusEnum("status").default("pending").notNull(),
   adminNotes: text("admin_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull()
@@ -98291,6 +98304,21 @@ var eventApplications = pgTable("event_applications", {
   status: eventApplicationStatusEnum("status").default("pending").notNull(),
   adminNotes: text("admin_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var socialWallVideos = pgTable("social_wall_videos", {
+  id: serial("id").primaryKey(),
+  youtubeId: varchar("youtube_id", { length: 20 }).notNull().unique(),
+  title: varchar("title", { length: 500 }).notNull(),
+  channelTitle: varchar("channel_title", { length: 200 }),
+  thumbnailUrl: varchar("thumbnail_url", { length: 500 }),
+  viewCount: integer2("view_count"),
+  durationSec: integer2("duration_sec"),
+  language: varchar("language", { length: 10 }),
+  approved: boolean4("approved").default(false).notNull(),
+  featured: boolean4("featured").default(false).notNull(),
+  sortOrder: integer2("sort_order").default(0).notNull(),
+  fetchedAt: timestamp("fetched_at").defaultNow().notNull(),
+  approvedAt: timestamp("approved_at")
 });
 
 // node_modules/bcryptjs/index.js
@@ -100256,6 +100284,56 @@ async function listEventApplications(status) {
   }
   return db.select().from(eventApplications).orderBy(desc(eventApplications.createdAt));
 }
+async function updateEventApplicationStatus(id, status, adminNotes) {
+  const db = getDb();
+  const rows = await db.update(eventApplications).set({ status, adminNotes: adminNotes ?? null }).where(eq(eventApplications.id, id)).returning();
+  return rows[0] ?? null;
+}
+async function listSocialWallVideos(opts) {
+  const db = getDb();
+  const rows = opts?.approvedOnly ? await db.select().from(socialWallVideos).where(eq(socialWallVideos.approved, true)).orderBy(
+    desc(socialWallVideos.featured),
+    asc(socialWallVideos.sortOrder),
+    desc(socialWallVideos.fetchedAt)
+  ) : await db.select().from(socialWallVideos).orderBy(
+    desc(socialWallVideos.featured),
+    asc(socialWallVideos.sortOrder),
+    desc(socialWallVideos.fetchedAt)
+  );
+  return rows;
+}
+async function upsertSocialWallVideo(input) {
+  const db = getDb();
+  const result = await db.insert(socialWallVideos).values(input).onConflictDoUpdate({
+    target: socialWallVideos.youtubeId,
+    set: {
+      title: input.title,
+      channelTitle: input.channelTitle,
+      thumbnailUrl: input.thumbnailUrl,
+      viewCount: input.viewCount,
+      durationSec: input.durationSec,
+      language: input.language
+    }
+  }).returning();
+  return result[0];
+}
+async function updateSocialWallVideo(id, patch) {
+  const db = getDb();
+  const setValues = { ...patch };
+  if (patch.approved === true) setValues.approvedAt = /* @__PURE__ */ new Date();
+  if (patch.approved === false) setValues.approvedAt = null;
+  const rows = await db.update(socialWallVideos).set(setValues).where(eq(socialWallVideos.id, id)).returning();
+  return rows[0] ?? null;
+}
+async function deleteSocialWallVideo(id) {
+  const db = getDb();
+  await db.delete(socialWallVideos).where(eq(socialWallVideos.id, id));
+}
+async function updateContentSubmissionPayout(id, patch) {
+  const db = getDb();
+  const rows = await db.update(contentSubmissions).set(patch).where(eq(contentSubmissions.id, id)).returning();
+  return rows[0] ?? null;
+}
 
 // server/storage.ts
 var import_client_s3 = __toESM(require_dist_cjs71(), 1);
@@ -100497,7 +100575,12 @@ ${cleaned.slice(0, 500)}`
       authorContact: external_exports.string().max(320).optional(),
       authorCountry: external_exports.string().max(100).optional(),
       body: external_exports.string().min(10).max(5e3),
-      fileUrl: external_exports.string().url().max(1e3).optional()
+      fileUrl: external_exports.string().url().max(1e3).optional(),
+      // Creator Star payout-relevant fields. Optional on every
+      // submission type so testimonials/photos can still go through
+      // the same wire format.
+      walletAddress: external_exports.string().max(100).optional(),
+      youtubeUrl: external_exports.string().url().max(500).optional()
     })).mutation(async ({ input }) => {
       const created = await createContentSubmission(input);
       const { sendSubmissionReceivedEmail: sendSubmissionReceivedEmail2 } = await Promise.resolve().then(() => (init_email(), email_exports));
@@ -100507,6 +100590,31 @@ ${cleaned.slice(0, 500)}`
         kind: input.type
       }).catch(() => {
       });
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT;
+      if (token && supportChatId) {
+        const { tgSendMessage: tgSendMessage2 } = await Promise.resolve().then(() => (init_telegram(), telegram_exports));
+        const headlineEmoji = input.type === "creator_apply" ? "\u2B50" : input.type === "presenter_apply" ? "\u{1F399}" : input.type === "testimonial" ? "\u{1F4AC}" : input.type === "photo" ? "\u{1F4F8}" : input.type === "reel" ? "\u{1F3AC}" : "\u{1F4DD}";
+        const bodyPreview = input.body.length > 280 ? input.body.slice(0, 277).trim() + "\u2026" : input.body;
+        const lines = [
+          `${headlineEmoji} <b>New ${input.type.replace("_", " ")}</b>`,
+          "",
+          `<b>Name:</b> ${input.authorName}`,
+          input.authorCountry ? `<b>Country:</b> ${input.authorCountry}` : null,
+          input.authorContact ? `<b>Contact:</b> ${input.authorContact}` : null,
+          input.walletAddress ? `<b>Wallet:</b> <code>${input.walletAddress}</code>` : null,
+          input.youtubeUrl ? `<b>YouTube:</b> ${input.youtubeUrl}` : null,
+          input.fileUrl && !input.youtubeUrl ? `<b>File:</b> ${input.fileUrl}` : null,
+          "",
+          bodyPreview
+        ].filter(Boolean);
+        tgSendMessage2(token, {
+          chatId: supportChatId,
+          text: lines.join("\n"),
+          parseMode: "HTML"
+        }).catch(() => {
+        });
+      }
       return { success: true, id: created.id };
     }),
     byIds: publicProcedure.input(external_exports.object({ ids: external_exports.array(external_exports.number()).max(50) })).query(async ({ input }) => {
@@ -100525,7 +100633,7 @@ ${cleaned.slice(0, 500)}`
     publicApproved: publicProcedure.query(() => listPublicApprovedSubmissions(12)),
     moderate: adminProcedure.input(external_exports.object({
       id: external_exports.number(),
-      status: external_exports.enum(["pending", "approved", "rejected"]),
+      status: external_exports.enum(["pending", "approved", "payment_due", "paid", "rejected"]),
       adminNotes: external_exports.string().optional()
     })).mutation(async ({ input }) => {
       const updated = await updateContentSubmissionStatus(
@@ -100543,6 +100651,22 @@ ${cleaned.slice(0, 500)}`
         });
       }
       return updated;
+    }),
+    /** Update Creator Star payout fields — admin sets the view-count
+     *  read + the suggested USD payout amount based on the published
+     *  tier table. Status is moved separately via `moderate`. */
+    updatePayout: adminProcedure.input(external_exports.object({
+      id: external_exports.number(),
+      walletAddress: external_exports.string().max(100).nullish(),
+      youtubeUrl: external_exports.string().url().max(500).nullish(),
+      viewCount: external_exports.number().int().nullish(),
+      payoutAmountUsd: external_exports.number().int().nullish()
+    })).mutation(async ({ input }) => {
+      const { id, ...patch } = input;
+      return updateContentSubmissionPayout(id, {
+        ...patch,
+        viewCountCheckedAt: patch.viewCount !== void 0 && patch.viewCount !== null ? /* @__PURE__ */ new Date() : void 0
+      });
     }),
     /** Event application from /events — Local Presenter / meetup
      *  sponsorship form. Stores the row + pings the support Telegram so
@@ -100589,7 +100713,94 @@ Wallet: <code>${input.walletAddress}</code>`;
      *  same dashboard can render both. */
     listEventApplications: adminProcedure.input(external_exports.object({
       status: external_exports.enum(["pending", "approved", "rejected"]).optional()
-    })).query(({ input }) => listEventApplications(input.status))
+    })).query(({ input }) => listEventApplications(input.status)),
+    /** Move an event application between statuses. Admin-only. */
+    moderateEventApplication: adminProcedure.input(external_exports.object({
+      id: external_exports.number(),
+      status: external_exports.enum(["pending", "approved", "rejected"]),
+      adminNotes: external_exports.string().optional()
+    })).mutation(async ({ input }) => {
+      return updateEventApplicationStatus(input.id, input.status, input.adminNotes);
+    })
+  }),
+  // ───────────────────────────────────────────────────────────────────
+  // Social Wall — YouTube-video-backed community content surfaced on
+  // the homepage. Admin curates the feed; the public-facing query is
+  // narrow and excludes unapproved rows.
+  // ───────────────────────────────────────────────────────────────────
+  socialWall: router({
+    /** Public read — approved videos only, sorted featured-first then
+     *  by sortOrder ascending. Used by SocialWallSection on home. */
+    publicList: publicProcedure.query(() => listSocialWallVideos({ approvedOnly: true })),
+    /** Admin read — every row, regardless of approval state. */
+    list: adminProcedure.query(() => listSocialWallVideos()),
+    /** Search YouTube via the Data API v3. Returns up to 10 results
+     *  (default) — admin picks which to save. Requires YOUTUBE_API_KEY.
+     *  search.list costs 100 quota units per call → 100 searches/day
+     *  on the free tier, which is plenty for admin-driven curation. */
+    youtubeSearch: adminProcedure.input(external_exports.object({
+      query: external_exports.string().min(2).max(200),
+      maxResults: external_exports.number().int().min(1).max(25).default(10)
+    })).query(async ({ input }) => {
+      const apiKey = process.env.YOUTUBE_API_KEY;
+      if (!apiKey) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "YOUTUBE_API_KEY is not configured on the server."
+        });
+      }
+      const url2 = new URL("https://www.googleapis.com/youtube/v3/search");
+      url2.searchParams.set("part", "snippet");
+      url2.searchParams.set("type", "video");
+      url2.searchParams.set("maxResults", String(input.maxResults));
+      url2.searchParams.set("q", input.query);
+      url2.searchParams.set("key", apiKey);
+      const res = await fetch(url2.toString());
+      if (!res.ok) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `YouTube search failed: HTTP ${res.status}`
+        });
+      }
+      const data2 = await res.json();
+      return (data2.items ?? []).map((item) => {
+        const id = item.id?.videoId;
+        if (!id || !item.snippet) return null;
+        const thumb = item.snippet.thumbnails?.medium?.url ?? item.snippet.thumbnails?.default?.url ?? null;
+        return {
+          youtubeId: id,
+          title: item.snippet.title ?? "(no title)",
+          channelTitle: item.snippet.channelTitle ?? null,
+          thumbnailUrl: thumb,
+          language: item.snippet.defaultAudioLanguage ?? item.snippet.defaultLanguage ?? null
+        };
+      }).filter(Boolean);
+    }),
+    /** Save a YouTube video as a row in social_wall_videos. Idempotent
+     *  via the unique youtube_id constraint — re-saving the same video
+     *  refreshes the cached metadata but preserves the curation flags. */
+    save: adminProcedure.input(external_exports.object({
+      youtubeId: external_exports.string().min(5).max(20),
+      title: external_exports.string().min(1).max(500),
+      channelTitle: external_exports.string().max(200).optional(),
+      thumbnailUrl: external_exports.string().url().max(500).optional(),
+      viewCount: external_exports.number().int().optional(),
+      durationSec: external_exports.number().int().optional(),
+      language: external_exports.string().max(10).optional()
+    })).mutation(({ input }) => upsertSocialWallVideo(input)),
+    /** Patch curation flags. Used by the admin's Approve / Feature /
+     *  Reorder controls. */
+    update: adminProcedure.input(external_exports.object({
+      id: external_exports.number(),
+      approved: external_exports.boolean().optional(),
+      featured: external_exports.boolean().optional(),
+      sortOrder: external_exports.number().int().optional()
+    })).mutation(({ input }) => {
+      const { id, ...patch } = input;
+      return updateSocialWallVideo(id, patch);
+    }),
+    /** Hard-delete a video from the wall. */
+    delete: adminProcedure.input(external_exports.object({ id: external_exports.number() })).mutation(({ input }) => deleteSocialWallVideo(input.id))
   }),
   manage: router({
     listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),

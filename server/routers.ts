@@ -14,8 +14,10 @@ import {
   getSetting, setSetting,
   addNewsletterSignup, listNewsletterSignups, newsletterSignupCount,
   createContentSubmission, listContentSubmissions, updateContentSubmissionStatus,
+  updateContentSubmissionPayout,
   listPublicApprovedSubmissions,
-  createEventApplication, listEventApplications,
+  createEventApplication, listEventApplications, updateEventApplicationStatus,
+  listSocialWallVideos, upsertSocialWallVideo, updateSocialWallVideo, deleteSocialWallVideo,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -223,9 +225,15 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         authorCountry: z.string().max(100).optional(),
         body: z.string().min(10).max(5000),
         fileUrl: z.string().url().max(1000).optional(),
+        // Creator Star payout-relevant fields. Optional on every
+        // submission type so testimonials/photos can still go through
+        // the same wire format.
+        walletAddress: z.string().max(100).optional(),
+        youtubeUrl: z.string().url().max(500).optional(),
       }))
       .mutation(async ({ input }) => {
         const created = await createContentSubmission(input);
+
         // Fire-and-forget: send confirmation email if RESEND_API_KEY is set.
         // Falls through silently when env is missing or send fails — must
         // never block the submission flow.
@@ -235,6 +243,44 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           name: input.authorName,
           kind: input.type,
         }).catch(() => {});
+
+        // Telegram support notification — routed ONLY to
+        // TELEGRAM_SUPPORT_CHAT, never the public announcement chat.
+        // If the env var isn't set, the notify is skipped silently;
+        // ops still has the row in the admin dashboard either way.
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const supportChatId = process.env.TELEGRAM_SUPPORT_CHAT;
+        if (token && supportChatId) {
+          const { tgSendMessage } = await import("./_vercel/_telegram");
+          const headlineEmoji =
+            input.type === "creator_apply"   ? "⭐" :
+            input.type === "presenter_apply" ? "🎙" :
+            input.type === "testimonial"     ? "💬" :
+            input.type === "photo"           ? "📸" :
+            input.type === "reel"            ? "🎬" :
+                                                "📝";
+          const bodyPreview = input.body.length > 280
+            ? input.body.slice(0, 277).trim() + "…"
+            : input.body;
+          const lines = [
+            `${headlineEmoji} <b>New ${input.type.replace("_", " ")}</b>`,
+            "",
+            `<b>Name:</b> ${input.authorName}`,
+            input.authorCountry ? `<b>Country:</b> ${input.authorCountry}` : null,
+            input.authorContact ? `<b>Contact:</b> ${input.authorContact}` : null,
+            input.walletAddress ? `<b>Wallet:</b> <code>${input.walletAddress}</code>` : null,
+            input.youtubeUrl ? `<b>YouTube:</b> ${input.youtubeUrl}` : null,
+            input.fileUrl && !input.youtubeUrl ? `<b>File:</b> ${input.fileUrl}` : null,
+            "",
+            bodyPreview,
+          ].filter(Boolean);
+          tgSendMessage(token, {
+            chatId: supportChatId,
+            text: lines.join("\n"),
+            parseMode: "HTML",
+          }).catch(() => {});
+        }
+
         return { success: true, id: created.id };
       }),
     byIds: publicProcedure
@@ -252,7 +298,7 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           }));
       }),
     list: adminProcedure
-      .input(z.object({ status: z.enum(["pending", "approved", "rejected"]).optional() }))
+      .input(z.object({ status: z.enum(["pending", "approved", "payment_due", "paid", "rejected"]).optional() }))
       .query(({ input }) => listContentSubmissions(input.status)),
     /** Public read of approved submissions only — excludes PII (contact + admin notes).
      *  Used by /community page's FeaturedSubmissions strip. */
@@ -260,7 +306,7 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
     moderate: adminProcedure
       .input(z.object({
         id: z.number(),
-        status: z.enum(["pending", "approved", "rejected"]),
+        status: z.enum(["pending", "approved", "payment_due", "paid", "rejected"]),
         adminNotes: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
@@ -279,6 +325,28 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           }).catch(() => {});
         }
         return updated;
+      }),
+
+    /** Update Creator Star payout fields — admin sets the view-count
+     *  read + the suggested USD payout amount based on the published
+     *  tier table. Status is moved separately via `moderate`. */
+    updatePayout: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        walletAddress: z.string().max(100).nullish(),
+        youtubeUrl: z.string().url().max(500).nullish(),
+        viewCount: z.number().int().nullish(),
+        payoutAmountUsd: z.number().int().nullish(),
+      }))
+      .mutation(async ({ input }) => {
+        const { id, ...patch } = input;
+        return updateContentSubmissionPayout(id, {
+          ...patch,
+          viewCountCheckedAt:
+            patch.viewCount !== undefined && patch.viewCount !== null
+              ? new Date()
+              : undefined,
+        });
       }),
 
     /** Event application from /events — Local Presenter / meetup
@@ -337,6 +405,131 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         status: z.enum(["pending", "approved", "rejected"]).optional(),
       }))
       .query(({ input }) => listEventApplications(input.status)),
+
+    /** Move an event application between statuses. Admin-only. */
+    moderateEventApplication: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["pending", "approved", "rejected"]),
+        adminNotes: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        return updateEventApplicationStatus(input.id, input.status, input.adminNotes);
+      }),
+  }),
+
+  // ───────────────────────────────────────────────────────────────────
+  // Social Wall — YouTube-video-backed community content surfaced on
+  // the homepage. Admin curates the feed; the public-facing query is
+  // narrow and excludes unapproved rows.
+  // ───────────────────────────────────────────────────────────────────
+  socialWall: router({
+    /** Public read — approved videos only, sorted featured-first then
+     *  by sortOrder ascending. Used by SocialWallSection on home. */
+    publicList: publicProcedure.query(() => listSocialWallVideos({ approvedOnly: true })),
+
+    /** Admin read — every row, regardless of approval state. */
+    list: adminProcedure.query(() => listSocialWallVideos()),
+
+    /** Search YouTube via the Data API v3. Returns up to 10 results
+     *  (default) — admin picks which to save. Requires YOUTUBE_API_KEY.
+     *  search.list costs 100 quota units per call → 100 searches/day
+     *  on the free tier, which is plenty for admin-driven curation. */
+    youtubeSearch: adminProcedure
+      .input(z.object({
+        query: z.string().min(2).max(200),
+        maxResults: z.number().int().min(1).max(25).default(10),
+      }))
+      .query(async ({ input }) => {
+        const apiKey = process.env.YOUTUBE_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "YOUTUBE_API_KEY is not configured on the server.",
+          });
+        }
+        const url = new URL("https://www.googleapis.com/youtube/v3/search");
+        url.searchParams.set("part", "snippet");
+        url.searchParams.set("type", "video");
+        url.searchParams.set("maxResults", String(input.maxResults));
+        url.searchParams.set("q", input.query);
+        url.searchParams.set("key", apiKey);
+
+        const res = await fetch(url.toString());
+        if (!res.ok) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `YouTube search failed: HTTP ${res.status}`,
+          });
+        }
+        const data = (await res.json()) as {
+          items?: Array<{
+            id?: { videoId?: string };
+            snippet?: {
+              title?: string;
+              channelTitle?: string;
+              thumbnails?: { medium?: { url?: string }; default?: { url?: string } };
+              defaultAudioLanguage?: string;
+              defaultLanguage?: string;
+            };
+          }>;
+        };
+        // Normalise to the shape the admin UI consumes.
+        return (data.items ?? [])
+          .map(item => {
+            const id = item.id?.videoId;
+            if (!id || !item.snippet) return null;
+            const thumb =
+              item.snippet.thumbnails?.medium?.url ??
+              item.snippet.thumbnails?.default?.url ??
+              null;
+            return {
+              youtubeId: id,
+              title: item.snippet.title ?? "(no title)",
+              channelTitle: item.snippet.channelTitle ?? null,
+              thumbnailUrl: thumb,
+              language:
+                item.snippet.defaultAudioLanguage ??
+                item.snippet.defaultLanguage ??
+                null,
+            };
+          })
+          .filter(Boolean);
+      }),
+
+    /** Save a YouTube video as a row in social_wall_videos. Idempotent
+     *  via the unique youtube_id constraint — re-saving the same video
+     *  refreshes the cached metadata but preserves the curation flags. */
+    save: adminProcedure
+      .input(z.object({
+        youtubeId: z.string().min(5).max(20),
+        title: z.string().min(1).max(500),
+        channelTitle: z.string().max(200).optional(),
+        thumbnailUrl: z.string().url().max(500).optional(),
+        viewCount: z.number().int().optional(),
+        durationSec: z.number().int().optional(),
+        language: z.string().max(10).optional(),
+      }))
+      .mutation(({ input }) => upsertSocialWallVideo(input)),
+
+    /** Patch curation flags. Used by the admin's Approve / Feature /
+     *  Reorder controls. */
+    update: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        approved: z.boolean().optional(),
+        featured: z.boolean().optional(),
+        sortOrder: z.number().int().optional(),
+      }))
+      .mutation(({ input }) => {
+        const { id, ...patch } = input;
+        return updateSocialWallVideo(id, patch);
+      }),
+
+    /** Hard-delete a video from the wall. */
+    delete: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(({ input }) => deleteSocialWallVideo(input.id)),
   }),
 
   manage: router({

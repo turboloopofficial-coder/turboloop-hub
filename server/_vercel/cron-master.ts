@@ -86,6 +86,46 @@ async function markFiredEver(db: ReturnType<typeof drizzle>, key: string): Promi
     .onConflictDoNothing();
 }
 
+/** Extract a YouTube video ID from any of the common URL shapes:
+ *  youtu.be/<id>, youtube.com/watch?v=<id>, youtube.com/embed/<id>,
+ *  youtube.com/shorts/<id>. Returns null on no match. */
+function extractYoutubeId(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.endsWith("youtu.be")) return u.pathname.slice(1) || null;
+    const v = u.searchParams.get("v");
+    if (v) return v;
+    const m = u.pathname.match(/\/(embed|shorts)\/([^/?#]+)/);
+    return m ? m[2] : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Star Content Creator payout tiers — must match the public table on
+ *  /creatives. Returns the highest matching tier, or null if the view
+ *  count is below the $5 floor. */
+const CREATOR_PAYOUT_TIERS = [
+  { min: 1_000_000, payout: 1000, label: "1M views" },
+  { min: 500_000,   payout: 500,  label: "500k views" },
+  { min: 100_000,   payout: 300,  label: "100k views" },
+  { min: 10_000,    payout: 150,  label: "10k views" },
+  { min: 5_000,     payout: 80,   label: "5k views" },
+  { min: 2_500,     payout: 50,   label: "2.5k views" },
+  { min: 1_000,     payout: 15,   label: "1k views" },
+  { min: 500,       payout: 5,    label: "500 views" },
+];
+
+function payoutTierForViews(
+  views: number | null
+): { payout: number; label: string } | null {
+  if (views === null || !Number.isFinite(views)) return null;
+  for (const t of CREATOR_PAYOUT_TIERS) {
+    if (views >= t.min) return { payout: t.payout, label: t.label };
+  }
+  return null;
+}
+
 function isInWindow(targetHour: number, targetMin: number, graceMin = 4): boolean {
   const now = new Date();
   const target = new Date(now);
@@ -245,6 +285,109 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       });
       await markFired(db, "cinematic:daily");
       log.push(`🎬 Cinematic — S${film.season}E${film.episode}: ${film.slug}`);
+    }
+
+    // ============ 6. CREATOR STAR — 44-day view-count reminder ============
+    // Fires once per approved creator_apply submission, on the first
+    // cron tick after the row is 44 days old. Pulls fresh view counts
+    // from YouTube, persists them, then DMs ops the suggested payout
+    // tier so they can move the row to payment_due.
+    //
+    // Run window: 19:00 UTC (right after the cinematic post). We use
+    // hasFiredEver(`creatorReminder:<id>`) so each row triggers exactly
+    // once across the entire project lifetime — no daily de-dup needed.
+    if (isInWindow(19, 0)) {
+      const { contentSubmissions } = await import("../../drizzle/schema");
+      const fortyFourDaysAgo = new Date(Date.now() - 44 * 24 * 60 * 60 * 1000);
+
+      // Pull approved creator_apply rows ≥ 44 days old that haven't
+      // had their reminder yet. Limit 25/run so a backlog doesn't
+      // exhaust YouTube quota in a single tick.
+      const dueRows = await db
+        .select()
+        .from(contentSubmissions)
+        .where(
+          and(
+            eq(contentSubmissions.type, "creator_apply"),
+            eq(contentSubmissions.status, "approved"),
+            lte(contentSubmissions.createdAt, fortyFourDaysAgo)
+          )
+        )
+        .limit(25);
+
+      const apiKey = process.env.YOUTUBE_API_KEY;
+      const tgToken = process.env.TELEGRAM_BOT_TOKEN;
+      const supportChat = process.env.TELEGRAM_SUPPORT_CHAT;
+
+      for (const row of dueRows) {
+        if (await hasFiredEver(db, `creatorReminder:${row.id}`)) continue;
+
+        // 1. Refresh view count from YouTube (if we have a URL + key).
+        let viewCount: number | null = row.viewCount ?? null;
+        if (apiKey && row.youtubeUrl) {
+          const id = extractYoutubeId(row.youtubeUrl);
+          if (id) {
+            try {
+              const url = new URL("https://www.googleapis.com/youtube/v3/videos");
+              url.searchParams.set("part", "statistics");
+              url.searchParams.set("id", id);
+              url.searchParams.set("key", apiKey);
+              const r = await fetch(url.toString());
+              if (r.ok) {
+                const j = (await r.json()) as any;
+                const raw = j?.items?.[0]?.statistics?.viewCount;
+                const parsed = raw ? parseInt(raw, 10) : NaN;
+                if (Number.isFinite(parsed)) {
+                  viewCount = parsed;
+                  await db
+                    .update(contentSubmissions)
+                    .set({
+                      viewCount: parsed,
+                      viewCountCheckedAt: new Date(),
+                    })
+                    .where(eq(contentSubmissions.id, row.id));
+                }
+              }
+            } catch (e) {
+              // Non-fatal — we'll send the reminder with whatever the
+              // last known view count was.
+            }
+          }
+        }
+
+        // 2. Compute suggested payout tier.
+        const tier = payoutTierForViews(viewCount);
+
+        // 3. Send the Telegram reminder.
+        if (tgToken && supportChat) {
+          const lines = [
+            `⭐ <b>Creator 44-day check (#${row.id})</b>`,
+            "",
+            `<b>Name:</b> ${row.authorName}`,
+            row.authorContact ? `<b>Contact:</b> ${row.authorContact}` : null,
+            row.walletAddress ? `<b>Wallet:</b> <code>${row.walletAddress}</code>` : `<b>Wallet:</b> <i>none on file</i>`,
+            row.youtubeUrl ? `<b>Video:</b> ${row.youtubeUrl}` : `<b>Video:</b> <i>no URL on file</i>`,
+            viewCount !== null
+              ? `<b>Views:</b> ${viewCount.toLocaleString()}`
+              : `<b>Views:</b> <i>unknown</i>`,
+            tier
+              ? `<b>Suggested payout:</b> $${tier.payout} (${tier.label} tier)`
+              : `<b>Suggested payout:</b> below the $5 floor — no payout yet`,
+          ].filter(Boolean);
+          await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: supportChat,
+              text: lines.join("\n"),
+              parse_mode: "HTML",
+            }),
+          }).catch(() => {});
+        }
+
+        await markFiredEver(db, `creatorReminder:${row.id}`);
+        log.push(`⭐ Creator reminder fired — submission #${row.id}`);
+      }
     }
 
     res.statusCode = 200;

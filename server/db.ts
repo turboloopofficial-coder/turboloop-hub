@@ -14,6 +14,7 @@ import {
   newsletterSignups,
   contentSubmissions,
   eventApplications, type InsertEventApplication,
+  socialWallVideos, type InsertSocialWallVideo,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -303,7 +304,9 @@ export async function createContentSubmission(input: {
   return result[0];
 }
 
-export async function listContentSubmissions(status?: "pending" | "approved" | "rejected") {
+export async function listContentSubmissions(
+  status?: "pending" | "approved" | "payment_due" | "paid" | "rejected"
+) {
   const db = getDb();
   const query = db.select().from(contentSubmissions);
   if (status) {
@@ -334,7 +337,11 @@ export async function listPublicApprovedSubmissions(limit = 12) {
   return r;
 }
 
-export async function updateContentSubmissionStatus(id: number, status: "pending" | "approved" | "rejected", adminNotes?: string) {
+export async function updateContentSubmissionStatus(
+  id: number,
+  status: "pending" | "approved" | "payment_due" | "paid" | "rejected",
+  adminNotes?: string
+) {
   const db = getDb();
   const rows = await db
     .update(contentSubmissions)
@@ -366,4 +373,112 @@ export async function listEventApplications(
     .select()
     .from(eventApplications)
     .orderBy(desc(eventApplications.createdAt));
+}
+
+export async function updateEventApplicationStatus(
+  id: number,
+  status: "pending" | "approved" | "rejected",
+  adminNotes?: string
+) {
+  const db = getDb();
+  const rows = await db
+    .update(eventApplications)
+    .set({ status, adminNotes: adminNotes ?? null })
+    .where(eq(eventApplications.id, id))
+    .returning();
+  return rows[0] ?? null;
+}
+
+// ===== Social Wall (YouTube videos) =====
+export async function listSocialWallVideos(opts?: {
+  approvedOnly?: boolean;
+}) {
+  const db = getDb();
+  const rows = opts?.approvedOnly
+    ? await db
+        .select()
+        .from(socialWallVideos)
+        .where(eq(socialWallVideos.approved, true))
+        .orderBy(
+          desc(socialWallVideos.featured),
+          asc(socialWallVideos.sortOrder),
+          desc(socialWallVideos.fetchedAt)
+        )
+    : await db
+        .select()
+        .from(socialWallVideos)
+        .orderBy(
+          desc(socialWallVideos.featured),
+          asc(socialWallVideos.sortOrder),
+          desc(socialWallVideos.fetchedAt)
+        );
+  return rows;
+}
+
+export async function upsertSocialWallVideo(input: InsertSocialWallVideo) {
+  const db = getDb();
+  // ON CONFLICT (youtube_id) → update the metadata fields we always
+  // have fresh from the API. Curation flags (approved/featured/sortOrder)
+  // are preserved if the row already exists.
+  const result = await db
+    .insert(socialWallVideos)
+    .values(input)
+    .onConflictDoUpdate({
+      target: socialWallVideos.youtubeId,
+      set: {
+        title: input.title,
+        channelTitle: input.channelTitle,
+        thumbnailUrl: input.thumbnailUrl,
+        viewCount: input.viewCount,
+        durationSec: input.durationSec,
+        language: input.language,
+      },
+    })
+    .returning();
+  return result[0];
+}
+
+export async function updateSocialWallVideo(
+  id: number,
+  patch: {
+    approved?: boolean;
+    featured?: boolean;
+    sortOrder?: number;
+  }
+) {
+  const db = getDb();
+  const setValues: Record<string, unknown> = { ...patch };
+  if (patch.approved === true) setValues.approvedAt = new Date();
+  if (patch.approved === false) setValues.approvedAt = null;
+  const rows = await db
+    .update(socialWallVideos)
+    .set(setValues)
+    .where(eq(socialWallVideos.id, id))
+    .returning();
+  return rows[0] ?? null;
+}
+
+export async function deleteSocialWallVideo(id: number) {
+  const db = getDb();
+  await db.delete(socialWallVideos).where(eq(socialWallVideos.id, id));
+}
+
+// ===== Content submission Creator Star fields =====
+export async function updateContentSubmissionPayout(
+  id: number,
+  patch: {
+    walletAddress?: string | null;
+    youtubeUrl?: string | null;
+    viewCount?: number | null;
+    viewCountCheckedAt?: Date | null;
+    payoutAmountUsd?: number | null;
+  }
+) {
+  const db = getDb();
+  const rows = await db
+    .update(contentSubmissions)
+    .set(patch)
+    .where(eq(contentSubmissions.id, id))
+    .returning();
+  return rows[0] ?? null;
 }

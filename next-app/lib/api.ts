@@ -165,6 +165,23 @@ export interface PublicSubmission {
   createdAt: string;
 }
 
+/** Public Social Wall video row (approved + featured curation flags). */
+export interface SocialWallVideo {
+  id: number;
+  youtubeId: string;
+  title: string;
+  channelTitle: string | null;
+  thumbnailUrl: string | null;
+  viewCount: number | null;
+  durationSec: number | null;
+  language: string | null;
+  approved: boolean;
+  featured: boolean;
+  sortOrder: number;
+  fetchedAt: string;
+  approvedAt: string | null;
+}
+
 export const api = {
   blogPosts: () => fetchTRPC<BlogPost[]>("content.blogPosts"),
   blogPost: (slug: string) =>
@@ -175,4 +192,6 @@ export const api = {
     fetchTRPC<LeaderboardEntry[]>("content.leaderboard"),
   publicApprovedSubmissions: () =>
     fetchTRPC<PublicSubmission[]>("submissions.publicApproved"),
+  socialWallVideos: () =>
+    fetchTRPC<SocialWallVideo[]>("socialWall.publicList"),
 };

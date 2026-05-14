@@ -44,6 +44,18 @@ const STATUS_META: Record<
     bg: "rgba(16,185,129,0.12)",
     icon: Check,
   },
+  payment_due: {
+    label: "Payout queued",
+    color: "#0E7490",
+    bg: "rgba(8,145,178,0.14)",
+    icon: Check,
+  },
+  paid: {
+    label: "Paid in USDT",
+    color: "#6D28D9",
+    bg: "rgba(124,58,237,0.14)",
+    icon: Check,
+  },
   rejected: {
     label: "Not a fit",
     color: "#991B1B",
@@ -55,7 +67,7 @@ const STATUS_META: Record<
 interface Row {
   id: number;
   type: string;
-  status: "pending" | "approved" | "rejected";
+  status: "pending" | "approved" | "payment_due" | "paid" | "rejected";
   createdAt: string;
 }
 

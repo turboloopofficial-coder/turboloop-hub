@@ -32,6 +32,10 @@ export interface SubmissionInput {
   authorCountry?: string;
   body: string;
   fileUrl?: string;
+  /** Creator Star payout — BEP-20 wallet for the eventual USDT payout */
+  walletAddress?: string;
+  /** Creator Star — direct YouTube URL of the submitted content */
+  youtubeUrl?: string;
 }
 
 interface SubmitResponse {
@@ -42,7 +46,12 @@ interface SubmitResponse {
 interface SubmissionStatus {
   id: number;
   type: string;
-  status: "pending" | "approved" | "rejected";
+  status:
+    | "pending"
+    | "approved"
+    | "payment_due"
+    | "paid"
+    | "rejected";
   createdAt: string;
 }
 

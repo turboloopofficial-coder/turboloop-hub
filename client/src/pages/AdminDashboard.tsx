@@ -25,6 +25,8 @@ import {
 import ImageUpload from "@/components/ImageUpload";
 import AIDrafter from "@/components/admin/AIDrafter";
 import SubmissionsManager from "@/components/admin/SubmissionsManager";
+import EventApplicationsManager from "@/components/admin/EventApplicationsManager";
+import SocialWallManager from "@/components/admin/SocialWallManager";
 
 // ============ Blog Manager ============
 function BlogManager() {
@@ -1605,6 +1607,18 @@ export default function AdminDashboard() {
               Events
             </TabsTrigger>
             <TabsTrigger
+              value="event-applications"
+              className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
+            >
+              Event Apps
+            </TabsTrigger>
+            <TabsTrigger
+              value="social-wall"
+              className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
+            >
+              Social Wall
+            </TabsTrigger>
+            <TabsTrigger
               value="promotions"
               className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
             >
@@ -1645,6 +1659,12 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="events">
             <EventManager />
+          </TabsContent>
+          <TabsContent value="event-applications">
+            <EventApplicationsManager />
+          </TabsContent>
+          <TabsContent value="social-wall">
+            <SocialWallManager />
           </TabsContent>
           <TabsContent value="promotions">
             <PromotionManager />

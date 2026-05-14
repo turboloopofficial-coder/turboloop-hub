@@ -90,6 +90,11 @@ export default function SubmitPage() {
   const [authorCountry, setAuthorCountry] = useState("");
   const [body, setBody] = useState("");
   const [fileUrl, setFileUrl] = useState("");
+  // Creator Star payout fields — optional, surfaced as a single
+  // collapsed block since they only matter for creator_apply rows
+  // (and there's no harm collecting them for other types).
+  const [walletAddress, setWalletAddress] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -117,6 +122,8 @@ export default function SubmitPage() {
     setAuthorCountry("");
     setBody("");
     setFileUrl("");
+    setWalletAddress("");
+    setYoutubeUrl("");
     setError(null);
     setSuccess(false);
     setTouched({});
@@ -144,6 +151,8 @@ export default function SubmitPage() {
         authorCountry: authorCountry.trim() || undefined,
         body: body.trim(),
         fileUrl: fileUrl.trim() || undefined,
+        walletAddress: walletAddress.trim() || undefined,
+        youtubeUrl: youtubeUrl.trim() || undefined,
       });
       rememberSubmissionId(result.id);
       haptic("success");
@@ -402,6 +411,58 @@ export default function SubmitPage() {
                     ? "Upload to imgur.com (free, no account) and paste the link."
                     : "Paste a YouTube, Telegram, or other public link."}
                 </p>
+              </div>
+            )}
+
+            {/* Creator Star payout block — shown only when the
+                submission is a creator application. Wallet + YouTube
+                URL are optional at submission time (a Telegram handle
+                in authorContact is enough to follow up), but
+                pre-collecting them shortens the 44-day reminder loop. */}
+            {type === "creator_apply" && (
+              <div className="grid grid-cols-1 gap-4 p-4 rounded-[var(--r-lg)] bg-[var(--c-surface)] border border-[var(--c-border)]">
+                <div>
+                  <label
+                    htmlFor="submit-youtube-url"
+                    className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2"
+                  >
+                    YouTube link of your content
+                  </label>
+                  <input
+                    id="submit-youtube-url"
+                    type="url"
+                    value={youtubeUrl}
+                    onChange={e => setYoutubeUrl(e.target.value)}
+                    maxLength={500}
+                    placeholder="https://www.youtube.com/watch?v=…"
+                    className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-bg)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
+                  />
+                  <p className="text-xs text-[var(--c-text-subtle)] mt-1.5">
+                    Optional — the public URL of the video you want
+                    counted for the Creator Star payout tier.
+                  </p>
+                </div>
+                <div>
+                  <label
+                    htmlFor="submit-wallet"
+                    className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2"
+                  >
+                    Wallet address (BEP-20)
+                  </label>
+                  <input
+                    id="submit-wallet"
+                    type="text"
+                    value={walletAddress}
+                    onChange={e => setWalletAddress(e.target.value)}
+                    maxLength={100}
+                    placeholder="0x…"
+                    className="w-full px-4 h-12 rounded-[var(--r-md)] font-mono text-sm bg-[var(--c-bg)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
+                  />
+                  <p className="text-xs text-[var(--c-text-subtle)] mt-1.5">
+                    Optional now — required before any payout is sent.
+                    BEP-20 USDT only.
+                  </p>
+                </div>
               </div>
             )}
 

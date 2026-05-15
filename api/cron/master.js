@@ -15053,6 +15053,209 @@ var ZOOM_HI = {
   durationMin: 120
 };
 
+// server/_vercel/_campaigns.ts
+var R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+function bannerUrl(id) {
+  return `${R2}/campaign-banners/${id}.png`;
+}
+var CAMPAIGN_B = [
+  {
+    id: "B1",
+    date: "2026-05-15",
+    photoUrl: bannerUrl("B1"),
+    caption: "\u{1F1F3}\u{1F1EC} <b>PORT HARCOURT \u2014 WE ARE COMING!</b> \u{1F1F3}\u{1F1EC}\n\nThe TurboLoop Community Meetup is officially landing in Port Harcourt!\n\n\u{1F4C5} <b>Date:</b> May 23, 2026\n\u{1F4CD} <b>Location:</b> Port Harcourt, Nigeria\n\nMark your calendars. This is going to be massive.\n\n\u{1F449} <b>Save the date &amp; apply now:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F4C5} Save the date",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "B2",
+    date: "2026-05-16",
+    photoUrl: bannerUrl("B2"),
+    caption: "\u{1F91D} <b>MEET THE TURBOLOOP COMMUNITY</b> \u{1F91D}\n\nPort Harcourt, get ready to connect with builders, investors, and DeFi enthusiasts in your city. Real conversations, zero pressure.\n\n\u{1F4C5} <b>May 23, 2026</b>\n\n\u{1F449} <b>Join the movement:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F91D} Join the movement",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "B3",
+    date: "2026-05-17",
+    photoUrl: bannerUrl("B3"),
+    caption: "\u{1F680} <b>WHAT TO EXPECT IN PORT HARCOURT</b> \u{1F680}\n\n\u2022 Live DeFi Demos &amp; Yield Strategies\n\u2022 High-value Networking\n\u2022 Exclusive Community Insights\n\nDon't miss out on the biggest DeFi meetup in the city.\n\n\u{1F449} <b>Secure your spot:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F39F} Secure your spot",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "B4",
+    date: "2026-05-18",
+    photoUrl: bannerUrl("B4"),
+    caption: "\u23F3 <b>5 DAYS TO GO!</b> \u23F3\n\nThe countdown is on! Only 5 days left until the TurboLoop Port Harcourt Meetup. Have you secured your spot yet?\n\n\u{1F4C5} <b>May 23, 2026</b>\n\n\u{1F449} <b>Apply before it's full:</b> https://turboloop.tech/events",
+    buttonText: "\u23F3 Apply now",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "B5",
+    date: "2026-05-20",
+    photoUrl: bannerUrl("B5"),
+    caption: "\u26A1 <b>3 DAYS LEFT!</b> \u26A1\n\nThe energy is building. Port Harcourt is about to experience the TurboLoop ecosystem live. This is your last chance to apply!\n\n\u{1F449} <b>Final call:</b> https://turboloop.tech/events",
+    buttonText: "\u26A1 Final call",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "B6",
+    date: "2026-05-22",
+    photoUrl: bannerUrl("B6"),
+    caption: "\u{1F525} <b>TOMORROW IS THE DAY!</b> \u{1F525}\n\nPort Harcourt, we are ready! The venue is set, the community is buzzing. See you tomorrow for an unforgettable DeFi experience.\n\n\u{1F449} <b>Event details:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F525} See event details",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "B7",
+    date: "2026-05-23",
+    photoUrl: bannerUrl("B7"),
+    caption: "\u{1F389} <b>IT IS HAPPENING TODAY!</b> \u{1F389}\n\nThe TurboLoop Port Harcourt Meetup is LIVE TODAY! We can't wait to meet all of you. Let's build the future of DeFi together.\n\n\u{1F449} <b>Follow live updates:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F389} Live updates",
+    buttonUrl: "https://turboloop.tech/events"
+  }
+];
+var CAMPAIGN_A = [
+  {
+    id: "A1",
+    date: "2026-05-15",
+    photoUrl: bannerUrl("A1"),
+    caption: "\u{1F30D} <b>DISCOVER TURBOLOOP EVENTS NEAR YOU</b> \u{1F30D}\n\nFrom Lagos to Berlin, Dubai to Port Harcourt \u2014 the TurboLoop community is meeting up globally. Find an event in your city or apply to host one!\n\n\u{1F449} <b>Explore all events:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F30D} Explore events",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A2",
+    date: "2026-05-17",
+    photoUrl: bannerUrl("A2"),
+    caption: "\u{1F91D} <b>WHERE THE COMMUNITY MEETS</b> \u{1F91D}\n\nFree entry. Real conversations. DeFi education. TurboLoop events are designed for builders and believers.\n\n\u{1F449} <b>See upcoming events:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F91D} See upcoming",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A3",
+    date: "2026-05-19",
+    photoUrl: bannerUrl("A3"),
+    caption: "\u{1F3A4} <b>HOST A TURBOLOOP EVENT IN YOUR CITY</b> \u{1F3A4}\n\nWant to bring the TurboLoop community to your city? Apply to become an official Event Organizer. We provide the resources, you bring the energy.\n\n\u{1F449} <b>Apply to host:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F3A4} Apply to host",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A4",
+    date: "2026-05-21",
+    photoUrl: bannerUrl("A4"),
+    caption: "\u{1F1F3}\u{1F1EC} <b>LAGOS WAS JUST THE BEGINNING</b> \u{1F1F3}\u{1F1EC}\n\n100+ attendees, live demos, and incredible community energy. Now, we're taking it global. Next stop: Port Harcourt!\n\n\u{1F449} <b>Don't miss the next one:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F1F3}\u{1F1EC} Next stop",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A5",
+    date: "2026-05-23",
+    photoUrl: bannerUrl("A5"),
+    caption: "\u{1F4DA} <b>LEARN DeFi FROM THE COMMUNITY</b> \u{1F4DA}\n\nLive workshops, expert panels, and hands-on demos. TurboLoop events are the best place to level up your DeFi knowledge.\n\n\u{1F449} <b>Find an event:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F4DA} Find an event",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A6",
+    date: "2026-05-25",
+    photoUrl: bannerUrl("A6"),
+    caption: "\u{1F310} <b>A GLOBAL MOVEMENT</b> \u{1F310}\n\nTurboLoop isn't just a platform; it's a worldwide community. Be part of something bigger.\n\n\u{1F449} <b>Join the movement:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F310} Join the movement",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A7",
+    date: "2026-05-27",
+    photoUrl: bannerUrl("A7"),
+    caption: "\u{1F4BC} <b>NETWORK WITH BUILDERS</b> \u{1F4BC}\n\nConnect with developers, investors, and community leaders. Real connections lead to real opportunities.\n\n\u{1F449} <b>See who is attending:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F4BC} See attendees",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "A8",
+    date: "2026-05-29",
+    photoUrl: bannerUrl("A8"),
+    caption: "\u{1F39F}\uFE0F <b>FREE ENTRY. REAL VALUE.</b> \u{1F39F}\uFE0F\n\nNo fees. No tickets. Just show up, learn, and connect. TurboLoop events are always free for the community.\n\n\u{1F449} <b>Apply for free:</b> https://turboloop.tech/events",
+    buttonText: "\u{1F39F} Apply for free",
+    buttonUrl: "https://turboloop.tech/events"
+  }
+];
+var DE_REF_CTA = "\n\n\u{1F680} <b>Jetzt starten:</b> https://turboloop.io?ref=BitPat";
+var CAMPAIGN_DE_DAILY = [
+  {
+    id: "DE-A1",
+    photoUrl: bannerUrl("A1"),
+    caption: "\u{1F30D} <b>ENTDECKE TURBOLOOP EVENTS IN DEINER N\xC4HE</b> \u{1F30D}\n\nVon Lagos bis Berlin, von Dubai bis Port Harcourt \u2014 die TurboLoop-Community trifft sich weltweit. Finde ein Event in deiner Stadt oder bewirb dich, eines zu veranstalten." + DE_REF_CTA,
+    buttonText: "\u{1F30D} Alle Events ansehen",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A2",
+    photoUrl: bannerUrl("A2"),
+    caption: "\u{1F91D} <b>WO DIE COMMUNITY ZUSAMMENKOMMT</b> \u{1F91D}\n\nKostenloser Eintritt. Ehrliche Gespr\xE4che. DeFi-Wissen aus erster Hand. TurboLoop-Events sind f\xFCr Bauer und \xDCberzeugte gemacht." + DE_REF_CTA,
+    buttonText: "\u{1F91D} N\xE4chste Events",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A3",
+    photoUrl: bannerUrl("A3"),
+    caption: "\u{1F3A4} <b>VERANSTALTE EIN TURBOLOOP-EVENT IN DEINER STADT</b> \u{1F3A4}\n\nBring die TurboLoop-Community in deine Stadt. Bewirb dich als offizieller Event-Organisator \u2014 wir stellen die Ressourcen, du bringst die Energie." + DE_REF_CTA,
+    buttonText: "\u{1F3A4} Als Host bewerben",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A4",
+    photoUrl: bannerUrl("A4"),
+    caption: "\u{1F1F3}\u{1F1EC} <b>LAGOS WAR ERST DER ANFANG</b> \u{1F1F3}\u{1F1EC}\n\n\xDCber 100 Teilnehmer, Live-Demos und unglaubliche Community-Energie. Jetzt wird es global. N\xE4chster Stopp: Port Harcourt!" + DE_REF_CTA,
+    buttonText: "\u{1F1F3}\u{1F1EC} N\xE4chster Stopp",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A5",
+    photoUrl: bannerUrl("A5"),
+    caption: "\u{1F4DA} <b>LERNE DeFi VON DER COMMUNITY</b> \u{1F4DA}\n\nLive-Workshops, Experten-Panels und Hands-on-Demos. TurboLoop-Events sind der beste Ort, um dein DeFi-Wissen zu vertiefen." + DE_REF_CTA,
+    buttonText: "\u{1F4DA} Event finden",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A6",
+    photoUrl: bannerUrl("A6"),
+    caption: "\u{1F310} <b>EINE GLOBALE BEWEGUNG</b> \u{1F310}\n\nTurboLoop ist nicht nur eine Plattform \u2014 es ist eine weltweite Community. Sei Teil von etwas Gr\xF6\xDFerem." + DE_REF_CTA,
+    buttonText: "\u{1F310} Mitmachen",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A7",
+    photoUrl: bannerUrl("A7"),
+    caption: "\u{1F4BC} <b>VERNETZE DICH MIT BUILDERN</b> \u{1F4BC}\n\nLerne Entwickler, Investoren und Community-Leiter kennen. Echte Verbindungen f\xFChren zu echten M\xF6glichkeiten." + DE_REF_CTA,
+    buttonText: "\u{1F4BC} Teilnehmer ansehen",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  {
+    id: "DE-A8",
+    photoUrl: bannerUrl("A8"),
+    caption: "\u{1F39F}\uFE0F <b>FREIER EINTRITT. ECHTER MEHRWERT.</b> \u{1F39F}\uFE0F\n\nKeine Geb\xFChren. Keine Tickets. Komm einfach vorbei, lerne und vernetze dich. TurboLoop-Events sind immer kostenlos f\xFCr die Community." + DE_REF_CTA,
+    buttonText: "\u{1F39F} Kostenlos anmelden",
+    buttonUrl: "https://turboloop.tech/events"
+  }
+];
+function todayUtcDate() {
+  return (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+}
+function todaysCampaignPost(campaign) {
+  const today = todayUtcDate();
+  return campaign.find((p2) => p2.date === today) ?? null;
+}
+function todaysGermanPost() {
+  const now = /* @__PURE__ */ new Date();
+  const start = Date.UTC(now.getUTCFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now.getTime() - start) / 864e5);
+  const idx = (dayOfYear % CAMPAIGN_DE_DAILY.length + CAMPAIGN_DE_DAILY.length) % CAMPAIGN_DE_DAILY.length;
+  return CAMPAIGN_DE_DAILY[idx];
+}
+
 // server/_vercel/cron-master.ts
 var SITE = "https://turboloop.tech";
 var BANNER_HOST = "https://www.turboloop.tech";
@@ -15163,6 +15366,13 @@ async function handler(req, res) {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(Xs(dbUrl));
+    const reqUrl = new URL(req.url || "/", "http://x");
+    const forceSet = new Set(
+      (reqUrl.searchParams.get("force") || "").split(",").map((s) => s.trim()).filter(Boolean)
+    );
+    const forceCampaignA = forceSet.has("campaignA");
+    const forceCampaignB = forceSet.has("campaignB");
+    const forceGermanDaily = forceSet.has("germanDaily");
     {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = /* @__PURE__ */ new Date();
@@ -15309,6 +15519,61 @@ async function handler(req, res) {
         }
         await markFiredEver(db, `creatorReminder:${row.id}`);
         log.push(`\u2B50 Creator reminder fired \u2014 submission #${row.id}`);
+      }
+    }
+    if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {
+      const post = todaysCampaignPost(CAMPAIGN_A);
+      if (post) {
+        await tgBroadcastPhoto({
+          photoUrl: post.photoUrl,
+          caption: post.caption,
+          parseMode: "HTML",
+          buttons: [{ text: post.buttonText, url: post.buttonUrl }]
+        });
+        await markFired(db, "campaignA");
+        log.push(`\u{1F4E3} Campaign A \u2014 ${post.id} (${post.date})`);
+      } else {
+        log.push(`\u{1F4E3} Campaign A \u2014 no post scheduled for ${todayUtcDate()}`);
+        await markFired(db, "campaignA");
+      }
+    }
+    if ((isInWindow(11, 0) || forceGermanDaily) && !await hasFiredToday(db, "germanDaily")) {
+      const post = todaysGermanPost();
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+      if (token && germanChat) {
+        const r = await tgSendPhoto(token, {
+          chatId: germanChat,
+          photoUrl: post.photoUrl,
+          caption: post.caption,
+          parseMode: "HTML",
+          buttons: [{ text: post.buttonText, url: post.buttonUrl }]
+        });
+        await markFired(db, "germanDaily");
+        log.push(
+          `\u{1F1E9}\u{1F1EA} German daily \u2014 ${post.id}` + (r.ok ? "" : ` (failed: ${r.error})`)
+        );
+      } else {
+        log.push(
+          "\u{1F1E9}\u{1F1EA} German daily \u2014 skipped (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)"
+        );
+      }
+    }
+    {
+      const post = todaysCampaignPost(CAMPAIGN_B);
+      if (post) {
+        const isEventMorning = post.id === "B7";
+        const slot = isEventMorning ? { h: 6, m: 0 } : { h: 13, m: 0 };
+        if ((isInWindow(slot.h, slot.m) || forceCampaignB) && !await hasFiredToday(db, "campaignB")) {
+          await tgBroadcastPhoto({
+            photoUrl: post.photoUrl,
+            caption: post.caption,
+            parseMode: "HTML",
+            buttons: [{ text: post.buttonText, url: post.buttonUrl }]
+          });
+          await markFired(db, "campaignB");
+          log.push(`\u{1F1F3}\u{1F1EC} Campaign B \u2014 ${post.id} (${post.date})`);
+        }
       }
     }
     res.statusCode = 200;

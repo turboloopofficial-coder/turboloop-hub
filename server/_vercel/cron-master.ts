@@ -1,14 +1,22 @@
 // Master scheduler — runs every 5 minutes via cron-job.org pinger.
 //
-// Daily cadence (6 messages/day):
+// Daily cadence:
 //   0. Hub page promotion                    — 09:00 UTC (= 2:30 PM IST)
 //      Rotates 14 pages × 3 caption variants = 42-day cycle.
-//   1. Monthly Compounding banner            — 12:00 UTC (= 5:30 PM IST)
+//   1. Campaign A — events promo             — 10:00 UTC (= 3:30 PM IST)
+//      Every-other-day, A1–A8 dated for May 15→May 29; auto-quiets after.
+//   2. German channel daily                  — 11:00 UTC (= 4:30 PM IST)
+//      @TurboLoopDach, rotates A1–A8 visuals with German captions + BitPat CTA.
+//   3. Monthly Compounding banner            — 12:00 UTC (= 5:30 PM IST)
 //      Alternates EN/DE by day-of-year parity, cycles $50→$50,000.
-//   2. Daily blog publish + Telegram announce — 14:00 UTC (= 7:30 PM IST)
-//   3. Hindi/Urdu Zoom T-30 reminder         — 15:00 UTC (= 8:30 PM IST)
-//   4. English Zoom T-30 reminder            — 16:30 UTC (= 10:00 PM IST)
-//   5. Cinematic Universe daily film         — 18:00 UTC (= 11:30 PM IST)
+//   4. Campaign B — Port Harcourt countdown  — 13:00 UTC (= 6:30 PM IST)
+//      B1–B6 on schedule dates May 15→May 22; B7 fires at 06:00 UTC on
+//      May 23 (event morning) instead of 13:00.
+//   5. Daily blog publish + Telegram announce — 14:00 UTC (= 7:30 PM IST)
+//   6. Hindi/Urdu Zoom T-30 reminder         — 15:00 UTC (= 8:30 PM IST)
+//   7. English Zoom T-30 reminder            — 16:30 UTC (= 10:00 PM IST)
+//   8. Cinematic Universe daily film         — 18:00 UTC (= 11:30 PM IST)
+//   9. Creator-Star 44-day reminder          — 19:00 UTC (= 12:30 AM IST next day)
 //
 // One-shot tasks (fire once total, ever):
 //   - Site launch announcement: targets LAUNCH_FIRE_AT_UTC (set below)
@@ -22,9 +30,16 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { and, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings } from "../../drizzle/schema";
-import { tgBroadcastPhoto } from "./_telegram";
+import { tgBroadcastPhoto, tgSendPhoto } from "./_telegram";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { ZOOM_EN, ZOOM_HI } from "../../shared/zoomEvents";
+import {
+  CAMPAIGN_A,
+  CAMPAIGN_B,
+  todaysCampaignPost,
+  todaysGermanPost,
+  todayUtcDate,
+} from "./_campaigns";
 
 // Public-facing host. Used in Telegram message bodies and "Visit / Read /
 // Watch" buttons that point users to the live Next.js site.
@@ -180,6 +195,27 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(neon(dbUrl));
+
+    // ─── Manual force-fire overrides ────────────────────────────────
+    // Allows campaign slots to fire on demand outside their normal time
+    // window. Used on launch day for each campaign when the regular
+    // window has already passed by the time the cron is wired up.
+    //
+    // Daily dedup still applies — calling `?force=campaignA` ten times
+    // on the same UTC day fires the campaign ONCE. After the first
+    // force-fire, hasFiredToday returns true for the rest of the day
+    // and subsequent force calls (and the natural 10:00 UTC tick) are
+    // no-ops. This makes the override safe to leave public-without-auth.
+    const reqUrl = new URL(req.url || "/", "http://x");
+    const forceSet = new Set(
+      (reqUrl.searchParams.get("force") || "")
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean)
+    );
+    const forceCampaignA = forceSet.has("campaignA");
+    const forceCampaignB = forceSet.has("campaignB");
+    const forceGermanDaily = forceSet.has("germanDaily");
 
     // ============ 0. ONE-SHOT: SITE LAUNCH ANNOUNCEMENT ============
     // Fires once when current time >= LAUNCH_FIRE_AT_UTC and within grace window,
@@ -390,6 +426,86 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
         await markFiredEver(db, `creatorReminder:${row.id}`);
         log.push(`⭐ Creator reminder fired — submission #${row.id}`);
+      }
+    }
+
+    // ============ 7. CAMPAIGN A — events page promo, 10:00 UTC every 2 days ============
+    // Picks today's scheduled A1–A8 post by exact date match (each post
+    // has a fixed `date` in _campaigns.ts). The campaign self-terminates
+    // after A8 fires on May 29 because todaysCampaignPost returns null
+    // for any subsequent UTC date.
+    if ((isInWindow(10, 0) || forceCampaignA) && !(await hasFiredToday(db, "campaignA"))) {
+      const post = todaysCampaignPost(CAMPAIGN_A);
+      if (post) {
+        await tgBroadcastPhoto({
+          photoUrl: post.photoUrl,
+          caption: post.caption,
+          parseMode: "HTML",
+          buttons: [{ text: post.buttonText, url: post.buttonUrl }],
+        });
+        await markFired(db, "campaignA");
+        log.push(`📣 Campaign A — ${post.id} (${post.date})`);
+      } else {
+        log.push(`📣 Campaign A — no post scheduled for ${todayUtcDate()}`);
+        // Still mark fired so we don't re-evaluate on every 5-min tick.
+        await markFired(db, "campaignA");
+      }
+    }
+
+    // ============ 8. GERMAN CHANNEL DAILY — 11:00 UTC, @TurboLoopDach ============
+    // Rotates the A1–A8 visuals on an 8-day cycle with German captions
+    // and a BitPat referral CTA appended. Sends ONLY to the German chat
+    // (TELEGRAM_GERMAN_CHAT) — bypasses tgBroadcastPhoto's default
+    // channel/chat pair on purpose so the English channels don't see
+    // duplicate German content.
+    if ((isInWindow(11, 0) || forceGermanDaily) && !(await hasFiredToday(db, "germanDaily"))) {
+      const post = todaysGermanPost();
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+      if (token && germanChat) {
+        const r = await tgSendPhoto(token, {
+          chatId: germanChat,
+          photoUrl: post.photoUrl,
+          caption: post.caption,
+          parseMode: "HTML",
+          buttons: [{ text: post.buttonText, url: post.buttonUrl }],
+        });
+        await markFired(db, "germanDaily");
+        log.push(
+          `🇩🇪 German daily — ${post.id}` +
+            (r.ok ? "" : ` (failed: ${r.error})`)
+        );
+      } else {
+        log.push(
+          "🇩🇪 German daily — skipped (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)"
+        );
+      }
+    }
+
+    // ============ 9. CAMPAIGN B — Port Harcourt countdown ============
+    //   Standard slot: 13:00 UTC for B1–B6
+    //   Event-day slot: 06:00 UTC for B7 only (event-morning post)
+    //
+    // We branch on the today's scheduled post's id so the data file
+    // remains the single source of truth for which post fires when.
+    {
+      const post = todaysCampaignPost(CAMPAIGN_B);
+      if (post) {
+        const isEventMorning = post.id === "B7";
+        const slot = isEventMorning ? { h: 6, m: 0 } : { h: 13, m: 0 };
+        if (
+          (isInWindow(slot.h, slot.m) || forceCampaignB) &&
+          !(await hasFiredToday(db, "campaignB"))
+        ) {
+          await tgBroadcastPhoto({
+            photoUrl: post.photoUrl,
+            caption: post.caption,
+            parseMode: "HTML",
+            buttons: [{ text: post.buttonText, url: post.buttonUrl }],
+          });
+          await markFired(db, "campaignB");
+          log.push(`🇳🇬 Campaign B — ${post.id} (${post.date})`);
+        }
       }
     }
 

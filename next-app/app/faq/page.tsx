@@ -69,7 +69,7 @@ const FAQS: Array<{ category: string; items: Array<{ q: string; a: string }> }> 
     items: [
       {
         q: "Is TurboLoop safe?",
-        a: "Audited by Haze Crypto (independent firm, public report). Ownership renounced on-chain (no admin key). 100% LP locked through Unicrypt. Source verified on BscScan. $100K bounty for anyone who can find a centralization risk. We removed every way we could harm you.",
+        a: "Audited on SolidityScan (QuickScan, public report). Ownership renounced on-chain (no admin key). 100% LP locked through Unicrypt. Source verified on BscScan. $100K bounty for anyone who can find a centralization risk. We removed every way we could harm you.",
       },
       {
         q: "Could the team rug pull?",
@@ -100,9 +100,32 @@ const FAQS: Array<{ category: string; items: Array<{ q: string; a: string }> }> 
   },
 ];
 
+// Flat list of every Q&A — flattens the category grouping for the
+// FAQPage schema (Google's spec doesn't represent categories; it just
+// wants Question / Answer pairs). The visual section grouping is
+// purely UI, doesn't need to be reflected here.
+const FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.flatMap(group =>
+    group.items.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: a,
+      },
+    }))
+  ),
+};
+
 export default function FAQPage() {
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }}
+      />
       <PageHero
         eyebrow="Frequently Asked"
         title="Plain answers. No jargon."

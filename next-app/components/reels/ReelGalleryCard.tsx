@@ -16,6 +16,7 @@ import { Share2, Download, Loader2 } from "lucide-react";
 import { showToast } from "@components/Toast";
 import { haptic } from "@lib/haptic";
 import type { ReelTrack } from "@lib/reelsData";
+import { dispatchNudgeEvent } from "@components/notifications/SmartNotifications";
 
 const LANG_LABEL: Record<ReelTrack["lang"], string> = {
   en: "EN",
@@ -194,6 +195,11 @@ export function ReelGalleryCard({ reel }: ReelGalleryCardProps) {
           controls
           preload="none"
           playsInline
+          // Fire a nudge event the FIRST time this reel starts playing
+          // in the session. The Smart Notifications controller counts
+          // these across all cards and triggers the "make one yourself"
+          // creator nudge once three different reels have been watched.
+          onPlay={() => dispatchNudgeEvent("tl:reel-played")}
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Glassmorphism language pill, top-left over the video. */}

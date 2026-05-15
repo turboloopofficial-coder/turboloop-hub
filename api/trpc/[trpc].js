@@ -98165,6 +98165,13 @@ var blogPosts = pgTable("blog_posts", {
   excerpt: text("excerpt"),
   content: text("content").notNull(),
   coverImage: varchar("cover_image", { length: 1e3 }),
+  // BCP-47-ish 2-letter language code. Defaults to 'en' so existing
+  // rows keep working without a backfill — the migration sets the
+  // column with a default so PostgreSQL fills nullable historical
+  // rows in one shot. Translations follow a slug-suffix convention:
+  // <slug>-de, <slug>-id, etc., letting us treat them as independent
+  // rows that share an editorial parent by stripping the suffix.
+  language: varchar("language", { length: 8 }).default("en").notNull(),
   published: boolean4("published").default(false).notNull(),
   scheduledPublishAt: timestamp("scheduled_publish_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

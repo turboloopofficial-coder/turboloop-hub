@@ -66,6 +66,8 @@ async function fetchTRPC<T>(
 // can't be tree-shaken from the client bundle. Types are small; risk
 // of drift is low (the schema rarely changes).
 
+export type BlogLanguage = "en" | "de" | "id";
+
 export interface BlogPost {
   id: number;
   title: string;
@@ -75,6 +77,11 @@ export interface BlogPost {
   coverImage: string | null;
   readingTime: number | null;
   published: boolean;
+  /** BCP-47-ish 2-letter language code. Defaults to "en" for legacy rows
+   *  that pre-date the migration. Translations follow a slug-suffix
+   *  convention (`<original>-de`, `<original>-id`) so they sort next to
+   *  the source post on the index. */
+  language: BlogLanguage;
   /** Intended publish moment — set by the editor or seed script. The cron
    *  flips `published` to true once now ≥ this timestamp. Use this rather
    *  than createdAt for any user-facing date display, since createdAt
@@ -83,6 +90,16 @@ export interface BlogPost {
   createdAt: string;
   updatedAt: string | null;
 }
+
+export const BLOG_LANGUAGES: ReadonlyArray<{
+  code: BlogLanguage;
+  label: string;
+  flag: string;
+}> = [
+  { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
+];
 
 /** R2-hosted /api/og-banner PNG that the legacy Vercel project generates per
  *  request (1200×630, palette rotates daily). Suitable as both cover image

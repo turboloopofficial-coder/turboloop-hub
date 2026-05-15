@@ -15,6 +15,13 @@
       "when": 1778764398015,
       "tag": "0001_talented_venus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778853997607,
+      "tag": "0002_tan_iron_man",
+      "breakpoints": true
     }
   ]
 }

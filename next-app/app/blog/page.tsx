@@ -12,7 +12,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
-import { api, blogCoverUrl, blogDisplayDate } from "@lib/api";
+import {
+  api,
+  blogCoverUrl,
+  blogDisplayDate,
+  BLOG_LANGUAGES,
+  type BlogLanguage,
+} from "@lib/api";
+import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
 export const revalidate = 300; // 5 min
 
@@ -50,10 +57,36 @@ function formatDate(iso: string) {
   });
 }
 
-export default async function BlogIndex() {
-  const posts = await api
+function isBlogLanguage(v: string | undefined): v is BlogLanguage {
+  return v === "en" || v === "de" || v === "id";
+}
+
+export default async function BlogIndex({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string | string[] }>;
+}) {
+  const { lang } = await searchParams;
+  const langParam = Array.isArray(lang) ? lang[0] : lang;
+  const activeLang: BlogLanguage | null = isBlogLanguage(langParam)
+    ? langParam
+    : null;
+
+  const allPublished = await api
     .blogPosts()
     .then(p => p.filter(post => post.published));
+
+  // Per-language counts for the tab chips — computed against the full
+  // published set, not the filtered view, so each chip always shows the
+  // true catalogue size regardless of which tab is active.
+  const counts: Partial<Record<BlogLanguage, number>> = {};
+  for (const l of BLOG_LANGUAGES) {
+    counts[l.code] = allPublished.filter(p => p.language === l.code).length;
+  }
+
+  const posts = activeLang
+    ? allPublished.filter(p => p.language === activeLang)
+    : allPublished;
 
   // Newest-first ordering by intended publish date when present, falling
   // back to createdAt for posts without a schedule.
@@ -90,6 +123,12 @@ export default async function BlogIndex() {
       </section>
 
       <Container width="wide">
+        <BlogLanguageTabs
+          active={activeLang}
+          counts={counts}
+          total={allPublished.length}
+        />
+
         {/* Featured (most recent) */}
         {featured && (
           <Link

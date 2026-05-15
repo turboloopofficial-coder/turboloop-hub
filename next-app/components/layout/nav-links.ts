@@ -43,6 +43,12 @@ export const RESOURCE_LINKS = [
     emoji: "🎨",
   },
   {
+    label: "Social Wall",
+    href: "/social-wall",
+    description: "Community-made videos from around the world",
+    emoji: "🎬",
+  },
+  {
     label: "Library",
     href: "/library",
     description: "Videos and presentations in 48 languages",

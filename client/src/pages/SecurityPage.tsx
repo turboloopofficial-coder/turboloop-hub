@@ -61,43 +61,27 @@ export default function SecurityPage() {
             className="text-2xl md:text-3xl font-bold text-slate-900 mt-3"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Two audits. Both public.
+            Smart-contract audit. Public report.
           </h2>
           <p className="text-sm md:text-base text-slate-500 mt-2 leading-relaxed">
-            Don't trust us — read the auditors' reports yourself.
+            Don't trust us — read the auditor's findings yourself.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+        <div className="max-w-lg mx-auto">
           <a
-            href="https://hazecrypto.net/audit/TurboLoop"
+            href="https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block p-5 rounded-2xl bg-white border border-slate-200 hover:border-cyan-300 transition-all hover:-translate-y-1 hover:shadow-lg"
+            className="group block p-6 rounded-2xl bg-white border border-slate-200 hover:border-cyan-300 transition-all hover:-translate-y-1 hover:shadow-lg"
           >
             <div className="text-xs font-bold tracking-[0.18em] uppercase text-cyan-700 mb-2">
-              Haze Crypto
+              SolidityScan · QuickScan
             </div>
-            <div className="text-sm font-bold text-slate-900 mb-1">
-              Read full audit report →
-            </div>
-            <div className="text-xs text-slate-500 break-all">
-              hazecrypto.net/audit/TurboLoop
-            </div>
-          </a>
-          <a
-            href="https://solidityscan.com/quickscan/0xc90e5785632daab9cb61f5050da393090541a76d/bscscan/mainnet"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block p-5 rounded-2xl bg-white border border-slate-200 hover:border-cyan-300 transition-all hover:-translate-y-1 hover:shadow-lg"
-          >
-            <div className="text-xs font-bold tracking-[0.18em] uppercase text-cyan-700 mb-2">
-              SolidityScan
-            </div>
-            <div className="text-sm font-bold text-slate-900 mb-1">
-              Live security scan →
+            <div className="text-base font-bold text-slate-900 mb-1">
+              Read the full audit report →
             </div>
             <div className="text-xs text-slate-500 break-all">
-              solidityscan.com/quickscan/…
+              solidityscan.com/quickscan/0xc90E…
             </div>
           </a>
         </div>

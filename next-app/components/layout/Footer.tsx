@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { Brand } from "@components/Brand";
+import { SECURITY } from "@lib/constants";
 
 const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href: string; external?: boolean }> }> = [
   {
@@ -123,7 +124,7 @@ export function Footer() {
               Terms
             </Link>
             <a
-              href="https://hazecrypto.net/audit/turboloop"
+              href={SECURITY.auditUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[var(--c-text)] transition-colors"

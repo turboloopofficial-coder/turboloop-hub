@@ -15,6 +15,7 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
+import { SECURITY } from "@lib/constants";
 
 const SEC_OG_TITLE = "Security Architecture — TurboLoop";
 const SEC_OG_DESC = "Audited. Renounced. 100% LP Locked. $100K Bounty.";
@@ -23,7 +24,7 @@ const SEC_OG_IMAGE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-pr
 export const metadata: Metadata = {
   title: "Security — Audited, Renounced, LP-Locked",
   description:
-    "Independently audited by Haze Crypto. Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
+    "Independently audited by SolidityScan (QuickScan). Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
   alternates: { canonical: "https://turboloop.tech/security" },
   openGraph: {
     title: SEC_OG_TITLE,
@@ -45,9 +46,9 @@ const PILLARS = [
   {
     icon: ShieldCheck,
     title: "Independently audited",
-    body: "Full smart-contract audit performed by Haze Crypto. Public report, line-by-line. Independent firm with no relationship to the team — they had no incentive to be lenient. Every finding is in the public record.",
+    body: "Full smart-contract audit on SolidityScan (QuickScan). Public report, line-by-line. Independent platform with no relationship to the team — they had no incentive to be lenient. Every finding is in the public record.",
     proofLabel: "Read full audit",
-    proofHref: "https://hazecrypto.net/audit/turboloop",
+    proofHref: SECURITY.auditUrl,
   },
   {
     icon: Lock,

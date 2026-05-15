@@ -1,3 +1,24 @@
+/** Security & on-chain proofs — single source of truth so the audit URL,
+ *  auditor name, and contract address can be updated in one place. The
+ *  auditor was migrated from Haze Crypto → SolidityScan (QuickScan) in
+ *  May 2026; the underlying contract didn't change. */
+export const SECURITY = {
+  contractAddress: "0xc90E5785632dAaB9Cb61F5050dA393090541A76D",
+  auditor: "SolidityScan",
+  auditUrl:
+    "https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet",
+  /** Human-readable URL fragment for display ("solidityscan.com/quickscan/0xc90E…"). */
+  auditUrlDisplay: "solidityscan.com/quickscan/0xc90E…",
+  bscScan:
+    "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d",
+  bscScanCode:
+    "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code",
+  lpLockUnicrypt:
+    "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+  renounceTx:
+    "https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e",
+};
+
 export const SITE = {
   name: "Turbo Loop",
   tagline: "Sustainable yield. Transparent by design. Open to everyone.",

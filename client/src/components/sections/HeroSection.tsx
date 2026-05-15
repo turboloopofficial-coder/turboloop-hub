@@ -337,7 +337,7 @@ export default function HeroSection() {
           <TrustBadge
             icon={ShieldCheck}
             label="Independently Audited"
-            href="https://hazecrypto.net/audit/TurboLoop"
+            href="https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet"
             external
           />
           <div className="w-px h-4 bg-slate-200 hidden sm:block" />

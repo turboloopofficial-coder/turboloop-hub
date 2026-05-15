@@ -12,14 +12,15 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";
 import { Reveal } from "@components/Reveal";
+import { SECURITY } from "@lib/constants";
 
 const PILLARS = [
   {
     icon: ShieldCheck,
     title: "Independently audited",
-    body: "Full smart-contract audit by Haze Crypto. Public report, line-by-line.",
+    body: "Full smart-contract audit on SolidityScan (QuickScan). Public report, line-by-line.",
     proofLabel: "Read audit",
-    proofHref: "https://hazecrypto.net/audit/turboloop",
+    proofHref: SECURITY.auditUrl,
   },
   {
     icon: Lock,

@@ -38,27 +38,28 @@ import { SocialWallSection } from "@components/sections/SocialWallSection";
 import { ManifestoSection } from "@components/sections/ManifestoSection";
 import { NewsletterSection } from "@components/sections/NewsletterSection";
 import { Reveal } from "@components/Reveal";
+import { SECURITY } from "@lib/constants";
 
 const TRUST_BADGES = [
   {
     icon: ShieldCheck,
     label: "Independently Audited",
-    href: "https://hazecrypto.net/audit/turboloop",
+    href: SECURITY.auditUrl,
   },
   {
     icon: Lock,
     label: "100% LP Locked",
-    href: "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+    href: SECURITY.lpLockUnicrypt,
   },
   {
     icon: CheckCircle2,
     label: "Ownership Renounced",
-    href: "https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e",
+    href: SECURITY.renounceTx,
   },
   {
     icon: Globe2,
     label: "BscScan Verified",
-    href: "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d",
+    href: SECURITY.bscScan,
   },
 ];
 

@@ -2,13 +2,20 @@
 //
 // Build-time strategy:
 //   - generateStaticParams pre-builds every published post at deploy time
-//   - dynamicParams: false → unknown slugs return 404
+//   - dynamicParams: true → posts created after deploy still render
+//     (fetched + cached on first hit) instead of 404'ing
 //   - revalidate: 5 min so edits to published posts surface within minutes
-//     without a redeploy (Next.js ISR)
+//     without a redeploy (Next.js ISR). Manual bust via
+//     /api/revalidate-blog?slug=<slug>&secret=$REVALIDATE_SECRET
 //
 // Markdown is parsed at build time via `marked`, sanitized via DOMPurify,
 // and rendered with dangerouslySetInnerHTML. The result is plain HTML —
 // no client-side markdown library shipped, no hydration cost.
+//
+// Failure handling: getPostOr404 narrowly distinguishes "post missing"
+// (→ 404) from "everything else" (→ error.tsx). Markdown rendering is
+// wrapped in try/catch with a plain-text fallback so a single bad post
+// can't take down the route.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -39,13 +46,26 @@ export async function generateStaticParams() {
 }
 
 async function getPostOr404(slug: string): Promise<BlogPost> {
+  // Fetch + classify failures. The previous version had a blanket
+  // `catch { notFound() }` that masked real outages (tRPC down, malformed
+  // response, etc.) as 404s. Worse, it didn't help when the post DID
+  // exist but rendering downstream failed — those threw uncaught and
+  // were cached by ISR as 500s for the full revalidate window. We now
+  // only swallow 404-shaped failures; everything else logs to Vercel and
+  // falls through to error.tsx so the issue is visible.
+  let post: BlogPost | null = null;
   try {
-    const post = await api.blogPost(slug);
-    if (!post || !post.published) notFound();
-    return post;
-  } catch {
-    notFound();
+    post = await api.blogPost(slug);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (/HTTP 404|NOT_FOUND|not found/i.test(msg)) {
+      notFound();
+    }
+    console.error(`[blog/[slug]] api.blogPost("${slug}") failed:`, msg);
+    throw err;
   }
+  if (!post || !post.published) notFound();
+  return post;
 }
 
 export async function generateMetadata({
@@ -102,8 +122,28 @@ export default async function BlogPostPage({
   const post = await getPostOr404(slug);
 
   // Render markdown → sanitized HTML at build time.
-  const rawHtml = await marked.parse(post.content, { breaks: true });
-  const cleanHtml = DOMPurify.sanitize(rawHtml as string);
+  //
+  // Defensive: empty body shouldn't crash the page (renders as a stub
+  // article), and if marked OR DOMPurify throw on weird input we fall
+  // back to a plain-text version so the page still loads. The previous
+  // unguarded version crashed the whole route on a single bad post,
+  // which is what triggered the cached 500 on
+  // /blog/bsc-vs-ethereum-fees-explained.
+  let cleanHtml = "";
+  if (post.content && post.content.trim().length > 0) {
+    try {
+      const rawHtml = await marked.parse(post.content, { breaks: true });
+      cleanHtml = DOMPurify.sanitize(rawHtml as string);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error(
+        `[blog/[slug]] markdown render failed for slug="${post.slug}":`,
+        msg
+      );
+      // Plain-text fallback: still sanitized, just unformatted.
+      cleanHtml = `<pre style="white-space:pre-wrap;font-family:inherit">${DOMPurify.sanitize(post.content)}</pre>`;
+    }
+  }
 
   const displayDate = blogDisplayDate(post);
   const articleJsonLd = {

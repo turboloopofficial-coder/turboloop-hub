@@ -20,6 +20,13 @@ import { ToastProvider } from "@components/Toast";
 import { CommandPalette } from "@components/CommandPalette";
 import { WelcomePopup } from "@components/WelcomePopup";
 import { BackToTop } from "@components/ui/BackToTop";
+import { GoogleAnalytics } from "@components/analytics/GoogleAnalytics";
+import { ConsentBanner } from "@components/analytics/ConsentBanner";
+
+// Build-time check: only emit the GA bootstrap (consent defaults + Script
+// tags + banner) when the measurement ID is actually configured. Avoids
+// noise in local dev and in preview deploys that don't set the env var.
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turboloop.tech"),
@@ -238,6 +245,43 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }}
         />
+        {/* GA4 Consent Mode v2 — sets denied defaults BEFORE gtag.js loads.
+            This must be inline (not next/script with beforeInteractive),
+            because beforeInteractive only works from app/layout.tsx and
+            we want the dataLayer + gtag function defined before any
+            other script touches them. The ConsentBanner flips these to
+            granted when the user accepts; the localStorage check
+            restores granted state for returning visitors silently. */}
+        {GA_ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('consent', 'default', {
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
+                  analytics_storage: 'denied',
+                  functionality_storage: 'granted',
+                  security_storage: 'granted',
+                  wait_for_update: 500,
+                });
+                try {
+                  if (localStorage.getItem('turboloop_consent') === 'granted') {
+                    gtag('consent', 'update', {
+                      ad_storage: 'granted',
+                      ad_user_data: 'granted',
+                      ad_personalization: 'granted',
+                      analytics_storage: 'granted',
+                    });
+                  }
+                } catch (e) {}
+              `.trim(),
+            }}
+          />
+        )}
       </head>
       <body className="bg-[var(--c-bg)] text-[var(--c-text)] antialiased">
         {/* Skip link — keyboard users can jump straight to main content
@@ -257,7 +301,11 @@ export default function RootLayout({
           <CommandPalette />
           <WelcomePopup />
           <BackToTop />
+          <ConsentBanner />
         </ToastProvider>
+        {/* Analytics last so the gtag.js fetch never blocks first paint.
+            Renders nothing if NEXT_PUBLIC_GA_MEASUREMENT_ID isn't set. */}
+        <GoogleAnalytics />
       </body>
     </html>
   );

@@ -76,9 +76,22 @@ export default function PrivacyPage() {
           <p>
             We use minimal cookies — essentially just what Google Analytics
             requires for anonymous session tracking. No marketing cookies, no
-            third-party trackers. If you want to opt out of analytics
-            entirely, install any standard ad blocker (uBlock Origin, Brave
-            shields, etc.) and we&rsquo;ll stop receiving any data from you.
+            third-party trackers.
+          </p>
+          <p>
+            <strong>Analytics is opt-in.</strong> On your first visit a small
+            banner asks whether you consent to analytics cookies. We default to{" "}
+            <em>denied</em> (Google Consent Mode v2) until you explicitly tap{" "}
+            <em>Accept</em>. If you decline, GA4 receives nothing from your
+            browser — not even an anonymous ping.
+          </p>
+          <p>
+            To revisit your decision: clear site data for{" "}
+            <code>turboloop.tech</code> in your browser settings and the
+            banner will reappear on next visit. (We&rsquo;ll add a one-click
+            settings toggle soon.) If you want to block analytics entirely
+            regardless of cookies, any standard ad blocker (uBlock Origin,
+            Brave shields, etc.) does the job.
           </p>
 
           <h2>Your data, your control</h2>

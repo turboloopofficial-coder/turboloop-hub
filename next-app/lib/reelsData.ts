@@ -92,6 +92,18 @@ export interface ReelTrack {
 
 const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
+/** Cache-bust version for reel poster PNGs. Bump this whenever we
+ *  re-upload a thumbnail to R2 under the same key — Brave / Chrome /
+ *  the Vercel image optimizer all cache by URL, so the `?v=N` suffix
+ *  forces a fresh fetch. Mirrors the LOGO_VERSION pattern in
+ *  components/Brand.tsx. Increment, deploy, done — no need to rename
+ *  R2 keys or invalidate per-edge.
+ *
+ *  Current bump reason: thumbnails for v1/v2/v3 across all three
+ *  languages were re-rendered with the updated brand mark + sharper
+ *  type lockup. Old caches were still serving the pre-rebrand frames. */
+const REELS_THUMB_VERSION = 2;
+
 const LANG_META: Record<ReelLang, { label: string; flag: string; dir: string }> = {
   en: { label: "English", flag: "🇬🇧", dir: "en" },
   de: { label: "Deutsch", flag: "🇩🇪", dir: "de" },
@@ -106,7 +118,7 @@ function buildLangReels(lang: ReelLang): ReelTrack[] {
     description: def.descriptions[lang],
     hashtags: def.hashtags[lang],
     videoUrl: `${R2}/reels/${LANG_META[lang].dir}/${def.id}.mp4`,
-    thumbUrl: `${R2}/reels/${LANG_META[lang].dir}/${def.id}.png`,
+    thumbUrl: `${R2}/reels/${LANG_META[lang].dir}/${def.id}.png?v=${REELS_THUMB_VERSION}`,
   }));
 }
 

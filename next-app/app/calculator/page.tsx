@@ -1,7 +1,15 @@
 "use client";
 
 // /calculator — interactive yield calculator. Pick a plan, set deposit,
-// see compounded ROI. Fully client-side; no server data needed.
+// see flat ROI for the plan period. Fully client-side; no server data
+// needed.
+//
+// Math model: FLAT ROI PER PLAN (NOT APY / NOT COMPOUNDED).
+//   earnings = deposit × plan.roi
+//   plan_end = deposit + earnings
+// Each plan is one-shot — pick a duration, lock funds, collect the flat
+// percentage at maturity. The previous APY-with-compounding version
+// produced numbers that didn't match the live dApp; this matches.
 //
 // Premium-fintech redesign:
 //  • Aurora gradient behind the page hero (re-uses .aurora-bg from home).
@@ -30,11 +38,14 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { PageHero } from "@components/layout/PageHero";
 
+// Four published plans on the live dApp. `roi` is the flat percentage
+// paid at the end of the plan period — not annualized, not compounded.
+// Ultimate (60d, 54%) is the headline plan and the default selection.
 const PLANS = [
-  { id: "p7",  days: 7,  apy: 0.18, label: "Starter",  icon: Clock,       blurb: "Try the math, low commitment." },
-  { id: "p30", days: 30, apy: 0.30, label: "Growth",   icon: TrendingUp,  blurb: "First serious compounding window." },
-  { id: "p60", days: 60, apy: 0.42, label: "Compound", icon: Layers,      blurb: "Where the curve starts pulling away." },
-  { id: "p90", days: 90, apy: 0.54, label: "Legacy",   icon: Crown,       blurb: "Top tier — patient capital wins." },
+  { id: "sprint",   days: 7,  roi: 0.03, label: "Sprint",   icon: Clock,       blurb: "One-week trial — feel the mechanism." },
+  { id: "boost",    days: 14, roi: 0.10, label: "Boost",    icon: TrendingUp,  blurb: "Two-week ramp, double-digit return." },
+  { id: "power",    days: 30, roi: 0.24, label: "Power",    icon: Layers,      blurb: "One-month commitment, serious yield." },
+  { id: "ultimate", days: 60, roi: 0.54, label: "Ultimate", icon: Crown,       blurb: "Top tier — patient capital wins." },
 ];
 
 const DEPOSIT_PRESETS = [100, 500, 1000, 5000, 10000];
@@ -49,22 +60,19 @@ function fmt(n: number) {
 }
 
 export default function CalculatorPage() {
-  const [planIdx, setPlanIdx] = useState(2); // Default Compound (60d)
+  // Default to Ultimate (index 3) — the headline plan on the live dApp.
+  const [planIdx, setPlanIdx] = useState(3);
   const [deposit, setDeposit] = useState(1000);
 
   const plan = PLANS[planIdx];
 
-  // Annual yield projection: compound the daily yield over the chosen
-  // duration, then extrapolate to a full year for an apples-to-apples
-  // figure. (Real yield comes from PancakeSwap V3 fees; this is just an
-  // illustration based on the plan's published APY.)
+  // Flat ROI for the plan period. No compounding, no annualization —
+  // each plan is one-shot. If the user wants to roll into another plan
+  // at maturity, that's a separate decision.
   const result = useMemo(() => {
-    const dailyRate = plan.apy / 365;
-    const planEnd = deposit * (1 + dailyRate * plan.days);
-    const planEarn = planEnd - deposit;
-    const yearEnd = deposit * Math.pow(1 + dailyRate, 365);
-    const yearEarn = yearEnd - deposit;
-    return { planEnd, planEarn, yearEnd, yearEarn };
+    const planEarn = deposit * plan.roi;
+    const planEnd = deposit + planEarn;
+    return { planEnd, planEarn };
   }, [plan, deposit]);
 
   // Pulse-key — bumped on every result change so the value <span> remounts
@@ -90,7 +98,7 @@ export default function CalculatorPage() {
       <PageHero
         eyebrow="Yield Calculator"
         title="Run the numbers."
-        subtitle="Pick a plan, set a deposit, see the projection. Real yield comes from PancakeSwap V3 trading fees, not from new deposits — this is illustration based on each plan's target APY."
+        subtitle="Pick a plan, set a deposit, see what you walk away with at maturity. Real yield comes from PancakeSwap V3 trading fees, not from new deposits — these figures match each plan's published flat ROI on the live dApp."
       />
 
       <Container width="default">
@@ -109,7 +117,7 @@ export default function CalculatorPage() {
               {/* Subtle moving shimmer sweep — purely decorative. */}
               <div className="tl-shimmer-overlay" />
 
-              <div className="relative z-10">
+              <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-2 text-white/85 text-[0.6875rem] font-bold tracking-[0.2em] uppercase">
                     <Sparkles className="w-3.5 h-3.5" />
@@ -120,36 +128,30 @@ export default function CalculatorPage() {
                     style={{ background: "rgba(255,255,255,0.18)" }}
                   >
                     <ArrowUpRight className="w-3 h-3" strokeWidth={3} />
-                    {(plan.apy * 100).toFixed(0)}% APY
+                    {(plan.roi * 100).toFixed(0)}% ROI
                   </div>
                 </div>
 
-                <div className="mb-7">
+                {/* Single flat-ROI panel — the plan is one-shot, so there's
+                    just one number to highlight. The card is centered
+                    vertically so a single-value layout doesn't look short. */}
+                <div className="flex-1 flex flex-col justify-center mb-2">
                   <div className="text-sm text-white/80 mb-1.5">
-                    After {plan.days} days
+                    After {plan.days} days you receive
                   </div>
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-none tabular-nums break-all">
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-none tabular-nums break-all">
                     <span key={`a-${pulseKey}`} className="tl-value-pulse">
                       ${fmt(result.planEnd)}
                     </span>
                   </div>
-                  <div className="text-sm text-white/85 mt-2 tabular-nums">
-                    +${fmt(result.planEarn)} earned over {plan.days} days
+                  <div className="text-sm text-white/85 mt-3 tabular-nums">
+                    +${fmt(result.planEarn)} earned · {plan.label} plan
                   </div>
                 </div>
 
-                <div className="border-t border-white/25 pt-5">
-                  <div className="text-sm text-white/80 mb-1.5">
-                    If compounded for a full year
-                  </div>
-                  <div className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-none tabular-nums break-all">
-                    <span key={`b-${pulseKey}`} className="tl-value-pulse">
-                      ${fmt(result.yearEnd)}
-                    </span>
-                  </div>
-                  <div className="text-sm text-white/85 mt-2 tabular-nums">
-                    +${fmt(result.yearEarn)} compounded
-                  </div>
+                <div className="border-t border-white/25 pt-4 text-xs text-white/80 leading-relaxed">
+                  Flat ROI paid at maturity. No daily compounding — the
+                  rate is the same whether you deposit $50 or $50,000.
                 </div>
               </div>
             </div>
@@ -214,7 +216,7 @@ export default function CalculatorPage() {
                         {p.label}
                       </div>
                       <div className="text-sm font-bold text-brand mt-0.5 tabular-nums">
-                        Up to {(p.apy * 100).toFixed(0)}% APY
+                        {(p.roi * 100).toFixed(0)}% ROI
                       </div>
                       <div className="text-[0.6875rem] text-[var(--c-text-muted)] mt-1.5 leading-snug line-clamp-2 hidden sm:block">
                         {p.blurb}
@@ -304,13 +306,13 @@ export default function CalculatorPage() {
             </div>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
               <strong className="text-[var(--c-text)]">
-                These are illustrations, not promises.
+                These figures match the published plans on the live dApp.
               </strong>{" "}
               Yield comes from real PancakeSwap V3 trading fees and varies
-              with market volume. The protocol&rsquo;s targeted APY is the
-              ceiling, not a guarantee. The smart contract is audited,
-              renounced, and 100% LP-locked — read the source on BscScan
-              before depositing anything.
+              with market volume — the protocol&rsquo;s flat per-plan ROI
+              is the target, not a guarantee. The smart contract is
+              audited, renounced, and 100% LP-locked — read the source on
+              BscScan before depositing anything.
             </p>
           </div>
         </div>

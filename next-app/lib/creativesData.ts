@@ -15,7 +15,14 @@ export type CreativePalette = { from: string; via: string; to: string };
 
 /** Two-letter language code used for filtering. Add new codes here AND
  *  to BANNER_LANGUAGES below to surface a new tab on /creatives. */
-export type BannerLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es";
+export type BannerLanguage =
+  | "en"
+  | "hi"
+  | "id"
+  | "fr"
+  | "ar"
+  | "es"
+  | "de";
 
 export const BANNER_LANGUAGES: ReadonlyArray<{
   code: BannerLanguage;
@@ -23,6 +30,7 @@ export const BANNER_LANGUAGES: ReadonlyArray<{
   flag: string;
 }> = [
   { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
   { code: "hi", label: "हिन्दी", flag: "🇮🇳" },
   { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
   { code: "fr", label: "Français", flag: "🇫🇷" },

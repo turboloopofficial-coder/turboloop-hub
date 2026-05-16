@@ -40,6 +40,11 @@ function arg(name) {
 const root = arg("root");
 const manifestOnly = argv.includes("--manifest-only");
 const uploadOnly = argv.includes("--upload-only");
+/** Process ONLY this language code (e.g. --only-lang de). When set, the
+ *  manifest is merged-not-replaced: existing entries for other languages
+ *  stay put, only this language's entries are overwritten. Used when
+ *  adding a new language without re-uploading the others. */
+const onlyLang = arg("only-lang");
 
 if (!root) {
   console.error("Required: --root <path-to-TurboLoop_Complete_Kit>");
@@ -63,6 +68,7 @@ const LANGUAGES = {
   French: "fr",
   Arabic: "ar",
   Spanish: "es",
+  German: "de",
 };
 
 // Hard-coded palette per language for the section heading tint on the
@@ -75,6 +81,7 @@ const LANG_PALETTES = {
   fr: { from: "#1E40AF", via: "#3B82F6", to: "#EF4444" },
   ar: { from: "#92400E", via: "#D97706", to: "#FBBF24" },
   es: { from: "#B91C1C", via: "#EF4444", to: "#FBBF24" },
+  de: { from: "#000000", via: "#DC2626", to: "#FCD34D" },
 };
 
 const LANG_LABELS = {
@@ -84,6 +91,7 @@ const LANG_LABELS = {
   fr: "Français",
   ar: "العربية",
   es: "Español",
+  de: "Deutsch",
 };
 
 const LANG_FLAGS = {
@@ -93,6 +101,7 @@ const LANG_FLAGS = {
   fr: "🇫🇷",
   ar: "🇸🇦",
   es: "🇪🇸",
+  de: "🇩🇪",
 };
 
 const s3 = !manifestOnly
@@ -106,28 +115,45 @@ const s3 = !manifestOnly
     })
   : null;
 
-/** Parse a caption .txt into structured fields. The kit follows a
- *  consistent shape: headline (line 1), tagline (line 2), body
- *  paragraphs, key highlights block, closer line, URL line, hashtags
- *  line. We keep `caption` as the full text minus the trailing hashtags,
- *  and split hashtags into an array. */
+/** True iff the line is purely decorative — runs of =, -, _, ., · or
+ *  similar separator characters. We skip these when looking for the
+ *  headline because the German kit wraps every headline in
+ *  ===...=== separator bands. */
+function isSeparatorLine(line) {
+  const t = line.trim();
+  if (!t) return false;
+  // 4+ identical separator characters (covers ====, ----, ____, ····, etc.)
+  return /^[=\-_·\.•─━]{4,}$/.test(t);
+}
+
+/** Parse a caption .txt into structured fields. Two source shapes are
+ *  supported:
+ *    - English / Spanish / Hindi / Indonesian / French / Arabic kits
+ *      put the headline as line 1 (`🔷 WHAT IS TURBOLOOP?`)
+ *    - German kit wraps every headline in `===...===` separator bands.
+ *  We skip separator-only lines while hunting for the headline so both
+ *  shapes resolve to the right headline text. Hashtags are still parsed
+ *  from a trailing `#tag #tag` line if present. */
 function parseCaption(text) {
   const lines = text.trim().split(/\r?\n/);
+
+  // Headline: first line with actual content (skipping separator bands).
   let headline = "";
-  // Find the first non-empty line as headline.
   for (const l of lines) {
-    if (l.trim()) {
+    if (l.trim() && !isSeparatorLine(l)) {
       headline = l.trim();
       break;
     }
   }
 
-  // Last non-empty line that starts with # is the hashtag block.
+  // Hashtags: last non-empty non-separator line that starts with #.
+  // Some kits put hashtags under a `📱 HASHTAGS:` header — we don't care,
+  // we just look at the last #-prefixed line.
   let hashtags = [];
   let lastHashIdx = -1;
   for (let i = lines.length - 1; i >= 0; i--) {
     const t = lines[i].trim();
-    if (!t) continue;
+    if (!t || isSeparatorLine(t)) continue;
     if (t.startsWith("#")) {
       hashtags = t.split(/\s+/).filter(s => s.startsWith("#"));
       lastHashIdx = i;
@@ -135,11 +161,13 @@ function parseCaption(text) {
     break;
   }
 
-  // Caption = everything between (but NOT the hashtags line). Trim
-  // surrounding blank lines so the share-sheet text looks clean.
-  const captionLines =
-    lastHashIdx >= 0 ? lines.slice(0, lastHashIdx) : lines.slice();
-  const caption = captionLines.join("\n").trim();
+  // Caption = everything before the hashtags line, with decorative
+  // separator bands and the HASHTAGS section header stripped so the
+  // share-sheet text reads cleanly.
+  const captionLines = (lastHashIdx >= 0 ? lines.slice(0, lastHashIdx) : lines)
+    .filter(l => !isSeparatorLine(l))
+    .filter(l => !/^📱?\s*HASHTAGS?\s*:?\s*$/i.test(l.trim()));
+  const caption = captionLines.join("\n").replace(/\n{3,}/g, "\n\n").trim();
 
   return { headline, caption, hashtags };
 }
@@ -227,42 +255,88 @@ async function processLanguage(folderName, langCode) {
 }
 
 (async () => {
-  console.log(`${manifestOnly ? "Generating manifest from" : "Uploading + manifesting"} ${root}\n`);
+  const targets = onlyLang
+    ? Object.entries(LANGUAGES).filter(([, code]) => code === onlyLang)
+    : Object.entries(LANGUAGES);
 
-  const all = [];
-  for (const [folder, code] of Object.entries(LANGUAGES)) {
+  if (onlyLang && targets.length === 0) {
+    console.error(`No language with code "${onlyLang}" — known: ${Object.values(LANGUAGES).join(", ")}`);
+    process.exit(1);
+  }
+
+  console.log(
+    `${manifestOnly ? "Generating manifest from" : "Uploading + manifesting"} ${root}` +
+      (onlyLang ? ` (only --lang=${onlyLang})` : "") +
+      "\n"
+  );
+
+  const fresh = [];
+  for (const [folder, code] of targets) {
     const entries = await processLanguage(folder, code);
-    all.push(...entries);
+    fresh.push(...entries);
   }
 
   if (!uploadOnly) {
     const manifestPath = path.resolve(
       "./next-app/lib/creatives-language-kit-manifest.json"
     );
+
+    // When --only-lang is in play, merge into the existing manifest:
+    // strip rows for the target language, then append the freshly-
+    // produced entries. When no filter is set, rewrite from scratch.
+    let priorItems = [];
+    if (onlyLang && fs.existsSync(manifestPath)) {
+      const existing = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+      priorItems = (existing.items ?? []).filter(
+        i => i.language !== onlyLang
+      );
+    }
+    const allItems = [...priorItems, ...fresh];
+
+    const knownCodes = onlyLang
+      ? // Preserve any languages already in the manifest (so adding one
+        // new language doesn't drop the others' metadata).
+        Array.from(
+          new Set([
+            ...allItems.map(i => i.language),
+            ...Object.values(LANGUAGES),
+          ])
+        )
+      : Object.values(LANGUAGES);
+
     const manifest = {
       kind: "language-kit",
       generatedAt: new Date().toISOString(),
-      itemCount: all.length,
+      itemCount: allItems.length,
       languages: Object.fromEntries(
-        Object.entries(LANGUAGES).map(([folder, code]) => [
-          code,
-          {
+        knownCodes.map(code => {
+          const folder = Object.entries(LANGUAGES).find(
+            ([, c]) => c === code
+          )?.[0];
+          return [
             code,
-            label: LANG_LABELS[code],
-            flag: LANG_FLAGS[code],
-            folder,
-            count: all.filter(e => e.language === code).length,
-          },
-        ])
+            {
+              code,
+              label: LANG_LABELS[code] ?? code,
+              flag: LANG_FLAGS[code] ?? "🌐",
+              folder: folder ?? null,
+              count: allItems.filter(e => e.language === code).length,
+            },
+          ];
+        })
       ),
-      items: all,
+      items: allItems,
     };
     fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-    console.log(`\n📝 Wrote ${all.length} entries → ${path.relative(".", manifestPath)}`);
+    console.log(
+      `\n📝 Wrote ${allItems.length} entries → ${path.relative(".", manifestPath)}`
+    );
   }
 
+  const expectedPerLang = 65;
+  const expected = (onlyLang ? 1 : Object.keys(LANGUAGES).length) * expectedPerLang;
   console.log(
-    `\n${all.length === 6 * 65 ? "✅" : "⚠️ "} Total: ${all.length}/${6 * 65} banners.`
+    `\n${fresh.length === expected ? "✅" : "⚠️ "} Processed ${fresh.length}/${expected} banners this run.`
   );
 })().catch(err => {
   console.error(err);

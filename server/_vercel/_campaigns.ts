@@ -328,6 +328,175 @@ export const CAMPAIGN_DE_DAILY: Array<Omit<CampaignPost, "date">> = [
   },
 ];
 
+// ─── German Educational Kit rotation (post-May 29) ─────────────────────
+//
+// Once Campaign A finishes its run (last fire May 29 = A8), the German
+// daily slot switches from the A1–A8 cycle above to a 65-day rotation
+// through the German educational banner kit uploaded to r2://creatives/de/.
+// Each post pairs the captioned German banner from the kit with a
+// topically-relevant TurboLoop hub page, plus the same BitPat referral
+// CTA appended at the end of the caption.
+//
+// We import the manifest as a build-time JSON resource — esbuild bundles
+// it into the cron lambda. If a banner is somehow missing from the
+// manifest (e.g. a partial upload), the function falls back to the
+// existing CAMPAIGN_DE_DAILY rotation so the slot never goes silent.
+
+import langKitManifest from "../../next-app/lib/creatives-language-kit-manifest.json";
+
+/** Date the post-Campaign-A rotation activates (inclusive). May 29 is
+ *  A8's fire date; May 30 onward the German cron uses the kit. */
+const GERMAN_KIT_ACTIVE_FROM_UTC = Date.UTC(2026, 4, 30); // 2026-05-30
+
+/** Per-banner topical CTA. Each entry maps a banner number (01–65) to
+ *  the hub page that's most relevant to its concept and a German button
+ *  label. Unmapped numbers fall back to the homepage / "Mehr erfahren". */
+const GERMAN_KIT_TOPICAL: Record<
+  number,
+  { url: string; buttonText: string }
+> = {
+  // 01–11: fundamentals — homepage + ecosystem + DeFi 101 explainers
+  1:  { url: "https://turboloop.tech/",          buttonText: "🌐 Mehr erfahren" },
+  2:  { url: "https://turboloop.tech/ecosystem", buttonText: "🌐 Ökosystem entdecken" },
+  3:  { url: "https://turboloop.tech/learn",     buttonText: "📚 DeFi 101 lesen" },
+  4:  { url: "https://turboloop.tech/security",  buttonText: "🛡 Sicherheit ansehen" },
+  5:  { url: "https://turboloop.tech/security",  buttonText: "🛡 Sicherheit ansehen" },
+  6:  { url: "https://turboloop.tech/learn",     buttonText: "📚 Stablecoins erklärt" },
+  7:  { url: "https://turboloop.tech/learn",     buttonText: "📚 BSC verstehen" },
+  8:  { url: "https://turboloop.tech/learn",     buttonText: "📚 Liquidity Pools" },
+  9:  { url: "https://turboloop.tech/learn",     buttonText: "📚 DeFi vs Bank" },
+  10: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Compound-Rechner" },
+  11: { url: "https://turboloop.tech/learn",     buttonText: "📚 Wallet einrichten" },
+
+  // 12–19: plans + earnings — calculator
+  12: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Pläne vergleichen" },
+  13: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Sprint berechnen" },
+  14: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Boost berechnen" },
+  15: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Power berechnen" },
+  16: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Ultimate berechnen" },
+  17: { url: "https://turboloop.tech/learn",     buttonText: "📚 So funktioniert es" },
+  18: { url: "https://turboloop.tech/calculator",buttonText: "🧮 $100 simulieren" },
+  19: { url: "https://turboloop.tech/calculator",buttonText: "🧮 $1k über 12 Monate" },
+
+  // 20–23: income streams + referral + leadership + bonus
+  20: { url: "https://turboloop.tech/ecosystem", buttonText: "🌐 3 Einkommensquellen" },
+  21: { url: "https://turboloop.tech/ecosystem", buttonText: "🤝 20-Level System" },
+  22: { url: "https://turboloop.tech/ecosystem", buttonText: "🏆 Leadership-Ränge" },
+  23: { url: "https://turboloop.tech/promotions",buttonText: "🎁 Onboarding-Bonus" },
+
+  // 24–26: paid programs + bug bounty
+  24: { url: "https://turboloop.tech/apply#creator",   buttonText: "⭐ Creator werden" },
+  25: { url: "https://turboloop.tech/apply#presenter", buttonText: "🎙 Presenter werden" },
+  26: { url: "https://turboloop.tech/security",  buttonText: "💰 $100k Challenge" },
+
+  // 27–28: products
+  27: { url: "https://turboloop.tech/ecosystem", buttonText: "💳 Turbo Buy" },
+  28: { url: "https://turboloop.tech/ecosystem", buttonText: "🔁 Turbo Swap" },
+
+  // 29–34: security pillars
+  29: { url: "https://turboloop.tech/security",  buttonText: "🛡 Audit lesen" },
+  30: { url: "https://turboloop.tech/security",  buttonText: "🛡 Ownership renounced" },
+  31: { url: "https://turboloop.tech/security",  buttonText: "🛡 LP-Lock prüfen" },
+  32: { url: "https://turboloop.tech/security",  buttonText: "🛡 Kein KYC" },
+  33: { url: "https://turboloop.tech/security",  buttonText: "🛡 Code verifiziert" },
+  34: { url: "https://turboloop.tech/security",  buttonText: "🛡 Deine Mittel" },
+
+  // 35–37: earnings vibe
+  35: { url: "https://turboloop.tech/calculator",buttonText: "📈 Tägliche Renditen" },
+  36: { url: "https://turboloop.tech/apply",     buttonText: "💎 Ab $1 starten" },
+  37: { url: "https://turboloop.tech/calculator",buttonText: "📈 Passives Einkommen" },
+
+  // 38–43: referral / leadership / compound deep-dives
+  38: { url: "https://turboloop.tech/ecosystem", buttonText: "🤝 Empfehlungssystem" },
+  39: { url: "https://turboloop.tech/ecosystem", buttonText: "🤝 Level 1–5" },
+  40: { url: "https://turboloop.tech/ecosystem", buttonText: "🤝 Level 6–20" },
+  41: { url: "https://turboloop.tech/ecosystem", buttonText: "🏆 Leadership-Ränge" },
+  42: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Compound-Power" },
+  43: { url: "https://turboloop.tech/ecosystem", buttonText: "🌐 3 Einkommensquellen" },
+
+  // 44–47: plan deep-dives
+  44: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Sprint Detail" },
+  45: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Boost Detail" },
+  46: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Power Detail" },
+  47: { url: "https://turboloop.tech/calculator",buttonText: "🧮 Ultimate Detail" },
+
+  // 48–51: programs + bug bounty (second pass)
+  48: { url: "https://turboloop.tech/promotions",buttonText: "🎁 Onboarding-Bonus" },
+  49: { url: "https://turboloop.tech/apply#creator",   buttonText: "⭐ Creator werden" },
+  50: { url: "https://turboloop.tech/apply#presenter", buttonText: "🎙 Presenter werden" },
+  51: { url: "https://turboloop.tech/security",  buttonText: "💰 $100k Challenge" },
+
+  // 52–53: products (second pass)
+  52: { url: "https://turboloop.tech/ecosystem", buttonText: "💳 Turbo Buy" },
+  53: { url: "https://turboloop.tech/ecosystem", buttonText: "🔁 Turbo Swap" },
+
+  // 54–59: security (second pass)
+  54: { url: "https://turboloop.tech/security",  buttonText: "🛡 Audit-Report" },
+  55: { url: "https://turboloop.tech/security",  buttonText: "🛡 Renounced TX" },
+  56: { url: "https://turboloop.tech/security",  buttonText: "🛡 LP gesperrt" },
+  57: { url: "https://turboloop.tech/security",  buttonText: "🛡 Kein KYC" },
+  58: { url: "https://turboloop.tech/security",  buttonText: "🛡 Quellcode" },
+  59: { url: "https://turboloop.tech/security",  buttonText: "🛡 Selbstverwahrung" },
+
+  // 60–63: earnings + community
+  60: { url: "https://turboloop.tech/calculator",buttonText: "📈 Tägliche Renditen" },
+  61: { url: "https://turboloop.tech/calculator",buttonText: "📈 Passives Einkommen" },
+  62: { url: "https://turboloop.tech/ecosystem", buttonText: "🤝 Empfehlungssystem" },
+  63: { url: "https://turboloop.tech/ecosystem", buttonText: "🏆 Leadership Detail" },
+
+  // 64–65: closer CTAs
+  64: { url: "https://turboloop.tech/",          buttonText: "🌐 Der Loop läuft" },
+  65: { url: "https://turboloop.tech/apply",     buttonText: "🚀 Jetzt anmelden" },
+};
+
+/** Lookup table built from the language-kit manifest: banner number →
+ *  the corresponding German manifest entry. Built once at module load
+ *  (not per-call). */
+interface LangKitManifestItem {
+  slug: string;
+  url: string;
+  language: string;
+  caption?: string;
+  visualNumber?: number;
+}
+const DE_KIT_BY_NUMBER: Map<number, LangKitManifestItem> = new Map();
+for (const item of (langKitManifest.items as LangKitManifestItem[]) ?? []) {
+  if (item.language === "de" && typeof item.visualNumber === "number") {
+    DE_KIT_BY_NUMBER.set(item.visualNumber, item);
+  }
+}
+
+/** Build today's German-kit post by picking banner (day-of-year mod 65)
+ *  + 1, looking up its German caption from the manifest, appending the
+ *  BitPat referral CTA, and pairing it with the topical CTA button.
+ *  Returns null if the kit isn't populated yet (caller falls back). */
+function buildGermanKitPost(): Omit<CampaignPost, "date"> | null {
+  if (DE_KIT_BY_NUMBER.size === 0) return null;
+  const now = new Date();
+  const startOfYear = Date.UTC(now.getUTCFullYear(), 0, 0);
+  const dayOfYear = Math.floor(
+    (now.getTime() - startOfYear) / 86_400_000
+  );
+  // Pick by day-of-year so the cron is deterministic per UTC day and
+  // restartable without state. The +1 keeps the result in [1, 65].
+  const num = (dayOfYear % 65) + 1;
+  const pad = String(num).padStart(2, "0");
+  const item = DE_KIT_BY_NUMBER.get(num);
+  if (!item) return null;
+
+  const topical = GERMAN_KIT_TOPICAL[num] ?? {
+    url: "https://turboloop.tech/",
+    buttonText: "🌐 Mehr erfahren",
+  };
+  return {
+    id: `DE-KIT-${pad}`,
+    photoUrl: item.url,
+    caption: (item.caption ?? "") + DE_REF_CTA,
+    buttonText: topical.buttonText,
+    buttonUrl: topical.url,
+  };
+}
+
 // ─── Lookup helpers ────────────────────────────────────────────────────
 
 /** Returns today's UTC date in YYYY-MM-DD form. */
@@ -344,13 +513,30 @@ export function todaysCampaignPost(
   return campaign.find(p => p.date === today) ?? null;
 }
 
-/** Pick today's German daily slot — rotates through the 8 banners on a
- *  UTC day-of-year mod 8 cycle so the German channel always has content
- *  regardless of which English campaign is firing that day. */
+/** Pick today's German daily slot. Two phases:
+ *
+ *   Phase 1 (until 2026-05-29 inclusive): rotates through the 8 A1–A8
+ *   visuals with German captions — see CAMPAIGN_DE_DAILY above.
+ *
+ *   Phase 2 (from 2026-05-30): rotates through the 65 educational
+ *   banners in the German kit on a day-of-year mod 65 cycle. Each post
+ *   gets the German caption from the manifest + the BitPat referral CTA
+ *   appended + a topical CTA button (calculator/security/ecosystem/etc).
+ *
+ *   The post-cutover path falls through to Phase 1 if the German kit
+ *   manifest isn't populated, so the slot stays alive even mid-rollout. */
 export function todaysGermanPost(): Omit<CampaignPost, "date"> {
+  if (Date.now() >= GERMAN_KIT_ACTIVE_FROM_UTC) {
+    const kit = buildGermanKitPost();
+    if (kit) return kit;
+    // Fall through to phase 1 if the kit isn't yet populated.
+  }
   const now = new Date();
   const start = Date.UTC(now.getUTCFullYear(), 0, 0);
   const dayOfYear = Math.floor((now.getTime() - start) / 86_400_000);
-  const idx = ((dayOfYear % CAMPAIGN_DE_DAILY.length) + CAMPAIGN_DE_DAILY.length) % CAMPAIGN_DE_DAILY.length;
+  const idx =
+    ((dayOfYear % CAMPAIGN_DE_DAILY.length) +
+      CAMPAIGN_DE_DAILY.length) %
+    CAMPAIGN_DE_DAILY.length;
   return CAMPAIGN_DE_DAILY[idx];
 }

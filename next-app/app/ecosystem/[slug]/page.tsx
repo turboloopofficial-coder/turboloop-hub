@@ -2,14 +2,14 @@
 //
 // Each pillar page = hero + sections (rich body content) + facts list +
 // CTA back to /ecosystem. The body sections are markdown rendered at
-// build time via marked + DOMPurify (same pattern as /blog/[slug]).
+// build time via marked + sanitize (same pattern as /blog/[slug]).
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from "@lib/sanitize";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
@@ -63,7 +63,7 @@ export default async function PillarDetailPage({
   const renderedSections = await Promise.all(
     pillar.sections.map(async section => ({
       heading: section.heading,
-      html: DOMPurify.sanitize(
+      html: sanitize(
         (await marked.parse(section.body, { breaks: true })) as string
       ),
     }))

@@ -2,27 +2,20 @@
 //
 // Build-time strategy:
 //   - generateStaticParams pre-builds every published post at deploy time
-//   - dynamicParams: false → unknown slugs return a clean 404 from the
-//     framework boundary WITHOUT ever invoking page.tsx at runtime.
+//   - dynamicParams: true → posts created after deploy still render
+//     (fetched + cached on first hit) instead of 404'ing.
 //
-//     This was true → false on 2026-05-15 after a transitive dep in
-//     isomorphic-dompurify (@exodus/bytes ESM-only inside an html-encoding-
-//     sniffer require() chain) started crashing the lambda for any
-//     dynamically-rendered slug. With pre-render only, the broken code
-//     path is never reached at request time and deleted / unknown slugs
-//     resolve to the default 404 page immediately.
-//
-//     Trade-off: new blog posts no longer appear until the next deploy.
-//     The cron-master publish:overdue slot can self-trigger a redeploy
-//     by calling Vercel's deploy webhook, OR we run a manual redeploy
-//     after publishing. Once the upstream dep ships a fix, flip this
-//     back to true.
+//     Briefly flipped to false on 2026-05-15 after isomorphic-dompurify
+//     crashed the lambda for dynamically-rendered slugs (transitive
+//     ESM/CJS interop bug in @exodus/bytes via html-encoding-sniffer).
+//     Restored to true on 2026-05-16 after swapping the sanitizer to
+//     sanitize-html (pure-node, no JSDOM dependency, no interop issue).
 //   - revalidate: 5 min so edits to published posts surface within minutes
 //     without a redeploy (Next.js ISR). Manual bust via
 //     /api/revalidate-blog?slug=<slug>&secret=$REVALIDATE_SECRET
 //
-// Markdown is parsed at build time via `marked`, sanitized via DOMPurify,
-// and rendered with dangerouslySetInnerHTML. The result is plain HTML —
+// Markdown is parsed via `marked`, sanitized via lib/sanitize.ts, and
+// rendered with dangerouslySetInnerHTML. The result is plain HTML —
 // no client-side markdown library shipped, no hydration cost.
 //
 // Failure handling: getPostOr404 narrowly distinguishes "post missing"
@@ -36,7 +29,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from "@lib/sanitize";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ShareButton } from "@components/ShareButton";
@@ -51,9 +44,7 @@ import {
 } from "@lib/api";
 
 export const revalidate = 300;
-// Temporarily false (was true) — see header comment for the dep bug
-// forcing this. Flip back when isomorphic-dompurify ships a fix.
-export const dynamicParams = false;
+export const dynamicParams = true; // allow new posts without redeploy
 
 export async function generateStaticParams() {
   const posts = await api.blogPosts();
@@ -139,7 +130,7 @@ export default async function BlogPostPage({
   // Render markdown → sanitized HTML at build time.
   //
   // Defensive: empty body shouldn't crash the page (renders as a stub
-  // article), and if marked OR DOMPurify throw on weird input we fall
+  // article), and if marked OR sanitize throw on weird input we fall
   // back to a plain-text version so the page still loads. The previous
   // unguarded version crashed the whole route on a single bad post,
   // which is what triggered the cached 500 on
@@ -148,7 +139,7 @@ export default async function BlogPostPage({
   if (post.content && post.content.trim().length > 0) {
     try {
       const rawHtml = await marked.parse(post.content, { breaks: true });
-      cleanHtml = DOMPurify.sanitize(rawHtml as string);
+      cleanHtml = sanitize(rawHtml as string);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error(
@@ -156,7 +147,7 @@ export default async function BlogPostPage({
         msg
       );
       // Plain-text fallback: still sanitized, just unformatted.
-      cleanHtml = `<pre style="white-space:pre-wrap;font-family:inherit">${DOMPurify.sanitize(post.content)}</pre>`;
+      cleanHtml = `<pre style="white-space:pre-wrap;font-family:inherit">${sanitize(post.content)}</pre>`;
     }
   }
 

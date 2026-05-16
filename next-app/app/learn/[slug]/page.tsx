@@ -7,7 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from "@lib/sanitize";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
@@ -58,7 +58,7 @@ export default async function LessonPage({
   const lesson = LESSONS.find(l => l.slug === slug);
   if (!lesson) notFound();
 
-  const html = DOMPurify.sanitize(
+  const html = sanitize(
     (await marked.parse(lesson.content, { breaks: true })) as string
   );
 

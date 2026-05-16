@@ -1,8 +1,17 @@
-// /creatives — 141 ready-to-share branded banners. Fully static.
+// /creatives — full branded banner library, fully static.
 //
-// Content data ships in the bundle (it's just text + R2 URLs — small).
-// Visitors browse by category, click an image to copy the URL or
-// download. The actual banner images load lazily as they scroll.
+// Two sources, one merged grid:
+//   1. Legacy kit: 141 pillar/myth/product banners (all English).
+//   2. Language Kit: 65 educational banners × 6 languages = 390
+//      (en/hi/id/fr/ar/es), uploaded via scripts/upload-lang-kit.mjs.
+//
+// Content data (manifests + captions) ships in the bundle — it's just
+// text + R2 URLs, small enough not to bloat the build. The actual
+// banner images load lazily as they scroll.
+//
+// Language filter: ?lang=<code> filters the visible grid + adjusts the
+// per-category counts. Without the param, "All" is active and every
+// banner shows. Tabs are server-rendered Link tags (no client JS).
 
 import type { Metadata } from "next";
 import { Container } from "@components/ui/Container";
@@ -10,9 +19,13 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { BannerCard } from "@components/creatives/BannerCard";
 import { CreativesCategoryNav } from "@components/creatives/CreativesCategoryNav";
+import { CreativesLanguageTabs } from "@components/creatives/CreativesLanguageTabs";
 import {
   ALL_CREATIVES,
   CREATIVE_CATEGORIES,
+  BANNER_LANGUAGES,
+  isBannerLanguage,
+  type BannerLanguage,
 } from "@lib/creativesData";
 
 const TITLE = "Ready-to-Share Banners — TurboLoop";
@@ -44,7 +57,36 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CreativesPage() {
+export default async function CreativesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string | string[] }>;
+}) {
+  const { lang } = await searchParams;
+  const langParam = Array.isArray(lang) ? lang[0] : lang;
+  const activeLang: BannerLanguage | null = isBannerLanguage(langParam)
+    ? langParam
+    : null;
+
+  // Filter once up front; everything downstream (category counts, section
+  // grids) operates against this filtered set so the page reflects the
+  // active language end-to-end. Per-language counts for the tab chips are
+  // computed against the FULL set so each chip always shows true totals.
+  const visible = activeLang
+    ? ALL_CREATIVES.filter(c => c.language === activeLang)
+    : ALL_CREATIVES;
+
+  const langCounts: Partial<Record<BannerLanguage, number>> = {};
+  for (const l of BANNER_LANGUAGES) {
+    langCounts[l.code] = ALL_CREATIVES.filter(c => c.language === l.code).length;
+  }
+
+  // Categories that have at least one banner in the current filter —
+  // hides empty sections (e.g. lang-kit-Hindi has no monthly-projections).
+  const activeCategories = CREATIVE_CATEGORIES.filter(cat =>
+    visible.some(c => c.categoryId === cat.id)
+  );
+
   return (
     <main className="relative pb-12 md:pb-20">
       <PageHero
@@ -53,11 +95,17 @@ export default function CreativesPage() {
         subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
       />
 
-      <CreativesCategoryNav categories={CREATIVE_CATEGORIES} />
+      <CreativesLanguageTabs
+        active={activeLang}
+        counts={langCounts}
+        total={ALL_CREATIVES.length}
+      />
+
+      <CreativesCategoryNav categories={activeCategories} />
 
       <Container width="wide">
-        {CREATIVE_CATEGORIES.map(cat => {
-          const items = ALL_CREATIVES.filter(c => c.categoryId === cat.id);
+        {activeCategories.map(cat => {
+          const items = visible.filter(c => c.categoryId === cat.id);
           if (items.length === 0) return null;
           // Each banner carries its own palette; sample the first one for
           // the section header tint so each category has a unique accent.

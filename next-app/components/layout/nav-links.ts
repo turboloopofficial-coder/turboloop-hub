@@ -31,6 +31,12 @@ export const RESOURCE_LINKS = [
     emoji: "⭐",
   },
   {
+    label: "Careers",
+    href: "/careers",
+    description: "Open Zoom Presenter roles — $100/month stipend",
+    emoji: "💼",
+  },
+  {
     label: "Promotions",
     href: "/promotions",
     description: "$100K bounty + paid programs",

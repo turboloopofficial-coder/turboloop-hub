@@ -3,8 +3,20 @@
 // EventsSection — animated Zoom countdown card per language + the static
 // "what to expect" grid + Telegram CTA. Ported from the legacy SPA's
 // ZoomCountdown component, fed by the canonical session metadata in
-// shared/zoomEvents.ts (same source the cron uses, so the times can never
-// drift between site UI and Telegram T-30 reminders).
+// shared/zoomEvents.ts.
+//
+// Time-of-day fields (startUtcMin, durationMin, timeLabel) come from
+// the hardcoded ZOOM_SESSIONS — they're never admin-editable because
+// the cron's T-30 reminder windows are pegged to those exact minutes
+// and an accidental edit would mis-schedule reminders.
+//
+// Link + passcode HOWEVER are admin-editable via the legacy admin
+// panel (Settings → Zoom Daily Calls), stored in the site_settings
+// table. The cron picks those overrides up via getZoomConfig() in
+// server/zoom-config.ts. The frontend now does the same via the
+// /api/zoom-config edge route — on mount we fetch the overrides and
+// merge them over the hardcoded defaults so the public site never
+// shows a stale link.
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -27,6 +39,32 @@ import {
   nextZoomOccurrence,
   type ZoomSession,
 } from "@shared/zoomEvents";
+
+/** Shape returned by /api/zoom-config. Only `link` and `passcode` are
+ *  admin-editable; everything else falls through to hardcoded defaults. */
+interface ZoomOverride {
+  link?: string;
+  passcode?: string;
+}
+type ZoomOverrideMap = Partial<Record<ZoomSession["lang"], ZoomOverride>>;
+
+/** Fold admin overrides into the base ZoomSession defaults. Returns a
+ *  new array of sessions with link + passcode replaced when an override
+ *  is present. Pure function — safe to call on every render. */
+function mergeZoomOverrides(
+  base: readonly ZoomSession[],
+  overrides: ZoomOverrideMap
+): ZoomSession[] {
+  return base.map(session => {
+    const o = overrides[session.lang];
+    if (!o || (!o.link && !o.passcode)) return session;
+    return {
+      ...session,
+      link: o.link ?? session.link,
+      passcode: o.passcode ?? session.passcode,
+    };
+  });
+}
 
 const SESSION_TYPES = [
   {
@@ -314,6 +352,37 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
 /* ─── EventsSection (default export) ────────────────────────────────── */
 
 export function EventsSection() {
+  // Live Zoom sessions = hardcoded defaults + admin overrides for
+  // link/passcode (from /api/zoom-config). Initial render uses the
+  // pure defaults so SSR HTML is stable + the page never flashes a
+  // blank countdown waiting on the fetch.
+  const [overrides, setOverrides] = useState<ZoomOverrideMap>({});
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/zoom-config", { cache: "no-store" })
+      .then(r => (r.ok ? r.json() : null))
+      .then((data: ZoomOverrideMap | null) => {
+        if (cancelled || !data) return;
+        // Only commit to state if at least one override field is
+        // present — avoids a no-op re-render on every mount.
+        const hasAny = Object.values(data).some(
+          v => v && (v.link || v.passcode)
+        );
+        if (hasAny) setOverrides(data);
+      })
+      .catch(() => {
+        // Network / DB error — silently keep using hardcoded defaults.
+        // The countdown timer and Telegram CTA both still work.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const sessions = useMemo(
+    () => mergeZoomOverrides(ZOOM_SESSIONS, overrides),
+    [overrides]
+  );
+
   return (
     <section id="events" className="py-12 md:py-20">
       <Container width="default">
@@ -336,7 +405,7 @@ export function EventsSection() {
         </div>
 
         <div className="space-y-6 md:space-y-8 mb-10 md:mb-14 max-w-5xl mx-auto">
-          {ZOOM_SESSIONS.map(session => (
+          {sessions.map(session => (
             <ZoomCountdown key={session.lang} session={session} />
           ))}
         </div>

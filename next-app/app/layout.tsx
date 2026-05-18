@@ -341,6 +341,19 @@ export default function RootLayout({
           href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev"
           crossOrigin="anonymous"
         />
+        {/* <link rel="image_src"> — legacy social-image hint that
+            Facebook, LinkedIn, and a handful of image-search tools
+            still read in addition to og:image. Points to the canonical
+            brand logo so every page in the site associates with the
+            same brand-mark image, regardless of the per-page og:image.
+            This is a brand-disambiguation signal: it tells image
+            crawlers "every page on this domain belongs to the SAME
+            entity" — load-bearing for cleaning up Google Images
+            results that currently mix unrelated brands. */}
+        <link
+          rel="image_src"
+          href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png"
+        />
         {/* Site-wide structured data for search rich snippets. */}
         <script
           type="application/ld+json"

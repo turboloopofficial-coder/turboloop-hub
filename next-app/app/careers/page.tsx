@@ -27,8 +27,11 @@ const OG_TITLE =
   "Careers — Join the TurboLoop Presenter Team | Remote Positions";
 const OG_DESC =
   "Open positions at TurboLoop: Indonesian and German Zoom Presenters. $100/month stipend, remote work, lead weekly community sessions in your language.";
+// Dedicated dynamic OG variant (added 2026-05-18). Previously shared
+// hub-promo-apply.png with /apply, weakening brand-image
+// disambiguation. Now each top-level page has its own canonical image.
 const OG_IMAGE =
-  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-apply.png";
+  "https://www.turboloop.tech/api/og-banner?type=careers";
 
 export const metadata: Metadata = {
   title: OG_TITLE,

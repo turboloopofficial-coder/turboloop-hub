@@ -7,11 +7,39 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 
+// Dedicated OG image added 2026-05-18 — /promotions had no openGraph
+// images entry, so social shares were falling back to the homepage's
+// generic OG. The dedicated /api/og-banner?type=promotions PNG carries
+// the page's actual title + tagline.
+const PROMOTIONS_OG_IMAGE =
+  "https://www.turboloop.tech/api/og-banner?type=promotions";
+const PROMOTIONS_TITLE = "Promotions — Earn With TurboLoop";
+const PROMOTIONS_DESC =
+  "Three paid programs: $100K security bounty, Creator Star ($10–$100/video), Local Presenter ($100/month). Apply in-app, get paid in stablecoins.";
+
 export const metadata: Metadata = {
-  title: "Promotions — Earn With TurboLoop",
-  description:
-    "Three paid programs: $100K security bounty, Creator Star ($10–$100/video), Local Presenter ($100/month). Apply in-app, get paid in stablecoins.",
+  title: PROMOTIONS_TITLE,
+  description: PROMOTIONS_DESC,
   alternates: { canonical: "https://turboloop.tech/promotions" },
+  openGraph: {
+    title: PROMOTIONS_TITLE,
+    description: PROMOTIONS_DESC,
+    url: "https://turboloop.tech/promotions",
+    images: [
+      {
+        url: PROMOTIONS_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: PROMOTIONS_TITLE,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PROMOTIONS_TITLE,
+    description: PROMOTIONS_DESC,
+    images: [PROMOTIONS_OG_IMAGE],
+  },
 };
 
 const BOUNTY_RULES = [

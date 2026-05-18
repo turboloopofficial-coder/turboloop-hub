@@ -26,8 +26,12 @@ export const revalidate = 300;
 const OG_TITLE = "Social Wall — Community Posts & Highlights | TurboLoop";
 const OG_DESC =
   "Real posts from the TurboLoop community. See what members are sharing across Telegram, Twitter, and social media — curated, free to watch, ready to share.";
+// Dedicated dynamic OG variant (added 2026-05-18). Previously this page
+// shared hub-promo-creatives.png with /creatives, which weakened the
+// brand-image disambiguation signal Google reads to associate images
+// with the right entity.
 const OG_IMAGE =
-  "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-creatives.png";
+  "https://www.turboloop.tech/api/og-banner?type=social-wall";
 
 export const metadata: Metadata = {
   title: OG_TITLE,

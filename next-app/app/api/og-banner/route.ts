@@ -914,6 +914,59 @@ export async function GET(req: Request) {
       "📖",
       TOPIC_THEMES.default,
     );
+  // Three additional variants added 2026-05-18 to give /social-wall,
+  // /careers, /promotions unique OG images instead of sharing one with
+  // /creatives + /apply (which weakens entity-disambiguation signal
+  // to Google's image-pack — see plan doc 2026-05-18).
+  if (type === "social-wall")
+    return pageBanner(
+      "Social Wall",
+      "Community posts + highlights from across the TurboLoop ecosystem.",
+      "🎬",
+      TOPIC_THEMES.community,
+    );
+  if (type === "careers")
+    return pageBanner(
+      "Careers",
+      "Join the TurboLoop presenter team. Remote. $100/month stipend.",
+      "🎙",
+      TOPIC_THEMES.community,
+    );
+  if (type === "promotions")
+    return pageBanner(
+      "Promotions",
+      "$100K bounty · Creator Star · Local Presenter. Get paid in stablecoins.",
+      "🎁",
+      TOPIC_THEMES.referral,
+    );
+  if (type === "apply")
+    return pageBanner(
+      "Apply to Earn",
+      "Creator Star ($10–$100/video) or Local Presenter ($100/month).",
+      "⭐",
+      TOPIC_THEMES.referral,
+    );
+  if (type === "faq")
+    return pageBanner(
+      "FAQ",
+      "Plain answers on minimum deposits, security audits, and how yield works.",
+      "❓",
+      TOPIC_THEMES.default,
+    );
+  if (type === "learn")
+    return pageBanner(
+      "Learn DeFi",
+      "Step-by-step guides on yield farming, wallets, and the protocol.",
+      "📚",
+      TOPIC_THEMES.default,
+    );
+  if (type === "events")
+    return pageBanner(
+      "Events",
+      "Global TurboLoop community meetups — Lagos, Berlin, Dubai, and more.",
+      "📅",
+      TOPIC_THEMES.community,
+    );
 
   // ─── Legacy fallback: zoom + unknown types ──────────────────────────
   let cfg: { label: string; subline: string; emoji: string; accent: string } = TYPE_CONFIG.blog;

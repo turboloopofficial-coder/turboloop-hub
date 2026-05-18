@@ -28098,20 +28098,41 @@ async function handler(req, res) {
     if (isInWindow(12, 0) && !await hasFiredToday(db, "monthly:compound")) {
       const banner = pickTodaysMonthlyBanner();
       const caption = monthlyCompoundingCaption(banner);
-      await tgBroadcastPhoto({
-        photoUrl: monthlyBannerUrl(banner),
-        caption,
-        parseMode: "HTML",
-        buttons: [
-          {
-            text: banner.lang === "de" ? "\u{1F4B8} Yield-Rechner \xF6ffnen" : "\u{1F4B8} Open the yield calculator",
-            url: `${SITE}/calculator`
-          }
-        ]
-      });
-      await markFired(db, "monthly:compound");
+      const button = {
+        text: banner.lang === "de" ? "\u{1F4B8} Yield-Rechner \xF6ffnen" : "\u{1F4B8} Open the yield calculator",
+        url: `${SITE}/calculator`
+      };
+      const photoUrl = monthlyBannerUrl(banner);
       const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
-      log.push(`\u{1F4B5} Monthly compound \u2014 ${banner.lang.toUpperCase()} ${label}`);
+      if (banner.lang === "de") {
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+        if (token && germanChat) {
+          const r = await tgSendPhoto(token, {
+            chatId: germanChat,
+            photoUrl,
+            caption,
+            parseMode: "HTML",
+            buttons: [button]
+          });
+          log.push(
+            `\u{1F4B5} Monthly compound \u2014 DE ${label} \u2192 ${germanChat}` + (r.ok ? "" : ` (failed: ${r.error})`)
+          );
+        } else {
+          log.push(
+            `\u{1F4B5} Monthly compound \u2014 DE ${label} SKIPPED (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)`
+          );
+        }
+      } else {
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [button]
+        });
+        log.push(`\u{1F4B5} Monthly compound \u2014 EN ${label}`);
+      }
+      await markFired(db, "monthly:compound");
     }
     if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
       const due = await publishOverdueBlogs(db);

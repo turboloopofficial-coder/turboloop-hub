@@ -256,26 +256,60 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
 
     // ============ 1. MONTHLY COMPOUNDING BANNER: 12:00 UTC = 5:30 PM IST ============
-    // Alternates EN/DE by day-of-year parity; cycles through 10 amounts each.
+    // Cycles through 20 banners (10 EN amounts + 10 DE amounts) by
+    // day-of-year. Each language routes to its own channel:
+    //   EN banners → tgBroadcastPhoto (TELEGRAM_CHANNEL + TELEGRAM_CHAT, English audience)
+    //   DE banners → tgSendPhoto to TELEGRAM_GERMAN_CHAT (German-only)
+    // Pre-2026-05-18 fix this branch broadcast DE captions to the EN
+    // channels — ~50% of monthly:compound posts were landing in the
+    // wrong audience. See Task G in the 7-task plan.
     if (isInWindow(12, 0) && !(await hasFiredToday(db, "monthly:compound"))) {
       const banner = pickTodaysMonthlyBanner();
       const caption = monthlyCompoundingCaption(banner);
-      await tgBroadcastPhoto({
-        photoUrl: monthlyBannerUrl(banner),
-        caption,
-        parseMode: "HTML",
-        buttons: [
-          {
-            text: banner.lang === "de"
-              ? "💸 Yield-Rechner öffnen"
-              : "💸 Open the yield calculator",
-            url: `${SITE}/calculator`,
-          },
-        ],
-      });
+      const button = {
+        text:
+          banner.lang === "de"
+            ? "💸 Yield-Rechner öffnen"
+            : "💸 Open the yield calculator",
+        url: `${SITE}/calculator`,
+      };
+      const photoUrl = monthlyBannerUrl(banner);
+      const label =
+        typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+
+      if (banner.lang === "de") {
+        // German monthly post — German chat ONLY. If the env var isn't
+        // set we skip (don't fall back to English broadcast — that's
+        // the exact bug we just removed).
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+        if (token && germanChat) {
+          const r = await tgSendPhoto(token, {
+            chatId: germanChat,
+            photoUrl,
+            caption,
+            parseMode: "HTML",
+            buttons: [button],
+          });
+          log.push(
+            `💵 Monthly compound — DE ${label} → ${germanChat}` +
+              (r.ok ? "" : ` (failed: ${r.error})`)
+          );
+        } else {
+          log.push(
+            `💵 Monthly compound — DE ${label} SKIPPED (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)`
+          );
+        }
+      } else {
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [button],
+        });
+        log.push(`💵 Monthly compound — EN ${label}`);
+      }
       await markFired(db, "monthly:compound");
-      const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
-      log.push(`💵 Monthly compound — ${banner.lang.toUpperCase()} ${label}`);
     }
 
     // ============ 2. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============

@@ -146,16 +146,39 @@ export const siteSettings = pgTable("site_settings", {
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
 });
 
-// Newsletter signups — simple email collection. No service integration yet;
-// admin can export to CSV via Neon and import into Mailchimp/Resend/Brevo later.
+// Newsletter signups — email collection with GDPR consent tracking.
+// Admin exports to CSV via the streaming /api/admin/newsletter/export
+// route for import into Mailchimp/Resend/Brevo. Every export filter
+// respects unsubscribed_at IS NULL by default.
 export const newsletterSignups = pgTable("newsletter_signups", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
   source: varchar("source", { length: 100 }), // "homepage", "footer", "blog", etc
   createdAt: timestamp("created_at").defaultNow().notNull(),
+
+  // ─── GDPR consent record (Task B) ───
+  // consent_method: how they opted in — "form-checkbox", "footer-implicit",
+  //   "imported", "legacy:pre-gdpr" (back-fill for rows that pre-date this
+  //   migration). NEVER write "imported" without consent_source_url.
+  consentMethod: varchar("consent_method", { length: 50 }),
+  // consent_text: the exact copy the user agreed to. Snapshot it so a
+  //   later wording change doesn't retroactively rewrite history.
+  consentText: text("consent_text"),
+  // consent_source_url: page the signup happened on, e.g.
+  //   "https://turboloop.tech/?utm_campaign=hub-launch"
+  consentSourceUrl: text("consent_source_url"),
+  // ip_country: ISO-3166 alpha-2 from Vercel's `x-vercel-ip-country`
+  //   header at signup time. Used for the CRM map widget + GDPR scope.
+  ipCountry: varchar("ip_country", { length: 2 }),
+  // Unsubscribe: filled when the user clicks the one-click unsubscribe
+  //   link in any newsletter email. Once set, all exports exclude the
+  //   row by default; we keep it for audit/replay rather than hard-delete.
+  unsubscribedAt: timestamp("unsubscribed_at"),
+  unsubscribeReason: varchar("unsubscribe_reason", { length: 200 }),
 });
 
 export type NewsletterSignup = typeof newsletterSignups.$inferSelect;
+export type InsertNewsletterSignup = typeof newsletterSignups.$inferInsert;
 
 // Community-submitted content (testimonials, photos, reels, stories) —
 // queued for admin moderation before showing on /community wall.
@@ -242,3 +265,102 @@ export const socialWallVideos = pgTable("social_wall_videos", {
 
 export type SocialWallVideo = typeof socialWallVideos.$inferSelect;
 export type InsertSocialWallVideo = typeof socialWallVideos.$inferInsert;
+
+// ─── Chatbot persistence (Task A) ─────────────────────────────────────
+//
+// One `chat_conversations` row per cookie-tied session. `session_id` is
+// a UUID set in a cookie on the first POST to /api/chat; conversations
+// last as long as the user keeps chatting from the same browser. We
+// don't tie to authenticated users — the public chatbot doesn't have a
+// login concept.
+//
+// `chat_kb_version` lets us replay or filter conversations served by a
+// specific KB snapshot (e.g. "all chats that ran against the May 18
+// KB"). Useful for refining the KB after seeing failure patterns.
+
+export const chatConversations = pgTable("chat_conversations", {
+  id: serial("id").primaryKey(),
+  sessionId: varchar("session_id", { length: 64 }).notNull().unique(),
+  // ip_hash = sha256(ip + daily_salt) — never store raw IP. Salt rotates
+  // daily so the same IP looks different across days; aggregate use
+  // remains possible but cross-day re-identification gets harder.
+  ipHash: varchar("ip_hash", { length: 64 }),
+  country: varchar("country", { length: 2 }), // ISO-3166 alpha-2
+  // KB version the system prompt was built against — generator script
+  // writes a fingerprint (e.g. content hash) into chatbot-kb.ts that
+  // we record here per conversation start.
+  chatKbVersion: varchar("chat_kb_version", { length: 64 }),
+  turnCount: integer("turn_count").default(0).notNull(),
+  tokensIn: integer("tokens_in").default(0).notNull(),
+  tokensOut: integer("tokens_out").default(0).notNull(),
+  startedAt: timestamp("started_at").defaultNow().notNull(),
+  lastActivityAt: timestamp("last_activity_at").defaultNow().notNull(),
+});
+
+export type ChatConversation = typeof chatConversations.$inferSelect;
+export type InsertChatConversation = typeof chatConversations.$inferInsert;
+
+// One row per turn. `content` is the message body (already PII-scrubbed
+// at write time — wallet addresses + email patterns get redacted before
+// the insert in api/chat). `refused` flags assistant turns that triggered
+// the off-topic / harassment filter; `thumbs_up` is the satisfaction
+// signal from the chatbot UI.
+export const chatMessages = pgTable("chat_messages", {
+  id: serial("id").primaryKey(),
+  conversationId: integer("conversation_id")
+    .notNull()
+    .references(() => chatConversations.id, { onDelete: "cascade" }),
+  role: varchar("role", { length: 16 }).notNull(), // "user" | "assistant"
+  content: text("content").notNull(),
+  refused: boolean("refused").default(false).notNull(),
+  thumbsUp: boolean("thumbs_up"), // null = no feedback yet
+  tokensIn: integer("tokens_in"),
+  tokensOut: integer("tokens_out"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ChatMessage = typeof chatMessages.$inferSelect;
+export type InsertChatMessage = typeof chatMessages.$inferInsert;
+
+// ─── Careers CMS (Task F) ─────────────────────────────────────────────
+//
+// Replaces the hardcoded ROLES array in next-app/app/careers/page.tsx.
+// Admin CRUDs these via the new "Careers" tab. Closed roles stay in the
+// table for audit + slug-stability; `closing_at` auto-closes a role
+// without manual toggling.
+//
+// `tg_support_link` is the Telegram handle to DM if applicants have
+// questions before applying (per-role override; defaults to the global
+// support channel in the UI).
+
+export const vacancyStatusEnum = pgEnum("vacancy_status", [
+  "open",
+  "closed",
+  "draft",
+]);
+
+export const jobVacancies = pgTable("job_vacancies", {
+  id: serial("id").primaryKey(),
+  // Stable slug (e.g. "presenter-de"), used as the role identifier
+  // passed by CareersApplicationForm → content_submissions.
+  slug: varchar("slug", { length: 100 }).notNull().unique(),
+  title: varchar("title", { length: 200 }).notNull(),
+  flag: varchar("flag", { length: 8 }), // optional emoji flag for cards
+  location: varchar("location", { length: 200 }).notNull(),
+  stipend: varchar("stipend", { length: 100 }).notNull(),
+  // Bullet points — array of short strings, displayed as a checklist
+  // on the card. JSON column keeps the schema flexible without a
+  // join table for a 4-bullet payload.
+  bullets: jsonb("bullets").$type<string[]>().default([]).notNull(),
+  status: vacancyStatusEnum("status").default("draft").notNull(),
+  // tg_support_link: optional t.me/handle (or full URL) for applicant Qs.
+  tgSupportLink: varchar("tg_support_link", { length: 300 }),
+  // closing_at: roles with this set in the past auto-close on read.
+  closingAt: timestamp("closing_at"),
+  sortOrder: integer("sort_order").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+});
+
+export type JobVacancy = typeof jobVacancies.$inferSelect;
+export type InsertJobVacancy = typeof jobVacancies.$inferInsert;

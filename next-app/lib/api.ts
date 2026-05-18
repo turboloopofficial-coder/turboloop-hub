@@ -199,6 +199,25 @@ export interface SocialWallVideo {
   approvedAt: string | null;
 }
 
+/** Currently-open career listing — only roles with status='open' AND
+ *  (closing_at IS NULL OR closing_at > now()) on the server side.
+ *  /careers consumes this; admin-only drafts/closed don't appear. */
+export interface JobVacancy {
+  id: number;
+  slug: string;
+  title: string;
+  flag: string | null;
+  location: string;
+  stipend: string;
+  bullets: string[];
+  status: "open" | "closed" | "draft";
+  tgSupportLink: string | null;
+  closingAt: string | null;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
 export const api = {
   blogPosts: () => fetchTRPC<BlogPost[]>("content.blogPosts"),
   blogPost: (slug: string) =>
@@ -211,4 +230,14 @@ export const api = {
     fetchTRPC<PublicSubmission[]>("submissions.publicApproved"),
   socialWallVideos: () =>
     fetchTRPC<SocialWallVideo[]>("socialWall.publicList"),
+  /** Public list of open careers — returns [] on API failure rather
+   *  than throwing, so the /careers page renders its hardcoded
+   *  fallback ROLES instead of erroring. */
+  openCareers: async (): Promise<JobVacancy[]> => {
+    try {
+      return await fetchTRPC<JobVacancy[]>("careers.openList");
+    } catch {
+      return [];
+    }
+  },
 };

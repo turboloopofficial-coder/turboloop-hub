@@ -98261,7 +98261,26 @@ var newsletterSignups = pgTable("newsletter_signups", {
   email: varchar("email", { length: 320 }).notNull().unique(),
   source: varchar("source", { length: 100 }),
   // "homepage", "footer", "blog", etc
-  createdAt: timestamp("created_at").defaultNow().notNull()
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  // ─── GDPR consent record (Task B) ───
+  // consent_method: how they opted in — "form-checkbox", "footer-implicit",
+  //   "imported", "legacy:pre-gdpr" (back-fill for rows that pre-date this
+  //   migration). NEVER write "imported" without consent_source_url.
+  consentMethod: varchar("consent_method", { length: 50 }),
+  // consent_text: the exact copy the user agreed to. Snapshot it so a
+  //   later wording change doesn't retroactively rewrite history.
+  consentText: text("consent_text"),
+  // consent_source_url: page the signup happened on, e.g.
+  //   "https://turboloop.tech/?utm_campaign=hub-launch"
+  consentSourceUrl: text("consent_source_url"),
+  // ip_country: ISO-3166 alpha-2 from Vercel's `x-vercel-ip-country`
+  //   header at signup time. Used for the CRM map widget + GDPR scope.
+  ipCountry: varchar("ip_country", { length: 2 }),
+  // Unsubscribe: filled when the user clicks the one-click unsubscribe
+  //   link in any newsletter email. Once set, all exports exclude the
+  //   row by default; we keep it for audit/replay rather than hard-delete.
+  unsubscribedAt: timestamp("unsubscribed_at"),
+  unsubscribeReason: varchar("unsubscribe_reason", { length: 200 })
 });
 var contentSubmissionStatusEnum = pgEnum("content_submission_status", [
   "pending",
@@ -98326,6 +98345,66 @@ var socialWallVideos = pgTable("social_wall_videos", {
   sortOrder: integer2("sort_order").default(0).notNull(),
   fetchedAt: timestamp("fetched_at").defaultNow().notNull(),
   approvedAt: timestamp("approved_at")
+});
+var chatConversations = pgTable("chat_conversations", {
+  id: serial("id").primaryKey(),
+  sessionId: varchar("session_id", { length: 64 }).notNull().unique(),
+  // ip_hash = sha256(ip + daily_salt) — never store raw IP. Salt rotates
+  // daily so the same IP looks different across days; aggregate use
+  // remains possible but cross-day re-identification gets harder.
+  ipHash: varchar("ip_hash", { length: 64 }),
+  country: varchar("country", { length: 2 }),
+  // ISO-3166 alpha-2
+  // KB version the system prompt was built against — generator script
+  // writes a fingerprint (e.g. content hash) into chatbot-kb.ts that
+  // we record here per conversation start.
+  chatKbVersion: varchar("chat_kb_version", { length: 64 }),
+  turnCount: integer2("turn_count").default(0).notNull(),
+  tokensIn: integer2("tokens_in").default(0).notNull(),
+  tokensOut: integer2("tokens_out").default(0).notNull(),
+  startedAt: timestamp("started_at").defaultNow().notNull(),
+  lastActivityAt: timestamp("last_activity_at").defaultNow().notNull()
+});
+var chatMessages = pgTable("chat_messages", {
+  id: serial("id").primaryKey(),
+  conversationId: integer2("conversation_id").notNull().references(() => chatConversations.id, { onDelete: "cascade" }),
+  role: varchar("role", { length: 16 }).notNull(),
+  // "user" | "assistant"
+  content: text("content").notNull(),
+  refused: boolean4("refused").default(false).notNull(),
+  thumbsUp: boolean4("thumbs_up"),
+  // null = no feedback yet
+  tokensIn: integer2("tokens_in"),
+  tokensOut: integer2("tokens_out"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var vacancyStatusEnum = pgEnum("vacancy_status", [
+  "open",
+  "closed",
+  "draft"
+]);
+var jobVacancies = pgTable("job_vacancies", {
+  id: serial("id").primaryKey(),
+  // Stable slug (e.g. "presenter-de"), used as the role identifier
+  // passed by CareersApplicationForm → content_submissions.
+  slug: varchar("slug", { length: 100 }).notNull().unique(),
+  title: varchar("title", { length: 200 }).notNull(),
+  flag: varchar("flag", { length: 8 }),
+  // optional emoji flag for cards
+  location: varchar("location", { length: 200 }).notNull(),
+  stipend: varchar("stipend", { length: 100 }).notNull(),
+  // Bullet points — array of short strings, displayed as a checklist
+  // on the card. JSON column keeps the schema flexible without a
+  // join table for a 4-bullet payload.
+  bullets: jsonb("bullets").$type().default([]).notNull(),
+  status: vacancyStatusEnum("status").default("draft").notNull(),
+  // tg_support_link: optional t.me/handle (or full URL) for applicant Qs.
+  tgSupportLink: varchar("tg_support_link", { length: 300 }),
+  // closing_at: roles with this set in the past auto-close on read.
+  closingAt: timestamp("closing_at"),
+  sortOrder: integer2("sort_order").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
 });
 
 // node_modules/bcryptjs/index.js
@@ -100341,6 +100420,39 @@ async function updateContentSubmissionPayout(id, patch) {
   const rows = await db.update(contentSubmissions).set(patch).where(eq(contentSubmissions.id, id)).returning();
   return rows[0] ?? null;
 }
+async function listOpenJobVacancies() {
+  const db = getDb();
+  const now = /* @__PURE__ */ new Date();
+  return await db.select().from(jobVacancies).where(
+    and(
+      eq(jobVacancies.status, "open"),
+      or(isNull(jobVacancies.closingAt), gt(jobVacancies.closingAt, now))
+    )
+  ).orderBy(asc(jobVacancies.sortOrder), desc(jobVacancies.createdAt));
+}
+async function listAllJobVacancies() {
+  const db = getDb();
+  return await db.select().from(jobVacancies).orderBy(asc(jobVacancies.sortOrder), desc(jobVacancies.createdAt));
+}
+async function getJobVacancyBySlug(slug) {
+  const db = getDb();
+  const rows = await db.select().from(jobVacancies).where(eq(jobVacancies.slug, slug)).limit(1);
+  return rows[0] ?? null;
+}
+async function createJobVacancy(input) {
+  const db = getDb();
+  const [row] = await db.insert(jobVacancies).values(input).returning();
+  return row;
+}
+async function updateJobVacancy(id, patch) {
+  const db = getDb();
+  const [row] = await db.update(jobVacancies).set(patch).where(eq(jobVacancies.id, id)).returning();
+  return row ?? null;
+}
+async function deleteJobVacancy(id) {
+  const db = getDb();
+  await db.delete(jobVacancies).where(eq(jobVacancies.id, id));
+}
 
 // server/storage.ts
 var import_client_s3 = __toESM(require_dist_cjs71(), 1);
@@ -100489,6 +100601,61 @@ var appRouter = router({
     // Admin-only: list + count
     list: adminProcedure.query(() => listNewsletterSignups(2e3)),
     count: adminProcedure.query(() => newsletterSignupCount())
+  }),
+  // ─── Careers CMS (Task F) ─────────────────────────────────────────
+  // `openList` is the public endpoint for /careers — returns only roles
+  // with status='open' AND (closing_at IS NULL OR closing_at > now()).
+  // Everything else is admin-gated.
+  careers: router({
+    openList: publicProcedure.query(() => listOpenJobVacancies()),
+    bySlug: publicProcedure.input(external_exports.object({ slug: external_exports.string().max(100) })).query(({ input }) => getJobVacancyBySlug(input.slug)),
+    // Admin CRUD. The bullets array is stored as JSONB so we accept it
+    // as a string[] in the schema and Drizzle handles the round-trip.
+    adminList: adminProcedure.query(() => listAllJobVacancies()),
+    create: adminProcedure.input(
+      external_exports.object({
+        slug: external_exports.string().min(2).max(100).regex(/^[a-z0-9][a-z0-9-]{0,99}$/, "Use lowercase letters, digits, and dashes"),
+        title: external_exports.string().min(2).max(200),
+        flag: external_exports.string().max(8).optional(),
+        location: external_exports.string().min(2).max(200),
+        stipend: external_exports.string().min(1).max(100),
+        bullets: external_exports.array(external_exports.string().max(500)).max(20),
+        status: external_exports.enum(["open", "closed", "draft"]).default("draft"),
+        tgSupportLink: external_exports.string().max(300).optional(),
+        closingAt: external_exports.coerce.date().optional(),
+        sortOrder: external_exports.number().int().min(0).max(9999).default(0)
+      })
+    ).mutation(
+      ({ input }) => createJobVacancy({
+        slug: input.slug,
+        title: input.title,
+        flag: input.flag ?? null,
+        location: input.location,
+        stipend: input.stipend,
+        bullets: input.bullets,
+        status: input.status,
+        tgSupportLink: input.tgSupportLink ?? null,
+        closingAt: input.closingAt ?? null,
+        sortOrder: input.sortOrder
+      })
+    ),
+    update: adminProcedure.input(
+      external_exports.object({
+        id: external_exports.number().int().positive(),
+        patch: external_exports.object({
+          title: external_exports.string().min(2).max(200).optional(),
+          flag: external_exports.string().max(8).nullable().optional(),
+          location: external_exports.string().min(2).max(200).optional(),
+          stipend: external_exports.string().min(1).max(100).optional(),
+          bullets: external_exports.array(external_exports.string().max(500)).max(20).optional(),
+          status: external_exports.enum(["open", "closed", "draft"]).optional(),
+          tgSupportLink: external_exports.string().max(300).nullable().optional(),
+          closingAt: external_exports.coerce.date().nullable().optional(),
+          sortOrder: external_exports.number().int().min(0).max(9999).optional()
+        })
+      })
+    ).mutation(({ input }) => updateJobVacancy(input.id, input.patch)),
+    delete: adminProcedure.input(external_exports.object({ id: external_exports.number().int().positive() })).mutation(({ input }) => deleteJobVacancy(input.id))
   }),
   // AI Blog Drafter — admin-only. Calls Anthropic API to draft a polished
   // blog post from a short topic prompt. The user reviews, edits, and saves

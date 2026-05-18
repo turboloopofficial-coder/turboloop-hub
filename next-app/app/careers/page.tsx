@@ -1,7 +1,14 @@
-// /careers — open roles. Right now: two Zoom Presenter listings
-// (Indonesian and German). Applications go through the existing
-// submissions.submit mutation with type="presenter_apply" so they
-// land in the same admin moderation queue as Local Presenter apps.
+// /careers — open roles. Sources of truth, in order:
+//   1. job_vacancies table via api.openCareers() — the CMS path; admin
+//      manages roles in /admin → Careers
+//   2. The FALLBACK_ROLES array below if the DB returns empty (fresh
+//      env, transient API failure, etc.). Lets us deprecate the
+//      hardcoded path safely once the table is seeded
+//
+// Applications still go through the existing submissions.submit
+// mutation with type="presenter_apply"; the form now passes the
+// selected role's slug + title in the body so admin can attribute
+// each application to a specific vacancy.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -10,6 +17,11 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { CareersApplicationForm } from "@components/careers/CareersApplicationForm";
+import { api, type JobVacancy } from "@lib/api";
+
+// ISR — admins can publish/close roles without redeploy. 5 min is the
+// same cadence as /blog and /films.
+export const revalidate = 300;
 
 const OG_TITLE = "Careers — TurboLoop";
 const OG_DESC =
@@ -35,9 +47,13 @@ export const metadata: Metadata = {
   },
 };
 
-const ROLES = [
+// Static fallback — used when the DB returns 0 rows (e.g. before the
+// admin seeds the table). Once the table is populated, these are
+// ignored. Keep slug values in sync with whatever the admin uses so
+// existing submissions reference stable role IDs.
+const FALLBACK_ROLES: Array<Pick<JobVacancy, "slug" | "flag" | "title" | "location" | "stipend" | "bullets" | "tgSupportLink">> = [
   {
-    id: "presenter-id",
+    slug: "presenter-id",
     flag: "🇮🇩",
     title: "Indonesian Zoom Presenter",
     location: "Remote · Bahasa Indonesia",
@@ -48,9 +64,10 @@ const ROLES = [
       "Coordinate with the global presenter team via Telegram.",
       "Minimum: comfortable with public speaking + active local crypto community of 40+ contacts.",
     ],
+    tgSupportLink: null,
   },
   {
-    id: "presenter-de",
+    slug: "presenter-de",
     flag: "🇩🇪",
     title: "German Zoom Presenter",
     location: "Remote · Deutsch",
@@ -61,23 +78,33 @@ const ROLES = [
       "Coordinate with the global presenter team via Telegram.",
       "Minimum: comfortable with public speaking + active local crypto community of 40+ contacts.",
     ],
+    tgSupportLink: null,
   },
 ];
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const dbRoles = await api.openCareers();
+  // Normalize to a single render shape regardless of source. DB roles
+  // already match JobVacancy; fallback roles are partial but share the
+  // fields the card + form need.
+  const ROLES = dbRoles.length > 0 ? dbRoles : FALLBACK_ROLES;
+  const seatLabel =
+    ROLES.length === 0
+      ? "No open seats this week"
+      : `${ROLES.length} open ${ROLES.length === 1 ? "seat" : "seats"} on the global presenter team`;
   return (
     <main className="relative pb-12 md:pb-20">
       <PageHero
         eyebrow="We're Hiring"
         title="Host the call. Get paid."
-        subtitle="Two open seats on the global presenter team — Indonesian and German. Lead weekly community Zoom sessions and we'll cover your operating costs each month."
+        subtitle={`${seatLabel}. Lead weekly community Zoom sessions and we'll cover your operating costs each month.`}
       />
 
       <Container width="default">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 mb-10 md:mb-14">
           {ROLES.map(role => (
             <Card
-              key={role.id}
+              key={role.slug}
               elevation="prominent"
               padding="lg"
               className="relative overflow-hidden h-full flex flex-col"
@@ -146,7 +173,13 @@ export default function CareersPage() {
               DM with onboarding within 7 days.
             </p>
           </div>
-          <CareersApplicationForm />
+          <CareersApplicationForm
+            roles={ROLES.map(r => ({
+              slug: r.slug,
+              title: r.title,
+              flag: r.flag ?? null,
+            }))}
+          />
         </section>
 
         <p className="text-center text-sm text-[var(--c-text-muted)] mt-10">

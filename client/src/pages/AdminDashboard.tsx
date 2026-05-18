@@ -26,6 +26,7 @@ import ImageUpload from "@/components/ImageUpload";
 import AIDrafter from "@/components/admin/AIDrafter";
 import SubmissionsManager from "@/components/admin/SubmissionsManager";
 import { ZoomSettings } from "@/components/admin/ZoomSettings";
+import { CareersManager } from "@/components/admin/CareersManager";
 import EventApplicationsManager from "@/components/admin/EventApplicationsManager";
 import SocialWallManager from "@/components/admin/SocialWallManager";
 
@@ -1638,6 +1639,12 @@ export default function AdminDashboard() {
               Presentations
             </TabsTrigger>
             <TabsTrigger
+              value="careers"
+              className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
+            >
+              Careers
+            </TabsTrigger>
+            <TabsTrigger
               value="settings"
               className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
             >
@@ -1675,6 +1682,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="presentations">
             <PresentationManager />
+          </TabsContent>
+          <TabsContent value="careers">
+            <CareersManager />
           </TabsContent>
           <TabsContent value="settings" className="space-y-8">
             <ZoomSettings />

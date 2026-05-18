@@ -1,10 +1,16 @@
 "use client";
 
 // /careers application form — collects name, email, telegram handle,
-// language, experience. Posts to submissions.submit with
-// type="presenter_apply" so the same admin moderation queue handles it.
-// Email/telegram go into authorContact (email preferred); language +
-// experience body go into the submission body.
+// role (which vacancy they're applying for), experience. Posts to
+// submissions.submit with type="presenter_apply" so the same admin
+// moderation queue handles it. The selected role's slug + title are
+// encoded into the body so admin can attribute each application to a
+// specific vacancy without a new column.
+//
+// `roles` comes from the parent page (which fetches from the
+// job_vacancies table, falling back to hardcoded defaults if the
+// table is empty). The dropdown options come from this list — no
+// hardcoded language options anymore.
 
 import { useState } from "react";
 import { Loader2, Check, Send } from "lucide-react";
@@ -17,17 +23,29 @@ import {
 } from "@lib/submitApi";
 import { haptic } from "@lib/haptic";
 
-const LANGUAGE_OPTIONS = [
-  { value: "id", label: "🇮🇩 Bahasa Indonesia" },
-  { value: "de", label: "🇩🇪 Deutsch" },
-  { value: "other", label: "🌍 Other (specify in experience)" },
-];
+interface RoleOption {
+  slug: string;
+  title: string;
+  flag: string | null;
+}
 
-export function CareersApplicationForm() {
+export interface CareersApplicationFormProps {
+  /** Roles currently accepting applications — comes from the parent
+   *  page, which reads from the DB. The dropdown is built from this
+   *  list; if it's empty, the form falls back to a free-text "other"
+   *  option so the page still works during a DB hiccup. */
+  roles: RoleOption[];
+}
+
+export function CareersApplicationForm({ roles }: CareersApplicationFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [telegram, setTelegram] = useState("");
-  const [language, setLanguage] = useState<string>("id");
+  // Default to the first available role; falls back to "other" if no
+  // roles are loaded from the DB.
+  const [roleSlug, setRoleSlug] = useState<string>(
+    roles[0]?.slug ?? "other"
+  );
   const [experience, setExperience] = useState("");
 
   const [busy, setBusy] = useState(false);
@@ -55,11 +73,17 @@ export function CareersApplicationForm() {
 
     setBusy(true);
     try {
-      const langLabel =
-        LANGUAGE_OPTIONS.find(l => l.value === language)?.label ?? language;
-      // Pack the language tag into the body so it surfaces in the
-      // moderation queue without needing a new column.
-      const body = `Applying for: Zoom Presenter (${langLabel})\n\n${experience.trim()}`;
+      const role = roles.find(r => r.slug === roleSlug);
+      const roleLabel = role
+        ? `${role.flag ?? ""} ${role.title}`.trim()
+        : "Other / Unspecified";
+      // Pack role-id + label as a structured header at the top of the
+      // body so the admin moderation queue can grep on `Role:` to find
+      // applicants per vacancy without needing a new column.
+      const body =
+        `Role: ${roleSlug} (${roleLabel})\n\n` +
+        `Telegram: @${telegram.trim().replace(/^@/, "")}\n\n` +
+        experience.trim();
       const result = await submitSubmission({
         type: "presenter_apply",
         authorName: name.trim(),
@@ -141,19 +165,20 @@ export function CareersApplicationForm() {
           />
           <div>
             <label className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
-              Language *
+              Role applying for *
             </label>
             <select
-              value={language}
-              onChange={e => setLanguage(e.target.value)}
+              value={roleSlug}
+              onChange={e => setRoleSlug(e.target.value)}
               disabled={busy}
               className="w-full px-3 h-12 rounded-[var(--r-md)] text-sm bg-[var(--c-bg)] border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/20 outline-none disabled:opacity-60 text-[var(--c-text)]"
             >
-              {LANGUAGE_OPTIONS.map(opt => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
+              {roles.map(r => (
+                <option key={r.slug} value={r.slug}>
+                  {(r.flag ? `${r.flag} ` : "") + r.title}
                 </option>
               ))}
+              <option value="other">🌍 Other (specify in experience)</option>
             </select>
           </div>
         </div>

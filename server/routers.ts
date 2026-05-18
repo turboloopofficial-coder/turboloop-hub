@@ -18,6 +18,8 @@ import {
   listPublicApprovedSubmissions,
   createEventApplication, listEventApplications, updateEventApplicationStatus,
   listSocialWallVideos, upsertSocialWallVideo, updateSocialWallVideo, deleteSocialWallVideo,
+  listOpenJobVacancies, listAllJobVacancies, getJobVacancyBySlug,
+  createJobVacancy, updateJobVacancy, deleteJobVacancy,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -116,6 +118,75 @@ export const appRouter = router({
     // Admin-only: list + count
     list: adminProcedure.query(() => listNewsletterSignups(2000)),
     count: adminProcedure.query(() => newsletterSignupCount()),
+  }),
+
+  // ─── Careers CMS (Task F) ─────────────────────────────────────────
+  // `openList` is the public endpoint for /careers — returns only roles
+  // with status='open' AND (closing_at IS NULL OR closing_at > now()).
+  // Everything else is admin-gated.
+  careers: router({
+    openList: publicProcedure.query(() => listOpenJobVacancies()),
+    bySlug: publicProcedure
+      .input(z.object({ slug: z.string().max(100) }))
+      .query(({ input }) => getJobVacancyBySlug(input.slug)),
+
+    // Admin CRUD. The bullets array is stored as JSONB so we accept it
+    // as a string[] in the schema and Drizzle handles the round-trip.
+    adminList: adminProcedure.query(() => listAllJobVacancies()),
+    create: adminProcedure
+      .input(
+        z.object({
+          slug: z
+            .string()
+            .min(2)
+            .max(100)
+            .regex(/^[a-z0-9][a-z0-9-]{0,99}$/, "Use lowercase letters, digits, and dashes"),
+          title: z.string().min(2).max(200),
+          flag: z.string().max(8).optional(),
+          location: z.string().min(2).max(200),
+          stipend: z.string().min(1).max(100),
+          bullets: z.array(z.string().max(500)).max(20),
+          status: z.enum(["open", "closed", "draft"]).default("draft"),
+          tgSupportLink: z.string().max(300).optional(),
+          closingAt: z.coerce.date().optional(),
+          sortOrder: z.number().int().min(0).max(9999).default(0),
+        })
+      )
+      .mutation(({ input }) =>
+        createJobVacancy({
+          slug: input.slug,
+          title: input.title,
+          flag: input.flag ?? null,
+          location: input.location,
+          stipend: input.stipend,
+          bullets: input.bullets,
+          status: input.status,
+          tgSupportLink: input.tgSupportLink ?? null,
+          closingAt: input.closingAt ?? null,
+          sortOrder: input.sortOrder,
+        })
+      ),
+    update: adminProcedure
+      .input(
+        z.object({
+          id: z.number().int().positive(),
+          patch: z.object({
+            title: z.string().min(2).max(200).optional(),
+            flag: z.string().max(8).nullable().optional(),
+            location: z.string().min(2).max(200).optional(),
+            stipend: z.string().min(1).max(100).optional(),
+            bullets: z.array(z.string().max(500)).max(20).optional(),
+            status: z.enum(["open", "closed", "draft"]).optional(),
+            tgSupportLink: z.string().max(300).nullable().optional(),
+            closingAt: z.coerce.date().nullable().optional(),
+            sortOrder: z.number().int().min(0).max(9999).optional(),
+          }),
+        })
+      )
+      .mutation(({ input }) => updateJobVacancy(input.id, input.patch)),
+    delete: adminProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(({ input }) => deleteJobVacancy(input.id)),
   }),
 
   // AI Blog Drafter — admin-only. Calls Anthropic API to draft a polished

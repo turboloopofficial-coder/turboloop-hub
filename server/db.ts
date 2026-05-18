@@ -1,4 +1,4 @@
-import { eq, desc, asc, and, isNotNull, lte } from "drizzle-orm";
+import { eq, desc, asc, and, isNotNull, isNull, or, lte, gt, gte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import {
@@ -15,6 +15,7 @@ import {
   contentSubmissions,
   eventApplications, type InsertEventApplication,
   socialWallVideos, type InsertSocialWallVideo,
+  jobVacancies, type InsertJobVacancy,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -481,4 +482,73 @@ export async function updateContentSubmissionPayout(
     .where(eq(contentSubmissions.id, id))
     .returning();
   return rows[0] ?? null;
+}
+
+// ===== Job Vacancies (Task F — Careers CMS) =====
+//
+// Public read returns only roles that are:
+//   - status = 'open'
+//   - closing_at IS NULL OR closing_at > now()
+// Admin read returns everything (drafts + closed) ordered by sortOrder.
+
+/** Public list — only currently-applicable roles. Sorted by sortOrder
+ *  asc, then by createdAt desc as a stable tiebreak. */
+export async function listOpenJobVacancies() {
+  const db = getDb();
+  const now = new Date();
+  return await db
+    .select()
+    .from(jobVacancies)
+    .where(
+      and(
+        eq(jobVacancies.status, "open"),
+        or(isNull(jobVacancies.closingAt), gt(jobVacancies.closingAt, now))
+      )
+    )
+    .orderBy(asc(jobVacancies.sortOrder), desc(jobVacancies.createdAt));
+}
+
+/** Admin list — every row including drafts and closed. */
+export async function listAllJobVacancies() {
+  const db = getDb();
+  return await db
+    .select()
+    .from(jobVacancies)
+    .orderBy(asc(jobVacancies.sortOrder), desc(jobVacancies.createdAt));
+}
+
+/** Fetch one row by slug — used by the application form to attach the
+ *  role title + slug to submissions. Returns null if missing. */
+export async function getJobVacancyBySlug(slug: string) {
+  const db = getDb();
+  const rows = await db
+    .select()
+    .from(jobVacancies)
+    .where(eq(jobVacancies.slug, slug))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export async function createJobVacancy(input: InsertJobVacancy) {
+  const db = getDb();
+  const [row] = await db.insert(jobVacancies).values(input).returning();
+  return row;
+}
+
+export async function updateJobVacancy(
+  id: number,
+  patch: Partial<InsertJobVacancy>
+) {
+  const db = getDb();
+  const [row] = await db
+    .update(jobVacancies)
+    .set(patch)
+    .where(eq(jobVacancies.id, id))
+    .returning();
+  return row ?? null;
+}
+
+export async function deleteJobVacancy(id: number) {
+  const db = getDb();
+  await db.delete(jobVacancies).where(eq(jobVacancies.id, id));
 }

@@ -25,6 +25,7 @@ import {
 import ImageUpload from "@/components/ImageUpload";
 import AIDrafter from "@/components/admin/AIDrafter";
 import SubmissionsManager from "@/components/admin/SubmissionsManager";
+import { ZoomSettings } from "@/components/admin/ZoomSettings";
 import EventApplicationsManager from "@/components/admin/EventApplicationsManager";
 import SocialWallManager from "@/components/admin/SocialWallManager";
 
@@ -1675,7 +1676,8 @@ export default function AdminDashboard() {
           <TabsContent value="presentations">
             <PresentationManager />
           </TabsContent>
-          <TabsContent value="settings">
+          <TabsContent value="settings" className="space-y-8">
+            <ZoomSettings />
             <WelcomePopupManager />
           </TabsContent>
         </Tabs>

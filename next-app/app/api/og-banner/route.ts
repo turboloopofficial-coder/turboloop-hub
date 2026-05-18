@@ -17,8 +17,107 @@
 // boundary without paying the cost of a JSX rewrite.
 
 import { ImageResponse } from "next/og";
+import langKitManifest from "@lib/creatives-language-kit-manifest.json";
 
 export const runtime = "edge";
+
+// ─── Creatives banner i18n + counts ────────────────────────────────
+// Total banner count = legacy English-only kit (pillar/myth/product
+// banners, 175 in `creatives-manifest.json`) PLUS the 6-language
+// educational kit (455 entries from `creatives-language-kit-manifest`).
+//
+// Per-language counts on /creatives:
+//   en → 175 legacy + 65 kit = 240 (the legacy banners default to EN)
+//   de/hi/id/fr/ar/es → 65 each from the kit
+//
+// LEGACY_BANNER_COUNT is hardcoded rather than imported because the
+// legacy manifest is ~1MB and we don't want it in the edge bundle.
+// Bump this constant when scripts/process-creatives.mjs adds more.
+const LEGACY_BANNER_COUNT = 175;
+const LANG_KIT_TOTAL = (langKitManifest.items ?? []).length;
+const TOTAL_BANNER_COUNT = LEGACY_BANNER_COUNT + LANG_KIT_TOTAL;
+
+type CreativesLang = "en" | "de" | "hi" | "id" | "fr" | "ar" | "es";
+
+// Per-language count: only `en` gets the legacy boost; the rest are
+// kit-only. Derived from the manifest at module-load so adding a
+// language to the kit doesn't require touching this file.
+const COUNTS_PER_LANG: Record<CreativesLang, number> = (() => {
+  const langs = (langKitManifest.languages ?? {}) as Record<
+    string,
+    { count?: number }
+  >;
+  return {
+    en: (langs.en?.count ?? 0) + LEGACY_BANNER_COUNT,
+    de: langs.de?.count ?? 0,
+    hi: langs.hi?.count ?? 0,
+    id: langs.id?.count ?? 0,
+    fr: langs.fr?.count ?? 0,
+    ar: langs.ar?.count ?? 0,
+    es: langs.es?.count ?? 0,
+  };
+})();
+
+// Title + subtitle per language. Subtitle uses the count so the OG
+// image always shows the current size of the library for that locale —
+// no drift when banners are added.
+const CREATIVES_COPY: Record<
+  CreativesLang | "all",
+  { title: string; subtitleTemplate: (n: number) => string; accent: string }
+> = {
+  all: {
+    title: "Creatives Library",
+    subtitleTemplate: n => `${n} ready-to-share banners. Free for the community.`,
+    accent: "CREATIVES",
+  },
+  en: {
+    title: "Creatives Library",
+    subtitleTemplate: n => `${n} English banners — pre-designed and free to share.`,
+    accent: "ENGLISH",
+  },
+  de: {
+    title: "Kreativ-Bibliothek",
+    subtitleTemplate: n => `${n} deutsche Banner — sofort einsatzbereit.`,
+    accent: "DEUTSCH",
+  },
+  hi: {
+    title: "क्रिएटिव लाइब्रेरी",
+    subtitleTemplate: n => `${n} हिन्दी बैनर — शेयर करने के लिए तैयार।`,
+    accent: "हिन्दी",
+  },
+  id: {
+    title: "Pustaka Kreatif",
+    subtitleTemplate: n => `${n} banner Bahasa Indonesia — siap dibagikan.`,
+    accent: "INDONESIA",
+  },
+  fr: {
+    title: "Bibliothèque Créative",
+    subtitleTemplate: n => `${n} bannières françaises — prêtes à partager.`,
+    accent: "FRANÇAIS",
+  },
+  ar: {
+    title: "مكتبة الإبداعات",
+    subtitleTemplate: n => `${n} بانر عربي — جاهز للمشاركة.`,
+    accent: "العربية",
+  },
+  es: {
+    title: "Biblioteca Creativa",
+    subtitleTemplate: n => `${n} banners en español — listos para compartir.`,
+    accent: "ESPAÑOL",
+  },
+};
+
+function isCreativesLang(v: string | null): v is CreativesLang {
+  return (
+    v === "en" ||
+    v === "de" ||
+    v === "hi" ||
+    v === "id" ||
+    v === "fr" ||
+    v === "ar" ||
+    v === "es"
+  );
+}
 
 const PALETTES = [
   ["#0891B2", "#22D3EE", "#7C3AED"],
@@ -787,13 +886,27 @@ export async function GET(req: Request) {
         tagline: "From The Problem to The Movement.",
       },
     );
-  if (type === "creatives")
+  if (type === "creatives") {
+    // Language-aware creatives banner. Picks copy + count from the
+    // tables above so the OG image always reflects the current size
+    // of the library + the locale that's about to be shared.
+    const langParam = url.searchParams.get("lang");
+    const langKey: CreativesLang | "all" = isCreativesLang(langParam)
+      ? langParam
+      : "all";
+    const count =
+      langKey === "all" ? TOTAL_BANNER_COUNT : COUNTS_PER_LANG[langKey];
+    const copy = CREATIVES_COPY[langKey];
     return pageBanner(
-      "Creatives Library",
-      "Pre-designed. Ready to share. Free for the community.",
+      copy.title,
+      copy.subtitleTemplate(count),
       "🎨",
-      TOPIC_THEMES.creatives,
+      // Override the accent on the topic theme so the chip reads in the
+      // active locale ("DEUTSCH", "हिन्दी", ...) instead of the generic
+      // English "CREATIVES" tag.
+      { ...TOPIC_THEMES.creatives, accent: copy.accent },
     );
+  }
   if (type === "blog-listing")
     return pageBanner(
       "Editorial",

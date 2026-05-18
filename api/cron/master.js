@@ -15036,6 +15036,31 @@ function hubPromoBannerUrl(promo) {
   return `${R2_BASE_HUB_PROMO}/hub-promo/${promo.banner}`;
 }
 
+// server/db.ts
+init_schema2();
+
+// node_modules/bcryptjs/index.js
+var nextTick = typeof setImmediate === "function" ? setImmediate : typeof scheduler === "object" && typeof scheduler.postTask === "function" ? scheduler.postTask.bind(scheduler) : setTimeout;
+var BASE64_CODE = "./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".split("");
+
+// server/db.ts
+var _db = null;
+function getDb() {
+  if (_db) return _db;
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    throw new Error("DATABASE_URL is not set");
+  }
+  const sql2 = Xs(url);
+  _db = drizzle(sql2);
+  return _db;
+}
+async function getSetting(key) {
+  const db = getDb();
+  const result = await db.select().from(siteSettings).where(eq(siteSettings.settingKey, key)).limit(1);
+  return result[0]?.settingValue;
+}
+
 // shared/zoomEvents.ts
 var ZOOM_EN = {
   lang: "en",
@@ -15059,6 +15084,33 @@ var ZOOM_HI = {
   // 15:30 UTC = 9:00 PM IST
   durationMin: 120
 };
+var ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
+
+// server/zoom-config.ts
+var DEFAULTS = {
+  en: ZOOM_EN,
+  hi: ZOOM_HI
+};
+async function getZoomConfig(lang) {
+  const base = DEFAULTS[lang];
+  try {
+    const [link, passcode] = await Promise.all([
+      getSetting(`zoom_${lang}_link`),
+      getSetting(`zoom_${lang}_passcode`)
+    ]);
+    return {
+      ...base,
+      link: link && ZOOM_URL_PATTERN.test(link) ? link : base.link,
+      passcode: passcode && passcode.trim().length > 0 ? passcode.trim() : base.passcode
+    };
+  } catch (err) {
+    console.error(
+      `[zoom-config] getZoomConfig(${lang}) failed; using defaults:`,
+      err instanceof Error ? err.message : String(err)
+    );
+    return base;
+  }
+}
 
 // next-app/lib/creatives-language-kit-manifest.json
 var creatives_language_kit_manifest_default = {
@@ -28148,12 +28200,14 @@ async function handler(req, res) {
     }
     await publishOverdueBlogs(db);
     if (isInWindow(15, 0) && !await hasFiredToday(db, "zoom:hi:T30")) {
-      await sendZoomReminder("hi", "T30", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
+      const cfg = await getZoomConfig("hi");
+      await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
       await markFired(db, "zoom:hi:T30");
       log.push("\u{1F399} HI Zoom T-30");
     }
     if (isInWindow(16, 30) && !await hasFiredToday(db, "zoom:en:T30")) {
-      await sendZoomReminder("en", "T30", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
+      const cfg = await getZoomConfig("en");
+      await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
       await markFired(db, "zoom:en:T30");
       log.push("\u{1F399} EN Zoom T-30");
     }

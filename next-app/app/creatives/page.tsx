@@ -28,34 +28,99 @@ import {
   type BannerLanguage,
 } from "@lib/creativesData";
 
-const TITLE = "Ready-to-Share Banners — TurboLoop";
-const DESCRIPTION =
-  "Pre-designed branded images with captions. Free for the community.";
+// Per-language Metadata for the OG card. Static title/description still
+// works for crawlers that hit /creatives without a lang param; the
+// generateMetadata below upgrades it when a ?lang= is present so the
+// title, description, OG image (via /api/og-banner?type=creatives&lang=)
+// and canonical all align with the locale being shared.
+//
+// The OG image route is now content-aware — it reads the lang-kit
+// manifest at request time and renders the current per-language banner
+// count. Adding a new banner means the OG image updates on next render;
+// no static asset re-upload needed. See app/api/og-banner/route.ts.
 
-export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
-  alternates: { canonical: "https://turboloop.tech/creatives" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://turboloop.tech/creatives",
-    images: [
-      {
-        url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-creatives.png",
-        width: 1200,
-        height: 630,
-        alt: TITLE,
-      },
-    ],
+const LANG_META: Partial<
+  Record<
+    BannerLanguage,
+    { title: string; description: string }
+  >
+> = {
+  en: {
+    title: "English Banners — Ready to share",
+    description: "240 pre-designed English banners with captions. Free for the community.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-creatives.png"],
+  de: {
+    title: "Deutsche Banner — Sofort einsatzbereit",
+    description: "65 deutsche Werbebanner mit Captions. Kostenlos für die Community.",
+  },
+  hi: {
+    title: "हिन्दी बैनर — शेयर करने के लिए तैयार",
+    description: "TurboLoop के लिए 65 हिन्दी बैनर। मुफ़्त शेयरिंग के लिए।",
+  },
+  id: {
+    title: "Banner Indonesia — Siap dibagikan",
+    description: "65 banner Bahasa Indonesia dengan caption. Gratis untuk komunitas.",
+  },
+  fr: {
+    title: "Bannières Françaises — Prêtes à partager",
+    description: "65 bannières françaises avec légendes. Gratuit pour la communauté.",
+  },
+  ar: {
+    title: "بانرات عربية — جاهزة للمشاركة",
+    description: "65 بانر عربي مع تعليقات. مجانًا للمجتمع.",
+  },
+  es: {
+    title: "Banners en Español — Listos para compartir",
+    description: "65 banners en español con leyendas. Gratis para la comunidad.",
   },
 };
+
+const DEFAULT_TITLE = "Ready-to-Share Banners — TurboLoop";
+const DEFAULT_DESCRIPTION =
+  "Pre-designed branded images with captions. Free for the community.";
+
+function ogImageUrl(lang: BannerLanguage | null): string {
+  // Always hit the www host explicitly. Apex 307s to www, and some OG
+  // crawlers (Telegram especially) don't follow redirects on image URLs.
+  const base = "https://www.turboloop.tech/api/og-banner?type=creatives";
+  return lang ? `${base}&lang=${lang}` : base;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string | string[] }>;
+}): Promise<Metadata> {
+  const { lang } = await searchParams;
+  const langParam = Array.isArray(lang) ? lang[0] : lang;
+  const activeLang: BannerLanguage | null = isBannerLanguage(langParam)
+    ? langParam
+    : null;
+  const meta = activeLang ? LANG_META[activeLang] : undefined;
+  const title = meta?.title ?? DEFAULT_TITLE;
+  const description = meta?.description ?? DEFAULT_DESCRIPTION;
+  const canonical = activeLang
+    ? `https://turboloop.tech/creatives?lang=${activeLang}`
+    : "https://turboloop.tech/creatives";
+  const image = ogImageUrl(activeLang);
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
 export default async function CreativesPage({
   searchParams,

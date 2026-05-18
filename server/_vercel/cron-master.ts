@@ -32,7 +32,7 @@ import { and, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto } from "./_telegram";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
-import { ZOOM_EN, ZOOM_HI } from "../../shared/zoomEvents";
+import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
   CAMPAIGN_B,
@@ -331,15 +331,20 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     await publishOverdueBlogs(db);
 
     // ============ 3. HINDI/URDU ZOOM T-30: 15:00 UTC = 8:30 PM IST ============
+    // Zoom link + passcode now resolve through getZoomConfig (Task C),
+    // which reads admin overrides from `site_settings` and falls back
+    // to the hardcoded ZOOM_HI defaults if unset or invalid.
     if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
-      await sendZoomReminder("hi", "T30", ZOOM_HI.link, ZOOM_HI.passcode, ZOOM_HI.timeLabel);
+      const cfg = await getZoomConfig("hi");
+      await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
       await markFired(db, "zoom:hi:T30");
       log.push("🎙 HI Zoom T-30");
     }
 
     // ============ 4. ENGLISH ZOOM T-30: 16:30 UTC = 10:00 PM IST ============
     if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
-      await sendZoomReminder("en", "T30", ZOOM_EN.link, ZOOM_EN.passcode, ZOOM_EN.timeLabel);
+      const cfg = await getZoomConfig("en");
+      await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
       await markFired(db, "zoom:en:T30");
       log.push("🎙 EN Zoom T-30");
     }

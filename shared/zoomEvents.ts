@@ -55,6 +55,11 @@ export const ZOOM_HI: ZoomSession = {
 
 export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI];
 
+/** URL shape that the admin-editable Zoom override (Task C) accepts.
+ *  Exposed here so both the admin form validator and the server-side
+ *  config reader can reference one regex. */
+export const ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
+
 /**
  * Next occurrence of a Zoom session as a Date in the user's local time.
  * If the session has started but is still within `durationMin`, returns the

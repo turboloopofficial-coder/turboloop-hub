@@ -5,6 +5,14 @@
 // Always-visible primary action (Launch App) + secondary action (Submit
 // Story) on every route. Solves the "where's the button on mobile?"
 // problem that was breaking conversion in the legacy SPA.
+//
+// Hidden while the chat widget is open so the chatbot input area can
+// take the bottom edge of the viewport (previously the input was
+// covered by this bar — z-60 over chat's z-40). ChatWidget dispatches
+// `tl:chat-state` with `detail.open: boolean` on every open/close;
+// we listen and toggle local state. Same pattern SmartNotifications
+// uses for `tl:reel-played` — keeps these two client islands
+// decoupled (no shared React context, no provider wrapping).
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -16,6 +24,7 @@ const HIDDEN_ROUTES = [/^\/admin/, /^\/offline$/, /^\/404$/, /^\/submit$/];
 export function MobileBottomCTA() {
   const pathname = usePathname();
   const [keyboardOpen, setKeyboardOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     const onFocusIn = (e: FocusEvent) => {
@@ -38,7 +47,17 @@ export function MobileBottomCTA() {
     };
   }, []);
 
+  useEffect(() => {
+    const onChatState = (e: Event) => {
+      const detail = (e as CustomEvent<{ open: boolean }>).detail;
+      setChatOpen(Boolean(detail?.open));
+    };
+    window.addEventListener("tl:chat-state", onChatState);
+    return () => window.removeEventListener("tl:chat-state", onChatState);
+  }, []);
+
   if (keyboardOpen) return null;
+  if (chatOpen) return null;
   if (HIDDEN_ROUTES.some(re => re.test(pathname))) return null;
 
   return (

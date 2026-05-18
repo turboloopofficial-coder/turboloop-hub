@@ -110,6 +110,26 @@ export function ChatWidget() {
     }
   }, [open]);
 
+  // Tell MobileBottomCTA (and any other listener) when the chat opens
+  // or closes. Without this, on mobile the chat panel + the bottom CTA
+  // bar both render at the bottom edge and the CTA covers the composer
+  // input, so users can't type. See MobileBottomCTA's tl:chat-state
+  // listener. Custom-event pattern (vs React context) keeps these two
+  // independent client islands fully decoupled.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(
+      new CustomEvent("tl:chat-state", { detail: { open } })
+    );
+    return () => {
+      // Always emit a final "closed" on unmount so the CTA never
+      // gets stuck hidden if the widget tears down unexpectedly.
+      window.dispatchEvent(
+        new CustomEvent("tl:chat-state", { detail: { open: false } })
+      );
+    };
+  }, [open]);
+
   function send(text: string) {
     const t = text.trim();
     if (!t || isStreaming) return;
@@ -129,10 +149,12 @@ export function ChatWidget() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open TurboLoop assistant"
-        className="fixed z-40 right-4 bottom-20 md:right-6 md:bottom-6 rounded-full shadow-[var(--s-xl)] text-white inline-flex items-center gap-2 pl-3 pr-4 py-3 transition active:scale-[0.97]"
+        // z-[70] sits the launcher ABOVE the MobileBottomCTA (z-60) so
+        // it never gets covered. bottom-20 on mobile keeps it clear of
+        // the CTA visually so both are tappable.
+        className="fixed z-[70] right-4 bottom-20 md:right-6 md:bottom-6 rounded-full shadow-[var(--s-xl)] text-white inline-flex items-center gap-2 pl-4 pr-5 min-h-[48px] transition active:scale-[0.97]"
         style={{
           background: "var(--c-brand-gradient)",
-          paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
         }}
       >
         <MessageCircle className="w-5 h-5" />
@@ -145,7 +167,23 @@ export function ChatWidget() {
     <div
       role="dialog"
       aria-label="TurboLoop assistant"
-      className="fixed z-40 inset-x-3 bottom-3 top-16 md:inset-auto md:right-6 md:bottom-6 md:top-auto md:w-[400px] md:h-[640px] rounded-[var(--r-2xl)] bg-[var(--c-surface)] border border-[var(--c-border-strong)] shadow-[var(--s-xl)] flex flex-col overflow-hidden"
+      // Mobile: full-screen using dynamic viewport units (`100dvh`),
+      // which automatically shrinks when the on-screen keyboard
+      // appears — so the composer input stays visible above the
+      // keyboard. The `inset-0` + `dvh` combo replaces the previous
+      // `inset-x-3 bottom-3 top-16` clip, which trapped the composer
+      // behind the MobileBottomCTA on small screens.
+      //
+      // Desktop (md+): unchanged — anchored bottom-right 400×640 panel.
+      //
+      // z-[70] sits above MobileBottomCTA (z-60) AND ConsentBanner +
+      // NudgeCard (both now z-50 on mobile) so the chatbot is always
+      // the top layer when open.
+      //
+      // Heights: mobile uses h-[100dvh] (dynamic viewport — shrinks
+      // when the keyboard appears, keeping the composer visible).
+      // Desktop overrides to a fixed 640px panel via md:h-[640px].
+      className="fixed z-[70] inset-0 h-[100dvh] md:inset-auto md:right-6 md:bottom-6 md:top-auto md:w-[400px] md:h-[640px] md:rounded-[var(--r-2xl)] bg-[var(--c-surface)] md:border md:border-[var(--c-border-strong)] shadow-[var(--s-xl)] flex flex-col overflow-hidden"
     >
       {/* Header */}
       <div
@@ -163,7 +201,11 @@ export function ChatWidget() {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close assistant"
-            className="rounded-full p-1.5 hover:bg-white/15 transition"
+            // 44×44 hit target on mobile (WCAG 2.5.5 Level AAA) — the
+            // previous p-1.5 button was ~28×28, too small for thumbs.
+            // Icon size stays at 4 so the visual weight matches the
+            // header type scale.
+            className="inline-flex items-center justify-center rounded-full w-11 h-11 hover:bg-white/15 active:scale-95 transition"
           >
             <X className="w-4 h-4" />
           </button>
@@ -210,10 +252,18 @@ export function ChatWidget() {
         to improve the assistant.
       </div>
 
-      {/* Composer */}
+      {/* Composer
+          - safe-area-inset-bottom padding keeps the input clear of the
+            iPhone home indicator
+          - textarea has a baseline min-height of 44px (WCAG touch
+            target) but can grow to max-h-32 as the user types
+          - send/stop buttons are 44×44 (vs the old p-2.5 ~36×36) */}
       <form
         onSubmit={onSubmit}
         className="flex items-end gap-2 p-3 border-t border-[var(--c-border)] bg-[var(--c-bg)]"
+        style={{
+          paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
+        }}
       >
         <textarea
           value={input}
@@ -230,14 +280,14 @@ export function ChatWidget() {
           disabled={isStreaming}
           rows={1}
           maxLength={2000}
-          className="flex-1 resize-none rounded-[var(--r-md)] bg-[var(--c-surface)] border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/20 outline-none px-3 py-2 text-sm max-h-32"
+          className="flex-1 resize-none rounded-[var(--r-md)] bg-[var(--c-surface)] border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/20 outline-none px-3 py-2.5 text-sm min-h-[44px] max-h-32"
         />
         {isStreaming ? (
           <button
             type="button"
             onClick={() => stop()}
             aria-label="Stop generating"
-            className="rounded-[var(--r-md)] bg-[var(--c-surface)] border border-[var(--c-border)] p-2.5"
+            className="inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-[var(--r-md)] bg-[var(--c-surface)] border border-[var(--c-border)] active:scale-95 transition"
           >
             <Loader2 className="w-4 h-4 animate-spin" />
           </button>
@@ -246,7 +296,7 @@ export function ChatWidget() {
             type="submit"
             aria-label="Send message"
             disabled={!input.trim()}
-            className="rounded-[var(--r-md)] bg-brand text-white p-2.5 disabled:opacity-40 shadow-[var(--s-brand)]"
+            className="inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-[var(--r-md)] bg-brand text-white disabled:opacity-40 shadow-[var(--s-brand)] active:scale-95 transition"
           >
             <Send className="w-4 h-4" />
           </button>

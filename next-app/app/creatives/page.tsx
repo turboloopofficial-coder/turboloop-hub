@@ -75,9 +75,13 @@ const LANG_META: Partial<
   },
 };
 
-const DEFAULT_TITLE = "Ready-to-Share Banners — TurboLoop";
+// Numbers verified against the manifests: 175 legacy banners +
+// 455 lang-kit entries (65 × 7 languages) = 630 total. Bump these
+// constants when scripts/upload-lang-kit.mjs adds another language.
+const DEFAULT_TITLE =
+  "Marketing Banners — 630+ Free Designs in 7 Languages | TurboLoop";
 const DEFAULT_DESCRIPTION =
-  "Pre-designed branded images with captions. Free for the community.";
+  "Download 630+ pre-designed marketing banners with captions. Available in English, German, Hindi, Indonesian, French, Arabic, and Spanish. Free for the TurboLoop community.";
 
 function ogImageUrl(lang: BannerLanguage | null): string {
   // Always hit the www host explicitly. Apex 307s to www, and some OG

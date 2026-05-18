@@ -23,9 +23,10 @@ import { api, type JobVacancy } from "@lib/api";
 // same cadence as /blog and /films.
 export const revalidate = 300;
 
-const OG_TITLE = "Careers — TurboLoop";
+const OG_TITLE =
+  "Careers — Join the TurboLoop Presenter Team | Remote Positions";
 const OG_DESC =
-  "Open roles at TurboLoop. Zoom Presenter (Indonesian / German) — host community calls, get paid in stablecoins.";
+  "Open positions at TurboLoop: Indonesian and German Zoom Presenters. $100/month stipend, remote work, lead weekly community sessions in your language.";
 const OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-apply.png";
 

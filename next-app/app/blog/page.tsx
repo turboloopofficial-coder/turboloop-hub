@@ -23,15 +23,15 @@ import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
 export const revalidate = 300; // 5 min
 
-const BLOG_OG_TITLE = "Editorial — TurboLoop";
-const BLOG_OG_DESC = "Deep-dives on yield, security, and the math.";
+const BLOG_OG_TITLE = "DeFi Blog & Editorial — Yield Farming Insights | TurboLoop";
+const BLOG_OG_DESC =
+  "Deep dives on DeFi, yield generation, smart contract security, and the TurboLoop ecosystem. Plain English. No fluff.";
 const BLOG_OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-blog.png";
 
 export const metadata: Metadata = {
-  title: "Editorial — TurboLoop Blog",
-  description:
-    "Deep dives on DeFi, yield, security, and the TurboLoop ecosystem. Plain English. No fluff.",
+  title: BLOG_OG_TITLE,
+  description: BLOG_OG_DESC,
   alternates: { canonical: "https://turboloop.tech/blog" },
   openGraph: {
     title: BLOG_OG_TITLE,

@@ -23,9 +23,9 @@ import { api, type SocialWallVideo } from "@lib/api";
 
 export const revalidate = 300;
 
-const OG_TITLE = "The Social Wall — Voices from everywhere";
+const OG_TITLE = "Social Wall — Community Posts & Highlights | TurboLoop";
 const OG_DESC =
-  "Community-made TurboLoop videos from across the globe. Curated by the team, free to watch, ready to share.";
+  "Real posts from the TurboLoop community. See what members are sharing across Telegram, Twitter, and social media — curated, free to watch, ready to share.";
 const OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-creatives.png";
 

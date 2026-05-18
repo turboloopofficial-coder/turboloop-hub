@@ -45,12 +45,17 @@ export function NudgeCard({ rule, onDismiss, onAction }: NudgeCardProps) {
     <div
       role="status"
       aria-live="polite"
-      // Sits above MobileBottomCTA (which uses the bottom edge of the
-      // viewport) — extra padding-bottom ensures we're not hidden behind
-      // it on mobile.
-      className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-sm z-30 rounded-[var(--r-xl)] border border-[var(--c-border-strong)] bg-[var(--c-surface)] shadow-[var(--s-xl)] p-4 animate-nudge-in"
+      // Mobile: sits at bottom-[80px] (clears the 68px MobileBottomCTA
+      // bar + an 8px gap). z-50 sits below the chatbot (z-[70]) but
+      // above the CTA bar (z-60) so the nudge is never hidden.
+      //
+      // Desktop (md+): anchored bottom-right with the original spacing.
+      className="fixed left-4 right-4 bottom-[80px] md:left-auto md:right-6 md:bottom-6 md:max-w-sm z-50 rounded-[var(--r-xl)] border border-[var(--c-border-strong)] bg-[var(--c-surface)] shadow-[var(--s-xl)] p-4 animate-nudge-in"
       style={{
-        paddingBottom: "max(1rem, calc(env(safe-area-inset-bottom)))",
+        // Desktop has no CTA bar below — fall back to safe-area inset
+        // to clear the iPhone home indicator when this is the only
+        // overlay (e.g. on /admin where MobileBottomCTA is hidden).
+        paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
       }}
     >
       <button

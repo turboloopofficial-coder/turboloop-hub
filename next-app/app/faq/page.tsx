@@ -7,9 +7,9 @@ import { PageHero } from "@components/layout/PageHero";
 
 const FAQ_OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-faq.png";
-const FAQ_OG_TITLE = "FAQ — Common Questions About TurboLoop";
+const FAQ_OG_TITLE = "FAQ — TurboLoop Questions Answered | How It Works";
 const FAQ_OG_DESC =
-  "What is TurboLoop? Where does the yield come from? Is it safe? How do I start? Plain answers, no fluff.";
+  "Plain answers to common questions about TurboLoop: minimum deposits, withdrawal process, security audits, and how yield is generated from PancakeSwap V3 fees.";
 
 export const metadata: Metadata = {
   title: FAQ_OG_TITLE,

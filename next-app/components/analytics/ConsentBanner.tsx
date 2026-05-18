@@ -45,7 +45,15 @@ export function ConsentBanner() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-md z-40 rounded-[var(--r-xl)] border border-[var(--c-border-strong)] bg-[var(--c-surface)] shadow-[var(--s-xl)] p-5"
+      // Mobile: sits at bottom-[80px] (above the 68px MobileBottomCTA
+      // bar + an 8px gap) and uses tighter p-4 padding + smaller body
+      // text so it only consumes ~140px of viewport instead of the
+      // old ~200px. z-50 sits below the chatbot (z-[70]) but above
+      // page content + the CTA bar (z-60) so it's never hidden.
+      //
+      // Desktop (md+): unchanged — anchored bottom-right with the
+      // original spacious p-5 padding.
+      className="fixed left-4 right-4 bottom-[80px] md:left-auto md:right-6 md:bottom-6 md:max-w-md z-50 rounded-[var(--r-xl)] border border-[var(--c-border-strong)] bg-[var(--c-surface)] shadow-[var(--s-xl)] p-4 md:p-5"
     >
       <button
         type="button"

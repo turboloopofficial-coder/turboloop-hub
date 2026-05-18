@@ -8,11 +8,16 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { LESSONS } from "@lib/defi101";
 
+// Numbers verified against lib/defi101.ts: 7 published lessons covering
+// what-is-defi, smart contracts, stablecoins, yield farming, BscScan
+// verification, etc. All currently English; SEO claims of "12+
+// languages" in earlier drafts of this plan didn't match the data.
 const LEARN_OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-learn.png";
-const LEARN_OG_TITLE = "Learn DeFi — Plain-English Explainers";
+const LEARN_OG_TITLE =
+  "Learn DeFi with TurboLoop — Guides, Tutorials & Education";
 const LEARN_OG_DESC =
-  "DeFi 101: short, beginner-friendly explainers on yield, smart contracts, stablecoins, and more. Zero jargon.";
+  "Step-by-step guides on DeFi yield farming, smart contracts, stablecoins, and the TurboLoop ecosystem. Beginner-friendly, jargon-free.";
 
 export const metadata: Metadata = {
   title: LEARN_OG_TITLE,

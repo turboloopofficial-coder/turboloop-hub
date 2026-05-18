@@ -25,7 +25,12 @@ export const runtime = "edge";
 export const maxDuration = 60;
 
 // ─── Config ────────────────────────────────────────────────────────
-const MODEL = "claude-3-5-haiku-latest";
+// Smoke test on 2026-05-18 against claude-3-5-haiku-latest came back
+// with an SDK-eaten error of "model: claude-3-5-haiku-latest" — the
+// "latest" alias for the 3.5 Haiku generation appears deprecated by
+// this date. Pinned to the current 4-series Haiku which the legacy
+// AI Drafter is also running against.
+const MODEL = "claude-haiku-4-5";
 const MAX_USER_CHARS = 2_000;
 const MAX_TURNS = 20;
 const DAILY_TOKEN_CAP = Number(

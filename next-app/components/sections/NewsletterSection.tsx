@@ -39,7 +39,13 @@ export function NewsletterSection() {
     }
     setBusy(true);
     try {
-      await newsletterSignup(email.trim(), "homepage");
+      await newsletterSignup(email.trim(), {
+        source: "homepage",
+        consentMethod: "form-checkbox-implicit",
+        consentText:
+          "By submitting your email you agree to receive occasional " +
+          "updates from Turbo Loop. Unsubscribe any time.",
+      });
       haptic("success");
       setDone(true);
     } catch (err: any) {

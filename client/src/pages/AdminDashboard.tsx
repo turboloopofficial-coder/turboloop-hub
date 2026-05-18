@@ -27,6 +27,7 @@ import AIDrafter from "@/components/admin/AIDrafter";
 import SubmissionsManager from "@/components/admin/SubmissionsManager";
 import { ZoomSettings } from "@/components/admin/ZoomSettings";
 import { CareersManager } from "@/components/admin/CareersManager";
+import { CRMDashboard } from "@/components/admin/CRMDashboard";
 import EventApplicationsManager from "@/components/admin/EventApplicationsManager";
 import SocialWallManager from "@/components/admin/SocialWallManager";
 
@@ -1639,6 +1640,12 @@ export default function AdminDashboard() {
               Presentations
             </TabsTrigger>
             <TabsTrigger
+              value="crm"
+              className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
+            >
+              CRM
+            </TabsTrigger>
+            <TabsTrigger
               value="careers"
               className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
             >
@@ -1682,6 +1689,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="presentations">
             <PresentationManager />
+          </TabsContent>
+          <TabsContent value="crm">
+            <CRMDashboard />
           </TabsContent>
           <TabsContent value="careers">
             <CareersManager />

@@ -16,6 +16,7 @@ import {
   eventApplications, type InsertEventApplication,
   socialWallVideos, type InsertSocialWallVideo,
   jobVacancies, type InsertJobVacancy,
+  chatConversations, chatMessages,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -261,24 +262,94 @@ export async function setSetting(key: string, value: string) {
 }
 
 // ===== Newsletter Signups =====
-export async function addNewsletterSignup(email: string, source: string | null = null) {
+export interface NewsletterSignupInput {
+  source?: string | null;
+  consentMethod?: string | null;
+  consentText?: string | null;
+  consentSourceUrl?: string | null;
+  ipCountry?: string | null;
+}
+
+export async function addNewsletterSignup(
+  email: string,
+  opts: NewsletterSignupInput | (string | null) = {}
+) {
   const db = getDb();
-  // Idempotent: ignore duplicate emails (user may submit twice — that's fine)
+  // Support the legacy signature `addNewsletterSignup(email, source)`
+  // (string|null as second arg) — that's what server/routers.ts passed
+  // before the GDPR upgrade. New callers should pass an options object.
+  const o: NewsletterSignupInput =
+    typeof opts === "string" || opts === null
+      ? { source: opts }
+      : opts;
   await db
     .insert(newsletterSignups)
-    .values({ email: email.toLowerCase().trim(), source })
+    .values({
+      email: email.toLowerCase().trim(),
+      source: o.source ?? null,
+      consentMethod: o.consentMethod ?? null,
+      consentText: o.consentText ?? null,
+      consentSourceUrl: o.consentSourceUrl ?? null,
+      ipCountry: o.ipCountry ?? null,
+    })
     .onConflictDoNothing();
 }
 
-export async function listNewsletterSignups(limit = 1000) {
+/** Public list with optional filters. Used by CRM Newsletter tab.
+ *  excludeUnsubscribed defaults to true to match GDPR-safe export
+ *  semantics — passing false explicitly returns the full corpus. */
+export async function listNewsletterSignups(opts: {
+  limit?: number;
+  excludeUnsubscribed?: boolean;
+} | number = {}) {
   const db = getDb();
-  return await db.select().from(newsletterSignups).orderBy(desc(newsletterSignups.createdAt)).limit(limit);
+  // Backward-compat: previously the function took a number directly.
+  const o = typeof opts === "number" ? { limit: opts } : opts;
+  const limit = o.limit ?? 1000;
+  if (o.excludeUnsubscribed === false) {
+    return await db
+      .select()
+      .from(newsletterSignups)
+      .orderBy(desc(newsletterSignups.createdAt))
+      .limit(limit);
+  }
+  return await db
+    .select()
+    .from(newsletterSignups)
+    .where(isNull(newsletterSignups.unsubscribedAt))
+    .orderBy(desc(newsletterSignups.createdAt))
+    .limit(limit);
 }
 
+/** Single-row aggregate count — Drizzle's count() pushes aggregation
+ *  into Postgres rather than materializing every row in the lambda
+ *  just to call .length on the array. (Anti-pattern fix flagged in the
+ *  v7 plan review.) */
 export async function newsletterSignupCount(): Promise<number> {
+  const { count } = await import("drizzle-orm");
   const db = getDb();
-  const r = await db.select().from(newsletterSignups);
-  return r.length;
+  const [row] = await db
+    .select({ n: count() })
+    .from(newsletterSignups);
+  return row?.n ?? 0;
+}
+
+/** Mark a signup as unsubscribed. Idempotent — no-op if the row is
+ *  already unsubscribed or the email doesn't exist. */
+export async function unsubscribeNewsletter(
+  email: string,
+  reason: string | null = null
+) {
+  const db = getDb();
+  await db
+    .update(newsletterSignups)
+    .set({ unsubscribedAt: new Date(), unsubscribeReason: reason })
+    .where(
+      and(
+        eq(newsletterSignups.email, email.toLowerCase().trim()),
+        isNull(newsletterSignups.unsubscribedAt)
+      )
+    );
 }
 
 // ===== Content Submissions =====
@@ -551,4 +622,217 @@ export async function updateJobVacancy(
 export async function deleteJobVacancy(id: number) {
   const db = getDb();
   await db.delete(jobVacancies).where(eq(jobVacancies.id, id));
+}
+
+// ===== CRM aggregates (Task B) =====
+//
+// Top-level metrics + cross-table activity feed for the admin
+// dashboard's CRM Overview tab. Counts use SQL aggregates (not
+// materialized arrays in JS) so growth past 10K rows doesn't degrade
+// page load.
+
+// `eventApplications` is already imported at the top of this file.
+// Aliased here to a local name so we don't shadow the variable in case
+// future helpers want both spellings.
+const eventApplicationsTbl = eventApplications;
+
+export async function crmOverviewMetrics(): Promise<{
+  newsletterTotal: number;
+  newsletterUnsubscribed: number;
+  pendingSubmissions: number;
+  pendingEventApplications: number;
+  chatConversationsLast7d: number;
+  chatMessagesLast7d: number;
+}> {
+  const { count, gte: gteOp } = await import("drizzle-orm");
+  const db = getDb();
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+  const [
+    [nsTotal],
+    [nsUnsub],
+    [pendingSubs],
+    [pendingApps],
+    [chatConvs],
+    [chatMsgs],
+  ] = await Promise.all([
+    db.select({ n: count() }).from(newsletterSignups).where(isNull(newsletterSignups.unsubscribedAt)),
+    db.select({ n: count() }).from(newsletterSignups).where(isNotNull(newsletterSignups.unsubscribedAt)),
+    db.select({ n: count() }).from(contentSubmissions).where(eq(contentSubmissions.status, "pending")),
+    db.select({ n: count() }).from(eventApplicationsTbl).where(eq(eventApplicationsTbl.status, "pending")),
+    db.select({ n: count() }).from(chatConversations).where(gteOp(chatConversations.startedAt, sevenDaysAgo)),
+    db.select({ n: count() }).from(chatMessages).where(gteOp(chatMessages.createdAt, sevenDaysAgo)),
+  ]);
+
+  return {
+    newsletterTotal: nsTotal?.n ?? 0,
+    newsletterUnsubscribed: nsUnsub?.n ?? 0,
+    pendingSubmissions: pendingSubs?.n ?? 0,
+    pendingEventApplications: pendingApps?.n ?? 0,
+    chatConversationsLast7d: chatConvs?.n ?? 0,
+    chatMessagesLast7d: chatMsgs?.n ?? 0,
+  };
+}
+
+/** Cross-table activity feed. Returns the most-recent N events across:
+ *  newsletter signups, content submissions, event applications, chat
+ *  conversations. Uses one round-trip per source then JS-merges — at
+ *  N=50 per source × 4 sources = 200 rows max, JS sort is faster than
+ *  a SQL UNION + ORDER BY. */
+export async function crmRecentActivity(perSource = 25): Promise<
+  Array<{
+    type: "newsletter" | "submission" | "event_app" | "chat";
+    id: number;
+    label: string;
+    detail: string;
+    createdAt: Date;
+  }>
+> {
+  const db = getDb();
+  const [news, subs, apps, convs] = await Promise.all([
+    db
+      .select()
+      .from(newsletterSignups)
+      .orderBy(desc(newsletterSignups.createdAt))
+      .limit(perSource),
+    db
+      .select()
+      .from(contentSubmissions)
+      .orderBy(desc(contentSubmissions.createdAt))
+      .limit(perSource),
+    db
+      .select()
+      .from(eventApplicationsTbl)
+      .orderBy(desc(eventApplicationsTbl.createdAt))
+      .limit(perSource),
+    db
+      .select()
+      .from(chatConversations)
+      .orderBy(desc(chatConversations.startedAt))
+      .limit(perSource),
+  ]);
+
+  const merged: Array<{
+    type: "newsletter" | "submission" | "event_app" | "chat";
+    id: number;
+    label: string;
+    detail: string;
+    createdAt: Date;
+  }> = [];
+
+  for (const r of news) {
+    merged.push({
+      type: "newsletter",
+      id: r.id,
+      label: r.email,
+      detail: r.source ? `via ${r.source}` : "signup",
+      createdAt: r.createdAt,
+    });
+  }
+  for (const r of subs) {
+    merged.push({
+      type: "submission",
+      id: r.id,
+      label: r.authorName,
+      detail: `${r.type} · ${r.status}`,
+      createdAt: r.createdAt,
+    });
+  }
+  for (const r of apps) {
+    // The eventApplications schema uses cityCountry + telegramId, not
+    // a single name field. Fall back to telegram handle for the label.
+    merged.push({
+      type: "event_app",
+      id: r.id,
+      label: r.telegramId || `Application #${r.id}`,
+      detail: `${r.cityCountry ?? "unknown location"} · ${r.status}`,
+      createdAt: r.createdAt,
+    });
+  }
+  for (const r of convs) {
+    merged.push({
+      type: "chat",
+      id: r.id,
+      label: `Chat ${r.sessionId.slice(0, 8)}…`,
+      detail: `${r.turnCount} turn${r.turnCount === 1 ? "" : "s"} · ${r.country ?? "??"}`,
+      createdAt: r.startedAt,
+    });
+  }
+
+  merged.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  return merged.slice(0, perSource * 2);
+}
+
+// ===== Chat conversations + messages (Task B Chats tab) =====
+export async function listRecentChatConversations(limit = 100) {
+  const db = getDb();
+  return await db
+    .select()
+    .from(chatConversations)
+    .orderBy(desc(chatConversations.lastActivityAt))
+    .limit(limit);
+}
+
+export async function getChatMessages(conversationId: number) {
+  const db = getDb();
+  return await db
+    .select()
+    .from(chatMessages)
+    .where(eq(chatMessages.conversationId, conversationId))
+    .orderBy(asc(chatMessages.createdAt));
+}
+
+/** Per-UTC-day chat traffic for the last 14 days — sparkline data
+ *  for the Chats tab. Returns [{ date, conversations, messages, tokensIn,
+ *  tokensOut }]. */
+export async function chatActivityLast14Days(): Promise<
+  Array<{
+    date: string;
+    conversations: number;
+    messages: number;
+    tokensIn: number;
+    tokensOut: number;
+  }>
+> {
+  const db = getDb();
+  const since = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
+  const convs = await db
+    .select()
+    .from(chatConversations)
+    .where(gte(chatConversations.startedAt, since));
+  const msgs = await db
+    .select()
+    .from(chatMessages)
+    .where(gte(chatMessages.createdAt, since));
+
+  const buckets: Record<
+    string,
+    { conversations: number; messages: number; tokensIn: number; tokensOut: number }
+  > = {};
+  const isoDay = (d: Date) => d.toISOString().slice(0, 10);
+
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+    buckets[isoDay(d)] = {
+      conversations: 0,
+      messages: 0,
+      tokensIn: 0,
+      tokensOut: 0,
+    };
+  }
+  for (const c of convs) {
+    const k = isoDay(c.startedAt);
+    if (buckets[k]) buckets[k].conversations += 1;
+  }
+  for (const m of msgs) {
+    const k = isoDay(m.createdAt);
+    if (buckets[k]) {
+      buckets[k].messages += 1;
+      buckets[k].tokensIn += m.tokensIn ?? 0;
+      buckets[k].tokensOut += m.tokensOut ?? 0;
+    }
+  }
+  return Object.entries(buckets)
+    .map(([date, v]) => ({ date, ...v }))
+    .sort((a, b) => (a.date < b.date ? -1 : 1));
 }

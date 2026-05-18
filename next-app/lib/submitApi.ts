@@ -131,13 +131,32 @@ export async function submitEventApplication(
 }
 
 /** Newsletter signup — POSTs email to the legacy tRPC newsletter.signup
- *  endpoint. Silent success/error; calling code shows feedback. */
+ *  endpoint. Carries the GDPR consent record (method, exact wording the
+ *  user agreed to, source URL) so admin exports can prove opt-in per
+ *  row. Silent success/error; calling code shows feedback. */
 export async function newsletterSignup(
   email: string,
-  source = "homepage"
+  options: {
+    source?: string;
+    consentMethod?: string;
+    consentText?: string;
+    consentSourceUrl?: string;
+  } = {}
 ): Promise<{ success: boolean }> {
   const url = `${API_BASE}/api/trpc/newsletter.signup?batch=1`;
-  const body = { 0: { json: { email, source } } };
+  const body = {
+    0: {
+      json: {
+        email,
+        source: options.source ?? "homepage",
+        consentMethod: options.consentMethod,
+        consentText: options.consentText,
+        consentSourceUrl:
+          options.consentSourceUrl ??
+          (typeof window !== "undefined" ? window.location.href : undefined),
+      },
+    },
+  };
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

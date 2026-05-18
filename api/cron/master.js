@@ -52,6 +52,43 @@ var init_entity = __esm({
   }
 });
 
+// node_modules/drizzle-orm/logger.js
+var ConsoleLogWriter, DefaultLogger, NoopLogger;
+var init_logger = __esm({
+  "node_modules/drizzle-orm/logger.js"() {
+    init_entity();
+    ConsoleLogWriter = class {
+      static [entityKind] = "ConsoleLogWriter";
+      write(message) {
+        console.log(message);
+      }
+    };
+    DefaultLogger = class {
+      static [entityKind] = "DefaultLogger";
+      writer;
+      constructor(config) {
+        this.writer = config?.writer ?? new ConsoleLogWriter();
+      }
+      logQuery(query, params) {
+        const stringifiedParams = params.map((p2) => {
+          try {
+            return JSON.stringify(p2);
+          } catch {
+            return String(p2);
+          }
+        });
+        const paramsStr = stringifiedParams.length ? ` -- params: [${stringifiedParams.join(", ")}]` : "";
+        this.writer.write(`Query: ${query}${paramsStr}`);
+      }
+    };
+    NoopLogger = class {
+      static [entityKind] = "NoopLogger";
+      logQuery() {
+      }
+    };
+  }
+});
+
 // node_modules/drizzle-orm/query-promise.js
 var QueryPromise;
 var init_query_promise = __esm({
@@ -7986,6 +8023,32 @@ var init_pg_core = __esm({
   }
 });
 
+// node_modules/drizzle-orm/operations.js
+var init_operations = __esm({
+  "node_modules/drizzle-orm/operations.js"() {
+  }
+});
+
+// node_modules/drizzle-orm/index.js
+var init_drizzle_orm = __esm({
+  "node_modules/drizzle-orm/index.js"() {
+    init_alias();
+    init_column_builder();
+    init_column();
+    init_entity();
+    init_errors();
+    init_logger();
+    init_operations();
+    init_query_promise();
+    init_relations();
+    init_sql2();
+    init_subquery();
+    init_table();
+    init_utils();
+    init_view_common();
+  }
+});
+
 // drizzle/schema.ts
 var schema_exports = {};
 __export(schema_exports, {
@@ -13693,40 +13756,7 @@ var export_types = Qe.types;
 
 // node_modules/drizzle-orm/neon-http/driver.js
 init_entity();
-
-// node_modules/drizzle-orm/logger.js
-init_entity();
-var ConsoleLogWriter = class {
-  static [entityKind] = "ConsoleLogWriter";
-  write(message) {
-    console.log(message);
-  }
-};
-var DefaultLogger = class {
-  static [entityKind] = "DefaultLogger";
-  writer;
-  constructor(config) {
-    this.writer = config?.writer ?? new ConsoleLogWriter();
-  }
-  logQuery(query, params) {
-    const stringifiedParams = params.map((p2) => {
-      try {
-        return JSON.stringify(p2);
-      } catch {
-        return String(p2);
-      }
-    });
-    const paramsStr = stringifiedParams.length ? ` -- params: [${stringifiedParams.join(", ")}]` : "";
-    this.writer.write(`Query: ${query}${paramsStr}`);
-  }
-};
-var NoopLogger = class {
-  static [entityKind] = "NoopLogger";
-  logQuery() {
-  }
-};
-
-// node_modules/drizzle-orm/neon-http/driver.js
+init_logger();
 init_db();
 init_dialect();
 init_relations();
@@ -13734,6 +13764,7 @@ init_utils();
 
 // node_modules/drizzle-orm/neon-http/session.js
 init_entity();
+init_logger();
 init_pg_core();
 init_session();
 init_sql();
@@ -14013,6 +14044,7 @@ function drizzle(...params) {
 })(drizzle || (drizzle = {}));
 
 // server/_vercel/cron-master.ts
+init_drizzle_orm();
 init_schema2();
 
 // server/_vercel/_telegram.ts
@@ -15120,6 +15152,7 @@ function hubPromoBannerUrl(promo) {
 }
 
 // server/db.ts
+init_drizzle_orm();
 init_schema2();
 
 // node_modules/bcryptjs/index.js

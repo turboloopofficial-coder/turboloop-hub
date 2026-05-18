@@ -20,6 +20,9 @@ import {
   listSocialWallVideos, upsertSocialWallVideo, updateSocialWallVideo, deleteSocialWallVideo,
   listOpenJobVacancies, listAllJobVacancies, getJobVacancyBySlug,
   createJobVacancy, updateJobVacancy, deleteJobVacancy,
+  unsubscribeNewsletter,
+  crmOverviewMetrics, crmRecentActivity,
+  listRecentChatConversations, getChatMessages, chatActivityLast14Days,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -110,14 +113,75 @@ export const appRouter = router({
       .input(z.object({
         email: z.string().email().max(320),
         source: z.string().max(100).optional(),
+        // GDPR consent record (Task B). Optional for backward compat —
+        // legacy callers that don't pass these fields still work, the
+        // row just gets NULLs and the CRM Newsletter tab flags it as
+        // "legacy:pre-gdpr" in the source column.
+        consentMethod: z.string().max(50).optional(),
+        consentText: z.string().max(2000).optional(),
+        consentSourceUrl: z.string().max(500).optional(),
       }))
       .mutation(async ({ input }) => {
-        await addNewsletterSignup(input.email, input.source ?? null);
+        await addNewsletterSignup(input.email, {
+          source: input.source ?? null,
+          consentMethod: input.consentMethod ?? null,
+          consentText: input.consentText ?? null,
+          consentSourceUrl: input.consentSourceUrl ?? null,
+        });
         return { success: true };
       }),
-    // Admin-only: list + count
-    list: adminProcedure.query(() => listNewsletterSignups(2000)),
+    /** Public unsubscribe — token-protected. The token is a JWT signed
+     *  with ADMIN_JWT_SECRET containing { email, exp }. Every newsletter
+     *  email link will carry one. Returns 200 on success or already-
+     *  unsubscribed; throws on bad/expired token. */
+    unsubscribe: publicProcedure
+      .input(z.object({ token: z.string() }))
+      .mutation(async ({ input }) => {
+        try {
+          const { payload } = await jose.jwtVerify(input.token, ADMIN_JWT_SECRET);
+          const email = String(payload.email ?? "");
+          if (!email.includes("@")) {
+            throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid token" });
+          }
+          await unsubscribeNewsletter(email, "one-click-link");
+          return { success: true, email };
+        } catch (err) {
+          if (err instanceof TRPCError) throw err;
+          throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid or expired link" });
+        }
+      }),
+    // Admin-only: list + count + CSV-friendly export
+    list: adminProcedure
+      .input(
+        z
+          .object({
+            limit: z.number().int().min(1).max(50_000).default(2000),
+            includeUnsubscribed: z.boolean().default(false),
+          })
+          .optional()
+      )
+      .query(({ input }) =>
+        listNewsletterSignups({
+          limit: input?.limit ?? 2000,
+          excludeUnsubscribed: !input?.includeUnsubscribed,
+        })
+      ),
     count: adminProcedure.query(() => newsletterSignupCount()),
+  }),
+
+  // ─── CRM dashboard (Task B) ────────────────────────────────────────
+  crm: router({
+    overview: adminProcedure.query(() => crmOverviewMetrics()),
+    recentActivity: adminProcedure
+      .input(z.object({ perSource: z.number().int().min(5).max(100).default(25) }).optional())
+      .query(({ input }) => crmRecentActivity(input?.perSource ?? 25)),
+    chatConversations: adminProcedure
+      .input(z.object({ limit: z.number().int().min(1).max(500).default(100) }).optional())
+      .query(({ input }) => listRecentChatConversations(input?.limit ?? 100)),
+    chatMessages: adminProcedure
+      .input(z.object({ conversationId: z.number().int().positive() }))
+      .query(({ input }) => getChatMessages(input.conversationId)),
+    chatActivity: adminProcedure.query(() => chatActivityLast14Days()),
   }),
 
   // ─── Careers CMS (Task F) ─────────────────────────────────────────

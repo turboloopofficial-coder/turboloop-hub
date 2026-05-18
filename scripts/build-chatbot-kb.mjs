@@ -1,0 +1,221 @@
+// Build the chatbot Knowledge Base at deploy time.
+//
+// Sources, in order of priority:
+//   1. PROTOCOL_FACTS — hand-curated facts that must always be right
+//      (plan ROIs, audit URL, fee structure, etc.). Hardcoded here so
+//      a bad blog post can't corrupt them.
+//   2. Published blog posts (English only) — fetched from Neon at
+//      build time. Filtered to non-empty content, sorted recent-first.
+//   3. FAQ entries — sourced from next-app/app/faq/page.tsx (static
+//      file parsed for the FAQS array).
+//
+// Output: next-app/lib/chatbot-kb.ts with two exports:
+//   - KB_CONTENT (string) — the concatenated knowledge base
+//   - KB_VERSION (string) — sha256 of KB_CONTENT, truncated to 16 chars
+//
+// Failure mode: if the DB or filesystem lookup fails, the script exits
+// non-zero and Vercel falls back to the last committed chatbot-kb.ts
+// (we keep it in git, never delete on failure). Bad data > no data.
+//
+// Usage:
+//   node scripts/build-chatbot-kb.mjs
+//   node scripts/build-chatbot-kb.mjs --dry-run   # write to /tmp instead
+
+import "dotenv/config";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+
+const DRY_RUN = process.argv.includes("--dry-run");
+const OUT_PATH = path.resolve(
+  DRY_RUN ? "./tmp-chatbot-kb.ts" : "./next-app/lib/chatbot-kb.ts"
+);
+
+// ─── 1. Curated facts ──────────────────────────────────────────────
+const PROTOCOL_FACTS = `# Turbo Loop Protocol Facts (must always be right)
+
+## What it is
+Turbo Loop is a decentralized yield protocol on Binance Smart Chain (BSC).
+Smart-contract-driven, no custody, no admin keys (ownership renounced).
+Contract address: 0xc90E5785632dAaB9Cb61F5050dA393090541A76D.
+Live dApp: https://turboloop.io
+Marketing site: https://turboloop.tech
+
+## Four investment plans (flat ROI, paid at maturity — NOT compounded APY)
+- Sprint:   7 days, 3% ROI
+- Boost:    14 days, 10% ROI
+- Power:    30 days, 24% ROI
+- Ultimate: 60 days, 54% ROI
+
+Earnings formula: earnings = deposit × roi%. Capital is returned at
+maturity along with the flat ROI. Plans are one-shot; rolling into
+another plan is a separate decision.
+
+## Minimums + access
+- Minimum deposit: $1 USDT
+- No KYC, non-custodial
+- Network: BSC. Need BNB for gas (~$5 covers a year of active use).
+
+## Real yield sources (not emissions, not Ponzi-style)
+1. PancakeSwap V3 LP fees from USDT/USDC pool
+2. Turbo Swap (in-app DEX) fees
+3. Turbo Buy (fiat-to-crypto on-ramp) fees
+
+## Security
+- Audited on SolidityScan (QuickScan):
+  https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet
+- Ownership renounced on-chain (no admin function exists)
+- 100% LP locked via Unicrypt
+- BscScan source verified
+- $100,000 bounty for anyone who can find a centralization risk
+
+## Referral + leadership
+- 20-level referral network, 51% total commission distribution
+- 7 leadership ranks, bonuses 1%–10%
+
+## Token policy
+Turbo Loop has NO native token, on purpose. Yield is paid in USDT
+(stablecoin, real purchasing power). No emissions, no dilution.
+
+## Earning programs (apply at /apply)
+- Creator Star: post content about Turbo Loop, paid by views ($5–$1000
+  per video)
+- Local Presenter: host weekly community Zoom in your language,
+  $100/month
+- Event Organizer: 50/50 cost split for meetups
+- $100K Bug Bounty on the smart contract
+
+## Daily community
+- Zoom call every day at 17:00 UTC (English)
+- Zoom call every day at 15:30 UTC = 9pm IST (Hindi/Urdu)
+- Telegram official: @TurboLoop_Official
+- German channel: @TurboLoopDach
+- Support: @TurboLoop_Support
+`;
+
+// ─── 2. Published blog posts from Neon ─────────────────────────────
+async function fetchBlogPosts() {
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    console.warn("  ⚠ DATABASE_URL missing; skipping blog post ingestion");
+    return [];
+  }
+  const { neon } = await import("@neondatabase/serverless");
+  const sql = neon(url);
+  try {
+    const rows = await sql`
+      SELECT slug, title, excerpt, content, language
+      FROM blog_posts
+      WHERE published = true
+      AND language = 'en'
+      AND content IS NOT NULL
+      AND length(content) > 200
+      ORDER BY scheduled_publish_at DESC NULLS LAST, created_at DESC
+      LIMIT 40
+    `;
+    return rows.map(r => ({
+      slug: String(r.slug),
+      title: String(r.title),
+      excerpt: r.excerpt ? String(r.excerpt) : "",
+      content: String(r.content),
+    }));
+  } catch (err) {
+    console.error("  ✗ Blog ingestion failed:", err?.message ?? err);
+    return [];
+  }
+}
+
+// ─── 3. FAQ entries from next-app/app/faq/page.tsx ──────────────────
+function parseFaqFile() {
+  const faqPath = path.resolve("./next-app/app/faq/page.tsx");
+  if (!fs.existsSync(faqPath)) {
+    console.warn("  ⚠ FAQ source not found at", faqPath);
+    return [];
+  }
+  const src = fs.readFileSync(faqPath, "utf8");
+
+  // Crude but reliable: pull every { q: "...", a: "..." } block.
+  // Doesn't try to parse the full TS — just the pattern the file uses.
+  const blocks = src.matchAll(
+    /q:\s*"([^"]+(?:\\"[^"]*)*)"\s*,\s*a:\s*"([^"]+(?:\\"[^"]*)*)"/gs
+  );
+  const items = [];
+  for (const m of blocks) {
+    const q = m[1].replace(/\\"/g, '"');
+    const a = m[2].replace(/\\"/g, '"');
+    if (q.length > 5 && a.length > 20) items.push({ q, a });
+  }
+  return items;
+}
+
+// ─── Assembly ──────────────────────────────────────────────────────
+(async () => {
+  console.log(`Building chatbot KB → ${path.relative(".", OUT_PATH)}\n`);
+
+  const [posts, faqs] = await Promise.all([
+    fetchBlogPosts(),
+    Promise.resolve(parseFaqFile()),
+  ]);
+  console.log(`  ✓ ${posts.length} blog posts ingested`);
+  console.log(`  ✓ ${faqs.length} FAQ entries parsed`);
+
+  // Compose KB. Section markers help Claude segment its memory.
+  const sections = [PROTOCOL_FACTS.trim()];
+
+  if (faqs.length > 0) {
+    sections.push(
+      "# Frequently Asked Questions\n\n" +
+        faqs.map(f => `## ${f.q}\n\n${f.a}`).join("\n\n")
+    );
+  }
+
+  if (posts.length > 0) {
+    sections.push(
+      "# Editorial — Long-form Articles\n\n" +
+        posts
+          .map(
+            p =>
+              `## ${p.title}\n\nSlug: ${p.slug}\nURL: https://turboloop.tech/blog/${p.slug}\n\n${
+                p.excerpt ? `Summary: ${p.excerpt}\n\n` : ""
+              }${p.content}`
+          )
+          .join("\n\n---\n\n")
+    );
+  }
+
+  const KB_CONTENT = sections.join("\n\n=====\n\n");
+  const KB_VERSION = crypto
+    .createHash("sha256")
+    .update(KB_CONTENT)
+    .digest("hex")
+    .slice(0, 16);
+
+  const tokens = Math.ceil(KB_CONTENT.length / 4);
+  console.log(
+    `  · ${KB_CONTENT.length.toLocaleString()} chars (~${tokens.toLocaleString()} tokens)`
+  );
+  console.log(`  · version ${KB_VERSION}`);
+
+  const file = `// AUTO-GENERATED by scripts/build-chatbot-kb.mjs — do NOT edit by hand.
+//
+// Re-run \`node scripts/build-chatbot-kb.mjs\` to refresh. Generated at:
+//   ${new Date().toISOString()}
+//
+// Char count: ${KB_CONTENT.length.toLocaleString()}
+// Approx tokens: ${tokens.toLocaleString()}
+// Version (sha256[0:16]): ${KB_VERSION}
+
+export const KB_VERSION = ${JSON.stringify(KB_VERSION)};
+
+export const KB_CONTENT = ${JSON.stringify(KB_CONTENT)};
+`;
+
+  fs.writeFileSync(OUT_PATH, file);
+  console.log(`\n✅ Wrote ${path.relative(".", OUT_PATH)}`);
+})().catch(err => {
+  console.error("Build failed:", err);
+  // Exit non-zero so a CI / Vercel build fails loudly. The last
+  // committed chatbot-kb.ts stays in place so the app keeps working
+  // with the old KB rather than serving an empty system prompt.
+  process.exit(1);
+});

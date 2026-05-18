@@ -23,6 +23,7 @@ import { BackToTop } from "@components/ui/BackToTop";
 import { GoogleAnalytics } from "@components/analytics/GoogleAnalytics";
 import { ConsentBanner } from "@components/analytics/ConsentBanner";
 import { SmartNotifications } from "@components/notifications/SmartNotifications";
+import { ChatWidget } from "@components/chatbot/ChatWidget";
 
 // Build-time check: only emit the GA bootstrap (consent defaults + Script
 // tags + banner) when the measurement ID is actually configured. Avoids
@@ -355,6 +356,7 @@ export default function RootLayout({
           <BackToTop />
           <ConsentBanner />
           <SmartNotifications />
+          <ChatWidget />
         </ToastProvider>
         {/* Analytics last so the gtag.js fetch never blocks first paint.
             Renders nothing if NEXT_PUBLIC_GA_MEASUREMENT_ID isn't set. */}

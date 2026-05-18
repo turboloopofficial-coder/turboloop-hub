@@ -13,6 +13,7 @@ import { sanitize } from "@lib/sanitize";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
+import { Breadcrumbs } from "@components/Breadcrumbs";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 import { PILLAR_TO_FILM, getFilm } from "@lib/cinematicUniverse";
 
@@ -75,6 +76,13 @@ export default async function PillarDetailPage({
   return (
     <main className="relative pb-12 md:pb-20">
       <Container width="default" className="pt-6 md:pt-10">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Ecosystem", href: "/ecosystem" },
+            { label: pillar.title },
+          ]}
+        />
         <Link
           href="/ecosystem"
           className="inline-flex items-center gap-2 text-sm text-[var(--c-text-muted)] hover:text-[var(--c-text)] mb-6 transition-colors"

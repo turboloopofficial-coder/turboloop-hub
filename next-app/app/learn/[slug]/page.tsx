@@ -11,6 +11,7 @@ import { sanitize } from "@lib/sanitize";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
+import { Breadcrumbs } from "@components/Breadcrumbs";
 import { LESSONS } from "@lib/defi101";
 
 export const dynamicParams = false;
@@ -69,6 +70,13 @@ export default async function LessonPage({
   return (
     <main className="relative pb-12 md:pb-20">
       <Container width="narrow" className="pt-6 md:pt-10">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Learn DeFi", href: "/learn" },
+            { label: lesson.title },
+          ]}
+        />
         <Link
           href="/learn"
           className="inline-flex items-center gap-2 text-sm text-[var(--c-text-muted)] hover:text-[var(--c-text)] mb-6 transition-colors"

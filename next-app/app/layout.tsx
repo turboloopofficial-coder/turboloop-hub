@@ -102,6 +102,16 @@ export const metadata: Metadata = {
 
 // Site-wide JSON-LD — identifies the org + the site for rich search
 // snippets. Rendered once in the root layout's <head>.
+//
+// Three top-level entities in the @graph:
+//   1. Organization — sameAs links power knowledge-panel sourcing
+//   2. WebSite — declares the in-blog search action
+//   3. SiteNavigationElement — explicit declaration of the 6 main
+//      sections. Encourages (but does not guarantee) Google Sitelinks
+//      under the brand result. Google generates sitelinks
+//      algorithmically; the schema is one hint among many. The footer
+//      <nav aria-label="Site sections"> below reinforces this with an
+//      explicit internal link graph — the bigger of the two signals.
 const SITE_JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -139,6 +149,50 @@ const SITE_JSON_LD = {
         "query-input": "required name=search_term_string",
       },
     },
+    // ── SiteNavigationElement (one per top-level section) ──
+    // Listed in the order Google should prefer for sitelinks. Six is
+    // the typical sitelinks cap; we surface our six highest-intent
+    // destinations. Order matches the footer <nav> below — keep both
+    // in sync so the explicit-link graph and the schema agree.
+    ...[
+      {
+        path: "/ecosystem",
+        name: "Ecosystem",
+        description: "Six pillars of the TurboLoop DeFi protocol.",
+      },
+      {
+        path: "/calculator",
+        name: "Yield Calculator",
+        description: "Pick a plan, set a deposit, see the projection.",
+      },
+      {
+        path: "/security",
+        name: "Security",
+        description:
+          "Audited by SolidityScan, ownership renounced, 100% LP locked.",
+      },
+      {
+        path: "/events",
+        name: "Events",
+        description: "Global TurboLoop community meetups.",
+      },
+      {
+        path: "/blog",
+        name: "Blog",
+        description: "Long-form on DeFi, yield, and the math behind it.",
+      },
+      {
+        path: "/apply",
+        name: "Apply to Earn",
+        description: "Creator Star, Local Presenter, and other earn paths.",
+      },
+    ].map(s => ({
+      "@type": "SiteNavigationElement",
+      name: s.name,
+      url: `https://turboloop.tech${s.path}`,
+      description: s.description,
+      isPartOf: { "@id": "https://turboloop.tech/#website" },
+    })),
   ],
 };
 

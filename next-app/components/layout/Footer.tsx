@@ -6,6 +6,21 @@ import { Container } from "@components/ui/Container";
 import { Brand } from "@components/Brand";
 import { SECURITY } from "@lib/constants";
 
+// The six highest-intent destinations, rendered as a prominent
+// `<nav aria-label="Site sections">` rail at the top of the footer.
+// This is Task E's "explicit internal link graph" for Google Sitelinks
+// — the order and exact anchor text mirror the SiteNavigationElement
+// JSON-LD in app/layout.tsx, so the schema + the link graph agree.
+// If you reorder/rename here, mirror the change there too.
+const PRIMARY_SECTIONS: Array<{ label: string; href: string }> = [
+  { label: "Ecosystem", href: "/ecosystem" },
+  { label: "Yield Calculator", href: "/calculator" },
+  { label: "Security", href: "/security" },
+  { label: "Events", href: "/events" },
+  { label: "Blog", href: "/blog" },
+  { label: "Apply to Earn", href: "/apply" },
+];
+
 const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href: string; external?: boolean }> }> = [
   {
     heading: "Product",
@@ -63,7 +78,29 @@ export function Footer() {
         className="h-px bg-gradient-to-r from-transparent via-[var(--c-brand-cyan)]/20 to-transparent"
       />
       <Container width="wide">
-        <div className="py-12 md:py-16 grid grid-cols-2 md:grid-cols-5 gap-8">
+        {/* Site-sections nav — explicit internal link graph for Google
+            Sitelinks. Six terse links to the highest-intent destinations
+            in the same order as the SiteNavigationElement JSON-LD in
+            app/layout.tsx. Stands above the detailed 4-column grid so
+            crawlers see it as the primary nav landmark in the footer. */}
+        <nav
+          aria-label="Site sections"
+          className="pt-10 md:pt-12 pb-2 md:pb-4"
+        >
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:gap-x-8">
+            {PRIMARY_SECTIONS.map(s => (
+              <li key={s.href}>
+                <Link
+                  href={s.href}
+                  className="text-sm font-bold text-[var(--c-text)] hover:text-[var(--c-brand-cyan)] transition-colors tracking-tight"
+                >
+                  {s.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="py-8 md:py-12 grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand block — spans 2 cols on desktop, full row on mobile */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">

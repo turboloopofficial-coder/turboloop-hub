@@ -162,62 +162,33 @@ async function publishOverdueBlogs(db: ReturnType<typeof drizzle>): Promise<type
   return due;
 }
 
-/** Per-language Telegram channel resolution. Returns the env-var-backed
- *  chat id for the post's language, or null when no channel is provisioned
- *  for that language yet.
+/**
+ * Telegram broadcast policy for blog announcements:
  *
- *  Why returning null is acceptable (not an error):
- *    - We currently have EN + DE channels live. HI + ID channels are
- *      planned but not yet created.
- *    - When `language` is one of those "planned" codes, we'd rather skip
- *      the announcement silently (with a log line) than crash the cron
- *      and block the entire 14:00-UTC daily wave.
- *    - English remains the canonical default — using `tgBroadcastPhoto`
- *      (which targets TELEGRAM_CHANNEL + TELEGRAM_CHAT) gives the
- *      broadest reach automatically.
+ *   • EVERY post (regardless of language) → broadcast to the Official
+ *     English Channel (TELEGRAM_CHANNEL) + Official English Group
+ *     (TELEGRAM_CHAT) via tgBroadcastPhoto. These two are the canonical
+ *     reach destinations — the broader community sees every announcement
+ *     here, in their post's native language.
+ *   • DE posts ADDITIONALLY → German Group (TELEGRAM_GERMAN_CHAT) via
+ *     tgSendPhoto. Same caption + banner, second send. Germans get the
+ *     post once in the multilingual official destinations and once in
+ *     their own group.
+ *
+ * No other per-language destinations exist. HI/ID/future-language posts
+ * are broadcast ONLY to the Official Channel + Group — they ride the
+ * shared destinations. If a per-language group is ever provisioned, add
+ * a parallel `else if (language === 'xx')` send below; the broadcast
+ * step above stays unchanged for every language.
+ *
+ * Caption + button copy are still per-language (HI/ID/DE/EN) so the
+ * shared destinations carry a native-language message rather than an
+ * English-only mismatch with the linked article.
  */
-function resolveTelegramTarget(language: string): {
-  kind: "broadcast" | "channel";
-  chatId?: string;
-  label: string;
-} | null {
-  switch (language) {
-    case "en":
-      // Default fan-out: TELEGRAM_CHANNEL + TELEGRAM_CHAT. Handled by
-      // tgBroadcastPhoto with no chat_id override needed.
-      return { kind: "broadcast", label: "EN (channel + chat)" };
-    case "de":
-      return process.env.TELEGRAM_GERMAN_CHAT
-        ? { kind: "channel", chatId: process.env.TELEGRAM_GERMAN_CHAT, label: "DE" }
-        : null;
-    case "hi":
-      return process.env.TELEGRAM_HINDI_CHAT
-        ? { kind: "channel", chatId: process.env.TELEGRAM_HINDI_CHAT, label: "HI" }
-        : null;
-    case "id":
-      return process.env.TELEGRAM_INDONESIAN_CHAT
-        ? { kind: "channel", chatId: process.env.TELEGRAM_INDONESIAN_CHAT, label: "ID" }
-        : null;
-    default:
-      return null;
-  }
-}
-
 async function announceBlogToTelegram(
   post: typeof blogPosts.$inferSelect
 ): Promise<string> {
   const url = `${SITE}/blog/${post.slug}`;
-  const target = resolveTelegramTarget(post.language);
-
-  if (!target) {
-    // Channel for this language isn't provisioned (HI/ID still pending,
-    // or the post is in an as-yet-unsupported language). Skipping the
-    // broadcast is the safe default — flipping `published=true` already
-    // ran by this point, so the post is live on the site even if we
-    // can't announce it on TG yet.
-    return `⏭️  blog announce skipped — no TG channel for lang=${post.language} (slug=${post.slug})`;
-  }
-
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
@@ -230,29 +201,44 @@ async function announceBlogToTelegram(
     : post.language === "hi" ? "📖 पूरा लेख पढ़ें"
     : post.language === "id" ? "📖 Baca artikel lengkap"
     : "📖 Read full article";
+  const photoUrl = bannerUrlBlog(post.slug, post.title);
+  const buttons = [{ text: ctaText, url }];
 
-  if (target.kind === "broadcast") {
-    await tgBroadcastPhoto({
-      photoUrl: bannerUrlBlog(post.slug, post.title),
-      caption,
-      parseMode: "HTML",
-      buttons: [{ text: ctaText, url }],
-    });
-  } else {
-    // Per-language channel — direct sendPhoto (no fan-out).
+  const destinations: string[] = [];
+
+  // STEP 1 — Always broadcast to Official English Channel + Group.
+  // tgBroadcastPhoto fans out to TELEGRAM_CHANNEL + TELEGRAM_CHAT
+  // internally; we don't need to compose those addresses here.
+  await tgBroadcastPhoto({
+    photoUrl,
+    caption,
+    parseMode: "HTML",
+    buttons,
+  });
+  destinations.push("Channel+Group");
+
+  // STEP 2 — If the post is German, also send a second copy to the
+  // German Group. This is the only per-language extra destination by
+  // policy.
+  if (post.language === "de") {
     const token = process.env.TELEGRAM_BOT_TOKEN;
-    if (!token || !target.chatId) {
-      return `⚠️  blog announce skipped — missing TELEGRAM_BOT_TOKEN or chatId for lang=${post.language}`;
+    const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+    if (token && germanChat) {
+      await tgSendPhoto(token, {
+        chatId: germanChat,
+        photoUrl,
+        caption,
+        parseMode: "HTML",
+        buttons,
+      });
+      destinations.push("DE-Group");
+    } else {
+      // Don't fail the whole announcement if the German env is missing
+      // — the post already landed in the Official destinations.
+      destinations.push("DE-Group:skipped(env)");
     }
-    await tgSendPhoto(token, {
-      chatId: target.chatId,
-      photoUrl: bannerUrlBlog(post.slug, post.title),
-      caption,
-      parseMode: "HTML",
-      buttons: [{ text: ctaText, url }],
-    });
   }
-  return `📖 blog announced — ${target.label} · ${post.slug}`;
+  return `📖 blog announced [${post.language}] → ${destinations.join(" + ")} · ${post.slug}`;
 }
 
 async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<void> {

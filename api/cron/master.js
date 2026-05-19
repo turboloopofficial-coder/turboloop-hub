@@ -28308,26 +28308,8 @@ async function publishOverdueBlogs(db) {
   }
   return due;
 }
-function resolveTelegramTarget(language) {
-  switch (language) {
-    case "en":
-      return { kind: "broadcast", label: "EN (channel + chat)" };
-    case "de":
-      return process.env.TELEGRAM_GERMAN_CHAT ? { kind: "channel", chatId: process.env.TELEGRAM_GERMAN_CHAT, label: "DE" } : null;
-    case "hi":
-      return process.env.TELEGRAM_HINDI_CHAT ? { kind: "channel", chatId: process.env.TELEGRAM_HINDI_CHAT, label: "HI" } : null;
-    case "id":
-      return process.env.TELEGRAM_INDONESIAN_CHAT ? { kind: "channel", chatId: process.env.TELEGRAM_INDONESIAN_CHAT, label: "ID" } : null;
-    default:
-      return null;
-  }
-}
 async function announceBlogToTelegram(post) {
   const url = `${SITE}/blog/${post.slug}`;
-  const target = resolveTelegramTarget(post.language);
-  if (!target) {
-    return `\u23ED\uFE0F  blog announce skipped \u2014 no TG channel for lang=${post.language} (slug=${post.slug})`;
-  }
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
@@ -28336,27 +28318,33 @@ async function announceBlogToTelegram(post) {
     lang: post.language
   });
   const ctaText = post.language === "de" ? "\u{1F4D6} Artikel lesen" : post.language === "hi" ? "\u{1F4D6} \u092A\u0942\u0930\u093E \u0932\u0947\u0916 \u092A\u0922\u093C\u0947\u0902" : post.language === "id" ? "\u{1F4D6} Baca artikel lengkap" : "\u{1F4D6} Read full article";
-  if (target.kind === "broadcast") {
-    await tgBroadcastPhoto({
-      photoUrl: bannerUrlBlog(post.slug, post.title),
-      caption,
-      parseMode: "HTML",
-      buttons: [{ text: ctaText, url }]
-    });
-  } else {
+  const photoUrl = bannerUrlBlog(post.slug, post.title);
+  const buttons = [{ text: ctaText, url }];
+  const destinations = [];
+  await tgBroadcastPhoto({
+    photoUrl,
+    caption,
+    parseMode: "HTML",
+    buttons
+  });
+  destinations.push("Channel+Group");
+  if (post.language === "de") {
     const token = process.env.TELEGRAM_BOT_TOKEN;
-    if (!token || !target.chatId) {
-      return `\u26A0\uFE0F  blog announce skipped \u2014 missing TELEGRAM_BOT_TOKEN or chatId for lang=${post.language}`;
+    const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+    if (token && germanChat) {
+      await tgSendPhoto(token, {
+        chatId: germanChat,
+        photoUrl,
+        caption,
+        parseMode: "HTML",
+        buttons
+      });
+      destinations.push("DE-Group");
+    } else {
+      destinations.push("DE-Group:skipped(env)");
     }
-    await tgSendPhoto(token, {
-      chatId: target.chatId,
-      photoUrl: bannerUrlBlog(post.slug, post.title),
-      caption,
-      parseMode: "HTML",
-      buttons: [{ text: ctaText, url }]
-    });
   }
-  return `\u{1F4D6} blog announced \u2014 ${target.label} \xB7 ${post.slug}`;
+  return `\u{1F4D6} blog announced [${post.language}] \u2192 ${destinations.join(" + ")} \xB7 ${post.slug}`;
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });

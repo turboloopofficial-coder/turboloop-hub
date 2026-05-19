@@ -8100,9 +8100,31 @@ var init_schema2 = __esm({
       // rows keep working without a backfill — the migration sets the
       // column with a default so PostgreSQL fills nullable historical
       // rows in one shot. Translations follow a slug-suffix convention:
-      // <slug>-de, <slug>-id, etc., letting us treat them as independent
-      // rows that share an editorial parent by stripping the suffix.
+      // <slug>-de, <slug>-hi, <slug>-id, etc., letting us treat them as
+      // independent rows that share an editorial parent.
       language: varchar("language", { length: 8 }).default("en").notNull(),
+      // FK to the EN parent post when this row is a translation. NULL on
+      // originals. Lets the renderer compute hreflang alternates from real
+      // data instead of slug-suffix string matching. Backfilled by the 0004
+      // migration for the legacy rows that pre-date this column.
+      translationOf: integer("translation_of"),
+      // Topic taxonomy. Postgres text[] — cheap, indexable via GIN if/when
+      // we need a tag-filter index page.
+      tags: text("tags").array(),
+      // Bylines for long-form flagships. Falls back to "Turbo Loop Editorial"
+      // on display when null. authorUrl can point at /community/<handle>
+      // or an external profile.
+      authorName: varchar("author_name", { length: 200 }),
+      authorUrl: varchar("author_url", { length: 500 }),
+      // SEO overrides — distinct from the editorial title/excerpt so we
+      // can ship punchy editorial headlines + a different <title> tag
+      // optimized for length (≤60 chars) and search intent.
+      seoTitle: varchar("seo_title", { length: 200 }),
+      seoDescription: varchar("seo_description", { length: 300 }),
+      // Cached estimate (content words / 230 wpm). Computed on insert by
+      // the seed/admin write path; backfilled for existing rows by the
+      // 0004 migration. Display: "{readingTimeMin} min read".
+      readingTimeMin: integer("reading_time_min"),
       published: boolean("published").default(false).notNull(),
       scheduledPublishAt: timestamp("scheduled_publish_at"),
       createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -14096,7 +14118,7 @@ function pickByDay(arr, offset = 0) {
   const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
   return arr[(day + offset) % arr.length];
 }
-var BLOG_HEADLINES = [
+var BLOG_HEADLINES_EN = [
   "\u{1F4D6} Today's read",
   "\u{1F4D6} New on the blog",
   "\u{1F4D6} Article of the day",
@@ -14119,17 +14141,106 @@ var BLOG_HEADLINES = [
   "\u{1F4D6} Fresh perspective",
   "\u{1F4D6} The Daily Read"
 ];
+var BLOG_HEADLINES_DE = [
+  "\u{1F4D6} Heute lesen",
+  "\u{1F4D6} Neu im Blog",
+  "\u{1F4D6} Artikel des Tages",
+  "\u{1F4D6} Frisch aus der Redaktion",
+  "\u{1F4D6} Heutiger Deep-Dive",
+  "\u{1F4D6} Lesenswert heute Abend",
+  "\u{1F4D6} Heutiger Beitrag",
+  "\u{1F4D6} Soeben ver\xF6ffentlicht",
+  "\u{1F4D6} Direkt aus der Redaktion",
+  "\u{1F4D6} Die heutige Lange-Lese",
+  "\u{1F4D6} Die Geschichte heute",
+  "\u{1F4D6} Neues Kapitel \u2014 TurboLoop Blog",
+  "\u{1F4D6} Abendlekt\xFCre",
+  "\u{1F4D6} Heutige Perspektive",
+  "\u{1F4D6} Neuer Essay live",
+  "\u{1F4D6} Der TurboLoop-Blog \u2014 heutiger Beitrag",
+  "\u{1F4D6} Gerade erschienen",
+  "\u{1F4D6} Neu auf turboloop.tech",
+  "\u{1F4D6} Heutige Redaktion",
+  "\u{1F4D6} Frische Perspektive",
+  "\u{1F4D6} Die t\xE4gliche Lekt\xFCre"
+];
+var BLOG_HEADLINES_HI = [
+  "\u{1F4D6} \u0906\u091C \u0915\u093E \u0932\u0947\u0916",
+  "\u{1F4D6} \u092C\u094D\u0932\u0949\u0917 \u092A\u0930 \u0928\u092F\u093E",
+  "\u{1F4D6} \u0906\u091C \u0915\u093E \u0906\u0930\u094D\u091F\u093F\u0915\u0932",
+  "\u{1F4D6} \u0924\u093E\u091C\u093C\u093E \u0938\u0902\u092A\u093E\u0926\u0915\u0940\u092F",
+  "\u{1F4D6} \u0906\u091C \u0915\u093E \u0917\u0939\u0928 \u0935\u093F\u0936\u094D\u0932\u0947\u0937\u0923",
+  "\u{1F4D6} \u0906\u091C \u0936\u093E\u092E \u092A\u0922\u093C\u0928\u0947 \u092F\u094B\u0917\u094D\u092F",
+  "\u{1F4D6} \u0906\u091C \u0915\u093E \u091F\u0941\u0915\u0921\u093C\u093E",
+  "\u{1F4D6} \u0905\u092D\u0940 \u092A\u094D\u0930\u0915\u093E\u0936\u093F\u0924",
+  "\u{1F4D6} \u0938\u0902\u092A\u093E\u0926\u0915 \u0915\u0940 \u0915\u0932\u092E \u0938\u0947",
+  "\u{1F4D6} \u0906\u091C \u0915\u0940 \u0932\u0902\u092C\u0940 \u0915\u0939\u093E\u0928\u0940",
+  "\u{1F4D6} \u0906\u091C \u0915\u0940 \u092C\u093E\u0924",
+  "\u{1F4D6} \u0928\u092F\u093E \u0905\u0927\u094D\u092F\u093E\u092F \u2014 TurboLoop \u092C\u094D\u0932\u0949\u0917",
+  "\u{1F4D6} \u0936\u093E\u092E \u0915\u0940 \u092A\u0922\u093C\u093E\u0908",
+  "\u{1F4D6} \u0906\u091C \u0915\u093E \u0928\u091C\u093C\u0930\u093F\u092F\u093E",
+  "\u{1F4D6} \u0928\u092F\u093E \u0928\u093F\u092C\u0902\u0927 \u0932\u093E\u0907\u0935",
+  "\u{1F4D6} TurboLoop \u092C\u094D\u0932\u0949\u0917 \u2014 \u0906\u091C \u0915\u093E \u0932\u0947\u0916",
+  "\u{1F4D6} \u0905\u092D\u0940 \u0930\u093F\u0932\u0940\u091C\u093C",
+  "\u{1F4D6} turboloop.tech \u092A\u0930 \u0928\u092F\u093E",
+  "\u{1F4D6} \u0906\u091C \u0915\u093E \u0938\u0902\u092A\u093E\u0926\u0915\u0940\u092F",
+  "\u{1F4D6} \u0928\u0908 \u0938\u094B\u091A",
+  "\u{1F4D6} \u0926\u0948\u0928\u093F\u0915 \u092A\u0920\u0928"
+];
+var BLOG_HEADLINES_ID = [
+  "\u{1F4D6} Bacaan hari ini",
+  "\u{1F4D6} Artikel terbaru",
+  "\u{1F4D6} Artikel pilihan hari ini",
+  "\u{1F4D6} Fresh dari editorial",
+  "\u{1F4D6} Deep-dive hari ini",
+  "\u{1F4D6} Layak dibaca malam ini",
+  "\u{1F4D6} Tulisan hari ini",
+  "\u{1F4D6} Baru saja terbit",
+  "\u{1F4D6} Langsung dari editor",
+  "\u{1F4D6} Bacaan panjang hari ini",
+  "\u{1F4D6} Cerita hari ini",
+  "\u{1F4D6} Bab baru \u2014 Blog TurboLoop",
+  "\u{1F4D6} Bacaan sore",
+  "\u{1F4D6} Perspektif hari ini",
+  "\u{1F4D6} Esai baru live",
+  "\u{1F4D6} Blog TurboLoop \u2014 tulisan hari ini",
+  "\u{1F4D6} Baru saja rilis",
+  "\u{1F4D6} Baru di turboloop.tech",
+  "\u{1F4D6} Editorial hari ini",
+  "\u{1F4D6} Sudut pandang baru",
+  "\u{1F4D6} Bacaan harian"
+];
+var HEADLINE_POOLS = {
+  en: BLOG_HEADLINES_EN,
+  de: BLOG_HEADLINES_DE,
+  hi: BLOG_HEADLINES_HI,
+  id: BLOG_HEADLINES_ID
+};
+var FOOTER_BY_LANG = {
+  en: "turboloop.tech",
+  de: "turboloop.tech \u2014 sicher und transparent",
+  hi: "turboloop.tech \u2014 \u0938\u0941\u0930\u0915\u094D\u0937\u093F\u0924 \u0914\u0930 \u092A\u093E\u0930\u0926\u0930\u094D\u0936\u0940",
+  id: "turboloop.tech \u2014 aman & transparan"
+};
+function poolFor(lang) {
+  return HEADLINE_POOLS[lang] ?? BLOG_HEADLINES_EN;
+}
+function footerFor(lang) {
+  return FOOTER_BY_LANG[lang] ?? FOOTER_BY_LANG.en;
+}
 function blogPostCaption(opts) {
-  const headline = pickByDay(BLOG_HEADLINES);
+  const lang = opts.lang ?? "en";
+  const headline = pickByDay(poolFor(lang));
   const title = tgEscape(opts.title);
   const excerpt = opts.excerpt ? tgEscape(opts.excerpt.slice(0, 280)) : "";
+  const footer = footerFor(lang);
   return `<b>${headline}</b>
 
 <b>${title}</b>${excerpt ? `
 
 ${excerpt}` : ""}
 
-turboloop.tech`;
+${footer}`;
 }
 var EN_T30 = [
   `<b>The Daily English Call is starting soon.</b>
@@ -28197,20 +28308,55 @@ async function publishOverdueBlogs(db) {
   }
   return due;
 }
+function resolveTelegramTarget(language) {
+  switch (language) {
+    case "en":
+      return { kind: "broadcast", label: "EN (channel + chat)" };
+    case "de":
+      return process.env.TELEGRAM_GERMAN_CHAT ? { kind: "channel", chatId: process.env.TELEGRAM_GERMAN_CHAT, label: "DE" } : null;
+    case "hi":
+      return process.env.TELEGRAM_HINDI_CHAT ? { kind: "channel", chatId: process.env.TELEGRAM_HINDI_CHAT, label: "HI" } : null;
+    case "id":
+      return process.env.TELEGRAM_INDONESIAN_CHAT ? { kind: "channel", chatId: process.env.TELEGRAM_INDONESIAN_CHAT, label: "ID" } : null;
+    default:
+      return null;
+  }
+}
 async function announceBlogToTelegram(post) {
   const url = `${SITE}/blog/${post.slug}`;
+  const target = resolveTelegramTarget(post.language);
+  if (!target) {
+    return `\u23ED\uFE0F  blog announce skipped \u2014 no TG channel for lang=${post.language} (slug=${post.slug})`;
+  }
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
     url,
-    slot: "evening"
+    slot: "evening",
+    lang: post.language
   });
-  await tgBroadcastPhoto({
-    photoUrl: bannerUrlBlog(post.slug, post.title),
-    caption,
-    parseMode: "HTML",
-    buttons: [{ text: "\u{1F4D6} Read full article", url }]
-  });
+  const ctaText = post.language === "de" ? "\u{1F4D6} Artikel lesen" : post.language === "hi" ? "\u{1F4D6} \u092A\u0942\u0930\u093E \u0932\u0947\u0916 \u092A\u0922\u093C\u0947\u0902" : post.language === "id" ? "\u{1F4D6} Baca artikel lengkap" : "\u{1F4D6} Read full article";
+  if (target.kind === "broadcast") {
+    await tgBroadcastPhoto({
+      photoUrl: bannerUrlBlog(post.slug, post.title),
+      caption,
+      parseMode: "HTML",
+      buttons: [{ text: ctaText, url }]
+    });
+  } else {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    if (!token || !target.chatId) {
+      return `\u26A0\uFE0F  blog announce skipped \u2014 missing TELEGRAM_BOT_TOKEN or chatId for lang=${post.language}`;
+    }
+    await tgSendPhoto(token, {
+      chatId: target.chatId,
+      photoUrl: bannerUrlBlog(post.slug, post.title),
+      caption,
+      parseMode: "HTML",
+      buttons: [{ text: ctaText, url }]
+    });
+  }
+  return `\u{1F4D6} blog announced \u2014 ${target.label} \xB7 ${post.slug}`;
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
@@ -28306,8 +28452,8 @@ async function handler(req, res) {
       const due = await publishOverdueBlogs(db);
       if (due.length > 0) {
         for (const post of due) {
-          await announceBlogToTelegram(post);
-          log.push(`\u{1F4F0} Daily blog \u2192 ${post.slug}`);
+          const status = await announceBlogToTelegram(post);
+          log.push(status);
         }
       } else {
         log.push("\u{1F4F0} No overdue blog posts to publish");

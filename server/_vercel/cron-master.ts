@@ -162,20 +162,97 @@ async function publishOverdueBlogs(db: ReturnType<typeof drizzle>): Promise<type
   return due;
 }
 
-async function announceBlogToTelegram(post: typeof blogPosts.$inferSelect): Promise<void> {
+/** Per-language Telegram channel resolution. Returns the env-var-backed
+ *  chat id for the post's language, or null when no channel is provisioned
+ *  for that language yet.
+ *
+ *  Why returning null is acceptable (not an error):
+ *    - We currently have EN + DE channels live. HI + ID channels are
+ *      planned but not yet created.
+ *    - When `language` is one of those "planned" codes, we'd rather skip
+ *      the announcement silently (with a log line) than crash the cron
+ *      and block the entire 14:00-UTC daily wave.
+ *    - English remains the canonical default — using `tgBroadcastPhoto`
+ *      (which targets TELEGRAM_CHANNEL + TELEGRAM_CHAT) gives the
+ *      broadest reach automatically.
+ */
+function resolveTelegramTarget(language: string): {
+  kind: "broadcast" | "channel";
+  chatId?: string;
+  label: string;
+} | null {
+  switch (language) {
+    case "en":
+      // Default fan-out: TELEGRAM_CHANNEL + TELEGRAM_CHAT. Handled by
+      // tgBroadcastPhoto with no chat_id override needed.
+      return { kind: "broadcast", label: "EN (channel + chat)" };
+    case "de":
+      return process.env.TELEGRAM_GERMAN_CHAT
+        ? { kind: "channel", chatId: process.env.TELEGRAM_GERMAN_CHAT, label: "DE" }
+        : null;
+    case "hi":
+      return process.env.TELEGRAM_HINDI_CHAT
+        ? { kind: "channel", chatId: process.env.TELEGRAM_HINDI_CHAT, label: "HI" }
+        : null;
+    case "id":
+      return process.env.TELEGRAM_INDONESIAN_CHAT
+        ? { kind: "channel", chatId: process.env.TELEGRAM_INDONESIAN_CHAT, label: "ID" }
+        : null;
+    default:
+      return null;
+  }
+}
+
+async function announceBlogToTelegram(
+  post: typeof blogPosts.$inferSelect
+): Promise<string> {
   const url = `${SITE}/blog/${post.slug}`;
+  const target = resolveTelegramTarget(post.language);
+
+  if (!target) {
+    // Channel for this language isn't provisioned (HI/ID still pending,
+    // or the post is in an as-yet-unsupported language). Skipping the
+    // broadcast is the safe default — flipping `published=true` already
+    // ran by this point, so the post is live on the site even if we
+    // can't announce it on TG yet.
+    return `⏭️  blog announce skipped — no TG channel for lang=${post.language} (slug=${post.slug})`;
+  }
+
   const caption = blogPostCaption({
     title: post.title,
     excerpt: post.excerpt,
     url,
     slot: "evening",
+    lang: post.language,
   });
-  await tgBroadcastPhoto({
-    photoUrl: bannerUrlBlog(post.slug, post.title),
-    caption,
-    parseMode: "HTML",
-    buttons: [{ text: "📖 Read full article", url }],
-  });
+  const ctaText =
+    post.language === "de" ? "📖 Artikel lesen"
+    : post.language === "hi" ? "📖 पूरा लेख पढ़ें"
+    : post.language === "id" ? "📖 Baca artikel lengkap"
+    : "📖 Read full article";
+
+  if (target.kind === "broadcast") {
+    await tgBroadcastPhoto({
+      photoUrl: bannerUrlBlog(post.slug, post.title),
+      caption,
+      parseMode: "HTML",
+      buttons: [{ text: ctaText, url }],
+    });
+  } else {
+    // Per-language channel — direct sendPhoto (no fan-out).
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    if (!token || !target.chatId) {
+      return `⚠️  blog announce skipped — missing TELEGRAM_BOT_TOKEN or chatId for lang=${post.language}`;
+    }
+    await tgSendPhoto(token, {
+      chatId: target.chatId,
+      photoUrl: bannerUrlBlog(post.slug, post.title),
+      caption,
+      parseMode: "HTML",
+      buttons: [{ text: ctaText, url }],
+    });
+  }
+  return `📖 blog announced — ${target.label} · ${post.slug}`;
 }
 
 async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<void> {
@@ -313,12 +390,17 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
 
     // ============ 2. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============
+    // Per-post language routing — announceBlogToTelegram returns a
+    // status string showing which channel (EN broadcast / DE / HI / ID)
+    // actually received the post, or a "skipped" notice when the lang
+    // has no provisioned channel yet. The status flows into the cron
+    // response body so it's visible in Vercel logs without digging.
     if (isInWindow(14, 0) && !(await hasFiredToday(db, "blog:evening"))) {
       const due = await publishOverdueBlogs(db);
       if (due.length > 0) {
         for (const post of due) {
-          await announceBlogToTelegram(post);
-          log.push(`📰 Daily blog → ${post.slug}`);
+          const status = await announceBlogToTelegram(post);
+          log.push(status);
         }
       } else {
         log.push("📰 No overdue blog posts to publish");

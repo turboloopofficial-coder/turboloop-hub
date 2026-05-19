@@ -14,8 +14,18 @@ export function pickByDay<T>(arr: T[], offset = 0): T {
 // =========================================================
 // BLOG POSTING TEMPLATES (1 per day, evening only — calmer copy)
 // =========================================================
+//
+// Four headline pools — one per supported language. The cron-master
+// passes the post's `language` value into blogPostCaption and the
+// caption picks from the matching pool. Per-language copy means
+// announcements actually read like they were written by a native
+// speaker, not auto-translated from English.
+//
+// Each pool is sized large enough that the day-of-year cycle doesn't
+// repeat for at least three weeks, matching the cadence of the
+// scheduled-post queue.
 
-const BLOG_HEADLINES = [
+const BLOG_HEADLINES_EN = [
   "📖 Today's read",
   "📖 New on the blog",
   "📖 Article of the day",
@@ -39,11 +49,135 @@ const BLOG_HEADLINES = [
   "📖 The Daily Read",
 ];
 
-export function blogPostCaption(opts: { title: string; excerpt: string | null; url: string; slot?: "morning" | "evening" }): string {
-  const headline = pickByDay(BLOG_HEADLINES);
+const BLOG_HEADLINES_DE = [
+  "📖 Heute lesen",
+  "📖 Neu im Blog",
+  "📖 Artikel des Tages",
+  "📖 Frisch aus der Redaktion",
+  "📖 Heutiger Deep-Dive",
+  "📖 Lesenswert heute Abend",
+  "📖 Heutiger Beitrag",
+  "📖 Soeben veröffentlicht",
+  "📖 Direkt aus der Redaktion",
+  "📖 Die heutige Lange-Lese",
+  "📖 Die Geschichte heute",
+  "📖 Neues Kapitel — TurboLoop Blog",
+  "📖 Abendlektüre",
+  "📖 Heutige Perspektive",
+  "📖 Neuer Essay live",
+  "📖 Der TurboLoop-Blog — heutiger Beitrag",
+  "📖 Gerade erschienen",
+  "📖 Neu auf turboloop.tech",
+  "📖 Heutige Redaktion",
+  "📖 Frische Perspektive",
+  "📖 Die tägliche Lektüre",
+];
+
+const BLOG_HEADLINES_HI = [
+  "📖 आज का लेख",
+  "📖 ब्लॉग पर नया",
+  "📖 आज का आर्टिकल",
+  "📖 ताज़ा संपादकीय",
+  "📖 आज का गहन विश्लेषण",
+  "📖 आज शाम पढ़ने योग्य",
+  "📖 आज का टुकड़ा",
+  "📖 अभी प्रकाशित",
+  "📖 संपादक की कलम से",
+  "📖 आज की लंबी कहानी",
+  "📖 आज की बात",
+  "📖 नया अध्याय — TurboLoop ब्लॉग",
+  "📖 शाम की पढ़ाई",
+  "📖 आज का नज़रिया",
+  "📖 नया निबंध लाइव",
+  "📖 TurboLoop ब्लॉग — आज का लेख",
+  "📖 अभी रिलीज़",
+  "📖 turboloop.tech पर नया",
+  "📖 आज का संपादकीय",
+  "📖 नई सोच",
+  "📖 दैनिक पठन",
+];
+
+const BLOG_HEADLINES_ID = [
+  "📖 Bacaan hari ini",
+  "📖 Artikel terbaru",
+  "📖 Artikel pilihan hari ini",
+  "📖 Fresh dari editorial",
+  "📖 Deep-dive hari ini",
+  "📖 Layak dibaca malam ini",
+  "📖 Tulisan hari ini",
+  "📖 Baru saja terbit",
+  "📖 Langsung dari editor",
+  "📖 Bacaan panjang hari ini",
+  "📖 Cerita hari ini",
+  "📖 Bab baru — Blog TurboLoop",
+  "📖 Bacaan sore",
+  "📖 Perspektif hari ini",
+  "📖 Esai baru live",
+  "📖 Blog TurboLoop — tulisan hari ini",
+  "📖 Baru saja rilis",
+  "📖 Baru di turboloop.tech",
+  "📖 Editorial hari ini",
+  "📖 Sudut pandang baru",
+  "📖 Bacaan harian",
+];
+
+const HEADLINE_POOLS = {
+  en: BLOG_HEADLINES_EN,
+  de: BLOG_HEADLINES_DE,
+  hi: BLOG_HEADLINES_HI,
+  id: BLOG_HEADLINES_ID,
+} as const;
+
+/** Per-language footer line. Keeps the trailing brand mention native to
+ *  the audience rather than always reading "turboloop.tech" in Latin
+ *  script (which is fine but a translated tagline reads more natural). */
+const FOOTER_BY_LANG = {
+  en: "turboloop.tech",
+  de: "turboloop.tech — sicher und transparent",
+  hi: "turboloop.tech — सुरक्षित और पारदर्शी",
+  id: "turboloop.tech — aman & transparan",
+} as const;
+
+export type BlogLang = keyof typeof HEADLINE_POOLS;
+
+/** Pick a language pool by ISO code, falling back to English if the
+ *  caller passes a language we haven't translated copy for yet (e.g. a
+ *  future Spanish post). This is the safe-default branch — better to
+ *  announce a Spanish post in the English channel than to silently drop
+ *  it. The routing layer can still skip the announcement if it prefers.
+ */
+function poolFor(lang: string): readonly string[] {
+  return HEADLINE_POOLS[lang as BlogLang] ?? BLOG_HEADLINES_EN;
+}
+
+function footerFor(lang: string): string {
+  return FOOTER_BY_LANG[lang as BlogLang] ?? FOOTER_BY_LANG.en;
+}
+
+/**
+ * Build a Telegram caption for a blog announcement.
+ *
+ * Takes an optional `lang` arg so the caption is written in the same
+ * language as the post itself. When omitted (legacy callers), defaults
+ * to English to preserve existing behaviour.
+ *
+ * The 280-char excerpt cap lines up with Telegram's caption length
+ * limit (1024 total) minus headers + title + URL.
+ */
+export function blogPostCaption(opts: {
+  title: string;
+  excerpt: string | null;
+  url: string;
+  slot?: "morning" | "evening";
+  /** ISO 639-1 code matching the post's language column. */
+  lang?: string;
+}): string {
+  const lang = opts.lang ?? "en";
+  const headline = pickByDay(poolFor(lang) as string[]);
   const title = tgEscape(opts.title);
   const excerpt = opts.excerpt ? tgEscape(opts.excerpt.slice(0, 280)) : "";
-  return `<b>${headline}</b>\n\n<b>${title}</b>${excerpt ? `\n\n${excerpt}` : ""}\n\nturboloop.tech`;
+  const footer = footerFor(lang);
+  return `<b>${headline}</b>\n\n<b>${title}</b>${excerpt ? `\n\n${excerpt}` : ""}\n\n${footer}`;
 }
 
 // =========================================================

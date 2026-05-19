@@ -26,9 +26,31 @@ export const blogPosts = pgTable("blog_posts", {
   // rows keep working without a backfill — the migration sets the
   // column with a default so PostgreSQL fills nullable historical
   // rows in one shot. Translations follow a slug-suffix convention:
-  // <slug>-de, <slug>-id, etc., letting us treat them as independent
-  // rows that share an editorial parent by stripping the suffix.
+  // <slug>-de, <slug>-hi, <slug>-id, etc., letting us treat them as
+  // independent rows that share an editorial parent.
   language: varchar("language", { length: 8 }).default("en").notNull(),
+  // FK to the EN parent post when this row is a translation. NULL on
+  // originals. Lets the renderer compute hreflang alternates from real
+  // data instead of slug-suffix string matching. Backfilled by the 0004
+  // migration for the legacy rows that pre-date this column.
+  translationOf: integer("translation_of"),
+  // Topic taxonomy. Postgres text[] — cheap, indexable via GIN if/when
+  // we need a tag-filter index page.
+  tags: text("tags").array(),
+  // Bylines for long-form flagships. Falls back to "Turbo Loop Editorial"
+  // on display when null. authorUrl can point at /community/<handle>
+  // or an external profile.
+  authorName: varchar("author_name", { length: 200 }),
+  authorUrl: varchar("author_url", { length: 500 }),
+  // SEO overrides — distinct from the editorial title/excerpt so we
+  // can ship punchy editorial headlines + a different <title> tag
+  // optimized for length (≤60 chars) and search intent.
+  seoTitle: varchar("seo_title", { length: 200 }),
+  seoDescription: varchar("seo_description", { length: 300 }),
+  // Cached estimate (content words / 230 wpm). Computed on insert by
+  // the seed/admin write path; backfilled for existing rows by the
+  // 0004 migration. Display: "{readingTimeMin} min read".
+  readingTimeMin: integer("reading_time_min"),
   published: boolean("published").default(false).notNull(),
   scheduledPublishAt: timestamp("scheduled_publish_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

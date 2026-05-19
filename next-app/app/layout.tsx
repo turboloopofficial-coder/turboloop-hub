@@ -104,8 +104,18 @@ export const metadata: Metadata = {
   // `<link rel>` tags + sizes.
   alternates: {
     canonical: "https://turboloop.tech/",
+    // RSS auto-discovery. Browsers + feedreaders read these to surface
+    // a "Subscribe" affordance. Four feeds: the unqualified /feed.xml
+    // stays English (back-compat with existing subscribers);
+    // /feed.de.xml, /feed.hi.xml, /feed.id.xml carry their respective
+    // languages. Each feed lists only posts in its language.
     types: {
-      "application/rss+xml": "https://turboloop.tech/feed.xml",
+      "application/rss+xml": [
+        { url: "https://www.turboloop.tech/feed.xml", title: "Turbo Loop — English" },
+        { url: "https://www.turboloop.tech/feed.de.xml", title: "Turbo Loop — Deutsch" },
+        { url: "https://www.turboloop.tech/feed.hi.xml", title: "Turbo Loop — हिंदी" },
+        { url: "https://www.turboloop.tech/feed.id.xml", title: "Turbo Loop — Bahasa Indonesia" },
+      ],
     },
   },
 };

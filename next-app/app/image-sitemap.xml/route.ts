@@ -15,10 +15,17 @@
 // robots.ts via the `sitemaps` array.
 
 import { FILMS } from "@lib/cinematicUniverse";
+import { api, blogCoverUrl } from "@lib/api";
 
-const BASE = "https://turboloop.tech";
+const BASE = "https://www.turboloop.tech";
 const WWW = "https://www.turboloop.tech";
 const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+// ISR for the image sitemap. Same revalidate cadence as the blog
+// listing — 5 minutes is short enough that newly-published posts
+// show up in the image sitemap within one cron tick, long enough
+// that we don't refetch the post catalogue on every crawler hit.
+export const revalidate = 300;
 
 // Per-page image bundles. `loc` is the page that hosts the image;
 // `images` are the brand-canonical images for that page. Captions are
@@ -287,8 +294,48 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
+/** Build per-blog-post entries from the published catalogue. Each
+ *  entry maps the post's canonical URL to its cover image (author-
+ *  uploaded or the generated /api/og-banner variant). Captions are
+ *  derived from the post's excerpt and prefixed with brand context so
+ *  Google's Image tab + Discover surface associate them to TurboLoop
+ *  rather than the photo's standalone subject.
+ *
+ *  Defensive: if the legacy API is down at build time we skip the
+ *  block rather than throwing — the rest of the image sitemap still
+ *  ships. */
+async function buildBlogImageEntries(): Promise<
+  Array<{
+    loc: string;
+    images: Array<{ url: string; title: string; caption: string }>;
+  }>
+> {
+  try {
+    const posts = await api.blogPosts();
+    return posts
+      .filter(p => p.published)
+      .map(p => ({
+        loc: `${BASE}/blog/${p.slug}`,
+        images: [
+          {
+            url: blogCoverUrl(p),
+            // Brand-prefix the title so the image:title field reinforces
+            // the entity association — important for disambiguation
+            // since some blog covers are abstract gradients.
+            title: `TurboLoop — ${p.title}`,
+            caption:
+              (p.excerpt ?? `TurboLoop editorial: ${p.title}.`).slice(0, 220),
+          },
+        ],
+      }));
+  } catch {
+    return [];
+  }
+}
+
 export async function GET(): Promise<Response> {
-  const all = [...PAGE_IMAGES, ...filmImages];
+  const blogEntries = await buildBlogImageEntries();
+  const all = [...PAGE_IMAGES, ...filmImages, ...blogEntries];
 
   const urlBlocks = all
     .map(p => {

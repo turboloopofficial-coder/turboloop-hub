@@ -27,9 +27,9 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: [
-      "https://turboloop.tech/sitemap.xml",
-      "https://turboloop.tech/image-sitemap.xml",
+      "https://www.turboloop.tech/sitemap.xml",
+      "https://www.turboloop.tech/image-sitemap.xml",
     ],
-    host: "https://turboloop.tech",
+    host: "https://www.turboloop.tech",
   };
 }

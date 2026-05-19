@@ -66,7 +66,18 @@ async function fetchTRPC<T>(
 // can't be tree-shaken from the client bundle. Types are small; risk
 // of drift is low (the schema rarely changes).
 
-export type BlogLanguage = "en" | "de" | "id";
+export type BlogLanguage = "en" | "de" | "hi" | "id";
+
+/** BCP-47 mapping for hreflang. We use 2-letter ISO 639-1 codes in the
+ *  DB column (`en`, `de`, `hi`, `id`) and resolve them to a hreflang
+ *  value here. Google accepts both 2-letter and full BCP-47 — using
+ *  region-less codes keeps the tag count predictable. */
+export const HREFLANG_BY_LANG: Record<BlogLanguage, string> = {
+  en: "en",
+  de: "de",
+  hi: "hi",
+  id: "id",
+};
 
 export interface BlogPost {
   id: number;
@@ -75,13 +86,28 @@ export interface BlogPost {
   excerpt: string | null;
   content: string;
   coverImage: string | null;
+  /** Cached estimate from `reading_time_min` (content words / 230 wpm).
+   *  Falls back to a legacy `readingTime` field if the new column hasn't
+   *  populated yet — safe for either shape. */
   readingTime: number | null;
   published: boolean;
   /** BCP-47-ish 2-letter language code. Defaults to "en" for legacy rows
    *  that pre-date the migration. Translations follow a slug-suffix
-   *  convention (`<original>-de`, `<original>-id`) so they sort next to
-   *  the source post on the index. */
+   *  convention (`<original>-de`, `<original>-hi`, `<original>-id`). */
   language: BlogLanguage;
+  /** FK to the EN parent post when this row is a translation. NULL on
+   *  originals. Computed by the 0004 migration from slug suffixes.
+   *  Used by the renderer to emit hreflang alternates between siblings. */
+  translationOf: number | null;
+  /** Topic taxonomy. Postgres text[] — null for legacy rows that pre-date
+   *  the column, empty array for newly-tagged-but-untagged rows. */
+  tags: string[] | null;
+  /** Byline. Falls back to "Turbo Loop Editorial" on display. */
+  authorName: string | null;
+  authorUrl: string | null;
+  /** SEO overrides — null means "fall back to title/excerpt." */
+  seoTitle: string | null;
+  seoDescription: string | null;
   /** Intended publish moment — set by the editor or seed script. The cron
    *  flips `published` to true once now ≥ this timestamp. Use this rather
    *  than createdAt for any user-facing date display, since createdAt
@@ -98,8 +124,39 @@ export const BLOG_LANGUAGES: ReadonlyArray<{
 }> = [
   { code: "en", label: "English", flag: "🇬🇧" },
   { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "hi", label: "हिंदी", flag: "🇮🇳" },
   { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
 ];
+
+/** Find all sibling translations of a post within an already-fetched
+ *  catalogue. Includes both the parent (if `post` is a translation) and
+ *  any siblings in other languages. Used by the blog [slug] page to
+ *  emit hreflang alternate links + by the sitemap to group translation
+ *  bundles for xhtml:link annotations.
+ *
+ *  Pure function — no I/O. Cheap even with hundreds of posts; we filter
+ *  the array once and iterate it without allocating extra structures.
+ *
+ *  Returns the rows in language-stable order (en first, then de, hi, id)
+ *  so the rendered <link rel="alternate"> tags are stable across builds.
+ */
+export function blogTranslationGroup(
+  post: Pick<BlogPost, "id" | "translationOf">,
+  all: ReadonlyArray<BlogPost>
+): BlogPost[] {
+  // Root = the EN parent. If `post` is itself a translation, that's
+  // `post.translationOf`. If `post` is the original (translationOf is
+  // null), root is `post.id`.
+  const rootId = post.translationOf ?? post.id;
+  const langOrder: BlogLanguage[] = ["en", "de", "hi", "id"];
+  const group = all.filter(p => p.id === rootId || p.translationOf === rootId);
+  // Sort by deterministic language order so the rendered hreflang tags
+  // don't shuffle between deploys.
+  return group.slice().sort(
+    (a, b) =>
+      langOrder.indexOf(a.language) - langOrder.indexOf(b.language)
+  );
+}
 
 /** R2-hosted /api/og-banner PNG that the legacy Vercel project generates per
  *  request (1200×630, palette rotates daily). Suitable as both cover image

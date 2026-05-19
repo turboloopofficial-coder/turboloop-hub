@@ -40,11 +40,19 @@ import {
   blogCoverUrl,
   blogDisplayDate,
   blogOgBannerUrl,
+  blogTranslationGroup,
+  HREFLANG_BY_LANG,
   type BlogPost,
 } from "@lib/api";
 
 export const revalidate = 300;
 export const dynamicParams = true; // allow new posts without redeploy
+
+// Canonical URLs use www. — the apex (turboloop.tech) issues a Vercel
+// platform 307 to www.turboloop.tech BEFORE Next.js middleware runs.
+// Pointing `canonical` at the actual 200-OK host avoids passing crawler
+// link-equity through a redirect hop on every blog URL.
+const CANONICAL_HOST = "https://www.turboloop.tech";
 
 export async function generateStaticParams() {
   const posts = await api.blogPosts();
@@ -74,6 +82,29 @@ async function getPostOr404(slug: string): Promise<BlogPost> {
   return post;
 }
 
+/** Build the `alternates.languages` map for `Metadata` from the
+ *  translation group. Each entry maps a hreflang code to its absolute
+ *  URL. Includes the post itself implicitly (Next.js handles it via
+ *  `canonical`), but listing every translation explicitly is fine —
+ *  Google deduplicates. Returns an empty object when the post is a
+ *  monolingual original with no siblings (most posts today). */
+function buildLanguageAlternates(
+  group: BlogPost[]
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const sibling of group) {
+    if (!sibling.published) continue;
+    const hreflang = HREFLANG_BY_LANG[sibling.language] ?? sibling.language;
+    out[hreflang] = `${CANONICAL_HOST}/blog/${sibling.slug}`;
+  }
+  // x-default → the English original (the canonical entry point for any
+  // visitor whose locale isn't explicitly served). Falls back to the
+  // post itself if no EN sibling exists.
+  const en = group.find(g => g.language === "en" && g.published);
+  if (en) out["x-default"] = `${CANONICAL_HOST}/blog/${en.slug}`;
+  return out;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -81,34 +112,67 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostOr404(slug);
-  const url = `https://turboloop.tech/blog/${post.slug}`;
+  const url = `${CANONICAL_HOST}/blog/${post.slug}`;
+
+  // Pull translation siblings so we can emit hreflang alternates. One
+  // fetch covers every post — cheaper than a per-translation lookup
+  // since `api.blogPosts()` is already cached via ISR (5 min).
+  const allPosts = await api.blogPosts();
+  const group = blogTranslationGroup(post, allPosts);
+  const languages = buildLanguageAlternates(group);
+
+  // SEO title/description fall back to the editorial title/excerpt when
+  // no override is set. The hard cap keeps the `<title>` tag under
+  // Google's ~580-pixel display budget (~60 chars).
+  const seoTitle = post.seoTitle ?? post.title;
+  const seoDescription =
+    post.seoDescription ?? post.excerpt ?? `${post.title} — TurboLoop Editorial.`;
+
   return {
-    title: post.title,
-    description: post.excerpt ?? `${post.title} — TurboLoop Editorial.`,
-    alternates: { canonical: url },
+    title: seoTitle,
+    description: seoDescription,
+    alternates: {
+      canonical: url,
+      // languages map gets rendered as <link rel="alternate" hreflang="..."/>.
+      // Skipping when empty avoids a meaningless empty-key entry.
+      languages: Object.keys(languages).length > 0 ? languages : undefined,
+    },
     openGraph: {
-      title: post.title,
-      description: post.excerpt ?? "",
+      title: seoTitle,
+      description: seoDescription,
       url,
       type: "article",
       publishedTime: post.createdAt,
       modifiedTime: post.updatedAt ?? undefined,
+      // OG locale uses the BCP-47 territory-augmented form. We keep it
+      // simple here (en_US / de_DE / hi_IN / id_ID) so Telegram and
+      // Twitter cards render with the right language hint.
+      locale: ogLocaleFor(post.language),
       images: [
         {
           url: blogCoverUrl(post),
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: seoTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt ?? "",
+      title: seoTitle,
+      description: seoDescription,
       images: [blogCoverUrl(post)],
     },
   };
+}
+
+function ogLocaleFor(lang: string): string {
+  switch (lang) {
+    case "de": return "de_DE";
+    case "hi": return "hi_IN";
+    case "id": return "id_ID";
+    default:   return "en_US";
+  }
 }
 
 function formatDate(iso: string) {
@@ -152,6 +216,40 @@ export default async function BlogPostPage({
   }
 
   const displayDate = blogDisplayDate(post);
+
+  // Estimate word count from the rendered HTML's text content. Cheap —
+  // strip tags + count whitespace-separated tokens. Used only as a
+  // signal for the Article JSON-LD; we don't render this number to
+  // users (readingTime is the user-facing field).
+  const wordCount = post.content
+    ? post.content.replace(/<[^>]+>/g, "").trim().split(/\s+/).length
+    : 0;
+
+  // Pick the first tag (if any) as articleSection. Falls back to
+  // "Editorial" so the field is never empty.
+  const articleSection = post.tags && post.tags.length > 0
+    ? post.tags[0]
+    : "Editorial";
+
+  // Author defaults to the editorial org byline when not set. Authors
+  // get their own Person entity if we have a URL to point at;
+  // otherwise it's a plain string (still valid per schema.org).
+  const authorEntity = post.authorName
+    ? post.authorUrl
+      ? {
+          "@type": "Person",
+          name: post.authorName,
+          url: post.authorUrl,
+        }
+      : { "@type": "Person", name: post.authorName }
+    : {
+        "@type": "Organization",
+        name: "Turbo Loop Editorial",
+        url: "https://www.turboloop.tech/about",
+      };
+
+  const articleUrl = `${CANONICAL_HOST}/blog/${post.slug}`;
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -160,7 +258,16 @@ export default async function BlogPostPage({
     image: blogCoverUrl(post),
     datePublished: displayDate ?? post.createdAt,
     dateModified: post.updatedAt ?? post.createdAt,
-    mainEntityOfPage: `https://turboloop.tech/blog/${post.slug}`,
+    // BCP-47 language tag. Distinguishes EN / DE / HI / ID variants for
+    // both Google and LLM crawlers (notably ChatGPT's search index,
+    // which respects `inLanguage` for retrieval routing).
+    inLanguage: HREFLANG_BY_LANG[post.language] ?? "en",
+    // Word count + section both feed Google's "in-depth article" /
+    // long-form ranking signals and Discover's article scoring.
+    wordCount,
+    articleSection,
+    mainEntityOfPage: articleUrl,
+    author: authorEntity,
     publisher: {
       "@type": "Organization",
       name: "Turbo Loop",
@@ -171,11 +278,44 @@ export default async function BlogPostPage({
     },
   };
 
+  // BreadcrumbList — distinct from the visual Breadcrumbs component.
+  // Google uses this for the search-result trail ("turboloop.tech ›
+  // Blog › <Article>") and it's a required ingredient for "Article"
+  // rich-result eligibility on long-form posts.
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${CANONICAL_HOST}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${CANONICAL_HOST}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: articleUrl,
+      },
+    ],
+  };
+
   return (
     <main className="relative pb-12 md:pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Reading progress bar — pinned to top, fills as user scrolls */}
       <ReadingProgress />

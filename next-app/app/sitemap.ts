@@ -1,9 +1,15 @@
-// sitemap.xml — generated at build time. Lists every static + SSG route
-// so search engines + LLM crawlers can discover the full surface area.
+// sitemap.xml — lists every static + SSG route so search engines + LLM
+// crawlers can discover the full surface area.
 //
 // Uses www. canonical host throughout — apex (turboloop.tech) issues a
 // platform 307 to www.turboloop.tech before Next.js sees the request,
 // so pointing crawlers at www directly saves the redirect hop.
+//
+// ISR cadence: the sitemap depends on api.blogPosts() which itself has
+// a 5-min revalidate. We mirror that here with an explicit revalidate
+// export so the sitemap refreshes whenever a new post lands or a
+// translation gets added — without this, sitemap.ts would be baked at
+// build time and only update on the next deploy.
 
 import type { MetadataRoute } from "next";
 import { FILMS } from "@lib/cinematicUniverse";
@@ -17,6 +23,8 @@ import {
 } from "@lib/api";
 
 const BASE = "https://www.turboloop.tech";
+
+export const revalidate = 300; // 5 min, matches api.blogPosts() ISR
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

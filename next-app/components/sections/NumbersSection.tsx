@@ -54,7 +54,7 @@ export function NumbersSection() {
           >
             By the Numbers
           </Heading>
-          <Heading tier="h1">A movement, not a moment.</Heading>
+          <Heading tier="h1" as="h2">A movement, not a moment.</Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-xl mx-auto">
             Real reach across the world. Translated, told, and lived in
             dozens of languages every day.

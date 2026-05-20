@@ -43,7 +43,7 @@ export function HomeGlobalReelsSection() {
           >
             In Every Language
           </Heading>
-          <Heading tier="h1">
+          <Heading tier="h1" as="h2">
             The Movement,{" "}
             <span className="text-brand-wide">Worldwide.</span>
           </Heading>

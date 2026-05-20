@@ -104,8 +104,8 @@ export async function generateMetadata({
   const title = meta?.title ?? DEFAULT_TITLE;
   const description = meta?.description ?? DEFAULT_DESCRIPTION;
   const canonical = activeLang
-    ? `https://turboloop.tech/creatives?lang=${activeLang}`
-    : "https://turboloop.tech/creatives";
+    ? `https://www.turboloop.tech/creatives?lang=${activeLang}`
+    : "https://www.turboloop.tech/creatives";
   const image = ogImageUrl(activeLang);
   return {
     title,

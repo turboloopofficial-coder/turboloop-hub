@@ -31,7 +31,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const pillar = ECOSYSTEM_PILLARS.find(p => p.slug === slug);
   if (!pillar) return { title: "Pillar not found" };
-  const url = `https://turboloop.tech/ecosystem/${pillar.slug}`;
+  const url = `https://www.turboloop.tech/ecosystem/${pillar.slug}`;
   return {
     title: `${pillar.title} — ${pillar.subtitle}`,
     description: pillar.tagline,

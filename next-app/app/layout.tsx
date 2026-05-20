@@ -36,7 +36,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 // Numbers verified against next-app/app/calculator/page.tsx PLANS:
 //   Sprint 7d / 3% · Boost 14d / 10% · Power 30d / 24% · Ultimate 60d / 54%
 export const metadata: Metadata = {
-  metadataBase: new URL("https://turboloop.tech"),
+  metadataBase: new URL("https://www.turboloop.tech"),
   title: {
     default:
       "TurboLoop — DeFi Yield Farming on BSC | Sustainable ROI Protocol",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Turbo Loop",
-    url: "https://turboloop.tech",
+    url: "https://www.turboloop.tech",
     title:
       "TurboLoop — DeFi Yield Farming on BSC | Sustainable ROI Protocol",
     description:
@@ -103,7 +103,7 @@ export const metadata: Metadata = {
   // (c) the convention files give Next.js full control over the
   // `<link rel>` tags + sizes.
   alternates: {
-    canonical: "https://turboloop.tech/",
+    canonical: "https://www.turboloop.tech/",
     // RSS auto-discovery. Browsers + feedreaders read these to surface
     // a "Subscribe" affordance. Four feeds: the unqualified /feed.xml
     // stays English (back-compat with existing subscribers);
@@ -137,7 +137,7 @@ const SITE_JSON_LD = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://turboloop.tech/#organization",
+      "@id": "https://www.turboloop.tech/#organization",
       name: "Turbo Loop",
       // alternateName disambiguates from unrelated entities Google has
       // historically conflated this brand with (an Italian auto-parts
@@ -146,14 +146,14 @@ const SITE_JSON_LD = {
       // DeFi" and "TurboLoop Protocol" are reinforced throughout the
       // site copy so the synonym set is consistent with on-page signal.
       alternateName: ["TurboLoop DeFi", "TurboLoop Protocol"],
-      url: "https://turboloop.tech",
+      url: "https://www.turboloop.tech",
       // `logo` is the structured logo Google's knowledge panel reads.
       // `image` is the broader brand image — using the same R2 PNG
       // satisfies both fields. References Organization#logo by @id so
       // crawlers see they're the same asset, not duplicates.
       logo: {
         "@type": "ImageObject",
-        "@id": "https://turboloop.tech/#logo",
+        "@id": "https://www.turboloop.tech/#logo",
         url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
         contentUrl:
           "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/branding/turboloop-logo.png",
@@ -161,7 +161,7 @@ const SITE_JSON_LD = {
         height: 567,
         caption: "TurboLoop brand mark — vortex on dark.",
       },
-      image: { "@id": "https://turboloop.tech/#logo" },
+      image: { "@id": "https://www.turboloop.tech/#logo" },
       sameAs: [
         "https://t.me/TurboLoop_Official",
         "https://t.me/TurboLoop_Chat",
@@ -180,7 +180,7 @@ const SITE_JSON_LD = {
     // OG specs expect for hero previews.
     {
       "@type": "ImageObject",
-      "@id": "https://turboloop.tech/#default-og",
+      "@id": "https://www.turboloop.tech/#default-og",
       url: "https://www.turboloop.tech/api/og-banner?type=launch",
       contentUrl:
         "https://www.turboloop.tech/api/og-banner?type=launch",
@@ -192,18 +192,18 @@ const SITE_JSON_LD = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://turboloop.tech/#website",
-      url: "https://turboloop.tech",
+      "@id": "https://www.turboloop.tech/#website",
+      url: "https://www.turboloop.tech",
       name: "Turbo Loop",
       description: "The complete DeFi ecosystem on Binance Smart Chain.",
-      publisher: { "@id": "https://turboloop.tech/#organization" },
+      publisher: { "@id": "https://www.turboloop.tech/#organization" },
       inLanguage: "en",
       potentialAction: {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
           urlTemplate:
-            "https://turboloop.tech/blog?q={search_term_string}",
+            "https://www.turboloop.tech/blog?q={search_term_string}",
         },
         "query-input": "required name=search_term_string",
       },
@@ -248,9 +248,9 @@ const SITE_JSON_LD = {
     ].map(s => ({
       "@type": "SiteNavigationElement",
       name: s.name,
-      url: `https://turboloop.tech${s.path}`,
+      url: `https://www.turboloop.tech${s.path}`,
       description: s.description,
-      isPartOf: { "@id": "https://turboloop.tech/#website" },
+      isPartOf: { "@id": "https://www.turboloop.tech/#website" },
     })),
   ],
 };

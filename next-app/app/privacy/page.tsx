@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How TurboLoop.tech handles your data: what we collect, what we don't, and how to opt out.",
-  alternates: { canonical: "https://turboloop.tech/privacy" },
+  alternates: { canonical: "https://www.turboloop.tech/privacy" },
 };
 
 export default function PrivacyPage() {

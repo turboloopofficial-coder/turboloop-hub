@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const c = getComparison(slug);
   if (!c) return { title: "Comparison not found" };
-  const url = `https://turboloop.tech/vs/${c.slug}`;
+  const url = `https://www.turboloop.tech/vs/${c.slug}`;
   return {
     title: c.seoTitle,
     description: c.summary,

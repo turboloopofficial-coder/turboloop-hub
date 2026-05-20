@@ -35,7 +35,7 @@ export function NewsletterCTASection() {
             >
               Stay in the loop
             </Heading>
-            <Heading tier="h1" className="text-white mb-4">
+            <Heading tier="h1" as="h2" className="text-white mb-4">
               One email. Real updates. No filler.
             </Heading>
             <p className="text-white/85 max-w-lg mx-auto leading-relaxed mb-8">
@@ -45,7 +45,7 @@ export function NewsletterCTASection() {
             </p>
 
             <a
-              href="https://turboloop.tech/#newsletter"
+              href="https://www.turboloop.tech/#newsletter"
               className="inline-flex items-center justify-center gap-2 px-7 h-[52px] rounded-[var(--r-lg)] text-base font-bold bg-white text-[var(--c-text)] hover:bg-white/95 shadow-[var(--s-lg)] transition active:scale-[0.985]"
             >
               Subscribe

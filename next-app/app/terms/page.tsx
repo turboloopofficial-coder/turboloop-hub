@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Terms of Use",
   description:
     "Terms of use for TurboLoop.tech — what you can and can't do on the marketing hub.",
-  alternates: { canonical: "https://turboloop.tech/terms" },
+  alternates: { canonical: "https://www.turboloop.tech/terms" },
 };
 
 export default function TermsPage() {

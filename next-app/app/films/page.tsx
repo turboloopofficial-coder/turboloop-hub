@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   title: "Cinematic Universe — 20 Films Across 4 Seasons",
   description:
     "From The Problem to The Movement — the full TurboLoop story told in 20 films. Watch each season free.",
-  alternates: { canonical: "https://turboloop.tech/films" },
+  alternates: { canonical: "https://www.turboloop.tech/films" },
   openGraph: {
     title: FILMS_OG_TITLE,
     description: FILMS_OG_DESC,
-    url: "https://turboloop.tech/films",
+    url: "https://www.turboloop.tech/films",
     type: "website",
     images: [
       { url: FILMS_OG_IMAGE, width: 1200, height: 630, alt: FILMS_OG_TITLE },
@@ -101,7 +101,7 @@ export default function FilmsIndexPage() {
                   <span>{info.emoji}</span>
                   <span>{info.name}</span>
                 </div>
-                <Heading tier="h1" className="mb-3">
+                <Heading tier="h2" className="mb-3">
                   {info.name.replace(/^Season \d+ — /, "")}
                 </Heading>
                 <p className="text-[var(--c-text-muted)] max-w-2xl">
@@ -177,6 +177,36 @@ export default function FilmsIndexPage() {
           </section>
         );
       })}
+
+      {/* ─── Sovereign Series (Season 2) cross-link ─────────────── */}
+      <section className="py-10 md:py-14 border-t border-[var(--c-border)]">
+        <Container width="wide">
+          <Link
+            href="/films/sovereign-series"
+            className="group block rounded-[var(--r-xl)] overflow-hidden bg-gradient-to-br from-[var(--c-surface)] to-[rgba(34,211,238,0.04)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition-[transform,box-shadow] p-6 md:p-10"
+          >
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-3" style={{ background: 'rgba(34,211,238,0.1)', color: 'var(--c-brand-cyan)', border: '1px solid rgba(34,211,238,0.3)' }}>
+                  <span>🎬</span>
+                  <span>Season 2 — New</span>
+                </div>
+                <Heading tier="h2" className="mb-2">
+                  Sovereign Series
+                </Heading>
+                <p className="text-[var(--c-text-muted)] max-w-xl">
+                  20 new films in 4 languages (English, Deutsch, हिन्दी, Bahasa Indonesia). The next chapter of financial sovereignty.
+                </p>
+              </div>
+              <div className="shrink-0">
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--c-brand-cyan)] text-white font-bold text-sm group-hover:scale-105 transition-transform">
+                  Watch Now →
+                </span>
+              </div>
+            </div>
+          </Link>
+        </Container>
+      </section>
 
       {/* ─── Shorts & Reels — multi-language tutorials ──────────────
           Premium aurora-backed section. Section header → language

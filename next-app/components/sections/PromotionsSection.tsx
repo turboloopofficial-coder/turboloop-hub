@@ -42,7 +42,7 @@ export function PromotionsSection() {
           >
             Earn While You Build
           </Heading>
-          <Heading tier="h1">Get paid for what you bring.</Heading>
+          <Heading tier="h1" as="h2">Get paid for what you bring.</Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-xl mx-auto">
             Three ways to earn alongside the protocol — from a six-figure
             bounty to a steady monthly stipend for community leaders.

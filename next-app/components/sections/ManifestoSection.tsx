@@ -23,7 +23,7 @@ export function ManifestoSection() {
           >
             The Manifesto
           </Heading>
-          <Heading tier="h1">Your money. Your power. Your future.</Heading>
+          <Heading tier="h1" as="h2">Your money. Your power. Your future.</Heading>
         </div>
 
         <Link

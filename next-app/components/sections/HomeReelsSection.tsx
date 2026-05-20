@@ -43,7 +43,7 @@ export async function HomeReelsSection() {
         thumb: thumbForReel(v.directUrl!),
       }))
       .filter(r => r.slug)
-      .slice(0, 8);
+      .slice(0, 18);
   } catch {
     // If the API is down at build time, render nothing rather than break.
     return null;
@@ -62,7 +62,7 @@ export async function HomeReelsSection() {
                 New Reels
               </span>
             </div>
-            <Heading tier="h1">
+            <Heading tier="h2">
               Watch the <span className="text-brand-wide">Movement.</span>
             </Heading>
             <p className="text-[var(--c-text-muted)] mt-2 max-w-xl">

@@ -41,7 +41,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const film = getFilm(slug);
   if (!film) return { title: "Film not found" };
-  const url = `https://turboloop.tech/films/${film.slug}`;
+  const url = `https://www.turboloop.tech/films/${film.slug}`;
   return {
     title: `${film.title} — TurboLoop Cinematic Universe`,
     description: `${film.tagline} · ${film.headline}`,
@@ -96,7 +96,7 @@ export default async function FilmDetailPage({
     description: `${film.headline} · ${film.tagline}`,
     thumbnailUrl: film.posterUrl,
     contentUrl: film.url,
-    embedUrl: `https://turboloop.tech/films/${film.slug}`,
+    embedUrl: `https://www.turboloop.tech/films/${film.slug}`,
     uploadDate: "2026-01-01",
     publisher: {
       "@type": "Organization",

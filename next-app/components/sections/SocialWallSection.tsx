@@ -75,7 +75,7 @@ export async function SocialWallSection() {
           >
             The Social Wall
           </Heading>
-          <Heading tier="h1">
+          <Heading tier="h1" as="h2">
             Voices from <span className="text-brand-wide">everywhere.</span>
           </Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-2xl mx-auto leading-relaxed">

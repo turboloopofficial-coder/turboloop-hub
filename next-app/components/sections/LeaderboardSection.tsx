@@ -104,7 +104,7 @@ export async function LeaderboardSection() {
                 Live
               </span>
             </div>
-            <Heading tier="h1">
+            <Heading tier="h1" as="h2">
               Top countries{" "}
               <span className="text-brand-wide">by reach.</span>
             </Heading>

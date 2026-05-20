@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: "Content Library — Videos and Decks in 48 Languages",
   description:
     "Watch, learn, download. Cinematic films, video reels, and downloadable presentations in 48 languages.",
-  alternates: { canonical: "https://turboloop.tech/library" },
+  alternates: { canonical: "https://www.turboloop.tech/library" },
 };
 
 function thumbForReel(videoUrl: string): string {
@@ -136,7 +136,7 @@ export default async function LibraryPage() {
                 >
                   Short-form Reels
                 </Heading>
-                <Heading tier="h1">{reels.length} reels.</Heading>
+                <Heading tier="h1" as="h2">{reels.length} reels.</Heading>
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
@@ -179,7 +179,7 @@ export default async function LibraryPage() {
               >
                 Presentation Decks
               </Heading>
-              <Heading tier="h1">
+              <Heading tier="h1" as="h2">
                 {presentations.length} decks · {totalLanguages || 48} languages.
               </Heading>
             </div>

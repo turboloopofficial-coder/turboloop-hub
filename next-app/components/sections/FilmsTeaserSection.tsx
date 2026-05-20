@@ -31,7 +31,7 @@ export function FilmsTeaserSection() {
           >
             Watch in 60 seconds
           </Heading>
-          <Heading tier="h1">New here? Start with this.</Heading>
+          <Heading tier="h1" as="h2">New here? Start with this.</Heading>
         </div>
 
         <a

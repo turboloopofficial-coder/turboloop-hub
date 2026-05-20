@@ -28,7 +28,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const lesson = LESSONS.find(l => l.slug === slug);
   if (!lesson) return { title: "Lesson not found" };
-  const url = `https://turboloop.tech/learn/${lesson.slug}`;
+  const url = `https://www.turboloop.tech/learn/${lesson.slug}`;
   return {
     title: lesson.seoTitle,
     description: lesson.summary,

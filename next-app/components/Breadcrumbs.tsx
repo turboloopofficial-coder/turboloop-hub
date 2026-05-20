@@ -24,7 +24,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       position: idx + 1,
       name: item.label,
       ...(item.href
-        ? { item: `https://turboloop.tech${item.href}` }
+        ? { item: `https://www.turboloop.tech${item.href}` }
         : {}),
     })),
   };

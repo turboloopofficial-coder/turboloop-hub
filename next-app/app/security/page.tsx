@@ -25,11 +25,11 @@ export const metadata: Metadata = {
   title: "Security — Audited, Renounced, LP-Locked",
   description:
     "Independently audited by SolidityScan (QuickScan). Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
-  alternates: { canonical: "https://turboloop.tech/security" },
+  alternates: { canonical: "https://www.turboloop.tech/security" },
   openGraph: {
     title: SEC_OG_TITLE,
     description: SEC_OG_DESC,
-    url: "https://turboloop.tech/security",
+    url: "https://www.turboloop.tech/security",
     images: [
       { url: SEC_OG_IMAGE, width: 1200, height: 630, alt: SEC_OG_TITLE },
     ],

@@ -10,7 +10,7 @@
 //
 // Reference: https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
 //
-// Served at https://turboloop.tech/image-sitemap.xml via the App
+// Served at https://www.turboloop.tech/image-sitemap.xml via the App
 // Router's Route Handlers (file path = the URL). Registered in
 // robots.ts via the `sitemaps` array.
 

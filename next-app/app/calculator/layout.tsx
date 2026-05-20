@@ -19,11 +19,11 @@ const OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=calculator";
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "https://turboloop.tech/calculator" },
+  alternates: { canonical: "https://www.turboloop.tech/calculator" },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    url: "https://turboloop.tech/calculator",
+    url: "https://www.turboloop.tech/calculator",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: TITLE }],
   },
   twitter: {

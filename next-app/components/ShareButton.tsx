@@ -38,7 +38,7 @@ interface ShareButtonProps {
   className?: string;
 }
 
-const SITE = "https://turboloop.tech";
+const SITE = "https://www.turboloop.tech";
 
 function buildShareUrl(path: string): string {
   // Hourly cache-bust so social platforms refresh OG previews on each

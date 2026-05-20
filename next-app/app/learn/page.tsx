@@ -22,11 +22,11 @@ const LEARN_OG_DESC =
 export const metadata: Metadata = {
   title: LEARN_OG_TITLE,
   description: LEARN_OG_DESC,
-  alternates: { canonical: "https://turboloop.tech/learn" },
+  alternates: { canonical: "https://www.turboloop.tech/learn" },
   openGraph: {
     title: LEARN_OG_TITLE,
     description: LEARN_OG_DESC,
-    url: "https://turboloop.tech/learn",
+    url: "https://www.turboloop.tech/learn",
     images: [{ url: LEARN_OG_IMAGE, width: 1200, height: 630, alt: LEARN_OG_TITLE }],
   },
   twitter: {

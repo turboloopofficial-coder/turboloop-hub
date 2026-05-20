@@ -393,7 +393,7 @@ export function EventsSection() {
           >
             Live & Daily
           </Heading>
-          <Heading tier="h1">
+          <Heading tier="h1" as="h2">
             Daily Zoom in{" "}
             <span className="text-brand-wide">12+ languages.</span>
           </Heading>

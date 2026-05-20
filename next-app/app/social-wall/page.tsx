@@ -36,11 +36,11 @@ const OG_IMAGE =
 export const metadata: Metadata = {
   title: OG_TITLE,
   description: OG_DESC,
-  alternates: { canonical: "https://turboloop.tech/social-wall" },
+  alternates: { canonical: "https://www.turboloop.tech/social-wall" },
   openGraph: {
     title: OG_TITLE,
     description: OG_DESC,
-    url: "https://turboloop.tech/social-wall",
+    url: "https://www.turboloop.tech/social-wall",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: OG_TITLE }],
   },
   twitter: {

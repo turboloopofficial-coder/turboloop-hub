@@ -22,11 +22,11 @@ const APPLY_OG_DESC =
 export const metadata: Metadata = {
   title: APPLY_OG_TITLE,
   description: APPLY_OG_DESC,
-  alternates: { canonical: "https://turboloop.tech/apply" },
+  alternates: { canonical: "https://www.turboloop.tech/apply" },
   openGraph: {
     title: APPLY_OG_TITLE,
     description: APPLY_OG_DESC,
-    url: "https://turboloop.tech/apply",
+    url: "https://www.turboloop.tech/apply",
     images: [
       { url: APPLY_OG_IMAGE, width: 1200, height: 630, alt: APPLY_OG_TITLE },
     ],

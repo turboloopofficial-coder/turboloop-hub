@@ -27,7 +27,7 @@ export function TestimonialSection() {
           >
             Voices from the Community
           </Heading>
-          <Heading tier="h1">In their own words.</Heading>
+          <Heading tier="h1" as="h2">In their own words.</Heading>
         </div>
 
         <Card

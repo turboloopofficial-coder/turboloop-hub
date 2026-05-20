@@ -53,7 +53,7 @@ export async function HomeBlogSection() {
             >
               Editorial
             </Heading>
-            <Heading tier="h1">
+            <Heading tier="h1" as="h2">
               Read <span className="text-brand-wide">deeper.</span>
             </Heading>
           </div>

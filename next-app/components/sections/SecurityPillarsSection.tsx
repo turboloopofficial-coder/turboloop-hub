@@ -66,7 +66,7 @@ export function SecurityPillarsSection() {
           >
             Trustless by Design
           </Heading>
-          <Heading tier="h1">Five reasons to trust nobody.</Heading>
+          <Heading tier="h1" as="h2">Five reasons to trust nobody.</Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-xl mx-auto">
             We removed every way we could harm you. What remains is code,
             published, locked, and verified by people who don&rsquo;t work

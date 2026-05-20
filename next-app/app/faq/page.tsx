@@ -14,11 +14,11 @@ const FAQ_OG_DESC =
 export const metadata: Metadata = {
   title: FAQ_OG_TITLE,
   description: FAQ_OG_DESC,
-  alternates: { canonical: "https://turboloop.tech/faq" },
+  alternates: { canonical: "https://www.turboloop.tech/faq" },
   openGraph: {
     title: FAQ_OG_TITLE,
     description: FAQ_OG_DESC,
-    url: "https://turboloop.tech/faq",
+    url: "https://www.turboloop.tech/faq",
     images: [{ url: FAQ_OG_IMAGE, width: 1200, height: 630, alt: FAQ_OG_TITLE }],
   },
   twitter: {

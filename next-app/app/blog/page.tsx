@@ -32,11 +32,11 @@ const BLOG_OG_IMAGE =
 export const metadata: Metadata = {
   title: BLOG_OG_TITLE,
   description: BLOG_OG_DESC,
-  alternates: { canonical: "https://turboloop.tech/blog" },
+  alternates: { canonical: "https://www.turboloop.tech/blog" },
   openGraph: {
     title: BLOG_OG_TITLE,
     description: BLOG_OG_DESC,
-    url: "https://turboloop.tech/blog",
+    url: "https://www.turboloop.tech/blog",
     images: [
       { url: BLOG_OG_IMAGE, width: 1200, height: 630, alt: BLOG_OG_TITLE },
     ],

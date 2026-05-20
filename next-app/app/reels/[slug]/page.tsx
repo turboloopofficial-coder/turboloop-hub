@@ -70,7 +70,7 @@ export async function generateMetadata({
   const reels = await getReels();
   const reel = reels.find(r => r._slug === slug);
   if (!reel) return { title: "Reel not found" };
-  const url = `https://turboloop.tech/reels/${slug}`;
+  const url = `https://www.turboloop.tech/reels/${slug}`;
   return {
     title: `${reel.title} — TurboLoop Reels`,
     description: `${reel.title} — a short on TurboLoop, the complete DeFi ecosystem on Binance Smart Chain.`,

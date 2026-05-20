@@ -15,11 +15,11 @@ const ROADMAP_OG_DESC =
 export const metadata: Metadata = {
   title: ROADMAP_OG_TITLE,
   description: ROADMAP_OG_DESC,
-  alternates: { canonical: "https://turboloop.tech/roadmap" },
+  alternates: { canonical: "https://www.turboloop.tech/roadmap" },
   openGraph: {
     title: ROADMAP_OG_TITLE,
     description: ROADMAP_OG_DESC,
-    url: "https://turboloop.tech/roadmap",
+    url: "https://www.turboloop.tech/roadmap",
     images: [{ url: ROADMAP_OG_IMAGE, width: 1200, height: 630, alt: ROADMAP_OG_TITLE }],
   },
   twitter: {

@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   title: "Ecosystem — Six Pillars, One Self-Sustaining Engine",
   description:
     "TurboLoop is six DeFi primitives working as one: Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, Smart Contract Security.",
-  alternates: { canonical: "https://turboloop.tech/ecosystem" },
+  alternates: { canonical: "https://www.turboloop.tech/ecosystem" },
   openGraph: {
     title: ECO_OG_TITLE,
     description: ECO_OG_DESC,
-    url: "https://turboloop.tech/ecosystem",
+    url: "https://www.turboloop.tech/ecosystem",
     images: [
       {
         url: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-ecosystem.png",

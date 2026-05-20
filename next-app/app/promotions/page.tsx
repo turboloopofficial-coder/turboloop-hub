@@ -20,11 +20,11 @@ const PROMOTIONS_DESC =
 export const metadata: Metadata = {
   title: PROMOTIONS_TITLE,
   description: PROMOTIONS_DESC,
-  alternates: { canonical: "https://turboloop.tech/promotions" },
+  alternates: { canonical: "https://www.turboloop.tech/promotions" },
   openGraph: {
     title: PROMOTIONS_TITLE,
     description: PROMOTIONS_DESC,
-    url: "https://turboloop.tech/promotions",
+    url: "https://www.turboloop.tech/promotions",
     images: [
       {
         url: PROMOTIONS_OG_IMAGE,

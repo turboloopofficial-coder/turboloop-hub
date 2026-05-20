@@ -88,6 +88,14 @@ export const videos = pgTable("videos", {
   languageFlag: varchar("language_flag", { length: 10 }).notNull(),
   sortOrder: integer("sort_order").default(0).notNull(),
   published: boolean("published").default(true).notNull(),
+  // Optional pin — when set + in the future, forces this row above
+  // natural created_at sort. Used to feature specific films/reels at
+  // the top of listings regardless of upload date.
+  pinnedAt: timestamp("pinned_at"),
+  // Optional NEW-badge override — when set + > now(), forces the badge
+  // to show regardless of created_at age. Default decay is 30 days
+  // from created_at; this column extends it on demand.
+  pinnedNewUntil: timestamp("pinned_new_until"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

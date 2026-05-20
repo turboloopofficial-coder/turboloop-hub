@@ -66,6 +66,14 @@ export const videos = pgTable("videos", {
   title: varchar("title", { length: 500 }).notNull(),
   // Cinematic Universe metadata — null for non-cinematic rows (existing reels/tutorials)
   slug: varchar("slug", { length: 200 }).unique(),
+  // Language-agnostic identifier shared across all language variants of the
+  // same film. For the original 20-film Cinematic Universe this equals
+  // `slug` (backfilled by the 0005 migration). For the Sovereign Series S2
+  // films, all 4 language rows (EN/DE/HI/ID) share one canonical_slug while
+  // each row's own `slug` carries a language suffix to keep the unique
+  // constraint happy. The /films/<canonical>?lang=de route resolves the
+  // current language by querying canonical_slug + language together.
+  canonicalSlug: varchar("canonical_slug", { length: 200 }),
   description: text("description"),
   headline: varchar("headline", { length: 500 }),
   tagline: varchar("tagline", { length: 500 }),

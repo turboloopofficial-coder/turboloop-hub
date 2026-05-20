@@ -5,7 +5,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
-import type { Video } from "@lib/api";
+// Trimmed prop shape — the player only needs id, title, directUrl.
+// Originally took the full Video type from @lib/api, but the page
+// passes a smaller DbReel shape now, so we narrow the type here
+// instead of forcing callers to construct a full Video object.
+type PlayerReel = {
+  id: number;
+  title: string;
+  directUrl: string | null;
+};
 
 function isMobileViewport(): boolean {
   if (typeof window === "undefined") return false;
@@ -79,7 +87,7 @@ export function ReelPlayer({
   reel,
   thumb,
 }: {
-  reel: Video;
+  reel: PlayerReel;
   thumb: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);

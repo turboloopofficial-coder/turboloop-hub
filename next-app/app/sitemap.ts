@@ -12,7 +12,7 @@
 // build time and only update on the next deploy.
 
 import type { MetadataRoute } from "next";
-import { FILMS } from "@lib/cinematicUniverse";
+import { fetchAllFilmSlugs } from "@lib/filmsApi";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 import { LESSONS } from "@lib/defi101";
 import {
@@ -58,13 +58,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "" ? 1.0 : path === "/blog" ? 0.9 : 0.7,
   }));
 
-  // Films (20 paths)
-  const films: MetadataRoute.Sitemap = FILMS.map(f => ({
-    url: `${BASE}/films/${f.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
+  // Films — all cinematic videos from DB (original Cinematic Universe
+  // + Sovereign Series S2 + any future uploads). Canonical slugs only;
+  // each one renders at /films/[slug] (with optional ?lang= for the
+  // multilingual variants of the same film).
+  let films: MetadataRoute.Sitemap = [];
+  try {
+    const slugs = await fetchAllFilmSlugs();
+    films = slugs.map(slug => ({
+      url: `${BASE}/films/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }));
+  } catch {}
 
   // Ecosystem pillars (6 paths)
   const pillars: MetadataRoute.Sitemap = ECOSYSTEM_PILLARS.map(p => ({

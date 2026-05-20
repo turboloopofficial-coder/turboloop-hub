@@ -1,12 +1,12 @@
 // /reels/[slug] — single short-form video page (9:16 portrait).
 //
-// Dynamic param: slug → matches the videos.directUrl filename pattern
-// (.../reels/<slug>.mp4).
+// Polished as part of Turn 7 of the content restructure. Migrated from
+// the old api.videos() tRPC fetch to the new fetchAllReels() DB-driven
+// helper (lib/reelsApi.ts), and the action bar now uses the same
+// /api/download proxy + Web Share API pattern as the films detail
+// page. NEW badge added to the player area.
 //
-// Build-time strategy: pre-build pages for every reel that has a
-// directUrl. ISR revalidates so newly-published reels surface within
-// minutes. dynamicParams: true so a brand-new reel is rendered on
-// first visit even before the next rebuild.
+// Forced dark mode — media-page exception, consistent with /films.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -14,51 +14,17 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
-import { ShareButton } from "@components/ShareButton";
-import { DownloadButton } from "@components/DownloadButton";
-import { api, type Video } from "@lib/api";
+import { NewBadge } from "@components/ui/NewBadge";
+import { FilmActionBar } from "@components/films/FilmActionBar";
+import { fetchAllReels, shouldShowNewBadge } from "@lib/reelsApi";
 import { ReelPlayer } from "./ReelPlayer";
 
 export const revalidate = 300;
 export const dynamicParams = true;
 
-function slugFromUrl(videoUrl: string): string | null {
-  try {
-    const u = new URL(videoUrl);
-    const m = u.pathname.match(/\/reels\/([a-z0-9-]+)\.mp4$/i);
-    return m ? m[1] : null;
-  } catch {
-    return null;
-  }
-}
-
-function thumbForReel(videoUrl: string): string {
-  try {
-    const u = new URL(videoUrl);
-    u.pathname = u.pathname
-      .replace(/^\/reels\//, "/reel-thumbs/")
-      .replace(/\.mp4$/i, ".jpg");
-    return u.toString();
-  } catch {
-    return "";
-  }
-}
-
-async function getReels(): Promise<Array<Video & { _slug: string; _thumb: string }>> {
-  const all = await api.videos();
-  return all
-    .filter(v => v.directUrl)
-    .map(v => ({
-      ...v,
-      _slug: slugFromUrl(v.directUrl!) || "",
-      _thumb: thumbForReel(v.directUrl!),
-    }))
-    .filter(v => v._slug);
-}
-
 export async function generateStaticParams() {
-  const reels = await getReels();
-  return reels.map(r => ({ slug: r._slug }));
+  const reels = await fetchAllReels();
+  return reels.map(r => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({
@@ -67,43 +33,37 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const reels = await getReels();
-  const reel = reels.find(r => r._slug === slug);
+  const reels = await fetchAllReels();
+  const reel = reels.find(r => r.slug === slug);
   if (!reel) return { title: "Reel not found" };
   const url = `https://www.turboloop.tech/reels/${slug}`;
+  const desc = reel.tagline || `${reel.title} — a short on TurboLoop.`;
   return {
     title: `${reel.title} — TurboLoop Reels`,
-    description: `${reel.title} — a short on TurboLoop, the complete DeFi ecosystem on Binance Smart Chain.`,
+    description: desc,
     alternates: { canonical: url },
     openGraph: {
       title: reel.title,
-      description: `Watch this short on TurboLoop.`,
+      description: desc,
       url,
       type: "video.other",
       images: [
+        { url: reel.thumbUrl, width: 1080, height: 1920, alt: reel.title },
+      ],
+      videos: [
         {
-          url: reel._thumb,
+          url: reel.directUrl,
+          type: "video/mp4",
           width: 1080,
           height: 1920,
-          alt: reel.title,
         },
       ],
-      videos: reel.directUrl
-        ? [
-            {
-              url: reel.directUrl,
-              type: "video/mp4",
-              width: 1080,
-              height: 1920,
-            },
-          ]
-        : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: reel.title,
-      description: "Watch this short on TurboLoop.",
-      images: [reel._thumb],
+      description: desc,
+      images: [reel.thumbUrl],
     },
   };
 }
@@ -114,15 +74,20 @@ export default async function ReelDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const reels = await getReels();
-  const reel = reels.find(r => r._slug === slug);
-  if (!reel || !reel.directUrl) notFound();
+  const reels = await fetchAllReels();
+  const reel = reels.find(r => r.slug === slug);
+  if (!reel) notFound();
 
-  const others = reels.filter(r => r._slug !== slug).slice(0, 6);
+  // Next/prev by created_at adjacency (newest-first list — "next" is
+  // the slug after this one in the array, "prev" is before).
+  const idx = reels.findIndex(r => r.slug === slug);
+  const others = reels.filter(r => r.slug !== slug).slice(0, 6);
+  const showNew = shouldShowNewBadge(reel);
+  const detailUrl = `https://www.turboloop.tech/reels/${slug}`;
 
   return (
     <main
-      className="min-h-screen relative"
+      className="dark min-h-screen relative"
       style={{
         background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)",
       }}
@@ -138,8 +103,16 @@ export default async function ReelDetailPage({
 
         <div className="grid md:grid-cols-5 gap-8 max-w-5xl mx-auto">
           {/* Player */}
-          <div className="md:col-span-3">
-            <ReelPlayer reel={reel} thumb={reel._thumb} />
+          <div className="md:col-span-3 relative">
+            <ReelPlayer
+              reel={{ id: reel.id, title: reel.title, directUrl: reel.directUrl }}
+              thumb={reel.thumbUrl}
+            />
+            <NewBadge
+              show={showNew}
+              size="md"
+              className="absolute top-3 right-3 z-20"
+            />
           </div>
 
           {/* Info + more reels */}
@@ -147,34 +120,25 @@ export default async function ReelDetailPage({
             <h1 className="text-2xl md:text-3xl font-bold leading-tight mb-3">
               {reel.title}
             </h1>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
-              A short explainer on why TurboLoop is the safest, most
-              transparent yield protocol in DeFi.
-            </p>
+            {reel.tagline && (
+              <p className="text-white/70 text-sm leading-relaxed mb-6">
+                {reel.tagline}
+              </p>
+            )}
 
-            {/* Share + Download row */}
-            <div className="flex gap-2 mb-3">
-              <ShareButton
-                path={`/reels/${slug}`}
-                message={`🎬 ${reel.title} — watch on Turbo Loop`}
-                variant="primary"
-                label="Share"
-                className="flex-1"
-              />
-              <DownloadButton
-                url={reel.directUrl}
-                title={reel.title}
-                extension="mp4"
-                variant="ghost"
-                label="Save"
-              />
-            </div>
+            <FilmActionBar
+              url={detailUrl}
+              title={reel.title}
+              shareContext={reel.tagline}
+              downloadUrl={reel.directUrl}
+              downloadFilename={reel.slug}
+            />
 
             <a
               href="https://turboloop.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] transition active:scale-[0.985] mb-3"
+              className="mt-3 inline-flex items-center justify-center gap-2 w-full px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] transition active:scale-[0.985]"
             >
               Launch App →
             </a>
@@ -187,22 +151,26 @@ export default async function ReelDetailPage({
                 {others.map(o => (
                   <Link
                     key={o.id}
-                    href={`/reels/${o._slug}`}
+                    href={`/reels/${o.slug}`}
                     className="group relative rounded-md overflow-hidden block"
                     style={{ aspectRatio: "9 / 16" }}
                   >
                     <Image
-                      src={o._thumb}
+                      src={o.thumbUrl}
                       alt={o.title}
                       fill
                       sizes="(max-width: 768px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
+                      unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-1.5 text-white text-[10px] font-semibold leading-tight line-clamp-2">
                       {o.title}
                     </div>
+                    {shouldShowNewBadge(o) && (
+                      <NewBadge show className="absolute top-1.5 right-1.5" />
+                    )}
                   </Link>
                 ))}
               </div>

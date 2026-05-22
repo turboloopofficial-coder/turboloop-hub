@@ -30,6 +30,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
 import { sanitize } from "@lib/sanitize";
+import { preprocessMarkdown } from "@lib/markdownPrep";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ShareButton } from "@components/ShareButton";
@@ -202,7 +203,10 @@ export default async function BlogPostPage({
   let cleanHtml = "";
   if (post.content && post.content.trim().length > 0) {
     try {
-      const rawHtml = await marked.parse(post.content, { breaks: true });
+      // Pre-process for GFM alerts (> [!KEY]/[!TIP]/etc.) and recover
+      // any literal-\n data corruption before passing to marked.
+      const prepared = preprocessMarkdown(post.content);
+      const rawHtml = await marked.parse(prepared, { breaks: true, gfm: true });
       cleanHtml = sanitize(rawHtml as string);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);

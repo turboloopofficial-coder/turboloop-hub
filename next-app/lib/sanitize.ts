@@ -21,6 +21,9 @@ const ALLOWED_TAGS = [
   "table", "thead", "tbody", "tfoot", "tr", "th", "td",
   "pre", "code",
   "details", "summary",
+  // <aside> needed for the GFM-alert callouts emitted by
+  // lib/markdownPrep.ts (preprocessMarkdown).
+  "aside",
   // Inline
   "a", "strong", "em", "b", "i", "u", "s", "del", "ins", "mark",
   "sub", "sup", "small", "abbr", "cite", "q", "kbd", "samp", "var",
@@ -37,7 +40,8 @@ const ALLOWED_ATTRIBUTES: sanitizeHtml.IOptions["allowedAttributes"] = {
   code: ["class"],
   pre: ["class"],
   // Common attributes that are safe + frequently emitted by markdown.
-  "*": ["id", "class"],
+  // role= added for aside callouts which set role="note" for a11y.
+  "*": ["id", "class", "role"],
 };
 
 /** Sanitize raw HTML (typically the output of marked.parse). Returns a

@@ -37,6 +37,7 @@ import { TestimonialSection } from "@components/sections/TestimonialSection";
 import { SocialWallSection } from "@components/sections/SocialWallSection";
 import { ManifestoSection } from "@components/sections/ManifestoSection";
 import { NewsletterSection } from "@components/sections/NewsletterSection";
+import { InstallAppWidget } from "@components/install/InstallAppWidget";
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
 
@@ -216,6 +217,11 @@ export default function HomePage() {
       <Reveal>
         <PartnersBar />
       </Reveal>
+      {/* Install-app widget — sits after the social-proof row so it
+          catches users who're convinced enough to consider engaging
+          deeper. Client-side mount + dismiss flow. Hidden when the
+          site is already running standalone, or after 14-day dismiss. */}
+      <InstallAppWidget />
       <SectionDivider />
       <Reveal>
         <SecurityPillarsSection />

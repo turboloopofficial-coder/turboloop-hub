@@ -9,8 +9,18 @@
 // concerns). Cards use `break-inside-avoid` so a YouTube embed never
 // splits across columns mid-iframe.
 //
-// ISR: revalidate every 5 min so new admin approvals surface without a
-// redeploy. Matches the cadence of the homepage SocialWallSection.
+// Rendering: `force-dynamic` (was `revalidate = 300`). The 5-minute ISR
+// window was correct in theory but the page is low-traffic, so admin
+// additions could sit on a stale prerendered version for hours until
+// the next visitor poked the regen. By contrast the homepage hits
+// SocialWallSection constantly and stayed fresh — the asymmetry was
+// exactly the "new video on homepage, missing on /social-wall" bug.
+//
+// Force-dynamic re-runs the DB query on every request. The query is
+// cheap (one filtered SELECT, capped by the `approved=true` predicate),
+// and /social-wall traffic is low enough that this won't move the
+// dial on Neon usage. The trade-off is a few hundred ms of TTFB vs.
+// guaranteed freshness — for a moderation surface, freshness wins.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -21,7 +31,7 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { api, type SocialWallVideo } from "@lib/api";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const OG_TITLE = "Social Wall — Community Posts & Highlights | TurboLoop";
 const OG_DESC =

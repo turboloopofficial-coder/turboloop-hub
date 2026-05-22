@@ -12417,6 +12417,14 @@ var videos = pgTable("videos", {
   title: varchar("title", { length: 500 }).notNull(),
   // Cinematic Universe metadata — null for non-cinematic rows (existing reels/tutorials)
   slug: varchar("slug", { length: 200 }).unique(),
+  // Language-agnostic identifier shared across all language variants of the
+  // same film. For the original 20-film Cinematic Universe this equals
+  // `slug` (backfilled by the 0005 migration). For the Sovereign Series S2
+  // films, all 4 language rows (EN/DE/HI/ID) share one canonical_slug while
+  // each row's own `slug` carries a language suffix to keep the unique
+  // constraint happy. The /films/<canonical>?lang=de route resolves the
+  // current language by querying canonical_slug + language together.
+  canonicalSlug: varchar("canonical_slug", { length: 200 }),
   description: text("description"),
   headline: varchar("headline", { length: 500 }),
   tagline: varchar("tagline", { length: 500 }),
@@ -12431,6 +12439,14 @@ var videos = pgTable("videos", {
   languageFlag: varchar("language_flag", { length: 10 }).notNull(),
   sortOrder: integer("sort_order").default(0).notNull(),
   published: boolean("published").default(true).notNull(),
+  // Optional pin — when set + in the future, forces this row above
+  // natural created_at sort. Used to feature specific films/reels at
+  // the top of listings regardless of upload date.
+  pinnedAt: timestamp("pinned_at"),
+  // Optional NEW-badge override — when set + > now(), forces the badge
+  // to show regardless of created_at age. Default decay is 30 days
+  // from created_at; this column extends it on demand.
+  pinnedNewUntil: timestamp("pinned_new_until"),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
 var events = pgTable("events", {
@@ -12530,11 +12546,19 @@ var contentSubmissions = pgTable("content_submissions", {
   // testimonial | photo | reel | story | creator_apply | presenter_apply
   authorName: varchar("author_name", { length: 200 }).notNull(),
   authorContact: varchar("author_contact", { length: 320 }),
-  // email or telegram handle
+  // legacy free-text "email or telegram handle" — preserved for back-compat
   authorCountry: varchar("author_country", { length: 100 }),
   body: text("body").notNull(),
   fileUrl: varchar("file_url", { length: 1e3 }),
   // optional photo/video URL
+  // Structured contact fields — added 2026-05-22. WhatsApp is the
+  // primary follow-up channel for the global community (form-level
+  // validation requires it on NEW submissions; legacy rows keep NULL).
+  // email + telegram_handle + other_social are optional fallbacks.
+  whatsappNumber: varchar("whatsapp_number", { length: 50 }),
+  email: varchar("email", { length: 320 }),
+  telegramHandle: varchar("telegram_handle", { length: 100 }),
+  otherSocial: varchar("other_social", { length: 300 }),
   // Creator Star payout fields — set by the /submit form for
   // creator_apply submissions and updated by the 44-day reminder cron.
   walletAddress: varchar("wallet_address", { length: 100 }),

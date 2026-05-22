@@ -3,6 +3,12 @@
 // /apply — Creator Star + Local Presenter program application form.
 
 import { useState } from "react";
+import {
+  ContactFields,
+  EMPTY_CONTACT,
+  contactToWhatsappString,
+  type ContactState,
+} from "@components/forms/ContactFields";
 import Link from "next/link";
 import { Check, Loader2, Star, Mic } from "lucide-react";
 import { Container } from "@components/ui/Container";
@@ -69,7 +75,10 @@ const COUNTRIES = [
 export default function ApplyPage() {
   const [program, setProgram] = useState<Program>("creator_apply");
   const [name, setName] = useState("");
-  const [contact, setContact] = useState("");
+  // Structured contact (WhatsApp required, others optional). Replaces
+  // the legacy free-text `contact` field with a country-code-aware
+  // phone input + optional email/Telegram/other-social fallbacks.
+  const [contact, setContact] = useState<ContactState>(EMPTY_CONTACT);
   const [country, setCountry] = useState("");
   const [body, setBody] = useState("");
   const [fileUrl, setFileUrl] = useState("");
@@ -81,7 +90,7 @@ export default function ApplyPage() {
 
   const reset = () => {
     setName("");
-    setContact("");
+    setContact(EMPTY_CONTACT);
     setCountry("");
     setBody("");
     setFileUrl("");
@@ -93,8 +102,11 @@ export default function ApplyPage() {
     e.preventDefault();
     setError(null);
     if (!name.trim()) return setError("Please enter your name.");
-    if (!contact.trim())
-      return setError("Please give us an email or Telegram handle to reach you.");
+    const whatsappString = contactToWhatsappString(contact);
+    if (!whatsappString)
+      return setError(
+        "Please enter your WhatsApp number with country code so we can reach you."
+      );
     if (body.trim().length < 30)
       return setError("Tell us a bit more (at least 30 characters).");
 
@@ -103,10 +115,13 @@ export default function ApplyPage() {
       const result = await submitSubmission({
         type: program,
         authorName: name.trim(),
-        authorContact: contact.trim(),
         authorCountry: country.trim() || undefined,
         body: body.trim(),
         fileUrl: fileUrl.trim() || undefined,
+        whatsappNumber: whatsappString,
+        email: contact.email.trim() || undefined,
+        telegramHandle: contact.telegramHandle.trim() || undefined,
+        otherSocial: contact.otherSocial.trim() || undefined,
       });
       rememberSubmissionId(result.id);
       haptic("success");
@@ -254,19 +269,18 @@ export default function ApplyPage() {
               </div>
             </div>
 
-            {/* Contact */}
-            <div>
-              <label className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
-                Email or Telegram *
-              </label>
-              <input
-                type="text"
+            {/* Contact — WhatsApp required + optional email/Telegram/
+                other social. Same component as /submit, /careers,
+                /social-wall so the UX is consistent. */}
+            <div className="rounded-[var(--r-lg)] p-5 bg-[var(--c-surface)] border border-[var(--c-border)]">
+              <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-4">
+                How can we reach you?
+              </div>
+              <ContactFields
                 value={contact}
-                onChange={e => setContact(e.target.value)}
-                maxLength={320}
-                required
-                placeholder="hello@you.com or @yourhandle"
-                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
+                onChange={setContact}
+                requireWhatsapp
+                idPrefix="apply"
               />
             </div>
 

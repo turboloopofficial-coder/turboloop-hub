@@ -32,6 +32,17 @@ export interface SubmissionInput {
   authorCountry?: string;
   body: string;
   fileUrl?: string;
+  /** Required — primary follow-up channel. Format: "+CC NNNNNNNNN"
+   *  (E.164-ish with leading +country-code). Enforced by the router
+   *  zod schema (z.string().min(7)) so the request is rejected if
+   *  empty. The form-level country-code selector provides the +CC. */
+  whatsappNumber: string;
+  /** Optional email fallback. */
+  email?: string;
+  /** Optional Telegram @handle. */
+  telegramHandle?: string;
+  /** Optional free-form social handle (Twitter/X, IG, etc.) */
+  otherSocial?: string;
   /** Creator Star payout — BEP-20 wallet for the eventual USDT payout */
   walletAddress?: string;
   /** Creator Star — direct YouTube URL of the submitted content */

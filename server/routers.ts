@@ -356,10 +356,20 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           "presenter_apply",
         ]),
         authorName: z.string().min(1).max(200),
-        authorContact: z.string().max(320).optional(),
+        authorContact: z.string().max(320).optional(), // legacy free-text
         authorCountry: z.string().max(100).optional(),
         body: z.string().min(10).max(5000),
         fileUrl: z.string().url().max(1000).optional(),
+        // Contact fields added 2026-05-22. WhatsApp is required on
+        // ALL new submissions (form enforces, schema enforces). Other
+        // social channels are optional fallbacks. Format expected for
+        // whatsapp_number is "+CC NNNNNNNNN" (E.164-ish with leading
+        // +country-code, but we accept loose formatting and rely on
+        // the client-side phone input for the country selector).
+        whatsappNumber: z.string().min(7).max(50),
+        email: z.string().email().max(320).optional().or(z.literal("")),
+        telegramHandle: z.string().max(100).optional(),
+        otherSocial: z.string().max(300).optional(),
         // Creator Star payout-relevant fields. Optional on every
         // submission type so testimonials/photos can still go through
         // the same wire format.
@@ -400,12 +410,31 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           const bodyPreview = input.body.length > 280
             ? input.body.slice(0, 277).trim() + "…"
             : input.body;
+          // WhatsApp wa.me link is one-tap-to-message — admin team
+          // shouldn't have to copy/paste the number from the message
+          // into their phone. Strip non-digits for the link target
+          // but show the formatted version in the visible text.
+          const waDigits = (input.whatsappNumber || "").replace(/[^\d]/g, "");
+          const waLink = waDigits
+            ? `https://wa.me/${waDigits}`
+            : null;
           const lines = [
             `${headlineEmoji} <b>New ${input.type.replace("_", " ")}</b>`,
             "",
             `<b>Name:</b> ${input.authorName}`,
             input.authorCountry ? `<b>Country:</b> ${input.authorCountry}` : null,
-            input.authorContact ? `<b>Contact:</b> ${input.authorContact}` : null,
+            // PRIMARY contact: WhatsApp. Show both the human-readable
+            // number and a tappable wa.me link.
+            input.whatsappNumber
+              ? `<b>WhatsApp:</b> <a href="${waLink}">${input.whatsappNumber}</a>`
+              : null,
+            input.email ? `<b>Email:</b> ${input.email}` : null,
+            input.telegramHandle ? `<b>Telegram:</b> ${input.telegramHandle}` : null,
+            input.otherSocial ? `<b>Other:</b> ${input.otherSocial}` : null,
+            // Legacy free-text contact, if still populated. Most NEW
+            // submissions won't set it (the structured fields above
+            // cover the same ground), but admin sees it if present.
+            input.authorContact ? `<b>Contact (legacy):</b> ${input.authorContact}` : null,
             input.walletAddress ? `<b>Wallet:</b> <code>${input.walletAddress}</code>` : null,
             input.youtubeUrl ? `<b>YouTube:</b> ${input.youtubeUrl}` : null,
             input.fileUrl && !input.youtubeUrl ? `<b>File:</b> ${input.fileUrl}` : null,

@@ -13,6 +13,12 @@
 // hardcoded language options anymore.
 
 import { useState } from "react";
+import {
+  ContactFields,
+  EMPTY_CONTACT,
+  contactToWhatsappString,
+  type ContactState,
+} from "@components/forms/ContactFields";
 import { Loader2, Check, Send } from "lucide-react";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
@@ -39,8 +45,11 @@ export interface CareersApplicationFormProps {
 
 export function CareersApplicationForm({ roles }: CareersApplicationFormProps) {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [telegram, setTelegram] = useState("");
+  // Structured contact replaces the separate email + telegram fields.
+  // WhatsApp required (the primary follow-up channel for accepted
+  // presenters); email + telegram + other-social optional. Country-
+  // code-aware phone input via the shared ContactFields component.
+  const [contact, setContact] = useState<ContactState>(EMPTY_CONTACT);
   // Default to the first available role; falls back to "other" if no
   // roles are loaded from the DB.
   const [roleSlug, setRoleSlug] = useState<string>(
@@ -60,8 +69,9 @@ export function CareersApplicationForm({ roles }: CareersApplicationFormProps) {
       setError("Please enter your full name.");
       return;
     }
-    if (telegram.trim().length < 2) {
-      setError("Telegram handle is required so we can reach you.");
+    const whatsappString = contactToWhatsappString(contact);
+    if (!whatsappString) {
+      setError("WhatsApp number is required so we can reach you.");
       return;
     }
     if (experience.trim().length < 30) {
@@ -78,18 +88,18 @@ export function CareersApplicationForm({ roles }: CareersApplicationFormProps) {
         ? `${role.flag ?? ""} ${role.title}`.trim()
         : "Other / Unspecified";
       // Pack role-id + label as a structured header at the top of the
-      // body so the admin moderation queue can grep on `Role:` to find
-      // applicants per vacancy without needing a new column.
+      // body so admin moderation can grep `Role:` to find applicants
+      // per vacancy without needing a new column.
       const body =
-        `Role: ${roleSlug} (${roleLabel})\n\n` +
-        `Telegram: @${telegram.trim().replace(/^@/, "")}\n\n` +
-        experience.trim();
+        `Role: ${roleSlug} (${roleLabel})\n\n` + experience.trim();
       const result = await submitSubmission({
         type: "presenter_apply",
         authorName: name.trim(),
-        authorContact:
-          email.trim() || `@${telegram.trim().replace(/^@/, "")}`,
         body,
+        whatsappNumber: whatsappString,
+        email: contact.email.trim() || undefined,
+        telegramHandle: contact.telegramHandle.trim() || undefined,
+        otherSocial: contact.otherSocial.trim() || undefined,
       });
       rememberSubmissionId(result.id);
       haptic("success");
@@ -146,23 +156,6 @@ export function CareersApplicationForm({ roles }: CareersApplicationFormProps) {
             disabled={busy}
             autoComplete="name"
           />
-          <Field
-            label="Email (optional)"
-            value={email}
-            onChange={setEmail}
-            placeholder="you@example.com"
-            disabled={busy}
-            autoComplete="email"
-            inputMode="email"
-          />
-          <Field
-            label="Telegram handle *"
-            value={telegram}
-            onChange={setTelegram}
-            placeholder="@yourname"
-            disabled={busy}
-            autoComplete="off"
-          />
           <div>
             <label className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
               Role applying for *
@@ -181,6 +174,20 @@ export function CareersApplicationForm({ roles }: CareersApplicationFormProps) {
               <option value="other">🌍 Other (specify in experience)</option>
             </select>
           </div>
+        </div>
+
+        {/* Contact block — WhatsApp required + optional email/Telegram
+            /other-social. Same component as /submit + /apply. */}
+        <div className="rounded-[var(--r-lg)] p-5 bg-[var(--c-bg)] border border-[var(--c-border)]">
+          <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-4">
+            How can we reach you?
+          </div>
+          <ContactFields
+            value={contact}
+            onChange={setContact}
+            requireWhatsapp
+            idPrefix="careers"
+          />
         </div>
 
         <div>

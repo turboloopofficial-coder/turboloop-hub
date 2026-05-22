@@ -134,11 +134,60 @@ export default function SubmissionsManager() {
                         </span>
                       </div>
                       <div className="text-[11px] text-slate-400 mt-0.5">
-                        {sub.authorContact || "no contact provided"} · {new Date(sub.createdAt).toLocaleString()}
+                        {new Date(sub.createdAt).toLocaleString()}
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Contact bar — WhatsApp (primary, tappable) + email +
+                    Telegram + other social + legacy authorContact fallback.
+                    Shows whichever of these fields are populated; hides the
+                    block entirely if none are set (extremely rare — every
+                    new submission requires whatsappNumber). */}
+                {(sub.whatsappNumber || sub.email || sub.telegramHandle || sub.otherSocial || sub.authorContact) && (
+                  <div className="flex flex-wrap gap-2 mb-3 text-xs">
+                    {sub.whatsappNumber && (
+                      <a
+                        href={`https://wa.me/${(sub.whatsappNumber || "").replace(/[^\d]/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 font-bold hover:bg-green-100"
+                        title="Open WhatsApp chat"
+                      >
+                        💬 {sub.whatsappNumber}
+                      </a>
+                    )}
+                    {sub.email && (
+                      <a
+                        href={`mailto:${sub.email}`}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200"
+                      >
+                        ✉️ {sub.email}
+                      </a>
+                    )}
+                    {sub.telegramHandle && (
+                      <a
+                        href={`https://t.me/${sub.telegramHandle.replace(/^@/, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200 hover:bg-cyan-100"
+                      >
+                        ✈️ {sub.telegramHandle}
+                      </a>
+                    )}
+                    {sub.otherSocial && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+                        🌐 {sub.otherSocial}
+                      </span>
+                    )}
+                    {sub.authorContact && !sub.whatsappNumber && !sub.email && !sub.telegramHandle && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                        legacy: {sub.authorContact}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap mb-3">{sub.body}</p>
 

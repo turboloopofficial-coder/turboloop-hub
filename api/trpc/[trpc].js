@@ -99121,6 +99121,14 @@ var videos = pgTable("videos", {
   title: varchar("title", { length: 500 }).notNull(),
   // Cinematic Universe metadata — null for non-cinematic rows (existing reels/tutorials)
   slug: varchar("slug", { length: 200 }).unique(),
+  // Language-agnostic identifier shared across all language variants of the
+  // same film. For the original 20-film Cinematic Universe this equals
+  // `slug` (backfilled by the 0005 migration). For the Sovereign Series S2
+  // films, all 4 language rows (EN/DE/HI/ID) share one canonical_slug while
+  // each row's own `slug` carries a language suffix to keep the unique
+  // constraint happy. The /films/<canonical>?lang=de route resolves the
+  // current language by querying canonical_slug + language together.
+  canonicalSlug: varchar("canonical_slug", { length: 200 }),
   description: text("description"),
   headline: varchar("headline", { length: 500 }),
   tagline: varchar("tagline", { length: 500 }),
@@ -99135,6 +99143,14 @@ var videos = pgTable("videos", {
   languageFlag: varchar("language_flag", { length: 10 }).notNull(),
   sortOrder: integer2("sort_order").default(0).notNull(),
   published: boolean4("published").default(true).notNull(),
+  // Optional pin — when set + in the future, forces this row above
+  // natural created_at sort. Used to feature specific films/reels at
+  // the top of listings regardless of upload date.
+  pinnedAt: timestamp("pinned_at"),
+  // Optional NEW-badge override — when set + > now(), forces the badge
+  // to show regardless of created_at age. Default decay is 30 days
+  // from created_at; this column extends it on demand.
+  pinnedNewUntil: timestamp("pinned_new_until"),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
 var events = pgTable("events", {
@@ -99234,11 +99250,19 @@ var contentSubmissions = pgTable("content_submissions", {
   // testimonial | photo | reel | story | creator_apply | presenter_apply
   authorName: varchar("author_name", { length: 200 }).notNull(),
   authorContact: varchar("author_contact", { length: 320 }),
-  // email or telegram handle
+  // legacy free-text "email or telegram handle" — preserved for back-compat
   authorCountry: varchar("author_country", { length: 100 }),
   body: text("body").notNull(),
   fileUrl: varchar("file_url", { length: 1e3 }),
   // optional photo/video URL
+  // Structured contact fields — added 2026-05-22. WhatsApp is the
+  // primary follow-up channel for the global community (form-level
+  // validation requires it on NEW submissions; legacy rows keep NULL).
+  // email + telegram_handle + other_social are optional fallbacks.
+  whatsappNumber: varchar("whatsapp_number", { length: 50 }),
+  email: varchar("email", { length: 320 }),
+  telegramHandle: varchar("telegram_handle", { length: 100 }),
+  otherSocial: varchar("other_social", { length: 300 }),
   // Creator Star payout fields — set by the /submit form for
   // creator_apply submissions and updated by the 44-day reminder cron.
   walletAddress: varchar("wallet_address", { length: 100 }),
@@ -101289,7 +101313,13 @@ async function createContentSubmission(input) {
     authorContact: input.authorContact ?? null,
     authorCountry: input.authorCountry ?? null,
     body: input.body,
-    fileUrl: input.fileUrl ?? null
+    fileUrl: input.fileUrl ?? null,
+    whatsappNumber: input.whatsappNumber ?? null,
+    email: input.email ?? null,
+    telegramHandle: input.telegramHandle ?? null,
+    otherSocial: input.otherSocial ?? null,
+    walletAddress: input.walletAddress ?? null,
+    youtubeUrl: input.youtubeUrl ?? null
   }).returning();
   return result[0];
 }
@@ -101872,9 +101902,20 @@ ${cleaned.slice(0, 500)}`
       ]),
       authorName: external_exports.string().min(1).max(200),
       authorContact: external_exports.string().max(320).optional(),
+      // legacy free-text
       authorCountry: external_exports.string().max(100).optional(),
       body: external_exports.string().min(10).max(5e3),
       fileUrl: external_exports.string().url().max(1e3).optional(),
+      // Contact fields added 2026-05-22. WhatsApp is required on
+      // ALL new submissions (form enforces, schema enforces). Other
+      // social channels are optional fallbacks. Format expected for
+      // whatsapp_number is "+CC NNNNNNNNN" (E.164-ish with leading
+      // +country-code, but we accept loose formatting and rely on
+      // the client-side phone input for the country selector).
+      whatsappNumber: external_exports.string().min(7).max(50),
+      email: external_exports.string().email().max(320).optional().or(external_exports.literal("")),
+      telegramHandle: external_exports.string().max(100).optional(),
+      otherSocial: external_exports.string().max(300).optional(),
       // Creator Star payout-relevant fields. Optional on every
       // submission type so testimonials/photos can still go through
       // the same wire format.
@@ -101895,12 +101936,23 @@ ${cleaned.slice(0, 500)}`
         const { tgSendMessage: tgSendMessage2 } = await Promise.resolve().then(() => (init_telegram(), telegram_exports));
         const headlineEmoji = input.type === "creator_apply" ? "\u2B50" : input.type === "presenter_apply" ? "\u{1F399}" : input.type === "testimonial" ? "\u{1F4AC}" : input.type === "photo" ? "\u{1F4F8}" : input.type === "reel" ? "\u{1F3AC}" : "\u{1F4DD}";
         const bodyPreview = input.body.length > 280 ? input.body.slice(0, 277).trim() + "\u2026" : input.body;
+        const waDigits = (input.whatsappNumber || "").replace(/[^\d]/g, "");
+        const waLink = waDigits ? `https://wa.me/${waDigits}` : null;
         const lines = [
           `${headlineEmoji} <b>New ${input.type.replace("_", " ")}</b>`,
           "",
           `<b>Name:</b> ${input.authorName}`,
           input.authorCountry ? `<b>Country:</b> ${input.authorCountry}` : null,
-          input.authorContact ? `<b>Contact:</b> ${input.authorContact}` : null,
+          // PRIMARY contact: WhatsApp. Show both the human-readable
+          // number and a tappable wa.me link.
+          input.whatsappNumber ? `<b>WhatsApp:</b> <a href="${waLink}">${input.whatsappNumber}</a>` : null,
+          input.email ? `<b>Email:</b> ${input.email}` : null,
+          input.telegramHandle ? `<b>Telegram:</b> ${input.telegramHandle}` : null,
+          input.otherSocial ? `<b>Other:</b> ${input.otherSocial}` : null,
+          // Legacy free-text contact, if still populated. Most NEW
+          // submissions won't set it (the structured fields above
+          // cover the same ground), but admin sees it if present.
+          input.authorContact ? `<b>Contact (legacy):</b> ${input.authorContact}` : null,
           input.walletAddress ? `<b>Wallet:</b> <code>${input.walletAddress}</code>` : null,
           input.youtubeUrl ? `<b>YouTube:</b> ${input.youtubeUrl}` : null,
           input.fileUrl && !input.youtubeUrl ? `<b>File:</b> ${input.fileUrl}` : null,

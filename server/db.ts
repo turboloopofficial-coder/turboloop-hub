@@ -360,6 +360,16 @@ export async function createContentSubmission(input: {
   authorCountry?: string | null;
   body: string;
   fileUrl?: string | null;
+  // Structured contact fields added 2026-05-22. whatsappNumber is
+  // required for any new submission (router zod schema enforces);
+  // typed optional here because the function signature also serves
+  // historical/internal callers that don't pass it.
+  whatsappNumber?: string | null;
+  email?: string | null;
+  telegramHandle?: string | null;
+  otherSocial?: string | null;
+  walletAddress?: string | null;
+  youtubeUrl?: string | null;
 }) {
   const db = getDb();
   const result = await db
@@ -371,6 +381,12 @@ export async function createContentSubmission(input: {
       authorCountry: input.authorCountry ?? null,
       body: input.body,
       fileUrl: input.fileUrl ?? null,
+      whatsappNumber: input.whatsappNumber ?? null,
+      email: input.email ?? null,
+      telegramHandle: input.telegramHandle ?? null,
+      otherSocial: input.otherSocial ?? null,
+      walletAddress: input.walletAddress ?? null,
+      youtubeUrl: input.youtubeUrl ?? null,
     })
     .returning();
   return result[0];

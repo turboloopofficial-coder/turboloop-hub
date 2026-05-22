@@ -5,6 +5,12 @@
 // in localStorage so /my-submissions can track status.
 
 import { useState } from "react";
+import {
+  ContactFields,
+  EMPTY_CONTACT,
+  contactToWhatsappString,
+  type ContactState,
+} from "@components/forms/ContactFields";
 import Link from "next/link";
 import {
   Check,
@@ -86,7 +92,11 @@ const COUNTRIES = [
 export default function SubmitPage() {
   const [type, setType] = useState<SubmissionType>("testimonial");
   const [authorName, setAuthorName] = useState("");
-  const [authorContact, setAuthorContact] = useState("");
+  // Structured contact fields (WhatsApp required, others optional).
+  // The legacy `authorContact` free-text field is no longer collected
+  // by the new UI; the structured fields cover everything it did and
+  // more. Existing DB rows keep their authorContact value untouched.
+  const [contact, setContact] = useState<ContactState>(EMPTY_CONTACT);
   const [authorCountry, setAuthorCountry] = useState("");
   const [body, setBody] = useState("");
   const [fileUrl, setFileUrl] = useState("");
@@ -118,7 +128,7 @@ export default function SubmitPage() {
   const reset = () => {
     setType("testimonial");
     setAuthorName("");
-    setAuthorContact("");
+    setContact(EMPTY_CONTACT);
     setAuthorCountry("");
     setBody("");
     setFileUrl("");
@@ -141,16 +151,29 @@ export default function SubmitPage() {
       setError("Please enter your name.");
       return;
     }
+    // WhatsApp is required so we can follow up. The router-side zod
+    // schema also enforces this (min 7 chars) — front-end check is for
+    // the UX, the server check is for the security guarantee.
+    const whatsappString = contactToWhatsappString(contact);
+    if (!whatsappString) {
+      setError(
+        "Please enter your WhatsApp number with country code so we can follow up."
+      );
+      return;
+    }
 
     setSubmitting(true);
     try {
       const result = await submitSubmission({
         type,
         authorName: authorName.trim(),
-        authorContact: authorContact.trim() || undefined,
         authorCountry: authorCountry.trim() || undefined,
         body: body.trim(),
         fileUrl: fileUrl.trim() || undefined,
+        whatsappNumber: whatsappString,
+        email: contact.email.trim() || undefined,
+        telegramHandle: contact.telegramHandle.trim() || undefined,
+        otherSocial: contact.otherSocial.trim() || undefined,
         walletAddress: walletAddress.trim() || undefined,
         youtubeUrl: youtubeUrl.trim() || undefined,
       });
@@ -315,22 +338,19 @@ export default function SubmitPage() {
               </div>
             </div>
 
-            {/* Contact */}
-            <div>
-              <label
-                htmlFor="submit-contact"
-                className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2"
-              >
-                Email or Telegram (optional)
-              </label>
-              <input
-                id="submit-contact"
-                type="text"
-                value={authorContact}
-                onChange={e => setAuthorContact(e.target.value)}
-                maxLength={320}
-                placeholder="So we can reach out if we feature you"
-                className="w-full px-4 h-12 rounded-[var(--r-md)] text-base bg-[var(--c-surface)] outline-none transition border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/30"
+            {/* Contact — WhatsApp required + optional email / Telegram /
+                other social. Rendered by the shared ContactFields
+                component so the same UX is consistent across /submit,
+                /apply, /careers, and the social-wall form. */}
+            <div className="rounded-[var(--r-lg)] p-5 bg-[var(--c-surface)] border border-[var(--c-border)]">
+              <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-4">
+                How can we reach you?
+              </div>
+              <ContactFields
+                value={contact}
+                onChange={setContact}
+                requireWhatsapp
+                idPrefix="submit"
               />
             </div>
 

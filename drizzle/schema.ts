@@ -236,10 +236,18 @@ export const contentSubmissions = pgTable("content_submissions", {
   id: serial("id").primaryKey(),
   type: varchar("type", { length: 50 }).notNull(), // testimonial | photo | reel | story | creator_apply | presenter_apply
   authorName: varchar("author_name", { length: 200 }).notNull(),
-  authorContact: varchar("author_contact", { length: 320 }), // email or telegram handle
+  authorContact: varchar("author_contact", { length: 320 }), // legacy free-text "email or telegram handle" — preserved for back-compat
   authorCountry: varchar("author_country", { length: 100 }),
   body: text("body").notNull(),
   fileUrl: varchar("file_url", { length: 1000 }), // optional photo/video URL
+  // Structured contact fields — added 2026-05-22. WhatsApp is the
+  // primary follow-up channel for the global community (form-level
+  // validation requires it on NEW submissions; legacy rows keep NULL).
+  // email + telegram_handle + other_social are optional fallbacks.
+  whatsappNumber: varchar("whatsapp_number", { length: 50 }),
+  email: varchar("email", { length: 320 }),
+  telegramHandle: varchar("telegram_handle", { length: 100 }),
+  otherSocial: varchar("other_social", { length: 300 }),
   // Creator Star payout fields — set by the /submit form for
   // creator_apply submissions and updated by the 44-day reminder cron.
   walletAddress: varchar("wallet_address", { length: 100 }),

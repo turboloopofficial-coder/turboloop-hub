@@ -7,6 +7,12 @@
 // payout, the 44-day reminder cron handles the rest.
 
 import { useState } from "react";
+import {
+  ContactFields,
+  EMPTY_CONTACT,
+  contactToWhatsappString,
+  type ContactState,
+} from "@components/forms/ContactFields";
 import { Loader2, Send, Check } from "lucide-react";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
@@ -25,7 +31,9 @@ const PLATFORM_OPTIONS = [
 
 export function SocialWallSubmitForm() {
   const [name, setName] = useState("");
-  const [telegram, setTelegram] = useState("");
+  // Structured contact replaces the separate `telegram` field.
+  // WhatsApp required; email + Telegram + other-social optional.
+  const [contact, setContact] = useState<ContactState>(EMPTY_CONTACT);
   const [videoUrl, setVideoUrl] = useState("");
   const [platform, setPlatform] = useState("youtube");
   const [description, setDescription] = useState("");
@@ -42,8 +50,9 @@ export function SocialWallSubmitForm() {
       setError("Please enter your name.");
       return;
     }
-    if (telegram.trim().length < 2) {
-      setError("Telegram handle is required so we can reach you.");
+    const whatsappString = contactToWhatsappString(contact);
+    if (!whatsappString) {
+      setError("WhatsApp number is required so we can reach you.");
       return;
     }
     if (videoUrl.trim().length < 5) {
@@ -63,8 +72,11 @@ export function SocialWallSubmitForm() {
       const result = await submitSubmission({
         type: "creator_apply",
         authorName: name.trim(),
-        authorContact: `@${telegram.trim().replace(/^@/, "")}`,
         body,
+        whatsappNumber: whatsappString,
+        email: contact.email.trim() || undefined,
+        telegramHandle: contact.telegramHandle.trim() || undefined,
+        otherSocial: contact.otherSocial.trim() || undefined,
         youtubeUrl: platform === "youtube" ? videoUrl.trim() : undefined,
         fileUrl: platform !== "youtube" ? videoUrl.trim() : undefined,
       });
@@ -137,21 +149,6 @@ export function SocialWallSubmitForm() {
             placeholder="Your name"
             disabled={busy}
           />
-          <Field
-            label="Telegram handle *"
-            value={telegram}
-            onChange={setTelegram}
-            placeholder="@yourname"
-            disabled={busy}
-          />
-          <Field
-            label="Video URL *"
-            value={videoUrl}
-            onChange={setVideoUrl}
-            placeholder="https://youtube.com/…"
-            disabled={busy}
-            className="md:col-span-1"
-          />
           <div>
             <label className="block text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
               Platform *
@@ -169,6 +166,28 @@ export function SocialWallSubmitForm() {
               ))}
             </select>
           </div>
+        </div>
+
+        <Field
+          label="Video URL *"
+          value={videoUrl}
+          onChange={setVideoUrl}
+          placeholder="https://youtube.com/…"
+          disabled={busy}
+        />
+
+        {/* Contact block — WhatsApp required + optional email/Telegram
+            /other-social. Same component as /submit, /apply, /careers. */}
+        <div className="rounded-[var(--r-lg)] p-5 bg-[var(--c-bg)] border border-[var(--c-border)]">
+          <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-4">
+            How can we reach you?
+          </div>
+          <ContactFields
+            value={contact}
+            onChange={setContact}
+            requireWhatsapp
+            idPrefix="social-wall"
+          />
         </div>
 
         <div>

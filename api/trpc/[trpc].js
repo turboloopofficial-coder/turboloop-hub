@@ -101924,8 +101924,9 @@ ${cleaned.slice(0, 500)}`
     })).mutation(async ({ input }) => {
       const created = await createContentSubmission(input);
       const { sendSubmissionReceivedEmail: sendSubmissionReceivedEmail2 } = await Promise.resolve().then(() => (init_email(), email_exports));
+      const confirmEmailTo = input.email && input.email.trim() || input.authorContact;
       sendSubmissionReceivedEmail2({
-        to: input.authorContact,
+        to: confirmEmailTo,
         name: input.authorName,
         kind: input.type
       }).catch(() => {

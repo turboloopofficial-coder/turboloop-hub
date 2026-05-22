@@ -58,7 +58,10 @@ function formatDate(iso: string) {
 }
 
 function isBlogLanguage(v: string | undefined): v is BlogLanguage {
-  return v === "en" || v === "de" || v === "id";
+  // Whitelist must mirror BLOG_LANGUAGES in lib/api.ts. Missing "hi" here
+  // (until 2026-05-22) silently dropped the Hindi filter and showed all
+  // posts to Hindi users — bug surfaced by the full-site audit.
+  return v === "en" || v === "de" || v === "hi" || v === "id";
 }
 
 export default async function BlogIndex({

@@ -383,8 +383,15 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         // Falls through silently when env is missing or send fails — must
         // never block the submission flow.
         const { sendSubmissionReceivedEmail } = await import("./email");
+        // Prefer the structured `email` field over the legacy free-text
+        // `authorContact` — most new submissions will only set the
+        // structured field, so the old code path silently skipped the
+        // confirmation email for everyone post-migration. Fall back to
+        // authorContact for legacy rows where it was the only contact.
+        const confirmEmailTo =
+          (input.email && input.email.trim()) || input.authorContact;
         sendSubmissionReceivedEmail({
-          to: input.authorContact,
+          to: confirmEmailTo,
           name: input.authorName,
           kind: input.type,
         }).catch(() => {});

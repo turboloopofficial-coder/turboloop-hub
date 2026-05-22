@@ -48,12 +48,13 @@ const config: NextConfig = {
         permanent: true,
       },
       // /films/sovereign-series no longer exists — content rendered as
-      // the top section of /films. 301 transfers SEO link equity from
-      // any TG-shared URLs.
+      // the top section of /films. Explicit 301 (not the default 308
+      // that `permanent: true` would emit) — keeps strict SEO tooling
+      // happy and preserves link equity from any TG-shared URLs.
       {
         source: "/films/sovereign-series",
         destination: "/films",
-        permanent: true,
+        statusCode: 301,
       },
       // Per-slug variants — never published as a live route (detail
       // page was deferred), but if any bots followed the listing's
@@ -62,7 +63,7 @@ const config: NextConfig = {
       {
         source: "/films/sovereign-series/:slug",
         destination: "/films/:slug",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },

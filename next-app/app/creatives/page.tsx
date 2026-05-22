@@ -17,7 +17,7 @@ import type { Metadata } from "next";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
-import { BannerCard } from "@components/creatives/BannerCard";
+import { CategoryGrid } from "@components/creatives/CategoryGrid";
 import { CreativesCategoryNav } from "@components/creatives/CreativesCategoryNav";
 import { CreativesLanguageTabs } from "@components/creatives/CreativesLanguageTabs";
 import {
@@ -107,10 +107,19 @@ export async function generateMetadata({
     ? `https://www.turboloop.tech/creatives?lang=${activeLang}`
     : "https://www.turboloop.tech/creatives";
   const image = ogImageUrl(activeLang);
+  // Hreflang — declare every language variant of /creatives so Google
+  // serves the right locale on the SERP. Mirror the pattern already
+  // used on /films. `x-default` points at the unfiltered EN landing.
+  const langAlternates: Record<string, string> = {
+    "x-default": "https://www.turboloop.tech/creatives",
+  };
+  for (const l of BANNER_LANGUAGES) {
+    langAlternates[l.code] = `https://www.turboloop.tech/creatives?lang=${l.code}`;
+  }
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: { canonical, languages: langAlternates },
     openGraph: {
       title,
       description,
@@ -204,11 +213,7 @@ export default async function CreativesPage({
                   </Heading>
                 </div>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-                {items.map(banner => (
-                  <BannerCard key={banner.slug} banner={banner} catLabel={cat.label} />
-                ))}
-              </div>
+              <CategoryGrid items={items} catLabel={cat.label} />
             </section>
           );
         })}

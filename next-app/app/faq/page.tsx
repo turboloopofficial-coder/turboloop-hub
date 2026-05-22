@@ -70,7 +70,7 @@ const FAQS: FaqGroup[] = [
       {
         q: "How do I deposit?",
         a: "Connect your Web3 wallet (MetaMask, Trust Wallet, or any BSC-compatible wallet) → choose your Loop Plan → deposit USDT (minimum 1 USDT on BSC network). Your deposit enters the LP pool immediately and you start earning from the next 00:00 UTC cycle.",
-        video: { href: "/films/manifesto", label: "Watch the walkthrough" },
+        video: { href: "/reels/how-to-join-english", label: "Watch the join walkthrough" },
       },
       {
         q: "What is the minimum deposit?",
@@ -106,6 +106,7 @@ const FAQS: FaqGroup[] = [
       {
         q: "How do I withdraw my earnings?",
         a: 'Your principal is returned automatically at the end of your plan cycle. Daily earnings can be claimed from your dashboard at any time. Go to your portfolio → click "Claim" on available earnings → confirm the transaction in your wallet.',
+        video: { href: "/reels/withdraw-compound-english", label: "Watch withdraw + compound" },
       },
       {
         q: "How do I compound my earnings?",
@@ -139,6 +140,7 @@ const FAQS: FaqGroup[] = [
       {
         q: "How does the referral system work?",
         a: "TurboLoop distributes **51% of daily ROI** across a 20-level referral network. Level 1 earns 12%, Level 2 earns 8%, Level 3 earns 5%, and so on down to 1% each for Levels 11–20. Each level has qualification requirements (minimum direct referrals and self-deposit). Referral rewards are calculated and paid daily at 00:00 UTC.",
+        video: { href: "/reels/withdraw-compound-english", label: "Watch referral walkthrough" },
       },
       {
         q: "What is the Leadership Program?",

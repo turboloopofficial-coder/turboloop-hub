@@ -17706,8 +17706,8 @@ var require_escape_html = __commonJS({
   "node_modules/escape-html/index.js"(exports2, module2) {
     "use strict";
     var matchHtmlRegExp = /["'&<>]/;
-    module2.exports = escapeHtml;
-    function escapeHtml(string4) {
+    module2.exports = escapeHtml2;
+    function escapeHtml2(string4) {
       var str = "" + string4;
       var match = matchHtmlRegExp.exec(str);
       if (!match) {
@@ -17838,7 +17838,7 @@ var require_finalhandler = __commonJS({
     "use strict";
     var debug = require_src2()("finalhandler");
     var encodeUrl = require_encodeurl();
-    var escapeHtml = require_escape_html();
+    var escapeHtml2 = require_escape_html();
     var onFinished = require_on_finished();
     var parseUrl6 = require_parseurl();
     var statuses = require_statuses();
@@ -17850,7 +17850,7 @@ var require_finalhandler = __commonJS({
     };
     var isFinished = onFinished.isFinished;
     function createHtmlDocument(message2) {
-      var body = escapeHtml(message2).replace(NEWLINE_REGEXP, "<br>").replace(DOUBLE_SPACE_REGEXP, " &nbsp;");
+      var body = escapeHtml2(message2).replace(NEWLINE_REGEXP, "<br>").replace(DOUBLE_SPACE_REGEXP, " &nbsp;");
       return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>' + body + "</pre>\n</body>\n</html>\n";
     }
     module2.exports = finalhandler;
@@ -20354,7 +20354,7 @@ var require_send = __commonJS({
     var deprecate = require_depd()("send");
     var destroy = require_destroy();
     var encodeUrl = require_encodeurl();
-    var escapeHtml = require_escape_html();
+    var escapeHtml2 = require_escape_html();
     var etag = require_etag();
     var fresh = require_fresh();
     var fs = require("fs");
@@ -20454,7 +20454,7 @@ var require_send = __commonJS({
       }
       var res = this.res;
       var msg = statuses.message[status] || String(status);
-      var doc = createHtmlDocument("Error", escapeHtml(msg));
+      var doc = createHtmlDocument("Error", escapeHtml2(msg));
       clearHeaders(res);
       if (err && err.headers) {
         setHeaders(res, err.headers);
@@ -20554,7 +20554,7 @@ var require_send = __commonJS({
         return;
       }
       var loc = encodeUrl(collapseLeadingSlashes(this.path + "/"));
-      var doc = createHtmlDocument("Redirecting", "Redirecting to " + escapeHtml(loc));
+      var doc = createHtmlDocument("Redirecting", "Redirecting to " + escapeHtml2(loc));
       res.statusCode = 301;
       res.setHeader("Content-Type", "text/html; charset=UTF-8");
       res.setHeader("Content-Length", Buffer.byteLength(doc));
@@ -23142,7 +23142,7 @@ var require_response = __commonJS({
     var createError = require_http_errors();
     var deprecate = require_depd()("express");
     var encodeUrl = require_encodeurl();
-    var escapeHtml = require_escape_html();
+    var escapeHtml2 = require_escape_html();
     var http = require("http");
     var isAbsolute = require_utils2().isAbsolute;
     var onFinished = require_on_finished();
@@ -23548,7 +23548,7 @@ var require_response = __commonJS({
           body = statuses.message[status] + ". Redirecting to " + address;
         },
         html: function() {
-          var u = escapeHtml(address);
+          var u = escapeHtml2(address);
           body = "<p>" + statuses.message[status] + ". Redirecting to " + u + "</p>";
         },
         default: function() {
@@ -23680,7 +23680,7 @@ var require_serve_static = __commonJS({
   "node_modules/serve-static/index.js"(exports2, module2) {
     "use strict";
     var encodeUrl = require_encodeurl();
-    var escapeHtml = require_escape_html();
+    var escapeHtml2 = require_escape_html();
     var parseUrl6 = require_parseurl();
     var resolve = require("path").resolve;
     var send = require_send();
@@ -23767,7 +23767,7 @@ var require_serve_static = __commonJS({
         originalUrl.path = null;
         originalUrl.pathname = collapseLeadingSlashes(originalUrl.pathname + "/");
         var loc = encodeUrl(url2.format(originalUrl));
-        var doc = createHtmlDocument("Redirecting", "Redirecting to " + escapeHtml(loc));
+        var doc = createHtmlDocument("Redirecting", "Redirecting to " + escapeHtml2(loc));
         res.statusCode = 301;
         res.setHeader("Content-Type", "text/html; charset=UTF-8");
         res.setHeader("Content-Length", Buffer.byteLength(doc));
@@ -71795,6 +71795,8 @@ var init_sdk = __esm({
 // server/email.ts
 var email_exports = {};
 __export(email_exports, {
+  ADMIN_TEMPLATE_LABELS: () => ADMIN_TEMPLATE_LABELS,
+  sendAdminTemplateEmail: () => sendAdminTemplateEmail,
   sendSubmissionApprovedEmail: () => sendSubmissionApprovedEmail,
   sendSubmissionReceivedEmail: () => sendSubmissionReceivedEmail
 });
@@ -71846,7 +71848,52 @@ async function sendSubmissionApprovedEmail(p3) {
     )
   });
 }
-var API, SITE, wrap2, KIND_LABEL;
+async function sendAdminTemplateEmail(args) {
+  const label = KIND_LABEL[args.kind] ?? "submission";
+  let subject = "TurboLoop update";
+  let heading = `Hi ${args.name}.`;
+  let body = "";
+  switch (args.template) {
+    case "content_approved":
+      subject = `Approved \xB7 your ${label} is live`;
+      heading = `Approved, ${args.name}.`;
+      body = `<p>Your <b>${label}</b> just went live on TurboLoop.</p><p>Share it \u2014 your contribution helps the community grow, and we boost the contributors who push hardest.</p>` + renderCustom(args.customMessage) + cta("See it live", `${SITE}/community`);
+      break;
+    case "payment_pending_wallet":
+      subject = `Send us your BSC wallet to receive payment`;
+      heading = `Payment ready, ${args.name}.`;
+      body = `<p>Your <b>${label}</b> is approved for payment. To receive it, please reply with your <b>BSC (BEP-20) wallet address</b>.</p><p>USDT will be sent on Binance Smart Chain \u2014 make sure the address you provide accepts BEP-20 USDT (most wallets do, including MetaMask, Trust Wallet, and exchange-hosted wallets).</p>` + renderCustom(args.customMessage) + cta("Reply to this email with your wallet", `mailto:hello@turboloop.tech?subject=${encodeURIComponent("My BSC wallet for TurboLoop payment")}`);
+      break;
+    case "payment_sent": {
+      const amt = typeof args.payoutAmountUsd === "number" ? args.payoutAmountUsd : null;
+      const tx = args.payoutTxId ? args.payoutTxId.trim() : null;
+      subject = amt ? `Payment sent \xB7 ${amt} USDT` : `Payment sent`;
+      heading = `Paid, ${args.name}.`;
+      body = (amt ? `<p>We just sent <b>${amt} USDT</b> for your ${label}.</p>` : `<p>We just sent your payment for the ${label}.</p>`) + (tx ? `<p>Transaction: <a href="https://bscscan.com/tx/${encodeURIComponent(tx)}" style="color:#0891B2;font-family:monospace;font-size:12px;word-break:break-all;">${escapeHtml(tx)}</a></p>` : "") + renderCustom(args.customMessage) + cta("View on BscScan", tx ? `https://bscscan.com/tx/${encodeURIComponent(tx)}` : "https://bscscan.com/");
+      break;
+    }
+    case "content_rejected":
+      subject = `About your ${label}`;
+      heading = `Hi ${args.name},`;
+      body = `<p>Thanks for sending your <b>${label}</b>. Unfortunately we can't approve it as it stands.</p>` + (args.reason ? `<p><b>Reason:</b> ${escapeHtml(args.reason)}</p>` : "") + `<p>If you'd like to revise and resubmit, you're welcome to \u2014 every contribution helps us understand the community better, even when it doesn't make the wall.</p>` + renderCustom(args.customMessage) + cta("Submit again", `${SITE}/submit`);
+      break;
+    case "needs_more_info":
+      subject = `Quick question about your ${label}`;
+      heading = `Hi ${args.name},`;
+      body = `<p>We're reviewing your <b>${label}</b> and need a bit more info before we can approve.</p>` + (args.customMessage ? renderCustom(args.customMessage) : `<p>Could you reply to this email with any additional context \u2014 full video URL, original publish date, language, audience size, etc.?</p>`) + cta("Reply via email", "mailto:hello@turboloop.tech?subject=Re%3A%20My%20submission");
+      break;
+  }
+  if (!args.to || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(args.to)) {
+    return { ok: true, sent: false, reason: "no valid email address on file" };
+  }
+  await sendEmail({
+    to: args.to,
+    subject,
+    html: wrap2(heading, body)
+  });
+  return { ok: true, sent: true };
+}
+var API, SITE, wrap2, KIND_LABEL, ADMIN_TEMPLATE_LABELS, cta, escapeHtml, renderCustom;
 var init_email = __esm({
   "server/email.ts"() {
     "use strict";
@@ -71875,6 +71922,20 @@ var init_email = __esm({
       story: "story",
       creator_apply: "Creator Star application",
       presenter_apply: "Local Presenter application"
+    };
+    ADMIN_TEMPLATE_LABELS = {
+      content_approved: "Content approved",
+      payment_pending_wallet: "Payment pending \u2014 send wallet",
+      payment_sent: "Payment sent",
+      content_rejected: "Content rejected",
+      needs_more_info: "Needs more info"
+    };
+    cta = (label, href) => `<p style="margin-top:24px;"><a href="${href}" style="display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#0891B2,#7C3AED);color:white;text-decoration:none;font-weight:700;font-size:14px;">${label}</a></p>`;
+    escapeHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    renderCustom = (raw) => {
+      if (!raw) return "";
+      const safe = escapeHtml(raw).replace(/\n/g, "<br>");
+      return `<p style="margin-top:18px;padding:14px 16px;background:#F1F5F9;border-radius:10px;color:#0F172A;font-style:italic;">${safe}</p>`;
     };
   }
 });
@@ -102003,6 +102064,113 @@ ${cleaned.slice(0, 500)}`
         });
       }
       return updated;
+    }),
+    /** Send a templated email to a submission's email contact —
+     *  admin-only. Uses the existing Resend integration via
+     *  server/email.ts → sendAdminTemplateEmail. Returns whether the
+     *  send happened (it's skipped if no valid email is on file).
+     *
+     *  Templates: content_approved, payment_pending_wallet,
+     *  payment_sent, content_rejected, needs_more_info. */
+    sendTemplateEmail: adminProcedure.input(external_exports.object({
+      id: external_exports.number(),
+      template: external_exports.enum([
+        "content_approved",
+        "payment_pending_wallet",
+        "payment_sent",
+        "content_rejected",
+        "needs_more_info"
+      ]),
+      customMessage: external_exports.string().max(2e3).optional(),
+      reason: external_exports.string().max(500).optional(),
+      payoutAmountUsd: external_exports.number().int().optional(),
+      payoutTxId: external_exports.string().max(200).optional()
+    })).mutation(async ({ input }) => {
+      const all = await listContentSubmissions();
+      const sub = all.find((s) => s.id === input.id);
+      if (!sub) {
+        return { ok: false, sent: false, reason: "submission not found" };
+      }
+      const to2 = sub.email?.trim() || sub.authorContact || null;
+      const { sendAdminTemplateEmail: sendAdminTemplateEmail2 } = await Promise.resolve().then(() => (init_email(), email_exports));
+      const result = await sendAdminTemplateEmail2({
+        template: input.template,
+        to: to2,
+        name: sub.authorName,
+        kind: sub.type,
+        customMessage: input.customMessage ?? null,
+        reason: input.reason ?? null,
+        payoutAmountUsd: input.payoutAmountUsd ?? null,
+        payoutTxId: input.payoutTxId ?? null
+      });
+      return result;
+    }),
+    /** CSV export of all submissions — admin-only. Returns the CSV as
+     *  a single string; the legacy admin SPA wraps that in a Blob and
+     *  triggers a download. Includes contact fields + wallet + status
+     *  + type + author so the team can pull a snapshot for ops work
+     *  outside the dashboard. */
+    exportCsv: adminProcedure.input(external_exports.object({
+      status: external_exports.enum(["pending", "approved", "payment_due", "paid", "rejected"]).optional()
+    }).optional()).query(async ({ input }) => {
+      const rows = await listContentSubmissions(input?.status);
+      const headers = [
+        "id",
+        "type",
+        "status",
+        "author_name",
+        "author_country",
+        "whatsapp_number",
+        "email",
+        "telegram_handle",
+        "other_social",
+        "author_contact_legacy",
+        "wallet_address",
+        "youtube_url",
+        "file_url",
+        "view_count",
+        "payout_amount_usd",
+        "body_preview",
+        "created_at"
+      ];
+      const csvEscape = (v2) => {
+        if (v2 === null || v2 === void 0) return "";
+        const s = String(v2);
+        if (/[,"\n\r]/.test(s)) {
+          return `"${s.replace(/"/g, '""')}"`;
+        }
+        return s;
+      };
+      const lines = [headers.join(",")];
+      for (const r5 of rows) {
+        const bodyPreview = (r5.body || "").slice(0, 140).replace(/\s+/g, " ").trim();
+        lines.push(
+          [
+            r5.id,
+            r5.type,
+            r5.status,
+            r5.authorName,
+            r5.authorCountry ?? "",
+            r5.whatsappNumber ?? "",
+            r5.email ?? "",
+            r5.telegramHandle ?? "",
+            r5.otherSocial ?? "",
+            r5.authorContact ?? "",
+            r5.walletAddress ?? "",
+            r5.youtubeUrl ?? "",
+            r5.fileUrl ?? "",
+            r5.viewCount ?? "",
+            r5.payoutAmountUsd ?? "",
+            bodyPreview,
+            r5.createdAt instanceof Date ? r5.createdAt.toISOString() : r5.createdAt ?? ""
+          ].map(csvEscape).join(",")
+        );
+      }
+      return {
+        rowCount: rows.length,
+        csv: lines.join("\n"),
+        filename: `turboloop-submissions-${(/* @__PURE__ */ new Date()).toISOString().slice(0, 10)}.csv`
+      };
     }),
     /** Update Creator Star payout fields — admin sets the view-count
      *  read + the suggested USD payout amount based on the published

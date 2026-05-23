@@ -105,3 +105,146 @@ export async function sendSubmissionApprovedEmail(p: {
     ),
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// Admin-triggered templates (Phase 5 — admin email panel)
+//
+// These are NOT fired automatically by the submission flow — they're
+// available from the admin dashboard "Send email" dropdown so the team
+// can move someone through the moderation lifecycle without leaving
+// the tab. Each follows the same `wrap()` brand shell so every
+// outbound email looks the same to the recipient.
+//
+// All four templates share the same signature: `to`, `name`, `kind`,
+// + the optional `customMessage` override for the admin to inject a
+// personal note when the template's standard copy isn't quite right.
+// ─────────────────────────────────────────────────────────────────────
+
+export type AdminEmailTemplate =
+  | "content_approved"
+  | "payment_pending_wallet"
+  | "payment_sent"
+  | "content_rejected"
+  | "needs_more_info";
+
+export const ADMIN_TEMPLATE_LABELS: Record<AdminEmailTemplate, string> = {
+  content_approved: "Content approved",
+  payment_pending_wallet: "Payment pending — send wallet",
+  payment_sent: "Payment sent",
+  content_rejected: "Content rejected",
+  needs_more_info: "Needs more info",
+};
+
+interface AdminSendArgs {
+  template: AdminEmailTemplate;
+  to: string | null | undefined;
+  name: string;
+  kind: string;
+  /** Optional admin-typed paragraph appended to the standard template
+   *  body. Lets the team add per-recipient color without breaking the
+   *  brand shell. Plain text — newlines become <br>. */
+  customMessage?: string | null;
+  /** Optional rejection reason — only meaningful for `content_rejected`. */
+  reason?: string | null;
+  /** Optional payment amount — only meaningful for `payment_sent`. */
+  payoutAmountUsd?: number | null;
+  /** Optional payment txid — only meaningful for `payment_sent`. */
+  payoutTxId?: string | null;
+}
+
+const cta = (label: string, href: string) =>
+  `<p style="margin-top:24px;"><a href="${href}" style="display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#0891B2,#7C3AED);color:white;text-decoration:none;font-weight:700;font-size:14px;">${label}</a></p>`;
+
+const escapeHtml = (s: string) =>
+  s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+const renderCustom = (raw: string | null | undefined) => {
+  if (!raw) return "";
+  const safe = escapeHtml(raw).replace(/\n/g, "<br>");
+  return `<p style="margin-top:18px;padding:14px 16px;background:#F1F5F9;border-radius:10px;color:#0F172A;font-style:italic;">${safe}</p>`;
+};
+
+export async function sendAdminTemplateEmail(args: AdminSendArgs): Promise<{ ok: boolean; sent: boolean; reason?: string }> {
+  const label = KIND_LABEL[args.kind] ?? "submission";
+  let subject = "TurboLoop update";
+  let heading = `Hi ${args.name}.`;
+  let body = "";
+
+  switch (args.template) {
+    case "content_approved":
+      subject = `Approved · your ${label} is live`;
+      heading = `Approved, ${args.name}.`;
+      body =
+        `<p>Your <b>${label}</b> just went live on TurboLoop.</p>` +
+        `<p>Share it — your contribution helps the community grow, and we boost the contributors who push hardest.</p>` +
+        renderCustom(args.customMessage) +
+        cta("See it live", `${SITE}/community`);
+      break;
+
+    case "payment_pending_wallet":
+      subject = `Send us your BSC wallet to receive payment`;
+      heading = `Payment ready, ${args.name}.`;
+      body =
+        `<p>Your <b>${label}</b> is approved for payment. To receive it, please reply with your <b>BSC (BEP-20) wallet address</b>.</p>` +
+        `<p>USDT will be sent on Binance Smart Chain — make sure the address you provide accepts BEP-20 USDT (most wallets do, including MetaMask, Trust Wallet, and exchange-hosted wallets).</p>` +
+        renderCustom(args.customMessage) +
+        cta("Reply to this email with your wallet", `mailto:hello@turboloop.tech?subject=${encodeURIComponent("My BSC wallet for TurboLoop payment")}`);
+      break;
+
+    case "payment_sent": {
+      const amt = typeof args.payoutAmountUsd === "number" ? args.payoutAmountUsd : null;
+      const tx = args.payoutTxId ? args.payoutTxId.trim() : null;
+      subject = amt ? `Payment sent · ${amt} USDT` : `Payment sent`;
+      heading = `Paid, ${args.name}.`;
+      body =
+        (amt
+          ? `<p>We just sent <b>${amt} USDT</b> for your ${label}.</p>`
+          : `<p>We just sent your payment for the ${label}.</p>`) +
+        (tx
+          ? `<p>Transaction: <a href="https://bscscan.com/tx/${encodeURIComponent(tx)}" style="color:#0891B2;font-family:monospace;font-size:12px;word-break:break-all;">${escapeHtml(tx)}</a></p>`
+          : "") +
+        renderCustom(args.customMessage) +
+        cta("View on BscScan", tx ? `https://bscscan.com/tx/${encodeURIComponent(tx)}` : "https://bscscan.com/");
+      break;
+    }
+
+    case "content_rejected":
+      subject = `About your ${label}`;
+      heading = `Hi ${args.name},`;
+      body =
+        `<p>Thanks for sending your <b>${label}</b>. Unfortunately we can't approve it as it stands.</p>` +
+        (args.reason
+          ? `<p><b>Reason:</b> ${escapeHtml(args.reason)}</p>`
+          : "") +
+        `<p>If you'd like to revise and resubmit, you're welcome to — every contribution helps us understand the community better, even when it doesn't make the wall.</p>` +
+        renderCustom(args.customMessage) +
+        cta("Submit again", `${SITE}/submit`);
+      break;
+
+    case "needs_more_info":
+      subject = `Quick question about your ${label}`;
+      heading = `Hi ${args.name},`;
+      body =
+        `<p>We're reviewing your <b>${label}</b> and need a bit more info before we can approve.</p>` +
+        (args.customMessage
+          ? renderCustom(args.customMessage)
+          : `<p>Could you reply to this email with any additional context — full video URL, original publish date, language, audience size, etc.?</p>`) +
+        cta("Reply via email", "mailto:hello@turboloop.tech?subject=Re%3A%20My%20submission");
+      break;
+  }
+
+  if (!args.to || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(args.to)) {
+    return { ok: true, sent: false, reason: "no valid email address on file" };
+  }
+  await sendEmail({
+    to: args.to,
+    subject,
+    html: wrap(heading, body),
+  });
+  return { ok: true, sent: true };
+}

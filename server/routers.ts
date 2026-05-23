@@ -501,6 +501,124 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         return updated;
       }),
 
+    /** Send a templated email to a submission's email contact —
+     *  admin-only. Uses the existing Resend integration via
+     *  server/email.ts → sendAdminTemplateEmail. Returns whether the
+     *  send happened (it's skipped if no valid email is on file).
+     *
+     *  Templates: content_approved, payment_pending_wallet,
+     *  payment_sent, content_rejected, needs_more_info. */
+    sendTemplateEmail: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        template: z.enum([
+          "content_approved",
+          "payment_pending_wallet",
+          "payment_sent",
+          "content_rejected",
+          "needs_more_info",
+        ]),
+        customMessage: z.string().max(2000).optional(),
+        reason: z.string().max(500).optional(),
+        payoutAmountUsd: z.number().int().optional(),
+        payoutTxId: z.string().max(200).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const all = await listContentSubmissions();
+        const sub = all.find(s => s.id === input.id);
+        if (!sub) {
+          return { ok: false as const, sent: false as const, reason: "submission not found" };
+        }
+        // Prefer the structured `email` field, fall back to legacy
+        // `authorContact` for older rows. Matches the same fallback
+        // applied for the auto-confirmation emails.
+        const to = sub.email?.trim() || sub.authorContact || null;
+        const { sendAdminTemplateEmail } = await import("./email");
+        const result = await sendAdminTemplateEmail({
+          template: input.template,
+          to,
+          name: sub.authorName,
+          kind: sub.type,
+          customMessage: input.customMessage ?? null,
+          reason: input.reason ?? null,
+          payoutAmountUsd: input.payoutAmountUsd ?? null,
+          payoutTxId: input.payoutTxId ?? null,
+        });
+        return result;
+      }),
+
+    /** CSV export of all submissions — admin-only. Returns the CSV as
+     *  a single string; the legacy admin SPA wraps that in a Blob and
+     *  triggers a download. Includes contact fields + wallet + status
+     *  + type + author so the team can pull a snapshot for ops work
+     *  outside the dashboard. */
+    exportCsv: adminProcedure
+      .input(z.object({
+        status: z.enum(["pending", "approved", "payment_due", "paid", "rejected"]).optional(),
+      }).optional())
+      .query(async ({ input }) => {
+        const rows = await listContentSubmissions(input?.status);
+        const headers = [
+          "id",
+          "type",
+          "status",
+          "author_name",
+          "author_country",
+          "whatsapp_number",
+          "email",
+          "telegram_handle",
+          "other_social",
+          "author_contact_legacy",
+          "wallet_address",
+          "youtube_url",
+          "file_url",
+          "view_count",
+          "payout_amount_usd",
+          "body_preview",
+          "created_at",
+        ];
+        const csvEscape = (v: unknown): string => {
+          if (v === null || v === undefined) return "";
+          const s = String(v);
+          // Wrap in quotes if contains comma, quote, or newline. Double
+          // any existing quotes inside.
+          if (/[,"\n\r]/.test(s)) {
+            return `"${s.replace(/"/g, '""')}"`;
+          }
+          return s;
+        };
+        const lines = [headers.join(",")];
+        for (const r of rows) {
+          const bodyPreview = (r.body || "").slice(0, 140).replace(/\s+/g, " ").trim();
+          lines.push(
+            [
+              r.id,
+              r.type,
+              r.status,
+              r.authorName,
+              r.authorCountry ?? "",
+              r.whatsappNumber ?? "",
+              r.email ?? "",
+              r.telegramHandle ?? "",
+              r.otherSocial ?? "",
+              r.authorContact ?? "",
+              r.walletAddress ?? "",
+              r.youtubeUrl ?? "",
+              r.fileUrl ?? "",
+              r.viewCount ?? "",
+              r.payoutAmountUsd ?? "",
+              bodyPreview,
+              r.createdAt instanceof Date ? r.createdAt.toISOString() : (r.createdAt ?? ""),
+            ].map(csvEscape).join(",")
+          );
+        }
+        return {
+          rowCount: rows.length,
+          csv: lines.join("\n"),
+          filename: `turboloop-submissions-${new Date().toISOString().slice(0, 10)}.csv`,
+        };
+      }),
+
     /** Update Creator Star payout fields — admin sets the view-count
      *  read + the suggested USD payout amount based on the published
      *  tier table. Status is moved separately via `moderate`. */

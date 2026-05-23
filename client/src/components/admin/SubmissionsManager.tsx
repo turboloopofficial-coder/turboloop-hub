@@ -5,11 +5,22 @@
 import { useState } from "react";
 import {
   Loader2, Check, X, Clock, MessageSquare, Camera, Film, BookOpen,
-  ExternalLink, Wallet, DollarSign, Eye,
+  ExternalLink, Wallet, DollarSign, Eye, Mail, Download, Edit3,
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 type StatusFilter = "pending" | "approved" | "payment_due" | "paid" | "rejected" | "all";
+
+// Phase 5: admin email templates. Labels mirror server/email.ts
+// ADMIN_TEMPLATE_LABELS — keep in sync. The dropdown surfaces the
+// human-readable label; the value is the template id sent to tRPC.
+const EMAIL_TEMPLATES: Array<{ id: string; label: string }> = [
+  { id: "content_approved",        label: "Content approved" },
+  { id: "payment_pending_wallet",  label: "Payment pending — ask for wallet" },
+  { id: "payment_sent",            label: "Payment sent" },
+  { id: "content_rejected",        label: "Content rejected" },
+  { id: "needs_more_info",         label: "Needs more info" },
+];
 
 const STATUS_COLOR: Record<string, { bg: string; fg: string }> = {
   pending:      { bg: "rgba(245,158,11,0.12)", fg: "#B45309" },
@@ -48,10 +59,101 @@ export default function SubmissionsManager() {
     onSuccess: () => utils.submissions.list.invalidate(),
   });
 
+  // Phase 5: send-template-email mutation. The result tells us whether
+  // the send happened — Resend is silently skipped if no valid email
+  // is on file, so we surface that back to the admin instead of
+  // pretending it succeeded.
+  const sendTemplate = trpc.submissions.sendTemplateEmail.useMutation();
+
+  // Phase 5: CSV export. Lazy-fetched on click rather than rendered as
+  // a query — we don't want every dashboard load to materialize the
+  // full CSV.
+  const [exportingCsv, setExportingCsv] = useState(false);
+  const handleExportCsv = async () => {
+    setExportingCsv(true);
+    try {
+      const result = await utils.submissions.exportCsv.fetch(
+        filter === "all" ? undefined : { status: filter }
+      );
+      const blob = new Blob([result.csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = result.filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+        a.remove();
+      }, 1000);
+    } catch (err) {
+      console.error("CSV export failed:", err);
+      alert("CSV export failed — see console.");
+    } finally {
+      setExportingCsv(false);
+    }
+  };
+
+  // Per-row email-template dropdown handler. Prompts for an optional
+  // custom message + template-specific details (reason / amount / txid).
+  const handleSendEmail = async (subId: number, template: string, subject: string) => {
+    const customMessage = prompt(
+      `Optional custom message to append to the "${subject}" email (leave blank to skip):`
+    );
+    let reason: string | null = null;
+    let payoutAmountUsd: number | null = null;
+    let payoutTxId: string | null = null;
+    if (template === "content_rejected") {
+      reason = prompt("Reason for rejection (visible in the email):");
+    }
+    if (template === "payment_sent") {
+      const amt = prompt("Payment amount in USDT (e.g. 50):");
+      if (amt) payoutAmountUsd = parseInt(amt, 10) || null;
+      payoutTxId = prompt("Transaction ID / hash (optional, links to BscScan):");
+    }
+    try {
+      const result = await sendTemplate.mutateAsync({
+        id: subId,
+        template: template as
+          | "content_approved"
+          | "payment_pending_wallet"
+          | "payment_sent"
+          | "content_rejected"
+          | "needs_more_info",
+        customMessage: customMessage ?? undefined,
+        reason: reason ?? undefined,
+        payoutAmountUsd: payoutAmountUsd ?? undefined,
+        payoutTxId: payoutTxId ?? undefined,
+      });
+      if (result.sent) {
+        alert(`Email sent: ${subject}`);
+      } else {
+        alert(`Email NOT sent — ${result.reason ?? "no valid email on file"}.\nReach the user via WhatsApp or Telegram instead.`);
+      }
+    } catch (err: any) {
+      console.error("sendTemplate failed:", err);
+      alert(`Email failed: ${err?.message ?? "unknown error"}`);
+    }
+  };
+
+  // Per-row wallet edit. Uses the existing updatePayout mutation.
+  const handleEditWallet = (subId: number, current: string | null | undefined) => {
+    const next = prompt("BSC (BEP-20) wallet address:", current ?? "");
+    if (next === null) return;
+    const trimmed = next.trim();
+    if (trimmed !== "" && !/^0x[0-9a-fA-F]{40}$/.test(trimmed)) {
+      if (!confirm("That doesn't look like a valid BSC address (expected 0x + 40 hex chars). Save anyway?")) {
+        return;
+      }
+    }
+    updatePayout.mutate({ id: subId, walletAddress: trimmed === "" ? null : trimmed });
+  };
+
   return (
     <div className="space-y-5 max-w-5xl">
-      {/* Filter tabs */}
-      <div className="flex flex-wrap gap-2">
+      {/* Top bar — filter tabs left, CSV export right */}
+      <div className="flex flex-wrap items-center gap-3 justify-between">
+        <div className="flex flex-wrap gap-2">
         {([
           { id: "pending" as StatusFilter, label: "Pending", count: counts.pending },
           { id: "approved" as StatusFilter, label: "Approved", count: counts.approved },
@@ -81,6 +183,29 @@ export default function SubmissionsManager() {
             </button>
           );
         })}
+        </div>
+
+        {/* Export CSV — dumps the current filter view as a CSV file.
+            Phase 5 ops convenience: lets the team pull a snapshot for
+            tracking outside the dashboard (payments, reporting, etc.). */}
+        <button
+          onClick={handleExportCsv}
+          disabled={exportingCsv || (list.data?.length ?? 0) === 0}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition disabled:opacity-50"
+          style={{
+            background: "white",
+            color: "#0E7490",
+            border: "1px solid rgba(8,145,178,0.25)",
+          }}
+          title="Download current view as CSV"
+        >
+          {exportingCsv ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          ) : (
+            <Download className="w-3.5 h-3.5" />
+          )}
+          Export CSV
+        </button>
       </div>
 
       {/* List */}
@@ -309,6 +434,66 @@ export default function SubmissionsManager() {
                     </button>
                   </div>
                 )}
+
+                {/* Phase 5 — admin tools row (always visible regardless
+                    of submission status). Send-template-email dropdown
+                    + wallet-edit inline button. */}
+                <div className="flex flex-wrap items-center gap-2 pt-3 border-t mt-3" style={{ borderColor: "rgba(15,23,42,0.06)" }}>
+                  <div className="inline-flex items-center gap-1.5 text-[11px] text-slate-500 font-bold">
+                    <Mail className="w-3.5 h-3.5" />
+                    Send email:
+                  </div>
+                  <select
+                    onChange={(e) => {
+                      const tpl = e.target.value;
+                      if (!tpl) return;
+                      const label = EMAIL_TEMPLATES.find((t) => t.id === tpl)?.label ?? tpl;
+                      handleSendEmail(sub.id, tpl, label);
+                      // Reset the select so the same option can be picked again
+                      e.target.value = "";
+                    }}
+                    disabled={sendTemplate.isPending}
+                    className="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Choose template…
+                    </option>
+                    {EMAIL_TEMPLATES.map((t) => (
+                      <option key={t.id} value={t.id}>
+                        {t.label}
+                      </option>
+                    ))}
+                  </select>
+                  {sendTemplate.isPending && (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-400" />
+                  )}
+
+                  {/* Wallet field — show current value as a tappable pill
+                      that opens an edit prompt. Empty state shows a "Set
+                      wallet" button. */}
+                  <div className="ml-auto inline-flex items-center gap-2">
+                    {sub.walletAddress ? (
+                      <button
+                        onClick={() => handleEditWallet(sub.id, sub.walletAddress)}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 hover:bg-violet-100 font-mono text-[11px] transition"
+                        title="Edit wallet address"
+                      >
+                        <Wallet className="w-3 h-3" />
+                        {sub.walletAddress.slice(0, 6)}…{sub.walletAddress.slice(-4)}
+                        <Edit3 className="w-3 h-3 opacity-60" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleEditWallet(sub.id, sub.walletAddress)}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 transition"
+                      >
+                        <Wallet className="w-3 h-3" />
+                        Set wallet
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             );
           })}

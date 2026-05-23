@@ -12687,8 +12687,43 @@ async function handler(req, res) {
       await db.update(blogPosts).set({ published: true }).where(eq(blogPosts.id, post.id));
       published.push(post.slug);
     }
+    let indexNow = {
+      ok: true,
+      status: 0,
+      submitted: 0
+    };
+    if (published.length > 0) {
+      try {
+        const INDEXNOW_KEY = "7f3a9c2e1b8d4f6a5e0c3b9d2f7a1e8c";
+        const HOST = "www.turboloop.tech";
+        const urlList = published.map((slug) => `https://${HOST}/blog/${slug}`);
+        const r = await fetch("https://api.indexnow.org/IndexNow", {
+          method: "POST",
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+          body: JSON.stringify({
+            host: HOST,
+            key: INDEXNOW_KEY,
+            keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
+            urlList
+          })
+        });
+        indexNow = {
+          ok: r.ok,
+          status: r.status,
+          submitted: urlList.length,
+          message: r.ok ? void 0 : await r.text().catch(() => void 0)
+        };
+      } catch (err) {
+        indexNow = {
+          ok: false,
+          status: 0,
+          submitted: 0,
+          message: err instanceof Error ? err.message : String(err)
+        };
+      }
+    }
     res.statusCode = 200;
-    res.end(JSON.stringify({ ok: true, publishedCount: published.length, slugs: published, checkedAt: now.toISOString() }));
+    res.end(JSON.stringify({ ok: true, publishedCount: published.length, slugs: published, indexNow, checkedAt: now.toISOString() }));
   } catch (err) {
     console.error("[cron publish-blog]", err);
     res.statusCode = 500;

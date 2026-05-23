@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: "%s · Turbo Loop",
   },
   description:
-    "TurboLoop generates sustainable ROI through strategic liquidity provision on PancakeSwap V3. 100% LP-locked, audited, non-custodial. Up to 54% flat ROI in 60 days.",
+    "TurboLoop generates fixed ROI per cycle from a USDC/USDT stablecoin LP, Turbo Swap fees, and Turbo Buy fees. 100% LP-locked, audited, ownership renounced. Up to 54% in 60 days, 1 USDT minimum.",
   applicationName: "TurboLoop",
   authors: [{ name: "Turbo Loop" }],
   keywords: [
@@ -53,8 +53,9 @@ export const metadata: Metadata = {
     "DeFi yield farming",
     "BSC yield",
     "Binance Smart Chain",
-    "PancakeSwap V3",
+    "stablecoin yield",
     "audited smart contract",
+    "renounced ownership",
     "non-custodial DeFi",
   ],
   openGraph: {
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
     title:
       "TurboLoop — DeFi Yield Farming on BSC | Sustainable ROI Protocol",
     description:
-      "Up to 54% flat ROI in 60 days. Real yield from PancakeSwap V3 trading fees on an audited, ownership-renounced, 100% LP-locked smart contract.",
+      "Fixed ROI per cycle. Real yield from USDC/USDT LP rewards + Turbo Swap fees + Turbo Buy fees. Audited, ownership renounced, 100% LP-locked. From 1 USDT.",
     images: [
       {
         // Absolute URL — the og-banner route handler now lives inside the
@@ -166,10 +167,12 @@ const SITE_JSON_LD = {
         "https://t.me/TurboLoop_Official",
         "https://t.me/TurboLoop_Chat",
         "https://x.com/TurboLoop_io",
+        "https://twitter.com/TurboLoop_io",
         "https://www.youtube.com/@OfficialTurbo_Loop",
+        "https://www.tiktok.com/@turboloop",
       ],
       description:
-        "The complete DeFi ecosystem on Binance Smart Chain — sustainable yield, transparent by design.",
+        "TurboLoop — decentralized yield protocol on Binance Smart Chain. Fixed ROI per cycle (Sprint 3% / Boost 10% / Power 24% / Ultimate 54%), 1 USDT minimum, audited and immutable smart contract with ownership permanently renounced.",
       foundingDate: "2026",
     },
     // Primary OG image as a standalone ImageObject entity. Lets Google's

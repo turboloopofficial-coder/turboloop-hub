@@ -32,6 +32,7 @@ import { Breadcrumbs } from "@components/Breadcrumbs";
 import { FilmCard } from "@components/films/FilmCard";
 import { FilmActionBar } from "@components/films/FilmActionBar";
 import { NewBadge } from "@components/ui/NewBadge";
+import { VideoObjectJsonLd } from "@components/seo/StructuredData";
 import {
   fetchAllFilmSlugs,
   fetchFilmBySlug,
@@ -221,8 +222,27 @@ export default async function FilmDetailPage({
 
   const showNew = shouldShowNewBadge(film);
 
+  // Compute the OG thumbnail — prefer the explicit posterUrl when
+  // present, otherwise fall back to the dynamic og-banner. Used both
+  // for OG meta (above) and the VideoObject schema below.
+  const thumbnailUrl =
+    film.posterUrl ||
+    `${CANONICAL_HOST}/api/og-banner?type=film&slug=${encodeURIComponent(
+      film.canonicalSlug
+    )}`;
+
   return (
     <main className="dark relative pb-12 md:pb-20 bg-[var(--c-bg)] text-[var(--c-text)]">
+      {/* VideoObject JSON-LD — feeds Google Video Search and unlocks
+          the "video" rich-result format in regular search. */}
+      <VideoObjectJsonLd
+        name={film.title}
+        description={film.tagline || film.title}
+        thumbnailUrl={thumbnailUrl}
+        uploadDate={film.createdAt}
+        contentUrl={film.directUrl}
+      />
+
       <Container width="narrow" className="pt-6 md:pt-10">
         <Breadcrumbs
           items={[

@@ -16,6 +16,7 @@ import { ArrowLeft, ChevronRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { NewBadge } from "@components/ui/NewBadge";
 import { FilmActionBar } from "@components/films/FilmActionBar";
+import { VideoObjectJsonLd } from "@components/seo/StructuredData";
 import { fetchAllReels, shouldShowNewBadge } from "@lib/reelsApi";
 import { ReelPlayer } from "./ReelPlayer";
 
@@ -92,6 +93,17 @@ export default async function ReelDetailPage({
         background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)",
       }}
     >
+      {/* VideoObject JSON-LD — feeds Google Video Search and unlocks
+          the "video" rich-result format in regular search. Description
+          falls back to title when tagline is empty. */}
+      <VideoObjectJsonLd
+        name={reel.title}
+        description={reel.tagline || reel.title}
+        thumbnailUrl={reel.thumbUrl}
+        uploadDate={reel.createdAt}
+        contentUrl={reel.directUrl}
+      />
+
       <Container width="wide" className="pt-6 md:pt-10 pb-12 md:pb-20">
         <Link
           href="/"

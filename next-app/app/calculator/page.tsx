@@ -62,7 +62,7 @@ const PLANS = [
 ];
 
 const DEPOSIT_PRESETS = [100, 500, 1000, 5000, 10000];
-const SLIDER_MIN = 50;
+const SLIDER_MIN = 1;
 const SLIDER_MAX = 50000;
 
 function fmt(n: number) {
@@ -211,7 +211,7 @@ export default function CalculatorPage() {
   };
 
   const onDepositChange = (next: number) => {
-    const clamped = Math.max(50, next);
+    const clamped = Math.max(1, next);
     setDeposit(clamped);
     // Fire only when the deposit crosses into / out of a rewards tier —
     // otherwise we'd spam GA with every slider tick. Tier transitions
@@ -385,7 +385,7 @@ export default function CalculatorPage() {
                 </span>
                 <input
                   type="number"
-                  min={50}
+                  min={1}
                   max={1000000}
                   value={deposit}
                   onChange={e =>
@@ -428,7 +428,7 @@ export default function CalculatorPage() {
                 })}
               </div>
               <p className="text-xs text-[var(--c-text-subtle)] mt-3">
-                $50 minimum to enter a Loop Plan. Token rewards kick in from
+                1 USDT minimum to enter a Loop Plan. Token rewards kick in from
                 ${TOKEN.minDepositUsd}+.
               </p>
             </Card>

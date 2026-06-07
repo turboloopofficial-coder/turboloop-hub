@@ -142,7 +142,7 @@ export default function ApplyPage() {
         subtitle="Two ways to earn alongside the protocol — make content that gets views, or host community calls in your language. Both pay in stablecoins, both apply right here on this page."
       />
 
-      {/* Programs explainer — tier table + Community Builder card.
+      {/* Programs explainer — tier table + Community Partner card.
           Renders above the form so visitors can read what they're
           applying for, then scroll to the form (anchored at #apply). */}
       <ProgramsSection />

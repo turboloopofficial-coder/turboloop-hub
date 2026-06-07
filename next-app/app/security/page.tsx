@@ -24,7 +24,7 @@ const SEC_OG_IMAGE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-pr
 export const metadata: Metadata = {
   title: "Security — Audited, Renounced, LP-Locked",
   description:
-    "Independently audited by SolidityScan (QuickScan). Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
+    "Audited by Haze Crypto (at launch) and SolidityScan (current). Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
   alternates: { canonical: "https://www.turboloop.tech/security" },
   openGraph: {
     title: SEC_OG_TITLE,
@@ -46,7 +46,7 @@ const PILLARS = [
   {
     icon: ShieldCheck,
     title: "Independently audited",
-    body: "Full smart-contract audit on SolidityScan (QuickScan). Public report, line-by-line. Independent platform with no relationship to the team — they had no incentive to be lenient. Every finding is in the public record.",
+    body: "Audited by Haze Crypto (at launch) and SolidityScan (current). Two independent platforms, no relationship to the team — they had no incentive to be lenient. Both reports are public, line-by-line. Every finding is in the public record.",
     proofLabel: "Read full audit",
     proofHref: SECURITY.auditUrl,
   },

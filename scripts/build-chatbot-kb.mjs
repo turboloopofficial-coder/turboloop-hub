@@ -135,6 +135,12 @@ async function fetchBlogPosts() {
       AND language = 'en'
       AND content IS NOT NULL
       AND length(content) > 200
+      -- Exclude legacy posts whose premise is now outdated:
+      --   why-turbo-loop-doesnt-have-a-token: pre-launch position
+      --   piece claiming the protocol would never have a native token.
+      --   $TURBO is now live; keeping this post in the KB makes the
+      --   chatbot give contradictory answers about token existence.
+      AND slug != 'why-turbo-loop-doesnt-have-a-token'
       ORDER BY scheduled_publish_at DESC NULLS LAST, created_at DESC
       LIMIT 40
     `;

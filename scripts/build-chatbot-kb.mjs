@@ -39,7 +39,7 @@ Turbo Loop is a decentralized yield protocol on Binance Smart Chain (BSC).
 Smart-contract-driven, no custody, no admin keys (ownership renounced).
 Contract address: 0xc90E5785632dAaB9Cb61F5050dA393090541A76D.
 Live dApp: https://turboloop.io
-Marketing site: https://turboloop.tech
+Marketing site: https://www.turboloop.tech
 
 ## Four investment plans (flat ROI, paid at maturity — NOT compounded APY)
 - Sprint:   7 days, 3% ROI
@@ -200,7 +200,7 @@ function parseFaqFile() {
         posts
           .map(
             p =>
-              `## ${p.title}\n\nSlug: ${p.slug}\nURL: https://turboloop.tech/blog/${p.slug}\n\n${
+              `## ${p.title}\n\nSlug: ${p.slug}\nURL: https://www.turboloop.tech/blog/${p.slug}\n\n${
                 p.excerpt ? `Summary: ${p.excerpt}\n\n` : ""
               }${p.content}`
           )

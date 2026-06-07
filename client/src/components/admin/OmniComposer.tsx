@@ -48,7 +48,6 @@ import {
   ImagePlus,
   Layers,
   ChevronDown,
-  DollarSign,
 } from "lucide-react";
 
 // ─── Channel taxonomy (mirror of server SCHEDULED_POST_CHANNELS) ───
@@ -130,17 +129,12 @@ function renderTelegramHtml(title: string | null, body: string): string {
   return full.length <= 1000 ? full : full.slice(0, 997) + "…";
 }
 
-// DALL-E cost acknowledgement — per browser session. We don't want to
-// nag the admin on every image, but the first one in a session should
-// confirm they understand the spend (~$0.04-0.12 per image depending
-// on size/quality).
-const COST_ACK_KEY = "omni-ai-image-cost-acked";
-function isCostAcked(): boolean {
-  try { return sessionStorage.getItem(COST_ACK_KEY) === "1"; } catch { return false; }
-}
-function ackCost(): void {
-  try { sessionStorage.setItem(COST_ACK_KEY, "1"); } catch { /* ignore */ }
-}
+// Image generation is now free (Cloudflare Workers AI / Flux 1 Schnell).
+// The cost-ack session gate was removed when we migrated off DALL-E 3.
+// Stubs kept so any other call sites compile; they short-circuit to
+// "already acked" so no confirm modal ever appears.
+function isCostAcked(): boolean { return true; }
+function ackCost(): void { /* noop — image gen is free */ }
 
 function buildWhatsappText(title: string | null, body: string, ctaUrl?: string): string {
   const lines: string[] = [];
@@ -465,23 +459,12 @@ function ComposeView(props: {
     }
   };
 
-  // AI image generation — DALL-E 3 → R2. First call in the session
-  // gates on a cost-confirm modal (~$0.04). Subsequent calls skip
-  // the modal because sessionStorage flag is set.
+  // AI image generation — Cloudflare Workers AI / Flux 1 Schnell → R2.
+  // Free under Cloudflare's free tier, so no cost gate or confirm modal.
   const handleGenerateImage = async () => {
     if (!aiImgPrompt.trim()) {
       toast.error("Describe the image first");
       return;
-    }
-    // Cost gate (once per session).
-    if (!isCostAcked()) {
-      const cost = aiImgQuality === "hd" ? "$0.08-0.12" : "$0.04-0.08";
-      const ok = window.confirm(
-        `Generate one DALL-E 3 image at ${aiImgSize} (${aiImgQuality})?\n\n` +
-          `Approx cost: ${cost}. This message won't show again this session.`
-      );
-      if (!ok) return;
-      ackCost();
     }
     try {
       const r = await generateImageMut.mutateAsync({
@@ -495,12 +478,7 @@ function ComposeView(props: {
         mediaType: "image",
       }));
       setAiImgOpen(false);
-      if (r.revisedPrompt && r.revisedPrompt !== aiImgPrompt.trim()) {
-        toast.success(`Image generated. DALL-E rewrote your prompt — see console for the revised version.`);
-        console.info("[DALL-E revised prompt]", r.revisedPrompt);
-      } else {
-        toast.success("Image generated and attached");
-      }
+      toast.success("Image generated and attached");
     } catch (e) {
       toast.error(`Image gen failed: ${e instanceof Error ? e.message : String(e)}`);
     }
@@ -790,8 +768,8 @@ function ComposeView(props: {
                       onChange={(e) => setAiImgQuality(e.target.value as any)}
                       className="w-full bg-white/80 border border-violet-200 text-slate-800 text-xs rounded h-8 px-2 outline-none focus:border-violet-500"
                     >
-                      <option value="standard">Standard (~$0.04-0.08)</option>
-                      <option value="hd">HD (~$0.08-0.12)</option>
+                      <option value="standard">Standard</option>
+                      <option value="hd">HD</option>
                     </select>
                   </div>
                 </div>
@@ -809,9 +787,9 @@ function ComposeView(props: {
                   Generate & attach
                 </Button>
                 <div className="text-[10px] text-slate-500 flex items-start gap-1">
-                  <DollarSign className="h-2.5 w-2.5 mt-0.5 shrink-0" />
+                  <Sparkles className="h-2.5 w-2.5 mt-0.5 shrink-0 text-emerald-600" />
                   <span>
-                    Each generation calls OpenAI's paid DALL-E 3 API.
+                    <b className="text-emerald-700">Free</b> via Cloudflare Workers AI (Flux 1 Schnell).
                     Image is auto-uploaded to your R2 bucket on success.
                   </span>
                 </div>
@@ -1680,16 +1658,8 @@ function CampaignBuilderModal(props: {
 
   const handleGenerateAllImages = async () => {
     if (!drafts) return;
-    if (!isCostAcked()) {
-      const ok = window.confirm(
-        `Generate ${drafts.length} DALL-E 3 standard images?\n\n` +
-          `Approx cost: $${(drafts.length * 0.04).toFixed(2)}. ` +
-          `Runs sequentially to respect rate limits.\n\n` +
-          `This message won't show again this session.`
-      );
-      if (!ok) return;
-      ackCost();
-    }
+    // Image gen is free via Cloudflare Workers AI — no cost confirm.
+    // Still sequential to respect Cloudflare's per-account concurrency.
     setImgProgress({ done: 0, total: drafts.length });
     for (let i = 0; i < drafts.length; i++) {
       setDrafts((cur) =>

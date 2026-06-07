@@ -530,26 +530,23 @@ Output: respond with the translated text ONLY. No quotes, no preamble, no commen
         };
       }),
 
-    /** Generate an image with DALL-E 3, download the bytes, then
-     *  upload to R2 so the URL stays alive past DALL-E's 24-hour
-     *  signed-URL expiry. Returns the public R2 URL ready to attach
+    /** Generate an image with Cloudflare Workers AI (Flux 1 Schnell)
+     *  and upload it to R2. Returns the public R2 URL ready to attach
      *  to a scheduled_post.
      *
-     *  Pricing (as of 2026):
-     *    standard 1024×1024  → ~$0.040 / image
-     *    standard 1024×1792  → ~$0.080 / image
-     *    standard 1792×1024  → ~$0.080 / image
-     *    hd       1024×1024  → ~$0.080 / image
-     *    hd       1024×1792  → ~$0.120 / image
+     *  Cost: free under Cloudflare's Workers AI free tier (10,000
+     *  neurons/day — Flux Schnell costs roughly 1 neuron per generation
+     *  so you can do many thousands per day at no charge).
      *
-     *  The client surfaces a confirm-modal on first-use per session;
-     *  we don't enforce a budget gate server-side here (the admin
-     *  is the only caller and the API key bills the team account
-     *  with OpenAI's own rate limits).
+     *  The `size` and `quality` fields are accepted for backwards
+     *  compatibility with the previous DALL-E-backed schema. Flux
+     *  Schnell on Cloudflare always returns 1024×1024; `num_steps` is
+     *  fixed at 8 (the Schnell maximum — anything more would be
+     *  rejected). The fields are echoed back unchanged.
      *
-     *  Returns DALL-E's "revisedPrompt" — DALL-E 3 always rewrites
-     *  the user prompt before generating; surfacing the rewrite
-     *  helps the admin understand what the image actually depicts. */
+     *  `revisedPrompt` is always null — Flux Schnell doesn't rewrite
+     *  the prompt the way DALL-E 3 does. The field is preserved in
+     *  the response shape so existing client code doesn't break. */
     generateImage: adminProcedure
       .input(z.object({
         prompt: z.string().min(3).max(4000),
@@ -557,45 +554,63 @@ Output: respond with the translated text ONLY. No quotes, no preamble, no commen
         quality: z.enum(["standard", "hd"]).default("standard"),
       }))
       .mutation(async ({ input }) => {
-        const apiKey = process.env.OPENAI_API_KEY;
-        if (!apiKey) {
+        const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+        const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+        if (!accountId || !apiToken) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: "OPENAI_API_KEY not configured. Add it to Vercel environment variables to enable DALL-E 3 image generation.",
+            message: "Cloudflare AI not configured. Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in Vercel environment variables to enable image generation.",
           });
         }
-        // Lazy import — the openai SDK pulls in axios + form-data;
-        // cold-starting non-AI routes shouldn't pay for it.
-        const { default: OpenAI } = await import("openai");
-        const client = new OpenAI({ apiKey });
 
-        const gen = await client.images.generate({
-          model: "dall-e-3",
-          prompt: input.prompt,
-          size: input.size,
-          quality: input.quality,
-          n: 1,
-          response_format: "url",
+        // Cloudflare Workers AI — Black Forest Labs Flux 1 Schnell.
+        // num_steps caps at 8 for the Schnell variant; using the max
+        // for best quality since latency is already sub-second.
+        const cfUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/black-forest-labs/flux-1-schnell`;
+        const cfResp = await fetch(cfUrl, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${apiToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: input.prompt, num_steps: 8 }),
         });
-        const item = gen.data?.[0];
-        const dalleUrl = item?.url;
-        const revisedPrompt = item?.revised_prompt ?? null;
-        if (!dalleUrl) {
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "DALL-E returned no image URL" });
-        }
-
-        // Download the bytes from DALL-E's CDN and re-host on R2.
-        // DALL-E URLs are signed and expire after ~24h — we need a
-        // permanent URL for scheduled posts that may fire days later.
-        const resp = await fetch(dalleUrl);
-        if (!resp.ok) {
+        if (!cfResp.ok) {
+          const errText = await cfResp.text().catch(() => "");
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: `Failed to fetch DALL-E image: HTTP ${resp.status}`,
+            message: `Cloudflare AI request failed (${cfResp.status}): ${errText.slice(0, 400)}`,
           });
         }
-        const buf = Buffer.from(await resp.arrayBuffer());
-        const filename = `dalle-${Date.now()}.png`;
+
+        // Cloudflare's Workers AI image models can return either raw
+        // image bytes (binary Content-Type) OR a JSON envelope with
+        // `result.image` as a base64 string. Branch on Content-Type so
+        // either flavor works without surprises.
+        const contentType = cfResp.headers.get("content-type") || "";
+        let buf: Buffer;
+        if (contentType.startsWith("image/")) {
+          buf = Buffer.from(await cfResp.arrayBuffer());
+        } else if (contentType.includes("application/json")) {
+          const json = (await cfResp.json()) as {
+            result?: { image?: string };
+            errors?: Array<{ message?: string }>;
+            success?: boolean;
+          };
+          if (json.success === false || !json.result?.image) {
+            const errMsg = json.errors?.[0]?.message || "Cloudflare AI returned no image";
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: errMsg });
+          }
+          buf = Buffer.from(json.result.image, "base64");
+        } else {
+          // Fallback — assume bytes.
+          buf = Buffer.from(await cfResp.arrayBuffer());
+        }
+        if (buf.length === 0) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Cloudflare AI returned empty image" });
+        }
+
+        const filename = `flux-${Date.now()}.png`;
         const key = `uploads/ai-generated/${filename}`;
         const stored = await storagePut(key, buf, "image/png");
 
@@ -603,7 +618,7 @@ Output: respond with the translated text ONLY. No quotes, no preamble, no commen
           url: stored.url,
           key: stored.key,
           prompt: input.prompt,
-          revisedPrompt,
+          revisedPrompt: null as string | null,
           size: input.size,
           quality: input.quality,
         };

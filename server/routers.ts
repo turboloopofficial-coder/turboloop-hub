@@ -290,22 +290,28 @@ Voice: confident, premium, community-first. No hype words ("MOON", "100x", "huge
 
 Audience: ${audienceGuide}
 
+You produce ONE blog post PLUS three per-channel companion blurbs. Each blurb has a HARD character cap — going over is a failure. Count characters before you respond.
+
 Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
 {
   "title": "60-90 char SEO-friendly title",
   "slug": "kebab-case-slug-no-trailing-dashes",
   "excerpt": "150-220 char summary that makes people click",
-  "content": "Full markdown blog post — 800-1500 words, with H2 headings (##), H3 sub-headings (###), bullet lists, and at least one block quote (>) for emphasis. End with a 'Where to next' paragraph that links 2-3 relevant pages on turboloop.tech (use [link text](https://turboloop.tech/path) format)."
+  "content": "Full markdown blog post — 800-1500 words, with H2 headings (##), H3 sub-headings (###), bullet lists, and at least one block quote (>) for emphasis. End with a 'Where to next' paragraph that links 2-3 relevant pages on turboloop.tech (use [link text](https://turboloop.tech/path) format).",
+  "telegramCaption": "HARD MAX 280 characters. One hook sentence + one CTA. 1-2 emoji max. HTML <b> tags allowed for emphasis — NO Markdown asterisks. NO line-walls of hashtags.",
+  "whatsappText": "HARD MAX 160 characters. Plain text only — NO HTML, NO Markdown, NO emoji. Single sentence + the article URL on the next line. The URL counts toward the 160 char budget.",
+  "instagramCaption": "Exactly 3 punchy lines (separate with \\n), max 300 characters before the hashtag block, then a blank line, then EXACTLY 5 relevant hashtags on one line (e.g. #DeFi #Crypto #YieldFarming #BSC #TurboLoop)."
 }`;
 
         const userPrompt = `Topic: ${input.topic}${input.notes ? `\n\nAdditional notes from the editor:\n${input.notes}` : ""}`;
 
         // Sonnet 4.5: ~3x faster than Opus, near-identical quality for editorial drafting.
         // Faster model + capped max_tokens keeps generation well under the 60s function
-        // timeout on Vercel Hobby (Opus would routinely exceed it).
+        // timeout on Vercel Hobby (Opus would routinely exceed it). Bumped to 3500
+        // to accommodate the three new short blurbs without truncating the blog body.
         const response = await client.messages.create({
           model: "claude-sonnet-4-5",
-          max_tokens: 3000,
+          max_tokens: 3500,
           system: systemPrompt,
           messages: [{ role: "user", content: userPrompt }],
         });
@@ -320,7 +326,15 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         // Strip markdown code fences if Claude wrapped JSON in them
         const cleaned = raw.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
 
-        let draft: { title: string; slug: string; excerpt: string; content: string };
+        let draft: {
+          title: string;
+          slug: string;
+          excerpt: string;
+          content: string;
+          telegramCaption?: string;
+          whatsappText?: string;
+          instagramCaption?: string;
+        };
         try {
           draft = JSON.parse(cleaned);
         } catch (err) {
@@ -332,6 +346,13 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
 
         return {
           ...draft,
+          // Hard-truncate as a safety net — the prompt enforces the
+          // caps but a misbehaving response shouldn't silently leak
+          // an over-limit caption downstream. Clients should still
+          // display the cap visually.
+          telegramCaption: draft.telegramCaption ? draft.telegramCaption.slice(0, 280) : undefined,
+          whatsappText: draft.whatsappText ? draft.whatsappText.slice(0, 160) : undefined,
+          instagramCaption: draft.instagramCaption ?? undefined,
           tokensUsed: {
             input: response.usage.input_tokens,
             output: response.usage.output_tokens,
@@ -339,10 +360,11 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         };
       }),
 
-    /** Rewrite a body for a Telegram caption — single concise message
-     *  under Telegram's 1024-char caption limit, with the brand voice
-     *  preserved. Used by the Omni-Composer's "Enhance for Telegram"
-     *  button. Returns plain text (caller wraps in HTML if needed). */
+    /** Rewrite a body as a tight 280-char Telegram caption. 280 is the
+     *  engagement sweet spot (Twitter-length) — anything longer gets
+     *  scrolled past on mobile. Used by the Omni-Composer's "Optimize
+     *  for Telegram" button. Returns plain text with optional HTML <b>
+     *  tags; the caller renders inside Telegram's HTML parse_mode. */
     enhanceForTelegram: adminProcedure
       .input(z.object({
         source: z.string().min(3).max(8000),
@@ -359,18 +381,18 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
         const { default: Anthropic } = await import("@anthropic-ai/sdk");
         const client = new Anthropic({ apiKey });
 
-        const systemPrompt = `You rewrite long-form copy as a concise Telegram caption for Turbo Loop, a transparent audited DeFi yield protocol on BSC.
+        const systemPrompt = `You rewrite long-form copy as a tight Telegram caption for Turbo Loop, a transparent audited DeFi yield protocol on BSC.
 
-Voice: confident, premium, community-first. No hype words ("MOON", "100x", "huge"). No emoji walls — 1-3 tasteful emoji max. Specific facts beat generic claims.
+Voice: confident, premium, community-first. No hype words ("MOON", "100x", "huge"). Specific facts beat generic claims.
 
-Constraints:
-- Max 900 characters (Telegram cuts captions at 1024 with HTML).
-- Open with a hook sentence.
-- Use 2-4 short paragraphs separated by blank lines.
-- End with a clear call-to-action line.
-- Plain text only — no Markdown asterisks, no HTML tags. The caller wraps in HTML.
+HARD CONSTRAINTS — count characters before you respond, going over is a failure:
+- Maximum 280 characters TOTAL (Twitter-length — the proven engagement sweet spot on Telegram).
+- 1-2 emoji max.
+- Structure: ONE hook sentence + ONE call-to-action line. That's it. No middle paragraphs.
+- HTML <b> tags are allowed for emphasis on key terms.
+- NO Markdown asterisks. NO line walls. NO hashtag dumps.
 
-Output: respond with the caption text ONLY. No quotes, no preamble, no JSON.`;
+Output: respond with the caption text ONLY. No quotes, no preamble, no JSON, no character count footer.`;
 
         const userPrompt = `Source content:\n\n${input.source}${
           input.ctaUrl ? `\n\nCTA URL (mention naturally if helpful): ${input.ctaUrl}` : ""
@@ -378,7 +400,9 @@ Output: respond with the caption text ONLY. No quotes, no preamble, no JSON.`;
 
         const response = await client.messages.create({
           model: "claude-sonnet-4-5",
-          max_tokens: 800,
+          // 280 chars maxes out around 80 tokens — 300 is plenty
+          // headroom for the rare run-on output we then truncate.
+          max_tokens: 300,
           system: systemPrompt,
           messages: [{ role: "user", content: userPrompt }],
         });
@@ -386,8 +410,12 @@ Output: respond with the caption text ONLY. No quotes, no preamble, no JSON.`;
         if (!textBlock || textBlock.type !== "text") {
           throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
         }
+        // Hard truncate as a safety net — the prompt enforces 280
+        // but a misbehaving response shouldn't silently leak past.
+        const raw = textBlock.text.trim();
+        const caption = raw.length <= 280 ? raw : raw.slice(0, 279) + "…";
         return {
-          caption: textBlock.text.trim(),
+          caption,
           tokensUsed: {
             input: response.usage.input_tokens,
             output: response.usage.output_tokens,
@@ -669,18 +697,29 @@ A campaign is a SEQUENCE of posts that build on each other across days — Post 
 Audience: ${audienceGuide}
 Tone: ${toneGuide}
 
-For EACH post produce four fields:
-  1. title           — 60-90 char SEO-friendly blog title.
-  2. content         — Full Markdown blog post, 600-1200 words, with ## H2 sections, ### H3 subsections, at least one bullet list, and at least one block quote. End with a "Where to next" line linking 1-2 turboloop.tech pages.
-  3. telegramCaption — Standalone Telegram caption under 900 chars, no Markdown asterisks (use HTML <b>/<i> tags if needed), 1-3 tasteful emoji max, opens with a hook, ends with a CTA line.
-  4. imagePrompt     — A DALL-E 3 prompt (1-3 sentences) describing a hero image for this post. Be specific about style (e.g. "minimal isometric illustration, cyan + slate palette, flat shading, no text"). DO NOT request text in the image — DALL-E mangles text.
+For EACH post produce SIX fields. The short-form blurbs have HARD character caps — count characters before you respond, going over is a failure:
+
+  1. title             — 60-90 char SEO-friendly blog title.
+  2. content           — Full Markdown blog post, 800-1500 words, with ## H2 sections, ### H3 subsections, at least one bullet list, and at least one block quote. End with a "Where to next" line linking 1-2 turboloop.tech pages.
+  3. telegramCaption   — HARD MAX 280 characters. ONE hook sentence + ONE CTA line. 1-2 emoji max. HTML <b> allowed; NO Markdown asterisks; NO hashtag dumps.
+  4. whatsappText      — HARD MAX 160 characters. Plain text only — NO HTML, NO Markdown, NO emoji. Single sentence + the article URL on the next line. URL counts toward the 160 char budget.
+  5. instagramCaption  — Exactly 3 punchy lines (separate with \\n), max 300 characters before the hashtag block, then a blank line, then EXACTLY 5 relevant hashtags on one line (e.g. #DeFi #Crypto #YieldFarming #BSC #TurboLoop).
+  6. imagePrompt       — A Cloudflare Workers AI / Flux 1 Schnell prompt (1-3 sentences) describing a hero image for this post. Be specific about style ("minimal isometric illustration, cyan + slate palette, flat shading, no text"). DO NOT request text in the image — Flux mangles text.
 
 Output format: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
 {
   "campaign": {
     "topic": "echoed back",
     "posts": [
-      { "day": 1, "title": "...", "content": "...", "telegramCaption": "...", "imagePrompt": "..." },
+      {
+        "day": 1,
+        "title": "...",
+        "content": "...",
+        "telegramCaption": "...",
+        "whatsappText": "...",
+        "instagramCaption": "...",
+        "imagePrompt": "..."
+      },
       ...
     ]
   }
@@ -692,10 +731,11 @@ The "day" field is 1-indexed and matches the post's position in the sequence.`;
 
         const response = await client.messages.create({
           model: "claude-sonnet-4-5",
-          // Per-post ~1200 words plus caption/prompt overhead → ~1500
-          // tokens per post → cap at ~10500 for a 7-post campaign,
-          // round up for safety.
-          max_tokens: 12000,
+          // Per-post ~1500 words + 4 short blurbs ≈ 2000 tokens → cap at
+          // ~14000 for a 7-post campaign, with safety margin. Vercel
+          // Hobby's 60s function ceiling is the real limiter; Sonnet 4.5
+          // streams ~1k tokens/sec so 14k tokens ≈ 14s — well within.
+          max_tokens: 14000,
           system: systemPrompt,
           messages: [{ role: "user", content: userPrompt }],
         });
@@ -717,6 +757,8 @@ The "day" field is 1-indexed and matches the post's position in the sequence.`;
               title: string;
               content: string;
               telegramCaption: string;
+              whatsappText?: string;
+              instagramCaption?: string;
               imagePrompt: string;
             }>;
           };
@@ -735,9 +777,24 @@ The "day" field is 1-indexed and matches the post's position in the sequence.`;
             message: "Claude response missing campaign.posts array",
           });
         }
+        // Safety net — Claude is told the caps but we don't trust the
+        // output to be exactly within bounds. Hard truncate so a
+        // misbehaving response can't leak past the Telegram / WhatsApp
+        // limits into a live broadcast.
+        const safePosts = parsed.campaign.posts.map((p) => ({
+          ...p,
+          telegramCaption: p.telegramCaption
+            ? (p.telegramCaption.length <= 280 ? p.telegramCaption : p.telegramCaption.slice(0, 279) + "…")
+            : "",
+          whatsappText: p.whatsappText
+            ? (p.whatsappText.length <= 160 ? p.whatsappText : p.whatsappText.slice(0, 159) + "…")
+            : "",
+          instagramCaption: p.instagramCaption ?? "",
+        }));
+
         return {
           topic: parsed.campaign.topic ?? input.topic,
-          posts: parsed.campaign.posts,
+          posts: safePosts,
           tokensUsed: {
             input: response.usage.input_tokens,
             output: response.usage.output_tokens,

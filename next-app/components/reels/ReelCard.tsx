@@ -34,7 +34,12 @@ export function ReelCard({ reel }: ReelCardProps) {
   const [copied, setCopied] = useState(false);
   const detailUrl = `https://www.turboloop.tech/reels/${reel.slug}`;
   const showNew = shouldShowNewBadge(reel);
-  const proxyHref = `/api/download?url=${encodeURIComponent(reel.directUrl)}&filename=${encodeURIComponent(reel.slug + ".mp4")}`;
+  // Download proxy works only for R2-hosted reels (where we have a
+  // direct mp4 URL). YouTube-only reels skip the download path —
+  // their "share" still works via the Share button below.
+  const proxyHref = reel.directUrl
+    ? `/api/download?url=${encodeURIComponent(reel.directUrl)}&filename=${encodeURIComponent(reel.slug + ".mp4")}`
+    : "";
 
   async function handleShare(e: React.MouseEvent) {
     e.preventDefault();

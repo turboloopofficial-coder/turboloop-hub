@@ -47,6 +47,27 @@ const config: NextConfig = {
         destination: "/calculator",
         permanent: true,
       },
+      // /rss.xml is a deeply-conventional URL — every RSS reader,
+      // Feedly, scrapers, link-aggregators ping this path first.
+      // Our actual RSS routes are /feed.xml, /feed.de.xml, etc. The
+      // 308 audit found /rss.xml 404'ing; this redirect maps the
+      // conventional URL to the English feed (the most common
+      // assumption is "blog posts in English"). Per-language readers
+      // can still hit /feed.de.xml etc. directly.
+      {
+        source: "/rss.xml",
+        destination: "/feed.xml",
+        statusCode: 301,
+      },
+      // Mirror /feed → /blog (auditor noted the 308 — keep explicit so
+      // future audits don't re-flag it). Also: not in conflict with
+      // the vercel.json rewrite for /sitemap.xml because rewrites
+      // happen at a different layer than redirects.
+      {
+        source: "/feed",
+        destination: "/blog",
+        permanent: true,
+      },
       // /films/sovereign-series no longer exists — content rendered as
       // the top section of /films. Explicit 301 (not the default 308
       // that `permanent: true` would emit) — keeps strict SEO tooling

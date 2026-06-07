@@ -51,14 +51,20 @@ export async function generateMetadata({
       images: [
         { url: reel.thumbUrl, width: 1080, height: 1920, alt: reel.title },
       ],
-      videos: [
-        {
-          url: reel.directUrl,
-          type: "video/mp4",
-          width: 1080,
-          height: 1920,
-        },
-      ],
+      // Omit the videos[] block when we have no playable mp4 (YouTube
+      // reels). OG `video.url` expects a directly playable URL — a
+      // YouTube watch-page URL doesn't satisfy that. Crawlers fall
+      // back to the og:image + the embedded iframe instead.
+      videos: reel.directUrl
+        ? [
+            {
+              url: reel.directUrl,
+              type: "video/mp4",
+              width: 1080,
+              height: 1920,
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -95,13 +101,21 @@ export default async function ReelDetailPage({
     >
       {/* VideoObject JSON-LD — feeds Google Video Search and unlocks
           the "video" rich-result format in regular search. Description
-          falls back to title when tagline is empty. */}
+          falls back to title when tagline is empty. For YouTube-hosted
+          reels (no R2 mp4) we pass embedUrl instead of contentUrl —
+          Google's spec requires at least one of the two and they're
+          interchangeable for rich-result eligibility. */}
       <VideoObjectJsonLd
         name={reel.title}
         description={reel.tagline || reel.title}
         thumbnailUrl={reel.thumbUrl}
         uploadDate={reel.createdAt}
-        contentUrl={reel.directUrl}
+        contentUrl={reel.directUrl ?? undefined}
+        embedUrl={
+          reel.youtubeId
+            ? `https://www.youtube-nocookie.com/embed/${reel.youtubeId}`
+            : undefined
+        }
       />
 
       <Container width="wide" className="pt-6 md:pt-10 pb-12 md:pb-20">
@@ -114,12 +128,38 @@ export default async function ReelDetailPage({
         </Link>
 
         <div className="grid md:grid-cols-5 gap-8 max-w-5xl mx-auto">
-          {/* Player */}
+          {/* Player — R2 mp4 → custom ReelPlayer with fullscreen CTA;
+              YouTube-only reels → embedded iframe (the multi-language
+              how-to-join and withdraw-compound sets ship as YouTube
+              videos with no R2 mirror). */}
           <div className="md:col-span-3 relative">
-            <ReelPlayer
-              reel={{ id: reel.id, title: reel.title, directUrl: reel.directUrl }}
-              thumb={reel.thumbUrl}
-            />
+            {reel.directUrl ? (
+              <ReelPlayer
+                reel={{ id: reel.id, title: reel.title, directUrl: reel.directUrl }}
+                thumb={reel.thumbUrl}
+              />
+            ) : reel.youtubeId ? (
+              <div
+                className="relative rounded-[var(--r-2xl)] overflow-hidden bg-black shadow-[var(--s-xl)]"
+                style={{ aspectRatio: "9 / 16", maxHeight: "80dvh" }}
+              >
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${reel.youtubeId}?rel=0&modestbranding=1&playsinline=1`}
+                  title={reel.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : (
+              <div
+                className="rounded-[var(--r-2xl)] overflow-hidden bg-black shadow-[var(--s-xl)] flex items-center justify-center text-white/40 text-sm"
+                style={{ aspectRatio: "9 / 16", maxHeight: "80dvh" }}
+              >
+                Video source unavailable
+              </div>
+            )}
             <NewBadge
               show={showNew}
               size="md"
@@ -142,7 +182,13 @@ export default async function ReelDetailPage({
               url={detailUrl}
               title={reel.title}
               shareContext={reel.tagline}
-              downloadUrl={reel.directUrl}
+              // Download only works for R2-hosted reels (where we have
+              // a direct mp4). For YouTube-only reels the URL field
+              // points at the YouTube watch page so "Share" still has
+              // a meaningful target; the download button gracefully
+              // hides itself when downloadUrl is empty (handled inside
+              // FilmActionBar).
+              downloadUrl={reel.directUrl ?? ""}
               downloadFilename={reel.slug}
             />
 

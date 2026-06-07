@@ -838,7 +838,7 @@ The "day" field is 1-indexed and matches the post's position in the sequence.`;
         if (!apiKey) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: "ANTHROPIC_API_KEY not configured.",
+            message: "ANTHROPIC_API_KEY not configured. Add it to Vercel environment variables (Project Settings → Environment Variables) and redeploy.",
           });
         }
         const { default: Anthropic } = await import("@anthropic-ai/sdk");
@@ -917,6 +917,17 @@ Output: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
             .replace(/^```(?:json)?\s*\n?/i, "")
             .replace(/\n?```\s*$/i, "")
             .trim();
+          // Guard: if the response doesn't start with "{", it's not the
+          // JSON envelope we asked for — it's almost always Claude
+          // apologizing in prose ("An error occurred…", "I'm sorry, I
+          // can't…"). Surface a clear message rather than letting the
+          // JSON.parse failure leak the cryptic "Unexpected token 'A'"
+          // string to the client.
+          if (!cleaned.startsWith("{")) {
+            throw new Error(
+              `Claude returned a non-JSON response. This usually means the model couldn't complete the request. First 200 chars: ${cleaned.slice(0, 200)}`
+            );
+          }
           const parsed = JSON.parse(cleaned) as AllChannels;
           const v: string[] = [];
           if (!parsed?.blogPost?.content) v.push("blogPost.content missing");
@@ -932,12 +943,30 @@ Output: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
 
         // First pass — generous max_tokens (long-form blog body + 4
         // translations + 3 short blurbs ≈ 4000 tokens worst case).
-        const firstResp = await client.messages.create({
-          model: "claude-sonnet-4-5",
-          max_tokens: 5000,
-          system: baseSystem,
-          messages: [{ role: "user", content: userPrompt }],
-        });
+        // Wrap the SDK call so auth / rate-limit / network failures
+        // surface as a clear tRPC error instead of bubbling up as an
+        // opaque exception the frontend can't act on.
+        let firstResp;
+        try {
+          firstResp = await client.messages.create({
+            model: "claude-sonnet-4-5",
+            max_tokens: 5000,
+            system: baseSystem,
+            messages: [{ role: "user", content: userPrompt }],
+          });
+        } catch (sdkErr: any) {
+          const status = sdkErr?.status ?? sdkErr?.response?.status;
+          const msg = sdkErr?.message || String(sdkErr);
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message:
+              status === 401
+                ? "Anthropic API rejected the key (401). Verify ANTHROPIC_API_KEY in Vercel environment variables."
+                : status === 429
+                ? "Anthropic API rate-limited the request (429). Wait a minute and try again."
+                : `Anthropic API call failed${status ? ` (${status})` : ""}: ${msg}`,
+          });
+        }
         const firstText = firstResp.content.find((b) => b.type === "text");
         if (!firstText || firstText.type !== "text") {
           throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
@@ -949,9 +978,13 @@ Output: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
           parsed = r.parsed;
           violations = r.violations;
         } catch (e) {
+          // Surface the parser's own error message (which already
+          // contains a sensible prefix), not the raw "Unexpected
+          // token" or the full Claude apology text.
+          const msg = e instanceof Error ? e.message : String(e);
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: `Claude returned invalid JSON. Raw (first 500 chars):\n${firstText.text.slice(0, 500)}`,
+            message: msg,
           });
         }
 

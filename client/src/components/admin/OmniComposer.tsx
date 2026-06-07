@@ -2177,7 +2177,26 @@ function SmartComposerView(props: { onScheduled: () => void }) {
         toast.success("All channels generated");
       }
     } catch (e) {
-      toast.error(`Generation failed: ${e instanceof Error ? e.message : String(e)}`);
+      // Translate common server-side failures into actionable user
+      // messages. We log the raw error for debugging but keep the
+      // toast friendly so the admin knows what to do next.
+      const rawMsg = e instanceof Error ? e.message : String(e);
+      console.error("[generateAllChannels]", e);
+
+      let friendly = "Generation failed. Please check your API key is configured in Vercel and try again.";
+      if (/ANTHROPIC_API_KEY/i.test(rawMsg)) {
+        friendly = "Anthropic API key is missing or invalid. Set ANTHROPIC_API_KEY in your Vercel environment variables, then redeploy and retry.";
+      } else if (/401|invalid.*key|authenticat/i.test(rawMsg)) {
+        friendly = "Anthropic rejected the API key. Verify ANTHROPIC_API_KEY in Vercel environment variables.";
+      } else if (/429|rate.?limit/i.test(rawMsg)) {
+        friendly = "Anthropic API rate-limited the request. Wait a minute and try again.";
+      } else if (/non-JSON response|Unexpected token/i.test(rawMsg)) {
+        friendly = "Claude returned an unstructured reply. Try again, or shorten your input — the model couldn't complete the request.";
+      } else if (/network|fetch|timeout/i.test(rawMsg)) {
+        friendly = "Network issue contacting the AI service. Check your connection and try again.";
+      }
+      setGenWarning(rawMsg);
+      toast.error(friendly);
     }
   };
 

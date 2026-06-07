@@ -22,7 +22,7 @@
 //  • Mobile re-orders projection ABOVE inputs so the answer is visible
 //    first, then the user scrolls to tweak inputs.
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Calculator,
   Coins,
@@ -71,6 +71,17 @@ function fmt(n: number) {
   });
 }
 
+/** Format a token price for inline display. Keeps enough precision to
+ *  differentiate $0.001 from $0.0012 from $0.12, without scientific
+ *  notation. Mirrors the inline TokenPriceWidget formatter so the two
+ *  surfaces always agree visually. */
+function fmtPrice(usd: number): string {
+  if (!Number.isFinite(usd)) return "—";
+  if (usd >= 1) return `$${usd.toFixed(4)}`;
+  if (usd >= 0.01) return `$${usd.toFixed(5)}`;
+  return `$${usd.toFixed(6)}`;
+}
+
 export default function CalculatorPage() {
   // Default to Ultimate (index 3) — the headline plan on the live dApp.
   const [planIdx, setPlanIdx] = useState(3);
@@ -79,6 +90,61 @@ export default function CalculatorPage() {
   // preview. Default to "base" (10%/month) so users without a rank see
   // realistic numbers.
   const [rankSlug, setRankSlug] = useState<string>("base");
+
+  // Live $TURBO price for token-count math. Polled from /api/token-price
+  // every 60s — same endpoint the TokenPriceWidget uses, so the
+  // server-side cache absorbs the request (one fetch per Edge instance
+  // per minute, regardless of how many widgets are on the page).
+  // We DELIBERATELY do not fall back to TOKEN.launchPrice when the
+  // fetch fails — that constant is a historical reference and using it
+  // for live math produces wildly wrong numbers once the market price
+  // moves above $0.001 (e.g. at $0.10 it overstates the TURBO count
+  // by 100×). When live price is unavailable we render "—" instead.
+  const [livePrice, setLivePrice] = useState<number | null>(null);
+  const [pricePending, setPricePending] = useState(true);
+  // Tracks whether the most recent fetch attempt returned successfully.
+  // Drives the inline "Price loading…" vs "Price unavailable" copy.
+  const [priceFetchOk, setPriceFetchOk] = useState(true);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    let cancelled = false;
+    const fetchPrice = async () => {
+      try {
+        const res = await fetch("/api/token-price", {
+          signal: ctrl.signal,
+          cache: "no-store",
+        });
+        if (!res.ok) {
+          if (!cancelled) {
+            setPriceFetchOk(false);
+            setPricePending(false);
+          }
+          return;
+        }
+        const data = (await res.json()) as { priceUsd?: number | null };
+        if (cancelled) return;
+        const p = data?.priceUsd;
+        if (typeof p === "number" && Number.isFinite(p) && p > 0) {
+          setLivePrice(p);
+          setPriceFetchOk(true);
+        } else {
+          setPriceFetchOk(false);
+        }
+      } catch {
+        if (!cancelled) setPriceFetchOk(false);
+      } finally {
+        if (!cancelled) setPricePending(false);
+      }
+    };
+    fetchPrice();
+    const id = window.setInterval(fetchPrice, 60_000);
+    return () => {
+      cancelled = true;
+      ctrl.abort();
+      window.clearInterval(id);
+    };
+  }, []);
 
   const plan = PLANS[planIdx];
 
@@ -91,31 +157,45 @@ export default function CalculatorPage() {
     return { planEnd, planEarn };
   }, [plan, deposit]);
 
-  // $TURBO token reward derivation. tierForDeposit() returns null below
-  // the $100 minimum — the UI renders an inline "Below minimum" hint in
-  // that case, no numbers shown.
+  // $TURBO token reward derivation. tierForDeposit() returns null
+  // below the $100 minimum — UI renders an inline "Below minimum"
+  // hint in that case, no numbers shown.
+  //
+  // Token-count math uses the LIVE market price (livePrice). If we
+  // don't have it yet — first paint before fetch completes, fetch
+  // failure, network blocked — tokenAmount/investorTokens/
+  // referrerTokens stay null and the UI shows "—". We never fall
+  // back to TOKEN.launchPrice because that would mislead by orders
+  // of magnitude as the market moves.
   const tokenCalc = useMemo(() => {
     const tier = tierForDeposit(deposit);
     if (!tier) return null;
     const rewardUsd = deposit * tier.pct;
-    // Token count is fixed at deposit time at the THEN-current market
-    // price. We use launch price ($0.001) as the published display
-    // baseline — actual live price feeds in on the /token page widget
-    // for users who want precision.
-    const tokenAmount = rewardUsd / TOKEN.launchPrice;
-    const investorTokens = tokenAmount * REWARD_SPLIT.investor;
-    const referrerTokens = tokenAmount * REWARD_SPLIT.referrer;
     const rank =
       VESTING_RANKS.find(r => r.slug === rankSlug) ?? VESTING_RANKS[0];
+    const usable = livePrice !== null && Number.isFinite(livePrice) && livePrice > 0;
+    if (!usable) {
+      return {
+        tier,
+        rewardUsd,
+        rank,
+        livePrice: null as number | null,
+        tokenAmount: null as number | null,
+        investorTokens: null as number | null,
+        referrerTokens: null as number | null,
+      };
+    }
+    const tokenAmount = rewardUsd / (livePrice as number);
     return {
       tier,
       rewardUsd,
-      tokenAmount,
-      investorTokens,
-      referrerTokens,
       rank,
+      livePrice: livePrice as number,
+      tokenAmount,
+      investorTokens: tokenAmount * REWARD_SPLIT.investor,
+      referrerTokens: tokenAmount * REWARD_SPLIT.referrer,
     };
-  }, [deposit, rankSlug]);
+  }, [deposit, rankSlug, livePrice]);
 
   // Pulse-key — bumped on every result change so the value <span> remounts
   // and re-fires the .tl-value-pulse keyframe. Cheaper than a useEffect +
@@ -388,13 +468,52 @@ export default function CalculatorPage() {
                   />
                   <RewardStat
                     label={`Your share (${REWARD_SPLIT.investorPctLabel})`}
-                    value={`${fmt(tokenCalc.investorTokens)} ${TOKEN.symbol}`}
+                    value={
+                      tokenCalc.investorTokens !== null
+                        ? `${fmt(tokenCalc.investorTokens)} ${TOKEN.symbol}`
+                        : "—"
+                    }
                     emphasis
                   />
                   <RewardStat
                     label={`Referrer share (${REWARD_SPLIT.referrerPctLabel})`}
-                    value={`${fmt(tokenCalc.referrerTokens)} ${TOKEN.symbol}`}
+                    value={
+                      tokenCalc.referrerTokens !== null
+                        ? `${fmt(tokenCalc.referrerTokens)} ${TOKEN.symbol}`
+                        : "—"
+                    }
                   />
+                </div>
+
+                {/* Live price used in the share math — shown so users
+                    can see the basis of the calculation. When the
+                    fetch is still pending or has failed, we surface a
+                    clear status line instead of pretending we have a
+                    number. */}
+                <div className="mb-5 px-3 py-2 rounded-[var(--r-md)] bg-[var(--c-bg)] border border-[var(--c-border)] flex items-baseline gap-2 flex-wrap text-xs">
+                  <span className="font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)]">
+                    Price used
+                  </span>
+                  {tokenCalc.livePrice !== null ? (
+                    <>
+                      <span className="text-[var(--c-text)] font-bold tabular-nums">
+                        {fmtPrice(tokenCalc.livePrice)}
+                      </span>
+                      <span className="text-[var(--c-text-subtle)] ml-auto">
+                        live · refreshes every 60 s
+                      </span>
+                    </>
+                  ) : pricePending ? (
+                    <span className="text-[var(--c-text-muted)] italic">
+                      Price loading…
+                    </span>
+                  ) : (
+                    <span className="text-[var(--c-text-muted)] italic">
+                      Price unavailable — token count will appear when
+                      the live feed is back.
+                      {!priceFetchOk && " Retrying every minute."}
+                    </span>
+                  )}
                 </div>
 
                 <div className="rounded-[var(--r-lg)] bg-[var(--c-bg)] border border-[var(--c-border)] p-4 md:p-5">
@@ -437,9 +556,10 @@ export default function CalculatorPage() {
                 </div>
 
                 <p className="text-xs text-[var(--c-text-subtle)] mt-4 leading-relaxed">
-                  Token count is fixed at the moment of deposit, calculated
-                  against the live market price at that exact time. Above
-                  uses the $0.001 launch price as a display baseline.
+                  Token count is fixed at the moment of deposit,
+                  calculated against the live market price at that exact
+                  time. Above uses the current ${TOKEN.symbol} price
+                  from DexScreener (refreshed every 60 seconds).
                 </p>
               </>
             ) : (

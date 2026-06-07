@@ -47,6 +47,7 @@ import {
   VESTING_RANKS,
   REWARD_SPLIT,
   tierForDeposit,
+  isTokenEligiblePlan,
 } from "@lib/tokenFacts";
 import { trackEvent } from "@lib/analytics";
 
@@ -435,6 +436,44 @@ export default function CalculatorPage() {
         </div>
 
         {/* ─── $TURBO TOKEN REWARDS ─── */}
+        {/* Token rewards only apply to Power (30d) and Ultimate (60d).
+            Sprint (7d) and Boost (14d) get the standard fixed yield
+            but no token rewards. Show a clear note in place of the
+            rewards card when the user picks an ineligible plan. */}
+        {!isTokenEligiblePlan(plan.id) ? (
+          <div className="mt-8 md:mt-12">
+            <Card elevation="raised" padding="md" className="p-5 md:p-6">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] flex items-center justify-center shrink-0">
+                  <Gift className="w-5 h-5 text-[var(--c-text-subtle)]" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] mb-1">
+                    Token rewards
+                  </div>
+                  <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
+                    <strong className="text-[var(--c-text)]">
+                      ${TOKEN.symbol} token rewards are available on
+                      Power (30-day) and Ultimate (60-day) plans only.
+                    </strong>{" "}
+                    Switch to Power or Ultimate above to see your
+                    projected ${TOKEN.symbol} reward. Sprint and Boost
+                    still earn their standard flat USDT ROI as shown
+                    above.
+                  </p>
+                  <div className="mt-3">
+                    <a
+                      href="/token"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[var(--c-brand-cyan)] hover:underline"
+                    >
+                      Learn about ${TOKEN.symbol} →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        ) : (
         <div className="mt-8 md:mt-12">
           <Card elevation="prominent" padding="lg" className="p-6 md:p-8">
             <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
@@ -593,6 +632,7 @@ export default function CalculatorPage() {
             </div>
           </Card>
         </div>
+        )}
 
         {/* Honest editorial pull-quote — explains revenue source. */}
         <div

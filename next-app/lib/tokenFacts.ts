@@ -94,6 +94,22 @@ export const REWARD_SPLIT = {
   referrerPctLabel: "30%",
 } as const;
 
+/** Loop Plan IDs that are eligible for $TURBO token rewards. Sprint
+ *  (7-day) and Boost (14-day) deposits do NOT earn token rewards;
+ *  only Power (30-day) and Ultimate (60-day) deposits qualify. Used
+ *  by the calculator and any other surface that needs to gate token
+ *  copy on plan choice — single source of truth so we don't sprinkle
+ *  magic strings across components. */
+export const TOKEN_ELIGIBLE_PLAN_IDS: readonly string[] = [
+  "power",
+  "ultimate",
+];
+
+/** Convenience: is this Loop Plan eligible for token rewards? */
+export function isTokenEligiblePlan(planId: string): boolean {
+  return TOKEN_ELIGIBLE_PLAN_IDS.includes(planId);
+}
+
 /** Resolve the right tier for a USDT deposit amount. Returns null if
  *  the deposit is below the minimum reward threshold ($100). */
 export function tierForDeposit(usdAmount: number): DepositRewardTier | null {

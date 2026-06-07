@@ -62,7 +62,8 @@ another plan is a separate decision.
 3. Turbo Buy (fiat-to-crypto on-ramp) fees
 
 ## Security
-- Audited on SolidityScan (QuickScan):
+- First independent audit by Haze Crypto (completed at launch)
+- Current audit on SolidityScan (QuickScan), public report:
   https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet
 - Ownership renounced on-chain (no admin function exists)
 - 100% LP locked via Unicrypt
@@ -73,9 +74,33 @@ another plan is a separate decision.
 - 20-level referral network, 51% total commission distribution
 - 7 leadership ranks, bonuses 1%–10%
 
-## Token policy
-Turbo Loop has NO native token, on purpose. Yield is paid in USDT
-(stablecoin, real purchasing power). No emissions, no dilution.
+## $TURBO Token
+TurboLoop now has a native rewards token: $TURBO (BEP-20 on BSC).
+Contract: 0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3
+Total supply: 1,000,000 TURBO. Launch price: $0.001. 100% fair launch — no team allocation, no insider reserve, LP 100% locked.
+Token page: https://www.turboloop.tech/token
+Buy: https://turboloop.io/dashboard/swap?from=USDT&to=TURBO
+Sell: https://turboloop.io/dashboard/swap?from=TURBO&to=USDT
+Live chart: https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759
+
+$TURBO is an EXTRA rewards layer on top of standard Loop Plan yields. It does NOT replace or affect USDT yield. Token rewards are only available on Power (30-day) and Ultimate (60-day) plans. Minimum deposit for token rewards: $100.
+
+Deposit reward tiers (reward split: 70% investor / 30% referrer):
+- $100–$499: 0.80% of deposit in TURBO
+- $500–$999: 1.00%
+- $1,000–$4,999: 1.20%
+- $5,000–$9,999: 1.40%
+- $10,000–$24,999: 1.50%
+- $25,000+: 1.60%
+
+Token count is fixed at deposit time at the live market price at that moment.
+First vesting installment is instant. Remaining unlocks monthly based on Leadership Program rank:
+Base=10%/month, Partner=11%, Influencer=12%, Leader=14%, Manager=15%, Ambassador=16%, Champion=18%, Legend=20%.
+
+Deflationary mechanism (separate from trade tax): 10% of admin fees from the main TurboLoop protocol are used to buy and burn TURBO daily, automated on-chain.
+Trade tax: 1% buy / 2% sell — collected by admin.
+
+Manage tokens in app: https://turboloop.io/dashboard/token-rewards
 
 ## Earning programs (apply at /apply)
 - Creator Star: post content about Turbo Loop, paid by views ($5–$1000

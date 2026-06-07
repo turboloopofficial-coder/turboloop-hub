@@ -161,7 +161,7 @@ const FAQS: FaqGroup[] = [
       },
       {
         q: "What is the reward split between investor and referrer?",
-        a: "**70%** of the token reward goes to you (the investor); **30%** goes to the person who referred you. Example: a $1,000 deposit at the 1.20% tier earns $12 in $TURBO. At the launch price of $0.001 that's 12,000 TURBO — 8,400 to you, 3,600 to your referrer.",
+        a: "**70%** of the token reward goes to you (the investor); **30%** goes to the person who referred you. Token count is fixed at the live market price at the exact moment of deposit — manage and track your tokens at [turboloop.io/dashboard/token-rewards](https://turboloop.io/dashboard/token-rewards).",
       },
       {
         q: "When can I claim my vested tokens?",

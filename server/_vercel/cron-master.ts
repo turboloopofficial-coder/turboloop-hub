@@ -28,9 +28,9 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { and, eq, lte, isNotNull } from "drizzle-orm";
-import { blogPosts, siteSettings } from "../../drizzle/schema";
-import { tgBroadcastPhoto, tgSendPhoto } from "./_telegram";
+import { and, asc, eq, lte, isNotNull } from "drizzle-orm";
+import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
+import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo } from "./_telegram";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
@@ -132,6 +132,204 @@ async function markError(
       target: siteSettings.settingKey,
       set: { settingValue: value },
     });
+}
+
+// ─── Omni-Composer dispatch (scheduled_posts → channels) ────────
+// Each channel id maps to one fan-out call. We use the existing
+// tgBroadcastPhoto / tgSendPhoto helpers for image posts and the
+// new tgBroadcastVideo / tgSendVideo for `mediaType='video'`. Text-
+// only posts (mediaType='none') fall through to sendMessage via the
+// underlying Bot API — Telegram doesn't allow inline keyboards on
+// sendMessage with parse_mode HTML without a chat_id, so we use
+// tgBroadcastMessage's underlying sendMessage path indirectly by
+// composing a minimal HTML photo card when no media is attached.
+// Practically: every Omni-Composer Telegram post should have media,
+// and the UI nudges the user that way. Text-only is supported but
+// gracefully degrades to a sendMessage call.
+
+/** Derive a URL-safe blog slug from a title. Guarantees a non-empty
+ *  return — falls back to `omni-post-<timestamp>` when title is blank. */
+function slugifyTitle(title: string | null): string {
+  if (!title) return `omni-post-${Date.now()}`;
+  const s = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+  return s || `omni-post-${Date.now()}`;
+}
+
+/** Convert Markdown to a Telegram-safe HTML caption.
+ *  This is intentionally minimal — Telegram's HTML parse_mode supports
+ *  a tiny subset of tags. We do:
+ *    • escape <, >, & first (against injection)
+ *    • **bold** → <b>…</b>
+ *    • *italic* → <i>…</i>
+ *    • `code` → <code>…</code>
+ *    • [text](url) → <a href="url">text</a>
+ *  Anything else passes through as plain text (newlines preserved). */
+function markdownToTelegramHtml(md: string): string {
+  let s = md
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  s = s.replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1<i>$2</i>");
+  s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  return s;
+}
+
+/** Build the Telegram caption used by every telegram_* channel. Title
+ *  (if any) becomes a bold first line; content is rendered MD→HTML
+ *  and truncated at the 1000-char mark (Telegram caps captions at
+ *  1024 chars including HTML tags). */
+function buildTelegramCaption(title: string | null, content: string): string {
+  const body = markdownToTelegramHtml(content);
+  const head = title ? `<b>${title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</b>\n\n` : "";
+  const full = head + body;
+  if (full.length <= 1000) return full;
+  return full.slice(0, 997) + "…";
+}
+
+/** Fan a single scheduled_post out to all its channels. Returns a
+ *  list of per-channel status strings (for logging) and throws on
+ *  the FIRST channel-level failure — the caller's try/catch will
+ *  then mark the whole post failed. We could attempt partial
+ *  delivery, but for V2 we want the admin to see a clear pass/fail
+ *  per post rather than reasoning about "5 of 7 sent". */
+async function dispatchScheduledPost(
+  db: ReturnType<typeof drizzle>,
+  post: typeof scheduledPosts.$inferSelect
+): Promise<string[]> {
+  const log: string[] = [];
+  const buttons = (post.buttons as Array<{ text: string; url: string }>) || [];
+  const channels = (post.channels as string[]) || [];
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+  const caption = buildTelegramCaption(post.title, post.content);
+
+  for (const ch of channels) {
+    if (ch === "blog") {
+      // Blog channel writes a published blog_posts row immediately.
+      // Skipping `scheduledPublishAt` keeps publishOverdueBlogs hands-
+      // off (Omni-Composer is the source of truth for THIS post).
+      if (!post.title) {
+        log.push(`📰 blog SKIPPED (no title) — post #${post.id}`);
+        continue;
+      }
+      const slug = slugifyTitle(post.title);
+      const excerpt = post.content
+        .replace(/[#*`>_-]/g, "")
+        .trim()
+        .slice(0, 220);
+      await db.insert(blogPosts).values({
+        title: post.title,
+        slug,
+        excerpt,
+        content: post.content,
+        coverImage: post.mediaUrl ?? null,
+        published: true,
+      });
+      log.push(`📰 blog → /blog/${slug}`);
+      continue;
+    }
+    if (ch === "telegram_en") {
+      if (post.mediaType === "video" && post.mediaUrl) {
+        await tgBroadcastVideo({ videoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+      } else if (post.mediaUrl) {
+        await tgBroadcastPhoto({ photoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+      } else {
+        // Text-only fallback — Telegram bot API sendMessage.
+        if (!token) {
+          log.push(`📡 telegram_en SKIPPED (no TELEGRAM_BOT_TOKEN) — post #${post.id}`);
+          continue;
+        }
+        const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+        for (const chatId of dests) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: caption,
+              parse_mode: "HTML",
+              reply_markup: buttons.length > 0
+                ? { inline_keyboard: [buttons.map(b => ({ text: b.text, url: b.url }))] }
+                : undefined,
+            }),
+          });
+        }
+      }
+      log.push("📡 telegram_en");
+      continue;
+    }
+    if (ch === "telegram_de") {
+      if (!token || !germanChat) {
+        log.push(`📡 telegram_de SKIPPED (TELEGRAM_GERMAN_CHAT or token missing) — post #${post.id}`);
+        continue;
+      }
+      if (post.mediaType === "video" && post.mediaUrl) {
+        await tgSendVideo(token, { chatId: germanChat, videoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+      } else if (post.mediaUrl) {
+        await tgSendPhoto(token, { chatId: germanChat, photoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+      } else {
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: germanChat,
+            text: caption,
+            parse_mode: "HTML",
+            reply_markup: buttons.length > 0
+              ? { inline_keyboard: [buttons.map(b => ({ text: b.text, url: b.url }))] }
+              : undefined,
+          }),
+        });
+      }
+      log.push("📡 telegram_de");
+      continue;
+    }
+    if (ch === "telegram_hi" || ch === "telegram_id") {
+      // No per-language groups exist yet — broadcast to default
+      // Channel + Group with the (already language-tagged) caption.
+      // When a HI/ID group is provisioned, swap this to tgSendPhoto
+      // against the new env var.
+      if (post.mediaType === "video" && post.mediaUrl) {
+        await tgBroadcastVideo({ videoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+      } else if (post.mediaUrl) {
+        await tgBroadcastPhoto({ photoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+      } else if (token) {
+        const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+        for (const chatId of dests) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: caption,
+              parse_mode: "HTML",
+              reply_markup: buttons.length > 0
+                ? { inline_keyboard: [buttons.map(b => ({ text: b.text, url: b.url }))] }
+                : undefined,
+            }),
+          });
+        }
+      }
+      log.push(`📡 ${ch}`);
+      continue;
+    }
+    log.push(`⚠️ unknown channel "${ch}" — post #${post.id}`);
+  }
+  return log;
+}
+
+/** Compute the next firing time for a recurring scheduled post using
+ *  the standard 5-field UTC cron expression. Anchored to NOW so a long
+ *  outage doesn't replay a backlog of skipped slots. */
+async function nextCronFire(expr: string): Promise<Date> {
+  const { CronExpressionParser } = await import("cron-parser");
+  const it = CronExpressionParser.parse(expr, { tz: "UTC", currentDate: new Date() });
+  return it.next().toDate();
 }
 
 /** Extract a YouTube video ID from any of the common URL shapes:
@@ -714,6 +912,89 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       await markError(db, "campaignB", err).catch(() => {});
       console.error("[cron-master] task campaignB failed", err);
       log.push(`❌ campaignB failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ 10. OMNI-COMPOSER SCHEDULED POSTS (Automation V2) ============
+    // Process anything in `scheduled_posts` with status='pending' AND
+    // next_run_at <= now. Each post wraps in its own try/catch — one
+    // bad post can't sink the queue or the hardcoded slots above.
+    // Limit 25/tick keeps function timeout in check; if more are due
+    // they'll pick up on the next 5-min tick.
+    try {
+      const dueRows = await db
+        .select()
+        .from(scheduledPosts)
+        .where(
+          and(
+            eq(scheduledPosts.status, "pending"),
+            lte(scheduledPosts.nextRunAt, new Date())
+          )
+        )
+        .orderBy(asc(scheduledPosts.nextRunAt))
+        .limit(25);
+
+      for (const post of dueRows) {
+        try {
+          // Mark running to claim the row — a concurrent 5-min tick
+          // (rare but possible if Vercel doubles up) won't re-pick it.
+          await db
+            .update(scheduledPosts)
+            .set({ status: "running" })
+            .where(eq(scheduledPosts.id, post.id));
+
+          const channelLog = await dispatchScheduledPost(db, post);
+
+          // Success — branch on schedule type.
+          if (post.scheduleType === "once") {
+            await db
+              .update(scheduledPosts)
+              .set({
+                status: "completed",
+                fireCount: (post.fireCount ?? 0) + 1,
+                lastFiredAt: new Date(),
+                lastError: null,
+              })
+              .where(eq(scheduledPosts.id, post.id));
+          } else {
+            // Recurring — recompute nextRunAt from the cron expression.
+            // If the expression is missing/invalid (shouldn't happen
+            // because tRPC validated at create time, but defensive),
+            // mark failed so the admin can fix it.
+            if (!post.cronExpression) {
+              throw new Error("Recurring post is missing cronExpression");
+            }
+            const next = await nextCronFire(post.cronExpression);
+            await db
+              .update(scheduledPosts)
+              .set({
+                status: "pending",
+                nextRunAt: next,
+                fireCount: (post.fireCount ?? 0) + 1,
+                lastFiredAt: new Date(),
+                lastError: null,
+              })
+              .where(eq(scheduledPosts.id, post.id));
+          }
+
+          log.push(
+            `🧩 omni #${post.id} → ${channelLog.join(", ")}` +
+              (post.scheduleType === "recurring" ? " (recurring, next scheduled)" : " (once-completed)")
+          );
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : String(err);
+          await db
+            .update(scheduledPosts)
+            .set({ status: "failed", lastError: msg.slice(0, 1000) })
+            .where(eq(scheduledPosts.id, post.id))
+            .catch(() => {});
+          console.error(`[cron-master] omni post #${post.id} failed`, err);
+          log.push(`❌ omni #${post.id} failed: ${msg.slice(0, 200)}`);
+        }
+      }
+    } catch (err) {
+      await markError(db, "omniComposer", err).catch(() => {});
+      console.error("[cron-master] omniComposer queue scan failed", err);
+      log.push(`❌ omniComposer queue scan failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     res.statusCode = 200;

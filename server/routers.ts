@@ -24,6 +24,8 @@ import {
   unsubscribeNewsletter,
   crmOverviewMetrics, crmRecentActivity,
   listRecentChatConversations, getChatMessages, chatActivityLast14Days,
+  listScheduledPosts, getScheduledPostById, createScheduledPost,
+  updateScheduledPost, deleteScheduledPost, SCHEDULED_POST_CHANNELS,
 } from "./db";
 import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
@@ -328,6 +330,134 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           });
         }
 
+        return {
+          ...draft,
+          tokensUsed: {
+            input: response.usage.input_tokens,
+            output: response.usage.output_tokens,
+          },
+        };
+      }),
+
+    /** Rewrite a body for a Telegram caption — single concise message
+     *  under Telegram's 1024-char caption limit, with the brand voice
+     *  preserved. Used by the Omni-Composer's "Enhance for Telegram"
+     *  button. Returns plain text (caller wraps in HTML if needed). */
+    enhanceForTelegram: adminProcedure
+      .input(z.object({
+        source: z.string().min(3).max(8000),
+        ctaUrl: z.string().url().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "ANTHROPIC_API_KEY not configured.",
+          });
+        }
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+
+        const systemPrompt = `You rewrite long-form copy as a concise Telegram caption for Turbo Loop, a transparent audited DeFi yield protocol on BSC.
+
+Voice: confident, premium, community-first. No hype words ("MOON", "100x", "huge"). No emoji walls — 1-3 tasteful emoji max. Specific facts beat generic claims.
+
+Constraints:
+- Max 900 characters (Telegram cuts captions at 1024 with HTML).
+- Open with a hook sentence.
+- Use 2-4 short paragraphs separated by blank lines.
+- End with a clear call-to-action line.
+- Plain text only — no Markdown asterisks, no HTML tags. The caller wraps in HTML.
+
+Output: respond with the caption text ONLY. No quotes, no preamble, no JSON.`;
+
+        const userPrompt = `Source content:\n\n${input.source}${
+          input.ctaUrl ? `\n\nCTA URL (mention naturally if helpful): ${input.ctaUrl}` : ""
+        }`;
+
+        const response = await client.messages.create({
+          model: "claude-sonnet-4-5",
+          max_tokens: 800,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+        });
+        const textBlock = response.content.find((b) => b.type === "text");
+        if (!textBlock || textBlock.type !== "text") {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
+        }
+        return {
+          caption: textBlock.text.trim(),
+          tokensUsed: {
+            input: response.usage.input_tokens,
+            output: response.usage.output_tokens,
+          },
+        };
+      }),
+
+    /** Expand a short prompt or Telegram-length caption into a full
+     *  blog post body. Returns { title, slug, excerpt, content }
+     *  matching draftBlog's shape so the Omni-Composer can reuse the
+     *  same preview pipeline. */
+    expandForBlog: adminProcedure
+      .input(z.object({
+        source: z.string().min(3).max(2000),
+        audienceLevel: z.enum(["newcomer", "intermediate", "expert"]).default("intermediate"),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "ANTHROPIC_API_KEY not configured.",
+          });
+        }
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+
+        const audienceGuide = {
+          newcomer: "complete crypto beginners — explain everything in plain English, define every term, no jargon",
+          intermediate: "people who know crypto but are new to TurboLoop — assume DeFi basics, focus on what makes TurboLoop unique",
+          expert: "experienced DeFi users — go deep on mechanics, math, and on-chain verifiability. Skip the basics.",
+        }[input.audienceLevel];
+
+        const systemPrompt = `You expand a short brief or social-post caption into a full long-form blog post for Turbo Loop, a transparent audited DeFi yield protocol on BSC.
+
+Voice: confident, premium, community-first. No hype words ("MOON", "100x", "huge"). Specific facts beat generic claims. Match Bloomberg / Stratechery — readable, dense, factually precise.
+
+Audience: ${audienceGuide}
+
+Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
+{
+  "title": "60-90 char SEO-friendly title",
+  "slug": "kebab-case-slug-no-trailing-dashes",
+  "excerpt": "150-220 char summary that makes people click",
+  "content": "Full markdown blog post — 800-1500 words, with H2 headings (##), H3 sub-headings (###), bullet lists, and at least one block quote (>). End with a 'Where to next' paragraph that links 2-3 relevant pages on turboloop.tech."
+}`;
+
+        const userPrompt = `Source brief / caption to expand:\n\n${input.source}`;
+
+        const response = await client.messages.create({
+          model: "claude-sonnet-4-5",
+          max_tokens: 3000,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+        });
+        const textBlock = response.content.find((b) => b.type === "text");
+        if (!textBlock || textBlock.type !== "text") {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
+        }
+        const raw = textBlock.text.trim();
+        const cleaned = raw.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+        let draft: { title: string; slug: string; excerpt: string; content: string };
+        try {
+          draft = JSON.parse(cleaned);
+        } catch {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `Claude returned invalid JSON. Raw output (first 500 chars):\n${cleaned.slice(0, 500)}`,
+          });
+        }
         return {
           ...draft,
           tokensUsed: {
@@ -838,6 +968,163 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           .optional()
       )
       .query(({ input }) => listAutomationLog(input?.limit ?? 100)),
+
+    // ─── Omni-Composer scheduled posts (Automation V2) ───
+    // Channel enum is shared with the cron-master fan-out switch. If
+    // you add a channel here, also add a `case "..."` to the
+    // dispatchScheduledPost helper in server/_vercel/cron-master.ts.
+    scheduledPosts: router({
+      list: adminProcedure
+        .input(z.object({
+          status: z.enum(["pending", "running", "completed", "paused", "failed"]).optional(),
+          limit: z.number().int().min(1).max(500).optional(),
+        }).optional())
+        .query(({ input }) => listScheduledPosts(input)),
+
+      getById: adminProcedure
+        .input(z.object({ id: z.number().int() }))
+        .query(({ input }) => getScheduledPostById(input.id)),
+
+      create: adminProcedure
+        .input(z.object({
+          title: z.string().max(500).nullable().optional(),
+          content: z.string().min(1),
+          mediaUrl: z.string().url().nullable().optional(),
+          mediaType: z.enum(["none", "image", "video"]).default("none"),
+          channels: z.array(z.enum(SCHEDULED_POST_CHANNELS)).min(1),
+          buttons: z.array(z.object({
+            text: z.string().min(1).max(64),
+            url: z.string().url(),
+          })).max(8).default([]),
+          scheduleType: z.enum(["once", "recurring"]),
+          // 5-field UTC cron string. Required for recurring; ignored
+          // for once. Server validates it actually parses below.
+          cronExpression: z.string().max(200).nullable().optional(),
+          // ISO timestamp string — for `once` this is the firing
+          // moment; for `recurring` this is the next firing moment
+          // (server re-derives later runs from cronExpression).
+          nextRunAt: z.string().min(1),
+        }))
+        .mutation(async ({ ctx, input }) => {
+          // Validate cron upfront so we don't write a bad row.
+          if (input.scheduleType === "recurring") {
+            if (!input.cronExpression) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "cronExpression is required for recurring posts",
+              });
+            }
+            // Lazy import — cron-parser is only needed when admin saves
+            // a recurring post, so we don't pay for it on every request.
+            const { CronExpressionParser } = await import("cron-parser");
+            try {
+              CronExpressionParser.parse(input.cronExpression, { tz: "UTC" });
+            } catch (e: any) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: `Invalid cronExpression: ${e?.message || String(e)}`,
+              });
+            }
+          }
+          const createdBy = (ctx as any).admin?.email ?? null;
+          const row = await createScheduledPost({
+            title: input.title ?? null,
+            content: input.content,
+            mediaUrl: input.mediaUrl ?? null,
+            mediaType: input.mediaType,
+            channels: input.channels as string[],
+            buttons: input.buttons,
+            scheduleType: input.scheduleType,
+            cronExpression: input.scheduleType === "recurring" ? input.cronExpression! : null,
+            nextRunAt: new Date(input.nextRunAt),
+            status: "pending",
+            createdBy,
+          });
+          return row;
+        }),
+
+      update: adminProcedure
+        .input(z.object({
+          id: z.number().int(),
+          title: z.string().max(500).nullable().optional(),
+          content: z.string().min(1).optional(),
+          mediaUrl: z.string().url().nullable().optional(),
+          mediaType: z.enum(["none", "image", "video"]).optional(),
+          channels: z.array(z.enum(SCHEDULED_POST_CHANNELS)).min(1).optional(),
+          buttons: z.array(z.object({
+            text: z.string().min(1).max(64),
+            url: z.string().url(),
+          })).max(8).optional(),
+          scheduleType: z.enum(["once", "recurring"]).optional(),
+          cronExpression: z.string().max(200).nullable().optional(),
+          nextRunAt: z.string().min(1).optional(),
+          status: z.enum(["pending", "paused", "completed", "failed"]).optional(),
+        }))
+        .mutation(async ({ input }) => {
+          if (input.cronExpression) {
+            const { CronExpressionParser } = await import("cron-parser");
+            try {
+              CronExpressionParser.parse(input.cronExpression, { tz: "UTC" });
+            } catch (e: any) {
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: `Invalid cronExpression: ${e?.message || String(e)}`,
+              });
+            }
+          }
+          const patch: any = { ...input };
+          delete patch.id;
+          if (patch.nextRunAt) patch.nextRunAt = new Date(patch.nextRunAt);
+          if (patch.channels) patch.channels = patch.channels as string[];
+          const row = await updateScheduledPost(input.id, patch);
+          if (!row) {
+            throw new TRPCError({ code: "NOT_FOUND", message: `Scheduled post ${input.id} not found` });
+          }
+          return row;
+        }),
+
+      delete: adminProcedure
+        .input(z.object({ id: z.number().int() }))
+        .mutation(({ input }) => deleteScheduledPost(input.id)),
+
+      /** Toggle pause/resume — pause prevents the cron from picking
+       *  it up; resume reopens it. If a recurring post was paused
+       *  past its nextRunAt, resuming will fire immediately on the
+       *  next 5-min tick (intentional — the admin knows what they
+       *  want). */
+      pause: adminProcedure
+        .input(z.object({ id: z.number().int() }))
+        .mutation(async ({ input }) => {
+          const row = await updateScheduledPost(input.id, { status: "paused" });
+          if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Not found" });
+          return row;
+        }),
+      resume: adminProcedure
+        .input(z.object({ id: z.number().int() }))
+        .mutation(async ({ input }) => {
+          const row = await updateScheduledPost(input.id, { status: "pending", lastError: null });
+          if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Not found" });
+          return row;
+        }),
+
+      /** Force-fire a scheduled post on the next cron tick by setting
+       *  nextRunAt to now. Returns the updated row so the UI can show
+       *  the moved timestamp. We don't synchronously fan out here —
+       *  the cron is the single source of truth for actual broadcast
+       *  side-effects, so "Run Now" really means "Run on the next
+       *  5-min tick" (typically <5 min away). */
+      runNow: adminProcedure
+        .input(z.object({ id: z.number().int() }))
+        .mutation(async ({ input }) => {
+          const row = await updateScheduledPost(input.id, {
+            nextRunAt: new Date(),
+            status: "pending",
+            lastError: null,
+          });
+          if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Not found" });
+          return row;
+        }),
+    }),
 
     listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),
     createBlogPost: adminProcedure

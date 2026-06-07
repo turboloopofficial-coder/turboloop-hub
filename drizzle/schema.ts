@@ -5,6 +5,28 @@ import { sql } from "drizzle-orm";
 export const videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "cinematic", "other"]);
 export const eventStatusEnum = pgEnum("event_status", ["upcoming", "live", "completed", "recurring"]);
 export const roadmapStatusEnum = pgEnum("roadmap_status", ["completed", "current", "upcoming"]);
+// Omni-Composer scheduled-post lifecycle. `pending` is the cron's
+// pickup queue; `running` is set briefly while a post is being fanned
+// out (lets us recover if a function timeout kills the run); `paused`
+// is admin-toggled; `completed` is terminal for once-shot posts; and
+// `failed` keeps a row alive with `lastError` so the admin Queue view
+// can show what broke.
+export const scheduledPostStatusEnum = pgEnum("scheduled_post_status", [
+  "pending",
+  "running",
+  "completed",
+  "paused",
+  "failed",
+]);
+export const scheduledPostScheduleTypeEnum = pgEnum("scheduled_post_schedule_type", [
+  "once",
+  "recurring",
+]);
+export const scheduledPostMediaTypeEnum = pgEnum("scheduled_post_media_type", [
+  "none",
+  "image",
+  "video",
+]);
 
 // Admin credentials (email + bcrypt password)
 export const adminCredentials = pgTable("admin_credentials", {
@@ -410,3 +432,73 @@ export const jobVacancies = pgTable("job_vacancies", {
 
 export type JobVacancy = typeof jobVacancies.$inferSelect;
 export type InsertJobVacancy = typeof jobVacancies.$inferInsert;
+
+// ─── Omni-Composer scheduled posts (Automation V2) ─────────────────────
+//
+// Custom, cross-channel scheduled posts authored from the admin Omni-
+// Composer. Sits alongside the hardcoded cron-master slots: every 5-min
+// tick, the master cron queries this table for `status='pending' AND
+// nextRunAt <= NOW()` rows and fans them out to the channels listed.
+//
+// `channels` is a free-form jsonb array of channel ids; the server
+// enforces a fixed enum at the tRPC boundary so we don't need a
+// pg enum here (and can grow new channels without a migration).
+// Current allowed values:
+//   "blog"          → creates a published blog_posts row
+//   "telegram_en"   → tgBroadcastPhoto/Video to Channel + EN Group
+//   "telegram_de"   → tgSendPhoto/Video to TELEGRAM_GERMAN_CHAT only
+//   "telegram_hi"   → tgBroadcastPhoto/Video (no per-language group yet)
+//   "telegram_id"   → tgBroadcastPhoto/Video (no per-language group yet)
+//
+// `cronExpression` is standard 5-field UTC cron (cron-parser semantics).
+// Required when `scheduleType='recurring'`, ignored otherwise.
+//
+// `nextRunAt` is the next UTC moment the cron should pick this up.
+// For `once` posts this is set at create-time and never recomputed.
+// For `recurring` posts this is recomputed AFTER each successful fire
+// using cron-parser; the row stays at status='pending' indefinitely
+// until manually paused / deleted.
+//
+// `buttons` is a jsonb array of inline-keyboard buttons for Telegram —
+// shape `[{ text, url }]`. The blog channel ignores this field.
+//
+// `lastError` is populated when status flips to 'failed' so the Queue
+// view can render the message inline without joining site_settings.
+export const scheduledPosts = pgTable("scheduled_posts", {
+  id: serial("id").primaryKey(),
+  // Editorial title — used as the blog title and prepended to the
+  // Telegram caption when present. NULL for media-only Telegram posts.
+  title: varchar("title", { length: 500 }),
+  // Body: Markdown for blog, HTML for Telegram. The Omni-Composer keeps
+  // both formats compatible by writing Markdown that the Telegram path
+  // re-renders into HTML at fire-time (or passes through if already HTML).
+  content: text("content").notNull(),
+  // R2-hosted media URL. NULL = text-only post.
+  mediaUrl: varchar("media_url", { length: 1024 }),
+  mediaType: scheduledPostMediaTypeEnum("media_type").default("none").notNull(),
+  // Per-channel routing — see header comment for allowed values.
+  channels: jsonb("channels").$type<string[]>().notNull(),
+  // Optional inline keyboard buttons attached to the Telegram message(s).
+  buttons: jsonb("buttons").$type<Array<{ text: string; url: string }>>().default([]).notNull(),
+  scheduleType: scheduledPostScheduleTypeEnum("schedule_type").notNull(),
+  // Standard 5-field UTC cron string (e.g. "0 14 * * *"). Required for
+  // recurring, NULL for once-shot.
+  cronExpression: varchar("cron_expression", { length: 200 }),
+  // Next UTC tick the cron should pick this up. INDEXED so the master
+  // cron's "due now" query is cheap.
+  nextRunAt: timestamp("next_run_at").notNull(),
+  status: scheduledPostStatusEnum("status").default("pending").notNull(),
+  // Last error message — only populated when status='failed'. Truncated
+  // to 1000 chars defensively.
+  lastError: text("last_error"),
+  // Counters — useful for the Queue view's "Has fired N times" badge.
+  fireCount: integer("fire_count").default(0).notNull(),
+  lastFiredAt: timestamp("last_fired_at"),
+  // Author email — pulled from the admin JWT at create time. Audit only.
+  createdBy: varchar("created_by", { length: 320 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+});
+
+export type ScheduledPost = typeof scheduledPosts.$inferSelect;
+export type InsertScheduledPost = typeof scheduledPosts.$inferInsert;

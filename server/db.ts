@@ -17,6 +17,7 @@ import {
   socialWallVideos, type InsertSocialWallVideo,
   jobVacancies, type InsertJobVacancy,
   chatConversations, chatMessages,
+  scheduledPosts, type ScheduledPost, type InsertScheduledPost,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -938,4 +939,93 @@ export async function chatActivityLast14Days(): Promise<
   return Object.entries(buckets)
     .map(([date, v]) => ({ date, ...v }))
     .sort((a, b) => (a.date < b.date ? -1 : 1));
+}
+
+// ============================================================
+// Omni-Composer scheduled posts (Automation V2)
+// ============================================================
+
+/** Allowed channel ids. Mirrored on the client; the tRPC schema
+ *  enforces this set at the input boundary. Kept here as a value (not
+ *  just a type) so the cron-master's fan-out switch can iterate over
+ *  it. */
+export const SCHEDULED_POST_CHANNELS = [
+  "blog",
+  "telegram_en",
+  "telegram_de",
+  "telegram_hi",
+  "telegram_id",
+] as const;
+export type ScheduledPostChannel = typeof SCHEDULED_POST_CHANNELS[number];
+
+export async function listScheduledPosts(opts?: {
+  status?: "pending" | "running" | "completed" | "paused" | "failed";
+  limit?: number;
+}): Promise<ScheduledPost[]> {
+  const db = getDb();
+  const limit = opts?.limit ?? 200;
+  if (opts?.status) {
+    return db
+      .select()
+      .from(scheduledPosts)
+      .where(eq(scheduledPosts.status, opts.status))
+      .orderBy(asc(scheduledPosts.nextRunAt))
+      .limit(limit);
+  }
+  return db
+    .select()
+    .from(scheduledPosts)
+    .orderBy(asc(scheduledPosts.nextRunAt))
+    .limit(limit);
+}
+
+export async function getScheduledPostById(id: number): Promise<ScheduledPost | undefined> {
+  const db = getDb();
+  const r = await db.select().from(scheduledPosts).where(eq(scheduledPosts.id, id)).limit(1);
+  return r[0];
+}
+
+export async function createScheduledPost(
+  data: InsertScheduledPost
+): Promise<ScheduledPost> {
+  const db = getDb();
+  const [row] = await db.insert(scheduledPosts).values(data).returning();
+  return row;
+}
+
+export async function updateScheduledPost(
+  id: number,
+  patch: Partial<InsertScheduledPost>
+): Promise<ScheduledPost | undefined> {
+  const db = getDb();
+  const [row] = await db
+    .update(scheduledPosts)
+    .set(patch)
+    .where(eq(scheduledPosts.id, id))
+    .returning();
+  return row;
+}
+
+export async function deleteScheduledPost(id: number): Promise<void> {
+  const db = getDb();
+  await db.delete(scheduledPosts).where(eq(scheduledPosts.id, id));
+}
+
+/** Pull posts the cron should fire on this tick. Filters to status
+ *  pending (paused/completed/failed are intentionally excluded) and
+ *  nextRunAt in the past. Limit-capped so a runaway queue can't
+ *  exhaust the function timeout in one tick. */
+export async function listDueScheduledPosts(limit = 25): Promise<ScheduledPost[]> {
+  const db = getDb();
+  return db
+    .select()
+    .from(scheduledPosts)
+    .where(
+      and(
+        eq(scheduledPosts.status, "pending"),
+        lte(scheduledPosts.nextRunAt, new Date())
+      )
+    )
+    .orderBy(asc(scheduledPosts.nextRunAt))
+    .limit(limit);
 }

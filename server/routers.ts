@@ -801,6 +801,219 @@ The "day" field is 1-indexed and matches the post's position in the sequence.`;
           },
         };
       }),
+
+    /** Single-shot multi-channel generator powering the Smart
+     *  Composer. One Claude call returns ALL seven channel-shaped
+     *  outputs from a single raw content seed — more efficient and
+     *  more coherent than seven sequential calls because the model
+     *  sees the full set when balancing emphasis across formats.
+     *
+     *  Output shape:
+     *    blogPost.title         — 60-90 char SEO title
+     *    blogPost.slug          — kebab-case slug
+     *    blogPost.excerpt       — 150-220 char summary
+     *    blogPost.content       — Full Markdown blog (800-1500 words)
+     *    telegramEN             — 280-char HTML caption (EN)
+     *    telegramDE             — 280-char HTML caption (German)
+     *    telegramHI             — 280-char HTML caption (Hindi)
+     *    telegramID             — 280-char HTML caption (Indonesian)
+     *    suggestedButtonText    — short Telegram inline-button label
+     *    whatsappText           — 160-char plain text + URL
+     *    instagramCaption       — 3 lines + 5 hashtags
+     *    imagePrompt            — Cloudflare Flux 1 Schnell prompt
+     *
+     *  Server-side validation: if any short blurb exceeds its cap
+     *  on the first pass, we retry ONCE with a stricter "you went
+     *  over by N characters, regenerate within the cap" follow-up
+     *  message. After the retry we hard-truncate as a safety net. */
+    generateAllChannels: adminProcedure
+      .input(z.object({
+        rawContent: z.string().min(3).max(8000),
+        mediaUrl: z.string().url().optional(),
+        tone: z.enum(["professional", "hype", "educational"]).default("professional"),
+        audience: z.enum(["newcomer", "intermediate", "expert"]).default("intermediate"),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "ANTHROPIC_API_KEY not configured.",
+          });
+        }
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+
+        const audienceGuide = {
+          newcomer: "complete crypto beginners — explain everything in plain English, define every term, no jargon",
+          intermediate: "people who know crypto but are new to TurboLoop — assume DeFi basics, focus on what makes TurboLoop unique",
+          expert: "experienced DeFi users — go deep on mechanics, math, and on-chain verifiability. Skip the basics.",
+        }[input.audience];
+
+        const toneGuide = {
+          professional: "confident, premium, restrained. Bloomberg / Stratechery cadence. Avoid emoji and hype.",
+          hype:         "energetic but not desperate. Punchy headlines, momentum-driven, 1-2 tasteful emoji per post max. Never use MOON / 100x / huge.",
+          educational:  "teacher voice. Define every term. Use analogies. Bullet lists and numbered steps. Skip rhetoric.",
+        }[input.tone];
+
+        const baseSystem = `You are the multi-channel content generator for Turbo Loop, a transparent audited DeFi yield protocol on BSC.
+
+A user gives you ONE raw idea / topic / news snippet and you produce a coordinated set of outputs sized for every channel we ship on. Each output must stand alone but share the same underlying message — readers seeing the Telegram, the WhatsApp, and the blog should recognize the same campaign.
+
+Audience: ${audienceGuide}
+Tone: ${toneGuide}
+
+HARD CHARACTER CAPS — count characters before responding. Going over is a failure:
+  • telegramEN / telegramDE / telegramHI / telegramID  →  ≤280 chars EACH
+  • whatsappText                                       →  ≤160 chars
+  • instagramCaption                                    →  3 lines (≤300 chars) + blank line + 5 hashtags on one line
+
+Per-channel specs:
+  • blogPost.title           — 60-90 char SEO-friendly title.
+  • blogPost.slug            — kebab-case, no trailing dashes.
+  • blogPost.excerpt         — 150-220 char summary that earns the click.
+  • blogPost.content         — Full Markdown, 800-1500 words, ## H2 sections, ### H3 sub-sections, at least one bullet list, at least one block quote. End with "Where to next" linking 1-2 turboloop.tech pages.
+  • telegramEN               — ≤280 chars. ONE hook + ONE CTA. HTML <b> allowed; NO Markdown asterisks; 1-2 emoji max.
+  • telegramDE               — Same structure as telegramEN, translated to German. ≤280 chars in the translated form. Brand terms (Turbo Loop, $TURBO, USDT, BscScan, BNB, BSC, DeFi, MoonPay) stay verbatim.
+  • telegramHI               — Same structure, translated to Hindi (Devanagari). ≤280 chars in the translated form. Brand terms verbatim.
+  • telegramID               — Same structure, translated to Indonesian (Bahasa Indonesia). ≤280 chars. Brand terms verbatim.
+  • suggestedButtonText      — 1-3 word inline-keyboard label for the Telegram captions (e.g. "Read more", "Open calculator").
+  • whatsappText             — ≤160 chars TOTAL. Plain text only — NO HTML, NO Markdown, NO emoji. Single sentence + the canonical article URL on the next line. URL counts toward the 160 char budget; if no slug yet, omit the URL.
+  • instagramCaption         — Exactly 3 punchy lines separated by \\n, max 300 characters in the body, then a blank line (\\n\\n), then EXACTLY 5 relevant hashtags on one line (e.g. "#DeFi #Crypto #YieldFarming #BSC #TurboLoop").
+  • imagePrompt              — A Cloudflare Workers AI / Flux 1 Schnell prompt (1-3 sentences). Be specific about style ("minimal isometric illustration, cyan + slate palette, flat shading, no text"). DO NOT request text in the image — Flux mangles text.
+
+Output: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
+{
+  "blogPost": { "title": "...", "slug": "...", "excerpt": "...", "content": "..." },
+  "telegramEN": "...",
+  "telegramDE": "...",
+  "telegramHI": "...",
+  "telegramID": "...",
+  "suggestedButtonText": "...",
+  "whatsappText": "...",
+  "instagramCaption": "...",
+  "imagePrompt": "..."
+}`;
+
+        const userPrompt = `Raw content seed:\n\n${input.rawContent}${input.mediaUrl ? `\n\nMedia attached: ${input.mediaUrl}` : ""}`;
+
+        // Inline parser + validator. Returns the parsed object PLUS
+        // a list of cap violations. We use the violations to decide
+        // whether to retry once with a stricter prompt.
+        type AllChannels = {
+          blogPost: { title: string; slug: string; excerpt: string; content: string };
+          telegramEN: string;
+          telegramDE: string;
+          telegramHI: string;
+          telegramID: string;
+          suggestedButtonText?: string;
+          whatsappText: string;
+          instagramCaption: string;
+          imagePrompt: string;
+        };
+        function parseAndValidate(text: string): { parsed: AllChannels; violations: string[] } {
+          const cleaned = text
+            .trim()
+            .replace(/^```(?:json)?\s*\n?/i, "")
+            .replace(/\n?```\s*$/i, "")
+            .trim();
+          const parsed = JSON.parse(cleaned) as AllChannels;
+          const v: string[] = [];
+          if (!parsed?.blogPost?.content) v.push("blogPost.content missing");
+          for (const k of ["telegramEN", "telegramDE", "telegramHI", "telegramID"] as const) {
+            const s = parsed[k] ?? "";
+            if (s.length > 280) v.push(`${k} is ${s.length} chars (cap 280, over by ${s.length - 280})`);
+          }
+          if ((parsed.whatsappText ?? "").length > 160) {
+            v.push(`whatsappText is ${parsed.whatsappText.length} chars (cap 160, over by ${parsed.whatsappText.length - 160})`);
+          }
+          return { parsed, violations: v };
+        }
+
+        // First pass — generous max_tokens (long-form blog body + 4
+        // translations + 3 short blurbs ≈ 4000 tokens worst case).
+        const firstResp = await client.messages.create({
+          model: "claude-sonnet-4-5",
+          max_tokens: 5000,
+          system: baseSystem,
+          messages: [{ role: "user", content: userPrompt }],
+        });
+        const firstText = firstResp.content.find((b) => b.type === "text");
+        if (!firstText || firstText.type !== "text") {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
+        }
+        let parsed: AllChannels;
+        let violations: string[];
+        try {
+          const r = parseAndValidate(firstText.text);
+          parsed = r.parsed;
+          violations = r.violations;
+        } catch (e) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `Claude returned invalid JSON. Raw (first 500 chars):\n${firstText.text.slice(0, 500)}`,
+          });
+        }
+
+        let tokensInTotal = firstResp.usage.input_tokens;
+        let tokensOutTotal = firstResp.usage.output_tokens;
+        let retried = false;
+
+        // ONE retry pass if any caps were violated. The retry message
+        // tells Claude exactly which fields broke and by how much, and
+        // asks it to regenerate ONLY those fields — but since the API
+        // doesn't support partial output, it returns the whole JSON
+        // again. We pass the previous response as assistant context
+        // so Claude can use it as a starting point.
+        if (violations.length > 0) {
+          retried = true;
+          const retryUser = `Your previous response broke these character caps:\n\n${violations.map((v) => "- " + v).join("\n")}\n\nRegenerate the FULL JSON response, keeping the blogPost content as-is, but tighten the short-form fields so EVERY field is at or under its cap. Count characters before responding.`;
+          const retryResp = await client.messages.create({
+            model: "claude-sonnet-4-5",
+            max_tokens: 5000,
+            system: baseSystem,
+            messages: [
+              { role: "user", content: userPrompt },
+              { role: "assistant", content: firstText.text },
+              { role: "user", content: retryUser },
+            ],
+          });
+          const retryText = retryResp.content.find((b) => b.type === "text");
+          if (retryText && retryText.type === "text") {
+            try {
+              const r = parseAndValidate(retryText.text);
+              parsed = r.parsed;
+              violations = r.violations;
+            } catch {
+              // Keep the first-pass result if the retry doesn't parse;
+              // we'll still hard-truncate below.
+            }
+            tokensInTotal += retryResp.usage.input_tokens;
+            tokensOutTotal += retryResp.usage.output_tokens;
+          }
+        }
+
+        // Safety-net hard truncation after the (optional) retry.
+        const cap = (s: string, n: number) => (s.length <= n ? s : s.slice(0, n - 1) + "…");
+        const safe: AllChannels = {
+          blogPost: parsed.blogPost,
+          telegramEN: cap(parsed.telegramEN ?? "", 280),
+          telegramDE: cap(parsed.telegramDE ?? "", 280),
+          telegramHI: cap(parsed.telegramHI ?? "", 280),
+          telegramID: cap(parsed.telegramID ?? "", 280),
+          suggestedButtonText: parsed.suggestedButtonText ?? "Read more",
+          whatsappText: cap(parsed.whatsappText ?? "", 160),
+          instagramCaption: parsed.instagramCaption ?? "",
+          imagePrompt: parsed.imagePrompt ?? "",
+        };
+
+        return {
+          ...safe,
+          retried,
+          remainingViolations: violations,
+          tokensUsed: { input: tokensInTotal, output: tokensOutTotal },
+        };
+      }),
   }),
 
   // Public content submission + admin moderation

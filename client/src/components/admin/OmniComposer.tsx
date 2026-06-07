@@ -178,7 +178,7 @@ const EMPTY: ComposerState = {
 };
 
 export default function OmniComposer() {
-  const [tab, setTab] = useState<"compose" | "queue">("compose");
+  const [tab, setTab] = useState<"compose" | "smart" | "queue">("compose");
   const [editing, setEditing] = useState<ComposerState>(EMPTY);
   const [campaignOpen, setCampaignOpen] = useState(false);
 
@@ -196,6 +196,17 @@ export default function OmniComposer() {
             }`}
           >
             <Edit3 className="h-3.5 w-3.5" /> Compose
+          </button>
+          <button
+            onClick={() => setTab("smart")}
+            className={`inline-flex items-center gap-1.5 px-3 h-9 rounded-lg text-sm font-bold border transition ${
+              tab === "smart"
+                ? "bg-gradient-to-r from-violet-600/20 to-cyan-600/20 text-violet-700 border-violet-600/40"
+                : "text-slate-500 border-slate-200 hover:bg-slate-50"
+            }`}
+            title="Generate every channel's variant from one raw idea"
+          >
+            <Sparkles className="h-3.5 w-3.5" /> Smart Composer
           </button>
           <button
             onClick={() => setTab("queue")}
@@ -217,7 +228,7 @@ export default function OmniComposer() {
         </button>
       </div>
 
-      {tab === "compose" ? (
+      {tab === "compose" && (
         <ComposeView
           state={editing}
           setState={setEditing}
@@ -226,7 +237,15 @@ export default function OmniComposer() {
             setTab("queue");
           }}
         />
-      ) : (
+      )}
+      {tab === "smart" && (
+        <SmartComposerView
+          onScheduled={() => {
+            setTab("queue");
+          }}
+        />
+      )}
+      {tab === "queue" && (
         <QueueView
           onEdit={(post) => {
             setEditing(scheduledPostToState(post));
@@ -2058,6 +2077,656 @@ function CampaignDraftCard(props: {
           })}
         </div>
       </div>
+    </div>
+  );
+}
+
+// ============ SMART COMPOSER VIEW ============
+// One-shot multi-channel generator. Takes a raw seed (any topic / news
+// snippet / brain dump) and produces sized outputs for every channel
+// we ship on, all in one Claude call. Each output is shown as an
+// editable card with a live character counter that turns red when
+// over the channel's hard cap (server already truncates; the UI just
+// nudges the editor visually).
+//
+// Selected channels + a schedule then create scheduled_posts rows
+// directly — one row per selected channel so the cron can fan each
+// out independently with its sized content.
+
+const SMART_CHANNELS: { id: ChannelId; label: string }[] = [
+  { id: "blog",         label: "Blog" },
+  { id: "telegram_en",  label: "Telegram EN" },
+  { id: "telegram_de",  label: "Telegram DE" },
+  { id: "telegram_hi",  label: "Telegram HI" },
+  { id: "telegram_id",  label: "Telegram ID" },
+];
+
+type SmartOutputs = {
+  blogTitle: string;
+  blogSlug: string;
+  blogExcerpt: string;
+  blogContent: string;
+  telegramEN: string;
+  telegramDE: string;
+  telegramHI: string;
+  telegramID: string;
+  suggestedButtonText: string;
+  whatsappText: string;
+  instagramCaption: string;
+  imagePrompt: string;
+};
+
+function SmartComposerView(props: { onScheduled: () => void }) {
+  const utils = trpc.useUtils();
+  const [rawContent, setRawContent] = useState("");
+  const [mediaUrl, setMediaUrl] = useState("");
+  const [mediaType, setMediaType] = useState<"none" | "image" | "video">("none");
+  const [tone, setTone] = useState<"professional" | "hype" | "educational">("professional");
+  const [audience, setAudience] = useState<"newcomer" | "intermediate" | "expert">("intermediate");
+  const [outputs, setOutputs] = useState<SmartOutputs | null>(null);
+  const [selectedChannels, setSelectedChannels] = useState<ChannelId[]>(["telegram_en"]);
+  const [scheduleMode, setScheduleMode] = useState<"now" | "scheduled">("now");
+  const [scheduleAtUtc, setScheduleAtUtc] = useState<string>(utcInputValue(new Date(Date.now() + 60 * 60 * 1000)));
+  const [uploading, setUploading] = useState(false);
+  const [scheduling, setScheduling] = useState(false);
+  const [genWarning, setGenWarning] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const generateMut = trpc.aiDrafter.generateAllChannels.useMutation();
+  const generateImageMut = trpc.aiDrafter.generateImage.useMutation();
+  const uploadMedia = trpc.manage.uploadImage.useMutation();
+  const createScheduledMut = trpc.manage.scheduledPosts.create.useMutation();
+
+  const handleGenerate = async () => {
+    if (!rawContent.trim()) {
+      toast.error("Paste a topic or seed content first");
+      return;
+    }
+    setGenWarning(null);
+    try {
+      const r = await generateMut.mutateAsync({
+        rawContent: rawContent.trim(),
+        mediaUrl: mediaUrl || undefined,
+        tone,
+        audience,
+      });
+      setOutputs({
+        blogTitle: r.blogPost.title,
+        blogSlug: r.blogPost.slug,
+        blogExcerpt: r.blogPost.excerpt,
+        blogContent: r.blogPost.content,
+        telegramEN: r.telegramEN,
+        telegramDE: r.telegramDE,
+        telegramHI: r.telegramHI,
+        telegramID: r.telegramID,
+        suggestedButtonText: r.suggestedButtonText ?? "Read more",
+        whatsappText: r.whatsappText,
+        instagramCaption: r.instagramCaption,
+        imagePrompt: r.imagePrompt,
+      });
+      if (r.retried) {
+        const remaining = r.remainingViolations?.length ?? 0;
+        if (remaining > 0) {
+          setGenWarning(
+            `Claude retried but ${remaining} field${remaining > 1 ? "s" : ""} still over the cap. Auto-truncated — review before scheduling.`
+          );
+        } else {
+          toast.info("Claude self-corrected on retry");
+        }
+      } else {
+        toast.success("All channels generated");
+      }
+    } catch (e) {
+      toast.error(`Generation failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  const handleGenerateImageFromPrompt = async () => {
+    if (!outputs?.imagePrompt) {
+      toast.error("No image prompt yet — generate channels first");
+      return;
+    }
+    try {
+      const r = await generateImageMut.mutateAsync({
+        prompt: outputs.imagePrompt,
+        size: "1024x1024",
+        quality: "standard",
+      });
+      setMediaUrl(r.url);
+      setMediaType("image");
+      toast.success("Image generated and attached");
+    } catch (e) {
+      toast.error(`Image gen failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const isVideo = file.type.startsWith("video/");
+    const isImage = file.type.startsWith("image/");
+    if (!isVideo && !isImage) { toast.error("Pick an image or video file"); return; }
+    if (file.size > 4_000_000) { toast.error("File must be under 4MB"); return; }
+    setUploading(true);
+    try {
+      const reader = new FileReader();
+      const base64 = await new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve((reader.result as string).split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const r = await uploadMedia.mutateAsync({
+        filename: file.name,
+        base64,
+        contentType: file.type,
+      });
+      setMediaUrl(r.url);
+      setMediaType(isVideo ? "video" : "image");
+      toast.success("Uploaded");
+    } catch (err) {
+      toast.error(`Upload failed: ${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  // Schedule one scheduled_posts row per selected channel — each
+  // channel gets its sized content (blog gets full Markdown + title;
+  // each telegram_* gets its translated 280-char caption). The cron
+  // fan-out then runs each row through its own channel handler.
+  const handleSchedule = async () => {
+    if (!outputs) { toast.error("Generate channels first"); return; }
+    if (selectedChannels.length === 0) { toast.error("Pick at least one channel"); return; }
+    const nextRunAtIso =
+      scheduleMode === "now"
+        ? new Date(Date.now() + 60_000).toISOString()
+        : parseUtcInput(scheduleAtUtc).toISOString();
+
+    setScheduling(true);
+    try {
+      const buttons = outputs.suggestedButtonText
+        ? [{
+            text: outputs.suggestedButtonText,
+            url: "https://www.turboloop.tech/blog/" + (outputs.blogSlug || ""),
+          }]
+        : [];
+
+      for (const ch of selectedChannels) {
+        const channelContent =
+          ch === "blog"        ? outputs.blogContent :
+          ch === "telegram_en" ? outputs.telegramEN :
+          ch === "telegram_de" ? outputs.telegramDE :
+          ch === "telegram_hi" ? outputs.telegramHI :
+          ch === "telegram_id" ? outputs.telegramID :
+          outputs.blogContent;
+
+        await createScheduledMut.mutateAsync({
+          title: ch === "blog" ? outputs.blogTitle : null,
+          content: channelContent,
+          mediaUrl: mediaUrl || null,
+          mediaType,
+          channels: [ch],
+          buttons: ch.startsWith("telegram_") ? buttons : [],
+          scheduleType: "once",
+          cronExpression: null,
+          nextRunAt: nextRunAtIso,
+        } as any);
+      }
+      utils.manage.scheduledPosts.list.invalidate();
+      toast.success(`Scheduled ${selectedChannels.length} channel${selectedChannels.length > 1 ? "s" : ""}`);
+      props.onScheduled();
+    } catch (e) {
+      toast.error(`Scheduling failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setScheduling(false);
+    }
+  };
+
+  return (
+    <div className="space-y-5">
+      {/* Header */}
+      <div className="rounded-xl border border-violet-200 bg-gradient-to-r from-violet-50/60 to-cyan-50/60 p-4">
+        <div className="flex items-center gap-2 mb-1">
+          <Sparkles className="h-4 w-4 text-violet-700" />
+          <h3 className="text-base font-heading font-bold text-slate-800">Smart Composer</h3>
+        </div>
+        <p className="text-xs text-slate-600">
+          Paste one raw idea — a topic, a news snippet, a brain dump. One Claude call returns
+          perfectly sized variants for every channel: blog post, four Telegram translations,
+          WhatsApp, Instagram, and a Cloudflare AI image prompt. Edit each in place, pick channels,
+          schedule.
+        </p>
+      </div>
+
+      {/* Input pane */}
+      <div className="rounded-xl border border-slate-200 bg-white/70 backdrop-blur-xl p-4 space-y-3">
+        <div>
+          <Label className="text-slate-500 text-xs">Raw content seed</Label>
+          <textarea
+            value={rawContent}
+            onChange={(e) => setRawContent(e.target.value)}
+            rows={6}
+            placeholder="Paste a topic, a news snippet, a half-formed idea — anything. Smart Composer turns it into every channel's variant."
+            className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md p-3 focus:border-violet-500 outline-none leading-relaxed resize-y"
+          />
+          <div className="text-[10px] text-slate-400 mt-1 text-right">{rawContent.length} chars</div>
+        </div>
+
+        {/* Tone + Audience + Generate */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="md:col-span-1">
+            <Label className="text-slate-500 text-xs">Tone</Label>
+            <select
+              value={tone}
+              onChange={(e) => setTone(e.target.value as any)}
+              className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md h-9 px-2 outline-none focus:border-violet-500"
+            >
+              <option value="professional">Professional</option>
+              <option value="hype">Hype</option>
+              <option value="educational">Educational</option>
+            </select>
+          </div>
+          <div className="md:col-span-1">
+            <Label className="text-slate-500 text-xs">Audience</Label>
+            <select
+              value={audience}
+              onChange={(e) => setAudience(e.target.value as any)}
+              className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md h-9 px-2 outline-none focus:border-violet-500"
+            >
+              <option value="newcomer">Newcomer</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="expert">Expert</option>
+            </select>
+          </div>
+          <div className="md:col-span-1 flex items-end">
+            <Button
+              size="sm"
+              onClick={handleGenerate}
+              disabled={generateMut.isPending || !rawContent.trim()}
+              className="w-full h-9 bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:opacity-95 shadow"
+            >
+              {generateMut.isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-1.5" />
+              ) : (
+                <Sparkles className="h-4 w-4 mr-1.5" />
+              )}
+              Generate all channels
+            </Button>
+          </div>
+        </div>
+
+        {/* Media row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start pt-2 border-t border-slate-100">
+          <div className="md:col-span-2 space-y-1.5">
+            <Label className="text-slate-500 text-xs">
+              Media (optional — image/video &lt; 4MB or external URL)
+            </Label>
+            <div className="flex items-center gap-2">
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*,video/*"
+                onChange={handleFileSelect}
+                className="hidden"
+              />
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => fileRef.current?.click()}
+                disabled={uploading}
+                className="text-cyan-700 border border-cyan-600/20 bg-cyan-600/5 hover:bg-cyan-600/10"
+              >
+                {uploading ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" />
+                ) : (
+                  <Upload className="h-3.5 w-3.5 mr-1.5" />
+                )}
+                Upload
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={handleGenerateImageFromPrompt}
+                disabled={generateImageMut.isPending || !outputs?.imagePrompt}
+                title={outputs?.imagePrompt ? `Prompt: ${outputs.imagePrompt.slice(0, 100)}…` : "Generate channels first to get a prompt"}
+                className="text-violet-700 border border-violet-600/20 bg-violet-600/5 hover:bg-violet-600/10"
+              >
+                {generateImageMut.isPending ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" />
+                ) : (
+                  <ImagePlus className="h-3.5 w-3.5 mr-1.5" />
+                )}
+                Generate with AI
+              </Button>
+            </div>
+            <Input
+              value={mediaUrl}
+              onChange={(e) => {
+                setMediaUrl(e.target.value);
+                setMediaType(
+                  e.target.value === "" ? "none" :
+                  /\.(mp4|mov|webm|mkv)(\?|$)/i.test(e.target.value) ? "video" : "image"
+                );
+              }}
+              placeholder="… or paste a public URL"
+              className="bg-white/80 border-slate-200 text-slate-800 text-xs"
+            />
+          </div>
+          <div className="md:col-span-1">
+            {mediaUrl && (
+              <div className="relative inline-block">
+                {mediaType === "video" ? (
+                  <div className="w-24 h-24 rounded border border-slate-200 bg-slate-100 flex items-center justify-center">
+                    <VideoIcon className="h-6 w-6 text-slate-400" />
+                  </div>
+                ) : (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img src={mediaUrl} alt="" className="w-24 h-24 rounded border border-slate-200 object-cover" />
+                )}
+                <button
+                  onClick={() => { setMediaUrl(""); setMediaType("none"); }}
+                  className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Generation warnings */}
+      {genWarning && (
+        <div className="flex items-start gap-2 rounded-xl border border-amber-300 bg-amber-50 p-3 text-xs text-amber-800">
+          <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+          <span>{genWarning}</span>
+        </div>
+      )}
+
+      {/* Output cards */}
+      {outputs && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <Eye className="h-4 w-4 text-violet-700" />
+            <h3 className="text-base font-heading font-bold text-slate-800">Generated variants</h3>
+            <span className="text-xs text-slate-400">— edit any field before scheduling</span>
+          </div>
+
+          {/* Blog post card */}
+          <SmartOutputCard
+            title="Blog post"
+            cap={null}
+            value={outputs.blogContent}
+            charCountSource={outputs.blogContent}
+            onChange={(v) => setOutputs((o) => o && ({ ...o, blogContent: v }))}
+            headerExtra={
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
+                <Input
+                  value={outputs.blogTitle}
+                  onChange={(e) => setOutputs((o) => o && ({ ...o, blogTitle: e.target.value }))}
+                  placeholder="Title"
+                  className="bg-white/80 border-slate-200 text-slate-800 text-xs"
+                />
+                <Input
+                  value={outputs.blogSlug}
+                  onChange={(e) => setOutputs((o) => o && ({ ...o, blogSlug: e.target.value }))}
+                  placeholder="slug-here"
+                  className="bg-white/80 border-slate-200 text-slate-800 text-xs font-mono"
+                />
+                <Input
+                  value={outputs.blogExcerpt}
+                  onChange={(e) => setOutputs((o) => o && ({ ...o, blogExcerpt: e.target.value }))}
+                  placeholder="Excerpt"
+                  className="bg-white/80 border-slate-200 text-slate-800 text-xs md:col-span-2"
+                />
+              </div>
+            }
+            rows={10}
+            mono
+          />
+
+          {/* Telegram cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <SmartOutputCard
+              title="Telegram EN"
+              cap={280}
+              value={outputs.telegramEN}
+              charCountSource={outputs.telegramEN}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, telegramEN: v }))}
+              rows={4}
+            />
+            <SmartOutputCard
+              title="Telegram DE"
+              cap={280}
+              value={outputs.telegramDE}
+              charCountSource={outputs.telegramDE}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, telegramDE: v }))}
+              rows={4}
+            />
+            <SmartOutputCard
+              title="Telegram HI"
+              cap={280}
+              value={outputs.telegramHI}
+              charCountSource={outputs.telegramHI}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, telegramHI: v }))}
+              rows={4}
+            />
+            <SmartOutputCard
+              title="Telegram ID"
+              cap={280}
+              value={outputs.telegramID}
+              charCountSource={outputs.telegramID}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, telegramID: v }))}
+              rows={4}
+            />
+          </div>
+
+          {/* WhatsApp + Instagram */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <SmartOutputCard
+              title="WhatsApp"
+              cap={160}
+              value={outputs.whatsappText}
+              charCountSource={outputs.whatsappText}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, whatsappText: v }))}
+              rows={3}
+              copyable
+            />
+            <SmartOutputCard
+              title="Instagram"
+              cap={null}
+              value={outputs.instagramCaption}
+              charCountSource={outputs.instagramCaption}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, instagramCaption: v }))}
+              rows={5}
+              copyable
+            />
+          </div>
+
+          {/* Image prompt + Telegram button text */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <SmartOutputCard
+              title="Image prompt (Cloudflare AI)"
+              cap={null}
+              value={outputs.imagePrompt}
+              charCountSource={outputs.imagePrompt}
+              onChange={(v) => setOutputs((o) => o && ({ ...o, imagePrompt: v }))}
+              rows={3}
+            />
+            <div className="rounded-xl border border-slate-200 bg-white/70 backdrop-blur-xl p-3 space-y-2">
+              <div className="flex items-baseline justify-between">
+                <h4 className="text-sm font-bold text-slate-800">Telegram button</h4>
+                <span className="text-[10px] text-slate-400">Attached to telegram_* channels</span>
+              </div>
+              <Input
+                value={outputs.suggestedButtonText}
+                onChange={(e) => setOutputs((o) => o && ({ ...o, suggestedButtonText: e.target.value }))}
+                placeholder="Read more"
+                className="bg-white/80 border-slate-200 text-slate-800 text-sm"
+              />
+              <div className="text-[10px] text-slate-500">
+                Button URL auto-points at <code>/blog/{outputs.blogSlug || "your-slug"}</code>.
+              </div>
+            </div>
+          </div>
+
+          {/* Channel selector + schedule */}
+          <div className="rounded-xl border border-slate-200 bg-white/70 backdrop-blur-xl p-4 space-y-3">
+            <div>
+              <Label className="text-slate-500 text-xs mb-1.5 block">Channels to schedule</Label>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-1.5">
+                {SMART_CHANNELS.map((c) => {
+                  const checked = selectedChannels.includes(c.id);
+                  return (
+                    <label
+                      key={c.id}
+                      className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border cursor-pointer transition ${
+                        checked
+                          ? "border-cyan-600/40 bg-cyan-600/5"
+                          : "border-slate-200 bg-white/50 hover:bg-slate-50"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={(e) =>
+                          setSelectedChannels((s) =>
+                            e.target.checked ? [...s, c.id] : s.filter((x) => x !== c.id)
+                          )
+                        }
+                        className="accent-cyan-600"
+                      />
+                      <span className="text-xs font-bold text-slate-700">{c.label}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <Label className="text-slate-500 text-xs">When</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setScheduleMode("now")}
+                    className={`px-3 py-2 rounded-lg text-xs font-bold border transition ${
+                      scheduleMode === "now"
+                        ? "border-emerald-600/40 bg-emerald-600/10 text-emerald-700"
+                        : "border-slate-200 bg-white/50 text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <Send className="h-3.5 w-3.5 inline mr-1" /> Post now
+                  </button>
+                  <button
+                    onClick={() => setScheduleMode("scheduled")}
+                    className={`px-3 py-2 rounded-lg text-xs font-bold border transition ${
+                      scheduleMode === "scheduled"
+                        ? "border-cyan-600/40 bg-cyan-600/10 text-cyan-700"
+                        : "border-slate-200 bg-white/50 text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <Calendar className="h-3.5 w-3.5 inline mr-1" /> Schedule once
+                  </button>
+                </div>
+              </div>
+              {scheduleMode === "scheduled" && (
+                <div>
+                  <Label className="text-slate-500 text-xs">Fire at (UTC)</Label>
+                  <Input
+                    type="datetime-local"
+                    value={scheduleAtUtc}
+                    onChange={(e) => setScheduleAtUtc(e.target.value)}
+                    className="bg-white/80 border-slate-200 text-slate-800 text-sm"
+                  />
+                </div>
+              )}
+            </div>
+
+            <Button
+              size="sm"
+              onClick={handleSchedule}
+              disabled={scheduling || selectedChannels.length === 0}
+              className="w-full bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:opacity-95 shadow"
+            >
+              {scheduling ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-1.5" />
+              ) : scheduleMode === "now" ? (
+                <Send className="h-4 w-4 mr-1.5" />
+              ) : (
+                <Calendar className="h-4 w-4 mr-1.5" />
+              )}
+              {scheduleMode === "now"
+                ? `Post ${selectedChannels.length} channel${selectedChannels.length === 1 ? "" : "s"} on next 5-min tick`
+                : `Schedule ${selectedChannels.length} channel${selectedChannels.length === 1 ? "" : "s"}`}
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Editable card with live char-count + over-cap red indicator.
+function SmartOutputCard(props: {
+  title: string;
+  cap: number | null;
+  value: string;
+  charCountSource: string;
+  onChange: (v: string) => void;
+  rows?: number;
+  mono?: boolean;
+  headerExtra?: React.ReactNode;
+  copyable?: boolean;
+}) {
+  const len = props.charCountSource.length;
+  const over = props.cap !== null && len > props.cap;
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white/70 backdrop-blur-xl p-3">
+      <div className="flex items-baseline justify-between mb-2 gap-2">
+        <h4 className="text-sm font-bold text-slate-800">{props.title}</h4>
+        <div className="flex items-center gap-2">
+          {props.cap !== null ? (
+            <span
+              className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                over
+                  ? "bg-red-100 text-red-700"
+                  : len >= props.cap * 0.85
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-emerald-100 text-emerald-700"
+              }`}
+              title={over ? `Over the ${props.cap}-char cap by ${len - props.cap}` : ""}
+            >
+              {len} / {props.cap}
+            </span>
+          ) : (
+            <span className="text-[10px] text-slate-400">{len} chars</span>
+          )}
+          {props.copyable && (
+            <button
+              onClick={() =>
+                navigator.clipboard.writeText(props.value).then(
+                  () => toast.success("Copied"),
+                  () => toast.error("Clipboard blocked")
+                )
+              }
+              className="text-[10px] text-cyan-700 hover:underline"
+              title="Copy to clipboard"
+            >
+              Copy
+            </button>
+          )}
+        </div>
+      </div>
+      {props.headerExtra}
+      <textarea
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value)}
+        rows={props.rows ?? 4}
+        className={`w-full bg-white/80 border text-slate-800 text-xs rounded-md p-2.5 outline-none resize-y leading-relaxed ${
+          over ? "border-red-300 focus:border-red-500" : "border-slate-200 focus:border-cyan-500"
+        } ${props.mono ? "font-mono" : ""}`}
+      />
     </div>
   );
 }

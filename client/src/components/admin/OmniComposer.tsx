@@ -44,6 +44,11 @@ import {
   AlertTriangle,
   CheckCircle2,
   Clock,
+  Languages,
+  ImagePlus,
+  Layers,
+  ChevronDown,
+  DollarSign,
 } from "lucide-react";
 
 // ─── Channel taxonomy (mirror of server SCHEDULED_POST_CHANNELS) ───
@@ -125,6 +130,18 @@ function renderTelegramHtml(title: string | null, body: string): string {
   return full.length <= 1000 ? full : full.slice(0, 997) + "…";
 }
 
+// DALL-E cost acknowledgement — per browser session. We don't want to
+// nag the admin on every image, but the first one in a session should
+// confirm they understand the spend (~$0.04-0.12 per image depending
+// on size/quality).
+const COST_ACK_KEY = "omni-ai-image-cost-acked";
+function isCostAcked(): boolean {
+  try { return sessionStorage.getItem(COST_ACK_KEY) === "1"; } catch { return false; }
+}
+function ackCost(): void {
+  try { sessionStorage.setItem(COST_ACK_KEY, "1"); } catch { /* ignore */ }
+}
+
 function buildWhatsappText(title: string | null, body: string, ctaUrl?: string): string {
   const lines: string[] = [];
   if (title) lines.push(title);
@@ -169,30 +186,40 @@ const EMPTY: ComposerState = {
 export default function OmniComposer() {
   const [tab, setTab] = useState<"compose" | "queue">("compose");
   const [editing, setEditing] = useState<ComposerState>(EMPTY);
+  const [campaignOpen, setCampaignOpen] = useState(false);
 
   return (
     <div className="space-y-6">
-      {/* Inner-tab pills */}
-      <div className="flex items-center gap-2">
+      {/* Inner-tab pills + Campaign Mode trigger */}
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setTab("compose")}
+            className={`inline-flex items-center gap-1.5 px-3 h-9 rounded-lg text-sm font-bold border transition ${
+              tab === "compose"
+                ? "bg-cyan-600/10 text-cyan-700 border-cyan-600/30"
+                : "text-slate-500 border-slate-200 hover:bg-slate-50"
+            }`}
+          >
+            <Edit3 className="h-3.5 w-3.5" /> Compose
+          </button>
+          <button
+            onClick={() => setTab("queue")}
+            className={`inline-flex items-center gap-1.5 px-3 h-9 rounded-lg text-sm font-bold border transition ${
+              tab === "queue"
+                ? "bg-cyan-600/10 text-cyan-700 border-cyan-600/30"
+                : "text-slate-500 border-slate-200 hover:bg-slate-50"
+            }`}
+          >
+            <ListChecks className="h-3.5 w-3.5" /> Queue
+          </button>
+        </div>
         <button
-          onClick={() => setTab("compose")}
-          className={`inline-flex items-center gap-1.5 px-3 h-9 rounded-lg text-sm font-bold border transition ${
-            tab === "compose"
-              ? "bg-cyan-600/10 text-cyan-700 border-cyan-600/30"
-              : "text-slate-500 border-slate-200 hover:bg-slate-50"
-          }`}
+          onClick={() => setCampaignOpen(true)}
+          className="inline-flex items-center gap-1.5 px-3 h-9 rounded-lg text-sm font-bold bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow hover:shadow-md transition"
+          title="Generate a multi-day campaign with AI"
         >
-          <Edit3 className="h-3.5 w-3.5" /> Compose
-        </button>
-        <button
-          onClick={() => setTab("queue")}
-          className={`inline-flex items-center gap-1.5 px-3 h-9 rounded-lg text-sm font-bold border transition ${
-            tab === "queue"
-              ? "bg-cyan-600/10 text-cyan-700 border-cyan-600/30"
-              : "text-slate-500 border-slate-200 hover:bg-slate-50"
-          }`}
-        >
-          <ListChecks className="h-3.5 w-3.5" /> Queue
+          <Layers className="h-3.5 w-3.5" /> Campaign Mode
         </button>
       </div>
 
@@ -210,6 +237,17 @@ export default function OmniComposer() {
           onEdit={(post) => {
             setEditing(scheduledPostToState(post));
             setTab("compose");
+          }}
+        />
+      )}
+
+      {campaignOpen && (
+        <CampaignBuilderModal
+          defaultChannels={editing.channels}
+          onClose={() => setCampaignOpen(false)}
+          onScheduled={() => {
+            setCampaignOpen(false);
+            setTab("queue");
           }}
         />
       )}
@@ -261,10 +299,25 @@ function ComposeView(props: {
   });
   const enhanceTg = trpc.aiDrafter.enhanceForTelegram.useMutation();
   const expandBlog = trpc.aiDrafter.expandForBlog.useMutation();
+  const draftBlog = trpc.aiDrafter.draftBlog.useMutation();
+  const translateMut = trpc.aiDrafter.translate.useMutation();
+  const generateImageMut = trpc.aiDrafter.generateImage.useMutation();
   const uploadMedia = trpc.manage.uploadImage.useMutation();
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
+
+  // ─── Magic Wand inline panel state ───
+  const [wandOpen, setWandOpen] = useState(false);
+  const [wandTopic, setWandTopic] = useState("");
+  const [wandTone, setWandTone] = useState<"professional" | "hype" | "educational">("professional");
+  const [wandAudience, setWandAudience] = useState<"newcomer" | "intermediate" | "expert">("intermediate");
+
+  // ─── AI image generation panel state ───
+  const [aiImgOpen, setAiImgOpen] = useState(false);
+  const [aiImgPrompt, setAiImgPrompt] = useState("");
+  const [aiImgSize, setAiImgSize] = useState<"1024x1024" | "1024x1792" | "1792x1024">("1024x1024");
+  const [aiImgQuality, setAiImgQuality] = useState<"standard" | "hd">("standard");
 
   const ctaUrlPreview = state.buttons[0]?.url ?? "";
 
@@ -350,6 +403,118 @@ function ComposeView(props: {
     }
   };
 
+  // Magic Wand — calls draftBlog with a `notes` field that injects the
+  // selected tone. draftBlog itself doesn't take a tone param yet (V2
+  // scope), so we sneak it in through notes. Claude follows the
+  // instruction reliably enough for V2.
+  const handleMagicWand = async () => {
+    if (!wandTopic.trim()) {
+      toast.error("Enter a topic first");
+      return;
+    }
+    const toneNote = {
+      professional: "Tone: confident, premium, restrained. Bloomberg / Stratechery cadence. Avoid emoji and hype.",
+      hype:         "Tone: energetic but not desperate. Punchy headlines, momentum-driven, 1-2 tasteful emoji max. Never use MOON / 100x / huge.",
+      educational:  "Tone: teacher voice. Define every term. Use analogies. Bullet lists and numbered steps. Skip rhetoric.",
+    }[wandTone];
+    try {
+      const r = await draftBlog.mutateAsync({
+        topic: wandTopic.trim(),
+        audienceLevel: wandAudience,
+        notes: toneNote,
+      });
+      setState((s) => ({
+        ...s,
+        title: r.title,
+        content: r.content,
+      }));
+      setWandOpen(false);
+      setWandTopic("");
+      toast.success("Draft generated");
+    } catch (e) {
+      toast.error(`Magic Wand failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  // Translate — replaces editor content with translation in place.
+  // Toast warns the admin to save-as-new or revert (Ctrl+Z works on
+  // the textarea but not on title — keep that in mind).
+  const handleTranslate = async (target: "de" | "hi" | "id") => {
+    if (!state.content.trim()) {
+      toast.error("Write some content first");
+      return;
+    }
+    const label = { de: "German", hi: "Hindi", id: "Indonesian" }[target];
+    try {
+      const r = await translateMut.mutateAsync({
+        source: (state.title ? state.title + "\n\n" : "") + state.content,
+        target,
+      });
+      // If the translation starts with a single line (the title) followed
+      // by a blank, split it back into title + body. Otherwise just dump
+      // everything into content.
+      const parts = r.text.split(/\n\s*\n/, 2);
+      if (state.title && parts.length === 2 && parts[0].length <= 200) {
+        setState((s) => ({ ...s, title: parts[0].trim(), content: parts[1].trim() }));
+      } else {
+        setState((s) => ({ ...s, content: r.text }));
+      }
+      toast.success(`Translated to ${label} — save as a new post or undo (Ctrl+Z) to revert`);
+    } catch (e) {
+      toast.error(`Translate failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  // AI image generation — DALL-E 3 → R2. First call in the session
+  // gates on a cost-confirm modal (~$0.04). Subsequent calls skip
+  // the modal because sessionStorage flag is set.
+  const handleGenerateImage = async () => {
+    if (!aiImgPrompt.trim()) {
+      toast.error("Describe the image first");
+      return;
+    }
+    // Cost gate (once per session).
+    if (!isCostAcked()) {
+      const cost = aiImgQuality === "hd" ? "$0.08-0.12" : "$0.04-0.08";
+      const ok = window.confirm(
+        `Generate one DALL-E 3 image at ${aiImgSize} (${aiImgQuality})?\n\n` +
+          `Approx cost: ${cost}. This message won't show again this session.`
+      );
+      if (!ok) return;
+      ackCost();
+    }
+    try {
+      const r = await generateImageMut.mutateAsync({
+        prompt: aiImgPrompt.trim(),
+        size: aiImgSize,
+        quality: aiImgQuality,
+      });
+      setState((s) => ({
+        ...s,
+        mediaUrl: r.url,
+        mediaType: "image",
+      }));
+      setAiImgOpen(false);
+      if (r.revisedPrompt && r.revisedPrompt !== aiImgPrompt.trim()) {
+        toast.success(`Image generated. DALL-E rewrote your prompt — see console for the revised version.`);
+        console.info("[DALL-E revised prompt]", r.revisedPrompt);
+      } else {
+        toast.success("Image generated and attached");
+      }
+    } catch (e) {
+      toast.error(`Image gen failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  // Pre-fill the AI image prompt from the post body. Uses the title
+  // + first 300 chars stripped of Markdown as a starting point.
+  const autoSeedImagePrompt = () => {
+    const plain = (state.title ? state.title + ". " : "") +
+      state.content.replace(/[#*`>_-]/g, " ").replace(/\s+/g, " ").trim().slice(0, 300);
+    const seed = `Hero image for a blog post titled "${state.title || "(untitled)"}". ${plain.slice(0, 200)}. Style: minimal isometric illustration, cyan + slate color palette, flat shading, no text in the image, premium fintech aesthetic.`;
+    setAiImgPrompt(seed);
+  };
+
   const submit = (mode: "now" | "scheduled") => {
     if (!state.content.trim()) {
       toast.error("Content is required");
@@ -423,22 +588,35 @@ function ComposeView(props: {
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between mb-1 flex-wrap gap-1">
               <Label className="text-slate-500 text-xs">Body (Markdown)</Label>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 flex-wrap">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setWandOpen((v) => !v)}
+                  className={`h-7 text-[11px] hover:bg-violet-50 ${
+                    wandOpen ? "bg-violet-100 text-violet-700" : "text-violet-700"
+                  }`}
+                  title="AI draft a full post from a topic"
+                >
+                  <Wand2 className="h-3 w-3 mr-1" />
+                  Magic Wand
+                </Button>
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={handleEnhanceTelegram}
                   disabled={enhanceTg.isPending || !state.content.trim()}
                   className="h-7 text-[11px] text-cyan-700 hover:bg-cyan-50"
+                  title="Rewrite as a Telegram-optimized caption"
                 >
                   {enhanceTg.isPending ? (
                     <Loader2 className="h-3 w-3 animate-spin mr-1" />
                   ) : (
                     <Wand2 className="h-3 w-3 mr-1" />
                   )}
-                  Enhance for Telegram
+                  Optimize for Telegram
                 </Button>
                 <Button
                   size="sm"
@@ -446,6 +624,7 @@ function ComposeView(props: {
                   onClick={handleExpandBlog}
                   disabled={expandBlog.isPending || !state.content.trim()}
                   className="h-7 text-[11px] text-cyan-700 hover:bg-cyan-50"
+                  title="Expand into a full blog post"
                 >
                   {expandBlog.isPending ? (
                     <Loader2 className="h-3 w-3 animate-spin mr-1" />
@@ -454,8 +633,77 @@ function ComposeView(props: {
                   )}
                   Expand for Blog
                 </Button>
+                <TranslateDropdown
+                  disabled={translateMut.isPending || !state.content.trim()}
+                  loading={translateMut.isPending}
+                  onPick={(target) => handleTranslate(target)}
+                />
               </div>
             </div>
+
+            {/* Magic Wand inline panel — collapsible, sits above the textarea
+                so the user can preview what they're about to overwrite. */}
+            {wandOpen && (
+              <div className="mb-2 rounded-lg border border-violet-200 bg-violet-50/50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-bold text-violet-700">
+                    Magic Wand — AI draft
+                  </div>
+                  <button
+                    onClick={() => setWandOpen(false)}
+                    className="text-slate-400 hover:text-slate-700"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+                <Input
+                  value={wandTopic}
+                  onChange={(e) => setWandTopic(e.target.value)}
+                  placeholder="What's the post about? (e.g. why $TURBO trade tax flows to ops)"
+                  className="bg-white/80 border-violet-200 text-slate-800 text-xs"
+                />
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label className="text-slate-500 text-[10px]">Tone</Label>
+                    <select
+                      value={wandTone}
+                      onChange={(e) => setWandTone(e.target.value as any)}
+                      className="w-full bg-white/80 border border-violet-200 text-slate-800 text-xs rounded h-8 px-2 outline-none focus:border-violet-500"
+                    >
+                      <option value="professional">Professional</option>
+                      <option value="hype">Hype (energetic)</option>
+                      <option value="educational">Educational</option>
+                    </select>
+                  </div>
+                  <div>
+                    <Label className="text-slate-500 text-[10px]">Audience</Label>
+                    <select
+                      value={wandAudience}
+                      onChange={(e) => setWandAudience(e.target.value as any)}
+                      className="w-full bg-white/80 border border-violet-200 text-slate-800 text-xs rounded h-8 px-2 outline-none focus:border-violet-500"
+                    >
+                      <option value="newcomer">Newcomer</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="expert">Expert</option>
+                    </select>
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={handleMagicWand}
+                  disabled={draftBlog.isPending || !wandTopic.trim()}
+                  className="w-full bg-violet-600 text-white hover:bg-violet-700"
+                >
+                  {draftBlog.isPending ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                  ) : (
+                    <Wand2 className="h-3.5 w-3.5 mr-1" />
+                  )}
+                  Draft post {state.content.trim() && "(overwrites current content)"}
+                </Button>
+              </div>
+            )}
+
             <textarea
               value={state.content}
               onChange={(e) => setState((s) => ({ ...s, content: e.target.value }))}
@@ -470,7 +718,106 @@ function ComposeView(props: {
 
           {/* Media */}
           <div>
-            <Label className="text-slate-500 text-xs">Media (image or video, &lt; 4MB)</Label>
+            <div className="flex items-center justify-between mb-1">
+              <Label className="text-slate-500 text-xs">Media (image or video, &lt; 4MB)</Label>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  setAiImgOpen((v) => !v);
+                  if (!aiImgPrompt) autoSeedImagePrompt();
+                }}
+                className={`h-7 text-[11px] hover:bg-violet-50 ${
+                  aiImgOpen ? "bg-violet-100 text-violet-700" : "text-violet-700"
+                }`}
+                title="Generate an image with DALL-E 3"
+              >
+                <ImagePlus className="h-3 w-3 mr-1" /> Generate with AI
+              </Button>
+            </div>
+
+            {/* AI image generation panel — collapsible. Calls
+                aiDrafter.generateImage which proxies DALL-E 3 and
+                re-hosts the result on R2. */}
+            {aiImgOpen && (
+              <div className="mb-2 rounded-lg border border-violet-200 bg-violet-50/50 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-bold text-violet-700">
+                    DALL-E 3 image generator
+                  </div>
+                  <button
+                    onClick={() => setAiImgOpen(false)}
+                    className="text-slate-400 hover:text-slate-700"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+                <textarea
+                  value={aiImgPrompt}
+                  onChange={(e) => setAiImgPrompt(e.target.value)}
+                  rows={3}
+                  placeholder="Describe the image. Be specific about style (e.g. 'minimal isometric illustration, cyan + slate palette, flat shading, no text in the image, premium fintech aesthetic')"
+                  className="w-full bg-white/80 border border-violet-200 text-slate-800 text-xs rounded-md p-2 focus:border-violet-500 outline-none leading-relaxed resize-y"
+                />
+                <div className="flex items-center gap-1">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={autoSeedImagePrompt}
+                    className="h-7 text-[11px] text-violet-700 hover:bg-violet-100"
+                    title="Auto-write a prompt from the current title and body"
+                  >
+                    <Sparkles className="h-3 w-3 mr-1" /> Auto-prompt from post
+                  </Button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label className="text-slate-500 text-[10px]">Size</Label>
+                    <select
+                      value={aiImgSize}
+                      onChange={(e) => setAiImgSize(e.target.value as any)}
+                      className="w-full bg-white/80 border border-violet-200 text-slate-800 text-xs rounded h-8 px-2 outline-none focus:border-violet-500"
+                    >
+                      <option value="1024x1024">1024×1024 (square)</option>
+                      <option value="1024x1792">1024×1792 (vertical)</option>
+                      <option value="1792x1024">1792×1024 (horizontal)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <Label className="text-slate-500 text-[10px]">Quality</Label>
+                    <select
+                      value={aiImgQuality}
+                      onChange={(e) => setAiImgQuality(e.target.value as any)}
+                      className="w-full bg-white/80 border border-violet-200 text-slate-800 text-xs rounded h-8 px-2 outline-none focus:border-violet-500"
+                    >
+                      <option value="standard">Standard (~$0.04-0.08)</option>
+                      <option value="hd">HD (~$0.08-0.12)</option>
+                    </select>
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={handleGenerateImage}
+                  disabled={generateImageMut.isPending || !aiImgPrompt.trim()}
+                  className="w-full bg-violet-600 text-white hover:bg-violet-700"
+                >
+                  {generateImageMut.isPending ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                  ) : (
+                    <ImagePlus className="h-3.5 w-3.5 mr-1" />
+                  )}
+                  Generate & attach
+                </Button>
+                <div className="text-[10px] text-slate-500 flex items-start gap-1">
+                  <DollarSign className="h-2.5 w-2.5 mt-0.5 shrink-0" />
+                  <span>
+                    Each generation calls OpenAI's paid DALL-E 3 API.
+                    Image is auto-uploaded to your R2 bucket on success.
+                  </span>
+                </div>
+              </div>
+            )}
+
             <div className="flex items-start gap-3 mt-1">
               <div className="flex-1">
                 <input
@@ -906,6 +1253,65 @@ function ComposeView(props: {
   );
 }
 
+// ─── Translate dropdown — three target languages ───
+function TranslateDropdown(props: {
+  disabled: boolean;
+  loading: boolean;
+  onPick: (target: "de" | "hi" | "id") => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [open]);
+  return (
+    <div className="relative" ref={ref}>
+      <Button
+        size="sm"
+        variant="ghost"
+        onClick={() => setOpen((v) => !v)}
+        disabled={props.disabled}
+        className="h-7 text-[11px] text-cyan-700 hover:bg-cyan-50"
+        title="Translate the current content"
+      >
+        {props.loading ? (
+          <Loader2 className="h-3 w-3 animate-spin mr-1" />
+        ) : (
+          <Languages className="h-3 w-3 mr-1" />
+        )}
+        Translate
+        <ChevronDown className="h-3 w-3 ml-1" />
+      </Button>
+      {open && (
+        <div className="absolute right-0 top-full mt-1 z-10 rounded-lg border border-slate-200 bg-white shadow-lg min-w-[180px] overflow-hidden">
+          {[
+            { id: "de" as const, label: "German (Deutsch)", flag: "🇩🇪" },
+            { id: "hi" as const, label: "Hindi (हिन्दी)", flag: "🇮🇳" },
+            { id: "id" as const, label: "Indonesian", flag: "🇮🇩" },
+          ].map((opt) => (
+            <button
+              key={opt.id}
+              onClick={() => {
+                props.onPick(opt.id);
+                setOpen(false);
+              }}
+              className="w-full text-left px-3 py-2 text-xs text-slate-700 hover:bg-cyan-50 flex items-center gap-2"
+            >
+              <span>{opt.flag}</span>
+              <span>{opt.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PreviewCard(props: {
   title: string;
   subtitle: string;
@@ -1185,5 +1591,503 @@ function StatusPill(props: { status: string }) {
       <Icon className={`h-3 w-3 ${props.status === "running" ? "animate-spin" : ""}`} />
       {c.label}
     </span>
+  );
+}
+
+// ============ CAMPAIGN BUILDER MODAL ============
+// Takes a high-level topic, calls aiDrafter.generateCampaign for N posts,
+// renders each as an editable card, optionally batch-generates DALL-E
+// images for each post (sequential — rate-limit safe + progress UX),
+// then bulk-creates scheduled_posts rows with staggered nextRunAt.
+//
+// Default cadence: one post per day at 14:00 UTC starting tomorrow.
+// User can change start date + spacing (hours). Channels inherit from
+// the parent Composer at modal-open time; user can override per-post.
+
+type CampaignDraftPost = {
+  day: number;
+  title: string;
+  content: string;
+  telegramCaption: string;
+  imagePrompt: string;
+  // Per-post overrides applied locally before bulk-schedule:
+  generatedImageUrl?: string;
+  channels: ChannelId[];
+  imageStatus?: "idle" | "generating" | "done" | "failed";
+  imageError?: string;
+};
+
+function CampaignBuilderModal(props: {
+  defaultChannels: ChannelId[];
+  onClose: () => void;
+  onScheduled: () => void;
+}) {
+  const utils = trpc.useUtils();
+
+  // ─── Generation inputs ───
+  const [topic, setTopic] = useState("");
+  const [count, setCount] = useState<number>(3);
+  const [tone, setTone] = useState<"professional" | "hype" | "educational">("professional");
+  const [audience, setAudience] = useState<"newcomer" | "intermediate" | "expert">("intermediate");
+
+  // ─── Generated drafts ───
+  const [drafts, setDrafts] = useState<CampaignDraftPost[] | null>(null);
+
+  // ─── Scheduling inputs (default: tomorrow @ 14:00 UTC, +1 day per post) ───
+  const tomorrow14 = useMemo(() => {
+    const d = new Date();
+    d.setUTCDate(d.getUTCDate() + 1);
+    d.setUTCHours(14, 0, 0, 0);
+    return d;
+  }, []);
+  const [startAtUtc, setStartAtUtc] = useState<string>(utcInputValue(tomorrow14));
+  const [spacingHours, setSpacingHours] = useState<number>(24);
+
+  // ─── Image gen progress ───
+  const [imgProgress, setImgProgress] = useState<{ done: number; total: number } | null>(null);
+
+  const generateCampaignMut = trpc.aiDrafter.generateCampaign.useMutation();
+  const generateImageMut = trpc.aiDrafter.generateImage.useMutation();
+  const createScheduledMut = trpc.manage.scheduledPosts.create.useMutation();
+
+  const handleGenerate = async () => {
+    if (!topic.trim()) {
+      toast.error("Enter a topic first");
+      return;
+    }
+    try {
+      const r = await generateCampaignMut.mutateAsync({
+        topic: topic.trim(),
+        count,
+        audienceLevel: audience,
+        tone,
+      });
+      const posts: CampaignDraftPost[] = (r.posts || []).map((p: any, i: number) => ({
+        day: p.day ?? i + 1,
+        title: p.title ?? "",
+        content: p.content ?? "",
+        telegramCaption: p.telegramCaption ?? "",
+        imagePrompt: p.imagePrompt ?? "",
+        channels: [...props.defaultChannels],
+        imageStatus: "idle",
+      }));
+      setDrafts(posts);
+      toast.success(`Generated ${posts.length} posts`);
+    } catch (e) {
+      toast.error(`Generation failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  const handleGenerateAllImages = async () => {
+    if (!drafts) return;
+    if (!isCostAcked()) {
+      const ok = window.confirm(
+        `Generate ${drafts.length} DALL-E 3 standard images?\n\n` +
+          `Approx cost: $${(drafts.length * 0.04).toFixed(2)}. ` +
+          `Runs sequentially to respect rate limits.\n\n` +
+          `This message won't show again this session.`
+      );
+      if (!ok) return;
+      ackCost();
+    }
+    setImgProgress({ done: 0, total: drafts.length });
+    for (let i = 0; i < drafts.length; i++) {
+      setDrafts((cur) =>
+        cur ? cur.map((d, j) => (i === j ? { ...d, imageStatus: "generating" } : d)) : cur
+      );
+      try {
+        const r = await generateImageMut.mutateAsync({
+          prompt: drafts[i].imagePrompt,
+          size: "1024x1024",
+          quality: "standard",
+        });
+        setDrafts((cur) =>
+          cur
+            ? cur.map((d, j) =>
+                i === j ? { ...d, imageStatus: "done", generatedImageUrl: r.url, imageError: undefined } : d
+              )
+            : cur
+        );
+      } catch (err) {
+        setDrafts((cur) =>
+          cur
+            ? cur.map((d, j) =>
+                i === j
+                  ? { ...d, imageStatus: "failed", imageError: err instanceof Error ? err.message : String(err) }
+                  : d
+              )
+            : cur
+        );
+      }
+      setImgProgress((p) => (p ? { ...p, done: p.done + 1 } : p));
+    }
+    setImgProgress(null);
+    toast.success("Image batch complete");
+  };
+
+  const handleScheduleAll = async () => {
+    if (!drafts || drafts.length === 0) return;
+    const start = parseUtcInput(startAtUtc);
+    let scheduledCount = 0;
+    for (let i = 0; i < drafts.length; i++) {
+      const p = drafts[i];
+      if (p.channels.length === 0) continue; // Skip posts with no channels selected
+      const fireAt = new Date(start.getTime() + i * spacingHours * 60 * 60 * 1000);
+      // Per spec: the Telegram caption goes in the body for Telegram-only
+      // sends, but the full Markdown content goes for blog sends. Our
+      // scheduled_posts table stores ONE body, so we pick:
+      //   - If any blog channel: use the full Markdown content (the
+      //     cron's buildTelegramCaption will truncate for Telegram).
+      //   - Otherwise: use the Telegram caption verbatim.
+      const usesBlog = p.channels.includes("blog");
+      const body = usesBlog ? p.content : (p.telegramCaption || p.content);
+      try {
+        await createScheduledMut.mutateAsync({
+          title: p.title || null,
+          content: body,
+          mediaUrl: p.generatedImageUrl || null,
+          mediaType: p.generatedImageUrl ? "image" : "none",
+          channels: p.channels,
+          buttons: [],
+          scheduleType: "once",
+          cronExpression: null,
+          nextRunAt: fireAt.toISOString(),
+        } as any);
+        scheduledCount++;
+      } catch (e) {
+        toast.error(`Post #${i + 1} failed: ${e instanceof Error ? e.message : String(e)}`);
+      }
+    }
+    utils.manage.scheduledPosts.list.invalidate();
+    if (scheduledCount > 0) {
+      toast.success(`Scheduled ${scheduledCount} of ${drafts.length} posts`);
+      props.onScheduled();
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-slate-900/40 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl my-8 max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
+        <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200 bg-gradient-to-r from-violet-600/5 to-cyan-600/5">
+          <div className="flex items-center gap-2">
+            <Layers className="h-4 w-4 text-violet-700" />
+            <h3 className="text-base font-heading font-bold text-slate-800">Campaign Builder</h3>
+          </div>
+          <button onClick={props.onClose} className="text-slate-400 hover:text-slate-700">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5 space-y-5">
+          {!drafts ? (
+            /* ─── STEP 1: configure + generate ─── */
+            <div className="space-y-4 max-w-2xl mx-auto">
+              <div>
+                <Label className="text-slate-500 text-xs">Campaign topic</Label>
+                <textarea
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  rows={3}
+                  placeholder="e.g. The $TURBO launch — why ops-routed trade tax is the model, build excitement across 5 days leading to mainnet"
+                  className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md p-3 focus:border-violet-500 outline-none resize-y"
+                />
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <Label className="text-slate-500 text-xs">Posts</Label>
+                  <select
+                    value={count}
+                    onChange={(e) => setCount(parseInt(e.target.value, 10))}
+                    className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md h-9 px-2 outline-none focus:border-violet-500"
+                  >
+                    {[3, 4, 5, 6, 7].map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label className="text-slate-500 text-xs">Tone</Label>
+                  <select
+                    value={tone}
+                    onChange={(e) => setTone(e.target.value as any)}
+                    className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md h-9 px-2 outline-none focus:border-violet-500"
+                  >
+                    <option value="professional">Professional</option>
+                    <option value="hype">Hype</option>
+                    <option value="educational">Educational</option>
+                  </select>
+                </div>
+                <div>
+                  <Label className="text-slate-500 text-xs">Audience</Label>
+                  <select
+                    value={audience}
+                    onChange={(e) => setAudience(e.target.value as any)}
+                    className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md h-9 px-2 outline-none focus:border-violet-500"
+                  >
+                    <option value="newcomer">Newcomer</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="expert">Expert</option>
+                  </select>
+                </div>
+              </div>
+              <Button
+                size="sm"
+                onClick={handleGenerate}
+                disabled={generateCampaignMut.isPending || !topic.trim()}
+                className="w-full bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:shadow-md"
+              >
+                {generateCampaignMut.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin mr-1" />
+                ) : (
+                  <Wand2 className="h-4 w-4 mr-1" />
+                )}
+                Generate {count}-post campaign
+              </Button>
+              <div className="text-[11px] text-slate-500 text-center">
+                Uses Claude Sonnet 4.5. Generation takes ~15-45 seconds depending on post count.
+              </div>
+            </div>
+          ) : (
+            /* ─── STEP 2: edit + bulk schedule ─── */
+            <div className="space-y-4">
+              {/* Top action bar */}
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div>
+                  <h4 className="text-sm font-bold text-slate-800">
+                    Topic: <span className="text-violet-700">{topic}</span>
+                  </h4>
+                  <div className="text-xs text-slate-500">
+                    {drafts.length} draft post{drafts.length === 1 ? "" : "s"} — edit inline, generate images, then bulk-schedule.
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => setDrafts(null)}
+                    className="text-slate-500 hover:bg-slate-100"
+                  >
+                    <RefreshCw className="h-3.5 w-3.5 mr-1" /> Re-generate
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={handleGenerateAllImages}
+                    disabled={!!imgProgress || drafts.every((d) => d.imageStatus === "done")}
+                    className="bg-violet-600 text-white hover:bg-violet-700"
+                  >
+                    {imgProgress ? (
+                      <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                    ) : (
+                      <ImagePlus className="h-3.5 w-3.5 mr-1" />
+                    )}
+                    {imgProgress
+                      ? `Generating ${imgProgress.done}/${imgProgress.total}…`
+                      : `Generate ${drafts.length} images`}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Schedule inputs */}
+              <div className="grid grid-cols-2 gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div>
+                  <Label className="text-slate-500 text-xs">First post fires at (UTC)</Label>
+                  <Input
+                    type="datetime-local"
+                    value={startAtUtc}
+                    onChange={(e) => setStartAtUtc(e.target.value)}
+                    className="bg-white/80 border-slate-200 text-slate-800 text-sm"
+                  />
+                </div>
+                <div>
+                  <Label className="text-slate-500 text-xs">Spacing between posts</Label>
+                  <select
+                    value={spacingHours}
+                    onChange={(e) => setSpacingHours(parseInt(e.target.value, 10))}
+                    className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md h-9 px-2 outline-none focus:border-violet-500"
+                  >
+                    <option value={6}>Every 6 hours</option>
+                    <option value={12}>Every 12 hours</option>
+                    <option value={24}>Every day (24h)</option>
+                    <option value={48}>Every 2 days (48h)</option>
+                    <option value={72}>Every 3 days (72h)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Draft cards */}
+              <div className="space-y-3">
+                {drafts.map((d, i) => (
+                  <CampaignDraftCard
+                    key={i}
+                    index={i}
+                    draft={d}
+                    onChange={(patch) =>
+                      setDrafts((cur) =>
+                        cur ? cur.map((x, j) => (i === j ? { ...x, ...patch } : x)) : cur
+                      )
+                    }
+                    onRemove={() =>
+                      setDrafts((cur) => (cur ? cur.filter((_, j) => j !== i) : cur))
+                    }
+                    fireAt={new Date(parseUtcInput(startAtUtc).getTime() + i * spacingHours * 60 * 60 * 1000)}
+                  />
+                ))}
+              </div>
+
+              {/* Bulk schedule action */}
+              <div className="sticky bottom-0 -mx-5 -mb-5 px-5 py-3 bg-white border-t border-slate-200 flex items-center justify-between">
+                <div className="text-xs text-slate-500">
+                  {drafts.filter((d) => d.channels.length > 0).length} of {drafts.length} posts will be scheduled
+                  (posts with no channels are skipped)
+                </div>
+                <Button
+                  size="sm"
+                  onClick={handleScheduleAll}
+                  disabled={createScheduledMut.isPending || drafts.every((d) => d.channels.length === 0)}
+                  className="bg-emerald-600 text-white hover:bg-emerald-700"
+                >
+                  {createScheduledMut.isPending ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                  ) : (
+                    <Calendar className="h-3.5 w-3.5 mr-1" />
+                  )}
+                  Schedule all to queue
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CampaignDraftCard(props: {
+  index: number;
+  draft: CampaignDraftPost;
+  onChange: (patch: Partial<CampaignDraftPost>) => void;
+  onRemove: () => void;
+  fireAt: Date;
+}) {
+  const { draft, onChange, onRemove, index } = props;
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white/70 p-3 space-y-2">
+      <div className="flex items-baseline justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-violet-100 text-violet-700 text-xs font-bold">
+            {draft.day}
+          </span>
+          <span className="text-[11px] text-slate-500">
+            Fires {formatUtc(props.fireAt)}
+          </span>
+        </div>
+        <button
+          onClick={onRemove}
+          className="text-red-500 hover:text-red-700"
+          title={`Remove post #${index + 1}`}
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+
+      <Input
+        value={draft.title}
+        onChange={(e) => onChange({ title: e.target.value })}
+        placeholder="Post title"
+        className="bg-white/80 border-slate-200 text-slate-800 text-sm font-bold"
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div>
+          <Label className="text-slate-500 text-[10px]">Blog body (Markdown)</Label>
+          <textarea
+            value={draft.content}
+            onChange={(e) => onChange({ content: e.target.value })}
+            rows={5}
+            className="w-full bg-white/80 border border-slate-200 text-slate-800 text-xs rounded-md p-2 focus:border-violet-500 outline-none font-mono leading-relaxed resize-y"
+          />
+        </div>
+        <div>
+          <Label className="text-slate-500 text-[10px]">Telegram caption</Label>
+          <textarea
+            value={draft.telegramCaption}
+            onChange={(e) => onChange({ telegramCaption: e.target.value })}
+            rows={5}
+            className="w-full bg-white/80 border border-slate-200 text-slate-800 text-xs rounded-md p-2 focus:border-violet-500 outline-none leading-relaxed resize-y"
+          />
+          <div className="text-[10px] text-slate-400 mt-0.5 text-right">
+            {draft.telegramCaption.length} / 900 chars
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <Label className="text-slate-500 text-[10px]">Image prompt (DALL-E 3)</Label>
+        <div className="flex items-start gap-2">
+          <textarea
+            value={draft.imagePrompt}
+            onChange={(e) => onChange({ imagePrompt: e.target.value })}
+            rows={2}
+            className="flex-1 bg-white/80 border border-slate-200 text-slate-800 text-xs rounded-md p-2 focus:border-violet-500 outline-none leading-relaxed resize-y"
+          />
+          {draft.generatedImageUrl ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={draft.generatedImageUrl}
+              alt=""
+              className="w-20 h-20 rounded border border-slate-200 object-cover"
+            />
+          ) : draft.imageStatus === "generating" ? (
+            <div className="w-20 h-20 rounded border border-violet-200 bg-violet-50 flex items-center justify-center">
+              <Loader2 className="h-5 w-5 text-violet-500 animate-spin" />
+            </div>
+          ) : draft.imageStatus === "failed" ? (
+            <div className="w-20 h-20 rounded border border-red-200 bg-red-50 flex items-center justify-center text-red-500 text-[10px] text-center px-1" title={draft.imageError}>
+              <AlertTriangle className="h-4 w-4" />
+            </div>
+          ) : (
+            <div className="w-20 h-20 rounded border border-dashed border-slate-300 bg-slate-50 flex items-center justify-center text-slate-400 text-[10px]">
+              No image
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Channel checkboxes — per-post override */}
+      <div>
+        <Label className="text-slate-500 text-[10px] mb-1 block">Channels for this post</Label>
+        <div className="flex flex-wrap gap-1">
+          {ALL_CHANNELS.map((c) => {
+            const checked = draft.channels.includes(c.id);
+            return (
+              <label
+                key={c.id}
+                className={`flex items-center gap-1 px-2 py-1 rounded border cursor-pointer text-[11px] transition ${
+                  checked
+                    ? "border-cyan-600/40 bg-cyan-600/5 text-cyan-700"
+                    : "border-slate-200 bg-white/50 text-slate-500 hover:bg-slate-50"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={(e) =>
+                    onChange({
+                      channels: e.target.checked
+                        ? [...draft.channels, c.id]
+                        : draft.channels.filter((x) => x !== c.id),
+                    })
+                  }
+                  className="accent-cyan-600"
+                />
+                {c.label}
+              </label>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }

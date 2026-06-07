@@ -38,6 +38,7 @@ import { SocialWallSection } from "@components/sections/SocialWallSection";
 import { ManifestoSection } from "@components/sections/ManifestoSection";
 import { NewsletterSection } from "@components/sections/NewsletterSection";
 import { InstallAppWidget } from "@components/install/InstallAppWidget";
+import { TokenSection } from "@components/sections/TokenSection";
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
 
@@ -247,6 +248,13 @@ export default function HomePage() {
       </Reveal>
       <Reveal>
         <HomeBlogSection />
+      </Reveal>
+      <Reveal>
+        {/* $TURBO token introduction — slotted just before the
+            promotions divider so it lands after content immersion
+            (films / reels / leaderboard / testimonials / blog) but
+            before the conversion-focused promotions block. */}
+        <TokenSection />
       </Reveal>
       <SectionDivider />
       <Reveal>

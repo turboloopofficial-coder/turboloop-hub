@@ -9,6 +9,7 @@
 // Leaf module = no risk of either-side-not-yet-evaluated.
 
 export const PRIMARY_LINKS = [
+  { label: "Token", href: "/token" },
   { label: "Ecosystem", href: "/ecosystem" },
   { label: "Community", href: "/community" },
   { label: "Events", href: "/events" },

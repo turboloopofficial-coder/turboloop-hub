@@ -32,6 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Top-level static routes
   const top: MetadataRoute.Sitemap = [
     "",
+    "/token",
     "/films",
     "/blog",
     "/community",
@@ -47,6 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/faq",
     "/roadmap",
     "/calculator",
+    "/reels",
     "/privacy",
     "/terms",
     "/my-submissions",

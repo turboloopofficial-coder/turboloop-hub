@@ -939,6 +939,13 @@ export async function GET(req: Request) {
       "🎁",
       TOPIC_THEMES.referral,
     );
+  if (type === "token")
+    return pageBanner(
+      "$TURBO — Native Rewards Token",
+      "1,000,000 supply · 100% LP locked · No team allocation · Daily buyback & burn.",
+      "🔥",
+      TOPIC_THEMES.referral,
+    );
   if (type === "apply")
     return pageBanner(
       "Apply to Earn",

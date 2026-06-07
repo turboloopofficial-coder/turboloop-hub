@@ -25,6 +25,7 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
   {
     heading: "Product",
     items: [
+      { label: "$TURBO Token", href: "/token" },
       { label: "Ecosystem", href: "/ecosystem" },
       { label: "Security", href: "/security" },
       { label: "Roadmap", href: "/roadmap" },

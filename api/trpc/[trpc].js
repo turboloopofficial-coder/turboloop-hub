@@ -101330,6 +101330,46 @@ async function setSetting(key, value) {
     set: { settingValue: value }
   });
 }
+async function listAutomationLog(limit = 100) {
+  const db = getDb();
+  const { like: like2 } = await Promise.resolve().then(() => (init_drizzle_orm(), drizzle_orm_exports));
+  const rows = await db.select().from(siteSettings).where(
+    or(
+      like2(siteSettings.settingKey, "lastFired:%"),
+      like2(siteSettings.settingKey, "oneShot:%"),
+      like2(siteSettings.settingKey, "cronError:%")
+    )
+  ).orderBy(desc(siteSettings.settingValue)).limit(limit);
+  return rows.map((r5) => {
+    const key = r5.settingKey;
+    let kind = "lastFired";
+    if (key.startsWith("oneShot:")) kind = "oneShot";
+    else if (key.startsWith("cronError:")) kind = "cronError";
+    const parts = key.split(":");
+    let taskName;
+    let dateKey = null;
+    if (kind === "oneShot") {
+      taskName = parts.slice(1).join(":");
+    } else {
+      const tail = parts[parts.length - 1] ?? "";
+      const isDate = /^\d{4}-\d{2}-\d{2}$/.test(tail);
+      if (isDate) {
+        dateKey = tail;
+        taskName = parts.slice(1, -1).join(":");
+      } else {
+        taskName = parts.slice(1).join(":");
+      }
+    }
+    return {
+      settingKey: key,
+      kind,
+      taskName,
+      dateKey,
+      value: r5.settingValue,
+      updatedAt: r5.updatedAt
+    };
+  });
+}
 async function addNewsletterSignup(email3, opts = {}) {
   const db = getDb();
   const o2 = typeof opts === "string" || opts === null ? { source: opts } : opts;
@@ -102323,6 +102363,14 @@ Wallet: <code>${input.walletAddress}</code>`;
     delete: adminProcedure.input(external_exports.object({ id: external_exports.number() })).mutation(({ input }) => deleteSocialWallVideo(input.id))
   }),
   manage: router({
+    /** Aggregated automation activity log — `lastFired:*`,
+     *  `oneShot:*`, and `cronError:*` rows from site_settings, sorted
+     *  by stored timestamp/error-time desc. Feeds the admin
+     *  Automation tab. Default limit 100; can be lowered for
+     *  smaller sections. */
+    getAutomationLog: adminProcedure.input(
+      external_exports.object({ limit: external_exports.number().int().min(1).max(500).optional() }).optional()
+    ).query(({ input }) => listAutomationLog(input?.limit ?? 100)),
     listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),
     createBlogPost: adminProcedure.input(external_exports.object({
       title: external_exports.string().min(1),

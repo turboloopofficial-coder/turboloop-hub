@@ -101,6 +101,39 @@ async function markFiredEver(db: ReturnType<typeof drizzle>, key: string): Promi
     .onConflictDoNothing();
 }
 
+/** Record a per-task failure so the admin Automation tab can surface
+ *  the broken slot in red. Key shape mirrors `lastFired:`:
+ *  `cronError:<task>:<YYYY-MM-DD>`. We use upsert (`onConflictDoUpdate`)
+ *  so a task that fails multiple times in the same UTC day keeps
+ *  only the most recent error rather than rapidly growing rows.
+ *  Truncates messages to 800 chars defensively — the
+ *  setting_value column is `text` so this is just a sanity cap
+ *  against runaway stack traces. */
+async function markError(
+  db: ReturnType<typeof drizzle>,
+  key: string,
+  err: unknown
+): Promise<void> {
+  const fullKey = `cronError:${key}:${todayKey()}`;
+  const msg = (() => {
+    if (err instanceof Error) return err.message || err.toString();
+    if (typeof err === "string") return err;
+    try {
+      return JSON.stringify(err);
+    } catch {
+      return String(err);
+    }
+  })();
+  const value = `${new Date().toISOString()} | ${msg.slice(0, 800)}`;
+  await db
+    .insert(siteSettings)
+    .values({ settingKey: fullKey, settingValue: value })
+    .onConflictDoUpdate({
+      target: siteSettings.settingKey,
+      set: { settingValue: value },
+    });
+}
+
 /** Extract a YouTube video ID from any of the common URL shapes:
  *  youtu.be/<id>, youtube.com/watch?v=<id>, youtube.com/embed/<id>,
  *  youtube.com/shorts/<id>. Returns null on no match. */
@@ -285,7 +318,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // then never again (de-duplicated via oneShot:launch:announcement key).
     // Scheduled in the morning (12:00 UTC) so it doesn't collide with the
     // 14:00/15:00/16:30 UTC evening cluster.
-    {
+    try {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = new Date();
       const graceEnd = new Date(fireAt.getTime() + LAUNCH_GRACE_HOURS * 60 * 60 * 1000);
@@ -301,21 +334,31 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         await markFiredEver(db, "launch:announcement");
         log.push(`🚀 Launch announcement fired (target ${LAUNCH_FIRE_AT_UTC})`);
       }
+    } catch (err) {
+      await markError(db, "launch:announcement", err).catch(() => {});
+      console.error("[cron-master] task launch:announcement failed", err);
+      log.push(`❌ launch:announcement failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 0. HUB PROMOTION: 09:00 UTC = 2:30 PM IST ============
     // Rotates through 14 Hub pages × 3 caption variants = 42-day cycle.
     // Each post drives traffic to a specific page with a premium banner.
-    if (isInWindow(9, 0) && !(await hasFiredToday(db, "hubPromo"))) {
-      const promo = pickTodaysHubPromo();
-      await tgBroadcastPhoto({
-        photoUrl: hubPromoBannerUrl(promo),
-        caption: promo.caption,
-        parseMode: "HTML",
-        buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
-      });
-      await markFired(db, "hubPromo");
-      log.push(`🌐 Hub promo — ${promo.page}`);
+    try {
+      if (isInWindow(9, 0) && !(await hasFiredToday(db, "hubPromo"))) {
+        const promo = pickTodaysHubPromo();
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "hubPromo");
+        log.push(`🌐 Hub promo — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "hubPromo", err).catch(() => {});
+      console.error("[cron-master] task hubPromo failed", err);
+      log.push(`❌ hubPromo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 1. MONTHLY COMPOUNDING BANNER: 12:00 UTC = 5:30 PM IST ============
@@ -326,53 +369,59 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Pre-2026-05-18 fix this branch broadcast DE captions to the EN
     // channels — ~50% of monthly:compound posts were landing in the
     // wrong audience. See Task G in the 7-task plan.
-    if (isInWindow(12, 0) && !(await hasFiredToday(db, "monthly:compound"))) {
-      const banner = pickTodaysMonthlyBanner();
-      const caption = monthlyCompoundingCaption(banner);
-      const button = {
-        text:
-          banner.lang === "de"
-            ? "💸 Yield-Rechner öffnen"
-            : "💸 Open the yield calculator",
-        url: `${SITE}/calculator`,
-      };
-      const photoUrl = monthlyBannerUrl(banner);
-      const label =
-        typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+    try {
+      if (isInWindow(12, 0) && !(await hasFiredToday(db, "monthly:compound"))) {
+        const banner = pickTodaysMonthlyBanner();
+        const caption = monthlyCompoundingCaption(banner);
+        const button = {
+          text:
+            banner.lang === "de"
+              ? "💸 Yield-Rechner öffnen"
+              : "💸 Open the yield calculator",
+          url: `${SITE}/calculator`,
+        };
+        const photoUrl = monthlyBannerUrl(banner);
+        const label =
+          typeof banner.key === "number" ? `$${banner.key}` : banner.key;
 
-      if (banner.lang === "de") {
-        // German monthly post — German chat ONLY. If the env var isn't
-        // set we skip (don't fall back to English broadcast — that's
-        // the exact bug we just removed).
-        const token = process.env.TELEGRAM_BOT_TOKEN;
-        const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
-        if (token && germanChat) {
-          const r = await tgSendPhoto(token, {
-            chatId: germanChat,
+        if (banner.lang === "de") {
+          // German monthly post — German chat ONLY. If the env var isn't
+          // set we skip (don't fall back to English broadcast — that's
+          // the exact bug we just removed).
+          const token = process.env.TELEGRAM_BOT_TOKEN;
+          const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+          if (token && germanChat) {
+            const r = await tgSendPhoto(token, {
+              chatId: germanChat,
+              photoUrl,
+              caption,
+              parseMode: "HTML",
+              buttons: [button],
+            });
+            log.push(
+              `💵 Monthly compound — DE ${label} → ${germanChat}` +
+                (r.ok ? "" : ` (failed: ${r.error})`)
+            );
+          } else {
+            log.push(
+              `💵 Monthly compound — DE ${label} SKIPPED (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)`
+            );
+          }
+        } else {
+          await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
             buttons: [button],
           });
-          log.push(
-            `💵 Monthly compound — DE ${label} → ${germanChat}` +
-              (r.ok ? "" : ` (failed: ${r.error})`)
-          );
-        } else {
-          log.push(
-            `💵 Monthly compound — DE ${label} SKIPPED (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)`
-          );
+          log.push(`💵 Monthly compound — EN ${label}`);
         }
-      } else {
-        await tgBroadcastPhoto({
-          photoUrl,
-          caption,
-          parseMode: "HTML",
-          buttons: [button],
-        });
-        log.push(`💵 Monthly compound — EN ${label}`);
+        await markFired(db, "monthly:compound");
       }
-      await markFired(db, "monthly:compound");
+    } catch (err) {
+      await markError(db, "monthly:compound", err).catch(() => {});
+      console.error("[cron-master] task monthly:compound failed", err);
+      log.push(`❌ monthly:compound failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 2. DAILY BLOG: 14:00 UTC = 7:30 PM IST ============
@@ -381,53 +430,82 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // actually received the post, or a "skipped" notice when the lang
     // has no provisioned channel yet. The status flows into the cron
     // response body so it's visible in Vercel logs without digging.
-    if (isInWindow(14, 0) && !(await hasFiredToday(db, "blog:evening"))) {
-      const due = await publishOverdueBlogs(db);
-      if (due.length > 0) {
-        for (const post of due) {
-          const status = await announceBlogToTelegram(post);
-          log.push(status);
+    try {
+      if (isInWindow(14, 0) && !(await hasFiredToday(db, "blog:evening"))) {
+        const due = await publishOverdueBlogs(db);
+        if (due.length > 0) {
+          for (const post of due) {
+            const status = await announceBlogToTelegram(post);
+            log.push(status);
+          }
+        } else {
+          log.push("📰 No overdue blog posts to publish");
         }
-      } else {
-        log.push("📰 No overdue blog posts to publish");
+        await markFired(db, "blog:evening");
       }
-      await markFired(db, "blog:evening");
+    } catch (err) {
+      await markError(db, "blog:evening", err).catch(() => {});
+      console.error("[cron-master] task blog:evening failed", err);
+      log.push(`❌ blog:evening failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // Safety net: always catch up overdue posts (idempotent — won't double-announce
-    // because hasFiredToday gates the Telegram call)
-    await publishOverdueBlogs(db);
+    // because hasFiredToday gates the Telegram call). Wrapped so a transient
+    // DB blip here doesn't sink the rest of the run.
+    try {
+      await publishOverdueBlogs(db);
+    } catch (err) {
+      console.error("[cron-master] safety-net publishOverdueBlogs failed", err);
+    }
 
     // ============ 3. HINDI/URDU ZOOM T-30: 15:00 UTC = 8:30 PM IST ============
     // Zoom link + passcode now resolve through getZoomConfig (Task C),
     // which reads admin overrides from `site_settings` and falls back
     // to the hardcoded ZOOM_HI defaults if unset or invalid.
-    if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
-      const cfg = await getZoomConfig("hi");
-      await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
-      await markFired(db, "zoom:hi:T30");
-      log.push("🎙 HI Zoom T-30");
+    try {
+      if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T30");
+        log.push("🎙 HI Zoom T-30");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T30", err).catch(() => {});
+      console.error("[cron-master] task zoom:hi:T30 failed", err);
+      log.push(`❌ zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 4. ENGLISH ZOOM T-30: 16:30 UTC = 10:00 PM IST ============
-    if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
-      const cfg = await getZoomConfig("en");
-      await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
-      await markFired(db, "zoom:en:T30");
-      log.push("🎙 EN Zoom T-30");
+    try {
+      if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T30");
+        log.push("🎙 EN Zoom T-30");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T30", err).catch(() => {});
+      console.error("[cron-master] task zoom:en:T30 failed", err);
+      log.push(`❌ zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
-    if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {
-      const film = pickTodaysFilm();
-      await tgBroadcastPhoto({
-        photoUrl: cinematicPosterUrl(film),
-        caption: cinematicCaption(film),
-        parseMode: "HTML",
-        buttons: [{ text: "🎬 Watch full film", url: `${SITE}/films/${film.slug}` }],
-      });
-      await markFired(db, "cinematic:daily");
-      log.push(`🎬 Cinematic — S${film.season}E${film.episode}: ${film.slug}`);
+    try {
+      if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {
+        const film = pickTodaysFilm();
+        await tgBroadcastPhoto({
+          photoUrl: cinematicPosterUrl(film),
+          caption: cinematicCaption(film),
+          parseMode: "HTML",
+          buttons: [{ text: "🎬 Watch full film", url: `${SITE}/films/${film.slug}` }],
+        });
+        await markFired(db, "cinematic:daily");
+        log.push(`🎬 Cinematic — S${film.season}E${film.episode}: ${film.slug}`);
+      }
+    } catch (err) {
+      await markError(db, "cinematic:daily", err).catch(() => {});
+      console.error("[cron-master] task cinematic:daily failed", err);
+      log.push(`❌ cinematic:daily failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 6. CREATOR STAR — 44-day view-count reminder ============
@@ -439,6 +517,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Run window: 19:00 UTC (right after the cinematic post). We use
     // hasFiredEver(`creatorReminder:<id>`) so each row triggers exactly
     // once across the entire project lifetime — no daily de-dup needed.
+    try {
     if (isInWindow(19, 0)) {
       const { contentSubmissions } = await import("../../drizzle/schema");
       const fortyFourDaysAgo = new Date(Date.now() - 44 * 24 * 60 * 60 * 1000);
@@ -535,28 +614,39 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         log.push(`⭐ Creator reminder fired — submission #${row.id}`);
       }
     }
+    } catch (err) {
+      await markError(db, "creatorReminder", err).catch(() => {});
+      console.error("[cron-master] task creatorReminder failed", err);
+      log.push(`❌ creatorReminder failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
 
     // ============ 7. CAMPAIGN A — events page promo, 10:00 UTC every 2 days ============
     // Picks today's scheduled A1–A8 post by exact date match (each post
     // has a fixed `date` in _campaigns.ts). The campaign self-terminates
     // after A8 fires on May 29 because todaysCampaignPost returns null
     // for any subsequent UTC date.
-    if ((isInWindow(10, 0) || forceCampaignA) && !(await hasFiredToday(db, "campaignA"))) {
-      const post = todaysCampaignPost(CAMPAIGN_A);
-      if (post) {
-        await tgBroadcastPhoto({
-          photoUrl: post.photoUrl,
-          caption: post.caption,
-          parseMode: "HTML",
-          buttons: [{ text: post.buttonText, url: post.buttonUrl }],
-        });
-        await markFired(db, "campaignA");
-        log.push(`📣 Campaign A — ${post.id} (${post.date})`);
-      } else {
-        log.push(`📣 Campaign A — no post scheduled for ${todayUtcDate()}`);
-        // Still mark fired so we don't re-evaluate on every 5-min tick.
-        await markFired(db, "campaignA");
+    try {
+      if ((isInWindow(10, 0) || forceCampaignA) && !(await hasFiredToday(db, "campaignA"))) {
+        const post = todaysCampaignPost(CAMPAIGN_A);
+        if (post) {
+          await tgBroadcastPhoto({
+            photoUrl: post.photoUrl,
+            caption: post.caption,
+            parseMode: "HTML",
+            buttons: [{ text: post.buttonText, url: post.buttonUrl }],
+          });
+          await markFired(db, "campaignA");
+          log.push(`📣 Campaign A — ${post.id} (${post.date})`);
+        } else {
+          log.push(`📣 Campaign A — no post scheduled for ${todayUtcDate()}`);
+          // Still mark fired so we don't re-evaluate on every 5-min tick.
+          await markFired(db, "campaignA");
+        }
       }
+    } catch (err) {
+      await markError(db, "campaignA", err).catch(() => {});
+      console.error("[cron-master] task campaignA failed", err);
+      log.push(`❌ campaignA failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 8. GERMAN CHANNEL DAILY — 11:00 UTC, @TurboLoopDach ============
@@ -565,28 +655,34 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // (TELEGRAM_GERMAN_CHAT) — bypasses tgBroadcastPhoto's default
     // channel/chat pair on purpose so the English channels don't see
     // duplicate German content.
-    if ((isInWindow(11, 0) || forceGermanDaily) && !(await hasFiredToday(db, "germanDaily"))) {
-      const post = todaysGermanPost();
-      const token = process.env.TELEGRAM_BOT_TOKEN;
-      const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
-      if (token && germanChat) {
-        const r = await tgSendPhoto(token, {
-          chatId: germanChat,
-          photoUrl: post.photoUrl,
-          caption: post.caption,
-          parseMode: "HTML",
-          buttons: [{ text: post.buttonText, url: post.buttonUrl }],
-        });
-        await markFired(db, "germanDaily");
-        log.push(
-          `🇩🇪 German daily — ${post.id}` +
-            (r.ok ? "" : ` (failed: ${r.error})`)
-        );
-      } else {
-        log.push(
-          "🇩🇪 German daily — skipped (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)"
-        );
+    try {
+      if ((isInWindow(11, 0) || forceGermanDaily) && !(await hasFiredToday(db, "germanDaily"))) {
+        const post = todaysGermanPost();
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+        if (token && germanChat) {
+          const r = await tgSendPhoto(token, {
+            chatId: germanChat,
+            photoUrl: post.photoUrl,
+            caption: post.caption,
+            parseMode: "HTML",
+            buttons: [{ text: post.buttonText, url: post.buttonUrl }],
+          });
+          await markFired(db, "germanDaily");
+          log.push(
+            `🇩🇪 German daily — ${post.id}` +
+              (r.ok ? "" : ` (failed: ${r.error})`)
+          );
+        } else {
+          log.push(
+            "🇩🇪 German daily — skipped (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)"
+          );
+        }
       }
+    } catch (err) {
+      await markError(db, "germanDaily", err).catch(() => {});
+      console.error("[cron-master] task germanDaily failed", err);
+      log.push(`❌ germanDaily failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 9. CAMPAIGN B — Port Harcourt countdown ============
@@ -595,7 +691,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     //
     // We branch on the today's scheduled post's id so the data file
     // remains the single source of truth for which post fires when.
-    {
+    try {
       const post = todaysCampaignPost(CAMPAIGN_B);
       if (post) {
         const isEventMorning = post.id === "B7";
@@ -614,6 +710,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           log.push(`🇳🇬 Campaign B — ${post.id} (${post.date})`);
         }
       }
+    } catch (err) {
+      await markError(db, "campaignB", err).catch(() => {});
+      console.error("[cron-master] task campaignB failed", err);
+      log.push(`❌ campaignB failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     res.statusCode = 200;

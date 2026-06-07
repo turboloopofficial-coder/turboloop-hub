@@ -25,6 +25,7 @@ import {
 import ImageUpload from "@/components/ImageUpload";
 import AIDrafter from "@/components/admin/AIDrafter";
 import SubmissionsManager from "@/components/admin/SubmissionsManager";
+import AutomationManager from "@/components/admin/AutomationManager";
 import { ZoomSettings } from "@/components/admin/ZoomSettings";
 import { CareersManager } from "@/components/admin/CareersManager";
 import { CRMDashboard } from "@/components/admin/CRMDashboard";
@@ -1598,6 +1599,12 @@ export default function AdminDashboard() {
               Blog Posts
             </TabsTrigger>
             <TabsTrigger
+              value="automation"
+              className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
+            >
+              Automation
+            </TabsTrigger>
+            <TabsTrigger
               value="videos"
               className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
             >
@@ -1668,6 +1675,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="blog">
             <BlogManager />
+          </TabsContent>
+          <TabsContent value="automation">
+            <AutomationManager />
           </TabsContent>
           <TabsContent value="videos">
             <VideoManager />

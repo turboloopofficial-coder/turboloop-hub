@@ -261,6 +261,93 @@ export async function setSetting(key: string, value: string) {
     });
 }
 
+/** Automation log entry — one row of the admin Automation tab's
+ *  Activity Log section. Aggregates `lastFired:*`, `oneShot:*`, and
+ *  `cronError:*` rows from site_settings into a typed shape the
+ *  client can render without parsing key formats inline. */
+export interface AutomationLogEntry {
+  /** Raw setting key — preserved so the client can show the exact
+   *  string when needed (debugging, manual mark-fired, etc.). */
+  settingKey: string;
+  /** Parsed kind from the key prefix. */
+  kind: "lastFired" | "oneShot" | "cronError";
+  /** Task identifier (the middle segment of a `lastFired:<task>:<date>`
+   *  key, or the only segment of a `oneShot:<task>` key). */
+  taskName: string;
+  /** ISO date suffix from `lastFired:*:YYYY-MM-DD` and
+   *  `cronError:*:YYYY-MM-DD` — null for oneShot keys. */
+  dateKey: string | null;
+  /** Stored value — usually the ISO timestamp when the task fired
+   *  (for lastFired / oneShot) OR the error message (for cronError). */
+  value: string;
+  /** When the row was last touched. */
+  updatedAt: Date;
+}
+
+/** Aggregate the automation log for the Activity Log + Telegram
+ *  Health + Campaign Tracker sections of the admin Automation tab.
+ *  Returns rows sorted by `settingValue` (the timestamp) descending,
+ *  newest first. */
+export async function listAutomationLog(
+  limit = 100
+): Promise<AutomationLogEntry[]> {
+  const db = getDb();
+  // drizzle-orm's `like` operator is the safest way to match the
+  // key prefixes — no SQL injection risk and the index on
+  // settingKey covers the prefix scan.
+  const { like } = await import("drizzle-orm");
+  const rows = await db
+    .select()
+    .from(siteSettings)
+    .where(
+      or(
+        like(siteSettings.settingKey, "lastFired:%"),
+        like(siteSettings.settingKey, "oneShot:%"),
+        like(siteSettings.settingKey, "cronError:%"),
+      )
+    )
+    .orderBy(desc(siteSettings.settingValue))
+    .limit(limit);
+
+  return rows.map((r): AutomationLogEntry => {
+    const key = r.settingKey;
+    let kind: AutomationLogEntry["kind"] = "lastFired";
+    if (key.startsWith("oneShot:")) kind = "oneShot";
+    else if (key.startsWith("cronError:")) kind = "cronError";
+
+    // For `lastFired:<task>:<YYYY-MM-DD>` we split out the date suffix.
+    // For `cronError:<task>:<YYYY-MM-DD>` same shape.
+    // For `oneShot:<task>` there's no date suffix.
+    const parts = key.split(":");
+    let taskName: string;
+    let dateKey: string | null = null;
+    if (kind === "oneShot") {
+      // `oneShot:<task>` — sometimes <task> itself has colons (e.g.
+      // `creatorReminder:42`). Join everything after the prefix.
+      taskName = parts.slice(1).join(":");
+    } else {
+      // Last segment looks like a date if it's YYYY-MM-DD.
+      const tail = parts[parts.length - 1] ?? "";
+      const isDate = /^\d{4}-\d{2}-\d{2}$/.test(tail);
+      if (isDate) {
+        dateKey = tail;
+        taskName = parts.slice(1, -1).join(":");
+      } else {
+        taskName = parts.slice(1).join(":");
+      }
+    }
+
+    return {
+      settingKey: key,
+      kind,
+      taskName,
+      dateKey,
+      value: r.settingValue,
+      updatedAt: r.updatedAt as Date,
+    };
+  });
+}
+
 // ===== Newsletter Signups =====
 export interface NewsletterSignupInput {
   source?: string | null;

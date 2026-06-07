@@ -28288,6 +28288,23 @@ async function markFiredEver(db, key) {
   const fullKey = `oneShot:${key}`;
   await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: (/* @__PURE__ */ new Date()).toISOString() }).onConflictDoNothing();
 }
+async function markError(db, key, err) {
+  const fullKey = `cronError:${key}:${todayKey()}`;
+  const msg = (() => {
+    if (err instanceof Error) return err.message || err.toString();
+    if (typeof err === "string") return err;
+    try {
+      return JSON.stringify(err);
+    } catch {
+      return String(err);
+    }
+  })();
+  const value = `${(/* @__PURE__ */ new Date()).toISOString()} | ${msg.slice(0, 800)}`;
+  await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: value }).onConflictDoUpdate({
+    target: siteSettings.settingKey,
+    set: { settingValue: value }
+  });
+}
 function extractYoutubeId(url) {
   try {
     const u = new URL(url);
@@ -28393,7 +28410,7 @@ async function handler(req, res) {
     const forceCampaignA = forceSet.has("campaignA");
     const forceCampaignB = forceSet.has("campaignB");
     const forceGermanDaily = forceSet.has("germanDaily");
-    {
+    try {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = /* @__PURE__ */ new Date();
       const graceEnd = new Date(fireAt.getTime() + LAUNCH_GRACE_HOURS * 60 * 60 * 1e3);
@@ -28409,200 +28426,272 @@ async function handler(req, res) {
         await markFiredEver(db, "launch:announcement");
         log.push(`\u{1F680} Launch announcement fired (target ${LAUNCH_FIRE_AT_UTC})`);
       }
-    }
-    if (isInWindow(9, 0) && !await hasFiredToday(db, "hubPromo")) {
-      const promo = pickTodaysHubPromo();
-      await tgBroadcastPhoto({
-        photoUrl: hubPromoBannerUrl(promo),
-        caption: promo.caption,
-        parseMode: "HTML",
-        buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
+    } catch (err) {
+      await markError(db, "launch:announcement", err).catch(() => {
       });
-      await markFired(db, "hubPromo");
-      log.push(`\u{1F310} Hub promo \u2014 ${promo.page}`);
+      console.error("[cron-master] task launch:announcement failed", err);
+      log.push(`\u274C launch:announcement failed: ${err instanceof Error ? err.message : String(err)}`);
     }
-    if (isInWindow(12, 0) && !await hasFiredToday(db, "monthly:compound")) {
-      const banner = pickTodaysMonthlyBanner();
-      const caption = monthlyCompoundingCaption(banner);
-      const button = {
-        text: banner.lang === "de" ? "\u{1F4B8} Yield-Rechner \xF6ffnen" : "\u{1F4B8} Open the yield calculator",
-        url: `${SITE}/calculator`
-      };
-      const photoUrl = monthlyBannerUrl(banner);
-      const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
-      if (banner.lang === "de") {
-        const token = process.env.TELEGRAM_BOT_TOKEN;
-        const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
-        if (token && germanChat) {
-          const r = await tgSendPhoto(token, {
-            chatId: germanChat,
+    try {
+      if (isInWindow(9, 0) && !await hasFiredToday(db, "hubPromo")) {
+        const promo = pickTodaysHubPromo();
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
+        });
+        await markFired(db, "hubPromo");
+        log.push(`\u{1F310} Hub promo \u2014 ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "hubPromo", err).catch(() => {
+      });
+      console.error("[cron-master] task hubPromo failed", err);
+      log.push(`\u274C hubPromo failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if (isInWindow(12, 0) && !await hasFiredToday(db, "monthly:compound")) {
+        const banner = pickTodaysMonthlyBanner();
+        const caption = monthlyCompoundingCaption(banner);
+        const button = {
+          text: banner.lang === "de" ? "\u{1F4B8} Yield-Rechner \xF6ffnen" : "\u{1F4B8} Open the yield calculator",
+          url: `${SITE}/calculator`
+        };
+        const photoUrl = monthlyBannerUrl(banner);
+        const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+        if (banner.lang === "de") {
+          const token = process.env.TELEGRAM_BOT_TOKEN;
+          const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+          if (token && germanChat) {
+            const r = await tgSendPhoto(token, {
+              chatId: germanChat,
+              photoUrl,
+              caption,
+              parseMode: "HTML",
+              buttons: [button]
+            });
+            log.push(
+              `\u{1F4B5} Monthly compound \u2014 DE ${label} \u2192 ${germanChat}` + (r.ok ? "" : ` (failed: ${r.error})`)
+            );
+          } else {
+            log.push(
+              `\u{1F4B5} Monthly compound \u2014 DE ${label} SKIPPED (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)`
+            );
+          }
+        } else {
+          await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
             buttons: [button]
           });
+          log.push(`\u{1F4B5} Monthly compound \u2014 EN ${label}`);
+        }
+        await markFired(db, "monthly:compound");
+      }
+    } catch (err) {
+      await markError(db, "monthly:compound", err).catch(() => {
+      });
+      console.error("[cron-master] task monthly:compound failed", err);
+      log.push(`\u274C monthly:compound failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
+        const due = await publishOverdueBlogs(db);
+        if (due.length > 0) {
+          for (const post of due) {
+            const status = await announceBlogToTelegram(post);
+            log.push(status);
+          }
+        } else {
+          log.push("\u{1F4F0} No overdue blog posts to publish");
+        }
+        await markFired(db, "blog:evening");
+      }
+    } catch (err) {
+      await markError(db, "blog:evening", err).catch(() => {
+      });
+      console.error("[cron-master] task blog:evening failed", err);
+      log.push(`\u274C blog:evening failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      await publishOverdueBlogs(db);
+    } catch (err) {
+      console.error("[cron-master] safety-net publishOverdueBlogs failed", err);
+    }
+    try {
+      if (isInWindow(15, 0) && !await hasFiredToday(db, "zoom:hi:T30")) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T30");
+        log.push("\u{1F399} HI Zoom T-30");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T30", err).catch(() => {
+      });
+      console.error("[cron-master] task zoom:hi:T30 failed", err);
+      log.push(`\u274C zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if (isInWindow(16, 30) && !await hasFiredToday(db, "zoom:en:T30")) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T30");
+        log.push("\u{1F399} EN Zoom T-30");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T30", err).catch(() => {
+      });
+      console.error("[cron-master] task zoom:en:T30 failed", err);
+      log.push(`\u274C zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if (isInWindow(18, 0) && !await hasFiredToday(db, "cinematic:daily")) {
+        const film = pickTodaysFilm();
+        await tgBroadcastPhoto({
+          photoUrl: cinematicPosterUrl(film),
+          caption: cinematicCaption(film),
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F3AC} Watch full film", url: `${SITE}/films/${film.slug}` }]
+        });
+        await markFired(db, "cinematic:daily");
+        log.push(`\u{1F3AC} Cinematic \u2014 S${film.season}E${film.episode}: ${film.slug}`);
+      }
+    } catch (err) {
+      await markError(db, "cinematic:daily", err).catch(() => {
+      });
+      console.error("[cron-master] task cinematic:daily failed", err);
+      log.push(`\u274C cinematic:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if (isInWindow(19, 0)) {
+        const { contentSubmissions: contentSubmissions2 } = await Promise.resolve().then(() => (init_schema2(), schema_exports));
+        const fortyFourDaysAgo = new Date(Date.now() - 44 * 24 * 60 * 60 * 1e3);
+        const dueRows = await db.select().from(contentSubmissions2).where(
+          and(
+            eq(contentSubmissions2.type, "creator_apply"),
+            eq(contentSubmissions2.status, "approved"),
+            lte(contentSubmissions2.createdAt, fortyFourDaysAgo)
+          )
+        ).limit(25);
+        const apiKey = process.env.YOUTUBE_API_KEY;
+        const tgToken = process.env.TELEGRAM_BOT_TOKEN;
+        const supportChat = process.env.TELEGRAM_SUBMISSIONS_CHAT;
+        for (const row of dueRows) {
+          if (await hasFiredEver(db, `creatorReminder:${row.id}`)) continue;
+          let viewCount = row.viewCount ?? null;
+          if (apiKey && row.youtubeUrl) {
+            const id = extractYoutubeId(row.youtubeUrl);
+            if (id) {
+              try {
+                const url = new URL("https://www.googleapis.com/youtube/v3/videos");
+                url.searchParams.set("part", "statistics");
+                url.searchParams.set("id", id);
+                url.searchParams.set("key", apiKey);
+                const r = await fetch(url.toString());
+                if (r.ok) {
+                  const j = await r.json();
+                  const raw = j?.items?.[0]?.statistics?.viewCount;
+                  const parsed = raw ? parseInt(raw, 10) : NaN;
+                  if (Number.isFinite(parsed)) {
+                    viewCount = parsed;
+                    await db.update(contentSubmissions2).set({
+                      viewCount: parsed,
+                      viewCountCheckedAt: /* @__PURE__ */ new Date()
+                    }).where(eq(contentSubmissions2.id, row.id));
+                  }
+                }
+              } catch (e) {
+              }
+            }
+          }
+          const tier = payoutTierForViews(viewCount);
+          if (tgToken && supportChat) {
+            const lines = [
+              `\u2B50 <b>Creator 44-day check (#${row.id})</b>`,
+              "",
+              `<b>Name:</b> ${row.authorName}`,
+              row.authorContact ? `<b>Contact:</b> ${row.authorContact}` : null,
+              row.walletAddress ? `<b>Wallet:</b> <code>${row.walletAddress}</code>` : `<b>Wallet:</b> <i>none on file</i>`,
+              row.youtubeUrl ? `<b>Video:</b> ${row.youtubeUrl}` : `<b>Video:</b> <i>no URL on file</i>`,
+              viewCount !== null ? `<b>Views:</b> ${viewCount.toLocaleString()}` : `<b>Views:</b> <i>unknown</i>`,
+              tier ? `<b>Suggested payout:</b> $${tier.payout} (${tier.label} tier)` : `<b>Suggested payout:</b> below the $5 floor \u2014 no payout yet`
+            ].filter(Boolean);
+            await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: supportChat,
+                text: lines.join("\n"),
+                parse_mode: "HTML"
+              })
+            }).catch(() => {
+            });
+          }
+          await markFiredEver(db, `creatorReminder:${row.id}`);
+          log.push(`\u2B50 Creator reminder fired \u2014 submission #${row.id}`);
+        }
+      }
+    } catch (err) {
+      await markError(db, "creatorReminder", err).catch(() => {
+      });
+      console.error("[cron-master] task creatorReminder failed", err);
+      log.push(`\u274C creatorReminder failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {
+        const post = todaysCampaignPost(CAMPAIGN_A);
+        if (post) {
+          await tgBroadcastPhoto({
+            photoUrl: post.photoUrl,
+            caption: post.caption,
+            parseMode: "HTML",
+            buttons: [{ text: post.buttonText, url: post.buttonUrl }]
+          });
+          await markFired(db, "campaignA");
+          log.push(`\u{1F4E3} Campaign A \u2014 ${post.id} (${post.date})`);
+        } else {
+          log.push(`\u{1F4E3} Campaign A \u2014 no post scheduled for ${todayUtcDate()}`);
+          await markFired(db, "campaignA");
+        }
+      }
+    } catch (err) {
+      await markError(db, "campaignA", err).catch(() => {
+      });
+      console.error("[cron-master] task campaignA failed", err);
+      log.push(`\u274C campaignA failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(11, 0) || forceGermanDaily) && !await hasFiredToday(db, "germanDaily")) {
+        const post = todaysGermanPost();
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+        if (token && germanChat) {
+          const r = await tgSendPhoto(token, {
+            chatId: germanChat,
+            photoUrl: post.photoUrl,
+            caption: post.caption,
+            parseMode: "HTML",
+            buttons: [{ text: post.buttonText, url: post.buttonUrl }]
+          });
+          await markFired(db, "germanDaily");
           log.push(
-            `\u{1F4B5} Monthly compound \u2014 DE ${label} \u2192 ${germanChat}` + (r.ok ? "" : ` (failed: ${r.error})`)
+            `\u{1F1E9}\u{1F1EA} German daily \u2014 ${post.id}` + (r.ok ? "" : ` (failed: ${r.error})`)
           );
         } else {
           log.push(
-            `\u{1F4B5} Monthly compound \u2014 DE ${label} SKIPPED (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)`
+            "\u{1F1E9}\u{1F1EA} German daily \u2014 skipped (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)"
           );
         }
-      } else {
-        await tgBroadcastPhoto({
-          photoUrl,
-          caption,
-          parseMode: "HTML",
-          buttons: [button]
-        });
-        log.push(`\u{1F4B5} Monthly compound \u2014 EN ${label}`);
       }
-      await markFired(db, "monthly:compound");
-    }
-    if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
-      const due = await publishOverdueBlogs(db);
-      if (due.length > 0) {
-        for (const post of due) {
-          const status = await announceBlogToTelegram(post);
-          log.push(status);
-        }
-      } else {
-        log.push("\u{1F4F0} No overdue blog posts to publish");
-      }
-      await markFired(db, "blog:evening");
-    }
-    await publishOverdueBlogs(db);
-    if (isInWindow(15, 0) && !await hasFiredToday(db, "zoom:hi:T30")) {
-      const cfg = await getZoomConfig("hi");
-      await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
-      await markFired(db, "zoom:hi:T30");
-      log.push("\u{1F399} HI Zoom T-30");
-    }
-    if (isInWindow(16, 30) && !await hasFiredToday(db, "zoom:en:T30")) {
-      const cfg = await getZoomConfig("en");
-      await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
-      await markFired(db, "zoom:en:T30");
-      log.push("\u{1F399} EN Zoom T-30");
-    }
-    if (isInWindow(18, 0) && !await hasFiredToday(db, "cinematic:daily")) {
-      const film = pickTodaysFilm();
-      await tgBroadcastPhoto({
-        photoUrl: cinematicPosterUrl(film),
-        caption: cinematicCaption(film),
-        parseMode: "HTML",
-        buttons: [{ text: "\u{1F3AC} Watch full film", url: `${SITE}/films/${film.slug}` }]
+    } catch (err) {
+      await markError(db, "germanDaily", err).catch(() => {
       });
-      await markFired(db, "cinematic:daily");
-      log.push(`\u{1F3AC} Cinematic \u2014 S${film.season}E${film.episode}: ${film.slug}`);
+      console.error("[cron-master] task germanDaily failed", err);
+      log.push(`\u274C germanDaily failed: ${err instanceof Error ? err.message : String(err)}`);
     }
-    if (isInWindow(19, 0)) {
-      const { contentSubmissions: contentSubmissions2 } = await Promise.resolve().then(() => (init_schema2(), schema_exports));
-      const fortyFourDaysAgo = new Date(Date.now() - 44 * 24 * 60 * 60 * 1e3);
-      const dueRows = await db.select().from(contentSubmissions2).where(
-        and(
-          eq(contentSubmissions2.type, "creator_apply"),
-          eq(contentSubmissions2.status, "approved"),
-          lte(contentSubmissions2.createdAt, fortyFourDaysAgo)
-        )
-      ).limit(25);
-      const apiKey = process.env.YOUTUBE_API_KEY;
-      const tgToken = process.env.TELEGRAM_BOT_TOKEN;
-      const supportChat = process.env.TELEGRAM_SUBMISSIONS_CHAT;
-      for (const row of dueRows) {
-        if (await hasFiredEver(db, `creatorReminder:${row.id}`)) continue;
-        let viewCount = row.viewCount ?? null;
-        if (apiKey && row.youtubeUrl) {
-          const id = extractYoutubeId(row.youtubeUrl);
-          if (id) {
-            try {
-              const url = new URL("https://www.googleapis.com/youtube/v3/videos");
-              url.searchParams.set("part", "statistics");
-              url.searchParams.set("id", id);
-              url.searchParams.set("key", apiKey);
-              const r = await fetch(url.toString());
-              if (r.ok) {
-                const j = await r.json();
-                const raw = j?.items?.[0]?.statistics?.viewCount;
-                const parsed = raw ? parseInt(raw, 10) : NaN;
-                if (Number.isFinite(parsed)) {
-                  viewCount = parsed;
-                  await db.update(contentSubmissions2).set({
-                    viewCount: parsed,
-                    viewCountCheckedAt: /* @__PURE__ */ new Date()
-                  }).where(eq(contentSubmissions2.id, row.id));
-                }
-              }
-            } catch (e) {
-            }
-          }
-        }
-        const tier = payoutTierForViews(viewCount);
-        if (tgToken && supportChat) {
-          const lines = [
-            `\u2B50 <b>Creator 44-day check (#${row.id})</b>`,
-            "",
-            `<b>Name:</b> ${row.authorName}`,
-            row.authorContact ? `<b>Contact:</b> ${row.authorContact}` : null,
-            row.walletAddress ? `<b>Wallet:</b> <code>${row.walletAddress}</code>` : `<b>Wallet:</b> <i>none on file</i>`,
-            row.youtubeUrl ? `<b>Video:</b> ${row.youtubeUrl}` : `<b>Video:</b> <i>no URL on file</i>`,
-            viewCount !== null ? `<b>Views:</b> ${viewCount.toLocaleString()}` : `<b>Views:</b> <i>unknown</i>`,
-            tier ? `<b>Suggested payout:</b> $${tier.payout} (${tier.label} tier)` : `<b>Suggested payout:</b> below the $5 floor \u2014 no payout yet`
-          ].filter(Boolean);
-          await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              chat_id: supportChat,
-              text: lines.join("\n"),
-              parse_mode: "HTML"
-            })
-          }).catch(() => {
-          });
-        }
-        await markFiredEver(db, `creatorReminder:${row.id}`);
-        log.push(`\u2B50 Creator reminder fired \u2014 submission #${row.id}`);
-      }
-    }
-    if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {
-      const post = todaysCampaignPost(CAMPAIGN_A);
-      if (post) {
-        await tgBroadcastPhoto({
-          photoUrl: post.photoUrl,
-          caption: post.caption,
-          parseMode: "HTML",
-          buttons: [{ text: post.buttonText, url: post.buttonUrl }]
-        });
-        await markFired(db, "campaignA");
-        log.push(`\u{1F4E3} Campaign A \u2014 ${post.id} (${post.date})`);
-      } else {
-        log.push(`\u{1F4E3} Campaign A \u2014 no post scheduled for ${todayUtcDate()}`);
-        await markFired(db, "campaignA");
-      }
-    }
-    if ((isInWindow(11, 0) || forceGermanDaily) && !await hasFiredToday(db, "germanDaily")) {
-      const post = todaysGermanPost();
-      const token = process.env.TELEGRAM_BOT_TOKEN;
-      const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
-      if (token && germanChat) {
-        const r = await tgSendPhoto(token, {
-          chatId: germanChat,
-          photoUrl: post.photoUrl,
-          caption: post.caption,
-          parseMode: "HTML",
-          buttons: [{ text: post.buttonText, url: post.buttonUrl }]
-        });
-        await markFired(db, "germanDaily");
-        log.push(
-          `\u{1F1E9}\u{1F1EA} German daily \u2014 ${post.id}` + (r.ok ? "" : ` (failed: ${r.error})`)
-        );
-      } else {
-        log.push(
-          "\u{1F1E9}\u{1F1EA} German daily \u2014 skipped (TELEGRAM_GERMAN_CHAT or TELEGRAM_BOT_TOKEN missing)"
-        );
-      }
-    }
-    {
+    try {
       const post = todaysCampaignPost(CAMPAIGN_B);
       if (post) {
         const isEventMorning = post.id === "B7";
@@ -28618,6 +28707,11 @@ async function handler(req, res) {
           log.push(`\u{1F1F3}\u{1F1EC} Campaign B \u2014 ${post.id} (${post.date})`);
         }
       }
+    } catch (err) {
+      await markError(db, "campaignB", err).catch(() => {
+      });
+      console.error("[cron-master] task campaignB failed", err);
+      log.push(`\u274C campaignB failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     res.statusCode = 200;
     res.end(JSON.stringify({ ok: true, ranAt: (/* @__PURE__ */ new Date()).toISOString(), fired: log }));

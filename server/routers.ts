@@ -5,6 +5,7 @@ import { parse as parseCookieHeader } from "cookie";
 import {
   verifyAdminPassword, upsertAdmin, getAdminByEmail,
   listBlogPosts, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
+  listAutomationLog,
   listVideos, createVideo, updateVideo, deleteVideo,
   listEvents, createEvent, updateEvent, deleteEvent,
   listLeaderboard, upsertLeaderboardEntry,
@@ -825,6 +826,19 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
   }),
 
   manage: router({
+    /** Aggregated automation activity log — `lastFired:*`,
+     *  `oneShot:*`, and `cronError:*` rows from site_settings, sorted
+     *  by stored timestamp/error-time desc. Feeds the admin
+     *  Automation tab. Default limit 100; can be lowered for
+     *  smaller sections. */
+    getAutomationLog: adminProcedure
+      .input(
+        z
+          .object({ limit: z.number().int().min(1).max(500).optional() })
+          .optional()
+      )
+      .query(({ input }) => listAutomationLog(input?.limit ?? 100)),
+
     listBlogPosts: adminProcedure.query(() => listBlogPosts(false)),
     createBlogPost: adminProcedure
       .input(z.object({

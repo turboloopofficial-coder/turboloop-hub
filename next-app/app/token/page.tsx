@@ -1,13 +1,16 @@
-// /token — the dedicated $TURBO token landing page.
+// /token — the dedicated $TURBO token landing page. Multilingual via
+// the ?lang= query param (en | de | hi | id), with hreflang declared
+// across all four variants. Mirrors the pattern /films uses.
 //
 // Server component (ISR=60s so the OG/hero block reflects the latest
 // price snapshot for crawlers; live polling on top via the
 // TokenPriceWidget keeps it fresh for human readers).
 //
-// All facts come from lib/tokenFacts.ts — single source of truth.
-// All outbound links carry UTM tags so we can measure conversion in
-// GA. All "manage tokens" CTAs point at the dApp's token-rewards
-// dashboard (manus directive).
+// All facts come from lib/tokenFacts.ts (single source of truth).
+// All user-facing strings come from lib/tokenPageContent.ts (typed
+// per-language content map). Numbers, addresses, plan names, and
+// proper nouns are NEVER translated — they always render from
+// tokenFacts.ts directly.
 //
 // Copy rules (per manus, never violate):
 //   - Trade tax (1% buy / 2% sell) goes to admin. Full stop. Do NOT
@@ -17,10 +20,6 @@
 //   - No risk disclaimer text anywhere. No "not financial advice".
 //   - Lead with TurboLoop native swap. PancakeSwap is secondary.
 //   - Vesting rank == Leadership Program rank (same system).
-//
-// Multi-language: structure supports DE/HI/ID via ?lang= query param.
-// Phase A ships EN only; translations land in Phase C alongside blog
-// translations.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -31,8 +30,6 @@ import {
   Lock,
   Award,
   Flame,
-  Wallet,
-  Copy as CopyIcon,
   Sparkles,
 } from "lucide-react";
 import { Container } from "@components/ui/Container";
@@ -48,48 +45,67 @@ import {
   REWARD_SPLIT,
   BUYBACK,
 } from "@lib/tokenFacts";
+import {
+  TOKEN_PAGE_CONTENT,
+  isSupportedLang,
+  type SupportedLang,
+} from "@lib/tokenPageContent";
 
 export const revalidate = 60;
 
 const CANONICAL = "https://www.turboloop.tech/token";
-const OG_IMAGE =
-  "https://www.turboloop.tech/api/og-banner?type=token";
+const OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=token";
 
-const TITLE = `$${TOKEN.symbol} — TurboLoop Token | Deflationary BSC Token`;
-const DESC = `${TOKEN.symbol} is the native rewards token of TurboLoop on BSC. ${TOKEN.totalSupplyFormatted} total supply, 100% LP locked, no team allocation, daily automated buyback & burn. Earn ${TOKEN.symbol} on every deposit.`;
+interface PageProps {
+  searchParams: Promise<{ lang?: string }>;
+}
 
-export const metadata: Metadata = {
-  title: TITLE,
-  description: DESC,
-  alternates: {
-    canonical: CANONICAL,
-    languages: {
-      en: CANONICAL,
-      de: `${CANONICAL}?lang=de`,
-      hi: `${CANONICAL}?lang=hi`,
-      id: `${CANONICAL}?lang=id`,
-      "x-default": CANONICAL,
+function pickLang(s: string | undefined): SupportedLang {
+  return isSupportedLang(s) ? s : "en";
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const { lang: langParam } = await searchParams;
+  const lang = pickLang(langParam);
+  const content = TOKEN_PAGE_CONTENT[lang];
+  const canonical =
+    lang === "en" ? CANONICAL : `${CANONICAL}?lang=${lang}`;
+  const title = `$${TOKEN.symbol} — ${content.earn_title.replace("$TURBO", "TurboLoop Token")} | ${TOKEN.network}`;
+  const desc = content.hero_subtitle_pre + " " + content.hero_subtitle_supply + content.hero_subtitle_post;
+  return {
+    title,
+    description: desc,
+    alternates: {
+      canonical,
+      languages: {
+        en: CANONICAL,
+        de: `${CANONICAL}?lang=de`,
+        hi: `${CANONICAL}?lang=hi`,
+        id: `${CANONICAL}?lang=id`,
+        "x-default": CANONICAL,
+      },
     },
-  },
-  openGraph: {
-    title: TITLE,
-    description: DESC,
-    url: CANONICAL,
-    type: "website",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: TITLE }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESC,
-    images: [OG_IMAGE],
-  },
-};
+    openGraph: {
+      title,
+      description: desc,
+      url: canonical,
+      type: "website",
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: desc,
+      images: [OG_IMAGE],
+    },
+  };
+}
 
 // Schema.org structured data — Product is the right vocabulary for a
-// fungible token in Google's eyes. FinancialProduct would technically
-// fit but Google's rich-result eligibility is narrower for it.
-function buildJsonLd() {
+// fungible token in Google's eyes.
+function buildJsonLd(lang: SupportedLang) {
+  const content = TOKEN_PAGE_CONTENT[lang];
+  const desc = content.hero_subtitle_pre + " " + content.hero_subtitle_supply + content.hero_subtitle_post;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -97,7 +113,7 @@ function buildJsonLd() {
         "@type": "Product",
         "@id": `${CANONICAL}#token`,
         name: `${TOKEN.name} ($${TOKEN.symbol})`,
-        description: DESC,
+        description: desc,
         url: CANONICAL,
         image: OG_IMAGE,
         brand: { "@id": "https://www.turboloop.tech/#organization" },
@@ -126,10 +142,14 @@ function buildJsonLd() {
   };
 }
 
-export default function TokenPage() {
-  const jsonLd = buildJsonLd();
+export default async function TokenPage({ searchParams }: PageProps) {
+  const { lang: langParam } = await searchParams;
+  const lang = pickLang(langParam);
+  const c = TOKEN_PAGE_CONTENT[lang];
+  const jsonLd = buildJsonLd(lang);
+
   return (
-    <main className="relative pb-16 md:pb-24">
+    <main className="relative pb-16 md:pb-24" lang={lang}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -142,34 +162,31 @@ export default function TokenPage() {
             <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
               <Sparkles className="w-3.5 h-3.5 text-[var(--c-brand-cyan)]" />
               <Heading tier="eyebrow" as="span" className="text-[var(--c-text)]">
-                Native rewards token · BSC
+                {c.hero_eyebrow}
               </Heading>
             </div>
 
             <Heading tier="display" className="mb-5">
-              <span>Earn </span>
+              <span>{c.hero_title_pre}</span>
               <span className="text-brand-wide">${TOKEN.symbol}</span>
-              <span> on every deposit.</span>
+              <span>{c.hero_title_post}</span>
             </Heading>
 
             <p className="text-lg md:text-xl text-[var(--c-text-muted)] mb-8 leading-relaxed max-w-2xl mx-auto">
-              An extra rewards layer on top of your fixed TurboLoop yields —
-              with zero impact on protocol performance.
+              {c.hero_subtitle_pre}{" "}
               <strong className="text-[var(--c-text)]">
-                {" "}
-                {TOKEN.totalSupplyFormatted} total supply.
+                {c.hero_subtitle_supply}
               </strong>
-              {" "}100% LP locked. No team allocation. No insider reserve.
+              {c.hero_subtitle_post}
             </p>
 
-            {/* CTAs — native swap first (primary), PancakeSwap secondary */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-5">
               <TrackedLink
                 href={TOKEN_LINKS.buyNative}
                 event="token_buy_clicked"
                 className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
               >
-                Buy ${TOKEN.symbol}
+                {c.hero_cta_buy} ${TOKEN.symbol}
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </TrackedLink>
               <TrackedLink
@@ -177,7 +194,7 @@ export default function TokenPage() {
                 event="token_dexscreener_clicked"
                 className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
               >
-                View chart on DexScreener
+                {c.hero_cta_chart}
                 <ExternalLink className="w-4 h-4" aria-hidden="true" />
               </TrackedLink>
             </div>
@@ -187,7 +204,7 @@ export default function TokenPage() {
               event="token_bscscan_clicked"
               className="inline-flex items-center gap-1.5 text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
             >
-              View contract on BscScan
+              {c.hero_cta_bscscan}
               <ExternalLink className="w-3 h-3" aria-hidden="true" />
             </TrackedLink>
           </div>
@@ -203,9 +220,9 @@ export default function TokenPage() {
       <Container width="default">
         <section className="mb-16 md:mb-24">
           <SectionHead
-            eyebrow="Earn on every deposit"
-            title={`How you earn $${TOKEN.symbol}`}
-            subtitle={`Deposit USDT into any Loop Plan. Get $${TOKEN.symbol} on top — a percentage of your deposit value, split ${REWARD_SPLIT.investorPctLabel} to you and ${REWARD_SPLIT.referrerPctLabel} to your referrer.`}
+            eyebrow={c.earn_eyebrow}
+            title={c.earn_title}
+            subtitle={c.earn_subtitle}
           />
 
           <div className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] mb-8">
@@ -213,10 +230,10 @@ export default function TokenPage() {
               <thead>
                 <tr className="bg-[var(--c-bg)] border-b border-[var(--c-border)]">
                   <th className="text-left px-4 py-3 font-bold text-[var(--c-text)]">
-                    Deposit Amount (USDT)
+                    {c.earn_table_col_deposit}
                   </th>
                   <th className="text-right px-4 py-3 font-bold text-[var(--c-text)]">
-                    Token Reward
+                    {c.earn_table_col_reward}
                   </th>
                 </tr>
               </thead>
@@ -244,20 +261,25 @@ export default function TokenPage() {
 
           <div className="rounded-[var(--r-xl)] p-5 md:p-6 bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] mb-6">
             <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-brand-cyan)] mb-2">
-              Worked example
+              {c.earn_example_label}
             </div>
-            <p className="text-[var(--c-text)] leading-relaxed mb-3">
-              Deposit <strong>$1,000</strong> in any Loop Plan → fall into the{" "}
-              <strong>1.20%</strong> tier → reward value{" "}
-              <strong>$12.00</strong> → at the launch price of $0.001 per
-              token, that's <strong>12,000 ${TOKEN.symbol}</strong>.
-            </p>
+            <p
+              className="text-[var(--c-text)] leading-relaxed mb-3"
+              dangerouslySetInnerHTML={{
+                __html: c.earn_example_intro.replace(
+                  /\*\*([^*]+)\*\*/g,
+                  '<strong>$1</strong>'
+                ),
+              }}
+            />
             <ul className="grid sm:grid-cols-2 gap-3 text-sm">
               <li className="flex items-baseline gap-2">
                 <span className="text-[var(--c-brand-cyan)] font-bold tabular-nums">
                   {REWARD_SPLIT.investorPctLabel}
                 </span>
-                <span className="text-[var(--c-text-muted)]">to you:</span>
+                <span className="text-[var(--c-text-muted)]">
+                  {c.earn_example_your_share}
+                </span>
                 <span className="font-bold text-[var(--c-text)] tabular-nums ml-auto">
                   8,400 ${TOKEN.symbol}
                 </span>
@@ -266,24 +288,28 @@ export default function TokenPage() {
                 <span className="text-[var(--c-brand-cyan)] font-bold tabular-nums">
                   {REWARD_SPLIT.referrerPctLabel}
                 </span>
-                <span className="text-[var(--c-text-muted)]">to your referrer:</span>
+                <span className="text-[var(--c-text-muted)]">
+                  {c.earn_example_referrer_share}
+                </span>
                 <span className="font-bold text-[var(--c-text)] tabular-nums ml-auto">
                   3,600 ${TOKEN.symbol}
                 </span>
               </li>
             </ul>
             <p className="text-xs text-[var(--c-text-subtle)] mt-3 leading-relaxed">
-              Token count is fixed at the moment of deposit, calculated against
-              the live market price at that exact time.
+              {c.earn_example_footnote}
             </p>
           </div>
 
-          <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
-            Token rewards are <strong>additive</strong>. They're paid out on
-            top of your standard Loop Plan yield and don't change your fixed
-            ROI in any way. Minimum deposit for token rewards:{" "}
-            <strong>${TOKEN.minDepositUsd}</strong>.
-          </p>
+          <p
+            className="text-sm text-[var(--c-text-muted)] leading-relaxed"
+            dangerouslySetInnerHTML={{
+              __html: c.earn_additive_note.replace(
+                /\*\*([^*]+)\*\*/g,
+                '<strong>$1</strong>'
+              ),
+            }}
+          />
 
           <div className="mt-6 flex flex-wrap gap-3">
             <TrackedLink
@@ -291,14 +317,14 @@ export default function TokenPage() {
               event="token_manage_in_app_clicked"
               className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
             >
-              Manage in App
+              {c.earn_manage_cta}
               <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
             </TrackedLink>
             <Link
-              href="/calculator"
+              href={lang === "en" ? "/calculator" : `/calculator?lang=${lang}`}
               className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
             >
-              Run the numbers
+              {c.earn_calculator_cta}
             </Link>
           </div>
         </section>
@@ -308,9 +334,9 @@ export default function TokenPage() {
       <Container width="default">
         <section className="mb-16 md:mb-24">
           <SectionHead
-            eyebrow="Vesting · monthly unlock"
-            title="Your Leadership rank unlocks tokens faster"
-            subtitle="Your existing TurboLoop Leadership Program rank determines how fast vested tokens unlock each month. Higher rank = faster unlock. Base unlock is 10%/month for unranked users; ranks scale up to 20%/month at Legend. First installment is paid out instantly on deposit. Fully smart-contract automated — no manual claims."
+            eyebrow={c.vesting_eyebrow}
+            title={c.vesting_title}
+            subtitle={c.vesting_subtitle}
           />
 
           <div className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] mb-6">
@@ -318,13 +344,13 @@ export default function TokenPage() {
               <thead>
                 <tr className="bg-[var(--c-bg)] border-b border-[var(--c-border)]">
                   <th className="text-left px-4 py-3 font-bold text-[var(--c-text)]">
-                    Rank
+                    {c.vesting_table_col_rank}
                   </th>
                   <th className="text-right px-4 py-3 font-bold text-[var(--c-text)]">
-                    Monthly Unlock
+                    {c.vesting_table_col_monthly}
                   </th>
                   <th className="text-right px-4 py-3 font-bold text-[var(--c-text)] hidden sm:table-cell">
-                    Months to Full Unlock
+                    {c.vesting_table_col_full}
                   </th>
                 </tr>
               </thead>
@@ -354,12 +380,11 @@ export default function TokenPage() {
           </div>
 
           <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
-            Don't have a rank yet?{" "}
             <Link
               href="/blog/community-leadership-path-building-globally"
               className="text-[var(--c-brand-cyan)] font-bold hover:underline"
             >
-              See how the Leadership Program works
+              {c.vesting_leadership_link_text}
             </Link>
             .
           </p>
@@ -370,33 +395,32 @@ export default function TokenPage() {
       <Container width="default">
         <section className="mb-16 md:mb-24">
           <SectionHead
-            eyebrow="Deflationary by design"
-            title="Daily buyback & burn"
-            subtitle={`${BUYBACK.frequency}, the protocol uses ${BUYBACK.fundingPctOfAdminFees}% of admin fees from the main TurboLoop platform to buy $${TOKEN.symbol} from the market and burn it forever. ${BUYBACK.automation} — no manual intervention.`}
+            eyebrow={c.deflationary_eyebrow}
+            title={c.deflationary_title}
+            subtitle={c.deflationary_subtitle}
           />
 
-          {/* Flow card — visual representation of the buyback */}
           <div className="rounded-[var(--r-xl)] p-5 md:p-6 bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] mb-6">
             <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-brand-cyan)] mb-3">
-              How it flows
+              {c.deflationary_flow_label}
             </div>
             <div className="grid md:grid-cols-4 gap-3 md:gap-2 items-center">
-              <FlowStep emoji="💰" label="Protocol admin fees" />
+              <FlowStep emoji="💰" label={c.deflationary_step_fees} />
               <FlowArrow label={`${BUYBACK.fundingPctOfAdminFees}%`} />
-              <FlowStep emoji="🤖" label="Daily automated buyback" />
+              <FlowStep emoji="🤖" label={c.deflationary_step_buyback} />
               <FlowArrow label="burn" />
             </div>
             <div className="mt-3 text-center">
-              <FlowStep emoji="🔥" label={`Permanent burn — ${TOKEN.symbol} supply decreases`} />
+              <FlowStep emoji="🔥" label={c.deflationary_step_burn} />
             </div>
             <p className="text-xs text-[var(--c-text-subtle)] mt-5 leading-relaxed text-center">
-              View the BuyBack & Burn contract on{" "}
+              {c.deflationary_burn_caption}{" "}
               <TrackedLink
                 href={TOKEN_LINKS.bscscanBuyback}
                 event="token_bscscan_clicked"
                 className="text-[var(--c-brand-cyan)] hover:underline font-bold"
               >
-                BscScan
+                {c.deflationary_bscscan_link}
               </TrackedLink>
               .
             </p>
@@ -406,7 +430,7 @@ export default function TokenPage() {
               connect to the buyback above. */}
           <div className="rounded-[var(--r-xl)] p-5 md:p-6 bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
             <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-3">
-              Trade tax
+              {c.trade_tax_label}
             </div>
             <div className="grid sm:grid-cols-2 gap-4 mb-3">
               <div className="flex items-baseline gap-3">
@@ -414,7 +438,7 @@ export default function TokenPage() {
                   {TOKEN.buyTaxPct}%
                 </span>
                 <span className="text-sm text-[var(--c-text-muted)]">
-                  buy tax
+                  {c.trade_tax_buy_label}
                 </span>
               </div>
               <div className="flex items-baseline gap-3">
@@ -422,14 +446,12 @@ export default function TokenPage() {
                   {TOKEN.sellTaxPct}%
                 </span>
                 <span className="text-sm text-[var(--c-text-muted)]">
-                  sell tax
+                  {c.trade_tax_sell_label}
                 </span>
               </div>
             </div>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
-              Trade tax is collected by admin and applied on every buy and
-              sell across all venues (native swap, PancakeSwap, any DEX
-              routing through the pair).
+              {c.trade_tax_explainer}
             </p>
           </div>
         </section>
@@ -439,52 +461,51 @@ export default function TokenPage() {
       <Container width="default">
         <section className="mb-16 md:mb-24">
           <SectionHead
-            eyebrow="Security & transparency"
-            title="Fair launch, fully on-chain, no admin keys"
-            subtitle="Every claim verifiable on BscScan. Click any address to copy it; click any link to view it on-chain."
+            eyebrow={c.security_eyebrow}
+            title={c.security_title}
+            subtitle={c.security_subtitle}
           />
 
           <div className="grid md:grid-cols-2 gap-3 md:gap-4 mb-8">
             <SecurityBadge
               icon={Lock}
-              label="100% LP Locked"
-              detail="Liquidity tokens are locked on-chain, fully verifiable."
+              label={c.security_lp_label}
+              detail={c.security_lp_detail}
               href={TOKEN_LINKS.lpCreateTx}
-              linkLabel="View LP transaction"
+              linkLabel={c.security_lp_link}
             />
             <SecurityBadge
               icon={Award}
-              label="No team allocation"
-              detail="0% reserved for the team. 100% fair launch."
+              label={c.security_team_label}
+              detail={c.security_team_detail}
             />
             <SecurityBadge
               icon={Shield}
-              label="No insider reserve"
-              detail="No pre-mine. No hidden allocation. The entire supply went into the launch."
+              label={c.security_insider_label}
+              detail={c.security_insider_detail}
             />
             <SecurityBadge
               icon={Flame}
-              label="Ownership renounced"
-              detail="Token contract and buyback contract ownership both burned on-chain."
+              label={c.security_renounce_label}
+              detail={c.security_renounce_detail}
               href={TOKEN_LINKS.tokenRenounceTx}
-              linkLabel="View renounce transaction"
+              linkLabel={c.security_renounce_link}
             />
           </div>
 
-          {/* Contract address cards */}
           <div className="grid md:grid-cols-3 gap-3 md:gap-4">
             <AddressCard
-              label="Token contract"
+              label={c.security_token_contract_label}
               address={TOKEN.contract}
               scanUrl={TOKEN_LINKS.bscscanContract}
             />
             <AddressCard
-              label="USDT/TURBO pair"
+              label={c.security_pair_label}
               address={TOKEN.pair}
               scanUrl={TOKEN_LINKS.bscscanPair}
             />
             <AddressCard
-              label="Buyback contract"
+              label={c.security_buyback_contract_label}
               address={TOKEN.buybackContract}
               scanUrl={TOKEN_LINKS.bscscanBuyback}
             />
@@ -496,13 +517,12 @@ export default function TokenPage() {
       <Container width="default">
         <section className="mb-12 md:mb-16">
           <SectionHead
-            eyebrow="Buy & sell"
-            title="Two ways to trade"
-            subtitle={`The TurboLoop native swap is the fastest path. PancakeSwap is supported as an advanced option for users who prefer trading directly on the DEX. ${TOKEN.buyTaxPct}% buy / ${TOKEN.sellTaxPct}% sell trade tax applies on both venues.`}
+            eyebrow={c.trade_eyebrow}
+            title={c.trade_title}
+            subtitle={c.trade_subtitle}
           />
 
           <div className="grid md:grid-cols-2 gap-4 md:gap-5">
-            {/* Native swap — primary CTA */}
             <div
               className="relative rounded-[var(--r-xl)] p-5 md:p-7 overflow-hidden text-white shadow-[var(--s-xl)]"
               style={{
@@ -511,15 +531,13 @@ export default function TokenPage() {
               }}
             >
               <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-white/80 mb-2">
-                Recommended
+                {c.trade_native_badge}
               </div>
               <Heading tier="h2" className="mb-2 text-white">
-                TurboLoop Native Swap
+                {c.trade_native_title}
               </Heading>
               <p className="text-sm md:text-base text-white/85 leading-relaxed mb-5">
-                Trade ${TOKEN.symbol} directly inside the TurboLoop dApp.
-                One-click USDT ↔ {TOKEN.symbol} swaps, integrated with your
-                deposit and rewards dashboard.
+                {c.trade_native_subtitle}
               </p>
               <div className="flex flex-wrap gap-2 md:gap-3">
                 <TrackedLink
@@ -527,7 +545,7 @@ export default function TokenPage() {
                   event="token_buy_clicked"
                   className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-md)] text-sm font-bold bg-white text-[var(--c-brand-cyan)] hover:bg-white/95 active:scale-[0.985] shadow-[var(--s-md)] transition"
                 >
-                  Buy ${TOKEN.symbol}
+                  {c.trade_native_buy_cta} ${TOKEN.symbol}
                   <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </TrackedLink>
                 <TrackedLink
@@ -535,24 +553,21 @@ export default function TokenPage() {
                   event="token_sell_clicked"
                   className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-md)] text-sm font-bold text-white bg-white/15 hover:bg-white/25 active:scale-[0.985] transition"
                 >
-                  Sell ${TOKEN.symbol}
+                  {c.trade_native_sell_cta} ${TOKEN.symbol}
                   <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </TrackedLink>
               </div>
             </div>
 
-            {/* PancakeSwap — secondary */}
             <div className="rounded-[var(--r-xl)] p-5 md:p-7 bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)]">
               <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
-                Advanced
+                {c.trade_pancake_badge}
               </div>
               <Heading tier="h2" className="mb-2">
-                PancakeSwap
+                {c.trade_pancake_title}
               </Heading>
               <p className="text-sm md:text-base text-[var(--c-text-muted)] leading-relaxed mb-5">
-                If you prefer trading directly on the DEX, ${TOKEN.symbol} is
-                available on PancakeSwap V2 — the same liquidity pool that
-                powers the native swap.
+                {c.trade_pancake_subtitle}
               </p>
               <div className="flex flex-wrap gap-3">
                 <TrackedLink
@@ -560,7 +575,7 @@ export default function TokenPage() {
                   event="token_pancakeswap_clicked"
                   className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-md)] text-sm font-bold bg-[var(--c-bg)] text-[var(--c-text)] border border-[var(--c-border)] hover:bg-[var(--c-surface)] active:scale-[0.985] shadow-[var(--s-sm)] transition"
                 >
-                  Open in PancakeSwap
+                  {c.trade_pancake_cta}
                   <ExternalLink className="w-4 h-4" aria-hidden="true" />
                 </TrackedLink>
                 <TrackedLink
@@ -568,7 +583,7 @@ export default function TokenPage() {
                   event="token_dexscreener_clicked"
                   className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-md)] text-sm font-bold bg-[var(--c-bg)] text-[var(--c-text)] border border-[var(--c-border)] hover:bg-[var(--c-surface)] active:scale-[0.985] shadow-[var(--s-sm)] transition"
                 >
-                  Chart
+                  {c.trade_pancake_chart_cta}
                   <ExternalLink className="w-4 h-4" aria-hidden="true" />
                 </TrackedLink>
               </div>

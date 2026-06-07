@@ -33,10 +33,22 @@ import {
   Crown,
   ArrowUpRight,
   Info,
+  Gift,
 } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { PageHero } from "@components/layout/PageHero";
+import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
+import { TrackedLink } from "@components/token/TrackedLink";
+import {
+  TOKEN,
+  TOKEN_LINKS,
+  DEPOSIT_TIERS,
+  VESTING_RANKS,
+  REWARD_SPLIT,
+  tierForDeposit,
+} from "@lib/tokenFacts";
+import { trackEvent } from "@lib/analytics";
 
 // Four published plans on the live dApp. `roi` is the flat percentage
 // paid at the end of the plan period — not annualized, not compounded.
@@ -63,6 +75,10 @@ export default function CalculatorPage() {
   // Default to Ultimate (index 3) — the headline plan on the live dApp.
   const [planIdx, setPlanIdx] = useState(3);
   const [deposit, setDeposit] = useState(1000);
+  // Phase A: TURBO token reward state — rank dropdown drives the vesting
+  // preview. Default to "base" (10%/month) so users without a rank see
+  // realistic numbers.
+  const [rankSlug, setRankSlug] = useState<string>("base");
 
   const plan = PLANS[planIdx];
 
@@ -75,10 +91,59 @@ export default function CalculatorPage() {
     return { planEnd, planEarn };
   }, [plan, deposit]);
 
+  // $TURBO token reward derivation. tierForDeposit() returns null below
+  // the $100 minimum — the UI renders an inline "Below minimum" hint in
+  // that case, no numbers shown.
+  const tokenCalc = useMemo(() => {
+    const tier = tierForDeposit(deposit);
+    if (!tier) return null;
+    const rewardUsd = deposit * tier.pct;
+    // Token count is fixed at deposit time at the THEN-current market
+    // price. We use launch price ($0.001) as the published display
+    // baseline — actual live price feeds in on the /token page widget
+    // for users who want precision.
+    const tokenAmount = rewardUsd / TOKEN.launchPrice;
+    const investorTokens = tokenAmount * REWARD_SPLIT.investor;
+    const referrerTokens = tokenAmount * REWARD_SPLIT.referrer;
+    const rank =
+      VESTING_RANKS.find(r => r.slug === rankSlug) ?? VESTING_RANKS[0];
+    return {
+      tier,
+      rewardUsd,
+      tokenAmount,
+      investorTokens,
+      referrerTokens,
+      rank,
+    };
+  }, [deposit, rankSlug]);
+
   // Pulse-key — bumped on every result change so the value <span> remounts
   // and re-fires the .tl-value-pulse keyframe. Cheaper than a useEffect +
   // toggle pattern, and React's reconciler does the right thing.
   const pulseKey = `${planIdx}-${deposit}`;
+
+  // Track rank-changed event so we can measure which ranks users actually
+  // engage with on this calculator.
+  const onRankChange = (next: string) => {
+    setRankSlug(next);
+    trackEvent("calculator_token_rank_changed", { rank: next });
+  };
+
+  const onDepositChange = (next: number) => {
+    const clamped = Math.max(50, next);
+    setDeposit(clamped);
+    // Fire only when the deposit crosses into / out of a rewards tier —
+    // otherwise we'd spam GA with every slider tick. Tier transitions
+    // are the meaningful signal.
+    const prevTier = tierForDeposit(deposit);
+    const nextTier = tierForDeposit(clamped);
+    if (prevTier?.label !== nextTier?.label) {
+      trackEvent("calculator_token_deposit_changed", {
+        deposit: clamped,
+        tier: nextTier?.label ?? "below-minimum",
+      });
+    }
+  };
 
   return (
     <main className="relative pb-12 md:pb-20">
@@ -96,9 +161,9 @@ export default function CalculatorPage() {
       />
 
       <PageHero
-        eyebrow="Yield Calculator"
+        eyebrow="Yield + Token Calculator"
         title="Run the numbers."
-        subtitle="Pick a plan, set a deposit, see what you walk away with at maturity. Real yield comes from PancakeSwap V3 trading fees, not from new deposits — these figures match each plan's published flat ROI on the live dApp."
+        subtitle={`Pick a plan, set a deposit, see what you walk away with at maturity — plus how many $${TOKEN.symbol} tokens you earn on top. Revenue comes from real on-chain activity (USDC/USDT LP rewards + Turbo Swap fees + Turbo Buy fees), not from new deposits.`}
       />
 
       <Container width="default">
@@ -243,7 +308,7 @@ export default function CalculatorPage() {
                   max={1000000}
                   value={deposit}
                   onChange={e =>
-                    setDeposit(Math.max(50, Number(e.target.value) || 0))
+                    onDepositChange(Number(e.target.value) || 0)
                   }
                   className="w-full pl-10 pr-4 h-14 rounded-[var(--r-lg)] text-2xl font-extrabold text-center bg-[var(--c-bg)] outline-none border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/20 tabular-nums"
                 />
@@ -257,7 +322,7 @@ export default function CalculatorPage() {
                 max={SLIDER_MAX}
                 step={50}
                 value={Math.min(SLIDER_MAX, Math.max(SLIDER_MIN, deposit))}
-                onChange={e => setDeposit(Number(e.target.value))}
+                onChange={e => onDepositChange(Number(e.target.value))}
                 className="w-full mb-4 accent-[var(--c-brand-cyan)] cursor-pointer"
                 aria-label="Deposit slider"
               />
@@ -269,7 +334,7 @@ export default function CalculatorPage() {
                     <button
                       key={amt}
                       type="button"
-                      onClick={() => setDeposit(amt)}
+                      onClick={() => onDepositChange(amt)}
                       className={`px-4 min-h-[40px] rounded-full text-xs font-bold transition active:scale-95 ${
                         active
                           ? "bg-brand text-white shadow-[var(--s-brand)]"
@@ -282,14 +347,134 @@ export default function CalculatorPage() {
                 })}
               </div>
               <p className="text-xs text-[var(--c-text-subtle)] mt-3">
-                $50 minimum. Real yields fluctuate with market volume.
+                $50 minimum to enter a Loop Plan. Token rewards kick in from
+                ${TOKEN.minDepositUsd}+.
               </p>
             </Card>
           </div>
         </div>
 
-        {/* Honest disclaimer — brand-gradient left accent so it reads as
-            an editorial pull-quote rather than a noise box. */}
+        {/* ─── $TURBO TOKEN REWARDS ─── */}
+        <div className="mt-8 md:mt-12">
+          <Card elevation="prominent" padding="lg" className="p-6 md:p-8">
+            <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-brand shadow-[var(--s-brand)] flex items-center justify-center">
+                  <Gift className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-brand-cyan)]">
+                    Bonus rewards
+                  </div>
+                  <div className="font-bold text-[var(--c-text)] text-lg">
+                    ${TOKEN.symbol} tokens for this deposit
+                  </div>
+                </div>
+              </div>
+              <TokenPriceWidget variant="inline" />
+            </div>
+
+            {tokenCalc ? (
+              <>
+                <div className="grid sm:grid-cols-2 gap-4 mb-5">
+                  <RewardStat
+                    label="Reward tier"
+                    value={`${tokenCalc.tier.label} → ${tokenCalc.tier.pctLabel}`}
+                  />
+                  <RewardStat
+                    label="Reward value (USD)"
+                    value={`$${fmt(tokenCalc.rewardUsd)}`}
+                    emphasis
+                  />
+                  <RewardStat
+                    label={`Your share (${REWARD_SPLIT.investorPctLabel})`}
+                    value={`${fmt(tokenCalc.investorTokens)} ${TOKEN.symbol}`}
+                    emphasis
+                  />
+                  <RewardStat
+                    label={`Referrer share (${REWARD_SPLIT.referrerPctLabel})`}
+                    value={`${fmt(tokenCalc.referrerTokens)} ${TOKEN.symbol}`}
+                  />
+                </div>
+
+                <div className="rounded-[var(--r-lg)] bg-[var(--c-bg)] border border-[var(--c-border)] p-4 md:p-5">
+                  <div className="flex items-center justify-between gap-3 flex-wrap mb-3">
+                    <label
+                      htmlFor="rank-select"
+                      className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)]"
+                    >
+                      Your Leadership Program rank
+                    </label>
+                    <select
+                      id="rank-select"
+                      value={rankSlug}
+                      onChange={e => onRankChange(e.target.value)}
+                      className="px-3 h-10 rounded-[var(--r-md)] text-sm font-bold bg-[var(--c-surface)] border border-[var(--c-border)] focus:border-[var(--c-brand-cyan)] focus:ring-2 focus:ring-[var(--c-brand-cyan)]/20 outline-none text-[var(--c-text)] cursor-pointer"
+                    >
+                      {VESTING_RANKS.map(r => (
+                        <option key={r.slug} value={r.slug}>
+                          {r.name} — {r.monthlyUnlockLabel}/month
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <RewardStat
+                      label="Monthly unlock"
+                      value={tokenCalc.rank.monthlyUnlockLabel}
+                    />
+                    <RewardStat
+                      label="Months to fully unlocked"
+                      value={`~${tokenCalc.rank.monthsToFull}`}
+                    />
+                  </div>
+                  <p className="text-xs text-[var(--c-text-subtle)] mt-3 leading-relaxed">
+                    Your existing TurboLoop Leadership Program rank
+                    determines vesting speed. First installment is paid
+                    instantly on deposit. Fully automated — no manual
+                    claims.
+                  </p>
+                </div>
+
+                <p className="text-xs text-[var(--c-text-subtle)] mt-4 leading-relaxed">
+                  Token count is fixed at the moment of deposit, calculated
+                  against the live market price at that exact time. Above
+                  uses the $0.001 launch price as a display baseline.
+                </p>
+              </>
+            ) : (
+              <div className="rounded-[var(--r-lg)] bg-[var(--c-bg)] border border-[var(--c-border)] p-5 text-center">
+                <div className="text-[var(--c-text-muted)] text-sm leading-relaxed">
+                  Token rewards kick in from{" "}
+                  <strong className="text-[var(--c-text)]">
+                    ${TOKEN.minDepositUsd}+
+                  </strong>
+                  . Increase your deposit to see your ${TOKEN.symbol} reward
+                  preview.
+                </div>
+              </div>
+            )}
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <TrackedLink
+                href={TOKEN_LINKS.manageInApp}
+                event="token_manage_in_app_clicked"
+                className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+              >
+                Manage in App
+                <ArrowUpRight className="w-4 h-4" />
+              </TrackedLink>
+              <a
+                href="/token"
+                className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
+              >
+                Learn about ${TOKEN.symbol}
+              </a>
+            </div>
+          </Card>
+        </div>
+
+        {/* Honest editorial pull-quote — explains revenue source. */}
         <div
           className="mt-6 md:mt-8 rounded-[var(--r-xl)] bg-[var(--c-surface)] shadow-[var(--s-md)] p-5 md:p-6 relative overflow-hidden"
           style={{
@@ -308,11 +493,12 @@ export default function CalculatorPage() {
               <strong className="text-[var(--c-text)]">
                 These figures match the published plans on the live dApp.
               </strong>{" "}
-              Yield comes from real PancakeSwap V3 trading fees and varies
-              with market volume — the protocol&rsquo;s flat per-plan ROI
-              is the target, not a guarantee. The smart contract is
-              audited, renounced, and 100% LP-locked — read the source on
-              BscScan before depositing anything.
+              Revenue comes from real on-chain activity: LP rewards on a
+              USDC/USDT stablecoin pair, Turbo Swap trading fees, and Turbo
+              Buy fiat-to-crypto fees. The smart contract is audited,
+              ownership is permanently renounced, and 100% of LP tokens are
+              locked on-chain — read the source on BscScan before depositing
+              anything.
             </p>
           </div>
         </div>
@@ -320,7 +506,7 @@ export default function CalculatorPage() {
         {/* CTAs */}
         <div className="mt-8 md:mt-10 flex flex-wrap gap-3 justify-center">
           <a
-            href="https://turboloop.io"
+            href="https://turboloop.io?utm_source=turboloop_tech&utm_medium=calculator&utm_campaign=open_dapp"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-7 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
@@ -338,5 +524,33 @@ export default function CalculatorPage() {
         </div>
       </Container>
     </main>
+  );
+}
+
+/** Single stat tile in the $TURBO rewards card — label on top, value
+ *  underneath. `emphasis` upsizes the value font for the headline cells
+ *  (your share / reward value). */
+function RewardStat({
+  label,
+  value,
+  emphasis,
+}: {
+  label: string;
+  value: string;
+  emphasis?: boolean;
+}) {
+  return (
+    <div className="rounded-[var(--r-md)] bg-[var(--c-surface)] border border-[var(--c-border)] px-3 py-3">
+      <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-1">
+        {label}
+      </div>
+      <div
+        className={`tabular-nums font-bold text-[var(--c-text)] ${
+          emphasis ? "text-lg md:text-xl" : "text-sm md:text-base"
+        }`}
+      >
+        {value}
+      </div>
+    </div>
   );
 }

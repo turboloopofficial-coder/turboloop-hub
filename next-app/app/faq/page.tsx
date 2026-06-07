@@ -149,6 +149,43 @@ const FAQS: FaqGroup[] = [
     ],
   },
   {
+    category: "$TURBO Token",
+    items: [
+      {
+        q: "What is the $TURBO token?",
+        a: "**$TURBO** is the native rewards token of TurboLoop on Binance Smart Chain. Total supply: **1,000,000 TURBO**. It's an extra rewards layer paid on top of your standard Loop Plan yields — depositing earns you both your fixed plan ROI AND $TURBO tokens. 100% fair launch: no team allocation, no insider reserve, LP 100% locked on-chain. [Read the full breakdown](/token).",
+      },
+      {
+        q: "How do I earn $TURBO tokens from deposits?",
+        a: "Every USDT deposit of $100 or more earns a percentage of its value back as $TURBO. The percentage scales with deposit size: $100–$499 = 0.80%, $500–$999 = 1.00%, $1,000–$4,999 = 1.20%, $5,000–$9,999 = 1.40%, $10,000–$24,999 = 1.50%, $25,000+ = 1.60%. Token count is fixed at the moment of deposit, calculated against the live market price at that exact time. See your projection in the [calculator](/calculator).",
+      },
+      {
+        q: "What is the reward split between investor and referrer?",
+        a: "**70%** of the token reward goes to you (the investor); **30%** goes to the person who referred you. Example: a $1,000 deposit at the 1.20% tier earns $12 in $TURBO. At the launch price of $0.001 that's 12,000 TURBO — 8,400 to you, 3,600 to your referrer.",
+      },
+      {
+        q: "When can I claim my vested tokens?",
+        a: "The **first installment is paid out instantly** when you deposit. The rest unlocks monthly at a rate determined by your **TurboLoop Leadership Program rank** — base 10%/month for unranked users, up to 20%/month at Legend rank. Vesting is fully smart-contract automated — no manual claims, no waiting on the team. [Manage in App →](https://turboloop.io/dashboard/token-rewards)",
+      },
+      {
+        q: "How does the daily buyback and burn work?",
+        a: "**10% of all admin fees** from the main TurboLoop protocol are used to buy $TURBO from the market and burn it forever. This happens **daily**, fully automated on-chain via the buyback contract. View the buyback contract on [BscScan](https://bscscan.com/address/0xd8735b03e0b18f1e0598c211cee9558c6247b6b9). It's a separate, independent mechanism from the trade tax.",
+      },
+      {
+        q: "What are the buy and sell taxes?",
+        a: "**1% buy tax**, **2% sell tax**. Both are collected by admin and apply to every buy and sell of $TURBO across all venues (native swap, PancakeSwap, any DEX routing through the pair).",
+      },
+      {
+        q: "Where can I buy and sell $TURBO?",
+        a: "The fastest path is the **TurboLoop native swap** inside the dApp: [Buy $TURBO](https://turboloop.io/dashboard/swap?from=USDT&to=TURBO) or [Sell $TURBO](https://turboloop.io/dashboard/swap?from=TURBO&to=USDT). $TURBO is also available on **PancakeSwap V2** (same underlying liquidity pool) for users who prefer trading directly on the DEX.",
+      },
+      {
+        q: "Is the token safe?",
+        a: "Yes. **100% of LP tokens are locked on-chain** (verifiable). **No team allocation, no pre-mine, no insider reserve** — fair launch. **Ownership of both the token contract and the buyback contract is permanently renounced** on-chain. Source code is verified on BscScan. The entire vesting schedule is automated in the smart contract — no manual intervention possible.",
+      },
+    ],
+  },
+  {
     category: "Community + earning",
     items: [
       {

@@ -41,16 +41,16 @@ export function TokenSection() {
           </Heading>
 
           <p className="text-base md:text-lg text-[var(--c-text-muted)] leading-relaxed">
-            An extra rewards layer on top of your fixed Loop Plan yields —
-            with zero impact on protocol performance.
+            An extra rewards layer on top of your Power and Ultimate Loop
+            yields — with zero impact on protocol performance.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10">
           <BenefitCard
             icon={Gift}
-            label={`Earn ${lowestPct}–${highestPct} per deposit`}
-            body={`Get $${TOKEN.symbol} on every Loop Plan deposit. Tier scales with deposit size. Split ${"70% to you, 30% to your referrer"}.`}
+            label={`Earn ${lowestPct}–${highestPct} on every Power or Ultimate deposit`}
+            body={`Get $${TOKEN.symbol} on every qualifying Power (30-day) or Ultimate (60-day) deposit. Tier scales with deposit size. Split 70% to you, 30% to your referrer. Minimum: $100.`}
           />
           <BenefitCard
             icon={Flame}

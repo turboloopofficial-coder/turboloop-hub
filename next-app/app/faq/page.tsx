@@ -74,7 +74,7 @@ const FAQS: FaqGroup[] = [
       },
       {
         q: "What is the minimum deposit?",
-        a: "The minimum deposit is **1 USDT** on the Binance Smart Chain (BSC) network. There is no maximum limit. All 4 Loop Plans accept the same minimum, so you can start small and scale up at your own pace.",
+        a: "The minimum to enter any Loop Plan is **1 USDT** on the Binance Smart Chain (BSC) network. All 4 plans accept the same minimum and there is no maximum. **Separately**, the minimum to qualify for $TURBO token rewards is **$100 USDT**, and only **Power (30-day)** and **Ultimate (60-day)** deposits qualify — Sprint and Boost earn their standard fixed USDT ROI but no token rewards.",
       },
     ],
   },
@@ -157,7 +157,7 @@ const FAQS: FaqGroup[] = [
       },
       {
         q: "How do I earn $TURBO tokens from deposits?",
-        a: "Every USDT deposit of $100 or more earns a percentage of its value back as $TURBO. The percentage scales with deposit size: $100–$499 = 0.80%, $500–$999 = 1.00%, $1,000–$4,999 = 1.20%, $5,000–$9,999 = 1.40%, $10,000–$24,999 = 1.50%, $25,000+ = 1.60%. Token count is fixed at the moment of deposit, calculated against the live market price at that exact time. See your projection in the [calculator](/calculator).",
+        a: "Token rewards are available on **Power (30-day)** and **Ultimate (60-day)** plans only. Sprint and Boost don't qualify. Every qualifying deposit of $100 or more earns a percentage of its value back as $TURBO. The percentage scales with deposit size: $100–$499 = 0.80%, $500–$999 = 1.00%, $1,000–$4,999 = 1.20%, $5,000–$9,999 = 1.40%, $10,000–$24,999 = 1.50%, $25,000+ = 1.60%. Token count is fixed at the moment of deposit, calculated against the live market price at that exact time. See your projection in the [calculator](/calculator).",
       },
       {
         q: "What is the reward split between investor and referrer?",

@@ -125,21 +125,21 @@ const en: TokenPageStrings = {
   stats_volume_label: "24h Volume",
   stats_liquidity_label: "Liquidity",
 
-  earn_eyebrow: "Earn on every deposit",
+  earn_eyebrow: "Earn on every Power or Ultimate deposit",
   earn_title: "How you earn $TURBO",
   earn_subtitle:
-    "Deposit USDT into any Loop Plan. Get $TURBO on top — a percentage of your deposit value, split 70% to you and 30% to your referrer.",
+    "Deposit USDT into a Power (30-day) or Ultimate (60-day) Loop Plan. Get $TURBO on top — a percentage of your deposit value, split 70% to you and 30% to your referrer. Sprint and Boost deposits are not eligible.",
   earn_table_col_deposit: "Deposit Amount (USDT)",
   earn_table_col_reward: "Token Reward",
   earn_example_label: "Worked example",
   earn_example_intro:
-    "Deposit **$1,000** in any Loop Plan → fall into the **1.20%** tier → reward value **$12.00** → at the launch price of $0.001 per token, that's **12,000 $TURBO**.",
+    "Deposit **$1,000** in a Power or Ultimate Loop Plan → fall into the **1.20%** tier → reward value **$12.00** → token count is then locked at the live market price at the exact moment of deposit.",
   earn_example_your_share: "to you:",
   earn_example_referrer_share: "to your referrer:",
   earn_example_footnote:
     "Token count is fixed at the moment of deposit, calculated against the live market price at that exact time.",
   earn_additive_note:
-    "Token rewards are **additive**. They're paid out on top of your standard Loop Plan yield and don't change your fixed ROI in any way. Minimum deposit for token rewards: **$100**.",
+    "Token rewards are **additive**. They're paid out on top of your Power or Ultimate Loop Plan yield and don't change your fixed ROI in any way. **Only Power (30-day) and Ultimate (60-day) plans qualify** — Sprint and Boost earn their standard flat USDT ROI but no token rewards. Minimum deposit for token rewards: **$100**.",
   earn_manage_cta: "Manage in App",
   earn_calculator_cta: "Run the numbers",
 
@@ -226,21 +226,21 @@ const de: TokenPageStrings = {
   stats_volume_label: "24h Volumen",
   stats_liquidity_label: "Liquidität",
 
-  earn_eyebrow: "Verdiene bei jedem Deposit",
+  earn_eyebrow: "Verdiene bei jedem Power- oder Ultimate-Deposit",
   earn_title: "So verdienst du $TURBO",
   earn_subtitle:
-    "Deponiere USDT in einen beliebigen Loop Plan. Erhalte $TURBO obendrauf — ein Prozentsatz deines Deposit-Werts, aufgeteilt 70% an dich und 30% an deinen Referrer.",
+    "Deponiere USDT in einen Power (30 Tage) oder Ultimate (60 Tage) Loop Plan. Erhalte $TURBO obendrauf — ein Prozentsatz deines Deposit-Werts, aufgeteilt 70% an dich und 30% an deinen Referrer. Sprint- und Boost-Deposits sind nicht qualifiziert.",
   earn_table_col_deposit: "Deposit-Betrag (USDT)",
   earn_table_col_reward: "Token-Reward",
   earn_example_label: "Konkretes Beispiel",
   earn_example_intro:
-    "Deponiere **$1.000** in einen beliebigen Loop Plan → du fällst in die **1,20%**-Stufe → Reward-Wert **$12,00** → beim Launch-Preis von $0,001 pro Token sind das **12.000 $TURBO**.",
+    "Deponiere **$1.000** in einen Power- oder Ultimate-Plan → du fällst in die **1,20%**-Stufe → Reward-Wert **$12,00** → die Token-Anzahl wird dann zum Live-Marktpreis genau zum Zeitpunkt des Deposits fixiert.",
   earn_example_your_share: "an dich:",
   earn_example_referrer_share: "an deinen Referrer:",
   earn_example_footnote:
     "Die Token-Anzahl wird im Moment des Deposits fixiert, berechnet anhand des Live-Marktpreises zu genau diesem Zeitpunkt.",
   earn_additive_note:
-    "Token-Rewards sind **additiv**. Sie werden zusätzlich zu deinem Standard-Loop-Plan-Yield ausgezahlt und ändern deine feste ROI in keiner Weise. Mindest-Deposit für Token-Rewards: **$100**.",
+    "Token-Rewards sind **additiv**. Sie werden zusätzlich zu deinem Power- oder Ultimate-Yield ausgezahlt und ändern deine feste ROI in keiner Weise. **Nur Power- (30 Tage) und Ultimate- (60 Tage) Pläne qualifizieren sich** — Sprint und Boost verdienen ihren Standard-USDT-ROI, aber keine Token-Rewards. Mindest-Deposit für Token-Rewards: **$100**.",
   earn_manage_cta: "In der App verwalten",
   earn_calculator_cta: "Zahlen durchrechnen",
 
@@ -331,21 +331,21 @@ const hi: TokenPageStrings = {
   stats_volume_label: "24h वॉल्यूम",
   stats_liquidity_label: "लिक्विडिटी",
 
-  earn_eyebrow: "हर डिपॉज़िट पर कमाएँ",
+  earn_eyebrow: "हर Power या Ultimate डिपॉज़िट पर कमाएँ",
   earn_title: "$TURBO कैसे कमाएँ",
   earn_subtitle:
-    "किसी भी Loop Plan में USDT डिपॉज़िट करें। ऊपर से $TURBO पाएँ — आपकी डिपॉज़िट वैल्यू का एक प्रतिशत, 70% आपको और 30% आपके रेफरर को मिलता है।",
+    "Power (30-day) या Ultimate (60-day) Loop Plan में USDT डिपॉज़िट करें। ऊपर से $TURBO पाएँ — आपकी डिपॉज़िट वैल्यू का एक प्रतिशत, 70% आपको और 30% आपके रेफरर को मिलता है। Sprint और Boost डिपॉज़िट eligible नहीं हैं।",
   earn_table_col_deposit: "डिपॉज़िट राशि (USDT)",
   earn_table_col_reward: "टोकन रिवॉर्ड",
   earn_example_label: "विस्तृत उदाहरण",
   earn_example_intro:
-    "किसी भी Loop Plan में **$1,000** डिपॉज़िट करें → आप **1.20%** टियर में आते हैं → रिवॉर्ड वैल्यू **$12.00** → $0.001 के लॉन्च प्राइस पर, यह **12,000 $TURBO** बनता है।",
+    "Power या Ultimate Loop Plan में **$1,000** डिपॉज़िट करें → आप **1.20%** टियर में आते हैं → रिवॉर्ड वैल्यू **$12.00** → टोकन की संख्या फिर डिपॉज़िट के सटीक क्षण के लाइव मार्केट प्राइस पर लॉक हो जाती है।",
   earn_example_your_share: "आपको:",
   earn_example_referrer_share: "आपके रेफरर को:",
   earn_example_footnote:
     "टोकन की संख्या डिपॉज़िट के क्षण में फिक्स हो जाती है, उस सटीक समय के लाइव मार्केट प्राइस के अनुसार गणना की जाती है।",
   earn_additive_note:
-    "टोकन रिवॉर्ड्स **एडिटिव** हैं। ये आपकी स्टैंडर्ड Loop Plan यील्ड के ऊपर पे आउट होते हैं और आपके फिक्स्ड ROI को किसी भी तरह नहीं बदलते। टोकन रिवॉर्ड्स के लिए न्यूनतम डिपॉज़िट: **$100**।",
+    "टोकन रिवॉर्ड्स **एडिटिव** हैं। ये आपकी Power या Ultimate Loop Plan यील्ड के ऊपर पे आउट होते हैं और आपके फिक्स्ड ROI को किसी भी तरह नहीं बदलते। **केवल Power (30-day) और Ultimate (60-day) plans qualify करते हैं** — Sprint और Boost अपना स्टैंडर्ड USDT ROI कमाते हैं, लेकिन टोकन रिवॉर्ड्स नहीं। टोकन रिवॉर्ड्स के लिए न्यूनतम डिपॉज़िट: **$100**।",
   earn_manage_cta: "ऐप में प्रबंधित करें",
   earn_calculator_cta: "संख्याएँ देखें",
 
@@ -437,21 +437,21 @@ const id: TokenPageStrings = {
   stats_volume_label: "Volume 24j",
   stats_liquidity_label: "Likuiditas",
 
-  earn_eyebrow: "Dapatkan di setiap deposit",
+  earn_eyebrow: "Dapatkan di setiap deposit Power atau Ultimate",
   earn_title: "Cara mendapatkan $TURBO",
   earn_subtitle:
-    "Deposit USDT ke Loop Plan mana pun. Dapatkan $TURBO sebagai bonus — persentase dari nilai deposit, dibagi 70% untukmu dan 30% untuk referrer-mu.",
+    "Deposit USDT ke Loop Plan Power (30 hari) atau Ultimate (60 hari). Dapatkan $TURBO sebagai bonus — persentase dari nilai deposit, dibagi 70% untukmu dan 30% untuk referrer-mu. Deposit Sprint dan Boost tidak memenuhi syarat.",
   earn_table_col_deposit: "Jumlah Deposit (USDT)",
   earn_table_col_reward: "Reward Token",
   earn_example_label: "Contoh konkret",
   earn_example_intro:
-    "Deposit **$1.000** ke Loop Plan mana pun → masuk ke tier **1,20%** → nilai reward **$12,00** → di harga launch $0,001 per token, itu **12.000 $TURBO**.",
+    "Deposit **$1.000** ke Power atau Ultimate Loop Plan → masuk ke tier **1,20%** → nilai reward **$12,00** → jumlah token kemudian dikunci pada harga pasar live di saat deposit itu juga.",
   earn_example_your_share: "untukmu:",
   earn_example_referrer_share: "untuk referrer-mu:",
   earn_example_footnote:
     "Jumlah token dikunci pada saat deposit, dihitung terhadap harga pasar live di waktu itu juga.",
   earn_additive_note:
-    "Reward token bersifat **aditif**. Dibayarkan di atas yield Loop Plan standarmu dan tidak mengubah ROI tetap milikmu sedikit pun. Deposit minimum untuk reward token: **$100**.",
+    "Reward token bersifat **aditif**. Dibayarkan di atas yield Power atau Ultimate Loop Plan-mu dan tidak mengubah ROI tetap milikmu sedikit pun. **Hanya plan Power (30 hari) dan Ultimate (60 hari) yang memenuhi syarat** — Sprint dan Boost tetap mendapatkan ROI USDT standar mereka tapi tidak ada reward token. Deposit minimum untuk reward token: **$100**.",
   earn_manage_cta: "Kelola di App",
   earn_calculator_cta: "Hitung angkanya",
 

@@ -8,17 +8,54 @@
 //
 // Leaf module = no risk of either-side-not-yet-evaluated.
 
+// Primary nav order reflects the marketing-narrative reorder:
+// content discovery (Blog/Films/Reels/Creatives) leads, utility
+// (FAQ/Calculator) follows, and Token sits LAST so it reads as a
+// bonus to the protocol rather than the main product.
+//
+// Previously-primary items that don't fit the 7-slot main rail
+// (Ecosystem, Community, Events, Security) moved to RESOURCE_LINKS
+// below — still one click away via the Resources dropdown and the
+// footer, just not eating prime real estate.
 export const PRIMARY_LINKS = [
-  { label: "Token", href: "/token" },
-  { label: "Ecosystem", href: "/ecosystem" },
-  { label: "Community", href: "/community" },
-  { label: "Events", href: "/events" },
   { label: "Blog", href: "/blog" },
-  { label: "Security", href: "/security" },
   { label: "Films", href: "/films" },
+  { label: "Reels", href: "/reels" },
+  { label: "Creatives", href: "/creatives" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Calculator", href: "/calculator" },
+  { label: "Token", href: "/token" },
 ] as const;
 
 export const RESOURCE_LINKS = [
+  // Core protocol surfaces — moved from PRIMARY when Token took the
+  // last slot. Order tuned for user value: Ecosystem first (the
+  // pillar overview), then Security (the trust check), Community
+  // (where to plug in), Events (what's happening).
+  {
+    label: "Ecosystem",
+    href: "/ecosystem",
+    description: "Six pillars of the TurboLoop DeFi protocol",
+    emoji: "🌐",
+  },
+  {
+    label: "Security",
+    href: "/security",
+    description: "Audited, ownership renounced, LP locked",
+    emoji: "🔒",
+  },
+  {
+    label: "Community",
+    href: "/community",
+    description: "Voices from across the TurboLoop community",
+    emoji: "👥",
+  },
+  {
+    label: "Events",
+    href: "/events",
+    description: "Global TurboLoop meetups + Zoom calls",
+    emoji: "📅",
+  },
   {
     label: "Submit Your Story",
     href: "/submit",
@@ -44,12 +81,6 @@ export const RESOURCE_LINKS = [
     emoji: "🎁",
   },
   {
-    label: "Creatives",
-    href: "/creatives",
-    description: "Ready-to-share branded banners",
-    emoji: "🎨",
-  },
-  {
     label: "Social Wall",
     href: "/social-wall",
     description: "Community-made videos from around the world",
@@ -72,12 +103,6 @@ export const RESOURCE_LINKS = [
     href: "/roadmap",
     description: "What's built. What's next.",
     emoji: "🗺️",
-  },
-  {
-    label: "FAQ",
-    href: "/faq",
-    description: "Common questions answered",
-    emoji: "❓",
   },
 ] as const;
 

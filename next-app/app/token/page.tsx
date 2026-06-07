@@ -70,8 +70,8 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const content = TOKEN_PAGE_CONTENT[lang];
   const canonical =
     lang === "en" ? CANONICAL : `${CANONICAL}?lang=${lang}`;
-  const title = `$${TOKEN.symbol} — ${content.earn_title.replace("$TURBO", "TurboLoop Token")} | ${TOKEN.network}`;
-  const desc = content.hero_subtitle_pre + " " + content.hero_subtitle_supply + content.hero_subtitle_post;
+  const title = `$${TOKEN.symbol} — ${content.hero_title} | ${TOKEN.network}`;
+  const desc = content.hero_subtitle;
   return {
     title,
     description: desc,
@@ -105,7 +105,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 // fungible token in Google's eyes.
 function buildJsonLd(lang: SupportedLang) {
   const content = TOKEN_PAGE_CONTENT[lang];
-  const desc = content.hero_subtitle_pre + " " + content.hero_subtitle_supply + content.hero_subtitle_post;
+  const desc = content.hero_subtitle;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -167,35 +167,34 @@ export default async function TokenPage({ searchParams }: PageProps) {
             </div>
 
             <Heading tier="display" className="mb-5">
-              <span>{c.hero_title_pre}</span>
-              <span className="text-brand-wide">${TOKEN.symbol}</span>
-              <span>{c.hero_title_post}</span>
+              {c.hero_title}
             </Heading>
 
             <p className="text-lg md:text-xl text-[var(--c-text-muted)] mb-8 leading-relaxed max-w-2xl mx-auto">
-              {c.hero_subtitle_pre}{" "}
-              <strong className="text-[var(--c-text)]">
-                {c.hero_subtitle_supply}
-              </strong>
-              {c.hero_subtitle_post}
+              {c.hero_subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-5">
+              {/* PRIMARY CTA — start an investment, not buy the token.
+                  The token is a downstream benefit of the plan, not the
+                  thing the user comes here to acquire. */}
+              <TrackedLink
+                href="https://turboloop.io?utm_source=turboloop_tech&utm_medium=token_hero&utm_campaign=start_plan"
+                event="token_manage_in_app_clicked"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+              >
+                {c.hero_cta_start_plan}
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+              </TrackedLink>
+              {/* SECONDARY CTA — Buy $TURBO directly, for users who
+                  already understand the token and want to trade. */}
               <TrackedLink
                 href={TOKEN_LINKS.buyNative}
                 event="token_buy_clicked"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
               >
                 {c.hero_cta_buy} ${TOKEN.symbol}
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-              </TrackedLink>
-              <TrackedLink
-                href={TOKEN_LINKS.dexscreener}
-                event="token_dexscreener_clicked"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
-              >
-                {c.hero_cta_chart}
-                <ExternalLink className="w-4 h-4" aria-hidden="true" />
               </TrackedLink>
             </div>
 

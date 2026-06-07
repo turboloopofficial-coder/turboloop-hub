@@ -18,44 +18,49 @@ import { ArrowRight, Gift, Flame, ShieldCheck } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
-import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
-import { TOKEN, DEPOSIT_TIERS, BUYBACK } from "@lib/tokenFacts";
+import { TOKEN, BUYBACK } from "@lib/tokenFacts";
 
+// Repositioned to read as a bonus discovery rather than a product
+// pitch. The protocol's main story (4 Loop Plans + fixed USDT yield)
+// owns the upper homepage; this section lives later in the flow and
+// frames $TURBO as "your existing 30/60-day investment just got
+// better" — additive, not the headline.
 export function TokenSection() {
-  const lowestPct = DEPOSIT_TIERS[0].pctLabel;
-  const highestPct = DEPOSIT_TIERS[DEPOSIT_TIERS.length - 1].pctLabel;
   return (
     <section className="py-12 md:py-20 relative">
       <Container width="default">
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
             <Heading tier="eyebrow" as="span" className="text-[var(--c-brand-cyan)]">
-              New · native rewards token
+              Bonus rewards · automatic
             </Heading>
-            <TokenPriceWidget variant="inline" />
           </div>
 
           <Heading tier="display" className="mb-4">
-            <span>Introducing </span>
+            <span>Already on a 30 or 60-day plan? </span>
+            <br className="hidden md:block" />
+            <span>You're earning </span>
             <span className="text-brand-wide">${TOKEN.symbol}</span>
+            <span> automatically.</span>
           </Heading>
 
           <p className="text-base md:text-lg text-[var(--c-text-muted)] leading-relaxed">
-            An extra rewards layer on top of your Power and Ultimate Loop
-            yields — with zero impact on protocol performance.
+            Power and Ultimate plan investors receive ${TOKEN.symbol} token
+            rewards on top of their fixed yield — no extra steps, no
+            separate deposit needed.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10">
           <BenefitCard
             icon={Gift}
-            label={`Earn ${lowestPct}–${highestPct} on every Power or Ultimate deposit`}
-            body={`Get $${TOKEN.symbol} on every qualifying Power (30-day) or Ultimate (60-day) deposit. Tier scales with deposit size. Split 70% to you, 30% to your referrer. Minimum: $100.`}
+            label="Automatic bonus on Power & Ultimate plans"
+            body={`Every qualifying Power (30-day) or Ultimate (60-day) deposit earns $${TOKEN.symbol} on top — no claim, no extra action. Split 70% to you, 30% to your referrer.`}
           />
           <BenefitCard
             icon={Flame}
             label={`${BUYBACK.frequency} buyback & burn`}
-            body={`${BUYBACK.fundingPctOfAdminFees}% of admin fees from the main protocol fund a daily, ${"automated".toLowerCase()} $${TOKEN.symbol} buyback. Tokens burned permanently.`}
+            body={`${BUYBACK.fundingPctOfAdminFees}% of admin fees from the main protocol fund a daily, automated $${TOKEN.symbol} buyback. Tokens burned permanently.`}
           />
           <BenefitCard
             icon={ShieldCheck}
@@ -69,7 +74,7 @@ export function TokenSection() {
             href="/token"
             className="inline-flex items-center gap-2 px-6 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
           >
-            Learn more about ${TOKEN.symbol}
+            See your token bonus
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
         </div>

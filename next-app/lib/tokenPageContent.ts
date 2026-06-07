@@ -15,13 +15,16 @@
 export type SupportedLang = "en" | "de" | "hi" | "id";
 
 export interface TokenPageStrings {
-  // Hero (Section A)
+  // Hero (Section A) — reframed to lead with the investment story.
+  // The 30/60-day plan investor already qualifies for $TURBO
+  // automatically; the hero discovers that fact rather than pitching
+  // the token as the main product.
   hero_eyebrow: string;
-  hero_title_pre: string;
-  hero_title_post: string;
-  hero_subtitle_pre: string;
-  hero_subtitle_supply: string;
-  hero_subtitle_post: string;
+  hero_title: string;
+  hero_subtitle: string;
+  /** Primary CTA — Start a Power or Ultimate plan. */
+  hero_cta_start_plan: string;
+  /** Secondary CTA — Buy $TURBO (kept for users who want to trade). */
   hero_cta_buy: string;
   hero_cta_chart: string;
   hero_cta_bscscan: string;
@@ -108,14 +111,11 @@ export interface TokenPageStrings {
 // ── English (source of truth) ─────────────────────────────────────
 
 const en: TokenPageStrings = {
-  hero_eyebrow: "Native rewards token · BSC",
-  hero_title_pre: "Earn ",
-  hero_title_post: " on every deposit.",
-  hero_subtitle_pre:
-    "An extra rewards layer on top of your fixed TurboLoop yields — with zero impact on protocol performance.",
-  hero_subtitle_supply: "1,000,000 total supply.",
-  hero_subtitle_post:
-    " 100% LP locked. No team allocation. No insider reserve.",
+  hero_eyebrow: "Bonus rewards · automatic for Power & Ultimate investors",
+  hero_title: "Your Long-Term Investment Just Got Better",
+  hero_subtitle:
+    "Power (30-day) and Ultimate (60-day) plan investors automatically earn $TURBO tokens on top of their fixed yield. Here's how it works.",
+  hero_cta_start_plan: "Start a Power or Ultimate plan",
   hero_cta_buy: "Buy",
   hero_cta_chart: "View chart on DexScreener",
   hero_cta_bscscan: "View contract on BscScan",
@@ -209,14 +209,11 @@ const en: TokenPageStrings = {
 // ── German (Du-form, Heise tech style) ────────────────────────────
 
 const de: TokenPageStrings = {
-  hero_eyebrow: "Natives Reward-Token · BSC",
-  hero_title_pre: "Verdiene ",
-  hero_title_post: " bei jedem Deposit.",
-  hero_subtitle_pre:
-    "Eine zusätzliche Reward-Ebene oben auf deine festen TurboLoop-Yields — ohne jegliche Auswirkung auf die Protokoll-Performance.",
-  hero_subtitle_supply: "1.000.000 Gesamtangebot.",
-  hero_subtitle_post:
-    " 100% LP gelockt. Keine Team-Zuteilung. Keine Insider-Reserve.",
+  hero_eyebrow: "Bonus-Rewards · automatisch für Power- & Ultimate-Investoren",
+  hero_title: "Dein Langzeit-Investment wurde gerade besser",
+  hero_subtitle:
+    "Investoren in Power- (30 Tage) und Ultimate- (60 Tage) Plänen verdienen automatisch $TURBO-Tokens zusätzlich zu ihrem festen Yield. Hier erfährst du, wie es funktioniert.",
+  hero_cta_start_plan: "Power- oder Ultimate-Plan starten",
   hero_cta_buy: "Kaufen",
   hero_cta_chart: "Chart auf DexScreener ansehen",
   hero_cta_bscscan: "Vertrag auf BscScan ansehen",
@@ -314,14 +311,11 @@ const de: TokenPageStrings = {
 // ── Hindi (Devanagari script, Roman for crypto/UI terms) ──────────
 
 const hi: TokenPageStrings = {
-  hero_eyebrow: "नेटिव रिवॉर्ड्स टोकन · BSC",
-  hero_title_pre: "हर डिपॉज़िट पर ",
-  hero_title_post: " कमाएँ।",
-  hero_subtitle_pre:
-    "आपकी फिक्स्ड TurboLoop यील्ड्स के ऊपर एक एक्स्ट्रा रिवॉर्ड्स लेयर — प्रोटोकॉल परफॉर्मेंस पर शून्य प्रभाव।",
-  hero_subtitle_supply: "1,000,000 कुल सप्लाई।",
-  hero_subtitle_post:
-    " 100% LP लॉक्ड। कोई टीम अलोकेशन नहीं। कोई इनसाइडर रिज़र्व नहीं।",
+  hero_eyebrow: "बोनस रिवॉर्ड्स · Power & Ultimate investors के लिए automatic",
+  hero_title: "आपका लॉन्ग-टर्म इन्वेस्टमेंट अभी और बेहतर हुआ",
+  hero_subtitle:
+    "Power (30-day) और Ultimate (60-day) plan investors अपनी फिक्स्ड yield के ऊपर automatic रूप से $TURBO tokens कमाते हैं। यह कैसे काम करता है, यहाँ जानें।",
+  hero_cta_start_plan: "Power या Ultimate plan शुरू करें",
   hero_cta_buy: "खरीदें",
   hero_cta_chart: "DexScreener पर चार्ट देखें",
   hero_cta_bscscan: "BscScan पर कॉन्ट्रैक्ट देखें",
@@ -420,14 +414,11 @@ const hi: TokenPageStrings = {
 // ── Bahasa Indonesia (conversational Tokocrypto-blog tone) ────────
 
 const id: TokenPageStrings = {
-  hero_eyebrow: "Token reward asli · BSC",
-  hero_title_pre: "Dapatkan ",
-  hero_title_post: " di setiap deposit.",
-  hero_subtitle_pre:
-    "Lapisan reward ekstra di atas yield TurboLoop tetap milikmu — tanpa pengaruh apa pun terhadap performa protokol.",
-  hero_subtitle_supply: "1.000.000 total supply.",
-  hero_subtitle_post:
-    " 100% LP locked. Tidak ada alokasi tim. Tidak ada cadangan insider.",
+  hero_eyebrow: "Reward bonus · otomatis untuk investor Power & Ultimate",
+  hero_title: "Investasi Jangka Panjangmu Baru Saja Jadi Lebih Baik",
+  hero_subtitle:
+    "Investor plan Power (30 hari) dan Ultimate (60 hari) otomatis mendapatkan token $TURBO di atas yield tetap mereka. Berikut cara kerjanya.",
+  hero_cta_start_plan: "Mulai plan Power atau Ultimate",
   hero_cta_buy: "Beli",
   hero_cta_chart: "Lihat chart di DexScreener",
   hero_cta_bscscan: "Lihat kontrak di BscScan",

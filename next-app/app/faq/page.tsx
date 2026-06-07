@@ -149,6 +149,23 @@ const FAQS: FaqGroup[] = [
     ],
   },
   {
+    category: "Community + earning",
+    items: [
+      {
+        q: "Can I become a paid creator or presenter?",
+        a: "Yes. Apply at [/apply](/apply) for either **Creator Star** ($10–$100/video based on views) or **Local Presenter** ($100/month for hosting weekly Zoom sessions). Both pay in stablecoins. Reviewed within 48 hours.",
+      },
+      {
+        q: "Where can I share my story?",
+        a: "Submit a testimonial, photo, video, or written story at [/submit](/submit). Approved submissions get featured on [/community](/community) and across our channels.",
+      },
+    ],
+  },
+  // $TURBO Token category is intentionally LAST — the token is an
+  // additive bonus on Power/Ultimate plans, not the main protocol
+  // story. Core protocol questions (deposits, security, referrals,
+  // community) read first; the token reward layer is a bonus discovery.
+  {
     category: "$TURBO Token",
     items: [
       {
@@ -182,19 +199,6 @@ const FAQS: FaqGroup[] = [
       {
         q: "Is the token safe?",
         a: "Yes. **100% of LP tokens are locked on-chain** (verifiable). **No team allocation, no pre-mine, no insider reserve** — fair launch. **Ownership of both the token contract and the buyback contract is permanently renounced** on-chain. Source code is verified on BscScan. The entire vesting schedule is automated in the smart contract — no manual intervention possible.",
-      },
-    ],
-  },
-  {
-    category: "Community + earning",
-    items: [
-      {
-        q: "Can I become a paid creator or presenter?",
-        a: "Yes. Apply at [/apply](/apply) for either **Creator Star** ($10–$100/video based on views) or **Local Presenter** ($100/month for hosting weekly Zoom sessions). Both pay in stablecoins. Reviewed within 48 hours.",
-      },
-      {
-        q: "Where can I share my story?",
-        a: "Submit a testimonial, photo, video, or written story at [/submit](/submit). Approved submissions get featured on [/community](/community) and across our channels.",
       },
     ],
   },

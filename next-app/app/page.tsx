@@ -249,13 +249,6 @@ export default function HomePage() {
       <Reveal>
         <HomeBlogSection />
       </Reveal>
-      <Reveal>
-        {/* $TURBO token introduction — slotted just before the
-            promotions divider so it lands after content immersion
-            (films / reels / leaderboard / testimonials / blog) but
-            before the conversion-focused promotions block. */}
-        <TokenSection />
-      </Reveal>
       <SectionDivider />
       <Reveal>
         <PromotionsSection />
@@ -268,6 +261,14 @@ export default function HomePage() {
       </Reveal>
       <Reveal>
         <SocialWallSection />
+      </Reveal>
+      {/* $TURBO token introduction — moved DOWN-page so the main
+          protocol story (yield + plans + promotions + community)
+          owns the upper flow. Token reads as a bonus discovery
+          after the user has already absorbed why the protocol is
+          worth their attention. */}
+      <Reveal>
+        <TokenSection />
       </Reveal>
       <SectionDivider />
       <Reveal>

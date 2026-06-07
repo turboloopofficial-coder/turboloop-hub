@@ -474,19 +474,23 @@ export default function CalculatorPage() {
             </Card>
           </div>
         ) : (
+        // De-emphasized styling: lighter elevation, smaller padding,
+        // muted heading. The main yield projection above is still the
+        // visual centerpiece — this card reads as a pleasant
+        // discovery, not a competing focal point.
         <div className="mt-8 md:mt-12">
-          <Card elevation="prominent" padding="lg" className="p-6 md:p-8">
-            <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
+          <Card elevation="raised" padding="md" className="p-5 md:p-6">
+            <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-brand shadow-[var(--s-brand)] flex items-center justify-center">
-                  <Gift className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 rounded-lg bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] flex items-center justify-center">
+                  <Gift className="w-4 h-4 text-[var(--c-text-subtle)]" />
                 </div>
                 <div>
-                  <div className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase text-[var(--c-brand-cyan)]">
-                    Bonus rewards
+                  <div className="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)]">
+                    Bonus Rewards (Power & Ultimate plans only)
                   </div>
-                  <div className="font-bold text-[var(--c-text)] text-lg">
-                    ${TOKEN.symbol} tokens for this deposit
+                  <div className="font-bold text-[var(--c-text-muted)] text-sm">
+                    ${TOKEN.symbol} tokens on top of your yield
                   </div>
                 </div>
               </div>

@@ -466,6 +466,269 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           },
         };
       }),
+
+    /** Translate text into one of the supported target languages
+     *  (DE / HI / ID) while preserving Markdown structure (headings,
+     *  links, bullets) and the source's tone. The Omni-Composer's
+     *  Translate buttons hit this and replace the editor content in
+     *  place. EN is intentionally not a target — the source is
+     *  assumed to be EN-ish.
+     *
+     *  Translation runs on Claude Sonnet 4.5 (not a dedicated MT
+     *  model) because the brand-voice constraints matter more than
+     *  literal word-for-word accuracy here. */
+    translate: adminProcedure
+      .input(z.object({
+        source: z.string().min(1).max(20_000),
+        target: z.enum(["de", "hi", "id"]),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "ANTHROPIC_API_KEY not configured.",
+          });
+        }
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+
+        const targetName = {
+          de: "German (Deutsch)",
+          hi: "Hindi (हिन्दी)",
+          id: "Indonesian (Bahasa Indonesia)",
+        }[input.target];
+
+        const systemPrompt = `You translate Turbo Loop marketing content into ${targetName} while keeping the brand voice intact.
+
+Rules:
+- Preserve Markdown structure exactly: # / ## / ### headings, **bold**, *italic*, [link text](url), \`code\`, bullet lists, block quotes. Do NOT translate URLs.
+- Preserve inline brand names: "Turbo Loop", "Turbo Buy", "Turbo Swap", "$TURBO", "BscScan", "MoonPay", "BNB", "USDT", "BSC", "DeFi".
+- Match the tone: confident, premium, community-first. No hype words. No emoji walls.
+- Numbers, dates, technical specs, contract addresses stay verbatim.
+- Idioms get rendered idiomatically in the target language, not translated word-for-word.
+
+Output: respond with the translated text ONLY. No quotes, no preamble, no commentary, no language label.`;
+
+        const response = await client.messages.create({
+          model: "claude-sonnet-4-5",
+          max_tokens: 4000,
+          system: systemPrompt,
+          messages: [{ role: "user", content: input.source }],
+        });
+        const textBlock = response.content.find((b) => b.type === "text");
+        if (!textBlock || textBlock.type !== "text") {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
+        }
+        return {
+          text: textBlock.text.trim(),
+          target: input.target,
+          tokensUsed: {
+            input: response.usage.input_tokens,
+            output: response.usage.output_tokens,
+          },
+        };
+      }),
+
+    /** Generate an image with DALL-E 3, download the bytes, then
+     *  upload to R2 so the URL stays alive past DALL-E's 24-hour
+     *  signed-URL expiry. Returns the public R2 URL ready to attach
+     *  to a scheduled_post.
+     *
+     *  Pricing (as of 2026):
+     *    standard 1024×1024  → ~$0.040 / image
+     *    standard 1024×1792  → ~$0.080 / image
+     *    standard 1792×1024  → ~$0.080 / image
+     *    hd       1024×1024  → ~$0.080 / image
+     *    hd       1024×1792  → ~$0.120 / image
+     *
+     *  The client surfaces a confirm-modal on first-use per session;
+     *  we don't enforce a budget gate server-side here (the admin
+     *  is the only caller and the API key bills the team account
+     *  with OpenAI's own rate limits).
+     *
+     *  Returns DALL-E's "revisedPrompt" — DALL-E 3 always rewrites
+     *  the user prompt before generating; surfacing the rewrite
+     *  helps the admin understand what the image actually depicts. */
+    generateImage: adminProcedure
+      .input(z.object({
+        prompt: z.string().min(3).max(4000),
+        size: z.enum(["1024x1024", "1024x1792", "1792x1024"]).default("1024x1024"),
+        quality: z.enum(["standard", "hd"]).default("standard"),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.OPENAI_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "OPENAI_API_KEY not configured. Add it to Vercel environment variables to enable DALL-E 3 image generation.",
+          });
+        }
+        // Lazy import — the openai SDK pulls in axios + form-data;
+        // cold-starting non-AI routes shouldn't pay for it.
+        const { default: OpenAI } = await import("openai");
+        const client = new OpenAI({ apiKey });
+
+        const gen = await client.images.generate({
+          model: "dall-e-3",
+          prompt: input.prompt,
+          size: input.size,
+          quality: input.quality,
+          n: 1,
+          response_format: "url",
+        });
+        const item = gen.data?.[0];
+        const dalleUrl = item?.url;
+        const revisedPrompt = item?.revised_prompt ?? null;
+        if (!dalleUrl) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "DALL-E returned no image URL" });
+        }
+
+        // Download the bytes from DALL-E's CDN and re-host on R2.
+        // DALL-E URLs are signed and expire after ~24h — we need a
+        // permanent URL for scheduled posts that may fire days later.
+        const resp = await fetch(dalleUrl);
+        if (!resp.ok) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `Failed to fetch DALL-E image: HTTP ${resp.status}`,
+          });
+        }
+        const buf = Buffer.from(await resp.arrayBuffer());
+        const filename = `dalle-${Date.now()}.png`;
+        const key = `uploads/ai-generated/${filename}`;
+        const stored = await storagePut(key, buf, "image/png");
+
+        return {
+          url: stored.url,
+          key: stored.key,
+          prompt: input.prompt,
+          revisedPrompt,
+          size: input.size,
+          quality: input.quality,
+        };
+      }),
+
+    /** Generate a multi-post campaign in one shot. Takes a high-
+     *  level topic + a target post count (3-7) and returns a JSON
+     *  array of posts, each with title, content (Markdown), a
+     *  Telegram-optimized caption, and a DALL-E prompt suggestion.
+     *  The Omni-Composer's Campaign Builder modal renders these as
+     *  editable cards, optionally batches DALL-E to generate
+     *  images for each, and bulk-creates scheduled_posts rows with
+     *  staggered nextRunAt values. */
+    generateCampaign: adminProcedure
+      .input(z.object({
+        topic: z.string().min(3).max(1000),
+        count: z.number().int().min(3).max(7).default(3),
+        audienceLevel: z.enum(["newcomer", "intermediate", "expert"]).default("intermediate"),
+        tone: z.enum(["professional", "hype", "educational"]).default("professional"),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "ANTHROPIC_API_KEY not configured.",
+          });
+        }
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+
+        const audienceGuide = {
+          newcomer: "complete crypto beginners — explain everything in plain English, define every term, no jargon",
+          intermediate: "people who know crypto but are new to TurboLoop — assume DeFi basics, focus on what makes TurboLoop unique",
+          expert: "experienced DeFi users — go deep on mechanics, math, and on-chain verifiability. Skip the basics.",
+        }[input.audienceLevel];
+
+        const toneGuide = {
+          professional: "confident, premium, restrained. Bloomberg / Stratechery cadence. Avoid emoji and hype.",
+          hype:         "energetic but not desperate. Punchy headlines, momentum-driven, 1-2 tasteful emoji per post max. Never use MOON / 100x / huge.",
+          educational:  "teacher voice. Define every term. Use analogies. Bullet lists and numbered steps. Skip rhetoric.",
+        }[input.tone];
+
+        const systemPrompt = `You design ${input.count}-post content campaigns for Turbo Loop, a transparent audited DeFi yield protocol on BSC.
+
+A campaign is a SEQUENCE of posts that build on each other across days — Post 1 sets up the hook, the middle posts deepen it, and the final post drives a clear action. Each post should stand alone but also feel like a continuation.
+
+Audience: ${audienceGuide}
+Tone: ${toneGuide}
+
+For EACH post produce four fields:
+  1. title           — 60-90 char SEO-friendly blog title.
+  2. content         — Full Markdown blog post, 600-1200 words, with ## H2 sections, ### H3 subsections, at least one bullet list, and at least one block quote. End with a "Where to next" line linking 1-2 turboloop.tech pages.
+  3. telegramCaption — Standalone Telegram caption under 900 chars, no Markdown asterisks (use HTML <b>/<i> tags if needed), 1-3 tasteful emoji max, opens with a hook, ends with a CTA line.
+  4. imagePrompt     — A DALL-E 3 prompt (1-3 sentences) describing a hero image for this post. Be specific about style (e.g. "minimal isometric illustration, cyan + slate palette, flat shading, no text"). DO NOT request text in the image — DALL-E mangles text.
+
+Output format: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
+{
+  "campaign": {
+    "topic": "echoed back",
+    "posts": [
+      { "day": 1, "title": "...", "content": "...", "telegramCaption": "...", "imagePrompt": "..." },
+      ...
+    ]
+  }
+}
+
+The "day" field is 1-indexed and matches the post's position in the sequence.`;
+
+        const userPrompt = `Topic: ${input.topic}\n\nGenerate ${input.count} posts.`;
+
+        const response = await client.messages.create({
+          model: "claude-sonnet-4-5",
+          // Per-post ~1200 words plus caption/prompt overhead → ~1500
+          // tokens per post → cap at ~10500 for a 7-post campaign,
+          // round up for safety.
+          max_tokens: 12000,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+        });
+        const textBlock = response.content.find((b) => b.type === "text");
+        if (!textBlock || textBlock.type !== "text") {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Empty response from Claude" });
+        }
+        const raw = textBlock.text.trim();
+        const cleaned = raw
+          .replace(/^```(?:json)?\s*\n?/i, "")
+          .replace(/\n?```\s*$/i, "")
+          .trim();
+
+        let parsed: {
+          campaign: {
+            topic: string;
+            posts: Array<{
+              day: number;
+              title: string;
+              content: string;
+              telegramCaption: string;
+              imagePrompt: string;
+            }>;
+          };
+        };
+        try {
+          parsed = JSON.parse(cleaned);
+        } catch {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `Claude returned invalid JSON. Raw output (first 500 chars):\n${cleaned.slice(0, 500)}`,
+          });
+        }
+        if (!parsed?.campaign?.posts || !Array.isArray(parsed.campaign.posts)) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Claude response missing campaign.posts array",
+          });
+        }
+        return {
+          topic: parsed.campaign.topic ?? input.topic,
+          posts: parsed.campaign.posts,
+          tokensUsed: {
+            input: response.usage.input_tokens,
+            output: response.usage.output_tokens,
+          },
+        };
+      }),
   }),
 
   // Public content submission + admin moderation

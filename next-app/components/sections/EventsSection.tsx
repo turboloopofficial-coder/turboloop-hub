@@ -261,23 +261,52 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
               {session.description}
             </p>
 
-            <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6 text-[13px] text-white/65">
-              <span className="inline-flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                <span className="font-mono">{session.timeLabel}</span>
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                {session.lang === "en" ? "English" : "Hindi / Urdu"}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Users className="w-3.5 h-3.5 text-emerald-400" />
-                Code:{" "}
-                <span className="font-mono font-semibold text-white/85">
-                  {session.passcode}
+            {/* Long multi-country timeLabels (5 timezones separated by ·)
+                blow out the inline flex row, so we detect those and lift
+                the time onto its own line above the language + passcode
+                pair. Short single-timezone labels (EN session, legacy
+                HI labels) keep the original inline layout. */}
+            {session.timeLabel.includes("·") ? (
+              <div className="mb-6 text-[13px] text-white/65 space-y-2">
+                <div className="flex items-start gap-2">
+                  <Clock className="w-3.5 h-3.5 text-cyan-400 mt-1 shrink-0" />
+                  <span className="text-xs md:text-[13px] leading-relaxed break-words">
+                    {session.timeLabel}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-x-5 gap-y-2">
+                  <span className="inline-flex items-center gap-2">
+                    <Globe2 className="w-3.5 h-3.5 text-purple-400" />
+                    {session.lang === "en" ? "English" : "Hindi / Urdu"}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <Users className="w-3.5 h-3.5 text-emerald-400" />
+                    Code:{" "}
+                    <span className="font-mono font-semibold text-white/85">
+                      {session.passcode}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6 text-[13px] text-white/65">
+                <span className="inline-flex items-center gap-2">
+                  <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="font-mono">{session.timeLabel}</span>
                 </span>
-              </span>
-            </div>
+                <span className="inline-flex items-center gap-2">
+                  <Globe2 className="w-3.5 h-3.5 text-purple-400" />
+                  {session.lang === "en" ? "English" : "Hindi / Urdu"}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Users className="w-3.5 h-3.5 text-emerald-400" />
+                  Code:{" "}
+                  <span className="font-mono font-semibold text-white/85">
+                    {session.passcode}
+                  </span>
+                </span>
+              </div>
+            )}
 
             <motion.a
               href={session.link}

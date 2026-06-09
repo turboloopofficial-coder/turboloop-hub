@@ -276,28 +276,44 @@ Real conversation, real questions, real answers. No bots, no scripts, no marketi
 // Hindi/Urdu Zoom reminder — fires shortly before the daily call.
 // Calmer, clearer copy. No fixed-length references — calls run open-ended.
 // 21 variants — pool cycles every ~3 weeks before repeating.
+//
+// First 5 variants carry an explicit multi-country footer so readers
+// across IN/PK/BD/NP/AE can see at a glance that the room is for
+// them. The per-region clock times still live in ZOOM_HI.timeLabel
+// and surface through zoomReminderCaption's ⏰ line — this footer
+// is the country-recognition badge, not the time table.
 const HI_T30 = [
   `<b>Hindi/Urdu Daily Call thodi der mein live hoga.</b>
 
 Apne sawaal, apni zubaan mein. Aaiye, baat karte hain.
 
-Aaj ka topic: aap jo bhi sawaal layein, hum jawab denge.`,
+Aaj ka topic: aap jo bhi sawaal layein, hum jawab denge.
+
+🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
 
   `<b>Hindi/Urdu Daily Call shuru hone wala hai.</b>
 
-Har din. Real conversation — security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.`,
+Har din. Real conversation — security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.
+
+🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
 
   `<b>Community room thodi der mein khulta hai.</b>
 
-Daily Hindi/Urdu Zoom call. Naye members ke liye orientation, existing ke liye doubts clear. Aap jo bhi sawaal layein, aaj poochiye.`,
+Daily Hindi/Urdu Zoom call. Naye members ke liye orientation, existing ke liye doubts clear. Aap jo bhi sawaal layein, aaj poochiye.
+
+🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
 
   `<b>Hindi/Urdu Daily Call — live hone wala hai.</b>
 
-Yeh wo room hai jahan log Turbo Loop ke baare mein actually samajh paate hain — bina marketing, bina hype.`,
+Yeh wo room hai jahan log Turbo Loop ke baare mein actually samajh paate hain — bina marketing, bina hype.
+
+🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
 
   `<b>Hindi/Urdu Community Call — abhi live hoga.</b>
 
-Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa rahe hain? Drop in karo, sun lo.`,
+Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa rahe hain? Drop in karo, sun lo.
+
+🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
 
   `<b>Daily Hindi/Urdu Zoom — live shortly.</b>
 

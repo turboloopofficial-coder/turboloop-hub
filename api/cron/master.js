@@ -23603,19 +23603,29 @@ var HI_T30 = [
 
 Apne sawaal, apni zubaan mein. Aaiye, baat karte hain.
 
-Aaj ka topic: aap jo bhi sawaal layein, hum jawab denge.`,
+Aaj ka topic: aap jo bhi sawaal layein, hum jawab denge.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
   `<b>Hindi/Urdu Daily Call shuru hone wala hai.</b>
 
-Har din. Real conversation \u2014 security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.`,
+Har din. Real conversation \u2014 security, math, strategy, contract, sab kuch Hindi/Urdu mein. Free aur sab ke liye.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
   `<b>Community room thodi der mein khulta hai.</b>
 
-Daily Hindi/Urdu Zoom call. Naye members ke liye orientation, existing ke liye doubts clear. Aap jo bhi sawaal layein, aaj poochiye.`,
+Daily Hindi/Urdu Zoom call. Naye members ke liye orientation, existing ke liye doubts clear. Aap jo bhi sawaal layein, aaj poochiye.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
   `<b>Hindi/Urdu Daily Call \u2014 live hone wala hai.</b>
 
-Yeh wo room hai jahan log Turbo Loop ke baare mein actually samajh paate hain \u2014 bina marketing, bina hype.`,
+Yeh wo room hai jahan log Turbo Loop ke baare mein actually samajh paate hain \u2014 bina marketing, bina hype.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
   `<b>Hindi/Urdu Community Call \u2014 abhi live hoga.</b>
 
-Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa rahe hain? Drop in karo, sun lo.`,
+Same Zoom, same time, har din. Sawaal aap layein, hum jawab denge. Pehli baar aa rahe hain? Drop in karo, sun lo.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
   `<b>Daily Hindi/Urdu Zoom \u2014 live shortly.</b>
 
 DeFi seekhne ka best place \u2014 koi script nahin, koi pitch nahin. Just real conversation in your language.`,
@@ -24594,10 +24604,13 @@ var ZOOM_EN = {
 var ZOOM_HI = {
   lang: "hi",
   title: "Daily Hindi / Urdu Call",
-  description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902.",
+  description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902. India \u{1F1EE}\u{1F1F3} \xB7 Pakistan \u{1F1F5}\u{1F1F0} \xB7 Bangladesh \u{1F1E7}\u{1F1E9} \xB7 Nepal \u{1F1F3}\u{1F1F5} \xB7 Dubai \u{1F1E6}\u{1F1EA}",
   link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
   passcode: "1234",
-  timeLabel: "9:00 PM IST daily",
+  // 15:30 UTC mapped per region — same moment in time, different
+  // local clocks. The flag prefixes let mobile readers scan their
+  // own row at a glance without reading the whole line.
+  timeLabel: "\u{1F1EE}\u{1F1F3} 9:00 PM IST \xB7 \u{1F1F5}\u{1F1F0} 8:30 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 9:30 PM BST \xB7 \u{1F1F3}\u{1F1F5} 9:15 PM NPT \xB7 \u{1F1E6}\u{1F1EA} 7:30 PM GST",
   startUtcMin: 15 * 60 + 30,
   // 15:30 UTC = 9:00 PM IST
   durationMin: 120

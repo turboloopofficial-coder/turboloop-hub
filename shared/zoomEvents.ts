@@ -45,10 +45,14 @@ export const ZOOM_HI: ZoomSession = {
   lang: "hi",
   title: "Daily Hindi / Urdu Call",
   description:
-    "हर दिन. अपने सवाल लाइए. असली लोग, असली जवाब — कोई दबाव नहीं.",
+    "हर दिन. अपने सवाल लाइए. असली लोग, असली जवाब — कोई दबाव नहीं. India 🇮🇳 · Pakistan 🇵🇰 · Bangladesh 🇧🇩 · Nepal 🇳🇵 · Dubai 🇦🇪",
   link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
   passcode: "1234",
-  timeLabel: "9:00 PM IST daily",
+  // 15:30 UTC mapped per region — same moment in time, different
+  // local clocks. The flag prefixes let mobile readers scan their
+  // own row at a glance without reading the whole line.
+  timeLabel:
+    "🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST",
   startUtcMin: 15 * 60 + 30, // 15:30 UTC = 9:00 PM IST
   durationMin: 120,
 };

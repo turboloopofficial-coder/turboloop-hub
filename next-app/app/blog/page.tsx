@@ -71,9 +71,15 @@ export default async function BlogIndex({
 }) {
   const { lang } = await searchParams;
   const langParam = Array.isArray(lang) ? lang[0] : lang;
-  const activeLang: BlogLanguage | null = isBlogLanguage(langParam)
-    ? langParam
-    : null;
+  // Default `/blog` to English. `?lang=all` is the explicit opt-in
+  // for the mixed view — keeps newcomers from landing on a Hindi or
+  // German excerpt as their first impression of the editorial surface.
+  const activeLang: BlogLanguage | null =
+    langParam === "all"
+      ? null
+      : isBlogLanguage(langParam)
+        ? langParam
+        : "en";
 
   const allPublished = await api
     .blogPosts()

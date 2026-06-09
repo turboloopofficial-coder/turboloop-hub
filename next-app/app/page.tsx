@@ -1,44 +1,41 @@
-// Homepage — Phase 12. Full composition of all sections.
+// Homepage — Protocol-First Reimagination.
 //
 // Each section lives in its own file in /components/sections/ for
-// independent ownership. The home page just composes them in narrative
+// independent ownership. The homepage just composes them in narrative
 // order:
 //
-//   1. Hero            — what is this and why care (top of funnel)
-//   2. FilmsTeaser     — answer "what is TurboLoop?" in 60 seconds
-//   3. Numbers         — proof of reach (community / language / continents)
-//   4. SecurityPillars — proof of trustworthiness (the doubt step)
-//   5. Promotions      — convert the sold visitor (the bounty + earn paths)
-//   6. Testimonial     — social proof (the "people like me" step)
-//   7. NewsletterCTA   — last conversion before footer
+//   1. Hero               — what is this and why care (top of funnel)
+//   2. ProtocolBento      — the whole product at a glance (4 plans + referral + ranks + security + films)
+//   3. TokenSpotlight     — $TURBO as the additive bonus, properly elevated
+//   4. Numbers + Testim.  — proof of scale + social proof
+//   5. HomeGlobalReels    — multi-language content proof
+//   6. ZoomLive           — community pulse with live countdowns
+//   7. HomeBlog           — editorial (English only)
+//   8. Newsletter         — final CTA
+//
+// Sections that previously lived on the homepage (ActivityTicker,
+// PartnersBar, SecurityPillars, FilmsTeaser, HomeReels, Leaderboard,
+// Promotions, HiringBanner, EventsSection, SocialWall, Manifesto,
+// TokenSection, InstallAppWidget) still exist at their own URLs — they
+// were removed from the homepage to tighten the narrative, not deleted.
 //
 // Every section is a Server Component. Zero client JS for the page
-// itself; the only client islands are the mobile menu and the bottom
-// CTA bar (in the layout).
+// itself; the only client islands are the mobile menu, the bottom CTA
+// bar (in the layout), and the small countdown ticker inside ZoomLive.
 
 import { ShieldCheck, Lock, CheckCircle2, Globe2, Rocket } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { SectionDivider } from "@components/ui/SectionDivider";
-import { ActivityTicker } from "@components/sections/ActivityTicker";
-import { PartnersBar } from "@components/sections/PartnersBar";
-import { FilmsTeaserSection } from "@components/sections/FilmsTeaserSection";
 import { NumbersSection } from "@components/sections/NumbersSection";
-import { LeaderboardSection } from "@components/sections/LeaderboardSection";
-import { HomeReelsSection } from "@components/sections/HomeReelsSection";
 import { HomeGlobalReelsSection } from "@components/sections/HomeGlobalReelsSection";
-import { HiringBanner } from "@components/sections/HiringBanner";
 import { HomeBlogSection } from "@components/sections/HomeBlogSection";
-import { SecurityPillarsSection } from "@components/sections/SecurityPillarsSection";
-import { PromotionsSection } from "@components/sections/PromotionsSection";
-import { EventsSection } from "@components/sections/EventsSection";
 import { TestimonialSection } from "@components/sections/TestimonialSection";
-import { SocialWallSection } from "@components/sections/SocialWallSection";
-import { ManifestoSection } from "@components/sections/ManifestoSection";
 import { NewsletterSection } from "@components/sections/NewsletterSection";
-import { InstallAppWidget } from "@components/install/InstallAppWidget";
-import { TokenSection } from "@components/sections/TokenSection";
+import { ProtocolBentoSection } from "@components/sections/ProtocolBentoSection";
+import { TokenSpotlightSection } from "@components/sections/TokenSpotlightSection";
+import { ZoomLiveSection } from "@components/sections/ZoomLiveSection";
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
 
@@ -194,86 +191,61 @@ export default function HomePage() {
       </section>
 
       {/*
-        Section order tells the marketing story:
-          1. Hero + Trust Badges (above)         — what is this
-          2. ActivityTicker                       — live pulse
-          3. NumbersSection                       — proof of scale
-          4. PartnersBar                          — social proof
-          5. SecurityPillarsSection (post-divider)— answer "is it safe?"
-          6. FilmsTeaserSection                   — now show the story
-          7. HomeReelsSection                     — more visual content
-          8. LeaderboardSection (post-divider)    — community achievement
-          9. TestimonialSection                   — real voices
-         10. HomeBlogSection                      — deep dives
-         11. PromotionsSection (post-divider)     — incentives to act
-         12. EventsSection                        — what's happening
-         13. SocialWallSection                    — proof wall
-         14. ManifestoSection (post-divider)      — emotional close
-         15. NewsletterSection                    — final CTA
+        Section order tells the protocol-first marketing story:
+          1. Hero + Trust Badges (above)              — what is this
+          2. ProtocolBentoSection                     — the product at a glance
+          3. TokenSpotlightSection                    — $TURBO as the additive bonus
+          4. NumbersSection + TestimonialSection      — proof of scale + voices
+          5. HomeGlobalReelsSection                   — multi-language content proof
+          6. ZoomLiveSection                          — community pulse, live countdown
+          7. HomeBlogSection                          — editorial, English only
+          8. NewsletterSection                        — final CTA
       */}
-      <ActivityTicker />
+
+      {/* 2. Protocol Bento Grid — the whole product at a glance */}
+      <Reveal>
+        <ProtocolBentoSection />
+      </Reveal>
+
+      <SectionDivider />
+
+      {/* 3. $TURBO Token Spotlight — additive bonus, properly elevated */}
+      <Reveal>
+        <TokenSpotlightSection />
+      </Reveal>
+
+      <SectionDivider />
+
+      {/* 4. Numbers + Testimonials — proof of scale and community */}
       <Reveal>
         <NumbersSection />
       </Reveal>
       <Reveal>
-        <PartnersBar />
-      </Reveal>
-      {/* Install-app widget — sits after the social-proof row so it
-          catches users who're convinced enough to consider engaging
-          deeper. Client-side mount + dismiss flow. Hidden when the
-          site is already running standalone, or after 14-day dismiss. */}
-      <InstallAppWidget />
-      <SectionDivider />
-      <Reveal>
-        <SecurityPillarsSection />
-      </Reveal>
-      <Reveal>
-        <FilmsTeaserSection />
-      </Reveal>
-      <Reveal>
-        <HomeReelsSection />
-      </Reveal>
-      <Reveal>
-        {/* Multi-language reels — companion to the English HomeReelsSection
-            above. Tabs let visitors switch between EN / DE / ID without
-            leaving the home flow. */}
-        <HomeGlobalReelsSection />
-      </Reveal>
-      <SectionDivider />
-      <Reveal>
-        <LeaderboardSection />
-      </Reveal>
-      <Reveal>
         <TestimonialSection />
       </Reveal>
+
+      {/* 5. Global Reels — multi-language content proof */}
+      <Reveal>
+        <HomeGlobalReelsSection />
+      </Reveal>
+
+      <SectionDivider />
+
+      {/* 6. Community Live — Zoom calls with countdown */}
+      <Reveal>
+        <ZoomLiveSection />
+      </Reveal>
+
+      <SectionDivider />
+
+      {/* 7. Editorial — English only */}
       <Reveal>
         <HomeBlogSection />
       </Reveal>
+
       <SectionDivider />
-      <Reveal>
-        <PromotionsSection />
-      </Reveal>
-      <Reveal>
-        <HiringBanner />
-      </Reveal>
-      <Reveal>
-        <EventsSection />
-      </Reveal>
-      <Reveal>
-        <SocialWallSection />
-      </Reveal>
-      {/* $TURBO token introduction — moved DOWN-page so the main
-          protocol story (yield + plans + promotions + community)
-          owns the upper flow. Token reads as a bonus discovery
-          after the user has already absorbed why the protocol is
-          worth their attention. */}
-      <Reveal>
-        <TokenSection />
-      </Reveal>
-      <SectionDivider />
-      <Reveal>
-        <ManifestoSection />
-      </Reveal>
+
+      {/* 8. Newsletter — final CTA */}
       <Reveal>
         <NewsletterSection />
       </Reveal>

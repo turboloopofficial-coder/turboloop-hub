@@ -6,26 +6,31 @@
 //      document.body so no ancestor transform / overflow / sticky stacking
 //      context can hide it. Mounted only when open === true.
 //
-// Critical fixes after the v1 mount-failure bug:
-//   - PRIMARY_LINKS / RESOURCE_LINKS imported from nav-links (leaf
-//     module), not from Navbar — eliminates the circular import that
-//     left props undefined at first client render and caused .map() to
-//     crash silently inside the drawer.
+// Drawer body — 4 pillar accordion sections, each with a 2-col grid of
+// link cards. Every card is min-h-[56px] / touch target ≥48px.
+//
+// Critical fixes preserved from the v1 mount-failure bug:
+//   - Pillar arrays imported from nav-links (leaf module), not Navbar —
+//     eliminates the circular import that left props undefined at first
+//     client render and caused .map() to crash silently.
 //   - createPortal to document.body — drawer is a top-level DOM node,
 //     guaranteed not to be hidden by any sticky/transformed ancestor.
-//   - Explicit fallback colors via CSS-var-with-default
-//     (`var(--c-bg, #ffffff)`) so the drawer renders opaque even if
-//     theme vars haven't applied yet (or never apply due to hydration
-//     ordering).
+//   - Explicit fallback colors via CSS-var-with-default so the drawer
+//     renders opaque even if theme vars haven't applied yet.
 //   - Inline SVG icons (no lucide dep) so glyphs render on every mobile
 //     browser regardless of font/icon-font load timing.
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Brand } from "@components/Brand";
-import { PRIMARY_LINKS, RESOURCE_LINKS } from "./nav-links";
+import {
+  PROTOCOL_LINKS,
+  WATCH_LINKS,
+  COMMUNITY_LINKS,
+  EARN_LINKS,
+  type NavLinkItem,
+} from "./nav-links";
 
 const HamburgerIcon = () => (
   <svg
@@ -82,18 +87,24 @@ const RocketIcon = () => (
 
 const DRAWER_ID = "mobile-menu-drawer";
 
+// Pillar metadata — display label + the link array. Keep in sync with
+// nav-links.ts; this is just a render-time grouping.
+const PILLARS: Array<{ label: string; links: ReadonlyArray<NavLinkItem> }> = [
+  { label: "Protocol",      links: PROTOCOL_LINKS },
+  { label: "Watch & Learn", links: WATCH_LINKS },
+  { label: "Community",     links: COMMUNITY_LINKS },
+  { label: "Earn & Build",  links: EARN_LINKS },
+];
+
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   // `entered` flips a tick after the drawer mounts so the slide-in
-  // transition has a from-state to animate from. Without this two-step,
-  // the initial render lands at the final transform and there's nothing
-  // to animate.
+  // transition has a from-state to animate from.
   const [entered, setEntered] = useState(false);
   // Track whether we've mounted on the client so createPortal doesn't
   // attempt to use document during SSR.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) {
@@ -102,8 +113,6 @@ export function MobileMenu() {
     }
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    // Two-frame delay so the initial style commits before we flip to the
-    // entered state — single rAF can be merged with the mount paint.
     const raf1 = requestAnimationFrame(() =>
       requestAnimationFrame(() => setEntered(true))
     );
@@ -135,9 +144,6 @@ export function MobileMenu() {
               background: "var(--c-bg, #ffffff)",
               paddingTop: "env(safe-area-inset-top)",
               paddingBottom: "env(safe-area-inset-bottom)",
-              // Slide-in from the right + fade. From-state on first paint,
-              // to-state once `entered` flips after rAF. Reduced-motion
-              // users get an instant transition.
               transform: entered ? "translateX(0)" : "translateX(8%)",
               opacity: entered ? 1 : 0,
               transition:
@@ -152,7 +158,7 @@ export function MobileMenu() {
                 background: "var(--c-bg, #ffffff)",
                 borderColor: "var(--c-border, rgba(15,23,42,0.08))",
               }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <Link
                 href="/"
@@ -161,9 +167,7 @@ export function MobileMenu() {
               >
                 <Brand size={28} />
                 <span>
-                  <span style={{ color: "var(--c-text, #0f172a)" }}>
-                    Turbo
-                  </span>
+                  <span style={{ color: "var(--c-text, #0f172a)" }}>Turbo</span>
                   <span className="bg-brand bg-clip-text text-transparent">
                     Loop
                   </span>
@@ -171,7 +175,7 @@ export function MobileMenu() {
               </Link>
               <button
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-[var(--r-md)] active:scale-95 transition"
+                className="inline-flex items-center justify-center w-12 h-12 min-w-[48px] min-h-[48px] rounded-[var(--r-md)] active:scale-95 transition"
                 style={{
                   background: "var(--c-surface, #f7f8fc)",
                   color: "var(--c-text, #0f172a)",
@@ -184,106 +188,19 @@ export function MobileMenu() {
               </button>
             </div>
 
-            {/* Drawer body */}
+            {/* Drawer body — 4 pillar sections */}
             <div
-              className="px-4 py-6"
-              onClick={e => e.stopPropagation()}
+              className="px-4 py-5"
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Primary nav links */}
-              <nav
-                className="flex flex-col gap-1 mb-8"
-                aria-label="Primary"
-              >
-                {PRIMARY_LINKS.map(link => {
-                  // Highlight the active page so users always know where
-                  // they are — uses startsWith so e.g. /blog/[slug] still
-                  // marks the Blog link as active.
-                  const isActive =
-                    pathname === link.href ||
-                    pathname?.startsWith(link.href + "/") === true;
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      aria-current={isActive ? "page" : undefined}
-                      className="flex items-center justify-between py-4 min-h-[48px] text-base font-bold border-b"
-                      style={{
-                        color: isActive
-                          ? "var(--c-brand-cyan, #0891b2)"
-                          : "var(--c-text, #0f172a)",
-                        borderColor: "var(--c-border, rgba(15,23,42,0.08))",
-                      }}
-                    >
-                      {link.label}
-                      <span
-                        style={{
-                          color: isActive
-                            ? "var(--c-brand-cyan, #0891b2)"
-                            : "var(--c-text-subtle, #94A3B8)",
-                        }}
-                      >
-                        →
-                      </span>
-                    </Link>
-                  );
-                })}
-              </nav>
-
-              {/* Resources */}
-              <div className="mb-8">
-                <div
-                  className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-3"
-                  style={{ color: "var(--c-text-subtle, #94A3B8)" }}
-                >
-                  Resources
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  {RESOURCE_LINKS.map(link => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-start gap-3 p-3 min-h-[44px] rounded-[var(--r-md)] active:scale-[0.98] transition"
-                      style={{
-                        background: "var(--c-surface, #f7f8fc)",
-                        border:
-                          "1px solid var(--c-border, rgba(15,23,42,0.08))",
-                      }}
-                    >
-                      <div
-                        className="text-xl w-9 h-9 flex items-center justify-center rounded-[var(--r-md)] flex-shrink-0"
-                        style={{
-                          background:
-                            "color-mix(in oklab, var(--c-brand-cyan) 8%, transparent)",
-                        }}
-                        aria-hidden
-                      >
-                        {link.emoji}
-                      </div>
-                      <div className="min-w-0">
-                        <div
-                          className="text-sm font-bold"
-                          style={{ color: "var(--c-text, #0f172a)" }}
-                        >
-                          {link.label}
-                        </div>
-                        {link.description && (
-                          <div
-                            className="text-xs mt-0.5 leading-snug"
-                            style={{
-                              color:
-                                "var(--c-text-muted, #64748B)",
-                            }}
-                          >
-                            {link.description}
-                          </div>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              {PILLARS.map((pillar) => (
+                <PillarSection
+                  key={pillar.label}
+                  label={pillar.label}
+                  links={pillar.links}
+                  onNavigate={() => setOpen(false)}
+                />
+              ))}
 
               {/* Primary CTA */}
               <a
@@ -291,7 +208,7 @@ export function MobileMenu() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center gap-2 w-full px-5 h-[52px] min-h-[44px] rounded-[var(--r-lg)] text-base font-bold text-white shadow-[var(--s-brand)] active:scale-[0.985] transition"
+                className="mt-8 inline-flex items-center justify-center gap-2 w-full px-5 h-[52px] min-h-[48px] rounded-[var(--r-lg)] text-base font-bold text-white shadow-[var(--s-brand)] active:scale-[0.985] transition"
                 style={{ background: "var(--c-brand-gradient)" }}
               >
                 <RocketIcon />
@@ -306,11 +223,11 @@ export function MobileMenu() {
   return (
     <>
       <button
-        onClick={e => {
+        onClick={(e) => {
           e.stopPropagation();
           setOpen(true);
         }}
-        className="md:hidden inline-flex items-center gap-2 px-3 min-h-[44px] h-11 rounded-[var(--r-lg)] text-white shadow-[var(--s-brand)] active:scale-95 transition"
+        className="md:hidden inline-flex items-center gap-2 px-3 min-h-[48px] h-11 rounded-[var(--r-lg)] text-white shadow-[var(--s-brand)] active:scale-95 transition"
         style={{ background: "var(--c-brand-gradient)" }}
         aria-label="Open menu"
         aria-expanded={open}
@@ -322,5 +239,79 @@ export function MobileMenu() {
       </button>
       {drawer}
     </>
+  );
+}
+
+// ─── Pillar section — eyebrow + 2-col card grid ──────────────────
+
+function PillarSection({
+  label,
+  links,
+  onNavigate,
+}: {
+  label: string;
+  links: ReadonlyArray<NavLinkItem>;
+  onNavigate: () => void;
+}) {
+  return (
+    <section className="mb-2">
+      <div
+        className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase px-1 mb-2 mt-5"
+        style={{ color: "var(--c-text-subtle, #94A3B8)" }}
+      >
+        {label}
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={onNavigate}
+            className="flex items-start gap-2.5 p-3 min-h-[56px] rounded-[var(--r-md)] active:scale-[0.97] transition"
+            style={{
+              background: "var(--c-surface, #f7f8fc)",
+              border: link.highlight
+                ? "1px solid var(--c-brand-cyan, #0891b2)"
+                : "1px solid var(--c-border, rgba(15,23,42,0.08))",
+            }}
+          >
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+              style={{
+                background:
+                  "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
+              }}
+              aria-hidden
+            >
+              {link.emoji}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div
+                className="text-[0.8125rem] font-bold leading-tight"
+                style={{ color: "var(--c-text, #0f172a)" }}
+              >
+                {link.label}
+              </div>
+              {link.description && (
+                <div
+                  className="text-[0.6875rem] leading-tight mt-0.5"
+                  style={{ color: "var(--c-text-muted, #64748B)" }}
+                >
+                  {link.description}
+                </div>
+              )}
+              {link.highlight && (
+                <div
+                  className="mt-1 inline-flex items-center gap-1 text-[0.625rem] font-bold tracking-[0.15em] uppercase"
+                  style={{ color: "var(--c-brand-cyan, #0891b2)" }}
+                >
+                  ⚡ Bonus
+                </div>
+              )}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }

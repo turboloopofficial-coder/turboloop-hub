@@ -39,17 +39,19 @@ export function BlogLanguageTabs({
   return (
     <nav
       aria-label="Filter blog by language"
-      className="flex flex-wrap gap-2 mb-8 md:mb-10 justify-center"
+      className="flex gap-2 mb-6 md:mb-10 overflow-x-auto scrollbar-hide md:flex-wrap md:justify-center pb-1 md:pb-0"
     >
       {tabs.map(tab => {
         const isActive = active === tab.code;
-        const href = tab.code === null ? "/blog" : `/blog?lang=${tab.code}`;
+        // "All" routes to `?lang=all` (explicit opt-in) — bare `/blog`
+        // now defaults to English per the homepage-first content rule.
+        const href = tab.code === null ? "/blog?lang=all" : `/blog?lang=${tab.code}`;
         return (
           <Link
             key={tab.code ?? "all"}
             href={href}
             aria-current={isActive ? "page" : undefined}
-            className={`inline-flex items-center gap-2 px-4 h-10 rounded-full text-sm font-bold transition active:scale-[0.985] ${
+            className={`inline-flex items-center gap-2 px-4 min-h-[48px] min-w-max flex-shrink-0 rounded-full text-sm font-bold transition active:scale-[0.985] ${
               isActive
                 ? "bg-brand text-white shadow-[var(--s-brand)]"
                 : "bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] hover:border-[var(--c-brand-cyan)]"

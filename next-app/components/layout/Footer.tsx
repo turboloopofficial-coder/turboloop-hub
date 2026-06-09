@@ -1,10 +1,17 @@
 // Footer — minimal, brand-tinted, info-dense.
 // Server component, zero JS.
+//
+// Carries the utility links (FAQ, Roadmap, Calculator, Submit, Privacy,
+// Terms) that were removed from the primary navigation when the nav
+// collapsed into the 4 pillars. These need to be discoverable but
+// don't earn a top-of-page slot — the footer is where users look for
+// them by habit anyway.
 
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { Brand } from "@components/Brand";
 import { SECURITY } from "@lib/constants";
+import { UTILITY_LINKS } from "./nav-links";
 
 // The six highest-intent destinations, rendered as a prominent
 // `<nav aria-label="Site sections">` rail at the top of the footer.
@@ -43,12 +50,10 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
   },
   {
     heading: "Resources",
-    items: [
-      { label: "Library", href: "/library" },
-      { label: "Learn DeFi", href: "/learn" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Promotions", href: "/promotions" },
-    ],
+    // Single source of truth for utility links — pulled from
+    // nav-links.UTILITY_LINKS so the nav rewrite never goes stale
+    // against the footer.
+    items: UTILITY_LINKS.map((u) => ({ label: u.label, href: u.href })),
   },
   {
     heading: "Channels",

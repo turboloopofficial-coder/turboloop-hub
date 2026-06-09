@@ -49,17 +49,20 @@ import {
   tierForDeposit,
   isTokenEligiblePlan,
 } from "@lib/tokenFacts";
+import { LOOP_PLANS, type LoopPlan } from "@lib/loopPlans";
 import { trackEvent } from "@lib/analytics";
 
-// Four published plans on the live dApp. `roi` is the flat percentage
-// paid at the end of the plan period — not annualized, not compounded.
-// Ultimate (60d, 54%) is the headline plan and the default selection.
-const PLANS = [
-  { id: "sprint",   days: 7,  roi: 0.03, label: "Sprint",   icon: Clock,       blurb: "One-week trial — feel the mechanism." },
-  { id: "boost",    days: 14, roi: 0.10, label: "Boost",    icon: TrendingUp,  blurb: "Two-week ramp, double-digit return." },
-  { id: "power",    days: 30, roi: 0.24, label: "Power",    icon: Layers,      blurb: "One-month commitment, serious yield." },
-  { id: "ultimate", days: 60, roi: 0.54, label: "Ultimate", icon: Crown,       blurb: "Top tier — patient capital wins." },
-];
+// Plan data (id / label / days / roi / blurb) is canonical in
+// lib/loopPlans.ts so the homepage Bento Grid and the calculator
+// render the same numbers. Lucide icons are calculator-only — kept
+// out of loopPlans.ts to keep that file React-free.
+const PLAN_ICONS: Record<LoopPlan["id"], typeof Clock> = {
+  sprint: Clock,
+  boost: TrendingUp,
+  power: Layers,
+  ultimate: Crown,
+};
+const PLANS = LOOP_PLANS.map((p) => ({ ...p, icon: PLAN_ICONS[p.id] }));
 
 const DEPOSIT_PRESETS = [100, 500, 1000, 5000, 10000];
 const SLIDER_MIN = 1;

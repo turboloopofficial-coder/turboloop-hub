@@ -26,8 +26,11 @@ export async function HomeBlogSection() {
   let posts: Awaited<ReturnType<typeof api.blogPosts>> = [];
   try {
     const all = await api.blogPosts();
+    // Homepage carries the English editorial flow only — non-EN posts
+    // surface on /blog?lang=<code>. Keeps the homepage narrative
+    // consistent for the global English-default audience.
     posts = all
-      .filter(p => p.published)
+      .filter(p => p.published && p.language === "en")
       .sort((a, b) => {
         // Sort by intended publish date when set; createdAt as a tie-breaker
         // for posts without a schedule.
@@ -66,7 +69,7 @@ export async function HomeBlogSection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {posts.map(post => {
             const displayDate = blogDisplayDate(post);
             return (
@@ -89,7 +92,7 @@ export async function HomeBlogSection() {
                       src={blogCoverUrl(post)}
                       alt={post.title}
                       fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                       unoptimized={!post.coverImage}

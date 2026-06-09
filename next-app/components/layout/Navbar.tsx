@@ -1,12 +1,24 @@
 // Navbar — sticky top nav, mobile-first.
-// Mobile (<md): logo + hamburger drawer.
-// Desktop (md+): logo + 5 primary links + Resources dropdown + theme + Launch App.
+//
+// Mobile (<md): logo + hamburger drawer (MobileMenu).
+// Desktop (md+): logo + 4 pillar dropdowns + theme toggle + Launch App.
+//
+// The 4 pillars (Protocol, Watch & Learn, Community, Earn & Build) live
+// in a single source of truth: nav-links.ts. Each one renders via the
+// reusable NavDropdown defined in ResourcesDropdown.tsx (filename kept
+// for git history; the file now exports the 4 pillar dropdowns +
+// preserves `ResourcesDropdown` as an alias for `EarnDropdown`).
 
 import Link from "next/link";
 import { Container } from "@components/ui/Container";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
-import { ResourcesDropdown } from "./ResourcesDropdown";
+import {
+  ProtocolDropdown,
+  WatchDropdown,
+  CommunityDropdown,
+  EarnDropdown,
+} from "./ResourcesDropdown";
 import { Brand } from "@components/Brand";
 import { Magnetic } from "@components/ui/Magnetic";
 import { PRIMARY_LINKS, RESOURCE_LINKS } from "./nav-links";
@@ -45,34 +57,31 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop links — hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-1">
-            {PRIMARY_LINKS.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="inline-flex items-center px-3 min-h-[44px] rounded-[var(--r-md)] text-sm font-semibold text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <ResourcesDropdown />
+          {/* Desktop nav — 4 pillar dropdowns. Hidden on mobile.
+              Standalone primary links (Blog / Films / Community / Ecosystem
+              / Social Wall / Events / Security / Token) have been folded
+              INTO the dropdowns — no more flat link rail. */}
+          <nav
+            className="hidden md:flex items-center gap-1"
+            aria-label="Primary"
+          >
+            <ProtocolDropdown />
+            <WatchDropdown />
+            <CommunityDropdown />
+            <EarnDropdown />
           </nav>
 
-          {/* Right side: search hint + theme toggle + desktop Launch App + mobile burger */}
+          {/* Right side: theme toggle + desktop Launch App + mobile burger.
+              The ⌘K kbd hint has been removed — the palette still listens
+              globally, the hint just isn't surfaced in the nav. */}
           <div className="flex items-center gap-1 md:gap-2">
-            {/* Visible Cmd+K hint — actual palette listens globally. */}
-            <kbd className="hidden lg:inline-flex items-center gap-1.5 px-2 h-8 rounded-[var(--r-md)] text-xs font-mono text-[var(--c-text-muted)] bg-[var(--c-surface)] border border-[var(--c-border)]">
-              <span className="text-base leading-none">⌘</span>
-              <span>K</span>
-            </kbd>
             <ThemeToggle />
             <Magnetic className="hidden md:inline-flex">
               <a
                 href="https://turboloop.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 min-h-[44px] h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+                className="inline-flex items-center gap-2 px-4 min-h-[48px] h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
               >
                 Launch App →
               </a>

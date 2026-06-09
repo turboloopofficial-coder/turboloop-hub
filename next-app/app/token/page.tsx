@@ -35,6 +35,7 @@ import {
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
+import { TokenSupplyWidget } from "@components/token/TokenSupplyWidget";
 import { CopyAddressButton } from "@components/token/CopyAddressButton";
 import { TrackedLink } from "@components/token/TrackedLink";
 import {
@@ -101,9 +102,49 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   };
 }
 
+/** Server-side fetch of the upstream circulating-supply endpoint. Runs
+ *  at request/ISR time so the JSON-LD payload that lands in the HTML
+ *  body reflects the live circulating supply rather than a hardcoded
+ *  1,000,000 total. We always return a formatted string — falls back
+ *  to the hardcoded total on upstream failure so the schema.org block
+ *  never goes missing. The client-side <TokenSupplyWidget /> hits its
+ *  own /api/token-supply route for the visible widget; this call here
+ *  is just for crawlers. */
+async function fetchCirculatingSupplyForJsonLd(): Promise<string> {
+  const FALLBACK = TOKEN.totalSupplyFormatted;
+  try {
+    const res = await fetch(
+      "https://turboloop.io/api/token/circulating-supply",
+      {
+        signal: AbortSignal.timeout(5000),
+        // Tie into Next.js ISR so the JSON-LD value re-revalidates on
+        // the same 60s cadence as the rest of the page.
+        next: { revalidate: 60 },
+        headers: { Accept: "application/json" },
+      }
+    );
+    if (!res.ok) return FALLBACK;
+    const json = (await res.json()) as {
+      data?: { circulatingSupply?: number | string };
+      circulatingSupply?: number | string;
+    };
+    const raw = json.data?.circulatingSupply ?? json.circulatingSupply;
+    if (raw === undefined || raw === null) return FALLBACK;
+    const n =
+      typeof raw === "number"
+        ? raw
+        : Number(String(raw).replace(/[,\s]/g, ""));
+    if (!Number.isFinite(n)) return FALLBACK;
+    return Math.round(n).toLocaleString("en-US");
+  } catch {
+    return FALLBACK;
+  }
+}
+
 // Schema.org structured data — Product is the right vocabulary for a
-// fungible token in Google's eyes.
-function buildJsonLd(lang: SupportedLang) {
+// fungible token in Google's eyes. The circulating supply is fetched
+// upstream and passed in so the schema reflects live numbers.
+function buildJsonLd(lang: SupportedLang, circulatingSupply: string) {
   const content = TOKEN_PAGE_CONTENT[lang];
   const desc = content.hero_subtitle;
   return {
@@ -129,7 +170,10 @@ function buildJsonLd(lang: SupportedLang) {
           seller: { "@id": "https://www.turboloop.tech/#organization" },
         },
         additionalProperty: [
-          { "@type": "PropertyValue", name: "Total Supply", value: TOKEN.totalSupplyFormatted },
+          // "Total Supply" carries the LIVE circulating supply (not the
+          // hardcoded 1,000,000 max) per the spec — crawlers should
+          // index the supply that's actually in circulation today.
+          { "@type": "PropertyValue", name: "Total Supply", value: circulatingSupply },
           { "@type": "PropertyValue", name: "Network", value: TOKEN.network },
           { "@type": "PropertyValue", name: "Contract Address", value: TOKEN.contract },
           { "@type": "PropertyValue", name: "Buy Tax", value: `${TOKEN.buyTaxPct}%` },
@@ -146,7 +190,11 @@ export default async function TokenPage({ searchParams }: PageProps) {
   const { lang: langParam } = await searchParams;
   const lang = pickLang(langParam);
   const c = TOKEN_PAGE_CONTENT[lang];
-  const jsonLd = buildJsonLd(lang);
+  // Live circulating supply for the JSON-LD payload. Fallback to the
+  // hardcoded total supply if the upstream is unavailable so the
+  // structured-data block never goes missing.
+  const circulatingSupply = await fetchCirculatingSupplyForJsonLd();
+  const jsonLd = buildJsonLd(lang, circulatingSupply);
 
   return (
     <main className="relative pb-16 md:pb-24" lang={lang}>
@@ -212,7 +260,11 @@ export default async function TokenPage({ searchParams }: PageProps) {
 
       {/* ── B. LIVE STATS BAR ────────────────────────────────────── */}
       <Container width="default">
-        <TokenPriceWidget variant="full" className="mb-16 md:mb-24" />
+        <TokenPriceWidget variant="full" className="mb-5 md:mb-6" />
+        {/* Live circulating / total / locked-or-burned trio. Polls
+            /api/token-supply every 5 minutes — matches the upstream
+            cache TTL so we never serve duplicate work. */}
+        <TokenSupplyWidget className="mb-16 md:mb-24" />
       </Container>
 
       {/* ── C. HOW YOU EARN TOKENS ──────────────────────────────── */}

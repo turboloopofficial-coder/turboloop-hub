@@ -42,44 +42,65 @@ export const metadata: Metadata = {
   },
 };
 
-const PILLARS = [
+// "Independently audited" carries TWO proof links (Haze Crypto launch-
+// time audit + SolidityScan current audit). Every other pillar has a
+// single link. We model every pillar as a `proofs[]` array so the
+// renderer is uniform — single-link pillars just have a 1-element array.
+type Pillar = {
+  icon: typeof ShieldCheck;
+  title: string;
+  body: string;
+  proofs: { label: string; href: string }[];
+};
+
+const PILLARS: Pillar[] = [
   {
     icon: ShieldCheck,
     title: "Independently audited",
     body: "Audited by Haze Crypto (at launch) and SolidityScan (current). Two independent platforms, no relationship to the team — they had no incentive to be lenient. Both reports are public, line-by-line. Every finding is in the public record.",
-    proofLabel: "Read full audit",
-    proofHref: SECURITY.auditUrl,
+    proofs: [
+      { label: "Haze Crypto Audit (launch)", href: SECURITY.hazeAuditUrl },
+      { label: "SolidityScan Audit (current)", href: SECURITY.auditUrl },
+    ],
   },
   {
     icon: Lock,
     title: "100% liquidity locked",
     body: "Every LP token from the seed liquidity is locked through Unicrypt — a third-party time-lock contract. The team cannot remove liquidity. There is no rug pull mechanism in the protocol.",
-    proofLabel: "Verify on Unicrypt",
-    proofHref:
-      "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+    proofs: [
+      {
+        label: "Verify on Unicrypt",
+        href: "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+      },
+    ],
   },
   {
     icon: CheckCircle2,
     title: "Ownership renounced",
     body: "Smart contract ownership has been permanently destroyed on-chain. There is no admin key. There is no upgrade mechanism. The code that exists today is the code that will exist forever. Nobody — not the team, not a future team, not a court order — can change it.",
-    proofLabel: "View renouncement transaction",
-    proofHref:
-      "https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e",
+    proofs: [
+      {
+        label: "View renouncement transaction",
+        href: "https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e",
+      },
+    ],
   },
   {
     icon: EyeOff,
     title: "Source code verified",
     body: "The full source code is published and verified on BscScan. You don't need to trust our claims about what the code does — you can read every line yourself, or have an independent developer audit it. We have no secrets.",
-    proofLabel: "Read the source code",
-    proofHref:
-      "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code",
+    proofs: [
+      {
+        label: "Read the source code",
+        href: "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code",
+      },
+    ],
   },
   {
     icon: Award,
     title: "$100K bug bounty",
     body: "If you can find any centralization risk, vulnerability, or rug-pull mechanism in the smart contract, we pay you $100,000. No NDA, no qualification, no catch. The bounty is open to everyone, everywhere.",
-    proofLabel: "See the rules",
-    proofHref: "/promotions",
+    proofs: [{ label: "See the rules", href: "/promotions" }],
   },
 ];
 
@@ -112,21 +133,29 @@ export default function SecurityPage() {
                 <p className="text-base text-[var(--c-text-muted)] leading-relaxed mb-5 flex-1">
                   {p.body}
                 </p>
-                <a
-                  href={p.proofHref}
-                  target={p.proofHref.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    p.proofHref.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
-                >
-                  {p.proofLabel}
-                  {p.proofHref.startsWith("http") && (
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  )}
-                </a>
+                {/* Proofs render as a vertical stack so the audit pillar
+                    can show its two reports clearly without crowding
+                    the card width on mobile. Single-proof pillars look
+                    identical to the prior single-link rendering. */}
+                <div className="flex flex-col gap-1.5">
+                  {p.proofs.map(proof => {
+                    const external = proof.href.startsWith("http");
+                    return (
+                      <a
+                        key={proof.href}
+                        href={proof.href}
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noopener noreferrer" : undefined}
+                        className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
+                      >
+                        {proof.label}
+                        {external && (
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
               </Card>
             );
           })}

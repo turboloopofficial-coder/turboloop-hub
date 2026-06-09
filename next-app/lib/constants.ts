@@ -1,7 +1,14 @@
 /** Security & on-chain proofs — single source of truth so the audit URL,
- *  auditor name, and contract address can be updated in one place. The
- *  auditor was migrated from Haze Crypto → SolidityScan (QuickScan) in
- *  May 2026; the underlying contract didn't change. */
+ *  auditor name, and contract address can be updated in one place.
+ *
+ *  Audit history: the contract was audited by Haze Crypto at launch and
+ *  re-audited by SolidityScan (QuickScan) in May 2026. Both reports are
+ *  permanent third-party records and both are surfaced on the /security
+ *  page; SolidityScan is treated as the "current" canonical auditor for
+ *  badge / single-link contexts (header chip, blog footers) while
+ *  /security shows BOTH side by side. The underlying contract did not
+ *  change between the two audits — they're attestations on the same
+ *  bytecode, six months apart. */
 export const SECURITY = {
   contractAddress: "0xc90E5785632dAaB9Cb61F5050dA393090541A76D",
   auditor: "SolidityScan",
@@ -9,6 +16,9 @@ export const SECURITY = {
     "https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet",
   /** Human-readable URL fragment for display ("solidityscan.com/quickscan/0xc90E…"). */
   auditUrlDisplay: "solidityscan.com/quickscan/0xc90E…",
+  /** Original launch-time audit — kept as a historical attestation. */
+  hazeAuditUrl: "https://hazecrypto.net/audit/TurboLoop",
+  hazeAuditUrlDisplay: "hazecrypto.net/audit/TurboLoop",
   bscScan:
     "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d",
   bscScanCode:

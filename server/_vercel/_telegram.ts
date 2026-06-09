@@ -87,6 +87,47 @@ export async function tgSendVideo(token: string, msg: TgVideoMessage): Promise<{
   }
 }
 
+/** Send a text-only message, optionally as a reply to a specific
+ *  message in the chat. Used by the auto-reply webhook so the bot's
+ *  response threads under the user's question instead of arriving as
+ *  a fresh standalone message that drowns in a busy group.
+ *
+ *  `replyToMessageId` maps to Telegram's `reply_to_message_id`. The
+ *  rest of the contract mirrors `tgSendMessage`. */
+export async function tgSendTextMessage(
+  token: string,
+  msg: TgTextMessage & { replyToMessageId?: number }
+): Promise<{ ok: boolean; error?: string }> {
+  const body: any = {
+    chat_id: msg.chatId,
+    text: msg.text,
+    parse_mode: msg.parseMode || "HTML",
+    disable_web_page_preview: msg.disablePreview === true,
+  };
+  if (msg.replyToMessageId) {
+    body.reply_to_message_id = msg.replyToMessageId;
+    // Don't fail the send if the original message was deleted between
+    // the trigger and our reply — better to land as a regular message
+    // than to silently drop the answer.
+    body.allow_sending_without_reply = true;
+  }
+  const kb = inlineKeyboard(msg.buttons);
+  if (kb) body.reply_markup = kb;
+
+  try {
+    const r = await fetch(`${TG_API}${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data: any = await r.json();
+    if (!data?.ok) return { ok: false, error: data?.description || `HTTP ${r.status}` };
+    return { ok: true };
+  } catch (err: any) {
+    return { ok: false, error: String(err?.message || err) };
+  }
+}
+
 export async function tgSendMessage(token: string, msg: TgTextMessage): Promise<{ ok: boolean; error?: string }> {
   const body: any = {
     chat_id: msg.chatId,

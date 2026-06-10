@@ -608,36 +608,42 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
     }
     recordFire(chatId, trigger.id, now);
 
-    // Fire-and-forget the actual send. We don't await before returning
-    // 200 to Telegram — the response is what tells Telegram the
-    // webhook was accepted. A slow sendMessage would otherwise eat
-    // into Telegram's 60s webhook timeout and trigger spurious retries.
-    // Build the response text — static for most triggers, dynamic for price.
-    const responseText = trigger.buildResponse
-      ? await trigger.buildResponse(text)
-      : (trigger.response ?? "");
-
     // Guard replyToMessageId so Telegram never receives NaN — the
     // prior Number(messageId) form would silently coerce an undefined
     // message_id into NaN, which Telegram drops on the floor. Result:
     // the reply showed up as a standalone message instead of threaded
-    // under the user's question. Only pass when it's a finite positive
-    // integer; tgSendTextMessage skips reply_to_message_id cleanly on
-    // undefined.
+    // under the user's question.
     const safeReplyToId =
       typeof messageId === "number" && messageId > 0 ? messageId : undefined;
-    void tgSendTextMessage(token, {
-      chatId: String(chatId),
-      text: responseText,
-      parseMode: "HTML",
-      replyToMessageId: safeReplyToId,
-      disablePreview: true,
-    }).catch((err) => {
-      console.error(
-        `[telegram-webhook] failed to send reply for trigger=${trigger.id}`,
-        err
-      );
-    });
+
+    // IMPORTANT: return 200 to Telegram IMMEDIATELY — before building
+    // the response text or sending the reply. Telegram's webhook timeout
+    // is 60s but any delay here is visible to the user as lag.
+    // Dynamic triggers (price, buy, sell, token, calculator) call
+    // fetchLivePrice() which takes 3–5s. By moving the entire
+    // build+send chain into a void async IIFE that starts BEFORE the
+    // return, the Edge runtime keeps the promise alive after the
+    // response is flushed (Edge functions stay alive until all
+    // microtasks settle, even after Response is returned).
+    void (async () => {
+      try {
+        const responseText = trigger.buildResponse
+          ? await trigger.buildResponse(text)
+          : (trigger.response ?? "");
+        await tgSendTextMessage(token, {
+          chatId: String(chatId),
+          text: responseText,
+          parseMode: "HTML",
+          replyToMessageId: safeReplyToId,
+          disablePreview: true,
+        });
+      } catch (err) {
+        console.error(
+          `[telegram-webhook] failed to send reply for trigger=${trigger.id}`,
+          err
+        );
+      }
+    })();
 
     return new Response(
       JSON.stringify({ ok: true, matched: trigger.id }),

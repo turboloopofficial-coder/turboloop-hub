@@ -47,25 +47,13 @@ import {
 } from "@lib/api";
 
 export const revalidate = 300;
-export const dynamicParams = true; // allow new posts without redeploy
+export const dynamic = 'force-dynamic'; // render on-demand; api.turboloop.tech is unreliable at build time
 
 // Canonical URLs use www. — the apex (turboloop.tech) issues a Vercel
 // platform 307 to www.turboloop.tech BEFORE Next.js middleware runs.
 // Pointing `canonical` at the actual 200-OK host avoids passing crawler
 // link-equity through a redirect hop on every blog URL.
 const CANONICAL_HOST = "https://www.turboloop.tech";
-
-export async function generateStaticParams() {
-  try {
-    const posts = await api.blogPosts();
-    return posts.filter(p => p.published).map(p => ({ slug: p.slug }));
-  } catch (err) {
-    // If the API is unreachable at build time (e.g. api.turboloop.tech timeout),
-    // skip pre-rendering. dynamicParams: true ensures posts still render on-demand.
-    console.warn('[generateStaticParams] blogPosts fetch failed, skipping SSG:', err instanceof Error ? err.message : err);
-    return [];
-  }
-}
 
 async function getPostOr404(slug: string): Promise<BlogPost> {
   // Fetch + classify failures. The previous version had a blanket

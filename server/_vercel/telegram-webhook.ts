@@ -72,7 +72,7 @@ interface Trigger {
   /** Static response text, OR null if the trigger uses buildResponse() */
   response: string | null;
   /** Optional dynamic response builder — called at send time */
-  buildResponse?: () => Promise<string>;
+  buildResponse?: (text?: string) => Promise<string>;
 }
 
 const TRIGGERS: Trigger[] = [
@@ -297,6 +297,133 @@ This ensures $TURBO becomes increasingly scarce over time, supporting price appr
 Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
   },
   {
+    id: "calculator",
+    pattern: /\b(calculate|calc|how\s+much|how\s+much\s+can\s+i\s+earn|\d+\s*(usdt|usd|\$))\b/i,
+    response: null,
+    buildResponse: async (text?: string) => {
+      // Extract a deposit amount from the user's message. Accepts plain
+      // numbers, "500 USDT", "500$", and comma-formatted "1,000". Clamp
+      // to [10, 1_000_000] so a stray phone number or year doesn't
+      // produce a nonsense calculation.
+      const match = text ? text.match(/(\d[\d,.]*)/) : null;
+      const raw = match ? parseFloat(match[1].replace(/,/g, "")) : null;
+      const amount = raw && raw >= 10 && raw <= 1_000_000 ? raw : null;
+
+      if (!amount) {
+        return `🧮 <b>Deposit Calculator</b>\n\nType the amount you want to deposit to see your returns.\n\n<b>Example:</b> <code>calculate 500</code>\n\n📊 <b>Full Calculator:</b> https://turboloop.tech/calculator`;
+      }
+
+      const fmt = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const sprint  = amount * 0.03;
+      const boost   = amount * 0.10;
+      const power   = amount * 0.24;
+      const ultimate = amount * 0.54;
+
+      return `🧮 <b>Returns on $${fmt(amount)} USDT</b>\n\n⚡ <b>Sprint</b> (7 days) → <b>+$${fmt(sprint)}</b> (3%)\n🚀 <b>Boost</b> (14 days) → <b>+$${fmt(boost)}</b> (10%)\n💪 <b>Power</b> (30 days) → <b>+$${fmt(power)}</b> (24%) + $TURBO\n🏆 <b>Ultimate</b> (60 days) → <b>+$${fmt(ultimate)}</b> (54%) + $TURBO\n\n💡 Power &amp; Ultimate also earn $TURBO token rewards on top!\n📊 <b>Full Calculator:</b> https://turboloop.tech/calculator`;
+    },
+  },
+  {
+    id: "leadership",
+    pattern: /\b(leadership|leader|rank|ranks|vip|ambassador|legend|partner|builder|accelerator|director|executive)\b/i,
+    response:
+`🏆 <b>TurboLoop Leadership Program</b>
+
+7 ranks from <b>Turbo Partner → Turbo Legend</b>
+Earn <b>1% to 10%</b> of the leadership pool across <b>100 levels</b> of your network.
+
+<b>The 7 Ranks:</b>
+1️⃣ Turbo Partner
+2️⃣ Builder
+3️⃣ Accelerator
+4️⃣ Director
+5️⃣ Executive
+6️⃣ Ambassador
+7️⃣ Turbo Legend 👑
+
+🔹 Ranks are <b>permanent</b> — no demotion once earned
+🔹 Rewards paid <b>daily</b> alongside your farming yield
+🔹 Extends across <b>100 levels</b> (vs 20 for standard referral)
+
+📖 <b>Learn more:</b> https://turboloop.tech/ecosystem/leadership-program`,
+  },
+  {
+    id: "leaderboard",
+    pattern: /\b(leaderboard|top\s+country|top\s+countries|ranking|community\s+rank|which\s+country)\b/i,
+    response:
+`🌍 <b>TurboLoop Global Leaderboard</b>
+
+<b>Top Communities Right Now:</b>
+
+🥇 <b>Germany</b> — Strongest European Community
+🥈 <b>Nigeria</b> — Fastest Growing in Africa
+🥉 <b>Indonesia</b> — Leading Southeast Asia
+4️⃣ India — Rapidly Expanding
+5️⃣ Turkey — Emerging Market Leader
+6️⃣ Brazil — Latin America Pioneer
+7️⃣ Vietnam — Tripled in 2 months
+
+🌐 <b>Full Leaderboard:</b> https://turboloop.tech/community`,
+  },
+  {
+    id: "roadmap",
+    pattern: /\b(roadmap|future|upcoming|next|whats\s+next|what's\s+next|plans\s+ahead)\b/i,
+    response:
+`🗺️ <b>TurboLoop Roadmap</b>
+
+<b>Completed ✅</b>
+🔹 Smart Contract Development
+🔹 Security Audits (Haze + SolidityScan)
+🔹 Platform Launch (Turbo Buy + Turbo Swap)
+🔹 $TURBO Token Launch + LP Lock
+
+<b>Upcoming 🔜</b>
+🔹 CEX Listings
+🔹 Mobile App
+🔹 Institutional Partnerships
+🔹 Cross-chain Expansion
+
+📋 <b>Full Roadmap:</b> https://turboloop.tech/roadmap`,
+  },
+  {
+    id: "airdrop",
+    pattern: /\b(airdrop|free\s+token|free\s+turbo|giveaway|free\s+usdt|claim\s+free)\b/i,
+    response:
+`⚠️ <b>No Airdrops — EVER</b>
+
+TurboLoop does <b>NOT</b> run airdrops, giveaways, or free token distributions.
+
+❌ Any message claiming a TurboLoop airdrop is a <b>SCAM</b>
+❌ Never click links from unknown sources
+❌ Never connect your wallet to unverified sites
+
+✅ <b>The only way to earn with TurboLoop is through the protocol:</b>
+🔹 Deposit USDT into a Loop Plan
+🔹 Build a referral network
+🔹 Advance through Leadership ranks
+
+🔗 <b>Official site only:</b> https://turboloop.io`,
+  },
+  {
+    id: "staking",
+    pattern: /\b(staking|stake|staked|lock\s+tokens|lock\s+usdt)\b/i,
+    response:
+`ℹ️ <b>TurboLoop is Yield Farming — not Staking</b>
+
+The difference matters:
+
+🔹 <b>Staking</b> = locking tokens to validate a blockchain (like ETH 2.0)
+🔹 <b>Yield Farming</b> = depositing USDT into a smart contract that generates real yield from protocol fees
+
+TurboLoop generates yield from:
+💱 Turbo Swap trading fees
+💳 Turbo Buy gateway fees
+🔥 10% admin fee from protocol activity
+
+Your USDT is <b>not locked</b> — it earns fixed yield over the plan period (7, 14, 30, or 60 days) then returns to you with profit.
+
+📊 <b>See the plans:</b> https://turboloop.tech/calculator`,
+  },
+  {
     id: "scam",
     pattern: /\b(scam|fake|rug|rugpull|beware|warning)\b/i,
     response:
@@ -487,7 +614,7 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
     // into Telegram's 60s webhook timeout and trigger spurious retries.
     // Build the response text — static for most triggers, dynamic for price.
     const responseText = trigger.buildResponse
-      ? await trigger.buildResponse()
+      ? await trigger.buildResponse(text)
       : (trigger.response ?? "");
 
     // Guard replyToMessageId so Telegram never receives NaN — the

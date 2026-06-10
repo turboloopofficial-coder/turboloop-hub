@@ -1,5 +1,5 @@
 // Next.js route adapter for the Telegram auto-reply webhook.
-// Build marker: 2026-06-10-support-fix
+// Build marker: 2026-06-10-local-copy
 //
 // Thin pass-through to the logic file at server/_vercel/telegram-webhook.ts.
 // All the actual work — secret verification, trigger matching, cooldown,
@@ -15,7 +15,7 @@
 // awaiting inline is simpler, more reliable, and well within
 // Telegram's 60s webhook timeout.
 
-import { handleTelegramWebhook } from "../../../../server/_vercel/telegram-webhook";
+import { handleTelegramWebhook } from "../../server/_vercel/telegram-webhook";
 
 // Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js.
 export const runtime = "edge";

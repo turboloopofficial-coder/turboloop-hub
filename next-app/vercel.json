@@ -4,13 +4,5 @@
   "buildCommand": "next build",
   "outputDirectory": ".next",
   "installCommand": "npm install --legacy-peer-deps",
-  "devCommand": "next dev -p 3001",
-  "redirects": [
-    {
-      "source": "/:path(.*)",
-      "has": [{ "type": "host", "value": "turboloop.tech" }],
-      "destination": "https://www.turboloop.tech/:path",
-      "permanent": true
-    }
-  ]
+  "devCommand": "next dev -p 3001"
 }

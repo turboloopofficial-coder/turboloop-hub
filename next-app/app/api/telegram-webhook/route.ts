@@ -1,4 +1,5 @@
 // Next.js route adapter for the Telegram auto-reply webhook.
+// Build marker: 2026-06-10 — forces env-var pickup on next deploy.
 //
 // Thin pass-through to the logic file at server/_vercel/telegram-webhook.ts.
 // All the actual work — secret verification, trigger matching, cooldown,

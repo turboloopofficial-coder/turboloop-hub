@@ -56,8 +56,15 @@ export const dynamicParams = true; // allow new posts without redeploy
 const CANONICAL_HOST = "https://www.turboloop.tech";
 
 export async function generateStaticParams() {
-  const posts = await api.blogPosts();
-  return posts.filter(p => p.published).map(p => ({ slug: p.slug }));
+  try {
+    const posts = await api.blogPosts();
+    return posts.filter(p => p.published).map(p => ({ slug: p.slug }));
+  } catch (err) {
+    // If the API is unreachable at build time (e.g. api.turboloop.tech timeout),
+    // skip pre-rendering. dynamicParams: true ensures posts still render on-demand.
+    console.warn('[generateStaticParams] blogPosts fetch failed, skipping SSG:', err instanceof Error ? err.message : err);
+    return [];
+  }
 }
 
 async function getPostOr404(slug: string): Promise<BlogPost> {

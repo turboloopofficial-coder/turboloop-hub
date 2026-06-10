@@ -1,4 +1,5 @@
 // /api/token-burns — server-side proxy for the BscScan V2 tokentx
+// Deploy: 2026-06-11-v2 (force CDN cache invalidation)
 // endpoint, filtered to TURBO transfers landing at the dead-address
 // burn sink (0x…dead). The Burn Events Feed widget on /token reads
 // from here every 5 minutes.

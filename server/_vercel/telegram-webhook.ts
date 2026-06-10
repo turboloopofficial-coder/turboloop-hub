@@ -44,25 +44,60 @@ import { tgSendTextMessage, tgEscape } from "./_telegram";
 // `\b\$` doesn't work cleanly, so that trigger uses an explicit
 // non-word lookahead.
 
-// ─── Live token price fetcher ────────────────────────────────────
-// Called at reply time for the price trigger so the user always
-// gets the current price, not a stale value baked in at deploy.
+// ─── Live token price fetcher — reads from DB cache ──────────────────────
+// The cron-master refreshes `cache:token_price` in siteSettings every tick.
+// Reading from DB takes ~10ms vs 3-5s for a live DexScreener call, making
+// all dynamic triggers (price / buy / sell / token / calculator) feel
+// instant. Falls back to a direct API call if the DB cache is missing or
+// stale (>5 min) — never lets a cold cache or a Neon hiccup block a reply.
 async function fetchLivePrice(): Promise<string> {
+  const dbUrl = process.env.DATABASE_URL;
+  if (dbUrl) {
+    try {
+      // Direct SQL via the Neon serverless HTTP driver — no ORM overhead,
+      // Edge-compatible, single round-trip.
+      const { neon } = await import("@neondatabase/serverless");
+      const sql = neon(dbUrl);
+      const rows = await sql`
+        SELECT setting_value, updated_at
+        FROM site_settings
+        WHERE setting_key = 'cache:token_price'
+        LIMIT 1
+      `;
+      if (rows.length > 0) {
+        const cacheAge = Date.now() - new Date(rows[0].updated_at).getTime();
+        // Use cache if it's less than 5 minutes old.
+        if (cacheAge < 5 * 60 * 1000) {
+          const d = JSON.parse(rows[0].setting_value);
+          if (d?.priceUsd) {
+            const price = Number(d.priceUsd).toFixed(6);
+            const change = d.priceChange24h != null
+              ? ` (${d.priceChange24h >= 0 ? "+" : ""}${(d.priceChange24h * 100).toFixed(2)}% 24h)`
+              : "";
+            return `$${price}${change}`;
+          }
+        }
+      }
+    } catch (_dbErr) {
+      // DB unavailable — fall through to live fetch.
+    }
+  }
+  // Fallback: live fetch with an 8 s timeout. Only hit when the cache
+  // row is missing or older than 5 minutes — should be rare.
   try {
     const r = await fetch("https://www.turboloop.tech/api/token-price", {
-      signal: AbortSignal.timeout(4000),
-      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const d: any = await r.json();
-    if (!d?.fresh || d.priceUsd === null) return "unavailable";
-    const price = `$${Number(d.priceUsd).toFixed(6)}`;
-    const change = typeof d.priceChange24h === "number"
+    if (!d?.priceUsd) return "price unavailable";
+    const price = Number(d.priceUsd).toFixed(6);
+    const change = d.priceChange24h != null
       ? ` (${d.priceChange24h >= 0 ? "+" : ""}${(d.priceChange24h * 100).toFixed(2)}% 24h)`
       : "";
-    return `${price}${change}`;
+    return `$${price}${change}`;
   } catch {
-    return "unavailable";
+    return "price unavailable";
   }
 }
 
@@ -616,34 +651,30 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
     const safeReplyToId =
       typeof messageId === "number" && messageId > 0 ? messageId : undefined;
 
-    // IMPORTANT: return 200 to Telegram IMMEDIATELY — before building
-    // the response text or sending the reply. Telegram's webhook timeout
-    // is 60s but any delay here is visible to the user as lag.
-    // Dynamic triggers (price, buy, sell, token, calculator) call
-    // fetchLivePrice() which takes 3–5s. By moving the entire
-    // build+send chain into a void async IIFE that starts BEFORE the
-    // return, the Edge runtime keeps the promise alive after the
-    // response is flushed (Edge functions stay alive until all
-    // microtasks settle, even after Response is returned).
-    void (async () => {
-      try {
-        const responseText = trigger.buildResponse
-          ? await trigger.buildResponse(text)
-          : (trigger.response ?? "");
-        await tgSendTextMessage(token, {
-          chatId: String(chatId),
-          text: responseText,
-          parseMode: "HTML",
-          replyToMessageId: safeReplyToId,
-          disablePreview: true,
-        });
-      } catch (err) {
-        console.error(
-          `[telegram-webhook] failed to send reply for trigger=${trigger.id}`,
-          err
-        );
-      }
-    })();
+    // Await the build + send inline. The previous void-IIFE pattern was
+    // needed when fetchLivePrice hit DexScreener at reply time (3-5 s
+    // round-trip) — keeping Telegram's 60 s webhook timeout from
+    // visibly lagging the user. With the price now cached in
+    // site_settings and served via a ~10 ms Neon HTTP read, the inline
+    // await adds only ~500 ms total (Edge + DB + Telegram send), and a
+    // single try/catch around the whole thing keeps logging tight.
+    try {
+      const responseText = trigger.buildResponse
+        ? await trigger.buildResponse(text)
+        : (trigger.response ?? "");
+      await tgSendTextMessage(token, {
+        chatId: String(chatId),
+        text: responseText,
+        parseMode: "HTML",
+        replyToMessageId: safeReplyToId,
+        disablePreview: true,
+      });
+    } catch (err) {
+      console.error(
+        `[telegram-webhook] failed to send reply for trigger=${trigger.id}`,
+        err
+      );
+    }
 
     return new Response(
       JSON.stringify({ ok: true, matched: trigger.id }),

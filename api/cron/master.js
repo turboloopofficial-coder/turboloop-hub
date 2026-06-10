@@ -36596,7 +36596,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "31_LP_Gesperrt.png",
       headline: "\u{1F680} LP F\xDCR IMMER GESPERRT",
-      caption: "\u{1F680} LP F\xDCR IMMER GESPERRT\n\n\u{1F4CC} Liquidit\xE4t permanent gesichert \u2014 Kein Rug-Pull m\xF6glich\n\nDie Liquidit\xE4t von TurboLoop ist permanent gesperrt \u2014 f\xFCr immer. Verifizierbar \xFCber PinkLock/Unicrypt und BSCScan. Kein Entwickler, kein Admin, niemand kann die Liquidit\xE4t jemals abziehen. Dies eliminiert das Rug-Pull-Risiko vollst\xE4ndig.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: PinkLock/Unicrypt\n\u2022 Dauer: Permanent (f\xFCr immer)\n\u2022 Status: Verifiziert\n\u2022 Einsehbar: BSCScan\n\u2022 Rug-Pull: Unm\xF6glich\n\n\u{1F449} Pr\xFCfe den LP-Lock \u2192 turboloop.io\n\n#TurboLoop #LPLock #Sicherheit #KeinRugPull #Permanent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LP F\xDCR IMMER GESPERRT\n\n\u{1F4CC} Liquidit\xE4t permanent gesichert \u2014 Kein Rug-Pull m\xF6glich\n\nDie Liquidit\xE4t von TurboLoop ist permanent gesperrt \u2014 f\xFCr immer. Verifizierbar \xFCber BscScan und BSCScan. Kein Entwickler, kein Admin, niemand kann die Liquidit\xE4t jemals abziehen. Dies eliminiert das Rug-Pull-Risiko vollst\xE4ndig.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BscScan\n\u2022 Dauer: Permanent (f\xFCr immer)\n\u2022 Status: Verifiziert\n\u2022 Einsehbar: BSCScan\n\u2022 Rug-Pull: Unm\xF6glich\n\n\u{1F449} Pr\xFCfe den LP-Lock \u2192 turboloop.io\n\n#TurboLoop #LPLock #Sicherheit #KeinRugPull #Permanent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 31
     },
@@ -37046,7 +37046,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "56_LP_Lock_Detail.png",
       headline: "\u{1F680} LP LOCK \u2014 IM DETAIL",
-      caption: "\u{1F680} LP LOCK \u2014 IM DETAIL\n\n\u{1F4CC} 100% gesperrt. 100% transparent. 100% Vertrauen.\n\nDie Liquidit\xE4t ist \xFCber PinkLock/Unicrypt permanent gesperrt. Dauer: F\xFCr immer. Status: Verifiziert. Einsehbar auf BSCScan. Kein Entwickler kann die Liquidit\xE4t jemals abziehen. Dies ist der ultimative Schutz gegen Rug-Pulls.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: PinkLock/Unicrypt\n\u2022 Dauer: F\xFCr immer (permanent)\n\u2022 Status: Verifiziert und aktiv\n\u2022 Einsehbar: BSCScan\n\u2022 Schutz: 100% gegen Rug-Pull\n\n\u{1F449} Pr\xFCfe den Lock \u2192 turboloop.io\n\n#TurboLoop #LPLock #Permanent #Verifiziert #KeinRugPull\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LP LOCK \u2014 IM DETAIL\n\n\u{1F4CC} 100% gesperrt. 100% transparent. 100% Vertrauen.\n\nDie Liquidit\xE4t ist \xFCber BscScan permanent gesperrt. Dauer: F\xFCr immer. Status: Verifiziert. Einsehbar auf BSCScan. Kein Entwickler kann die Liquidit\xE4t jemals abziehen. Dies ist der ultimative Schutz gegen Rug-Pulls.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BscScan\n\u2022 Dauer: F\xFCr immer (permanent)\n\u2022 Status: Verifiziert und aktiv\n\u2022 Einsehbar: BSCScan\n\u2022 Schutz: 100% gegen Rug-Pull\n\n\u{1F449} Pr\xFCfe den Lock \u2192 turboloop.io\n\n#TurboLoop #LPLock #Permanent #Verifiziert #KeinRugPull\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 56
     },
@@ -37814,6 +37814,20 @@ async function handler(req, res) {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(Xs(dbUrl));
+    try {
+      const priceRes = await fetch("https://www.turboloop.tech/api/token-price", {
+        signal: AbortSignal.timeout(8e3)
+      });
+      if (priceRes.ok) {
+        const priceData = await priceRes.json();
+        const value = JSON.stringify(priceData);
+        await db.insert(siteSettings).values({ settingKey: "cache:token_price", settingValue: value }).onConflictDoUpdate({
+          target: siteSettings.settingKey,
+          set: { settingValue: value, updatedAt: /* @__PURE__ */ new Date() }
+        });
+      }
+    } catch (_priceErr) {
+    }
     const reqUrl = new URL(req.url || "/", "http://x");
     const forceSet = new Set(
       (reqUrl.searchParams.get("force") || "").split(",").map((s) => s.trim()).filter(Boolean)

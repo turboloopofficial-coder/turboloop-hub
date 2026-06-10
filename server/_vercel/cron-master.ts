@@ -490,6 +490,38 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(neon(dbUrl));
 
+    // ─── Price cache refresh (runs every cron tick) ──────────────────
+    // Pulls fresh DexScreener data via our own /api/token-price proxy
+    // and writes it into site_settings under `cache:token_price`. The
+    // Telegram auto-reply webhook reads this row instead of hitting
+    // DexScreener at reply time — turns a 3-5s round-trip into a ~10ms
+    // DB read for the price / buy / sell / token / calculator triggers.
+    //
+    // Runs UNCONDITIONALLY on every tick — no hasFiredToday gate —
+    // because we want the cached price to stay as fresh as possible
+    // (cadence is bounded by the cron interval). Failures are
+    // non-fatal: a stale cache is far better than a broken bot, and
+    // the webhook has a live-fetch fallback when the cache is missing
+    // or >5 minutes old.
+    try {
+      const priceRes = await fetch("https://www.turboloop.tech/api/token-price", {
+        signal: AbortSignal.timeout(8000),
+      });
+      if (priceRes.ok) {
+        const priceData = await priceRes.json();
+        const value = JSON.stringify(priceData);
+        await db
+          .insert(siteSettings)
+          .values({ settingKey: "cache:token_price", settingValue: value })
+          .onConflictDoUpdate({
+            target: siteSettings.settingKey,
+            set: { settingValue: value, updatedAt: new Date() },
+          });
+      }
+    } catch (_priceErr) {
+      // Non-fatal — stale cache is fine, bot will use last known price.
+    }
+
     // ─── Manual force-fire overrides ────────────────────────────────
     // Allows campaign slots to fire on demand outside their normal time
     // window. Used on launch day for each campaign when the regular

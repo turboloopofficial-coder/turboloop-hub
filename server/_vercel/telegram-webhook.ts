@@ -116,7 +116,7 @@ const TRIGGERS: Trigger[] = [
     // "ca" alone is a very short alias for contract address — common
     // shorthand in crypto chats. The `\b` keeps it from matching
     // "casual" / "scared" etc.
-    pattern: /\b(contract|ca|address|token\s+address|contract\s+address)\b/i,
+    pattern: /\b(contract|ca|address|token\s+address|contract\s+address)\b|^\/ca(@\w+)?$/i,
     response:
 `Here are the Turbo Loop contract addresses:
 
@@ -128,7 +128,7 @@ All verified on BscScan: https://bscscan.com`,
   },
   {
     id: "audit",
-    pattern: /\b(audit|security|verified|audited|safe)\b/i,
+    pattern: /\b(audit|security|verified|audited|safe)\b|^\/audit(@\w+)?$/i,
     response:
 `Turbo Loop has been audited by reputable security firms:
 
@@ -139,7 +139,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "buy",
-    pattern: /\b(buy|purchase|how\s+to\s+buy|where\s+to\s+buy|swap)\b/i,
+    pattern: /\b(buy|purchase|how\s+to\s+buy|where\s+to\s+buy|swap)\b|^\/buy(@\w+)?$/i,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
@@ -148,7 +148,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "sell",
-    pattern: /\b(sell|dump|exit|cash\s+out)\b/i,
+    pattern: /\b(sell|dump|exit|cash\s+out)\b|^\/sell(@\w+)?$/i,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
@@ -157,7 +157,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "price",
-    pattern: /\b(price|chart|dex|dexscreener|market)\b/i,
+    pattern: /\b(price|chart|dex|dexscreener|market)\b|^\/price(@\w+)?$/i,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
@@ -166,7 +166,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "plans",
-    pattern: /\b(plans|roi|returns|earnings|yield|how\s+much)\b/i,
+    pattern: /\b(plans|roi|returns|earnings|yield|how\s+much)\b|^\/plans(@\w+)?$/i,
     response:
 `Turbo Loop Investment Plans:
 
@@ -183,7 +183,7 @@ Start here: https://turboloop.io`,
   },
   {
     id: "referral",
-    pattern: /\b(referral|commission|earn|affiliate|partner|bonus)\b/i,
+    pattern: /\b(referral|commission|earn|affiliate|partner|bonus)\b|^\/referral(@\w+)?$/i,
     response:
 `Join our Referral Program:
 
@@ -204,7 +204,7 @@ Generate your link: https://turboloop.io`,
   },
   {
     id: "docs",
-    pattern: /\b(docs|documentation|help|guide|tutorial|how\s+to)\b/i,
+    pattern: /\b(docs|documentation|help|guide|tutorial|how\s+to)\b|^\/docs(@\w+)?$/i,
     response:
 `Here are helpful resources:
 
@@ -217,7 +217,7 @@ Need more help? Ask in the group or contact support!`,
   },
   {
     id: "website",
-    pattern: /\b(website|links?|telegram|twitter|social|contact|official)\b/i,
+    pattern: /\b(website|links?|telegram|twitter|social|contact|official)\b|^\/links(@\w+)?$/i,
     response:
 `Turbo Loop Official Links:
 
@@ -234,7 +234,7 @@ Need more help? Ask in the group or contact support!`,
     // character — `\b\$turbo` only matches when there's a word char
     // immediately before the `$`, which is the OPPOSITE of what we
     // want. Use explicit non-word lookbehind/lookahead instead.
-    pattern: /(?<![\w$])\$turbo(?![\w])|\b(turbo\s*token|token|reward\s+token)\b/i,
+    pattern: /(?<![\w$])\$turbo(?![\w])|\b(turbo\s*token|token|reward\s+token)\b|^\/token(@\w+)?$/i,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
@@ -243,7 +243,7 @@ Need more help? Ask in the group or contact support!`,
   },
   {
     id: "deposit",
-    pattern: /\b(deposit|start|begin|join|invest|how\s+to\s+start)\b/i,
+    pattern: /\b(deposit|start|begin|join|invest|how\s+to\s+start)\b|^\/deposit(@\w+)?$/i,
     response:
 `Getting Started with Turbo Loop:
 
@@ -259,7 +259,7 @@ Need help? Ask in the group!`,
   },
   {
     id: "payout",
-    pattern: /\b(payout|withdraw|claim|payment|when\s+paid)\b/i,
+    pattern: /\b(payout|withdraw|claim|payment|when\s+paid)\b|^\/payout(@\w+)?$/i,
     response:
 `Turbo Loop Payouts:
 
@@ -273,7 +273,7 @@ Need help? Check BscScan: https://bscscan.com`,
   },
   {
     id: "burn",
-    pattern: /\b(burn|deflationary|buyback|scarcity)\b/i,
+    pattern: /\b(burn|deflationary|buyback|scarcity)\b|^\/burn(@\w+)?$/i,
     response:
 `$TURBO Deflationary Mechanism:
 
@@ -285,7 +285,7 @@ This ensures $TURBO becomes increasingly scarce over time, supporting price appr
   },
   {
     id: "zoom",
-    pattern: /\b(zoom|session|webinar|live|call|meeting)\b/i,
+    pattern: /\b(zoom|session|webinar|live|call|meeting)\b|^\/zoom(@\w+)?$/i,
     // Full per-region timezone list for both daily calls. One line
     // per region (flag first → scannable on mobile, no mid-entry wrap).
     // Final message ~2.4k chars, well under Telegram's 4096 sendMessage
@@ -333,7 +333,7 @@ Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
   },
   {
     id: "calculator",
-    pattern: /\b(calculate|calc|how\s+much|how\s+much\s+can\s+i\s+earn|\d+\s*(usdt|usd|\$))\b/i,
+    pattern: /\b(calculate|calc|how\s+much|how\s+much\s+can\s+i\s+earn|\d+\s*(usdt|usd|\$))\b|^\/calc(@\w+)?$/i,
     response: null,
     buildResponse: async (text?: string) => {
       // Extract a deposit amount from the user's message. Accepts plain
@@ -359,7 +359,7 @@ Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
   },
   {
     id: "leadership",
-    pattern: /\b(leadership|leader|rank|ranks|vip|ambassador|legend|partner|builder|accelerator|director|executive)\b/i,
+    pattern: /\b(leadership|leader|rank|ranks|vip|ambassador|legend|partner|builder|accelerator|director|executive)\b|^\/leadership(@\w+)?$/i,
     response:
 `🏆 <b>TurboLoop Leadership Program</b>
 
@@ -383,7 +383,7 @@ Earn <b>1% to 10%</b> of the leadership pool across <b>100 levels</b> of your ne
   },
   {
     id: "leaderboard",
-    pattern: /\b(leaderboard|top\s+country|top\s+countries|ranking|community\s+rank|which\s+country)\b/i,
+    pattern: /\b(leaderboard|top\s+country|top\s+countries|ranking|community\s+rank|which\s+country)\b|^\/leaderboard(@\w+)?$/i,
     response:
 `🌍 <b>TurboLoop Global Leaderboard</b>
 
@@ -401,7 +401,7 @@ Earn <b>1% to 10%</b> of the leadership pool across <b>100 levels</b> of your ne
   },
   {
     id: "roadmap",
-    pattern: /\b(roadmap|future|upcoming|next|whats\s+next|what's\s+next|plans\s+ahead)\b/i,
+    pattern: /\b(roadmap|future|upcoming|next|whats\s+next|what's\s+next|plans\s+ahead)\b|^\/roadmap(@\w+)?$/i,
     response:
 `🗺️ <b>TurboLoop Roadmap</b>
 
@@ -421,7 +421,7 @@ Earn <b>1% to 10%</b> of the leadership pool across <b>100 levels</b> of your ne
   },
   {
     id: "airdrop",
-    pattern: /\b(airdrop|free\s+token|free\s+turbo|giveaway|free\s+usdt|claim\s+free)\b/i,
+    pattern: /\b(airdrop|free\s+token|free\s+turbo|giveaway|free\s+usdt|claim\s+free)\b|^\/airdrop(@\w+)?$/i,
     response:
 `⚠️ <b>No Airdrops — EVER</b>
 
@@ -440,7 +440,7 @@ TurboLoop does <b>NOT</b> run airdrops, giveaways, or free token distributions.
   },
   {
     id: "staking",
-    pattern: /\b(staking|stake|staked|lock\s+tokens|lock\s+usdt)\b/i,
+    pattern: /\b(staking|stake|staked|lock\s+tokens|lock\s+usdt)\b|^\/staking(@\w+)?$/i,
     response:
 `ℹ️ <b>TurboLoop is Yield Farming — not Staking</b>
 
@@ -460,7 +460,7 @@ Your USDT is <b>not locked</b> — it earns fixed yield over the plan period (7,
   },
   {
     id: "scam",
-    pattern: /\b(scam|fake|rug|rugpull|beware|warning)\b/i,
+    pattern: /\b(scam|fake|rug|rugpull|beware|warning)\b|^\/scam(@\w+)?$/i,
     response:
 `⚠️ <b>IMPORTANT SECURITY WARNING:</b>
 
@@ -477,7 +477,7 @@ All official links are verified above. Stay safe!`,
   },
   {
     id: "support",
-    pattern: /\b(support|admin|owner|help|contact|complaint|issue|problem|stuck|not\s+working)\b/i,
+    pattern: /\b(support|admin|owner|help|contact|complaint|issue|problem|stuck|not\s+working)\b|^\/support(@\w+)?$/i,
     response:
 `Need help? Our support team is here:
 

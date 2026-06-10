@@ -1,39 +1,49 @@
 // Next.js route adapter for the Telegram auto-reply webhook.
-// Build marker: 2026-06-10 — forces env-var pickup on next deploy.
+// Build marker: 2026-06-10-slash-commands
 //
 // Thin pass-through to the logic file at server/_vercel/telegram-webhook.ts.
 // All the actual work — secret verification, trigger matching, cooldown,
 // reply send — lives there so the same module can be unit-tested
 // without spinning up Next.js.
-//
-// Set the webhook with:
-//   curl "https://api.telegram.org/bot<TOKEN>/setWebhook" \
-//     -H "Content-Type: application/json" \
-//     -d '{
-//       "url": "https://turboloop.tech/api/telegram-webhook",
-//       "secret_token": "<value of TELEGRAM_WEBHOOK_SECRET>",
-//       "allowed_updates": ["message"]
-//     }'
-//
-// Required env vars on Vercel:
-//   • TELEGRAM_BOT_TOKEN     — existing, used by the cron sender too.
-//   • TELEGRAM_WEBHOOK_SECRET — new, MUST match the secret_token you
-//     passed to setWebhook. If unset, the handler skips verification
-//     so dev still works — never deploy without it.
 
 import { handleTelegramWebhook } from "../../../../server/_vercel/telegram-webhook";
+import { waitUntil } from "@vercel/functions";
 
-// Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js,
-// so the bot feels instant from the user's perspective. `process.env`
-// access works the same in Edge (Next.js polyfills it), and every
-// dependency in the call graph below (`fetch`, `AbortSignal.timeout`,
-// `Buffer.from('base64')` is unused here, `Map`) is Edge-compatible.
+// Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js.
 export const runtime = "edge";
+
+// Pin to the region closest to Telegram's servers (Frankfurt / Amsterdam).
+// This alone cuts 200-400ms off every reply by eliminating cross-continent
+// round-trips to api.telegram.org. Vercel picks the first reachable region
+// from the list — falling back to the next if Frankfurt is overloaded.
+export const preferredRegion = ["fra1", "ams1"];
+
 // Telegram delivers fresh updates and we never want a cached response.
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  return handleTelegramWebhook(req);
+  // Return 200 OK IMMEDIATELY so Telegram's 60s webhook timeout clock
+  // stops the moment we receive the update. Then process the body +
+  // send the reply in the background via waitUntil, which keeps the
+  // Edge runtime alive until the promise settles.
+  //
+  // We clone the request because handleTelegramWebhook reads req.json()
+  // and the original Request is consumed once we return.
+  //
+  // This pattern fixes two visible bugs:
+  //   1. Slow static-trigger replies — the user no longer waits for the
+  //      Telegram round-trip before the function's response is flushed.
+  //   2. Duplicate replies — Telegram would retry the webhook delivery
+  //      when our previous void-IIFE pattern flushed the Response
+  //      mid-flight; with waitUntil the platform guarantees the work
+  //      finishes, so retries never fire.
+  const cloned = req.clone();
+  const responsePromise = handleTelegramWebhook(cloned);
+  waitUntil(responsePromise);
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 // GET handler for health-checks — useful when setting up the webhook

@@ -31,11 +31,14 @@ import {
   Award,
   Flame,
   Sparkles,
+  LineChart,
 } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
 import { TokenSupplyWidget } from "@components/token/TokenSupplyWidget";
+import { DexScreenerChart } from "@components/token/DexScreenerChart";
+import { BurnEventsFeed } from "@components/token/BurnEventsFeed";
 import { CopyAddressButton } from "@components/token/CopyAddressButton";
 import { TrackedLink } from "@components/token/TrackedLink";
 import {
@@ -254,6 +257,29 @@ export default async function TokenPage({ searchParams }: PageProps) {
               {c.hero_cta_bscscan}
               <ExternalLink className="w-3 h-3" aria-hidden="true" />
             </TrackedLink>
+
+            {/* CoinGecko trust pill — subtle, sits just under the
+                primary CTAs. CoinGecko is the largest independent
+                crypto aggregator; an external listing is a verifiable
+                signal we don't control. */}
+            <div className="mt-4 flex justify-center">
+              <a
+                href="https://www.coingecko.com/en/coins/turboloop-token"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 h-9 rounded-full text-xs font-bold border border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] hover:bg-[var(--c-bg)] hover:border-[#8DC63F] transition shadow-[var(--s-sm)]"
+              >
+                <span
+                  className="w-4 h-4 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
+                  style={{ background: "#8DC63F" }}
+                  aria-hidden="true"
+                >
+                  ✓
+                </span>
+                Listed on CoinGecko
+                <ExternalLink className="w-3 h-3 opacity-70" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </Container>
       </section>
@@ -264,7 +290,31 @@ export default async function TokenPage({ searchParams }: PageProps) {
         {/* Live circulating / total / locked-or-burned trio. Polls
             /api/token-supply every 5 minutes — matches the upstream
             cache TTL so we never serve duplicate work. */}
-        <TokenSupplyWidget className="mb-16 md:mb-24" />
+        <TokenSupplyWidget className="mb-10 md:mb-14" />
+      </Container>
+
+      {/* ── B2. LIVE CHART (DexScreener iframe) ─────────────────── */}
+      <Container width="default">
+        <section className="mb-10 md:mb-14">
+          <SectionHead
+            eyebrow="Live Chart"
+            title={`$${TOKEN.symbol} Price Chart`}
+            subtitle="Real-time price and volume data powered by DexScreener."
+          />
+          <DexScreenerChart />
+        </section>
+      </Container>
+
+      {/* ── B3. RECENT BURN EVENTS ──────────────────────────────── */}
+      <Container width="default">
+        <section className="mb-16 md:mb-24">
+          <SectionHead
+            eyebrow="Deflationary Proof"
+            title="Recent Burn Events"
+            subtitle="Every daily buyback &amp; burn is recorded on-chain. Verified, transparent, permanent."
+          />
+          <BurnEventsFeed />
+        </section>
       </Container>
 
       {/* ── C. HOW YOU EARN TOKENS ──────────────────────────────── */}
@@ -541,6 +591,17 @@ export default async function TokenPage({ searchParams }: PageProps) {
               detail={c.security_renounce_detail}
               href={TOKEN_LINKS.tokenRenounceTx}
               linkLabel={c.security_renounce_link}
+            />
+            {/* Independent third-party listing — CoinGecko is the
+                largest crypto aggregator; getting listed there is a
+                signal we don't control, so it earns a spot next to
+                LP-lock and renouncement proofs. */}
+            <SecurityBadge
+              icon={LineChart}
+              label="Listed on CoinGecko"
+              detail={`$${TOKEN.symbol} is independently listed and tracked on CoinGecko — the world's largest crypto data aggregator. Price, volume, and supply numbers there are derived from the same on-chain data as this page.`}
+              href="https://www.coingecko.com/en/coins/turboloop-token"
+              linkLabel="View on CoinGecko"
             />
           </div>
 

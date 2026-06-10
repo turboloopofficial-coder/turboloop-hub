@@ -1,0 +1,227 @@
+"use client";
+
+// BurnEventsFeed — renders the most recent $TURBO burn transactions
+// (transfers to the dead-address sink). Polls /api/token-burns every
+// 5 minutes — matches the server cache TTL so we never duplicate work.
+//
+// Behaviour states:
+//   • Loading      → 5 shimmer skeleton rows
+//   • Empty/error  → "Burn data unavailable" with a BscScan deep link
+//   • Loaded       → up to 10 burn rows, newest first
+//
+// Each row shows the burn amount (cyan, bold) + relative time, with
+// the full hash truncated like `0xabc1234…ef5678` and an explorer link.
+// Click anywhere on the row jumps to the BscScan tx page in a new tab.
+
+import { useEffect, useState } from "react";
+import { Flame, ExternalLink } from "lucide-react";
+
+interface BurnEvent {
+  hash: string;
+  timestamp: number;
+  amount: number;
+  from: string;
+}
+
+interface BurnFeedData {
+  burns: BurnEvent[];
+  totalBurned: number;
+  fetchedAt: number;
+  fresh: boolean;
+}
+
+const POLL_INTERVAL_MS = 5 * 60_000;
+const ROW_LIMIT = 10;
+const BSCSCAN_BURN_VIEW =
+  "https://bscscan.com/token/0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3?a=0x000000000000000000000000000000000000dead";
+
+function truncateHash(h: string): string {
+  if (!h || h.length < 16) return h;
+  return `${h.slice(0, 8)}…${h.slice(-6)}`;
+}
+
+function formatAmount(n: number): string {
+  if (!Number.isFinite(n) || n === 0) return "0";
+  // Avoid trailing zeros and keep small burns readable.
+  if (n >= 1000) return Math.round(n).toLocaleString("en-US");
+  if (n >= 1) return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+  return n.toLocaleString("en-US", { maximumFractionDigits: 4 });
+}
+
+function relativeTime(ts: number): string {
+  const now = Math.floor(Date.now() / 1000);
+  const diff = Math.max(0, now - ts);
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}
+
+async function fetchBurns(signal?: AbortSignal): Promise<BurnFeedData | null> {
+  try {
+    const res = await fetch("/api/token-burns", { signal, cache: "no-store" });
+    if (!res.ok) return null;
+    return (await res.json()) as BurnFeedData;
+  } catch {
+    return null;
+  }
+}
+
+export function BurnEventsFeed() {
+  const [data, setData] = useState<BurnFeedData | null>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    let cancelled = false;
+
+    const tick = async () => {
+      const next = await fetchBurns(ctrl.signal);
+      if (cancelled) return;
+      if (next) {
+        setData(next);
+        setLoaded(true);
+      } else if (!loaded) {
+        setLoaded(true);
+      }
+    };
+
+    tick();
+    const id = window.setInterval(tick, POLL_INTERVAL_MS);
+    return () => {
+      cancelled = true;
+      ctrl.abort();
+      window.clearInterval(id);
+    };
+    // One-way `loaded` flag — same pattern as TokenPriceWidget; not in deps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const rows = (data?.burns ?? []).slice(0, ROW_LIMIT);
+
+  return (
+    <div
+      className="rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] p-5 md:p-6"
+      aria-label="Recent $TURBO burn events"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <Flame className="w-4 h-4 text-orange-500" aria-hidden="true" />
+          <h3 className="text-sm md:text-base font-bold text-[var(--c-text)]">
+            Recent Burn Events
+          </h3>
+        </div>
+        <a
+          href={BSCSCAN_BURN_VIEW}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs font-bold text-[var(--c-brand-cyan)] hover:underline"
+        >
+          View all
+          <ExternalLink className="w-3 h-3" aria-hidden="true" />
+        </a>
+      </div>
+
+      {/* Body */}
+      {!loaded ? (
+        <BurnSkeleton />
+      ) : rows.length === 0 ? (
+        <BurnEmpty />
+      ) : (
+        <ul className="divide-y divide-[var(--c-border)]">
+          {rows.map((b) => (
+            <li key={b.hash}>
+              <a
+                href={`https://bscscan.com/tx/${b.hash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between gap-3 py-2.5 min-h-[52px] hover:bg-[var(--c-bg)] -mx-2 px-2 rounded-md transition"
+              >
+                <div className="min-w-0">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-base" aria-hidden="true">🔥</span>
+                    <span className="font-bold text-[var(--c-brand-cyan)] tabular-nums text-sm md:text-base truncate">
+                      {formatAmount(b.amount)} TURBO
+                    </span>
+                  </div>
+                  <div className="text-[11px] md:text-xs text-[var(--c-text-subtle)] font-mono mt-0.5 truncate">
+                    {truncateHash(b.hash)}
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0 text-xs text-[var(--c-text-muted)]">
+                  <span className="tabular-nums">{relativeTime(b.timestamp)}</span>
+                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Footer */}
+      {loaded && data && (
+        <div className="mt-4 pt-3 border-t border-[var(--c-border)] text-[11px] md:text-xs text-[var(--c-text-muted)] flex items-center justify-between gap-2">
+          <span>
+            {data.fresh
+              ? `Total burned (last ${rows.length}):`
+              : "Burn data unavailable —"}
+          </span>
+          {data.fresh ? (
+            <span className="font-bold text-[var(--c-text)] tabular-nums">
+              {formatAmount(data.totalBurned)} TURBO
+            </span>
+          ) : (
+            <a
+              href={BSCSCAN_BURN_VIEW}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-[var(--c-brand-cyan)] hover:underline inline-flex items-center gap-1"
+            >
+              View on BscScan
+              <ExternalLink className="w-3 h-3" aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Sub-views ───────────────────────────────────────────────────
+
+function BurnSkeleton() {
+  return (
+    <ul className="divide-y divide-[var(--c-border)]">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <li
+          key={i}
+          className="flex items-center justify-between gap-3 py-2.5 min-h-[52px]"
+        >
+          <div className="flex-1 min-w-0">
+            <div className="h-3.5 w-32 rounded bg-[var(--c-bg)] animate-pulse" />
+            <div className="h-2.5 w-48 rounded bg-[var(--c-bg)] animate-pulse mt-2" />
+          </div>
+          <div className="h-2.5 w-12 rounded bg-[var(--c-bg)] animate-pulse" />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function BurnEmpty() {
+  return (
+    <div className="py-8 text-center text-sm text-[var(--c-text-muted)]">
+      Burn data unavailable.{" "}
+      <a
+        href={BSCSCAN_BURN_VIEW}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[var(--c-brand-cyan)] hover:underline font-bold inline-flex items-center gap-1"
+      >
+        View on BscScan
+        <ExternalLink className="w-3 h-3" aria-hidden="true" />
+      </a>
+    </div>
+  );
+}

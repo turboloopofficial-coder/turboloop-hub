@@ -166,7 +166,7 @@ Need more help? Ask in the group or contact support!`,
   },
   {
     id: "website",
-    pattern: /\b(website|link|telegram|twitter|social|contact)\b/i,
+    pattern: /\b(website|links?|telegram|twitter|social|contact|official)\b/i,
     response:
 `Turbo Loop Official Links:
 

@@ -374,6 +374,10 @@ interface TgUpdate {
     text?: string;
     chat?: { id?: number | string; type?: string };
     from?: { id?: number; is_bot?: boolean; username?: string };
+    // sender_chat is set when an admin posts anonymously as the group/channel.
+    // In this case `from` is the GroupAnonymousBot sentinel (is_bot: true)
+    // so we must NOT skip these messages — they are real human posts.
+    sender_chat?: { id?: number | string; type?: string; username?: string };
   };
   // We intentionally ignore edited_message, channel_post, etc — the bot
   // only responds to fresh user-sent text messages.
@@ -447,7 +451,14 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
 
     // Ignore messages from other bots — keeps two auto-reply bots from
     // ping-ponging if anyone ever adds a sibling bot to the group.
-    if (msg.from?.is_bot) {
+    // EXCEPTION: Telegram uses a sentinel bot (id: 1087968824, username:
+    // "GroupAnonymousBot") as the `from` field when a human admin posts
+    // anonymously as the channel. We must NOT skip those — they are real
+    // human posts. We identify them by the presence of `sender_chat`.
+    const isRealBot =
+      msg.from?.is_bot === true &&
+      !msg.sender_chat; // anonymous admin posts always have sender_chat set
+    if (isRealBot) {
       return new Response(JSON.stringify({ ok: true, skipped: "bot-sender" }), {
         status: 200,
         headers: { "Content-Type": "application/json" },

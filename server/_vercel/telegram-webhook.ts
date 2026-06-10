@@ -481,7 +481,7 @@ All official links are verified above. Stay safe!`,
     response:
 `Need help? Our support team is here:
 
-🆘 <b>Support Channel:</b> https://t.me/TurboLoop_Official
+🆘 <b>Support:</b> @TurboLoop_Support
 💬 <b>Community Chat:</b> https://t.me/TurboLoop_Chat
 
 📌 <b>Before contacting support, check:</b>

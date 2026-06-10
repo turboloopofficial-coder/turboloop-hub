@@ -100,8 +100,7 @@ Make sure you're on the BNB Smart Chain (BSC) network!`,
 
 Or trade on PancakeSwap:
 🔹 <b>PancakeSwap:</b> https://pancakeswap.finance/swap?inputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3
-
-Note: 2% sell tax supports daily buyback &amp; burn!`,
+`,
   },
   {
     id: "price",

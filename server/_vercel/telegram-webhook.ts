@@ -271,7 +271,7 @@ All official links are verified above. Stay safe!`,
 
 // ─── Cooldown bookkeeping ─────────────────────────────────────────
 
-const COOLDOWN_MS = 60_000;
+const COOLDOWN_MS = 0; // No cooldown — every trigger always replies
 // Caps the Map so a long-running instance doesn't grow without bound
 // in the unlikely event our triggers stop firing reset paths.
 const COOLDOWN_MAX_ENTRIES = 5000;

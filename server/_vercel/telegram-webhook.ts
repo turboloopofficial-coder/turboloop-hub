@@ -233,7 +233,7 @@ Need help? Check BscScan: https://bscscan.com`,
 `$TURBO Deflationary Mechanism:
 
 🔥 <b>Daily Automated Buyback &amp; Burn:</b> 2 PM UTC
-🔥 <b>Funded by:</b> 2% sell tax + management fees
+🔥 <b>Funded by:</b> 10% admin fee from the main protocol
 🔥 <b>Purpose:</b> Create scarcity and support long-term value
 
 This ensures $TURBO becomes increasingly scarce over time, supporting price appreciation for long-term holders!`,

@@ -267,16 +267,46 @@ This ensures $TURBO becomes increasingly scarce over time, supporting price appr
   {
     id: "zoom",
     pattern: /\b(zoom|session|webinar|live|call|meeting)\b/i,
+    // Full per-region timezone list for both daily calls. One line
+    // per region (flag first → scannable on mobile, no mid-entry wrap).
+    // Final message ~2.4k chars, well under Telegram's 4096 sendMessage
+    // limit. Zoom links + passcodes preserved from the prior reply.
     response:
-`Daily Zoom Community Calls:
+`🎥 <b>Daily Zoom Community Calls</b>
 
-🇬🇧 <b>English Call</b>
-📅 5:00 PM UTC daily
+━━━━━━━━━━━━━━━━━━━━━
+🇬🇧 <b>English Call — 17:00 UTC</b>
+━━━━━━━━━━━━━━━━━━━━━
+🇬🇧 UK · 5:00 PM BST / 5:00 PM GMT
+🇦🇪 UAE / Dubai · 9:00 PM GST
+🇮🇳 India · 10:30 PM IST
+🇵🇰 Pakistan · 10:00 PM PKT
+🇳🇬 Nigeria · 6:00 PM WAT
+🇰🇪 Kenya · 8:00 PM EAT
+🇺🇸 USA East · 1:00 PM EDT
+🇺🇸 USA West · 10:00 AM PDT
+🇲🇾 Malaysia / Singapore · 1:00 AM MYT (next day)
+
 🔗 https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1
 🔑 Passcode: <code>669529</code>
 
-🇮🇳 <b>Hindi / Urdu Call</b>
-📅 🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST
+━━━━━━━━━━━━━━━━━━━━━
+🇮🇳 <b>Hindi / Urdu Call — 15:30 UTC</b>
+━━━━━━━━━━━━━━━━━━━━━
+🇮🇳 India · 9:00 PM IST
+🇵🇰 Pakistan · 8:30 PM PKT
+🇧🇩 Bangladesh · 9:30 PM BST
+🇳🇵 Nepal · 9:15 PM NPT
+🇦🇪 UAE / Dubai · 7:30 PM GST
+🇸🇦 Saudi Arabia · 6:30 PM AST
+🇲🇾 Malaysia / Singapore · 11:30 PM MYT
+🇮🇩 Indonesia · 10:30 PM WIB
+🇬🇧 UK · 3:30 PM BST / 3:30 PM GMT
+🇺🇸 USA East · 11:30 AM EDT
+🇺🇸 USA West · 8:30 AM PDT
+🇳🇬 Nigeria / West Africa · 4:30 PM WAT
+🇰🇪 Kenya / East Africa · 6:30 PM EAT
+
 🔗 https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1
 🔑 Passcode: <code>1234</code>
 
@@ -450,11 +480,20 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
       ? await trigger.buildResponse()
       : (trigger.response ?? "");
 
+    // Guard replyToMessageId so Telegram never receives NaN — the
+    // prior Number(messageId) form would silently coerce an undefined
+    // message_id into NaN, which Telegram drops on the floor. Result:
+    // the reply showed up as a standalone message instead of threaded
+    // under the user's question. Only pass when it's a finite positive
+    // integer; tgSendTextMessage skips reply_to_message_id cleanly on
+    // undefined.
+    const safeReplyToId =
+      typeof messageId === "number" && messageId > 0 ? messageId : undefined;
     void tgSendTextMessage(token, {
       chatId: String(chatId),
       text: responseText,
       parseMode: "HTML",
-      replyToMessageId: Number(messageId),
+      replyToMessageId: safeReplyToId,
       disablePreview: true,
     }).catch((err) => {
       console.error(

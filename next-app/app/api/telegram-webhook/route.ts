@@ -23,9 +23,12 @@
 
 import { handleTelegramWebhook } from "../../../../server/_vercel/telegram-webhook";
 
-// Node runtime — keeps process.env access ergonomic and matches the
-// pattern used by the rest of the legacy webhook surface.
-export const runtime = "nodejs";
+// Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js,
+// so the bot feels instant from the user's perspective. `process.env`
+// access works the same in Edge (Next.js polyfills it), and every
+// dependency in the call graph below (`fetch`, `AbortSignal.timeout`,
+// `Buffer.from('base64')` is unused here, `Map`) is Edge-compatible.
+export const runtime = "edge";
 // Telegram delivers fresh updates and we never want a cached response.
 export const dynamic = "force-dynamic";
 

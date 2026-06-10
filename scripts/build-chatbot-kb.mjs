@@ -66,7 +66,7 @@ another plan is a separate decision.
 - Current audit on SolidityScan (QuickScan), public report:
   https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bscscan/mainnet
 - Ownership renounced on-chain (no admin function exists)
-- 100% LP locked via Unicrypt
+- 100% LP locked on-chain (verify on BscScan: https://bscscan.com/address/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb#tokentxns)
 - BscScan source verified
 - $100,000 bounty for anyone who can find a centralization risk
 
@@ -214,7 +214,21 @@ function parseFaqFile() {
     );
   }
 
-  const KB_CONTENT = sections.join("\n\n=====\n\n");
+  // ─── Post-process: scrub dead third-party references ─────────────
+  // 32+ blog posts in the DB reference Unicrypt as the LP-lock proof,
+  // written when Unicrypt was the active surface. Unicrypt has since
+  // rebranded to UNCX and dropped pair deep-linking — the LP is still
+  // locked, but the proof now lives on BscScan. Rather than rewrite
+  // every blog row in the DB (the source-of-truth surface for the
+  // blog page itself), we scrub the term out of the chatbot KB so the
+  // bot can never recommend a dead URL or stale platform name.
+  const rawKbContent = sections.join("\n\n=====\n\n");
+  const KB_CONTENT = rawKbContent
+    // Compound forms first ("PinkLock/Unicrypt", "via Unicrypt", etc.)
+    .replace(/PinkLock\/Unicrypt/gi, "BscScan")
+    .replace(/locked\s+(?:through|via|on|by)\s+Unicrypt/gi, "locked on-chain (verifiable on BscScan)")
+    // Then any remaining bare mentions.
+    .replace(/Unicrypt/gi, "BscScan");
   const KB_VERSION = crypto
     .createHash("sha256")
     .update(KB_CONTENT)

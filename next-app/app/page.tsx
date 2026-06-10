@@ -48,7 +48,7 @@ const TRUST_BADGES = [
   {
     icon: Lock,
     label: "100% LP Locked",
-    href: SECURITY.lpLockUnicrypt,
+    href: SECURITY.lpLockProof,
   },
   {
     icon: CheckCircle2,

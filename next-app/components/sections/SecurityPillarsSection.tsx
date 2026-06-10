@@ -25,10 +25,10 @@ const PILLARS = [
   {
     icon: Lock,
     title: "100% LP locked",
-    body: "Liquidity locked through Unicrypt — no rug pull mechanism is possible.",
-    proofLabel: "Verify lock",
+    body: "Liquidity locked on-chain — verified on BscScan.",
+    proofLabel: "Verify on BscScan",
     proofHref:
-      "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+      "https://bscscan.com/address/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb#tokentxns",
   },
   {
     icon: CheckCircle2,

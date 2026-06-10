@@ -167,7 +167,6 @@ const SITE_JSON_LD = {
         "https://t.me/TurboLoop_Official",
         "https://t.me/TurboLoop_Chat",
         "https://x.com/TurboLoop_io",
-        "https://twitter.com/TurboLoop_io",
         "https://www.youtube.com/@OfficialTurbo_Loop",
         "https://www.tiktok.com/@turboloop",
       ],

@@ -112,7 +112,7 @@ export const COMPARISONS: Comparison[] = [
       },
       {
         metric: "LP rug-pull mechanism",
-        turboloop: "100% locked via Unicrypt",
+        turboloop: "100% locked on-chain (verifiable on BscScan)",
         competitor: "Variable — many keep team withdrawal access",
         winner: "turboloop",
       },

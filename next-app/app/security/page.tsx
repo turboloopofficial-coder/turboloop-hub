@@ -66,11 +66,11 @@ const PILLARS: Pillar[] = [
   {
     icon: Lock,
     title: "100% liquidity locked",
-    body: "Every LP token from the seed liquidity is locked through Unicrypt — a third-party time-lock contract. The team cannot remove liquidity. There is no rug pull mechanism in the protocol.",
+    body: "Every LP token from the seed liquidity is permanently locked on-chain. The team cannot remove liquidity. There is no rug pull mechanism in the protocol — verify the LP pair's full transaction history on BscScan.",
     proofs: [
       {
-        label: "Verify on Unicrypt",
-        href: "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+        label: "Verify on BscScan",
+        href: "https://bscscan.com/address/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb#tokentxns",
       },
     ],
   },

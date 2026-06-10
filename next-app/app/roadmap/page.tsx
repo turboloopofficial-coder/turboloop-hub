@@ -46,7 +46,7 @@ const PHASES: Array<{
       "Smart contract deployed on Binance Smart Chain",
       "Independent audit by Haze Crypto completed",
       "Ownership renounced on-chain",
-      "100% LP locked through Unicrypt",
+      "100% LP locked on-chain — verified on BscScan",
       "$100K security bounty announced + funded",
       "TurboLoop hub site live (turboloop.tech)",
     ],

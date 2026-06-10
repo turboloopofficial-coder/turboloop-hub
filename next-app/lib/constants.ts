@@ -23,8 +23,13 @@ export const SECURITY = {
     "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d",
   bscScanCode:
     "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code",
-  lpLockUnicrypt:
-    "https://app.unicrypt.network/amm/pancake-v2/pair/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb",
+  // Points at BscScan's tokentxns view for the LP pair address. The
+  // raw on-chain record is the source of truth — no wallet connection,
+  // no third-party SPA, no rebrand can break the link. Renamed from
+  // the previous third-party-locker key after that surface dropped
+  // pair-level deep-linking in early 2026.
+  lpLockProof:
+    "https://bscscan.com/address/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb#tokentxns",
   renounceTx:
     "https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e",
 };

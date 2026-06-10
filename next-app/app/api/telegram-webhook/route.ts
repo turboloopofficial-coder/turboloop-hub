@@ -1,54 +1,43 @@
 // Next.js route adapter for the Telegram auto-reply webhook.
-// Build marker: 2026-06-10-slash-commands
+// Build marker: 2026-06-10-fix-waituntil
 //
 // Thin pass-through to the logic file at server/_vercel/telegram-webhook.ts.
 // All the actual work — secret verification, trigger matching, cooldown,
 // reply send — lives there so the same module can be unit-tested
 // without spinning up Next.js.
+//
+// History note: an earlier revision wrapped the handler in
+// waitUntil(@vercel/functions) so we could return 200 immediately and
+// process in the background. That package wasn't in next-app's own
+// package.json, so the Edge build silently dropped the dependency and
+// every reply went into the void. With the price cache (commit
+// 5da6fc7) the handler is fast enough (~400ms end-to-end) that
+// awaiting inline is simpler, more reliable, and well within
+// Telegram's 60s webhook timeout.
 
 import { handleTelegramWebhook } from "../../../../server/_vercel/telegram-webhook";
-import { waitUntil } from "@vercel/functions";
 
 // Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js.
 export const runtime = "edge";
 
 // Pin to the region closest to Telegram's servers (Frankfurt / Amsterdam).
-// This alone cuts 200-400ms off every reply by eliminating cross-continent
-// round-trips to api.telegram.org. Vercel picks the first reachable region
-// from the list — falling back to the next if Frankfurt is overloaded.
+// Cuts 200-400ms off every reply by eliminating cross-continent round-trips
+// to api.telegram.org. Vercel walks the list in order — if Frankfurt is
+// overloaded it falls back to Amsterdam transparently.
 export const preferredRegion = ["fra1", "ams1"];
 
 // Telegram delivers fresh updates and we never want a cached response.
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  // Return 200 OK IMMEDIATELY so Telegram's 60s webhook timeout clock
-  // stops the moment we receive the update. Then process the body +
-  // send the reply in the background via waitUntil, which keeps the
-  // Edge runtime alive until the promise settles.
-  //
-  // We clone the request because handleTelegramWebhook reads req.json()
-  // and the original Request is consumed once we return.
-  //
-  // This pattern fixes two visible bugs:
-  //   1. Slow static-trigger replies — the user no longer waits for the
-  //      Telegram round-trip before the function's response is flushed.
-  //   2. Duplicate replies — Telegram would retry the webhook delivery
-  //      when our previous void-IIFE pattern flushed the Response
-  //      mid-flight; with waitUntil the platform guarantees the work
-  //      finishes, so retries never fire.
-  const cloned = req.clone();
-  const responsePromise = handleTelegramWebhook(cloned);
-  waitUntil(responsePromise);
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  // Directly await the handler. The price is cached in site_settings
+  // (refreshed every ~5 min by cron-master), so fetchLivePrice() takes
+  // ~10ms instead of 3-5s. Total handler time is ~400ms — well within
+  // Telegram's 60s webhook timeout. No need for waitUntil.
+  return handleTelegramWebhook(req);
 }
 
-// GET handler for health-checks — useful when setting up the webhook
-// or debugging via curl. Returns a tiny JSON heartbeat without
-// touching the auto-reply logic. NOT used by Telegram.
+// GET handler for health-checks and diagnostics.
 //
 // Special diagnostic: GET ?debug=env reports presence + length of the
 // TELEGRAM_* env vars the route depends on, plus the names of any
@@ -76,10 +65,7 @@ export async function GET(req: Request) {
         node_env: process.env.NODE_ENV ?? null,
         vercel_env: process.env.VERCEL_ENV ?? null,
       }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   }
   return new Response(
@@ -88,9 +74,6 @@ export async function GET(req: Request) {
       service: "telegram-auto-reply-webhook",
       hint: "POST your Telegram updates here. GET is a heartbeat.",
     }),
-    {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    }
+    { status: 200, headers: { "Content-Type": "application/json" } }
   );
 }

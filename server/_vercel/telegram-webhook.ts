@@ -60,10 +60,7 @@ async function fetchLivePrice(): Promise<string> {
     const change = typeof d.priceChange24h === "number"
       ? ` (${d.priceChange24h >= 0 ? "+" : ""}${(d.priceChange24h * 100).toFixed(2)}% 24h)`
       : "";
-    const vol = typeof d.volume24h === "number"
-      ? `\n📊 <b>24h Volume:</b> $${Math.round(d.volume24h).toLocaleString()}`
-      : "";
-    return `${price}${change}${vol}`;
+    return `${price}${change}`;
   } catch {
     return "unavailable";
   }
@@ -108,27 +105,20 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   {
     id: "buy",
     pattern: /\b(buy|purchase|how\s+to\s+buy|where\s+to\s+buy|swap)\b/i,
-    response:
-`You can buy $TURBO on our TurboSwap:
-
-🔹 <b>Buy $TURBO:</b> https://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO
-
-Or trade on PancakeSwap:
-🔹 <b>PancakeSwap:</b> https://pancakeswap.finance/swap?outputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3
-
-Make sure you're on the BNB Smart Chain (BSC) network!`,
+    response: null,
+    buildResponse: async () => {
+      const priceInfo = await fetchLivePrice();
+      return `🛒 <b>How to Buy $TURBO</b>\n\n💰 <b>Current Price:</b> ${priceInfo}\n\n🔹 <b>TurboSwap (Recommended):</b>\nhttps://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO\n\n🔹 <b>PancakeSwap:</b>\nhttps://pancakeswap.finance/swap?outputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3\n\n⚠️ Make sure you're on the <b>BNB Smart Chain (BSC)</b> network!`;
+    },
   },
   {
     id: "sell",
     pattern: /\b(sell|dump|exit|cash\s+out)\b/i,
-    response:
-`You can sell $TURBO on our TurboSwap:
-
-🔹 <b>Sell $TURBO:</b> https://turboloop.io/dashboard/swap?from=TURBO&amp;to=USDT
-
-Or trade on PancakeSwap:
-🔹 <b>PancakeSwap:</b> https://pancakeswap.finance/swap?inputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3
-`,
+    response: null,
+    buildResponse: async () => {
+      const priceInfo = await fetchLivePrice();
+      return `💱 <b>How to Sell $TURBO</b>\n\n💰 <b>Current Price:</b> ${priceInfo}\n\n🔹 <b>TurboSwap (Recommended):</b>\nhttps://turboloop.io/dashboard/swap?from=TURBO&amp;to=USDT\n\n🔹 <b>PancakeSwap:</b>\nhttps://pancakeswap.finance/swap?inputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3\n\n⚠️ Make sure you're on the <b>BNB Smart Chain (BSC)</b> network!`;
+    },
   },
   {
     id: "price",
@@ -210,17 +200,11 @@ Need more help? Ask in the group or contact support!`,
     // immediately before the `$`, which is the OPPOSITE of what we
     // want. Use explicit non-word lookbehind/lookahead instead.
     pattern: /(?<![\w$])\$turbo(?![\w])|\b(turbo\s*token|token|reward\s+token)\b/i,
-    response:
-`About $TURBO Token:
-
-🔹 <b>Contract:</b> <code>0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3</code>
-🔹 <b>Network:</b> BNB Smart Chain (BSC)
-🔹 <b>Buy Tax:</b> 1% | <b>Sell Tax:</b> 2%
-🔹 <b>Daily Burn:</b> 2 PM UTC (Automated)
-🔹 <b>Reward:</b> Earn as monthly reward in 30/60-day plans
-
-📊 <b>Chart:</b> https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759
-🔗 <b>Buy:</b> https://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO`,
+    response: null,
+    buildResponse: async () => {
+      const priceInfo = await fetchLivePrice();
+      return `⚡ <b>$TURBO Token</b>\n\n💰 <b>Live Price:</b> ${priceInfo}\n\n🔹 <b>Contract:</b> <code>0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3</code>\n🔹 <b>Network:</b> BNB Smart Chain (BSC)\n🔹 <b>Buy Tax:</b> 1% | <b>Sell Tax:</b> 2%\n🔹 <b>Daily Burn:</b> 2 PM UTC (Automated)\n🔹 <b>Reward:</b> Bonus on top of fixed yield (30/60-day plans)\n\n📊 <b>Chart:</b> https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759\n🔗 <b>Buy:</b> https://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO`;
+    },
   },
   {
     id: "deposit",
@@ -328,6 +312,21 @@ Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
 ❌ <b>NEVER send funds to unknown addresses</b>
 
 All official links are verified above. Stay safe!`,
+  },
+  {
+    id: "support",
+    pattern: /\b(support|admin|owner|help|contact|complaint|issue|problem|stuck|not\s+working)\b/i,
+    response:
+`Need help? Our support team is here:
+
+🆘 <b>Support Channel:</b> https://t.me/TurboLoop_Official
+💬 <b>Community Chat:</b> https://t.me/TurboLoop_Chat
+
+📌 <b>Before contacting support, check:</b>
+🔹 <b>FAQ:</b> https://turboloop.tech/faq
+🔹 <b>Roadmap:</b> https://turboloop.tech/roadmap
+
+Our team responds daily. Please include your wallet address and a description of the issue.`,
   },
 ];
 

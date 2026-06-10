@@ -44,10 +44,38 @@ import { tgSendTextMessage, tgEscape } from "./_telegram";
 // `\b\$` doesn't work cleanly, so that trigger uses an explicit
 // non-word lookahead.
 
+// ─── Live token price fetcher ────────────────────────────────────
+// Called at reply time for the price trigger so the user always
+// gets the current price, not a stale value baked in at deploy.
+async function fetchLivePrice(): Promise<string> {
+  try {
+    const r = await fetch("https://www.turboloop.tech/api/token-price", {
+      signal: AbortSignal.timeout(4000),
+      cache: "no-store",
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d: any = await r.json();
+    if (!d?.fresh || d.priceUsd === null) return "unavailable";
+    const price = `$${Number(d.priceUsd).toFixed(6)}`;
+    const change = typeof d.priceChange24h === "number"
+      ? ` (${d.priceChange24h >= 0 ? "+" : ""}${(d.priceChange24h * 100).toFixed(2)}% 24h)`
+      : "";
+    const vol = typeof d.volume24h === "number"
+      ? `\n📊 <b>24h Volume:</b> $${Math.round(d.volume24h).toLocaleString()}`
+      : "";
+    return `${price}${change}${vol}`;
+  } catch {
+    return "unavailable";
+  }
+}
+
 interface Trigger {
   id: string;
   pattern: RegExp;
-  response: string;
+  /** Static response text, OR null if the trigger uses buildResponse() */
+  response: string | null;
+  /** Optional dynamic response builder — called at send time */
+  buildResponse?: () => Promise<string>;
 }
 
 const TRIGGERS: Trigger[] = [
@@ -105,12 +133,11 @@ Or trade on PancakeSwap:
   {
     id: "price",
     pattern: /\b(price|chart|dex|dexscreener|market)\b/i,
-    response:
-`Check the live $TURBO price and chart:
-
-🔹 <b>Dexscreener:</b> https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759
-
-Real-time data, volume, liquidity, and holder info all available!`,
+    response: null,
+    buildResponse: async () => {
+      const priceInfo = await fetchLivePrice();
+      return `💰 <b>$TURBO Live Price</b>\n\n🔹 <b>Price:</b> ${priceInfo}\n\n📈 <b>Chart:</b> https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759\n🔗 <b>Buy:</b> https://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO`;
+    },
   },
   {
     id: "plans",
@@ -241,13 +268,19 @@ This ensures $TURBO becomes increasingly scarce over time, supporting price appr
     id: "zoom",
     pattern: /\b(zoom|session|webinar|live|call|meeting)\b/i,
     response:
-`Daily Zoom Technical Sessions:
+`Daily Zoom Community Calls:
 
-📅 <b>Time:</b> 5:00 PM UTC (Daily)
-📍 <b>Topics:</b> Protocol mechanics, live data, Q&amp;A
-🎥 <b>Link:</b> Shared in Telegram pinned messages
+🇬🇧 <b>English Call</b>
+📅 5:00 PM UTC daily
+🔗 https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1
+🔑 Passcode: <code>669529</code>
 
-Join to learn how the protocol works and ask the team directly!`,
+🇮🇳 <b>Hindi / Urdu Call</b>
+📅 🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST
+🔗 https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1
+🔑 Passcode: <code>1234</code>
+
+Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
   },
   {
     id: "scam",
@@ -412,9 +445,14 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
     // 200 to Telegram — the response is what tells Telegram the
     // webhook was accepted. A slow sendMessage would otherwise eat
     // into Telegram's 60s webhook timeout and trigger spurious retries.
+    // Build the response text — static for most triggers, dynamic for price.
+    const responseText = trigger.buildResponse
+      ? await trigger.buildResponse()
+      : (trigger.response ?? "");
+
     void tgSendTextMessage(token, {
       chatId: String(chatId),
-      text: trigger.response,
+      text: responseText,
       parseMode: "HTML",
       replyToMessageId: Number(messageId),
       disablePreview: true,

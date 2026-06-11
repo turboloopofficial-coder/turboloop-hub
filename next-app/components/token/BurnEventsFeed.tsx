@@ -18,7 +18,80 @@
 //   - Truncated tx hash + BscScan link
 
 import { useEffect, useState } from "react";
-import { Flame, ExternalLink } from "lucide-react";
+import { Flame, ExternalLink, Timer } from "lucide-react";
+
+// ─── Burn Countdown ──────────────────────────────────────────────
+// Daily burn fires at 14:00:00 UTC. Counts down to the next one.
+function getSecondsUntilNextBurn(): number {
+  const now = new Date();
+  const next = new Date();
+  next.setUTCHours(14, 0, 0, 0);
+  if (next.getTime() <= now.getTime()) {
+    next.setUTCDate(next.getUTCDate() + 1);
+  }
+  return Math.max(0, Math.floor((next.getTime() - now.getTime()) / 1000));
+}
+
+function formatCountdown(secs: number): string {
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  const s = secs % 60;
+  return [
+    String(h).padStart(2, "0"),
+    String(m).padStart(2, "0"),
+    String(s).padStart(2, "0"),
+  ].join(":");
+}
+
+function BurnCountdown() {
+  const [secs, setSecs] = useState<number | null>(null);
+
+  useEffect(() => {
+    setSecs(getSecondsUntilNextBurn());
+    const id = window.setInterval(() => {
+      setSecs(getSecondsUntilNextBurn());
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const isFiring = secs !== null && secs < 60;
+
+  return (
+    <div
+      className={`flex items-center justify-between gap-3 mb-4 px-3 py-2.5 rounded-lg border ${
+        isFiring
+          ? "border-orange-500/60 bg-orange-500/10 animate-pulse"
+          : "border-[var(--c-border)] bg-[var(--c-bg)]"
+      }`}
+    >
+      <div className="flex items-center gap-2">
+        <Timer
+          className={`w-3.5 h-3.5 shrink-0 ${
+            isFiring ? "text-orange-400" : "text-[var(--c-text-muted)]"
+          }`}
+          aria-hidden="true"
+        />
+        <span className="text-xs text-[var(--c-text-muted)]">
+          {isFiring ? "🔥 Burn executing…" : "Next burn in"}
+        </span>
+      </div>
+      {secs === null ? (
+        <div className="h-3 w-16 rounded bg-[var(--c-border)] animate-pulse" />
+      ) : isFiring ? (
+        <span className="text-xs font-bold text-orange-400 font-mono tabular-nums">
+          any moment
+        </span>
+      ) : (
+        <span
+          className="text-sm font-bold font-mono tabular-nums"
+          style={{ color: "#f59e0b" }}
+        >
+          {formatCountdown(secs)}
+        </span>
+      )}
+    </div>
+  );
+}
 
 interface BurnEvent {
   hash: string;
@@ -140,6 +213,9 @@ export function BurnEventsFeed() {
           <ExternalLink className="w-3 h-3" aria-hidden="true" />
         </a>
       </div>
+
+      {/* Countdown to next burn */}
+      <BurnCountdown />
 
       {/* Body */}
       {!loaded ? (

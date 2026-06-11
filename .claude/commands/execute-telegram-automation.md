@@ -146,17 +146,7 @@ Before touching any code, read the following files to understand the current sta
 
 **File to edit:** `server/_vercel/telegram-webhook.ts`
 
-**Step 1:** Add the rate-limit map at the top of the file (after the imports, before `TRIGGERS`):
-
-```typescript
-// Per-user rate limit for /ask — 1 response per 60 seconds.
-// In-memory Map is fine for Edge: each invocation is stateless,
-// so this only prevents rapid-fire within a single request burst.
-const ASK_COOLDOWN_MS = 60_000;
-const askLastFired = new Map<number, number>();
-```
-
-**Step 2:** Add the `buildAskResponse` helper function (after `fetchLivePrice`, before `TRIGGERS`):
+**Step 1:** Add the `buildAskResponse` helper function (after `fetchLivePrice`, before `TRIGGERS`):
 
 ```typescript
 async function buildAskResponse(question: string): Promise<string> {
@@ -195,13 +185,13 @@ async function buildAskResponse(question: string): Promise<string> {
 }
 ```
 
-**Step 3:** Add the import at the top of `telegram-webhook.ts` (after existing imports):
+**Step 2 (renumbered):** Add the import at the top of `telegram-webhook.ts` (after existing imports):
 
 ```typescript
 import { KB_CONTENT, KB_VERSION } from "../../lib/chatbot-kb";
 ```
 
-**Step 4:** Add the `/ask` trigger to the `TRIGGERS` array:
+**Step 3 (renumbered):** Add the `/ask` trigger to the `TRIGGERS` array:
 
 ```typescript
 {
@@ -216,24 +206,11 @@ import { KB_CONTENT, KB_VERSION } from "../../lib/chatbot-kb";
 },
 ```
 
-**Step 5:** In the main handler, add the per-user rate limit check for the `ask` trigger. Find the block that calls `isOnCooldown` and add this BEFORE the existing cooldown check:
+**Step 4 (renumbered) — IMPORTANT — Remove all existing cooldowns:**
 
-```typescript
-// Extra rate limit for /ask — prevent API abuse
-if (trigger.id === "ask") {
-  const userId = msg.from?.id;
-  if (userId !== undefined) {
-    const last = askLastFired.get(userId) ?? 0;
-    if (now - last < ASK_COOLDOWN_MS) {
-      return new Response(
-        JSON.stringify({ ok: true, matched: "ask", skipped: "ask-cooldown" }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      );
-    }
-    askLastFired.set(userId, now);
-  }
-}
-```
+Search `telegram-webhook.ts` for any `isOnCooldown`, `cooldown`, `COOLDOWN`, `lastFired`, `throttle`, or `rateLimit` logic that applies to individual message replies or triggers. **Remove all of it.** Every user message that matches a trigger must always get a reply — no delays, no skipping, no per-user throttling. The bot must respond to every single matching message in the group.
+
+The only acceptable "skip" is the existing global dedup that prevents the same trigger from firing twice in the same second for the exact same `update_id` (Telegram's own dedup). Do not remove that.
 
 **After editing:**
 1. Copy to mirror: `cp server/_vercel/telegram-webhook.ts next-app/server/_vercel/telegram-webhook.ts`

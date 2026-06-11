@@ -38,6 +38,94 @@ import { tgSendTextMessage, tgEscape } from "./_telegram";
 // from the same source of truth.
 import { KB_CONTENT, KB_VERSION } from "@lib/chatbot-kb";
 
+// ─── Long-reply chunking + threading ─────────────────────────────
+//
+// Telegram caps individual messages at 4 096 characters and we want
+// long /ask answers to read as a clean thread instead of a single
+// truncated bubble. splitIntoChunks finds natural paragraph
+// boundaries (\n\n first, then \n, then a hard cut that respects HTML
+// tags). sendThreadedReply chains the chunks so each one replies to
+// the previous, producing a coherent quote bubble cascade.
+
+/** Split a long Telegram HTML string into chunks of at most `maxLen`
+ *  characters. Prefers paragraph breaks; falls back to single
+ *  newlines; only as a last resort cuts at the hard limit (and never
+ *  inside an HTML tag). Returns a 1-element array for short input. */
+function splitIntoChunks(text: string, maxLen = 3800): string[] {
+  if (text.length <= maxLen) return [text];
+
+  const chunks: string[] = [];
+  let remaining = text;
+
+  while (remaining.length > maxLen) {
+    // Try to split at a paragraph break (double newline) within the limit.
+    let splitAt = remaining.lastIndexOf("\n\n", maxLen);
+    if (splitAt < maxLen * 0.4) {
+      // Paragraph break too early — try single newline.
+      splitAt = remaining.lastIndexOf("\n", maxLen);
+    }
+    if (splitAt < maxLen * 0.4) {
+      // No good newline — hard split at maxLen, but back up past any
+      // open HTML tag so the chunk doesn't ship malformed markup.
+      splitAt = maxLen;
+      const tagStart = remaining.lastIndexOf("<", splitAt);
+      const tagEnd = remaining.lastIndexOf(">", splitAt);
+      if (tagStart > tagEnd) splitAt = tagStart;
+    }
+    chunks.push(remaining.slice(0, splitAt).trimEnd());
+    remaining = remaining.slice(splitAt).trimStart();
+  }
+
+  if (remaining.length > 0) chunks.push(remaining);
+  return chunks;
+}
+
+/** Send a (potentially long) response as a threaded sequence of
+ *  messages.
+ *   • Chunk 1 → replies to `replyToMessageId` (the user's message)
+ *   • Chunk N → replies to chunk N-1's message_id
+ *  Returns true if every chunk lands successfully. The "(continued
+ *  N/M)" header on chunks 2+ keeps the thread legible when a reader
+ *  scrolls past the first bubble. */
+async function sendThreadedReply(
+  token: string,
+  chatId: string,
+  text: string,
+  replyToMessageId: number | undefined
+): Promise<boolean> {
+  const chunks = splitIntoChunks(text);
+  let currentReplyId = replyToMessageId;
+
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const chunkText =
+      chunks.length > 1 && i > 0
+        ? `<i>(continued ${i + 1}/${chunks.length})</i>\n\n${chunk}`
+        : chunk;
+
+    const result = await tgSendTextMessage(token, {
+      chatId,
+      text: chunkText,
+      parseMode: "HTML",
+      replyToMessageId: currentReplyId,
+      disablePreview: true,
+    });
+
+    if (!result.ok) {
+      console.error(
+        `[telegram-webhook] sendThreadedReply chunk ${i + 1}/${chunks.length} failed:`,
+        result.error
+      );
+      return false;
+    }
+
+    // Next chunk replies to this chunk's message_id, threading the cascade.
+    currentReplyId = result.messageId;
+  }
+
+  return true;
+}
+
 // Per-user rate limit for /ask — 1 response per 60 seconds.
 // In-memory Map is fine for Edge: each invocation is stateless, so
 // this only prevents rapid-fire bursts within a single warm instance.
@@ -825,13 +913,12 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
       const responseText = trigger.buildResponse
         ? await trigger.buildResponse(text)
         : (trigger.response ?? "");
-      await tgSendTextMessage(token, {
-        chatId: String(chatId),
-        text: responseText,
-        parseMode: "HTML",
-        replyToMessageId: safeReplyToId,
-        disablePreview: true,
-      });
+      // sendThreadedReply handles BOTH short (single-bubble) and long
+      // (multi-bubble cascade) responses uniformly. Triggers like /ca
+      // that return a tight HTML snippet still ship as one message
+      // because splitIntoChunks returns a one-element array under the
+      // 3800-char threshold.
+      await sendThreadedReply(token, String(chatId), responseText, safeReplyToId);
     } catch (err) {
       console.error(
         `[telegram-webhook] failed to send reply for trigger=${trigger.id}`,

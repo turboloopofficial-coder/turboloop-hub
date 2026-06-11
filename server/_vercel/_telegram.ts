@@ -97,7 +97,7 @@ export async function tgSendVideo(token: string, msg: TgVideoMessage): Promise<{
 export async function tgSendTextMessage(
   token: string,
   msg: TgTextMessage & { replyToMessageId?: number }
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; messageId?: number; error?: string }> {
   const body: any = {
     chat_id: msg.chatId,
     text: msg.text,
@@ -122,7 +122,10 @@ export async function tgSendTextMessage(
     });
     const data: any = await r.json();
     if (!data?.ok) return { ok: false, error: data?.description || `HTTP ${r.status}` };
-    return { ok: true };
+    // Surface the sent message_id so callers can chain replies — used
+    // by sendThreadedReply in telegram-webhook.ts to thread long /ask
+    // answers across multiple bubbles.
+    return { ok: true, messageId: data?.result?.message_id };
   } catch (err: any) {
     return { ok: false, error: String(err?.message || err) };
   }

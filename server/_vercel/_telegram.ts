@@ -36,20 +36,23 @@ function inlineKeyboard(buttons?: Array<{ text: string; url: string }>) {
 }
 
 export async function tgSendPhoto(token: string, msg: TgPhotoMessage): Promise<{ ok: boolean; error?: string }> {
-  const body: any = {
-    chat_id: msg.chatId,
-    photo: msg.photoUrl,
-    caption: msg.caption,
-    parse_mode: msg.parseMode || "HTML",
-  };
   const kb = inlineKeyboard(msg.buttons);
-  if (kb) body.reply_markup = kb;
-
   try {
+    // Fetch the image binary from R2/CDN and upload as multipart/form-data.
+    // This avoids Telegram's own URL-fetch path which rejects certain CDN
+    // responses with "wrong type of web page content".
+    const imgRes = await fetch(msg.photoUrl, { signal: AbortSignal.timeout(20000) });
+    if (!imgRes.ok) throw new Error(`Image fetch failed: ${imgRes.status} ${msg.photoUrl}`);
+    const imgBuf = await imgRes.arrayBuffer();
+    const form = new FormData();
+    form.append("chat_id", msg.chatId);
+    form.append("caption", msg.caption);
+    form.append("parse_mode", msg.parseMode || "HTML");
+    if (kb) form.append("reply_markup", JSON.stringify(kb));
+    form.append("photo", new Blob([imgBuf], { type: "image/png" }), "photo.png");
     const r = await fetch(`${TG_API}${token}/sendPhoto`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: form,
     });
     const data: any = await r.json();
     if (!data?.ok) return { ok: false, error: data?.description || `HTTP ${r.status}` };

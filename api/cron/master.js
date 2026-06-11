@@ -58558,19 +58558,20 @@ function inlineKeyboard(buttons) {
   return { inline_keyboard: [buttons.map((b5) => ({ text: b5.text, url: b5.url }))] };
 }
 async function tgSendPhoto(token, msg) {
-  const body = {
-    chat_id: msg.chatId,
-    photo: msg.photoUrl,
-    caption: msg.caption,
-    parse_mode: msg.parseMode || "HTML"
-  };
   const kb = inlineKeyboard(msg.buttons);
-  if (kb) body.reply_markup = kb;
   try {
+    const imgRes = await fetch(msg.photoUrl, { signal: AbortSignal.timeout(2e4) });
+    if (!imgRes.ok) throw new Error(`Image fetch failed: ${imgRes.status} ${msg.photoUrl}`);
+    const imgBuf = await imgRes.arrayBuffer();
+    const form = new FormData();
+    form.append("chat_id", msg.chatId);
+    form.append("caption", msg.caption);
+    form.append("parse_mode", msg.parseMode || "HTML");
+    if (kb) form.append("reply_markup", JSON.stringify(kb));
+    form.append("photo", new Blob([imgBuf], { type: "image/png" }), "photo.png");
     const r5 = await fetch(`${TG_API}${token}/sendPhoto`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
+      body: form
     });
     const data2 = await r5.json();
     if (!data2?.ok) return { ok: false, error: data2?.description || `HTTP ${r5.status}` };

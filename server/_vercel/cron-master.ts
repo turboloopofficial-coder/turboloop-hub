@@ -539,6 +539,55 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return;
     }
 
+    // ─── Debug: ?uploadbanner=<name> fetches a public image and puts it into R2 ──
+    // Usage: ?uploadbanner=social-wall&src=https://...url-to-png...
+    // Puts the file at hub-promo/hub-promo-<name>.png with immutable cache.
+    const uploadBannerName = reqUrlDebug.searchParams.get("uploadbanner");
+    if (uploadBannerName) {
+      const srcUrl = reqUrlDebug.searchParams.get("src");
+      if (!srcUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Missing ?src= param" }));
+        return;
+      }
+      try {
+        const { S3Client, PutObjectCommand } = await import("@aws-sdk/client-s3");
+        const r2Endpoint = process.env.R2_ENDPOINT;
+        const r2Key = process.env.R2_ACCESS_KEY_ID;
+        const r2Secret = process.env.R2_SECRET_ACCESS_KEY;
+        const r2Bucket = process.env.R2_BUCKET_NAME;
+        const r2Public = process.env.R2_PUBLIC_URL;
+        if (!r2Endpoint || !r2Key || !r2Secret || !r2Bucket) {
+          res.statusCode = 500;
+          res.end(JSON.stringify({ ok: false, error: "R2 env vars not set" }));
+          return;
+        }
+        const imgRes = await fetch(srcUrl, { signal: AbortSignal.timeout(30000) });
+        if (!imgRes.ok) throw new Error(`Fetch failed: ${imgRes.status}`);
+        const imgBuf = Buffer.from(await imgRes.arrayBuffer());
+        const s3 = new S3Client({
+          region: "auto",
+          endpoint: r2Endpoint,
+          credentials: { accessKeyId: r2Key, secretAccessKey: r2Secret },
+        });
+        const r2ObjectKey = `hub-promo/hub-promo-${uploadBannerName}.png`;
+        await s3.send(new PutObjectCommand({
+          Bucket: r2Bucket,
+          Key: r2ObjectKey,
+          Body: imgBuf,
+          ContentType: "image/png",
+          CacheControl: "public, max-age=31536000, immutable",
+        }));
+        const publicUrl = `${r2Public}/${r2ObjectKey}`;
+        res.statusCode = 200;
+        res.end(JSON.stringify({ ok: true, key: r2ObjectKey, url: publicUrl, bytes: imgBuf.length }));
+      } catch (err: any) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({ ok: false, error: err?.message ?? String(err) }));
+      }
+      return;
+    }
+
     // ─── Price cache refresh (runs every cron tick) ──────────────
     // Pulls fresh DexScreener data via our own /api/token-price proxy
     // and writes it into site_settings under `cache:token_price`. The

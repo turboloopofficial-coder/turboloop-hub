@@ -1,6 +1,7 @@
 // Telegram bot helper — used by all server-side automation.
-// Reads TELEGRAM_BOT_TOKEN from env. Sends to TELEGRAM_CHANNEL + TELEGRAM_CHAT
-// (both should be public usernames like @TurboLoop_Official).
+// Reads TELEGRAM_BOT_TOKEN from env. Broadcast functions send to TELEGRAM_CHANNEL
+// only — the channel's native auto-forward delivers to the linked group.
+// (TELEGRAM_CHAT is kept in env for the webhook's direct-reply path only.)
 
 const TG_API = "https://api.telegram.org/bot";
 

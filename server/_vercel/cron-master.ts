@@ -504,7 +504,42 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return;
     }
 
-    // ─── Price cache refresh (runs every cron tick) ──────────────────
+    // ─── Debug: ?setcommands=1 registers all bot commands with Telegram ──────
+    if (reqUrlDebug.searchParams.get("setcommands") === "1") {
+      const botToken = process.env.TELEGRAM_BOT_TOKEN;
+      if (!botToken) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({ ok: false, error: "TELEGRAM_BOT_TOKEN not set" }));
+        return;
+      }
+      const commands = [
+        { command: "ask",        description: "Ask the AI anything about TurboLoop" },
+        { command: "price",      description: "Live $TURBO price" },
+        { command: "burns",      description: "Latest buyback & burn data" },
+        { command: "stats",      description: "Live protocol stats" },
+        { command: "top",        description: "Global community leaderboard" },
+        { command: "plans",      description: "All 4 Loop Plans overview" },
+        { command: "referral",   description: "20-level referral system" },
+        { command: "payout",     description: "Payout schedule & timing" },
+        { command: "calculator", description: "Yield calculator link" },
+        { command: "zoom",       description: "Next Zoom session info" },
+        { command: "contract",   description: "Smart contract address" },
+      ];
+      const tgRes = await fetch(
+        `https://api.telegram.org/bot${botToken}/setMyCommands`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ commands }),
+        }
+      );
+      const tgData = await tgRes.json();
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, telegram: tgData, registered: commands.map(c => c.command) }));
+      return;
+    }
+
+    // ─── Price cache refresh (runs every cron tick) ──────────────
     // Pulls fresh DexScreener data via our own /api/token-price proxy
     // and writes it into site_settings under `cache:token_price`. The
     // Telegram auto-reply webhook reads this row instead of hitting

@@ -13863,6 +13863,68 @@ var init_schema2 = __esm({
   }
 });
 
+// shared/zoomEvents.ts
+var zoomEvents_exports = {};
+__export(zoomEvents_exports, {
+  ZOOM_EN: () => ZOOM_EN,
+  ZOOM_HI: () => ZOOM_HI,
+  ZOOM_SESSIONS: () => ZOOM_SESSIONS,
+  ZOOM_URL_PATTERN: () => ZOOM_URL_PATTERN,
+  nextZoomOccurrence: () => nextZoomOccurrence
+});
+function nextZoomOccurrence(session, now = /* @__PURE__ */ new Date()) {
+  const ms2 = now.getTime();
+  const todayStart = Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate()
+  );
+  const todayCallStart = todayStart + session.startUtcMin * 6e4;
+  const todayCallEnd = todayCallStart + session.durationMin * 6e4;
+  if (ms2 >= todayCallStart && ms2 < todayCallEnd) {
+    return new Date(todayCallStart);
+  }
+  if (ms2 >= todayCallEnd) {
+    return new Date(todayCallStart + 24 * 60 * 6e4);
+  }
+  return new Date(todayCallStart);
+}
+var ZOOM_EN, ZOOM_HI, ZOOM_SESSIONS, ZOOM_URL_PATTERN;
+var init_zoomEvents = __esm({
+  "shared/zoomEvents.ts"() {
+    "use strict";
+    ZOOM_EN = {
+      lang: "en",
+      title: "Daily English Community Call",
+      description: "Every day. Bring your questions. Real people, real answers \u2014 no pitch, no pressure.",
+      link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+      passcode: "552740",
+      // 17:00 UTC mapped across all active TurboLoop communities.
+      // Flag prefixes let mobile readers scan their own row instantly.
+      timeLabel: "\u{1F554} 5:00 PM UTC\n\u{1F1EE}\u{1F1F3} 10:30 PM IST \xB7 \u{1F1F5}\u{1F1F0} 10:00 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 11:00 PM BST \xB7 \u{1F1F3}\u{1F1F5} 10:45 PM NPT\n\u{1F1E6}\u{1F1EA} 9:00 PM GST \xB7 \u{1F1F8}\u{1F1E6} 8:00 PM AST \xB7 \u{1F1F9}\u{1F1F7} 8:00 PM TRT \xB7 \u{1F1F7}\u{1F1FA} 8:00 PM MSK\n\u{1F1F3}\u{1F1EC} 6:00 PM WAT \xB7 \u{1F1EC}\u{1F1ED} 5:00 PM GMT \xB7 \u{1F1FF}\u{1F1E6} 7:00 PM SAST \xB7 \u{1F1F0}\u{1F1EA} 8:00 PM EAT\n\u{1F1EC}\u{1F1E7} 5:00 PM BST \xB7 \u{1F1E9}\u{1F1EA} 7:00 PM CEST \xB7 \u{1F1EB}\u{1F1F7} 7:00 PM CEST\n\u{1F1FA}\u{1F1F8} 1:00 PM EDT \xB7 \u{1F1FA}\u{1F1F8} 10:00 AM PDT \xB7 \u{1F1E7}\u{1F1F7} 2:00 PM BRT \xB7 \u{1F1E6}\u{1F1FA} 3:00 AM AEST+1",
+      startUtcMin: 17 * 60,
+      // 17:00 UTC
+      durationMin: 120
+    };
+    ZOOM_HI = {
+      lang: "hi",
+      title: "Daily Hindi / Urdu Call",
+      description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902. India \u{1F1EE}\u{1F1F3} \xB7 Pakistan \u{1F1F5}\u{1F1F0} \xB7 Bangladesh \u{1F1E7}\u{1F1E9} \xB7 Nepal \u{1F1F3}\u{1F1F5} \xB7 Dubai \u{1F1E6}\u{1F1EA}",
+      link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
+      passcode: "1234",
+      // 15:30 UTC mapped per region — same moment in time, different
+      // local clocks. The flag prefixes let mobile readers scan their
+      // own row at a glance without reading the whole line.
+      timeLabel: "\u{1F1EE}\u{1F1F3} 9:00 PM IST \xB7 \u{1F1F5}\u{1F1F0} 8:30 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 9:30 PM BST \xB7 \u{1F1F3}\u{1F1F5} 9:15 PM NPT \xB7 \u{1F1E6}\u{1F1EA} 7:30 PM GST",
+      startUtcMin: 15 * 60 + 30,
+      // 15:30 UTC = 9:00 PM IST
+      durationMin: 120
+    };
+    ZOOM_SESSIONS = [ZOOM_EN, ZOOM_HI];
+    ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
+  }
+});
+
 // node_modules/cron-parser/dist/fields/types.js
 var require_types = __commonJS({
   "node_modules/cron-parser/dist/fields/types.js"(exports2) {
@@ -58940,11 +59002,16 @@ var POOLS = {
 };
 function zoomReminderCaption(opts) {
   const body = pickByDay(POOLS[opts.lang]);
-  return `${body}
+  const startsIn = opts.minutesUntil != null && opts.minutesUntil > 0 ? `
+\u23F3 <b>Starts in ~${opts.minutesUntil} minutes</b>` : ``;
+  const timezoneBlock = opts.timeLabel.split("\n").map((line2) => tgEscape(line2)).join("\n");
+  return `${body}${startsIn}
 
 \u{1F517} ${tgEscape(opts.meetingLink)}
 \u{1F510} Passcode: <code>${tgEscape(opts.passcode)}</code>
-\u23F0 ${tgEscape(opts.timeLabel)}`;
+
+<b>\u23F0 When is this for you?</b>
+${timezoneBlock}`;
 }
 var R2_BASE_FOR_CINEMATIC = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 var CINEMATIC_FILMS = [
@@ -59940,35 +60007,8 @@ async function getSetting(key) {
   return result[0]?.settingValue;
 }
 
-// shared/zoomEvents.ts
-var ZOOM_EN = {
-  lang: "en",
-  title: "Daily English Community Call",
-  description: "Every day. Bring your questions. Real people, real answers \u2014 no pitch, no pressure.",
-  link: "https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1",
-  passcode: "669529",
-  timeLabel: "5:00 PM UTC daily",
-  startUtcMin: 17 * 60,
-  // 17:00 UTC
-  durationMin: 120
-};
-var ZOOM_HI = {
-  lang: "hi",
-  title: "Daily Hindi / Urdu Call",
-  description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902. India \u{1F1EE}\u{1F1F3} \xB7 Pakistan \u{1F1F5}\u{1F1F0} \xB7 Bangladesh \u{1F1E7}\u{1F1E9} \xB7 Nepal \u{1F1F3}\u{1F1F5} \xB7 Dubai \u{1F1E6}\u{1F1EA}",
-  link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
-  passcode: "1234",
-  // 15:30 UTC mapped per region — same moment in time, different
-  // local clocks. The flag prefixes let mobile readers scan their
-  // own row at a glance without reading the whole line.
-  timeLabel: "\u{1F1EE}\u{1F1F3} 9:00 PM IST \xB7 \u{1F1F5}\u{1F1F0} 8:30 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 9:30 PM BST \xB7 \u{1F1F3}\u{1F1F5} 9:15 PM NPT \xB7 \u{1F1E6}\u{1F1EA} 7:30 PM GST",
-  startUtcMin: 15 * 60 + 30,
-  // 15:30 UTC = 9:00 PM IST
-  durationMin: 120
-};
-var ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
-
 // server/zoom-config.ts
+init_zoomEvents();
 var DEFAULTS = {
   en: ZOOM_EN,
   hi: ZOOM_HI
@@ -73171,7 +73211,13 @@ async function announceBlogToTelegram(post) {
   };
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
-  const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
+  const { ZOOM_EN: ZEN, ZOOM_HI: ZHI } = await Promise.resolve().then(() => (init_zoomEvents(), zoomEvents_exports));
+  const session = lang === "en" ? ZEN : ZHI;
+  const nowMs = Date.now();
+  const todayStartMs = Date.UTC((/* @__PURE__ */ new Date()).getUTCFullYear(), (/* @__PURE__ */ new Date()).getUTCMonth(), (/* @__PURE__ */ new Date()).getUTCDate());
+  const callStartMs = todayStartMs + session.startUtcMin * 6e4;
+  const minutesUntil = Math.max(0, Math.round((callStartMs - nowMs) / 6e4));
+  const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel, minutesUntil });
   return tgBroadcastPhoto({
     photoUrl: bannerUrlZoom(lang),
     caption,

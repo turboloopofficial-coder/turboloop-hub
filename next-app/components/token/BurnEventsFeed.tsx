@@ -31,6 +31,10 @@ interface BurnEvent {
 interface BurnFeedData {
   burns: BurnEvent[];
   totalBurned: number;
+  /** Sum of USDT spent across all displayed burns. Optional because
+   *  an older route version didn't return it — we compute a fallback
+   *  from row totals if it's missing. */
+  totalUsdtSpent?: number;
   fetchedAt: number;
   fresh: boolean;
 }
@@ -106,6 +110,12 @@ export function BurnEventsFeed() {
   }, []);
 
   const rows = (data?.burns ?? []).slice(0, ROW_LIMIT);
+  // Prefer the server-computed total when present; fall back to a
+  // client-side sum across the displayed rows. The `??` chain keeps
+  // the footer working against both new and older API responses.
+  const totalUsdtSpent =
+    data?.totalUsdtSpent ??
+    rows.reduce((sum, b) => sum + (b.usdtSpent ?? 0), 0);
 
   return (
     <div
@@ -178,28 +188,42 @@ export function BurnEventsFeed() {
         </ul>
       )}
 
-      {/* Footer */}
+      {/* Footer — shows both TURBO burned and USDT spent across the
+          displayed rows. Wraps cleanly on narrow viewports because
+          mobile gets the two amounts on a second line via flex-wrap. */}
       {loaded && data && (
-        <div className="mt-4 pt-3 border-t border-[var(--c-border)] text-[11px] md:text-xs text-[var(--c-text-muted)] flex items-center justify-between gap-2">
-          <span>
-            {data.fresh
-              ? `Total burned (last ${rows.length}):`
-              : "Burn data unavailable —"}
-          </span>
+        <div className="mt-4 pt-3 border-t border-[var(--c-border)] text-[11px] md:text-xs text-[var(--c-text-muted)]">
           {data.fresh ? (
-            <span className="font-bold text-[var(--c-text)] tabular-nums">
-              {formatAmount(data.totalBurned)} TURBO
-            </span>
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+              <span>Total burned (last {rows.length}):</span>
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="font-bold text-[var(--c-text)] tabular-nums">
+                  {formatAmount(data.totalBurned)} TURBO
+                </span>
+                {totalUsdtSpent > 0 && (
+                  <span className="text-[var(--c-text-muted)] tabular-nums">
+                    ·&nbsp;
+                    <span className="font-bold text-[var(--c-text)]">
+                      {formatUsdt(totalUsdtSpent)}
+                    </span>
+                    {" "}USDT spent
+                  </span>
+                )}
+              </div>
+            </div>
           ) : (
-            <a
-              href={BSCSCAN_BURN_VIEW}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-[var(--c-brand-cyan)] hover:underline inline-flex items-center gap-1"
-            >
-              View on BscScan
-              <ExternalLink className="w-3 h-3" aria-hidden="true" />
-            </a>
+            <div className="flex items-center justify-between gap-2">
+              <span>Burn data unavailable —</span>
+              <a
+                href={BSCSCAN_BURN_VIEW}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-[var(--c-brand-cyan)] hover:underline inline-flex items-center gap-1"
+              >
+                View on BscScan
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              </a>
+            </div>
           )}
         </div>
       )}

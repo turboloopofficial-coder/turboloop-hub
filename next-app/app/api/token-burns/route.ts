@@ -46,6 +46,10 @@ export interface BurnFeedData {
   burns: BurnEvent[];
   /** Sum of all `amount` values across all returned burns. */
   totalBurned: number;
+  /** Sum of all `usdtSpent` values across all returned burns. Mirrors
+   *  `totalBurned` so the UI footer can show "X TURBO · $Y USDT spent"
+   *  without recomputing on the client. */
+  totalUsdtSpent: number;
   fetchedAt: number;
   fresh: boolean;
 }
@@ -71,6 +75,7 @@ function emptyResponse(): BurnFeedData {
   return {
     burns: [],
     totalBurned: 0,
+    totalUsdtSpent: 0,
     fetchedAt: Date.now(),
     fresh: false,
   };
@@ -117,10 +122,12 @@ async function fetchFromBuybacksProxy(): Promise<BurnFeedData> {
       .sort((a, b) => b.timestamp - a.timestamp);
 
     const totalBurned = burns.reduce((sum, b) => sum + b.amount, 0);
+    const totalUsdtSpent = burns.reduce((sum, b) => sum + b.usdtSpent, 0);
 
     return {
       burns,
       totalBurned,
+      totalUsdtSpent,
       fetchedAt: Date.now(),
       fresh: true,
     };

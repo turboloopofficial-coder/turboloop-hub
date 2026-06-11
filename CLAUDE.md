@@ -226,9 +226,9 @@ If a push lands and breaks production:
 
 Force-pushes to main are **never** allowed under autonomous mode.
 
-## Recent context (as of 2026-05-02)
+## Recent context (as of 2026-06-11)
 
-Last commit: `a22abb3` — shipped 8 polish features (Cmd+K search via cmdk, share widget, FeaturedSubmissions strip on `/community`, `/privacy`, `/terms`, page transitions, error boundaries, 404 polish, loading skeletons).
+Last commit: `67f05c4` — fixed persistent Vercel `Deploying outputs...` failure by removing `preferredRegion` from the telegram-webhook Edge route. Added `.claude/commands/fix-deployment.md` slash command.
 See `git log` for the latest. See `todo.md` for the long-form V1–V9 history.
 
 ## Things that surprise people
@@ -238,3 +238,21 @@ See `git log` for the latest. See `todo.md` for the long-form V1–V9 history.
 3. `videos` table holds two very different things (regular reels/tutorials AND Cinematic Universe films) distinguished by whether `slug`/`season`/`episode` are set.
 4. Blog auto-publish self-heals: even if cron misses, the next public list query catches up.
 5. `admin_credentials` table is reseeded from env vars on every login attempt — env is the source of truth, the table is a derived bcrypt cache.
+6. **`preferredRegion` on Edge functions breaks Vercel deployments.** Vercel's `VERCEL_USE_NEW_LAMBDA_OUTPUT_HANDLER` (activated June 2026) cannot process Edge functions that declare `export const preferredRegion = [...]`. The symptom is `lambdas.output: []` and `unexpected_failure` after `Deploying outputs...` — the build succeeds but 0 lambda bundles are produced. **Never add `preferredRegion` to any Edge route in this project.** Vercel routes Edge functions to the nearest region automatically.
+
+## Deployment troubleshooting
+
+If deployments start failing again, run `/fix-deployment` in Claude Code (the command is at `.claude/commands/fix-deployment.md`). It will:
+1. Fetch the last 5 deployments and identify the failing one
+2. Pull the full build log and classify the error
+3. Apply the correct fix based on the error category
+4. Push, monitor, and smoke-test the new deployment
+
+For manual diagnosis, the key Vercel API calls are:
+```bash
+# List recent deployments
+curl -s "https://api.vercel.com/v6/deployments?teamId=team_GigFX3IbQ5fxfwqch2JWdIzP&projectId=prj_oJ9HDJLI9c7hBbI3hfu5HMWerHCl&limit=5" -H "Authorization: Bearer $VERCEL_TOKEN"
+
+# Build log for a specific deployment
+curl -s "https://api.vercel.com/v2/deployments/{DPL_ID}/events?teamId=team_GigFX3IbQ5fxfwqch2JWdIzP&limit=200&direction=forward" -H "Authorization: Bearer $VERCEL_TOKEN"
+```

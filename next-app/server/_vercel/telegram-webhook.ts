@@ -232,10 +232,9 @@ async function buildAskResponse(question: string): Promise<string> {
     const d: any = await r.json();
     const text: string = d?.content?.[0]?.text ?? "";
     if (!text) throw new Error("Empty response");
-    // Truncate at 3800 chars (Telegram message limit is 4096, leave
-    // room for the "TurboLoop AI" header + any disclaimer text).
-    const truncated = text.length > 3800 ? text.slice(0, 3797) + "…" : text;
-    return `🤖 <b>TurboLoop AI</b>\n\n${truncated}`;
+    // Return full text — sendThreadedReply splits it into chained
+    // messages if it exceeds 3800 chars. No truncation here.
+    return `🤖 <b>TurboLoop AI</b>\n\n${text}`;
   } catch (err) {
     console.error("[telegram-webhook] /ask failed", err);
     return "🤖 <b>TurboLoop AI</b>\n\nI couldn't process that right now. For official support: @TurboLoop_Support";

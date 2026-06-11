@@ -24591,6 +24591,92 @@ The Learn Hub is designed for complete beginners. No crypto jargon. No assumed k
 #TurboLoop #Learn #Beginner #DeFi #Education #FromZero`,
     buttonText: "\u{1F9E0} Start your journey",
     buttonUrl: "https://turboloop.tech/learn"
+  },
+  // ── Day 15: Social Wall (Variant A) ──
+  {
+    page: "social-wall",
+    url: "/social-wall",
+    banner: "hub-promo-social-wall.png",
+    caption: `<b>\u{1F4F1} VOICES FROM EVERYWHERE.</b>
+
+Every community-made TurboLoop video, in one place. Stories, tutorials, recaps \u2014 curated by the team, free to watch, ready to share.
+
+Submit your own and join the wall.
+
+#TurboLoop #Community #SocialWall #Creators #Stories`,
+    buttonText: "\u{1F4F1} Watch the wall",
+    buttonUrl: "https://turboloop.tech/social-wall"
+  },
+  // ── Day 15: Social Wall (Variant B) ──
+  {
+    page: "social-wall",
+    url: "/social-wall",
+    banner: "hub-promo-social-wall.png",
+    caption: `<b>\u{1F3A5} YOUR TURN ON THE WALL.</b>
+
+Made a TurboLoop video? Share the link \u2014 approved submissions are featured here within 48 hours and may qualify for Creator Star payouts.
+
+#TurboLoop #CreatorStar #SocialWall #Earn #Community`,
+    buttonText: "\u{1F3A5} Submit your story",
+    buttonUrl: "https://turboloop.tech/submit"
+  },
+  // ── Day 15: Social Wall (Variant C) ──
+  {
+    page: "social-wall",
+    url: "/social-wall",
+    banner: "hub-promo-social-wall.png",
+    caption: `<b>\u{1F30D} REAL PEOPLE. REAL STORIES.</b>
+
+Don't just take our word for it. Watch the Social Wall to see how the TurboLoop ecosystem is changing lives across 14+ countries.
+
+#TurboLoop #SocialWall #Global #Testimonials #Community`,
+    buttonText: "\u{1F30D} See the stories",
+    buttonUrl: "https://turboloop.tech/social-wall"
+  },
+  // ── Day 16: Events (Variant A) ──
+  {
+    page: "events",
+    url: "/events",
+    banner: "hub-promo-events.png",
+    caption: `<b>\u{1F39F}\uFE0F REAL MEETUPS. REAL PEOPLE. REAL FUNDING.</b>
+
+Join physical TurboLoop meetups in 14+ countries, or get funded to host your own. We pay you to grow the ecosystem.
+
+From local coffee shops to national summits.
+
+#TurboLoop #Events #Meetups #Community #Global`,
+    buttonText: "\u{1F39F}\uFE0F Find an event",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  // ── Day 16: Events (Variant B) ──
+  {
+    page: "events",
+    url: "/events",
+    banner: "hub-promo-events.png",
+    caption: `<b>\u{1F4B0} GET FUNDED TO HOST.</b>
+
+Want to build your local community? We provide the budget, the presentation deck, and the merch designs.
+
+You receive 50% as an advance to book your venue, and 50% after a successful event.
+
+#TurboLoop #Events #Funding #Leadership #Community`,
+    buttonText: "\u{1F4B0} Apply to host",
+    buttonUrl: "https://turboloop.tech/events"
+  },
+  // ── Day 16: Events (Variant C) ──
+  {
+    page: "events",
+    url: "/events",
+    banner: "hub-promo-events.png",
+    caption: `<b>\u{1F4C8} UNLOCK OFFICIAL ROLES.</b>
+
+Every event you host stacks toward a permanent monthly stipend. From City Ambassador ($250/mo) to Global Presenter ($2,500/mo).
+
+Build your team. Grow your rank. Get paid.
+
+#TurboLoop #Leadership #Events #Career #Growth`,
+    buttonText: "\u{1F4C8} See the career path",
+    buttonUrl: "https://turboloop.tech/events"
   }
 ];
 function pickTodaysHubPromo() {
@@ -38635,6 +38721,44 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       });
       console.error("[cron-master] task bot:commands failed", err);
       log.push(`\u274C bot:commands failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      const forceSocialWall = reqUrl.searchParams.get("force") === "social:wall";
+      if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !await hasFiredToday(db, "social:wall"))) {
+        const promo = pickHubPromoByPages(["social-wall", "submit"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
+        });
+        await markFired(db, "social:wall");
+        log.push(`\u{1F4F1} Social wall promo \u2014 ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "social:wall", err).catch(() => {
+      });
+      console.error("[cron-master] task social:wall failed", err);
+      log.push(`\u274C social:wall failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      const forceEventsPromo = reqUrl.searchParams.get("force") === "events:promo";
+      if ((isInWindow(17, 0) || forceEventsPromo) && (forceEventsPromo || !await hasFiredToday(db, "events:promo"))) {
+        const promo = pickHubPromoByPages(["events", "apply"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
+        });
+        await markFired(db, "events:promo");
+        log.push(`\u{1F39F}\uFE0F Events promo \u2014 ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "events:promo", err).catch(() => {
+      });
+      console.error("[cron-master] task events:promo failed", err);
+      log.push(`\u274C events:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
       if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {

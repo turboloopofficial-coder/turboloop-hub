@@ -1247,6 +1247,48 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ bot:commands failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
+    // ============ K. SOCIAL WALL: 13:00 UTC = 6:30 PM IST ============
+    // Hub promo — social-wall / submit (creator focus).
+    try {
+      const forceSocialWall = reqUrl.searchParams.get("force") === "social:wall";
+      if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !(await hasFiredToday(db, "social:wall")))) {
+        const promo = pickHubPromoByPages(["social-wall", "submit"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "social:wall");
+        log.push(`📱 Social wall promo — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "social:wall", err).catch(() => {});
+      console.error("[cron-master] task social:wall failed", err);
+      log.push(`❌ social:wall failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ L. EVENTS PROMO: 17:00 UTC = 10:30 PM IST ============
+    // Hub promo — events / apply (offline community focus).
+    try {
+      const forceEventsPromo = reqUrl.searchParams.get("force") === "events:promo";
+      if ((isInWindow(17, 0) || forceEventsPromo) && (forceEventsPromo || !(await hasFiredToday(db, "events:promo")))) {
+        const promo = pickHubPromoByPages(["events", "apply"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "events:promo");
+        log.push(`🎟️ Events promo — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "events:promo", err).catch(() => {});
+      console.error("[cron-master] task events:promo failed", err);
+      log.push(`❌ events:promo failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
     // ════════════════════════════════════════════════════════════════
     //  End of expanded schedule. Existing slots resume below.
     // ════════════════════════════════════════════════════════════════

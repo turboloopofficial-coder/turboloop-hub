@@ -29,6 +29,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
+import sharp from "sharp";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
@@ -61,53 +62,11 @@ const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire 
 function bannerUrlBlog(slug: string, title: string): string {
   return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
-const R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
-
-// Rotating banner pools per lang+tier — picks by day-of-year so each variant
-// appears in strict rotation and never repeats two days in a row.
-const ZOOM_BANNERS: Record<ZoomLang, Record<"T60"|"T30"|"T10"|"T0", string[]>> = {
-  en: {
-    T60: [
-      `${R2_ZOOM}/hub-promo-zoom-en-t60-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-en-t60-v2.png`,
-      `${R2_ZOOM}/hub-promo-zoom-en-t60-v3.png`,
-    ],
-    T30: [
-      `${R2_ZOOM}/hub-promo-zoom-en-t30-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-en-t30-v2.png`,
-    ],
-    T10: [
-      `${R2_ZOOM}/hub-promo-zoom-en-t10-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-en-t10-v2.png`,
-    ],
-    T0: [
-      `${R2_ZOOM}/hub-promo-zoom-en-t0-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-en-t0-v2.png`,
-    ],
-  },
-  hi: {
-    T60: [
-      `${R2_ZOOM}/hub-promo-zoom-hi-t60-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-hi-t60-v2.png`,
-    ],
-    T30: [
-      `${R2_ZOOM}/hub-promo-zoom-hi-t30-v1.png`,
-    ],
-    T10: [
-      `${R2_ZOOM}/hub-promo-zoom-hi-t10-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-hi-t10-v2.png`,
-    ],
-    T0: [
-      `${R2_ZOOM}/hub-promo-zoom-hi-t0-v1.png`,
-      `${R2_ZOOM}/hub-promo-zoom-hi-t0-v2.png`,
-    ],
-  },
-};
-
+// Use the hub's own og-zoom SVG generator for zoom banners — always uses
+// the correct TurboLoop logo, palette rotates daily, tier badge changes per slot.
 function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T10"|"T0" = "T30"): string {
-  const pool = ZOOM_BANNERS[lang][tier];
-  const day = Math.floor(Date.now() / 86_400_000);
-  return pool[day % pool.length];
+  const ogTier = tier === "T0" ? "LIVE" : tier; // og-zoom uses LIVE not T0
+  return `${BANNER_HOST}/api/og-zoom?lang=${lang}&tier=${ogTier}`;
 }
 function bannerUrlLaunch(): string {
   return `${BANNER_HOST}/api/og-banner?type=launch`;
@@ -525,11 +484,24 @@ async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: str
     tier === "T15" ? "T10" :
     tier === "LIVE" ? "T0" :
     "T30";
+  // Fetch the SVG from og-zoom and convert to PNG so Telegram accepts it.
+  // og-zoom uses the hub's real logo — no AI-generated placeholder.
+  const svgUrl = bannerUrlZoom(lang, bannerTier);
+  let photoBuf: ArrayBuffer | undefined;
+  try {
+    const svgRes = await fetch(svgUrl, { signal: AbortSignal.timeout(15000) });
+    if (svgRes.ok) {
+      const svgBuf = Buffer.from(await svgRes.arrayBuffer());
+      const pngBuf = await sharp(svgBuf).png().toBuffer();
+      photoBuf = pngBuf.buffer.slice(pngBuf.byteOffset, pngBuf.byteOffset + pngBuf.byteLength) as ArrayBuffer;
+    }
+  } catch (_) { /* fall through to photoUrl path */ }
   await tgBroadcastPhoto({
-    photoUrl: bannerUrlZoom(lang, bannerTier),
+    photoUrl: svgUrl,
+    ...(photoBuf ? { photoBuffer: photoBuf } : {}),
     caption,
     parseMode: "HTML",
-    buttons: [{ text: "🎙 Join Zoom now", url: meetingLink }],
+    buttons: [{ text: "🎤 Join Zoom now", url: meetingLink }],
   });
 }
 

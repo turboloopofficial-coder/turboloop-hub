@@ -8,6 +8,8 @@ const TG_API = "https://api.telegram.org/bot";
 export type TgPhotoMessage = {
   chatId: string;
   photoUrl: string;
+  /** Optional pre-fetched image buffer — if provided, photoUrl fetch is skipped */
+  photoBuffer?: ArrayBuffer;
   caption: string;
   parseMode?: "HTML" | "Markdown" | "MarkdownV2";
   /** Optional inline keyboard buttons */
@@ -41,9 +43,15 @@ export async function tgSendPhoto(token: string, msg: TgPhotoMessage): Promise<{
     // Fetch the image binary from R2/CDN and upload as multipart/form-data.
     // This avoids Telegram's own URL-fetch path which rejects certain CDN
     // responses with "wrong type of web page content".
-    const imgRes = await fetch(msg.photoUrl, { signal: AbortSignal.timeout(20000) });
-    if (!imgRes.ok) throw new Error(`Image fetch failed: ${imgRes.status} ${msg.photoUrl}`);
-    const imgBuf = await imgRes.arrayBuffer();
+    // If photoBuffer is pre-provided (e.g. SVG→PNG conversion), skip the fetch.
+    let imgBuf: ArrayBuffer;
+    if (msg.photoBuffer) {
+      imgBuf = msg.photoBuffer;
+    } else {
+      const imgRes = await fetch(msg.photoUrl, { signal: AbortSignal.timeout(20000) });
+      if (!imgRes.ok) throw new Error(`Image fetch failed: ${imgRes.status} ${msg.photoUrl}`);
+      imgBuf = await imgRes.arrayBuffer();
+    }
     const form = new FormData();
     form.append("chat_id", msg.chatId);
     form.append("caption", msg.caption);

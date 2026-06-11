@@ -115,6 +115,36 @@ grep -rn "preferredRegion\|runtime.*edge\|force-dynamic" next-app/app/api/ next-
 **Symptoms:** Build fails with native module errors, or `node:` protocol imports fail
 **Fix:** Check Vercel project settings — should be `24.x`. Update in Vercel dashboard or via API.
 
+### Category F: `cron-master.ts` accidentally copied to `next-app/server/_vercel/` mirror
+**Symptoms:** Build log shows:
+```
+Type error: Cannot find module '../../drizzle/schema'
+  --> next-app/server/_vercel/cron-master.ts
+```
+**Root cause:** `cron-master.ts` (and `_messagePools.ts`, `_campaigns.ts`) imports `../../drizzle/schema` which doesn't resolve from inside `next-app/`. These files must NEVER be in the `next-app/server/_vercel/` mirror — they are compiled separately by `build:api` (esbuild) into `api/cron/master.js` and are gitignored from the mirror.
+**Fix:**
+```bash
+# Remove from mirror
+git rm next-app/server/_vercel/cron-master.ts
+
+# Ensure gitignore rule is in place
+grep "cron-master" next-app/.gitignore || echo "server/_vercel/cron-master.ts" >> next-app/.gitignore
+
+# Verify next build passes
+cd next-app && npm run build && cd ..
+
+# Commit and push
+git add next-app/.gitignore
+git commit -m "fix: remove cron-master.ts from next-app mirror"
+git push origin main
+```
+**Prevention:** The correct mirror command is ONLY:
+```bash
+cp server/_vercel/telegram-webhook.ts next-app/server/_vercel/telegram-webhook.ts
+cp server/_vercel/_telegram.ts next-app/server/_vercel/_telegram.ts
+```
+Never copy `cron-master.ts`, `_messagePools.ts`, or `_campaigns.ts` to the mirror.
+
 ## Step 4 — Apply the fix
 
 Once the category is identified:

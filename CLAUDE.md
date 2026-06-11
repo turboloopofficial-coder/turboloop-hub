@@ -183,6 +183,7 @@ Set in Vercel project settings for prod; in `.env` locally (gitignored).
 - **New tRPC procedures**: add to `server/routers.ts`, then add the corresponding `db.ts` query. Public = `publicProcedure`, gated = `adminProcedure`.
 - **New table**: add to `drizzle/schema.ts`, run `npm run db:generate` then `npm run db:push`.
 - **Editing anything in `server/_vercel/` or its imports**: remember to `npm run build:api` and commit the regenerated `api/*.js`.
+- **`next-app/server/_vercel/` mirror — ONLY 2 files belong here**: `telegram-webhook.ts` and `_telegram.ts`. **Never copy `cron-master.ts`, `_messagePools.ts`, or `_campaigns.ts` into `next-app/server/_vercel/`** — those files import `../../drizzle/schema` which doesn't resolve from inside `next-app/`, causing `next build` to fail with a TypeScript error. They are compiled separately by `build:api` (esbuild) and are gitignored from the mirror. The correct mirror command is exactly: `cp server/_vercel/telegram-webhook.ts next-app/server/_vercel/telegram-webhook.ts && cp server/_vercel/_telegram.ts next-app/server/_vercel/_telegram.ts`
 - **Vite chunk splitting**: heavy libs (mermaid, shiki, react-syntax-highlighter, radix, framer-motion, lucide, trpc, markdown stack) are manually chunked in `vite.config.ts` so the homepage stays light. Adding a new heavy dep that's only used on one page? Consider adding a chunk rule.
 - **No README.md**: per repo state. Don't create one unless asked. This file is the entry point.
 
@@ -193,7 +194,7 @@ This repo runs in **fully-autonomous mode**: Claude pushes directly to `main`, n
 ### Pre-push verification (run in this order)
 
 1. `npm run check` — TypeScript must pass clean (zero errors).
-2. `npm run build` — Vite production build must succeed.
+2. `npm run build` — **for the next-app project**, run `cd next-app && npm run build` (not the root Vite build). This is the build Vercel runs. It must exit 0 with no TypeScript errors. The root `npm run build` runs Vite and is for the legacy SPA only.
 3. **If any file in `server/_vercel/*` or its imports (`server/db.ts`, `server/storage.ts`, `drizzle/schema.ts`, `server/routers.ts`) was changed**: run `npm run build:api` and stage the regenerated `api/*.js` files with the same commit. Skipping this means dev works but prod is broken.
 4. `npm run test` — all server Vitest suites must pass.
 5. `npm run format` — re-stage any files Prettier touched.

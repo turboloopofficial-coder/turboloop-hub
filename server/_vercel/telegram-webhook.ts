@@ -511,7 +511,6 @@ Earn <b>1% to 10%</b> of the leadership pool across <b>100 levels</b> of your ne
 6️⃣ Ambassador
 7️⃣ Turbo Legend 👑
 
-🔹 Ranks are <b>permanent</b> — no demotion once earned
 🔹 Rewards paid <b>daily</b> alongside your farming yield
 🔹 Extends across <b>100 levels</b> (vs 20 for standard referral)
 

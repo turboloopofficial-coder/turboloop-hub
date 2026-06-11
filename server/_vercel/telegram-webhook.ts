@@ -402,13 +402,9 @@ Need help? Ask in the group!`,
     pattern: /\b(payout|withdraw|claim|payment|when\s+paid)\b|^\/payout(@\w+)?$/i,
     response:
 `Turbo Loop Payouts:
-
-💰 <b>Daily Rewards:</b> Paid at 00:00 UTC
-💰 <b>Referral Commissions:</b> Paid at 1 PM UTC
-💰 <b>Capital Return:</b> After your plan completes
-
+💰 <b>Referral Commissions:</b> Paid daily at 1 PM UTC
+💰 <b>Capital + ROI Return:</b> After your plan completes
 All payouts are automatic and handled by smart contract. Check your wallet for incoming transfers!
-
 Need help? Check BscScan: https://bscscan.com`,
   },
   {

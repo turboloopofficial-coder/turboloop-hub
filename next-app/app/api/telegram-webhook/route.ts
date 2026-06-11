@@ -15,7 +15,7 @@
 // awaiting inline is simpler, more reliable, and well within
 // Telegram's 60s webhook timeout.
 
-import { handleTelegramWebhook } from "../../../server/_vercel/telegram-webhook";
+import { handleTelegramWebhook } from "@/server/_vercel/telegram-webhook";
 
 // Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js.
 export const runtime = "edge";

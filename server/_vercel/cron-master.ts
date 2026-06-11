@@ -541,11 +541,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // window. Used on launch day for each campaign when the regular
     // window has already passed by the time the cron is wired up.
     //
-    // Daily dedup still applies — calling `?force=campaignA` ten times
-    // on the same UTC day fires the campaign ONCE. After the first
-    // force-fire, hasFiredToday returns true for the rest of the day
-    // and subsequent force calls (and the natural 10:00 UTC tick) are
-    // no-ops. This makes the override safe to leave public-without-auth.
+    // force= bypasses BOTH the time-window check AND the daily dedup,
+    // so ?force=midnight:math always fires immediately even if it already
+    // fired earlier today. This makes manual testing reliable.
+    // reset= clears the dedup key without firing (useful for pre-clearing
+    // before a scheduled window arrives).
     const reqUrl = new URL(req.url || "/", "http://x");
     const forceSet = new Set(
       (reqUrl.searchParams.get("force") || "")
@@ -553,6 +553,25 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         .map(s => s.trim())
         .filter(Boolean)
     );
+    const resetSet = new Set(
+      (reqUrl.searchParams.get("reset") || "")
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean)
+    );
+    // Handle ?reset= — clear dedup keys and return immediately
+    if (resetSet.size > 0) {
+      const today = new Date().toISOString().slice(0, 10);
+      const cleared: string[] = [];
+      for (const key of resetSet) {
+        const fullKey = `lastFired:${key}:${today}`;
+        await db.delete(siteSettings).where(eq(siteSettings.settingKey, fullKey)).catch(() => {});
+        cleared.push(fullKey);
+      }
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, cleared }));
+      return;
+    }
     const forceCampaignA = forceSet.has("campaignA");
     const forceCampaignB = forceSet.has("campaignB");
     const forceGermanDaily = forceSet.has("germanDaily");
@@ -886,7 +905,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // pickTodaysMonthlyBanner so this slot never collides with the
     // 12:00 monthly:compound slot on the same UTC day.
     try {
-      if ((isInWindow(0, 0) || forceMidnightMath) && !(await hasFiredToday(db, "midnight:math"))) {
+      if ((isInWindow(0, 0) || forceMidnightMath) && (forceMidnightMath || !(await hasFiredToday(db, "midnight:math")))) {
         const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
         const caption = monthlyCompoundingCaption(banner);
@@ -926,7 +945,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // 3 caption framings by day so the same wording isn't reused
     // back-to-back if a reader is paying close attention.
     try {
-      if ((isInWindow(2, 0) || forceGlobalReach) && !(await hasFiredToday(db, "global:reach"))) {
+      if ((isInWindow(2, 0) || forceGlobalReach) && (forceGlobalReach || !(await hasFiredToday(db, "global:reach")))) {
         const { neon } = await import("@neondatabase/serverless");
         const sql2 = neon(process.env.DATABASE_URL!);
         const leaderRows = await sql2`
@@ -966,7 +985,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ============ C. SECURITY FIRST: 04:00 UTC = 9:30 AM IST ============
     // Hub promo rotating through security / code-is-law pages.
     try {
-      if ((isInWindow(4, 0) || forceSecurityPromo) && !(await hasFiredToday(db, "security:promo"))) {
+      if ((isInWindow(4, 0) || forceSecurityPromo) && (forceSecurityPromo || !(await hasFiredToday(db, "security:promo")))) {
         const promo = pickHubPromoByPages(["security", "code-is-law"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -986,7 +1005,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ============ D. MORNING HOOK: 06:00 UTC = 11:30 AM IST ============
     // Hub promo — calculator / apply (highest conversion intent).
     try {
-      if ((isInWindow(6, 0) || forceMorningHook) && !(await hasFiredToday(db, "morning:hook"))) {
+      if ((isInWindow(6, 0) || forceMorningHook) && (forceMorningHook || !(await hasFiredToday(db, "morning:hook")))) {
         const promo = pickHubPromoByPages(["calculator", "apply"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -1006,7 +1025,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ============ E. ECOSYSTEM: 08:00 UTC = 1:30 PM IST ============
     // Hub promo — ecosystem / leaderboard (community + scale).
     try {
-      if ((isInWindow(8, 0) || forceEcosystemPromo) && !(await hasFiredToday(db, "ecosystem:promo"))) {
+      if ((isInWindow(8, 0) || forceEcosystemPromo) && (forceEcosystemPromo || !(await hasFiredToday(db, "ecosystem:promo")))) {
         const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -1028,7 +1047,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // campaignA every 2 days, but the dedup keys differ so both can
     // fire on the same day.
     try {
-      if ((isInWindow(10, 0) || forceBurnProof) && !(await hasFiredToday(db, "burn:proof"))) {
+      if ((isInWindow(10, 0) || forceBurnProof) && (forceBurnProof || !(await hasFiredToday(db, "burn:proof")))) {
         const r = await fetch("https://turboloop.io/api/proxy/buybacks?limit=100", {
           signal: AbortSignal.timeout(8000),
         });
@@ -1068,7 +1087,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ============ G. COMMUNITY VOICE: 16:00 UTC = 9:30 PM IST ============
     // Hub promo — community / FAQ (trust + belonging).
     try {
-      if ((isInWindow(16, 0) || forceCommunityPromo) && !(await hasFiredToday(db, "community:promo"))) {
+      if ((isInWindow(16, 0) || forceCommunityPromo) && (forceCommunityPromo || !(await hasFiredToday(db, "community:promo")))) {
         const promo = pickHubPromoByPages(["community", "faq"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -1089,7 +1108,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // DexScreener end-of-day snapshot. Same 3-caption rotation pattern
     // as global:reach and burn:proof.
     try {
-      if ((isInWindow(20, 0) || forceLiveStats) && !(await hasFiredToday(db, "live:stats"))) {
+      if ((isInWindow(20, 0) || forceLiveStats) && (forceLiveStats || !(await hasFiredToday(db, "live:stats")))) {
         const PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
         const r = await fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${PAIR}`, {
           signal: AbortSignal.timeout(8000),
@@ -1130,7 +1149,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ============ I. NIGHTLY EDUCATION: 22:00 UTC = 3:30 AM IST next day ============
     // Hub promo — learn / blog / roadmap (long-term conviction).
     try {
-      if ((isInWindow(22, 0) || forceNightlyEducation) && !(await hasFiredToday(db, "nightly:education"))) {
+      if ((isInWindow(22, 0) || forceNightlyEducation) && (forceNightlyEducation || !(await hasFiredToday(db, "nightly:education")))) {
         const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -1151,7 +1170,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Rotates through 3 caption variants (by day-of-week % 3) so it never
     // feels repetitive. Teaches the community about /ask and all commands.
     try {
-      if ((isInWindow(11, 30) || forceBotCommands) && !(await hasFiredToday(db, "bot:commands"))) {
+      if ((isInWindow(11, 30) || forceBotCommands) && (forceBotCommands || !(await hasFiredToday(db, "bot:commands")))) {
         const variant = new Date().getUTCDay() % 3; // 0, 1, or 2
         const captions = [
           // Variant 0 — spotlight /ask AI

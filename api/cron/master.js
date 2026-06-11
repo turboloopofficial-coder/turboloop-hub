@@ -37883,6 +37883,22 @@ async function handler(req, res) {
     const forceSet = new Set(
       (reqUrl.searchParams.get("force") || "").split(",").map((s) => s.trim()).filter(Boolean)
     );
+    const resetSet = new Set(
+      (reqUrl.searchParams.get("reset") || "").split(",").map((s) => s.trim()).filter(Boolean)
+    );
+    if (resetSet.size > 0) {
+      const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+      const cleared = [];
+      for (const key of resetSet) {
+        const fullKey = `lastFired:${key}:${today}`;
+        await db.delete(siteSettings).where(eq(siteSettings.settingKey, fullKey)).catch(() => {
+        });
+        cleared.push(fullKey);
+      }
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, cleared }));
+      return;
+    }
     const forceCampaignA = forceSet.has("campaignA");
     const forceCampaignB = forceSet.has("campaignB");
     const forceGermanDaily = forceSet.has("germanDaily");
@@ -38126,7 +38142,7 @@ async function handler(req, res) {
       log.push(`\u274C creatorReminder failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(0, 0) || forceMidnightMath) && !await hasFiredToday(db, "midnight:math")) {
+      if ((isInWindow(0, 0) || forceMidnightMath) && (forceMidnightMath || !await hasFiredToday(db, "midnight:math"))) {
         const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
         const caption = monthlyCompoundingCaption(banner);
@@ -38162,7 +38178,7 @@ async function handler(req, res) {
       log.push(`\u274C midnight:math failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(2, 0) || forceGlobalReach) && !await hasFiredToday(db, "global:reach")) {
+      if ((isInWindow(2, 0) || forceGlobalReach) && (forceGlobalReach || !await hasFiredToday(db, "global:reach"))) {
         const { neon } = await Promise.resolve().then(() => (init_serverless(), serverless_exports));
         const sql2 = neon(process.env.DATABASE_URL);
         const leaderRows = await sql2`
@@ -38224,7 +38240,7 @@ Join the global network.
       log.push(`\u274C global:reach failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(4, 0) || forceSecurityPromo) && !await hasFiredToday(db, "security:promo")) {
+      if ((isInWindow(4, 0) || forceSecurityPromo) && (forceSecurityPromo || !await hasFiredToday(db, "security:promo"))) {
         const promo = pickHubPromoByPages(["security", "code-is-law"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38242,7 +38258,7 @@ Join the global network.
       log.push(`\u274C security:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(6, 0) || forceMorningHook) && !await hasFiredToday(db, "morning:hook")) {
+      if ((isInWindow(6, 0) || forceMorningHook) && (forceMorningHook || !await hasFiredToday(db, "morning:hook"))) {
         const promo = pickHubPromoByPages(["calculator", "apply"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38260,7 +38276,7 @@ Join the global network.
       log.push(`\u274C morning:hook failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(8, 0) || forceEcosystemPromo) && !await hasFiredToday(db, "ecosystem:promo")) {
+      if ((isInWindow(8, 0) || forceEcosystemPromo) && (forceEcosystemPromo || !await hasFiredToday(db, "ecosystem:promo"))) {
         const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38278,7 +38294,7 @@ Join the global network.
       log.push(`\u274C ecosystem:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(10, 0) || forceBurnProof) && !await hasFiredToday(db, "burn:proof")) {
+      if ((isInWindow(10, 0) || forceBurnProof) && (forceBurnProof || !await hasFiredToday(db, "burn:proof"))) {
         const r = await fetch("https://turboloop.io/api/proxy/buybacks?limit=100", {
           signal: AbortSignal.timeout(8e3)
         });
@@ -38342,7 +38358,7 @@ Total burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFraction
       log.push(`\u274C burn:proof failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(16, 0) || forceCommunityPromo) && !await hasFiredToday(db, "community:promo")) {
+      if ((isInWindow(16, 0) || forceCommunityPromo) && (forceCommunityPromo || !await hasFiredToday(db, "community:promo"))) {
         const promo = pickHubPromoByPages(["community", "faq"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38360,7 +38376,7 @@ Total burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFraction
       log.push(`\u274C community:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(20, 0) || forceLiveStats) && !await hasFiredToday(db, "live:stats")) {
+      if ((isInWindow(20, 0) || forceLiveStats) && (forceLiveStats || !await hasFiredToday(db, "live:stats"))) {
         const PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
         const r = await fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${PAIR}`, {
           signal: AbortSignal.timeout(8e3)
@@ -38427,7 +38443,7 @@ Real volume. Real liquidity. Real yield.
       log.push(`\u274C live:stats failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(22, 0) || forceNightlyEducation) && !await hasFiredToday(db, "nightly:education")) {
+      if ((isInWindow(22, 0) || forceNightlyEducation) && (forceNightlyEducation || !await hasFiredToday(db, "nightly:education"))) {
         const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38445,7 +38461,7 @@ Real volume. Real liquidity. Real yield.
       log.push(`\u274C nightly:education failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(11, 30) || forceBotCommands) && !await hasFiredToday(db, "bot:commands")) {
+      if ((isInWindow(11, 30) || forceBotCommands) && (forceBotCommands || !await hasFiredToday(db, "bot:commands"))) {
         const variant = (/* @__PURE__ */ new Date()).getUTCDay() % 3;
         const captions = [
           // Variant 0 — spotlight /ask AI

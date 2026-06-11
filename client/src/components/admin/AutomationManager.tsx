@@ -57,17 +57,30 @@ const CAMPAIGN_B: { id: string; date: string }[] = [
 
 // ─── Tasks rendered in Section 3 — Telegram Channel Health ───
 // Order mirrors the daily cron cadence so the grid reads top-to-bottom
-// in firing order.
+// in firing order. Every entry's `key` matches the dedup slot id used
+// by cron-master's `markFired(db, "<key>")` / `markTgResult(db, "<key>", …)`.
 const DAILY_TASKS: { key: string; label: string; channel: string; time: string }[] = [
-  { key: "hubPromo",         label: "Hub promo",          channel: "EN Channel+Group",   time: "09:00 UTC" },
-  { key: "campaignA",        label: "Campaign A",         channel: "EN Channel+Group",   time: "10:00 UTC" },
-  { key: "germanDaily",      label: "German daily",       channel: "DE Group",           time: "11:00 UTC" },
-  { key: "monthly:compound", label: "Monthly compound",   channel: "EN/DE (alternates)", time: "12:00 UTC" },
-  { key: "campaignB",        label: "Campaign B",         channel: "EN Channel+Group",   time: "13:00 UTC" },
-  { key: "blog:evening",     label: "Blog publish",       channel: "Per-post language",  time: "14:00 UTC" },
-  { key: "zoom:hi:T30",      label: "Zoom HI T-30",       channel: "EN Channel+Group",   time: "15:00 UTC" },
-  { key: "zoom:en:T30",      label: "Zoom EN T-30",       channel: "EN Channel+Group",   time: "16:30 UTC" },
-  { key: "cinematic:daily",  label: "Cinematic film",     channel: "EN Channel+Group",   time: "18:00 UTC" },
+  { key: "midnight:math",      label: "Midnight math",      channel: "EN/DE (alternates)", time: "00:00 UTC" },
+  { key: "global:reach",       label: "Global reach",       channel: "EN Channel",         time: "02:00 UTC" },
+  { key: "security:promo",     label: "Security promo",     channel: "EN Channel",         time: "04:00 UTC" },
+  { key: "morning:hook",       label: "Morning hook",       channel: "EN Channel",         time: "06:00 UTC" },
+  { key: "ecosystem:promo",    label: "Ecosystem promo",    channel: "EN Channel",         time: "08:00 UTC" },
+  { key: "hubPromo",           label: "Hub promo",          channel: "EN Channel",         time: "09:00 UTC" },
+  { key: "burn:proof",         label: "Live burn proof",    channel: "EN Channel",         time: "10:00 UTC" },
+  { key: "campaignA",          label: "Campaign A",         channel: "EN Channel",         time: "10:00 UTC" },
+  { key: "germanDaily",        label: "German daily",       channel: "DE Group",           time: "11:00 UTC" },
+  { key: "bot:commands",       label: "Bot commands guide", channel: "EN Channel",         time: "11:30 UTC" },
+  { key: "monthly:compound",   label: "Monthly compound",   channel: "EN/DE (alternates)", time: "12:00 UTC" },
+  { key: "social:wall",        label: "Social wall promo",  channel: "EN Channel",         time: "13:00 UTC" },
+  { key: "blog:evening",       label: "Blog publish",       channel: "Per-post language",  time: "14:00 UTC" },
+  { key: "zoom:hi:T30",        label: "Zoom HI T-30",       channel: "EN Channel",         time: "15:00 UTC" },
+  { key: "community:promo",    label: "Community promo",    channel: "EN Channel",         time: "16:00 UTC" },
+  { key: "zoom:en:T30",        label: "Zoom EN T-30",       channel: "EN Channel",         time: "16:30 UTC" },
+  { key: "events:promo",       label: "Events promo",       channel: "EN Channel",         time: "17:00 UTC" },
+  { key: "cinematic:daily",    label: "Cinematic film",     channel: "EN Channel",         time: "18:00 UTC" },
+  { key: "live:stats",         label: "Live stats",         channel: "EN Channel",         time: "20:00 UTC" },
+  { key: "nightly:education",  label: "Nightly education",  channel: "EN Channel",         time: "22:00 UTC" },
+  { key: "campaignB",          label: "Campaign B",         channel: "EN Channel",         time: "13:00 UTC*" },
 ];
 
 function todayUtc(): string {
@@ -115,6 +128,19 @@ export default function AutomationManager() {
     return map;
   }, [log, today]);
 
+  // Per-slot Telegram delivery receipts from cron-master's markTgResult.
+  // Same date-key shape as cronError; the value carries a compact
+  // chatId:ok|err summary plus an optional note (slot-specific label).
+  const tgResultTodayByKey = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const e of log) {
+      if (e.kind === "tgResult" && e.dateKey === today) {
+        map.set(e.taskName, e.value);
+      }
+    }
+    return map;
+  }, [log, today]);
+
   // Did campaignA/B ever fire on a given date? Used by the Campaign
   // Tracker to mark each scheduled post Fired / Missed / Upcoming.
   // We scan the full log (not just today) since campaigns span weeks.
@@ -144,6 +170,7 @@ export default function AutomationManager() {
       <TelegramHealthSection
         firedTodayByKey={firedTodayByKey}
         errorTodayByKey={errorTodayByKey}
+        tgResultTodayByKey={tgResultTodayByKey}
         loading={logQuery.isLoading}
       />
       <CampaignTrackerSection
@@ -160,7 +187,7 @@ export default function AutomationManager() {
 function ActivityLogSection(props: {
   entries: Array<{
     settingKey: string;
-    kind: "lastFired" | "oneShot" | "cronError";
+    kind: "lastFired" | "oneShot" | "cronError" | "tgResult";
     taskName: string;
     dateKey: string | null;
     value: string;
@@ -455,16 +482,19 @@ function StatCard(props: {
 function TelegramHealthSection(props: {
   firedTodayByKey: Map<string, string>;
   errorTodayByKey: Map<string, string>;
+  tgResultTodayByKey: Map<string, string>;
   loading: boolean;
 }) {
-  const { firedTodayByKey, errorTodayByKey, loading } = props;
+  const { firedTodayByKey, errorTodayByKey, tgResultTodayByKey, loading } = props;
 
   return (
     <section className="space-y-3">
       <div>
         <h3 className="text-lg font-heading font-bold text-slate-800">Telegram channel health</h3>
         <p className="text-xs text-slate-500">
-          Today&apos;s ({todayUtc()}) fire status per task slot. Red = not fired or errored.
+          Today&apos;s ({todayUtc()}) fire status per task slot, with the live Telegram
+          delivery receipt and inline error detail. Red = not fired, errored, or
+          Telegram refused.
         </p>
       </div>
 
@@ -476,12 +506,14 @@ function TelegramHealthSection(props: {
               <th className="px-4 py-2.5 font-semibold">Channel</th>
               <th className="px-4 py-2.5 font-semibold">Window</th>
               <th className="px-4 py-2.5 font-semibold">Status</th>
+              <th className="px-4 py-2.5 font-semibold">Telegram result</th>
             </tr>
           </thead>
           <tbody>
             {DAILY_TASKS.map((t) => {
               const fired = firedTodayByKey.get(t.key);
               const err = errorTodayByKey.get(t.key);
+              const tgRaw = tgResultTodayByKey.get(t.key);
               return (
                 <tr
                   key={t.key}
@@ -489,19 +521,30 @@ function TelegramHealthSection(props: {
                     err ? "bg-red-50/60" : ""
                   }`}
                 >
-                  <td className="px-4 py-2.5">
+                  <td className="px-4 py-2.5 align-top">
                     <div className="font-medium text-slate-700">{t.label}</div>
                     <div className="font-mono text-[10px] text-slate-400">{t.key}</div>
                   </td>
-                  <td className="px-4 py-2.5 text-xs text-slate-500">{t.channel}</td>
-                  <td className="px-4 py-2.5 text-xs text-slate-500 whitespace-nowrap">{t.time}</td>
-                  <td className="px-4 py-2.5">
+                  <td className="px-4 py-2.5 text-xs text-slate-500 align-top">{t.channel}</td>
+                  <td className="px-4 py-2.5 text-xs text-slate-500 whitespace-nowrap align-top">{t.time}</td>
+                  <td className="px-4 py-2.5 align-top">
                     {loading ? (
                       <span className="text-xs text-slate-400">…</span>
                     ) : err ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700">
-                        <XCircle className="h-3.5 w-3.5" /> error
-                      </span>
+                      <div className="space-y-1">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700">
+                          <XCircle className="h-3.5 w-3.5" /> error
+                        </span>
+                        {/* Inline cronError detail — clipped at 120 chars
+                            so a long stack trace doesn't blow up the row.
+                            Full text is in the Activity log below. */}
+                        <div
+                          className="text-[10px] text-red-700/90 leading-snug max-w-[260px] break-words"
+                          title={err}
+                        >
+                          {truncateForRow(err, 120)}
+                        </div>
+                      </div>
                     ) : fired ? (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
                         <CheckCircle2 className="h-3.5 w-3.5" /> fired
@@ -512,6 +555,9 @@ function TelegramHealthSection(props: {
                       </span>
                     )}
                   </td>
+                  <td className="px-4 py-2.5 align-top">
+                    <TgResultCell loading={loading} raw={tgRaw} />
+                  </td>
                 </tr>
               );
             })}
@@ -519,6 +565,80 @@ function TelegramHealthSection(props: {
         </table>
       </div>
     </section>
+  );
+}
+
+/** Helper — truncate long strings for the dashboard row without
+ *  breaking mid-word. Used by the inline cronError detail and the
+ *  Telegram-result cell. */
+function truncateForRow(s: string, max: number): string {
+  if (!s) return "";
+  if (s.length <= max) return s;
+  return s.slice(0, max - 1) + "…";
+}
+
+/** Parse a `tgResult:<slot>:<date>` setting_value into a render-ready
+ *  shape. The value format is:
+ *    `<iso> | <optional note> | <chatId>:<ok|error> | <chatId>:<ok|error> | …`
+ *  We extract the last per-dest segment, infer overall ok-ness, and
+ *  surface the first error if any. */
+function parseTgResultValue(raw: string): { ok: boolean; summary: string; firstError: string | null } {
+  // Split at " | " — first segment is ISO timestamp, optional second
+  // is a slot-specific note, rest are chatId:state segments.
+  const segments = raw.split(" | ").map((s) => s.trim()).filter(Boolean);
+  // Heuristic: anything matching `<chatId>:<state>` is a dest row.
+  const destSegments = segments.filter((s) => /^[-@\w]+:.+/.test(s) && !s.startsWith("http"));
+  // If destSegments is empty, the value is just `<iso> | no-results`
+  // (no token / no channel env). Treat as unknown rather than error.
+  if (destSegments.length === 0) {
+    return { ok: false, summary: "no destinations", firstError: null };
+  }
+  const errs = destSegments.filter((s) => !/:ok$/i.test(s));
+  if (errs.length === 0) {
+    return { ok: true, summary: destSegments.join(" · "), firstError: null };
+  }
+  const firstErr = errs[0].replace(/^[^:]+:/, "");
+  return { ok: false, summary: errs.join(" · "), firstError: firstErr };
+}
+
+function TgResultCell({ loading, raw }: { loading: boolean; raw: string | undefined }) {
+  if (loading) {
+    return <span className="text-xs text-slate-400">…</span>;
+  }
+  if (!raw) {
+    return <span className="text-xs text-slate-400">—</span>;
+  }
+  const { ok, summary, firstError } = parseTgResultValue(raw);
+  if (ok) {
+    return (
+      <div className="space-y-1">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
+          <CheckCircle2 className="h-3.5 w-3.5" /> ok
+        </span>
+        <div
+          className="text-[10px] text-slate-500 leading-snug max-w-[220px] break-words font-mono"
+          title={summary}
+        >
+          {truncateForRow(summary, 80)}
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="space-y-1">
+      <span
+        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700"
+        title={firstError ?? summary}
+      >
+        <XCircle className="h-3.5 w-3.5" /> {firstError ? "telegram error" : "no dest"}
+      </span>
+      <div
+        className="text-[10px] text-red-700/90 leading-snug max-w-[220px] break-words"
+        title={firstError ?? summary}
+      >
+        {truncateForRow(firstError ?? summary, 80)}
+      </div>
+    </div>
   );
 }
 

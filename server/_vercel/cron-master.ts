@@ -134,6 +134,49 @@ async function markError(
     });
 }
 
+/** Per-slot Telegram delivery receipt. The Telegram send helpers
+ *  return either a single `{ ok, error }` (tgSendPhoto/Video) or an
+ *  array of `{ chatId, ok, error }` (tgBroadcastXxx). This helper
+ *  normalizes both shapes, persists a compact summary into
+ *  `tgResult:<slot>:<YYYY-MM-DD>` (upsert), and — if ANY destination
+ *  failed — also calls `markError` so the admin Automation tab's
+ *  red badge still surfaces. Defensive 1000-char cap matches the
+ *  `markError` pattern; the setting_value column is `text` so this
+ *  is just a sanity ceiling against pathological error strings. */
+type TgDest = { chatId: string; ok: boolean; error?: string };
+async function markTgResult(
+  db: ReturnType<typeof drizzle>,
+  slot: string,
+  results:
+    | TgDest[]
+    | { ok: boolean; error?: string }
+    | undefined
+    | null,
+  note?: string
+): Promise<void> {
+  const arr: TgDest[] = Array.isArray(results)
+    ? results
+    : results && typeof results === "object" && "ok" in results
+      ? [{ chatId: "default", ok: results.ok, error: results.error }]
+      : [];
+  const summary = arr.length
+    ? arr.map((r) => `${r.chatId}:${r.ok ? "ok" : r.error ?? "err"}`).join(" | ")
+    : "no-results";
+  const fullKey = `tgResult:${slot}:${todayKey()}`;
+  const value = `${new Date().toISOString()} | ${note ? note + " | " : ""}${summary}`.slice(0, 1000);
+  await db
+    .insert(siteSettings)
+    .values({ settingKey: fullKey, settingValue: value })
+    .onConflictDoUpdate({
+      target: siteSettings.settingKey,
+      set: { settingValue: value },
+    });
+  const firstErr = arr.find((r) => !r.ok)?.error;
+  if (firstErr) {
+    await markError(db, slot, new Error(firstErr)).catch(() => {});
+  }
+}
+
 // ─── Omni-Composer dispatch (scheduled_posts → channels) ────────
 // Each channel id maps to one fan-out call. We use the existing
 // tgBroadcastPhoto / tgSendPhoto helpers for image posts and the
@@ -418,7 +461,7 @@ async function publishOverdueBlogs(db: ReturnType<typeof drizzle>): Promise<type
  */
 async function announceBlogToTelegram(
   post: typeof blogPosts.$inferSelect
-): Promise<string> {
+): Promise<{ status: string; tgResult: TgDest[] }> {
   const url = `${SITE}/blog/${post.slug}`;
   const caption = blogPostCaption({
     title: post.title,
@@ -436,16 +479,18 @@ async function announceBlogToTelegram(
   const buttons = [{ text: ctaText, url }];
 
   const destinations: string[] = [];
+  const tgResult: TgDest[] = [];
 
   // STEP 1 — Always broadcast to Official English Channel + Group.
   // tgBroadcastPhoto fans out to TELEGRAM_CHANNEL + TELEGRAM_CHAT
   // internally; we don't need to compose those addresses here.
-  await tgBroadcastPhoto({
+  const broadcastRes = await tgBroadcastPhoto({
     photoUrl,
     caption,
     parseMode: "HTML",
     buttons,
   });
+  tgResult.push(...broadcastRes);
   destinations.push("Channel+Group");
 
   // STEP 2 — If the post is German, also send a second copy to the
@@ -455,13 +500,14 @@ async function announceBlogToTelegram(
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
     if (token && germanChat) {
-      await tgSendPhoto(token, {
+      const r = await tgSendPhoto(token, {
         chatId: germanChat,
         photoUrl,
         caption,
         parseMode: "HTML",
         buttons,
       });
+      tgResult.push({ chatId: germanChat, ok: r.ok, error: r.error });
       destinations.push("DE-Group");
     } else {
       // Don't fail the whole announcement if the German env is missing
@@ -469,12 +515,15 @@ async function announceBlogToTelegram(
       destinations.push("DE-Group:skipped(env)");
     }
   }
-  return `📖 blog announced [${post.language}] → ${destinations.join(" + ")} · ${post.slug}`;
+  return {
+    status: `📖 blog announced [${post.language}] → ${destinations.join(" + ")} · ${post.slug}`,
+    tgResult,
+  };
 }
 
-async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<void> {
+async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<TgDest[]> {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
-  await tgBroadcastPhoto({
+  return tgBroadcastPhoto({
     photoUrl: bannerUrlZoom(lang),
     caption,
     parseMode: "HTML",
@@ -647,7 +696,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     if (resetSet.size > 0) {
       const today = new Date().toISOString().slice(0, 10);
       const cleared: string[] = [];
-      for (const key of resetSet) {
+      // Set iteration via Array.from — the root tsconfig targets ES5 by
+      // default and `for...of` on a Set needs ES2015+ iteration.
+      for (const key of Array.from(resetSet)) {
         const fullKey = `lastFired:${key}:${today}`;
         await db.delete(siteSettings).where(eq(siteSettings.settingKey, fullKey)).catch(() => {});
         cleared.push(fullKey);
@@ -703,13 +754,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if (isInWindow(9, 0) && !(await hasFiredToday(db, "hubPromo"))) {
         const promo = pickTodaysHubPromo();
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "hubPromo");
+        await markTgResult(db, "hubPromo", tgResult, promo.page);
         log.push(`🌐 Hub promo — ${promo.page}`);
       }
     } catch (err) {
@@ -741,6 +793,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         const label =
           typeof banner.key === "number" ? `$${banner.key}` : banner.key;
 
+        let tgResult: Array<{ chatId: string; ok: boolean; error?: string }> = [];
         if (banner.lang === "de") {
           // German monthly post — German chat ONLY. If the env var isn't
           // set we skip (don't fall back to English broadcast — that's
@@ -755,6 +808,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
               parseMode: "HTML",
               buttons: [button],
             });
+            tgResult = [{ chatId: germanChat, ok: r.ok, error: r.error }];
             log.push(
               `💵 Monthly compound — DE ${label} → ${germanChat}` +
                 (r.ok ? "" : ` (failed: ${r.error})`)
@@ -765,7 +819,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             );
           }
         } else {
-          await tgBroadcastPhoto({
+          tgResult = await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
@@ -774,6 +828,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           log.push(`💵 Monthly compound — EN ${label}`);
         }
         await markFired(db, "monthly:compound");
+        await markTgResult(db, "monthly:compound", tgResult, `${banner.lang} ${label}`);
       }
     } catch (err) {
       await markError(db, "monthly:compound", err).catch(() => {});
@@ -790,15 +845,25 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if (isInWindow(14, 0) && !(await hasFiredToday(db, "blog:evening"))) {
         const due = await publishOverdueBlogs(db);
+        const aggregated: TgDest[] = [];
+        const slugsAnnounced: string[] = [];
         if (due.length > 0) {
           for (const post of due) {
-            const status = await announceBlogToTelegram(post);
+            const { status, tgResult } = await announceBlogToTelegram(post);
             log.push(status);
+            aggregated.push(...tgResult);
+            slugsAnnounced.push(post.slug);
           }
         } else {
           log.push("📰 No overdue blog posts to publish");
         }
         await markFired(db, "blog:evening");
+        await markTgResult(
+          db,
+          "blog:evening",
+          aggregated,
+          slugsAnnounced.length ? slugsAnnounced.join(", ") : "no-due"
+        );
       }
     } catch (err) {
       await markError(db, "blog:evening", err).catch(() => {});
@@ -822,8 +887,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
         const cfg = await getZoomConfig("hi");
-        await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        const tgResult = await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
+        await markTgResult(db, "zoom:hi:T30", tgResult);
         log.push("🎙 HI Zoom T-30");
       }
     } catch (err) {
@@ -836,8 +902,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
         const cfg = await getZoomConfig("en");
-        await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        const tgResult = await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");
+        await markTgResult(db, "zoom:en:T30", tgResult);
         log.push("🎙 EN Zoom T-30");
       }
     } catch (err) {
@@ -850,13 +917,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {
         const film = pickTodaysFilm();
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: cinematicPosterUrl(film),
           caption: cinematicCaption(film),
           parseMode: "HTML",
           buttons: [{ text: "🎬 Watch full film", url: `${SITE}/films/${film.slug}` }],
         });
         await markFired(db, "cinematic:daily");
+        await markTgResult(db, "cinematic:daily", tgResult, `S${film.season}E${film.episode}: ${film.slug}`);
         log.push(`🎬 Cinematic — S${film.season}E${film.episode}: ${film.slug}`);
       }
     } catch (err) {
@@ -994,20 +1062,22 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
         const caption = monthlyCompoundingCaption(banner);
         const photoUrl = monthlyBannerUrl(banner);
+        let tgResult: TgDest[] = [];
         if (banner.lang === "de") {
           const token = process.env.TELEGRAM_BOT_TOKEN;
           const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
           if (token && germanChat) {
-            await tgSendPhoto(token, {
+            const r = await tgSendPhoto(token, {
               chatId: germanChat,
               photoUrl,
               caption,
               parseMode: "HTML",
               buttons: [{ text: "🧮 Jetzt berechnen", url: "https://turboloop.tech/calculator" }],
             });
+            tgResult = [{ chatId: germanChat, ok: r.ok, error: r.error }];
           }
         } else {
-          await tgBroadcastPhoto({
+          tgResult = await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
@@ -1016,6 +1086,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         }
         await markFired(db, "midnight:math");
         const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+        await markTgResult(db, "midnight:math", tgResult, `${banner.lang} ${label}`);
         log.push(`🌙 Midnight math — ${banner.lang} ${label}`);
       }
     } catch (err) {
@@ -1052,13 +1123,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           ];
           const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
           const caption = captions[day % captions.length];
-          await tgBroadcastMessage({
+          const tgResult = await tgBroadcastMessage({
             text: caption,
             parseMode: "HTML",
             disablePreview: true,
             buttons: [{ text: "🌍 See full leaderboard", url: "https://www.turboloop.tech/community" }],
           });
           await markFired(db, "global:reach");
+          await markTgResult(db, "global:reach", tgResult, `top: ${leaderRows[0]?.country}`);
           log.push(`🌍 Global reach — top: ${leaderRows[0]?.country}`);
         }
       }
@@ -1073,13 +1145,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(4, 0) || forceSecurityPromo) && (forceSecurityPromo || !(await hasFiredToday(db, "security:promo")))) {
         const promo = pickHubPromoByPages(["security", "code-is-law"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "security:promo");
+        await markTgResult(db, "security:promo", tgResult, promo.page);
         log.push(`🔐 Security promo — ${promo.page}`);
       }
     } catch (err) {
@@ -1093,13 +1166,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(6, 0) || forceMorningHook) && (forceMorningHook || !(await hasFiredToday(db, "morning:hook")))) {
         const promo = pickHubPromoByPages(["calculator", "apply"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "morning:hook");
+        await markTgResult(db, "morning:hook", tgResult, promo.page);
         log.push(`⚡ Morning hook — ${promo.page}`);
       }
     } catch (err) {
@@ -1113,13 +1187,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(8, 0) || forceEcosystemPromo) && (forceEcosystemPromo || !(await hasFiredToday(db, "ecosystem:promo")))) {
         const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "ecosystem:promo");
+        await markTgResult(db, "ecosystem:promo", tgResult, promo.page);
         log.push(`🌐 Ecosystem promo — ${promo.page}`);
       }
     } catch (err) {
@@ -1155,13 +1230,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             ];
             const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
-            await tgBroadcastMessage({
+            const tgResult = await tgBroadcastMessage({
               text: caption,
               parseMode: "HTML",
               disablePreview: true,
               buttons: [{ text: "🔥 View burn history", url: "https://www.turboloop.tech/token" }],
             });
             await markFired(db, "burn:proof");
+            await markTgResult(db, "burn:proof", tgResult, `#${latest.execution_number} · ${latestTokens} TURBO`);
             log.push(`🔥 Burn proof — #${latest.execution_number}, ${latestTokens} TURBO`);
           }
         }
@@ -1177,13 +1253,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(16, 0) || forceCommunityPromo) && (forceCommunityPromo || !(await hasFiredToday(db, "community:promo")))) {
         const promo = pickHubPromoByPages(["community", "faq"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "community:promo");
+        await markTgResult(db, "community:promo", tgResult, promo.page);
         log.push(`🤝 Community promo — ${promo.page}`);
       }
     } catch (err) {
@@ -1219,13 +1296,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             ];
             const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
-            await tgBroadcastMessage({
+            const tgResult = await tgBroadcastMessage({
               text: caption,
               parseMode: "HTML",
               disablePreview: true,
               buttons: [{ text: "📊 Live chart", url: `https://dexscreener.com/bsc/${PAIR}` }],
             });
             await markFired(db, "live:stats");
+            await markTgResult(db, "live:stats", tgResult, `$${price} (${changeStr})`);
             log.push(`📊 Live stats — $${price} (${changeStr})`);
           }
         }
@@ -1241,13 +1319,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(22, 0) || forceNightlyEducation) && (forceNightlyEducation || !(await hasFiredToday(db, "nightly:education")))) {
         const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "nightly:education");
+        await markTgResult(db, "nightly:education", tgResult, promo.page);
         log.push(`📚 Nightly education — ${promo.page}`);
       }
     } catch (err) {
@@ -1276,8 +1355,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         ];
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const channelId = process.env.TELEGRAM_CHANNEL;
+        let tgResult: TgDest[] = [];
         if (token && channelId) {
-          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -1286,8 +1366,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
               parse_mode: "HTML",
             }),
           });
+          const data: any = await r.json().catch(() => ({}));
+          tgResult = [{ chatId: channelId, ok: !!data?.ok, error: data?.description }];
         }
         await markFired(db, "bot:commands");
+        await markTgResult(db, "bot:commands", tgResult, `variant ${variant}`);
         log.push(`🤖 Bot commands guide — variant ${variant}`);
       }
     } catch (err) {
@@ -1303,14 +1386,15 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !(await hasFiredToday(db, "social:wall")))) {
         const promo = pickHubPromoByPages(["social-wall", "submit"]);
         const photoUrl = hubPromoBannerUrl(promo);
-        const tgResults = await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl,
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
-        const tgSummary = tgResults.map(r => `${r.chatId}:${r.ok ? 'ok' : r.error}`).join(', ');
+        const tgSummary = tgResult.map(r => `${r.chatId}:${r.ok ? 'ok' : r.error}`).join(', ');
         await markFired(db, "social:wall");
+        await markTgResult(db, "social:wall", tgResult, promo.page);
         log.push(`📱 Social wall promo — ${promo.page} | banner: ${photoUrl} | tg: ${tgSummary}`);
       }
     } catch (err) {
@@ -1325,13 +1409,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       const forceEventsPromo = reqUrl.searchParams.get("force") === "events:promo";
       if ((isInWindow(17, 0) || forceEventsPromo) && (forceEventsPromo || !(await hasFiredToday(db, "events:promo")))) {
         const promo = pickHubPromoByPages(["events", "apply"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
         await markFired(db, "events:promo");
+        await markTgResult(db, "events:promo", tgResult, promo.page);
         log.push(`🎟️ Events promo — ${promo.page}`);
       }
     } catch (err) {
@@ -1353,18 +1438,20 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       if ((isInWindow(10, 0) || forceCampaignA) && !(await hasFiredToday(db, "campaignA"))) {
         const post = todaysCampaignPost(CAMPAIGN_A);
         if (post) {
-          await tgBroadcastPhoto({
+          const tgResult = await tgBroadcastPhoto({
             photoUrl: post.photoUrl,
             caption: post.caption,
             parseMode: "HTML",
             buttons: [{ text: post.buttonText, url: post.buttonUrl }],
           });
           await markFired(db, "campaignA");
+          await markTgResult(db, "campaignA", tgResult, `${post.id} (${post.date})`);
           log.push(`📣 Campaign A — ${post.id} (${post.date})`);
         } else {
           log.push(`📣 Campaign A — no post scheduled for ${todayUtcDate()}`);
           // Still mark fired so we don't re-evaluate on every 5-min tick.
           await markFired(db, "campaignA");
+          await markTgResult(db, "campaignA", [], `no post scheduled for ${todayUtcDate()}`);
         }
       }
     } catch (err) {
@@ -1393,6 +1480,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             buttons: [{ text: post.buttonText, url: post.buttonUrl }],
           });
           await markFired(db, "germanDaily");
+          await markTgResult(db, "germanDaily", [{ chatId: germanChat, ok: r.ok, error: r.error }], post.id);
           log.push(
             `🇩🇪 German daily — ${post.id}` +
               (r.ok ? "" : ` (failed: ${r.error})`)
@@ -1424,13 +1512,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           (isInWindow(slot.h, slot.m) || forceCampaignB) &&
           !(await hasFiredToday(db, "campaignB"))
         ) {
-          await tgBroadcastPhoto({
+          const tgResult = await tgBroadcastPhoto({
             photoUrl: post.photoUrl,
             caption: post.caption,
             parseMode: "HTML",
             buttons: [{ text: post.buttonText, url: post.buttonUrl }],
           });
           await markFired(db, "campaignB");
+          await markTgResult(db, "campaignB", tgResult, `${post.id} (${post.date})`);
           log.push(`🇳🇬 Campaign B — ${post.id} (${post.date})`);
         }
       }

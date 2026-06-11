@@ -72936,6 +72936,21 @@ async function markError(db, key, err) {
     set: { settingValue: value }
   });
 }
+async function markTgResult(db, slot, results, note) {
+  const arr = Array.isArray(results) ? results : results && typeof results === "object" && "ok" in results ? [{ chatId: "default", ok: results.ok, error: results.error }] : [];
+  const summary = arr.length ? arr.map((r5) => `${r5.chatId}:${r5.ok ? "ok" : r5.error ?? "err"}`).join(" | ") : "no-results";
+  const fullKey = `tgResult:${slot}:${todayKey()}`;
+  const value = `${(/* @__PURE__ */ new Date()).toISOString()} | ${note ? note + " | " : ""}${summary}`.slice(0, 1e3);
+  await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: value }).onConflictDoUpdate({
+    target: siteSettings.settingKey,
+    set: { settingValue: value }
+  });
+  const firstErr = arr.find((r5) => !r5.ok)?.error;
+  if (firstErr) {
+    await markError(db, slot, new Error(firstErr)).catch(() => {
+    });
+  }
+}
 function slugifyTitle(title) {
   if (!title) return `omni-post-${Date.now()}`;
   const s = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -73124,34 +73139,40 @@ async function announceBlogToTelegram(post) {
   const photoUrl = bannerUrlBlog(post.slug, post.title);
   const buttons = [{ text: ctaText, url }];
   const destinations = [];
-  await tgBroadcastPhoto({
+  const tgResult = [];
+  const broadcastRes = await tgBroadcastPhoto({
     photoUrl,
     caption,
     parseMode: "HTML",
     buttons
   });
+  tgResult.push(...broadcastRes);
   destinations.push("Channel+Group");
   if (post.language === "de") {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
     if (token && germanChat) {
-      await tgSendPhoto(token, {
+      const r5 = await tgSendPhoto(token, {
         chatId: germanChat,
         photoUrl,
         caption,
         parseMode: "HTML",
         buttons
       });
+      tgResult.push({ chatId: germanChat, ok: r5.ok, error: r5.error });
       destinations.push("DE-Group");
     } else {
       destinations.push("DE-Group:skipped(env)");
     }
   }
-  return `\u{1F4D6} blog announced [${post.language}] \u2192 ${destinations.join(" + ")} \xB7 ${post.slug}`;
+  return {
+    status: `\u{1F4D6} blog announced [${post.language}] \u2192 ${destinations.join(" + ")} \xB7 ${post.slug}`,
+    tgResult
+  };
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
-  await tgBroadcastPhoto({
+  return tgBroadcastPhoto({
     photoUrl: bannerUrlZoom(lang),
     caption,
     parseMode: "HTML",
@@ -73275,7 +73296,7 @@ async function handler(req, res) {
     if (resetSet.size > 0) {
       const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
       const cleared = [];
-      for (const key of resetSet) {
+      for (const key of Array.from(resetSet)) {
         const fullKey = `lastFired:${key}:${today}`;
         await db.delete(siteSettings).where(eq(siteSettings.settingKey, fullKey)).catch(() => {
         });
@@ -73323,13 +73344,14 @@ async function handler(req, res) {
     try {
       if (isInWindow(9, 0) && !await hasFiredToday(db, "hubPromo")) {
         const promo = pickTodaysHubPromo();
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "hubPromo");
+        await markTgResult(db, "hubPromo", tgResult, promo.page);
         log.push(`\u{1F310} Hub promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73348,6 +73370,7 @@ async function handler(req, res) {
         };
         const photoUrl = monthlyBannerUrl(banner);
         const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+        let tgResult = [];
         if (banner.lang === "de") {
           const token = process.env.TELEGRAM_BOT_TOKEN;
           const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
@@ -73359,6 +73382,7 @@ async function handler(req, res) {
               parseMode: "HTML",
               buttons: [button]
             });
+            tgResult = [{ chatId: germanChat, ok: r5.ok, error: r5.error }];
             log.push(
               `\u{1F4B5} Monthly compound \u2014 DE ${label} \u2192 ${germanChat}` + (r5.ok ? "" : ` (failed: ${r5.error})`)
             );
@@ -73368,7 +73392,7 @@ async function handler(req, res) {
             );
           }
         } else {
-          await tgBroadcastPhoto({
+          tgResult = await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
@@ -73377,6 +73401,7 @@ async function handler(req, res) {
           log.push(`\u{1F4B5} Monthly compound \u2014 EN ${label}`);
         }
         await markFired(db, "monthly:compound");
+        await markTgResult(db, "monthly:compound", tgResult, `${banner.lang} ${label}`);
       }
     } catch (err) {
       await markError(db, "monthly:compound", err).catch(() => {
@@ -73387,15 +73412,25 @@ async function handler(req, res) {
     try {
       if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
         const due = await publishOverdueBlogs(db);
+        const aggregated = [];
+        const slugsAnnounced = [];
         if (due.length > 0) {
           for (const post of due) {
-            const status = await announceBlogToTelegram(post);
+            const { status, tgResult } = await announceBlogToTelegram(post);
             log.push(status);
+            aggregated.push(...tgResult);
+            slugsAnnounced.push(post.slug);
           }
         } else {
           log.push("\u{1F4F0} No overdue blog posts to publish");
         }
         await markFired(db, "blog:evening");
+        await markTgResult(
+          db,
+          "blog:evening",
+          aggregated,
+          slugsAnnounced.length ? slugsAnnounced.join(", ") : "no-due"
+        );
       }
     } catch (err) {
       await markError(db, "blog:evening", err).catch(() => {
@@ -73411,8 +73446,9 @@ async function handler(req, res) {
     try {
       if (isInWindow(15, 0) && !await hasFiredToday(db, "zoom:hi:T30")) {
         const cfg = await getZoomConfig("hi");
-        await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        const tgResult = await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
+        await markTgResult(db, "zoom:hi:T30", tgResult);
         log.push("\u{1F399} HI Zoom T-30");
       }
     } catch (err) {
@@ -73424,8 +73460,9 @@ async function handler(req, res) {
     try {
       if (isInWindow(16, 30) && !await hasFiredToday(db, "zoom:en:T30")) {
         const cfg = await getZoomConfig("en");
-        await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        const tgResult = await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");
+        await markTgResult(db, "zoom:en:T30", tgResult);
         log.push("\u{1F399} EN Zoom T-30");
       }
     } catch (err) {
@@ -73437,13 +73474,14 @@ async function handler(req, res) {
     try {
       if (isInWindow(18, 0) && !await hasFiredToday(db, "cinematic:daily")) {
         const film = pickTodaysFilm();
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: cinematicPosterUrl(film),
           caption: cinematicCaption(film),
           parseMode: "HTML",
           buttons: [{ text: "\u{1F3AC} Watch full film", url: `${SITE}/films/${film.slug}` }]
         });
         await markFired(db, "cinematic:daily");
+        await markTgResult(db, "cinematic:daily", tgResult, `S${film.season}E${film.episode}: ${film.slug}`);
         log.push(`\u{1F3AC} Cinematic \u2014 S${film.season}E${film.episode}: ${film.slug}`);
       }
     } catch (err) {
@@ -73533,20 +73571,22 @@ async function handler(req, res) {
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
         const caption = monthlyCompoundingCaption(banner);
         const photoUrl = monthlyBannerUrl(banner);
+        let tgResult = [];
         if (banner.lang === "de") {
           const token = process.env.TELEGRAM_BOT_TOKEN;
           const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
           if (token && germanChat) {
-            await tgSendPhoto(token, {
+            const r5 = await tgSendPhoto(token, {
               chatId: germanChat,
               photoUrl,
               caption,
               parseMode: "HTML",
               buttons: [{ text: "\u{1F9EE} Jetzt berechnen", url: "https://turboloop.tech/calculator" }]
             });
+            tgResult = [{ chatId: germanChat, ok: r5.ok, error: r5.error }];
           }
         } else {
-          await tgBroadcastPhoto({
+          tgResult = await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
@@ -73555,6 +73595,7 @@ async function handler(req, res) {
         }
         await markFired(db, "midnight:math");
         const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+        await markTgResult(db, "midnight:math", tgResult, `${banner.lang} ${label}`);
         log.push(`\u{1F319} Midnight math \u2014 ${banner.lang} ${label}`);
       }
     } catch (err) {
@@ -73627,13 +73668,14 @@ From local Zoom calls to global impact. See where your country ranks.
           ];
           const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
           const caption = captions[day % captions.length];
-          await tgBroadcastMessage({
+          const tgResult = await tgBroadcastMessage({
             text: caption,
             parseMode: "HTML",
             disablePreview: true,
             buttons: [{ text: "\u{1F30D} See full leaderboard", url: "https://www.turboloop.tech/community" }]
           });
           await markFired(db, "global:reach");
+          await markTgResult(db, "global:reach", tgResult, `top: ${leaderRows[0]?.country}`);
           log.push(`\u{1F30D} Global reach \u2014 top: ${leaderRows[0]?.country}`);
         }
       }
@@ -73646,13 +73688,14 @@ From local Zoom calls to global impact. See where your country ranks.
     try {
       if ((isInWindow(4, 0) || forceSecurityPromo) && (forceSecurityPromo || !await hasFiredToday(db, "security:promo"))) {
         const promo = pickHubPromoByPages(["security", "code-is-law"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "security:promo");
+        await markTgResult(db, "security:promo", tgResult, promo.page);
         log.push(`\u{1F510} Security promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73664,13 +73707,14 @@ From local Zoom calls to global impact. See where your country ranks.
     try {
       if ((isInWindow(6, 0) || forceMorningHook) && (forceMorningHook || !await hasFiredToday(db, "morning:hook"))) {
         const promo = pickHubPromoByPages(["calculator", "apply"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "morning:hook");
+        await markTgResult(db, "morning:hook", tgResult, promo.page);
         log.push(`\u26A1 Morning hook \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73682,13 +73726,14 @@ From local Zoom calls to global impact. See where your country ranks.
     try {
       if ((isInWindow(8, 0) || forceEcosystemPromo) && (forceEcosystemPromo || !await hasFiredToday(db, "ecosystem:promo"))) {
         const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "ecosystem:promo");
+        await markTgResult(db, "ecosystem:promo", tgResult, promo.page);
         log.push(`\u{1F310} Ecosystem promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73763,13 +73808,14 @@ Total supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFract
             ];
             const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
-            await tgBroadcastMessage({
+            const tgResult = await tgBroadcastMessage({
               text: caption,
               parseMode: "HTML",
               disablePreview: true,
               buttons: [{ text: "\u{1F525} View burn history", url: "https://www.turboloop.tech/token" }]
             });
             await markFired(db, "burn:proof");
+            await markTgResult(db, "burn:proof", tgResult, `#${latest.execution_number} \xB7 ${latestTokens} TURBO`);
             log.push(`\u{1F525} Burn proof \u2014 #${latest.execution_number}, ${latestTokens} TURBO`);
           }
         }
@@ -73783,13 +73829,14 @@ Total supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFract
     try {
       if ((isInWindow(16, 0) || forceCommunityPromo) && (forceCommunityPromo || !await hasFiredToday(db, "community:promo"))) {
         const promo = pickHubPromoByPages(["community", "faq"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "community:promo");
+        await markTgResult(db, "community:promo", tgResult, promo.page);
         log.push(`\u{1F91D} Community promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73868,13 +73915,14 @@ No hidden wallets. No admin keys. Just code.
             ];
             const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
-            await tgBroadcastMessage({
+            const tgResult = await tgBroadcastMessage({
               text: caption,
               parseMode: "HTML",
               disablePreview: true,
               buttons: [{ text: "\u{1F4CA} Live chart", url: `https://dexscreener.com/bsc/${PAIR}` }]
             });
             await markFired(db, "live:stats");
+            await markTgResult(db, "live:stats", tgResult, `$${price} (${changeStr})`);
             log.push(`\u{1F4CA} Live stats \u2014 $${price} (${changeStr})`);
           }
         }
@@ -73888,13 +73936,14 @@ No hidden wallets. No admin keys. Just code.
     try {
       if ((isInWindow(22, 0) || forceNightlyEducation) && (forceNightlyEducation || !await hasFiredToday(db, "nightly:education"))) {
         const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "nightly:education");
+        await markTgResult(db, "nightly:education", tgResult, promo.page);
         log.push(`\u{1F4DA} Nightly education \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73969,8 +74018,9 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
         ];
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const channelId = process.env.TELEGRAM_CHANNEL;
+        let tgResult = [];
         if (token && channelId) {
-          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          const r5 = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -73979,8 +74029,11 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
               parse_mode: "HTML"
             })
           });
+          const data2 = await r5.json().catch(() => ({}));
+          tgResult = [{ chatId: channelId, ok: !!data2?.ok, error: data2?.description }];
         }
         await markFired(db, "bot:commands");
+        await markTgResult(db, "bot:commands", tgResult, `variant ${variant}`);
         log.push(`\u{1F916} Bot commands guide \u2014 variant ${variant}`);
       }
     } catch (err) {
@@ -73994,14 +74047,15 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !await hasFiredToday(db, "social:wall"))) {
         const promo = pickHubPromoByPages(["social-wall", "submit"]);
         const photoUrl = hubPromoBannerUrl(promo);
-        const tgResults = await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl,
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
-        const tgSummary = tgResults.map((r5) => `${r5.chatId}:${r5.ok ? "ok" : r5.error}`).join(", ");
+        const tgSummary = tgResult.map((r5) => `${r5.chatId}:${r5.ok ? "ok" : r5.error}`).join(", ");
         await markFired(db, "social:wall");
+        await markTgResult(db, "social:wall", tgResult, promo.page);
         log.push(`\u{1F4F1} Social wall promo \u2014 ${promo.page} | banner: ${photoUrl} | tg: ${tgSummary}`);
       }
     } catch (err) {
@@ -74014,13 +74068,14 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       const forceEventsPromo = reqUrl.searchParams.get("force") === "events:promo";
       if ((isInWindow(17, 0) || forceEventsPromo) && (forceEventsPromo || !await hasFiredToday(db, "events:promo"))) {
         const promo = pickHubPromoByPages(["events", "apply"]);
-        await tgBroadcastPhoto({
+        const tgResult = await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "events:promo");
+        await markTgResult(db, "events:promo", tgResult, promo.page);
         log.push(`\u{1F39F}\uFE0F Events promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -74033,17 +74088,19 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {
         const post = todaysCampaignPost(CAMPAIGN_A);
         if (post) {
-          await tgBroadcastPhoto({
+          const tgResult = await tgBroadcastPhoto({
             photoUrl: post.photoUrl,
             caption: post.caption,
             parseMode: "HTML",
             buttons: [{ text: post.buttonText, url: post.buttonUrl }]
           });
           await markFired(db, "campaignA");
+          await markTgResult(db, "campaignA", tgResult, `${post.id} (${post.date})`);
           log.push(`\u{1F4E3} Campaign A \u2014 ${post.id} (${post.date})`);
         } else {
           log.push(`\u{1F4E3} Campaign A \u2014 no post scheduled for ${todayUtcDate()}`);
           await markFired(db, "campaignA");
+          await markTgResult(db, "campaignA", [], `no post scheduled for ${todayUtcDate()}`);
         }
       }
     } catch (err) {
@@ -74066,6 +74123,7 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
             buttons: [{ text: post.buttonText, url: post.buttonUrl }]
           });
           await markFired(db, "germanDaily");
+          await markTgResult(db, "germanDaily", [{ chatId: germanChat, ok: r5.ok, error: r5.error }], post.id);
           log.push(
             `\u{1F1E9}\u{1F1EA} German daily \u2014 ${post.id}` + (r5.ok ? "" : ` (failed: ${r5.error})`)
           );
@@ -74087,13 +74145,14 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
         const isEventMorning = post.id === "B7";
         const slot = isEventMorning ? { h: 6, m: 0 } : { h: 13, m: 0 };
         if ((isInWindow(slot.h, slot.m) || forceCampaignB) && !await hasFiredToday(db, "campaignB")) {
-          await tgBroadcastPhoto({
+          const tgResult = await tgBroadcastPhoto({
             photoUrl: post.photoUrl,
             caption: post.caption,
             parseMode: "HTML",
             buttons: [{ text: post.buttonText, url: post.buttonUrl }]
           });
           await markFired(db, "campaignB");
+          await markTgResult(db, "campaignB", tgResult, `${post.id} (${post.date})`);
           log.push(`\u{1F1F3}\u{1F1EC} Campaign B \u2014 ${post.id} (${post.date})`);
         }
       }

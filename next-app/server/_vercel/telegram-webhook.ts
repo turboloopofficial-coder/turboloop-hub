@@ -490,6 +490,85 @@ All official links are verified above. Stay safe!`,
 
 Our team responds daily. Please include your wallet address and a description of the issue.`,
   },
+  {
+    id: "burns",
+    pattern: /\b(burn|burns|buyback|buybacks|deflat)\b|^\/burns(@\w+)?$/i,
+    response: null,
+    buildResponse: async () => {
+      try {
+        const r = await fetch("https://turboloop.io/api/proxy/buybacks?limit=100", {
+          signal: AbortSignal.timeout(8000),
+        });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const d: any = await r.json();
+        const items: any[] = d?.data?.items ?? [];
+        if (items.length === 0) return "🔥 <b>Burn data unavailable right now.</b> Try again shortly.";
+        const totalUsdt = items.reduce((s: number, i: any) => s + parseInt(i.usdt_spent, 10) / 1e18, 0);
+        const totalTokens = items.reduce((s: number, i: any) => s + parseFloat(i.tokens_burned) / 1e18, 0);
+        const recent = items.slice(0, 3);
+        const rows = recent.map((i: any) => {
+          const tokens = (parseFloat(i.tokens_burned) / 1e18).toLocaleString("en-US", { maximumFractionDigits: 0 });
+          const usdt = (parseInt(i.usdt_spent, 10) / 1e18).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+          const hash = String(i.tx_hash).slice(0, 10) + "…";
+          return `  #${i.execution_number} — <b>${tokens} TURBO</b> | ${usdt} | <code>${hash}</code>`;
+        }).join("\n");
+        return `🔥 <b>$TURBO Buyback &amp; Burn</b>\n\n<b>Last 3 executions:</b>\n${rows}\n\n📊 <b>All-time totals:</b>\n🔥 <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> burned\n💵 <b>$${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT</b> committed to deflation\n\n🔗 https://www.turboloop.tech/token`;
+      } catch {
+        return "🔥 <b>Burn data unavailable right now.</b> Try again shortly.";
+      }
+    },
+  },
+  {
+    id: "stats",
+    pattern: /\b(stats|tvl|liquidity|volume|market\s*cap|mcap)\b|^\/stats(@\w+)?$/i,
+    response: null,
+    buildResponse: async () => {
+      try {
+        const PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
+        const r = await fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${PAIR}`, {
+          signal: AbortSignal.timeout(8000),
+        });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const d: any = await r.json();
+        const pair = d?.pairs?.[0];
+        if (!pair) return "📊 <b>Stats unavailable right now.</b> Try again shortly.";
+        const price = Number(pair.priceUsd ?? 0).toFixed(6);
+        const liq = Number(pair.liquidity?.usd ?? 0).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+        const vol24h = Number(pair.volume?.h24 ?? 0).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+        const mcap = pair.marketCap ? Number(pair.marketCap).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "N/A";
+        const change24h = pair.priceChange?.h24 ?? 0;
+        const changeStr = `${change24h >= 0 ? "+" : ""}${Number(change24h).toFixed(2)}%`;
+        return `📊 <b>$TURBO Live Stats</b>\n\n💰 <b>Price:</b> $${price} (${changeStr} 24h)\n💧 <b>Liquidity:</b> ${liq}\n📈 <b>Volume 24h:</b> ${vol24h}\n🏦 <b>Market Cap:</b> ${mcap}\n\n🔗 Chart: https://dexscreener.com/bsc/${PAIR}`;
+      } catch {
+        return "📊 <b>Stats unavailable right now.</b> Try again shortly.";
+      }
+    },
+  },
+  {
+    id: "top",
+    pattern: /\b(top|leaderboard|countries|community\s*rank|global)\b|^\/top(@\w+)?$/i,
+    response: null,
+    buildResponse: async () => {
+      try {
+        const { neon } = await import("@neondatabase/serverless");
+        const DATABASE_URL = process.env.DATABASE_URL;
+        if (!DATABASE_URL) return "🌍 <b>Leaderboard unavailable right now.</b>";
+        const sql = neon(DATABASE_URL);
+        const rows = await sql`
+          SELECT country_name, member_count
+          FROM country_leaderboard
+          ORDER BY member_count DESC
+          LIMIT 5
+        `;
+        if (rows.length === 0) return "🌍 <b>Leaderboard data not available yet.</b>";
+        const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
+        const lines = rows.map((r: any, i: number) => `${medals[i]} <b>${r.country_name}</b> — ${Number(r.member_count).toLocaleString()} members`).join("\n");
+        return `🌍 <b>TurboLoop Global Leaderboard</b>\n\nTop 5 communities by size:\n\n${lines}\n\n🔗 Full leaderboard: https://www.turboloop.tech/community`;
+      } catch {
+        return "🌍 <b>Leaderboard unavailable right now.</b> Try again shortly.";
+      }
+    },
+  },
 ];
 
 // ─── Cooldown bookkeeping ─────────────────────────────────────────

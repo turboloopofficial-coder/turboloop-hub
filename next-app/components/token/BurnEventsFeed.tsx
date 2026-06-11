@@ -54,7 +54,9 @@ function BurnCountdown() {
     return () => window.clearInterval(id);
   }, []);
 
-  const isFiring = secs !== null && secs < 60;
+  // Show "executing" for 60s BEFORE and 60s AFTER the 14:00 UTC rollover,
+  // giving the on-chain tx time to confirm and appear in the feed.
+  const isFiring = secs !== null && (secs < 60 || secs > 86_340);
 
   return (
     <div

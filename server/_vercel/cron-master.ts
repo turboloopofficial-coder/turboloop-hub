@@ -522,7 +522,16 @@ async function announceBlogToTelegram(
 }
 
 async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<TgDest[]> {
-  const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
+  // Compute how many minutes until the call starts so the caption can
+  // include a dynamic "Starts in ~X minutes" line. Uses the shared
+  // startUtcMin from ZOOM_EN/ZOOM_HI so it's always accurate.
+  const { ZOOM_EN: ZEN, ZOOM_HI: ZHI } = await import("../../shared/zoomEvents");
+  const session = lang === "en" ? ZEN : ZHI;
+  const nowMs = Date.now();
+  const todayStartMs = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate());
+  const callStartMs = todayStartMs + session.startUtcMin * 60_000;
+  const minutesUntil = Math.max(0, Math.round((callStartMs - nowMs) / 60_000));
+  const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel, minutesUntil });
   return tgBroadcastPhoto({
     photoUrl: bannerUrlZoom(lang),
     caption,

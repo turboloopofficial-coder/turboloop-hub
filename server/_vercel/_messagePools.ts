@@ -388,13 +388,25 @@ const POOLS: Record<ZoomLang, string[]> = {
   hi: HI_T30,
 };
 
-export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meetingLink: string; passcode: string; timeLabel: string }): string {
+export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meetingLink: string; passcode: string; timeLabel: string; minutesUntil?: number }): string {
   const body = pickByDay(POOLS[opts.lang]);
-  return `${body}
+  // Dynamic "starts in" line — computed at send time so it's always accurate.
+  const startsIn = opts.minutesUntil != null && opts.minutesUntil > 0
+    ? `\n⏳ <b>Starts in ~${opts.minutesUntil} minutes</b>`
+    : ``;
+  // Format the multi-line timezone table with a monospace block so it
+  // aligns cleanly in Telegram (each \n in timeLabel becomes a new line).
+  const timezoneBlock = opts.timeLabel
+    .split('\n')
+    .map(line => tgEscape(line))
+    .join('\n');
+  return `${body}${startsIn}
 
 🔗 ${tgEscape(opts.meetingLink)}
 🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>
-⏰ ${tgEscape(opts.timeLabel)}`;
+
+<b>⏰ When is this for you?</b>
+${timezoneBlock}`;
 }
 
 // =========================================================

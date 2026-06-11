@@ -1123,6 +1123,42 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ nightly:education failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
+    // ============ J. BOT COMMANDS GUIDE: 11:30 UTC = 5:00 PM IST ============
+    // Rotates through 3 caption variants (by day-of-week % 3) so it never
+    // feels repetitive. Teaches the community about /ask and all commands.
+    try {
+      if (isInWindow(11, 30) && !(await hasFiredToday(db, "bot:commands"))) {
+        const variant = new Date().getUTCDay() % 3; // 0, 1, or 2
+        const captions = [
+          // Variant 0 — spotlight /ask AI
+          `🤖 <b>Meet Your TurboLoop AI Assistant</b>\n\nType <code>/ask</code> followed by any question and our AI answers instantly using the full TurboLoop knowledge base.\n\n<b>Try it now:</b>\n\u2022 <code>/ask how does the referral system work?</code>\n\u2022 <code>/ask what is the Ultimate Loop plan?</code>\n\u2022 <code>/ask how do I set up MetaMask for BSC?</code>\n\nNo waiting. No searching. Just ask. 💡`,
+          // Variant 1 — full command list
+          `💬 <b>TurboLoop Bot Commands</b>\n\nGet instant answers:\n\n🔹 <code>/ask [question]</code> — AI answers anything about TurboLoop\n🔹 <code>/price</code> — Live $TURBO price\n🔹 <code>/burns</code> — Latest buyback &amp; burn data\n🔹 <code>/stats</code> — Live protocol stats\n🔹 <code>/top</code> — Global community leaderboard\n🔹 <code>/plans</code> — All 4 Loop Plans\n🔹 <code>/referral</code> — 20-level referral system\n🔹 <code>/payout</code> — Payout schedule\n🔹 <code>/calculator</code> — Yield calculator\n\nType any keyword and the bot responds automatically too. ⚡`,
+          // Variant 2 — FOMO angle
+          `❓ <b>Have a question about TurboLoop?</b>\n\nDon't scroll through old messages. Just type:\n\n<code>/ask your question here</code>\n\nOur AI has read every article, every plan detail, every security audit, and every FAQ. It answers in seconds — right here in this chat.\n\nOther quick commands: <code>/price</code> <code>/burns</code> <code>/stats</code> <code>/plans</code> <code>/referral</code>\n\n💬 Ask anything. We built this for you.`,
+        ];
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const channelId = process.env.TELEGRAM_CHANNEL;
+        if (token && channelId) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: channelId,
+              text: captions[variant],
+              parse_mode: "HTML",
+            }),
+          });
+        }
+        await markFired(db, "bot:commands");
+        log.push(`🤖 Bot commands guide — variant ${variant}`);
+      }
+    } catch (err) {
+      await markError(db, "bot:commands", err).catch(() => {});
+      console.error("[cron-master] task bot:commands failed", err);
+      log.push(`❌ bot:commands failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
     // ════════════════════════════════════════════════════════════════
     //  End of expanded schedule. Existing slots resume below.
     // ════════════════════════════════════════════════════════════════

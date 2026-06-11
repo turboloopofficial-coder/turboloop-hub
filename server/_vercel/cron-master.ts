@@ -1302,14 +1302,16 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       const forceSocialWall = reqUrl.searchParams.get("force") === "social:wall";
       if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !(await hasFiredToday(db, "social:wall")))) {
         const promo = pickHubPromoByPages(["social-wall", "submit"]);
-        await tgBroadcastPhoto({
-          photoUrl: hubPromoBannerUrl(promo),
+        const photoUrl = hubPromoBannerUrl(promo);
+        const tgResults = await tgBroadcastPhoto({
+          photoUrl,
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
         });
+        const tgSummary = tgResults.map(r => `${r.chatId}:${r.ok ? 'ok' : r.error}`).join(', ');
         await markFired(db, "social:wall");
-        log.push(`📱 Social wall promo — ${promo.page}`);
+        log.push(`📱 Social wall promo — ${promo.page} | banner: ${photoUrl} | tg: ${tgSummary}`);
       }
     } catch (err) {
       await markError(db, "social:wall", err).catch(() => {});

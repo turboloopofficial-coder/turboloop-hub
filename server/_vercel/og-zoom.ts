@@ -1,8 +1,21 @@
 // /api/og-zoom?lang=en&tier=T30 — generates a unique 1200x630 SVG banner per request.
 // Day-rotated palette + tier-specific accent colors so each banner looks different
 // every day AND different per tier (T60 vs T30 vs T15 vs LIVE).
+// Add ?format=png to get a PNG (uses @resvg/resvg-wasm, no native deps).
 
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { Resvg, initWasm } from "@resvg/resvg-wasm";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+let wasmInitialized = false;
+async function ensureWasm() {
+  if (wasmInitialized) return;
+  const wasmPath = join(process.cwd(), "node_modules/@resvg/resvg-wasm/index_bg.wasm");
+  const wasmBuf = readFileSync(wasmPath);
+  await initWasm(wasmBuf);
+  wasmInitialized = true;
+}
 
 const PALETTES = [
   { from: "#0891B2", via: "#22D3EE", to: "#7C3AED" },
@@ -154,10 +167,23 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   </text>
 </svg>`;
 
-    res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
-    res.statusCode = 200;
-    res.end(svg);
+    const format = url.searchParams.get("format");
+    if (format === "png") {
+      // Render SVG → PNG using resvg-wasm (pure WASM, no native deps)
+      await ensureWasm();
+      const resvg = new Resvg(svg, { fitTo: { mode: "width", value: 1200 } });
+      const pngData = resvg.render();
+      const pngBuf = pngData.asPng();
+      res.setHeader("Content-Type", "image/png");
+      res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
+      res.statusCode = 200;
+      res.end(Buffer.from(pngBuf));
+    } else {
+      res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
+      res.statusCode = 200;
+      res.end(svg);
+    }
   } catch (err: any) {
     console.error("[og-zoom]", err);
     res.statusCode = 500;

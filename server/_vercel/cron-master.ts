@@ -29,7 +29,6 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
-import sharp from "sharp";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
@@ -62,11 +61,12 @@ const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire 
 function bannerUrlBlog(slug: string, title: string): string {
   return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
-// Use the hub's own og-zoom SVG generator for zoom banners — always uses
+// Use the hub's own og-zoom PNG generator for zoom banners — always uses
 // the correct TurboLoop logo, palette rotates daily, tier badge changes per slot.
+// ?format=png triggers resvg-wasm rendering server-side so Telegram gets a real PNG.
 function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T10"|"T0" = "T30"): string {
   const ogTier = tier === "T0" ? "LIVE" : tier; // og-zoom uses LIVE not T0
-  return `${BANNER_HOST}/api/og-zoom?lang=${lang}&tier=${ogTier}`;
+  return `${BANNER_HOST}/api/og-zoom?lang=${lang}&tier=${ogTier}&format=png`;
 }
 function bannerUrlLaunch(): string {
   return `${BANNER_HOST}/api/og-banner?type=launch`;
@@ -484,21 +484,10 @@ async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: str
     tier === "T15" ? "T10" :
     tier === "LIVE" ? "T0" :
     "T30";
-  // Fetch the SVG from og-zoom and convert to PNG so Telegram accepts it.
-  // og-zoom uses the hub's real logo — no AI-generated placeholder.
-  const svgUrl = bannerUrlZoom(lang, bannerTier);
-  let photoBuf: ArrayBuffer | undefined;
-  try {
-    const svgRes = await fetch(svgUrl, { signal: AbortSignal.timeout(15000) });
-    if (svgRes.ok) {
-      const svgBuf = Buffer.from(await svgRes.arrayBuffer());
-      const pngBuf = await sharp(svgBuf).png().toBuffer();
-      photoBuf = pngBuf.buffer.slice(pngBuf.byteOffset, pngBuf.byteOffset + pngBuf.byteLength) as ArrayBuffer;
-    }
-  } catch (_) { /* fall through to photoUrl path */ }
+  // og-zoom?format=png returns a real PNG (resvg-wasm rendered) with the correct
+  // TurboLoop logo — no AI-generated placeholder, no native deps.
   await tgBroadcastPhoto({
-    photoUrl: svgUrl,
-    ...(photoBuf ? { photoBuffer: photoBuf } : {}),
+    photoUrl: bannerUrlZoom(lang, bannerTier),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "🎤 Join Zoom now", url: meetingLink }],

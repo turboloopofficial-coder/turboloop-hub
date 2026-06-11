@@ -37857,6 +37857,14 @@ async function handler(req, res) {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");
     const db = drizzle(Xs(dbUrl));
+    const reqUrlDebug = new URL(req.url || "/", "http://x");
+    if (reqUrlDebug.searchParams.get("checkdb") === "1") {
+      const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+      const rows = await db.select().from(siteSettings).where(like(siteSettings.settingKey, `lastFired:%:${today}`)).orderBy(siteSettings.settingKey);
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, today, firedKeys: rows.map((r) => r.settingKey) }));
+      return;
+    }
     try {
       const priceRes = await fetch("https://www.turboloop.tech/api/token-price", {
         signal: AbortSignal.timeout(8e3)

@@ -23406,7 +23406,7 @@ async function tgSendMessage(token, msg) {
 async function tgBroadcastPhoto(msg) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean);
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendPhoto(token, { ...msg, chatId });
@@ -23417,7 +23417,7 @@ async function tgBroadcastPhoto(msg) {
 async function tgBroadcastVideo(msg) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean);
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendVideo(token, { ...msg, chatId });
@@ -23428,7 +23428,7 @@ async function tgBroadcastVideo(msg) {
 async function tgBroadcastMessage(msg) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean);
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendMessage(token, { ...msg, chatId });
@@ -37686,7 +37686,7 @@ async function dispatchScheduledPost(db, post) {
           log.push(`\u{1F4E1} telegram_en SKIPPED (no TELEGRAM_BOT_TOKEN) \u2014 post #${post.id}`);
           continue;
         }
-        const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+        const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean);
         for (const chatId of dests) {
           await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: "POST",
@@ -37733,7 +37733,7 @@ async function dispatchScheduledPost(db, post) {
       } else if (post.mediaUrl) {
         await tgBroadcastPhoto({ photoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
       } else if (token) {
-        const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean);
+        const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean);
         for (const chatId of dests) {
           await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: "POST",
@@ -37788,7 +37788,7 @@ function payoutTierForViews(views) {
   }
   return null;
 }
-function isInWindow(targetHour, targetMin, graceMin = 4) {
+function isInWindow(targetHour, targetMin, graceMin = 7) {
   const now = /* @__PURE__ */ new Date();
   const target = new Date(now);
   target.setUTCHours(targetHour, targetMin, 0, 0);
@@ -37878,6 +37878,16 @@ async function handler(req, res) {
     const forceCampaignA = forceSet.has("campaignA");
     const forceCampaignB = forceSet.has("campaignB");
     const forceGermanDaily = forceSet.has("germanDaily");
+    const forceMidnightMath = forceSet.has("midnight:math");
+    const forceGlobalReach = forceSet.has("global:reach");
+    const forceSecurityPromo = forceSet.has("security:promo");
+    const forceMorningHook = forceSet.has("morning:hook");
+    const forceEcosystemPromo = forceSet.has("ecosystem:promo");
+    const forceBurnProof = forceSet.has("burn:proof");
+    const forceCommunityPromo = forceSet.has("community:promo");
+    const forceLiveStats = forceSet.has("live:stats");
+    const forceNightlyEducation = forceSet.has("nightly:education");
+    const forceBotCommands = forceSet.has("bot:commands");
     try {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = /* @__PURE__ */ new Date();
@@ -38108,7 +38118,7 @@ async function handler(req, res) {
       log.push(`\u274C creatorReminder failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(0, 0) && !await hasFiredToday(db, "midnight:math")) {
+      if ((isInWindow(0, 0) || forceMidnightMath) && !await hasFiredToday(db, "midnight:math")) {
         const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
         const caption = monthlyCompoundingCaption(banner);
@@ -38144,7 +38154,7 @@ async function handler(req, res) {
       log.push(`\u274C midnight:math failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(2, 0) && !await hasFiredToday(db, "global:reach")) {
+      if ((isInWindow(2, 0) || forceGlobalReach) && !await hasFiredToday(db, "global:reach")) {
         const { neon } = await Promise.resolve().then(() => (init_serverless(), serverless_exports));
         const sql2 = neon(process.env.DATABASE_URL);
         const leaderRows = await sql2`
@@ -38206,7 +38216,7 @@ Join the global network.
       log.push(`\u274C global:reach failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(4, 0) && !await hasFiredToday(db, "security:promo")) {
+      if ((isInWindow(4, 0) || forceSecurityPromo) && !await hasFiredToday(db, "security:promo")) {
         const promo = pickHubPromoByPages(["security", "code-is-law"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38224,7 +38234,7 @@ Join the global network.
       log.push(`\u274C security:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(6, 0) && !await hasFiredToday(db, "morning:hook")) {
+      if ((isInWindow(6, 0) || forceMorningHook) && !await hasFiredToday(db, "morning:hook")) {
         const promo = pickHubPromoByPages(["calculator", "apply"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38242,7 +38252,7 @@ Join the global network.
       log.push(`\u274C morning:hook failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(8, 0) && !await hasFiredToday(db, "ecosystem:promo")) {
+      if ((isInWindow(8, 0) || forceEcosystemPromo) && !await hasFiredToday(db, "ecosystem:promo")) {
         const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38260,7 +38270,7 @@ Join the global network.
       log.push(`\u274C ecosystem:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(10, 0) && !await hasFiredToday(db, "burn:proof")) {
+      if ((isInWindow(10, 0) || forceBurnProof) && !await hasFiredToday(db, "burn:proof")) {
         const r = await fetch("https://turboloop.io/api/proxy/buybacks?limit=100", {
           signal: AbortSignal.timeout(8e3)
         });
@@ -38324,7 +38334,7 @@ Total burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFraction
       log.push(`\u274C burn:proof failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(16, 0) && !await hasFiredToday(db, "community:promo")) {
+      if ((isInWindow(16, 0) || forceCommunityPromo) && !await hasFiredToday(db, "community:promo")) {
         const promo = pickHubPromoByPages(["community", "faq"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38342,7 +38352,7 @@ Total burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFraction
       log.push(`\u274C community:promo failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(20, 0) && !await hasFiredToday(db, "live:stats")) {
+      if ((isInWindow(20, 0) || forceLiveStats) && !await hasFiredToday(db, "live:stats")) {
         const PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
         const r = await fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${PAIR}`, {
           signal: AbortSignal.timeout(8e3)
@@ -38409,7 +38419,7 @@ Real volume. Real liquidity. Real yield.
       log.push(`\u274C live:stats failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(22, 0) && !await hasFiredToday(db, "nightly:education")) {
+      if ((isInWindow(22, 0) || forceNightlyEducation) && !await hasFiredToday(db, "nightly:education")) {
         const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -38425,6 +38435,72 @@ Real volume. Real liquidity. Real yield.
       });
       console.error("[cron-master] task nightly:education failed", err);
       log.push(`\u274C nightly:education failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(11, 30) || forceBotCommands) && !await hasFiredToday(db, "bot:commands")) {
+        const variant = (/* @__PURE__ */ new Date()).getUTCDay() % 3;
+        const captions = [
+          // Variant 0 — spotlight /ask AI
+          `\u{1F916} <b>Meet Your TurboLoop AI Assistant</b>
+
+Type <code>/ask</code> followed by any question and our AI answers instantly using the full TurboLoop knowledge base.
+
+<b>Try it now:</b>
+\u2022 <code>/ask how does the referral system work?</code>
+\u2022 <code>/ask what is the Ultimate Loop plan?</code>
+\u2022 <code>/ask how do I set up MetaMask for BSC?</code>
+
+No waiting. No searching. Just ask. \u{1F4A1}`,
+          // Variant 1 — full command list
+          `\u{1F4AC} <b>TurboLoop Bot Commands</b>
+
+Get instant answers:
+
+\u{1F539} <code>/ask [question]</code> \u2014 AI answers anything about TurboLoop
+\u{1F539} <code>/price</code> \u2014 Live $TURBO price
+\u{1F539} <code>/burns</code> \u2014 Latest buyback &amp; burn data
+\u{1F539} <code>/stats</code> \u2014 Live protocol stats
+\u{1F539} <code>/top</code> \u2014 Global community leaderboard
+\u{1F539} <code>/plans</code> \u2014 All 4 Loop Plans
+\u{1F539} <code>/referral</code> \u2014 20-level referral system
+\u{1F539} <code>/payout</code> \u2014 Payout schedule
+\u{1F539} <code>/calculator</code> \u2014 Yield calculator
+
+Type any keyword and the bot responds automatically too. \u26A1`,
+          // Variant 2 — FOMO angle
+          `\u2753 <b>Have a question about TurboLoop?</b>
+
+Don't scroll through old messages. Just type:
+
+<code>/ask your question here</code>
+
+Our AI has read every article, every plan detail, every security audit, and every FAQ. It answers in seconds \u2014 right here in this chat.
+
+Other quick commands: <code>/price</code> <code>/burns</code> <code>/stats</code> <code>/plans</code> <code>/referral</code>
+
+\u{1F4AC} Ask anything. We built this for you.`
+        ];
+        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const channelId = process.env.TELEGRAM_CHANNEL;
+        if (token && channelId) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: channelId,
+              text: captions[variant],
+              parse_mode: "HTML"
+            })
+          });
+        }
+        await markFired(db, "bot:commands");
+        log.push(`\u{1F916} Bot commands guide \u2014 variant ${variant}`);
+      }
+    } catch (err) {
+      await markError(db, "bot:commands", err).catch(() => {
+      });
+      console.error("[cron-master] task bot:commands failed", err);
+      log.push(`\u274C bot:commands failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
       if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {

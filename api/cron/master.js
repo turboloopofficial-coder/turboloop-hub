@@ -38158,15 +38158,15 @@ async function handler(req, res) {
         const { neon } = await Promise.resolve().then(() => (init_serverless(), serverless_exports));
         const sql2 = neon(process.env.DATABASE_URL);
         const leaderRows = await sql2`
-          SELECT country_name, member_count
+          SELECT country, score
           FROM country_leaderboard
-          ORDER BY member_count DESC
+          ORDER BY score DESC
           LIMIT 3
         `;
         if (leaderRows.length > 0) {
           const medals = ["\u{1F947}", "\u{1F948}", "\u{1F949}"];
           const lines = leaderRows.map(
-            (r, i) => `${medals[i]} <b>${r.country_name}</b> \u2014 ${Number(r.member_count).toLocaleString()} members`
+            (r, i) => `${medals[i]} <b>${r.country}</b> \u2014 ${Number(r.score).toLocaleString()} members`
           ).join("\n");
           const captions = [
             `\u{1F30D} <b>The TurboLoop movement is global.</b>
@@ -38206,7 +38206,7 @@ Join the global network.
             buttons: [{ text: "\u{1F30D} See full leaderboard", url: "https://www.turboloop.tech/community" }]
           });
           await markFired(db, "global:reach");
-          log.push(`\u{1F30D} Global reach \u2014 top: ${leaderRows[0]?.country_name}`);
+          log.push(`\u{1F30D} Global reach \u2014 top: ${leaderRows[0]?.country}`);
         }
       }
     } catch (err) {

@@ -916,15 +916,15 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         const { neon } = await import("@neondatabase/serverless");
         const sql2 = neon(process.env.DATABASE_URL!);
         const leaderRows = await sql2`
-          SELECT country_name, member_count
+          SELECT country, score
           FROM country_leaderboard
-          ORDER BY member_count DESC
+          ORDER BY score DESC
           LIMIT 3
         `;
         if (leaderRows.length > 0) {
           const medals = ["🥇", "🥈", "🥉"];
           const lines = leaderRows.map((r: any, i: number) =>
-            `${medals[i]} <b>${r.country_name}</b> — ${Number(r.member_count).toLocaleString()} members`
+            `${medals[i]} <b>${r.country}</b> — ${Number(r.score).toLocaleString()} members`
           ).join("\n");
           const captions = [
             `🌍 <b>The TurboLoop movement is global.</b>\n\nTop communities right now:\n\n${lines}\n\nEvery country on this list started with one person who decided to build differently.\n\n🔗 https://www.turboloop.tech/community`,
@@ -940,7 +940,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             buttons: [{ text: "🌍 See full leaderboard", url: "https://www.turboloop.tech/community" }],
           });
           await markFired(db, "global:reach");
-          log.push(`🌍 Global reach — top: ${leaderRows[0]?.country_name}`);
+          log.push(`🌍 Global reach — top: ${leaderRows[0]?.country}`);
         }
       }
     } catch (err) {

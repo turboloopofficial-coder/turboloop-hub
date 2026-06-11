@@ -894,7 +894,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // which reads admin overrides from `site_settings` and falls back
     // to the hardcoded ZOOM_HI defaults if unset or invalid.
     try {
-      if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
+      const forceZoomHi = reqUrl.searchParams.get("force") === "zoom:hi:T30";
+      if ((isInWindow(15, 0) || forceZoomHi) && (forceZoomHi || !(await hasFiredToday(db, "zoom:hi:T30")))) {
         const cfg = await getZoomConfig("hi");
         const tgResult = await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
@@ -909,7 +910,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // ============ 4. ENGLISH ZOOM T-30: 16:30 UTC = 10:00 PM IST ============
     try {
-      if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
+      const forceZoomEn = reqUrl.searchParams.get("force") === "zoom:en:T30";
+      if ((isInWindow(16, 30) || forceZoomEn) && (forceZoomEn || !(await hasFiredToday(db, "zoom:en:T30")))) {
         const cfg = await getZoomConfig("en");
         const tgResult = await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");

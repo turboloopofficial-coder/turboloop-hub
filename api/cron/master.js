@@ -73490,7 +73490,8 @@ async function handler(req, res) {
       console.error("[cron-master] safety-net publishOverdueBlogs failed", err);
     }
     try {
-      if (isInWindow(15, 0) && !await hasFiredToday(db, "zoom:hi:T30")) {
+      const forceZoomHi = reqUrl.searchParams.get("force") === "zoom:hi:T30";
+      if ((isInWindow(15, 0) || forceZoomHi) && (forceZoomHi || !await hasFiredToday(db, "zoom:hi:T30"))) {
         const cfg = await getZoomConfig("hi");
         const tgResult = await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
@@ -73504,7 +73505,8 @@ async function handler(req, res) {
       log.push(`\u274C zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if (isInWindow(16, 30) && !await hasFiredToday(db, "zoom:en:T30")) {
+      const forceZoomEn = reqUrl.searchParams.get("force") === "zoom:en:T30";
+      if ((isInWindow(16, 30) || forceZoomEn) && (forceZoomEn || !await hasFiredToday(db, "zoom:en:T30"))) {
         const cfg = await getZoomConfig("en");
         const tgResult = await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");

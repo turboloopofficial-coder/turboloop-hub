@@ -13863,68 +13863,6 @@ var init_schema2 = __esm({
   }
 });
 
-// shared/zoomEvents.ts
-var zoomEvents_exports = {};
-__export(zoomEvents_exports, {
-  ZOOM_EN: () => ZOOM_EN,
-  ZOOM_HI: () => ZOOM_HI,
-  ZOOM_SESSIONS: () => ZOOM_SESSIONS,
-  ZOOM_URL_PATTERN: () => ZOOM_URL_PATTERN,
-  nextZoomOccurrence: () => nextZoomOccurrence
-});
-function nextZoomOccurrence(session, now = /* @__PURE__ */ new Date()) {
-  const ms2 = now.getTime();
-  const todayStart = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate()
-  );
-  const todayCallStart = todayStart + session.startUtcMin * 6e4;
-  const todayCallEnd = todayCallStart + session.durationMin * 6e4;
-  if (ms2 >= todayCallStart && ms2 < todayCallEnd) {
-    return new Date(todayCallStart);
-  }
-  if (ms2 >= todayCallEnd) {
-    return new Date(todayCallStart + 24 * 60 * 6e4);
-  }
-  return new Date(todayCallStart);
-}
-var ZOOM_EN, ZOOM_HI, ZOOM_SESSIONS, ZOOM_URL_PATTERN;
-var init_zoomEvents = __esm({
-  "shared/zoomEvents.ts"() {
-    "use strict";
-    ZOOM_EN = {
-      lang: "en",
-      title: "Daily English Community Call",
-      description: "Every day. Bring your questions. Real people, real answers \u2014 no pitch, no pressure.",
-      link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
-      passcode: "552740",
-      // 17:00 UTC mapped across all active TurboLoop communities.
-      // Flag prefixes let mobile readers scan their own row instantly.
-      timeLabel: "\u{1F554} 5:00 PM UTC\n\u{1F1EE}\u{1F1F3} 10:30 PM IST \xB7 \u{1F1F5}\u{1F1F0} 10:00 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 11:00 PM BST \xB7 \u{1F1F3}\u{1F1F5} 10:45 PM NPT\n\u{1F1E6}\u{1F1EA} 9:00 PM GST \xB7 \u{1F1F8}\u{1F1E6} 8:00 PM AST \xB7 \u{1F1F9}\u{1F1F7} 8:00 PM TRT \xB7 \u{1F1F7}\u{1F1FA} 8:00 PM MSK\n\u{1F1F3}\u{1F1EC} 6:00 PM WAT \xB7 \u{1F1EC}\u{1F1ED} 5:00 PM GMT \xB7 \u{1F1FF}\u{1F1E6} 7:00 PM SAST \xB7 \u{1F1F0}\u{1F1EA} 8:00 PM EAT\n\u{1F1EC}\u{1F1E7} 5:00 PM BST \xB7 \u{1F1E9}\u{1F1EA} 7:00 PM CEST \xB7 \u{1F1EB}\u{1F1F7} 7:00 PM CEST\n\u{1F1FA}\u{1F1F8} 1:00 PM EDT \xB7 \u{1F1FA}\u{1F1F8} 10:00 AM PDT \xB7 \u{1F1E7}\u{1F1F7} 2:00 PM BRT \xB7 \u{1F1E6}\u{1F1FA} 3:00 AM AEST+1",
-      startUtcMin: 17 * 60,
-      // 17:00 UTC
-      durationMin: 120
-    };
-    ZOOM_HI = {
-      lang: "hi",
-      title: "Daily Hindi / Urdu Call",
-      description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902. India \u{1F1EE}\u{1F1F3} \xB7 Pakistan \u{1F1F5}\u{1F1F0} \xB7 Bangladesh \u{1F1E7}\u{1F1E9} \xB7 Nepal \u{1F1F3}\u{1F1F5} \xB7 Dubai \u{1F1E6}\u{1F1EA}",
-      link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
-      passcode: "1234",
-      // 15:30 UTC mapped per region — same moment in time, different
-      // local clocks. The flag prefixes let mobile readers scan their
-      // own row at a glance without reading the whole line.
-      timeLabel: "\u{1F1EE}\u{1F1F3} 9:00 PM IST \xB7 \u{1F1F5}\u{1F1F0} 8:30 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 9:30 PM BST \xB7 \u{1F1F3}\u{1F1F5} 9:15 PM NPT \xB7 \u{1F1E6}\u{1F1EA} 7:30 PM GST",
-      startUtcMin: 15 * 60 + 30,
-      // 15:30 UTC = 9:00 PM IST
-      durationMin: 120
-    };
-    ZOOM_SESSIONS = [ZOOM_EN, ZOOM_HI];
-    ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
-  }
-});
-
 // node_modules/cron-parser/dist/fields/types.js
 var require_types = __commonJS({
   "node_modules/cron-parser/dist/fields/types.js"(exports2) {
@@ -58996,22 +58934,118 @@ DeFi seekhna ho ya strategy refine karni ho \u2014 yahan dono milega. Free, sabk
 
 Number, math, contract \u2014 jo kuch bhi confuse karta hai, aaj poochiye. Real time, real answers.`
 ];
+var EN_T60 = [
+  `<b>English Community Call \u2014 in 1 hour.</b>
+
+Mark your calendar. One hour from now, the daily Zoom opens. Bring your questions, bring a friend.`,
+  `<b>Daily English Call \u2014 1 hour away.</b>
+
+If you've been meaning to join but keep missing it \u2014 today's your day. One hour.`,
+  `<b>The English Community Zoom opens in 60 minutes.</b>
+
+Same link, every day. Real answers, no scripts. See you there.`,
+  `<b>60 minutes until the Daily English Call.</b>
+
+Get your questions ready. The room opens in one hour \u2014 free, open, no agenda.`,
+  `<b>English Daily Call \u2014 1 hour to go.</b>
+
+Members from 20+ countries join this call every day. Add your voice in 60 minutes.`
+];
+var EN_T10 = [
+  `<b>English Community Call \u2014 10 minutes.</b>
+
+The room is filling up. Join now and get a front-row seat.`,
+  `<b>10 minutes to the Daily English Call.</b>
+
+Last call. The Zoom opens in 10 minutes \u2014 don't miss it.`,
+  `<b>Almost live \u2014 English Community Call.</b>
+
+Final reminder. 10 minutes. Bring your best question.`,
+  `<b>Daily English Call \u2014 10 min away.</b>
+
+The door opens in 10 minutes. Real conversation, real answers.`,
+  `<b>English Zoom \u2014 starting in 10 minutes.</b>
+
+Wrap up what you're doing. The daily call is about to begin.`
+];
+var EN_LIVE = [
+  `\u{1F534} <b>English Community Call \u2014 WE ARE LIVE.</b>
+
+The room is open right now. Click the link and join.`,
+  `\u{1F534} <b>LIVE NOW \u2014 Daily English Call.</b>
+
+Don't wait. The call is live. Join now.`,
+  `\u{1F534} <b>The English Community Zoom is LIVE.</b>
+
+Real-time answers, real people. The room is open \u2014 come in.`,
+  `\u{1F534} <b>Daily English Call \u2014 GOING LIVE NOW.</b>
+
+This is it. The room is open. See you inside.`,
+  `\u{1F534} <b>WE'RE LIVE \u2014 English Community Call.</b>
+
+Join now. The conversation has started.`
+];
+var HI_T60 = [
+  `<b>Hindi/Urdu Daily Call \u2014 1 ghante mein.</b>
+
+Ek ghante mein room khulega. Apne sawaal tayaar rakho.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
+  `<b>Hindi/Urdu Community Call \u2014 60 minute baad.</b>
+
+Aaj ka call 1 ghante mein live hoga. Dosto ko bhi bata do.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
+  `<b>1 ghante mein Hindi/Urdu Zoom.</b>
+
+Sawaal, strategy, security \u2014 sab kuch apni zubaan mein. Ek ghante mein milte hain.`
+];
+var HI_T10 = [
+  `<b>Hindi/Urdu Daily Call \u2014 sirf 10 minute.</b>
+
+Room 10 minute mein khulega. Abhi join karne ki tayaari karo.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
+  `<b>10 minute baad \u2014 Hindi/Urdu Zoom.</b>
+
+Aakhri reminder. 10 minute mein live ho raha hai. Aao.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
+  `<b>Hindi/Urdu Call \u2014 10 min mein shuru.</b>
+
+Ab waqt aa gaya. 10 minute mein room open hoga.`
+];
+var HI_LIVE = [
+  `\u{1F534} <b>Hindi/Urdu Daily Call \u2014 ABHI LIVE HAI.</b>
+
+Room khul gaya hai. Abhi join karo.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
+  `\u{1F534} <b>LIVE \u2014 Hindi/Urdu Community Call.</b>
+
+Call shuru ho gaya hai. Der mat karo \u2014 join karo abhi.
+
+\u{1F1EE}\u{1F1F3} India \xB7 \u{1F1F5}\u{1F1F0} Pakistan \xB7 \u{1F1E7}\u{1F1E9} Bangladesh \xB7 \u{1F1F3}\u{1F1F5} Nepal \xB7 \u{1F1E6}\u{1F1EA} Dubai`,
+  `\u{1F534} <b>Hindi/Urdu Zoom \u2014 LIVE HO GAYA.</b>
+
+Ab aur intezaar mat karo. Room open hai.`
+];
 var POOLS = {
-  en: EN_T30,
-  hi: HI_T30
+  en: { T60: EN_T60, T30: EN_T30, T15: EN_T10, LIVE: EN_LIVE },
+  hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE }
 };
 function zoomReminderCaption(opts) {
-  const body = pickByDay(POOLS[opts.lang]);
-  const startsIn = opts.minutesUntil != null && opts.minutesUntil > 0 ? `
-\u23F3 <b>Starts in ~${opts.minutesUntil} minutes</b>` : ``;
-  const timezoneBlock = opts.timeLabel.split("\n").map((line2) => tgEscape(line2)).join("\n");
-  return `${body}${startsIn}
+  const body = pickByDay(POOLS[opts.lang][opts.tier]);
+  if (opts.tier === "LIVE") {
+    return `${body}
+
+\u{1F517} ${tgEscape(opts.meetingLink)}`;
+  }
+  return `${body}
 
 \u{1F517} ${tgEscape(opts.meetingLink)}
 \u{1F510} Passcode: <code>${tgEscape(opts.passcode)}</code>
-
-<b>\u23F0 When is this for you?</b>
-${timezoneBlock}`;
+\u23F0 ${tgEscape(opts.timeLabel)}`;
 }
 var R2_BASE_FOR_CINEMATIC = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 var CINEMATIC_FILMS = [
@@ -60007,8 +60041,37 @@ async function getSetting(key) {
   return result[0]?.settingValue;
 }
 
+// shared/zoomEvents.ts
+var ZOOM_EN = {
+  lang: "en",
+  title: "Daily English Community Call",
+  description: "Every day. Bring your questions. Real people, real answers \u2014 no pitch, no pressure.",
+  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+  passcode: "552740",
+  // 17:00 UTC mapped across all active TurboLoop communities.
+  // Flag prefixes let mobile readers scan their own row instantly.
+  timeLabel: "\u{1F554} 5:00 PM UTC\n\u{1F1EE}\u{1F1F3} 10:30 PM IST \xB7 \u{1F1F5}\u{1F1F0} 10:00 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 11:00 PM BST \xB7 \u{1F1F3}\u{1F1F5} 10:45 PM NPT\n\u{1F1E6}\u{1F1EA} 9:00 PM GST \xB7 \u{1F1F8}\u{1F1E6} 8:00 PM AST \xB7 \u{1F1F9}\u{1F1F7} 8:00 PM TRT \xB7 \u{1F1F7}\u{1F1FA} 8:00 PM MSK\n\u{1F1F3}\u{1F1EC} 6:00 PM WAT \xB7 \u{1F1EC}\u{1F1ED} 5:00 PM GMT \xB7 \u{1F1FF}\u{1F1E6} 7:00 PM SAST \xB7 \u{1F1F0}\u{1F1EA} 8:00 PM EAT\n\u{1F1EC}\u{1F1E7} 5:00 PM BST \xB7 \u{1F1E9}\u{1F1EA} 7:00 PM CEST \xB7 \u{1F1EB}\u{1F1F7} 7:00 PM CEST\n\u{1F1FA}\u{1F1F8} 1:00 PM EDT \xB7 \u{1F1FA}\u{1F1F8} 10:00 AM PDT \xB7 \u{1F1E7}\u{1F1F7} 2:00 PM BRT \xB7 \u{1F1E6}\u{1F1FA} 3:00 AM AEST+1",
+  startUtcMin: 17 * 60,
+  // 17:00 UTC
+  durationMin: 120
+};
+var ZOOM_HI = {
+  lang: "hi",
+  title: "Daily Hindi / Urdu Call",
+  description: "\u0939\u0930 \u0926\u093F\u0928. \u0905\u092A\u0928\u0947 \u0938\u0935\u093E\u0932 \u0932\u093E\u0907\u090F. \u0905\u0938\u0932\u0940 \u0932\u094B\u0917, \u0905\u0938\u0932\u0940 \u091C\u0935\u093E\u092C \u2014 \u0915\u094B\u0908 \u0926\u092C\u093E\u0935 \u0928\u0939\u0940\u0902. India \u{1F1EE}\u{1F1F3} \xB7 Pakistan \u{1F1F5}\u{1F1F0} \xB7 Bangladesh \u{1F1E7}\u{1F1E9} \xB7 Nepal \u{1F1F3}\u{1F1F5} \xB7 Dubai \u{1F1E6}\u{1F1EA}",
+  link: "https://us06web.zoom.us/j/4455663232?pwd=vHG9ahPKpl238DfyE0LpoRGUj91ULB.1",
+  passcode: "1234",
+  // 15:30 UTC mapped per region — same moment in time, different
+  // local clocks. The flag prefixes let mobile readers scan their
+  // own row at a glance without reading the whole line.
+  timeLabel: "\u{1F1EE}\u{1F1F3} 9:00 PM IST \xB7 \u{1F1F5}\u{1F1F0} 8:30 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 9:30 PM BST \xB7 \u{1F1F3}\u{1F1F5} 9:15 PM NPT \xB7 \u{1F1E6}\u{1F1EA} 7:30 PM GST",
+  startUtcMin: 15 * 60 + 30,
+  // 15:30 UTC = 9:00 PM IST
+  durationMin: 120
+};
+var ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
+
 // server/zoom-config.ts
-init_zoomEvents();
 var DEFAULTS = {
   en: ZOOM_EN,
   hi: ZOOM_HI
@@ -72932,8 +72995,49 @@ var LAUNCH_GRACE_HOURS = 6;
 function bannerUrlBlog(slug, title) {
   return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
-function bannerUrlZoom(lang) {
-  return `${BANNER_HOST}/api/og-banner?type=zoom&lang=${lang}`;
+var R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
+var ZOOM_BANNERS = {
+  en: {
+    T60: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t60-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t60-v2.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t60-v3.png`
+    ],
+    T30: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t30-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t30-v2.png`
+    ],
+    T10: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t10-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t10-v2.png`
+    ],
+    T0: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t0-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t0-v2.png`
+    ]
+  },
+  hi: {
+    T60: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t60-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-hi-t60-v2.png`
+    ],
+    T30: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t30-v1.png`
+    ],
+    T10: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t10-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-hi-t10-v2.png`
+    ],
+    T0: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t0-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-hi-t0-v2.png`
+    ]
+  }
+};
+function bannerUrlZoom(lang, tier = "T30") {
+  const pool = ZOOM_BANNERS[lang][tier];
+  const day = Math.floor(Date.now() / 864e5);
+  return pool[day % pool.length];
 }
 function bannerUrlLaunch() {
   return `${BANNER_HOST}/api/og-banner?type=launch`;
@@ -72975,21 +73079,6 @@ async function markError(db, key, err) {
     target: siteSettings.settingKey,
     set: { settingValue: value }
   });
-}
-async function markTgResult(db, slot, results, note) {
-  const arr = Array.isArray(results) ? results : results && typeof results === "object" && "ok" in results ? [{ chatId: "default", ok: results.ok, error: results.error }] : [];
-  const summary = arr.length ? arr.map((r5) => `${r5.chatId}:${r5.ok ? "ok" : r5.error ?? "err"}`).join(" | ") : "no-results";
-  const fullKey = `tgResult:${slot}:${todayKey()}`;
-  const value = `${(/* @__PURE__ */ new Date()).toISOString()} | ${note ? note + " | " : ""}${summary}`.slice(0, 1e3);
-  await db.insert(siteSettings).values({ settingKey: fullKey, settingValue: value }).onConflictDoUpdate({
-    target: siteSettings.settingKey,
-    set: { settingValue: value }
-  });
-  const firstErr = arr.find((r5) => !r5.ok)?.error;
-  if (firstErr) {
-    await markError(db, slot, new Error(firstErr)).catch(() => {
-    });
-  }
 }
 function slugifyTitle(title) {
   if (!title) return `omni-post-${Date.now()}`;
@@ -73179,47 +73268,36 @@ async function announceBlogToTelegram(post) {
   const photoUrl = bannerUrlBlog(post.slug, post.title);
   const buttons = [{ text: ctaText, url }];
   const destinations = [];
-  const tgResult = [];
-  const broadcastRes = await tgBroadcastPhoto({
+  await tgBroadcastPhoto({
     photoUrl,
     caption,
     parseMode: "HTML",
     buttons
   });
-  tgResult.push(...broadcastRes);
   destinations.push("Channel+Group");
   if (post.language === "de") {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
     if (token && germanChat) {
-      const r5 = await tgSendPhoto(token, {
+      await tgSendPhoto(token, {
         chatId: germanChat,
         photoUrl,
         caption,
         parseMode: "HTML",
         buttons
       });
-      tgResult.push({ chatId: germanChat, ok: r5.ok, error: r5.error });
       destinations.push("DE-Group");
     } else {
       destinations.push("DE-Group:skipped(env)");
     }
   }
-  return {
-    status: `\u{1F4D6} blog announced [${post.language}] \u2192 ${destinations.join(" + ")} \xB7 ${post.slug}`,
-    tgResult
-  };
+  return `\u{1F4D6} blog announced [${post.language}] \u2192 ${destinations.join(" + ")} \xB7 ${post.slug}`;
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
-  const { ZOOM_EN: ZEN, ZOOM_HI: ZHI } = await Promise.resolve().then(() => (init_zoomEvents(), zoomEvents_exports));
-  const session = lang === "en" ? ZEN : ZHI;
-  const nowMs = Date.now();
-  const todayStartMs = Date.UTC((/* @__PURE__ */ new Date()).getUTCFullYear(), (/* @__PURE__ */ new Date()).getUTCMonth(), (/* @__PURE__ */ new Date()).getUTCDate());
-  const callStartMs = todayStartMs + session.startUtcMin * 6e4;
-  const minutesUntil = Math.max(0, Math.round((callStartMs - nowMs) / 6e4));
-  const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel, minutesUntil });
-  return tgBroadcastPhoto({
-    photoUrl: bannerUrlZoom(lang),
+  const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
+  const bannerTier = tier === "T60" ? "T60" : tier === "T15" ? "T10" : tier === "LIVE" ? "T0" : "T30";
+  await tgBroadcastPhoto({
+    photoUrl: bannerUrlZoom(lang, bannerTier),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "\u{1F399} Join Zoom now", url: meetingLink }]
@@ -73342,7 +73420,7 @@ async function handler(req, res) {
     if (resetSet.size > 0) {
       const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
       const cleared = [];
-      for (const key of Array.from(resetSet)) {
+      for (const key of resetSet) {
         const fullKey = `lastFired:${key}:${today}`;
         await db.delete(siteSettings).where(eq(siteSettings.settingKey, fullKey)).catch(() => {
         });
@@ -73365,6 +73443,14 @@ async function handler(req, res) {
     const forceLiveStats = forceSet.has("live:stats");
     const forceNightlyEducation = forceSet.has("nightly:education");
     const forceBotCommands = forceSet.has("bot:commands");
+    const forceZoomHiT60 = forceSet.has("zoom:hi:T60");
+    const forceZoomHiT10 = forceSet.has("zoom:hi:T10");
+    const forceZoomHiT0 = forceSet.has("zoom:hi:T0");
+    const forceZoomEnT60 = forceSet.has("zoom:en:T60");
+    const forceZoomEnT10 = forceSet.has("zoom:en:T10");
+    const forceZoomEnT0 = forceSet.has("zoom:en:T0");
+    const forceZoomHiT30 = forceSet.has("zoom:hi:T30");
+    const forceZoomEnT30 = forceSet.has("zoom:en:T30");
     try {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = /* @__PURE__ */ new Date();
@@ -73390,14 +73476,13 @@ async function handler(req, res) {
     try {
       if (isInWindow(9, 0) && !await hasFiredToday(db, "hubPromo")) {
         const promo = pickTodaysHubPromo();
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "hubPromo");
-        await markTgResult(db, "hubPromo", tgResult, promo.page);
         log.push(`\u{1F310} Hub promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73416,7 +73501,6 @@ async function handler(req, res) {
         };
         const photoUrl = monthlyBannerUrl(banner);
         const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
-        let tgResult = [];
         if (banner.lang === "de") {
           const token = process.env.TELEGRAM_BOT_TOKEN;
           const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
@@ -73428,7 +73512,6 @@ async function handler(req, res) {
               parseMode: "HTML",
               buttons: [button]
             });
-            tgResult = [{ chatId: germanChat, ok: r5.ok, error: r5.error }];
             log.push(
               `\u{1F4B5} Monthly compound \u2014 DE ${label} \u2192 ${germanChat}` + (r5.ok ? "" : ` (failed: ${r5.error})`)
             );
@@ -73438,7 +73521,7 @@ async function handler(req, res) {
             );
           }
         } else {
-          tgResult = await tgBroadcastPhoto({
+          await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
@@ -73447,7 +73530,6 @@ async function handler(req, res) {
           log.push(`\u{1F4B5} Monthly compound \u2014 EN ${label}`);
         }
         await markFired(db, "monthly:compound");
-        await markTgResult(db, "monthly:compound", tgResult, `${banner.lang} ${label}`);
       }
     } catch (err) {
       await markError(db, "monthly:compound", err).catch(() => {
@@ -73458,25 +73540,15 @@ async function handler(req, res) {
     try {
       if (isInWindow(14, 0) && !await hasFiredToday(db, "blog:evening")) {
         const due = await publishOverdueBlogs(db);
-        const aggregated = [];
-        const slugsAnnounced = [];
         if (due.length > 0) {
           for (const post of due) {
-            const { status, tgResult } = await announceBlogToTelegram(post);
+            const status = await announceBlogToTelegram(post);
             log.push(status);
-            aggregated.push(...tgResult);
-            slugsAnnounced.push(post.slug);
           }
         } else {
           log.push("\u{1F4F0} No overdue blog posts to publish");
         }
         await markFired(db, "blog:evening");
-        await markTgResult(
-          db,
-          "blog:evening",
-          aggregated,
-          slugsAnnounced.length ? slugsAnnounced.join(", ") : "no-due"
-        );
       }
     } catch (err) {
       await markError(db, "blog:evening", err).catch(() => {
@@ -73490,46 +73562,111 @@ async function handler(req, res) {
       console.error("[cron-master] safety-net publishOverdueBlogs failed", err);
     }
     try {
-      const forceZoomHi = reqUrl.searchParams.get("force") === "zoom:hi:T30";
-      if ((isInWindow(15, 0) || forceZoomHi) && (forceZoomHi || !await hasFiredToday(db, "zoom:hi:T30"))) {
+      if ((isInWindow(15, 0) || forceZoomHiT60) && (forceZoomHiT60 || !await hasFiredToday(db, "zoom:hi:T60"))) {
         const cfg = await getZoomConfig("hi");
-        const tgResult = await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        await sendZoomReminder("hi", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T60");
+        log.push("\u{1F399} HI Zoom T-60");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T60", err).catch(() => {
+      });
+      log.push(`\u274C zoom:hi:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(15, 30) || forceZoomHiT30) && (forceZoomHiT30 || !await hasFiredToday(db, "zoom:hi:T30"))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
-        await markTgResult(db, "zoom:hi:T30", tgResult);
         log.push("\u{1F399} HI Zoom T-30");
       }
     } catch (err) {
       await markError(db, "zoom:hi:T30", err).catch(() => {
       });
-      console.error("[cron-master] task zoom:hi:T30 failed", err);
       log.push(`\u274C zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      const forceZoomEn = reqUrl.searchParams.get("force") === "zoom:en:T30";
-      if ((isInWindow(16, 30) || forceZoomEn) && (forceZoomEn || !await hasFiredToday(db, "zoom:en:T30"))) {
+      if ((isInWindow(15, 50) || forceZoomHiT10) && (forceZoomHiT10 || !await hasFiredToday(db, "zoom:hi:T10"))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T10");
+        log.push("\u{1F399} HI Zoom T-10");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T10", err).catch(() => {
+      });
+      log.push(`\u274C zoom:hi:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(16, 0) || forceZoomHiT0) && (forceZoomHiT0 || !await hasFiredToday(db, "zoom:hi:T0"))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T0");
+        log.push("\u{1F399} HI Zoom T-0 LIVE");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T0", err).catch(() => {
+      });
+      log.push(`\u274C zoom:hi:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(16, 0) || forceZoomEnT60) && (forceZoomEnT60 || !await hasFiredToday(db, "zoom:en:T60"))) {
         const cfg = await getZoomConfig("en");
-        const tgResult = await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+        await sendZoomReminder("en", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T60");
+        log.push("\u{1F399} EN Zoom T-60");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T60", err).catch(() => {
+      });
+      log.push(`\u274C zoom:en:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(16, 30) || forceZoomEnT30) && (forceZoomEnT30 || !await hasFiredToday(db, "zoom:en:T30"))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");
-        await markTgResult(db, "zoom:en:T30", tgResult);
         log.push("\u{1F399} EN Zoom T-30");
       }
     } catch (err) {
       await markError(db, "zoom:en:T30", err).catch(() => {
       });
-      console.error("[cron-master] task zoom:en:T30 failed", err);
       log.push(`\u274C zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(16, 50) || forceZoomEnT10) && (forceZoomEnT10 || !await hasFiredToday(db, "zoom:en:T10"))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T10");
+        log.push("\u{1F399} EN Zoom T-10");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T10", err).catch(() => {
+      });
+      log.push(`\u274C zoom:en:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(17, 0) || forceZoomEnT0) && (forceZoomEnT0 || !await hasFiredToday(db, "zoom:en:T0"))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T0");
+        log.push("\u{1F399} EN Zoom T-0 LIVE");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T0", err).catch(() => {
+      });
+      log.push(`\u274C zoom:en:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
       if (isInWindow(18, 0) && !await hasFiredToday(db, "cinematic:daily")) {
         const film = pickTodaysFilm();
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: cinematicPosterUrl(film),
           caption: cinematicCaption(film),
           parseMode: "HTML",
           buttons: [{ text: "\u{1F3AC} Watch full film", url: `${SITE}/films/${film.slug}` }]
         });
         await markFired(db, "cinematic:daily");
-        await markTgResult(db, "cinematic:daily", tgResult, `S${film.season}E${film.episode}: ${film.slug}`);
         log.push(`\u{1F3AC} Cinematic \u2014 S${film.season}E${film.episode}: ${film.slug}`);
       }
     } catch (err) {
@@ -73619,22 +73756,20 @@ async function handler(req, res) {
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
         const caption = monthlyCompoundingCaption(banner);
         const photoUrl = monthlyBannerUrl(banner);
-        let tgResult = [];
         if (banner.lang === "de") {
           const token = process.env.TELEGRAM_BOT_TOKEN;
           const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
           if (token && germanChat) {
-            const r5 = await tgSendPhoto(token, {
+            await tgSendPhoto(token, {
               chatId: germanChat,
               photoUrl,
               caption,
               parseMode: "HTML",
               buttons: [{ text: "\u{1F9EE} Jetzt berechnen", url: "https://turboloop.tech/calculator" }]
             });
-            tgResult = [{ chatId: germanChat, ok: r5.ok, error: r5.error }];
           }
         } else {
-          tgResult = await tgBroadcastPhoto({
+          await tgBroadcastPhoto({
             photoUrl,
             caption,
             parseMode: "HTML",
@@ -73643,7 +73778,6 @@ async function handler(req, res) {
         }
         await markFired(db, "midnight:math");
         const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
-        await markTgResult(db, "midnight:math", tgResult, `${banner.lang} ${label}`);
         log.push(`\u{1F319} Midnight math \u2014 ${banner.lang} ${label}`);
       }
     } catch (err) {
@@ -73716,14 +73850,13 @@ From local Zoom calls to global impact. See where your country ranks.
           ];
           const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
           const caption = captions[day % captions.length];
-          const tgResult = await tgBroadcastMessage({
+          await tgBroadcastMessage({
             text: caption,
             parseMode: "HTML",
             disablePreview: true,
             buttons: [{ text: "\u{1F30D} See full leaderboard", url: "https://www.turboloop.tech/community" }]
           });
           await markFired(db, "global:reach");
-          await markTgResult(db, "global:reach", tgResult, `top: ${leaderRows[0]?.country}`);
           log.push(`\u{1F30D} Global reach \u2014 top: ${leaderRows[0]?.country}`);
         }
       }
@@ -73736,14 +73869,13 @@ From local Zoom calls to global impact. See where your country ranks.
     try {
       if ((isInWindow(4, 0) || forceSecurityPromo) && (forceSecurityPromo || !await hasFiredToday(db, "security:promo"))) {
         const promo = pickHubPromoByPages(["security", "code-is-law"]);
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "security:promo");
-        await markTgResult(db, "security:promo", tgResult, promo.page);
         log.push(`\u{1F510} Security promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73755,14 +73887,13 @@ From local Zoom calls to global impact. See where your country ranks.
     try {
       if ((isInWindow(6, 0) || forceMorningHook) && (forceMorningHook || !await hasFiredToday(db, "morning:hook"))) {
         const promo = pickHubPromoByPages(["calculator", "apply"]);
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "morning:hook");
-        await markTgResult(db, "morning:hook", tgResult, promo.page);
         log.push(`\u26A1 Morning hook \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73774,14 +73905,13 @@ From local Zoom calls to global impact. See where your country ranks.
     try {
       if ((isInWindow(8, 0) || forceEcosystemPromo) && (forceEcosystemPromo || !await hasFiredToday(db, "ecosystem:promo"))) {
         const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "ecosystem:promo");
-        await markTgResult(db, "ecosystem:promo", tgResult, promo.page);
         log.push(`\u{1F310} Ecosystem promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73856,14 +73986,13 @@ Total supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFract
             ];
             const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
-            const tgResult = await tgBroadcastMessage({
+            await tgBroadcastMessage({
               text: caption,
               parseMode: "HTML",
               disablePreview: true,
               buttons: [{ text: "\u{1F525} View burn history", url: "https://www.turboloop.tech/token" }]
             });
             await markFired(db, "burn:proof");
-            await markTgResult(db, "burn:proof", tgResult, `#${latest.execution_number} \xB7 ${latestTokens} TURBO`);
             log.push(`\u{1F525} Burn proof \u2014 #${latest.execution_number}, ${latestTokens} TURBO`);
           }
         }
@@ -73877,14 +74006,13 @@ Total supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFract
     try {
       if ((isInWindow(16, 0) || forceCommunityPromo) && (forceCommunityPromo || !await hasFiredToday(db, "community:promo"))) {
         const promo = pickHubPromoByPages(["community", "faq"]);
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "community:promo");
-        await markTgResult(db, "community:promo", tgResult, promo.page);
         log.push(`\u{1F91D} Community promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -73963,14 +74091,13 @@ No hidden wallets. No admin keys. Just code.
             ];
             const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
-            const tgResult = await tgBroadcastMessage({
+            await tgBroadcastMessage({
               text: caption,
               parseMode: "HTML",
               disablePreview: true,
               buttons: [{ text: "\u{1F4CA} Live chart", url: `https://dexscreener.com/bsc/${PAIR}` }]
             });
             await markFired(db, "live:stats");
-            await markTgResult(db, "live:stats", tgResult, `$${price} (${changeStr})`);
             log.push(`\u{1F4CA} Live stats \u2014 $${price} (${changeStr})`);
           }
         }
@@ -73984,14 +74111,13 @@ No hidden wallets. No admin keys. Just code.
     try {
       if ((isInWindow(22, 0) || forceNightlyEducation) && (forceNightlyEducation || !await hasFiredToday(db, "nightly:education"))) {
         const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "nightly:education");
-        await markTgResult(db, "nightly:education", tgResult, promo.page);
         log.push(`\u{1F4DA} Nightly education \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -74066,9 +74192,8 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
         ];
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const channelId = process.env.TELEGRAM_CHANNEL;
-        let tgResult = [];
         if (token && channelId) {
-          const r5 = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -74077,11 +74202,8 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
               parse_mode: "HTML"
             })
           });
-          const data2 = await r5.json().catch(() => ({}));
-          tgResult = [{ chatId: channelId, ok: !!data2?.ok, error: data2?.description }];
         }
         await markFired(db, "bot:commands");
-        await markTgResult(db, "bot:commands", tgResult, `variant ${variant}`);
         log.push(`\u{1F916} Bot commands guide \u2014 variant ${variant}`);
       }
     } catch (err) {
@@ -74095,15 +74217,14 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !await hasFiredToday(db, "social:wall"))) {
         const promo = pickHubPromoByPages(["social-wall", "submit"]);
         const photoUrl = hubPromoBannerUrl(promo);
-        const tgResult = await tgBroadcastPhoto({
+        const tgResults = await tgBroadcastPhoto({
           photoUrl,
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
-        const tgSummary = tgResult.map((r5) => `${r5.chatId}:${r5.ok ? "ok" : r5.error}`).join(", ");
+        const tgSummary = tgResults.map((r5) => `${r5.chatId}:${r5.ok ? "ok" : r5.error}`).join(", ");
         await markFired(db, "social:wall");
-        await markTgResult(db, "social:wall", tgResult, promo.page);
         log.push(`\u{1F4F1} Social wall promo \u2014 ${promo.page} | banner: ${photoUrl} | tg: ${tgSummary}`);
       }
     } catch (err) {
@@ -74116,14 +74237,13 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       const forceEventsPromo = reqUrl.searchParams.get("force") === "events:promo";
       if ((isInWindow(17, 0) || forceEventsPromo) && (forceEventsPromo || !await hasFiredToday(db, "events:promo"))) {
         const promo = pickHubPromoByPages(["events", "apply"]);
-        const tgResult = await tgBroadcastPhoto({
+        await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
           caption: promo.caption,
           parseMode: "HTML",
           buttons: [{ text: promo.buttonText, url: promo.buttonUrl }]
         });
         await markFired(db, "events:promo");
-        await markTgResult(db, "events:promo", tgResult, promo.page);
         log.push(`\u{1F39F}\uFE0F Events promo \u2014 ${promo.page}`);
       }
     } catch (err) {
@@ -74136,19 +74256,17 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {
         const post = todaysCampaignPost(CAMPAIGN_A);
         if (post) {
-          const tgResult = await tgBroadcastPhoto({
+          await tgBroadcastPhoto({
             photoUrl: post.photoUrl,
             caption: post.caption,
             parseMode: "HTML",
             buttons: [{ text: post.buttonText, url: post.buttonUrl }]
           });
           await markFired(db, "campaignA");
-          await markTgResult(db, "campaignA", tgResult, `${post.id} (${post.date})`);
           log.push(`\u{1F4E3} Campaign A \u2014 ${post.id} (${post.date})`);
         } else {
           log.push(`\u{1F4E3} Campaign A \u2014 no post scheduled for ${todayUtcDate()}`);
           await markFired(db, "campaignA");
-          await markTgResult(db, "campaignA", [], `no post scheduled for ${todayUtcDate()}`);
         }
       }
     } catch (err) {
@@ -74171,7 +74289,6 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
             buttons: [{ text: post.buttonText, url: post.buttonUrl }]
           });
           await markFired(db, "germanDaily");
-          await markTgResult(db, "germanDaily", [{ chatId: germanChat, ok: r5.ok, error: r5.error }], post.id);
           log.push(
             `\u{1F1E9}\u{1F1EA} German daily \u2014 ${post.id}` + (r5.ok ? "" : ` (failed: ${r5.error})`)
           );
@@ -74193,14 +74310,13 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
         const isEventMorning = post.id === "B7";
         const slot = isEventMorning ? { h: 6, m: 0 } : { h: 13, m: 0 };
         if ((isInWindow(slot.h, slot.m) || forceCampaignB) && !await hasFiredToday(db, "campaignB")) {
-          const tgResult = await tgBroadcastPhoto({
+          await tgBroadcastPhoto({
             photoUrl: post.photoUrl,
             caption: post.caption,
             parseMode: "HTML",
             buttons: [{ text: post.buttonText, url: post.buttonUrl }]
           });
           await markFired(db, "campaignB");
-          await markTgResult(db, "campaignB", tgResult, `${post.id} (${post.date})`);
           log.push(`\u{1F1F3}\u{1F1EC} Campaign B \u2014 ${post.id} (${post.date})`);
         }
       }

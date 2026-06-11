@@ -1,5 +1,5 @@
 // Next.js route adapter for the Telegram auto-reply webhook.
-// Build marker: 2026-06-10-local-copy
+// Build marker: 2026-06-11-remove-preferredRegion
 //
 // Thin pass-through to the logic file at server/_vercel/telegram-webhook.ts.
 // All the actual work — secret verification, trigger matching, cooldown,
@@ -19,12 +19,6 @@ import { handleTelegramWebhook } from "@/server/_vercel/telegram-webhook";
 
 // Edge runtime — cold starts in ~50ms globally vs 2-5s for Node.js.
 export const runtime = "edge";
-
-// Pin to the region closest to Telegram's servers (Frankfurt / Amsterdam).
-// Cuts 200-400ms off every reply by eliminating cross-continent round-trips
-// to api.telegram.org. Vercel walks the list in order — if Frankfurt is
-// overloaded it falls back to Amsterdam transparently.
-export const preferredRegion = ["fra1", "ams1"];
 
 // Telegram delivers fresh updates and we never want a cached response.
 export const dynamic = "force-dynamic";

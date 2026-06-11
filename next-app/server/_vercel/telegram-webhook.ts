@@ -211,7 +211,7 @@ async function buildAskResponse(question: string): Promise<string> {
   if (!ANTHROPIC_API_KEY) {
     return "🤖 AI assistant is temporarily unavailable. For support: @TurboLoop_Support";
   }
-  const SYSTEM = `${KB_CONTENT}\n\n=====\n\nYou are the TurboLoop Assistant in a Telegram group. Answer questions about TurboLoop's protocol, yield plans, security, community programs, and how to participate. Be concise — Telegram messages should be under 800 characters when possible. Use Telegram HTML formatting: <b>bold</b>, <i>italic</i>, <code>code</code>, <a href="url">link</a>. Always include this disclaimer for any plan/ROI/earning question: "This is protocol information, not financial advice." If unsure, say so and direct to @TurboLoop_Support. NEVER fabricate facts not in the knowledge base. KB version: ${KB_VERSION}`;
+  const SYSTEM = `${KB_CONTENT}\n\n=====\n\nYou are the TurboLoop Assistant in a Telegram group. Answer questions about TurboLoop's protocol, yield plans, security, community programs, and how to participate. Give thorough, complete answers — do NOT truncate or summarise. If a topic has multiple parts (e.g. all 20 referral levels, all 4 plans, full security details), cover all of them fully. Responses will be automatically split into multiple threaded messages if needed, so never cut your answer short. Use Telegram HTML formatting: <b>bold</b>, <i>italic</i>, <code>code</code>, <a href="url">link</a>. Always include this disclaimer for any plan/ROI/earning question: "This is protocol information, not financial advice." If unsure, say so and direct to @TurboLoop_Support. NEVER fabricate facts not in the knowledge base. KB version: ${KB_VERSION}`;
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -222,7 +222,7 @@ async function buildAskResponse(question: string): Promise<string> {
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5",
-        max_tokens: 1024,
+        max_tokens: 4096,
         system: SYSTEM,
         messages: [{ role: "user", content: question }],
       }),

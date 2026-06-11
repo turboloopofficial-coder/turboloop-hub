@@ -155,11 +155,13 @@ export async function tgSendMessage(token: string, msg: TgTextMessage): Promise<
   }
 }
 
-/** Send to ALL configured destinations (channel + chat) — returns per-destination results */
+/** Send to channel only — the channel's auto-forward handles the group.
+ *  Removing TELEGRAM_CHAT from dests prevents double-posting when
+ *  Telegram's native channel→group forward is active. */
 export async function tgBroadcastPhoto(msg: Omit<TgPhotoMessage, "chatId">): Promise<Array<{ chatId: string; ok: boolean; error?: string }>> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendPhoto(token, { ...msg, chatId });
@@ -168,13 +170,11 @@ export async function tgBroadcastPhoto(msg: Omit<TgPhotoMessage, "chatId">): Pro
   return results;
 }
 
-/** Broadcast a video to the default Channel + Group pair. Same fan-out
- *  policy as `tgBroadcastPhoto` — used by the Omni-Composer's
- *  `telegram_en` channel when the post has `mediaType='video'`. */
+/** Broadcast a video to the channel only — auto-forward handles the group. */
 export async function tgBroadcastVideo(msg: Omit<TgVideoMessage, "chatId">): Promise<Array<{ chatId: string; ok: boolean; error?: string }>> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendVideo(token, { ...msg, chatId });
@@ -183,10 +183,11 @@ export async function tgBroadcastVideo(msg: Omit<TgVideoMessage, "chatId">): Pro
   return results;
 }
 
+/** Broadcast a text message to the channel only — auto-forward handles the group. */
 export async function tgBroadcastMessage(msg: Omit<TgTextMessage, "chatId">): Promise<Array<{ chatId: string; ok: boolean; error?: string }>> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendMessage(token, { ...msg, chatId });

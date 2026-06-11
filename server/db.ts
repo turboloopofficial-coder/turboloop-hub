@@ -263,23 +263,29 @@ export async function setSetting(key: string, value: string) {
 }
 
 /** Automation log entry — one row of the admin Automation tab's
- *  Activity Log section. Aggregates `lastFired:*`, `oneShot:*`, and
- *  `cronError:*` rows from site_settings into a typed shape the
- *  client can render without parsing key formats inline. */
+ *  Activity Log section. Aggregates `lastFired:*`, `oneShot:*`,
+ *  `cronError:*`, and `tgResult:*` rows from site_settings into a
+ *  typed shape the client can render without parsing key formats
+ *  inline. */
 export interface AutomationLogEntry {
   /** Raw setting key — preserved so the client can show the exact
    *  string when needed (debugging, manual mark-fired, etc.). */
   settingKey: string;
-  /** Parsed kind from the key prefix. */
-  kind: "lastFired" | "oneShot" | "cronError";
+  /** Parsed kind from the key prefix. `tgResult` rows store the
+   *  per-destination Telegram delivery receipt written by the
+   *  cron-master after every broadcast (one row per slot per UTC
+   *  day, same date-suffix shape as `lastFired:` / `cronError:`). */
+  kind: "lastFired" | "oneShot" | "cronError" | "tgResult";
   /** Task identifier (the middle segment of a `lastFired:<task>:<date>`
    *  key, or the only segment of a `oneShot:<task>` key). */
   taskName: string;
-  /** ISO date suffix from `lastFired:*:YYYY-MM-DD` and
-   *  `cronError:*:YYYY-MM-DD` — null for oneShot keys. */
+  /** ISO date suffix from `lastFired:*:YYYY-MM-DD`,
+   *  `cronError:*:YYYY-MM-DD`, and `tgResult:*:YYYY-MM-DD` — null
+   *  for oneShot keys. */
   dateKey: string | null;
   /** Stored value — usually the ISO timestamp when the task fired
-   *  (for lastFired / oneShot) OR the error message (for cronError). */
+   *  (for lastFired / oneShot), the error message (cronError), or
+   *  a `<iso> | note | chatId:ok|err | …` summary (tgResult). */
   value: string;
   /** When the row was last touched. */
   updatedAt: Date;
@@ -305,6 +311,7 @@ export async function listAutomationLog(
         like(siteSettings.settingKey, "lastFired:%"),
         like(siteSettings.settingKey, "oneShot:%"),
         like(siteSettings.settingKey, "cronError:%"),
+        like(siteSettings.settingKey, "tgResult:%"),
       )
     )
     .orderBy(desc(siteSettings.settingValue))
@@ -315,6 +322,7 @@ export async function listAutomationLog(
     let kind: AutomationLogEntry["kind"] = "lastFired";
     if (key.startsWith("oneShot:")) kind = "oneShot";
     else if (key.startsWith("cronError:")) kind = "cronError";
+    else if (key.startsWith("tgResult:")) kind = "tgResult";
 
     // For `lastFired:<task>:<YYYY-MM-DD>` we split out the date suffix.
     // For `cronError:<task>:<YYYY-MM-DD>` same shape.

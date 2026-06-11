@@ -381,146 +381,32 @@ Number, math, contract — jo kuch bhi confuse karta hai, aaj poochiye. Real tim
 ];
 
 export type ZoomLang = "en" | "hi";
-export type ZoomTier = "T30" | "T60" | "T15" | "LIVE";
+export type ZoomTier = "T30" | "T60" | "T15" | "LIVE"; // kept for back-compat; only T30 is used now
 
-// ── English T-60 pool (1 hour before) ─────────────────────────────────────
-const EN_T60 = [
-  `<b>English Community Call — in 1 hour.</b>
-
-Mark your calendar. One hour from now, the daily Zoom opens. Bring your questions, bring a friend.`,
-
-  `<b>Daily English Call — 1 hour away.</b>
-
-If you've been meaning to join but keep missing it — today's your day. One hour.`,
-
-  `<b>The English Community Zoom opens in 60 minutes.</b>
-
-Same link, every day. Real answers, no scripts. See you there.`,
-
-  `<b>60 minutes until the Daily English Call.</b>
-
-Get your questions ready. The room opens in one hour — free, open, no agenda.`,
-
-  `<b>English Daily Call — 1 hour to go.</b>
-
-Members from 20+ countries join this call every day. Add your voice in 60 minutes.`,
-];
-
-// ── English T-10 pool (10 minutes before) ─────────────────────────────────
-const EN_T10 = [
-  `<b>English Community Call — 10 minutes.</b>
-
-The room is filling up. Join now and get a front-row seat.`,
-
-  `<b>10 minutes to the Daily English Call.</b>
-
-Last call. The Zoom opens in 10 minutes — don't miss it.`,
-
-  `<b>Almost live — English Community Call.</b>
-
-Final reminder. 10 minutes. Bring your best question.`,
-
-  `<b>Daily English Call — 10 min away.</b>
-
-The door opens in 10 minutes. Real conversation, real answers.`,
-
-  `<b>English Zoom — starting in 10 minutes.</b>
-
-Wrap up what you're doing. The daily call is about to begin.`,
-];
-
-// ── English T-0 LIVE pool ─────────────────────────────────────────────────
-const EN_LIVE = [
-  `🔴 <b>English Community Call — WE ARE LIVE.</b>
-
-The room is open right now. Click the link and join.`,
-
-  `🔴 <b>LIVE NOW — Daily English Call.</b>
-
-Don't wait. The call is live. Join now.`,
-
-  `🔴 <b>The English Community Zoom is LIVE.</b>
-
-Real-time answers, real people. The room is open — come in.`,
-
-  `🔴 <b>Daily English Call — GOING LIVE NOW.</b>
-
-This is it. The room is open. See you inside.`,
-
-  `🔴 <b>WE'RE LIVE — English Community Call.</b>
-
-Join now. The conversation has started.`,
-];
-
-// ── Hindi T-60 pool ────────────────────────────────────────────────────────
-const HI_T60 = [
-  `<b>Hindi/Urdu Daily Call — 1 ghante mein.</b>
-
-Ek ghante mein room khulega. Apne sawaal tayaar rakho.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `<b>Hindi/Urdu Community Call — 60 minute baad.</b>
-
-Aaj ka call 1 ghante mein live hoga. Dosto ko bhi bata do.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `<b>1 ghante mein Hindi/Urdu Zoom.</b>
-
-Sawaal, strategy, security — sab kuch apni zubaan mein. Ek ghante mein milte hain.`,
-];
-
-// ── Hindi T-10 pool ────────────────────────────────────────────────────────
-const HI_T10 = [
-  `<b>Hindi/Urdu Daily Call — sirf 10 minute.</b>
-
-Room 10 minute mein khulega. Abhi join karne ki tayaari karo.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `<b>10 minute baad — Hindi/Urdu Zoom.</b>
-
-Aakhri reminder. 10 minute mein live ho raha hai. Aao.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `<b>Hindi/Urdu Call — 10 min mein shuru.</b>
-
-Ab waqt aa gaya. 10 minute mein room open hoga.`,
-];
-
-// ── Hindi T-0 LIVE pool ───────────────────────────────────────────────────
-const HI_LIVE = [
-  `🔴 <b>Hindi/Urdu Daily Call — ABHI LIVE HAI.</b>
-
-Room khul gaya hai. Abhi join karo.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `🔴 <b>LIVE — Hindi/Urdu Community Call.</b>
-
-Call shuru ho gaya hai. Der mat karo — join karo abhi.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `🔴 <b>Hindi/Urdu Zoom — LIVE HO GAYA.</b>
-
-Ab aur intezaar mat karo. Room open hai.`,
-];
-
-const POOLS: Record<ZoomLang, Record<ZoomTier, string[]>> = {
-  en: { T60: EN_T60, T30: EN_T30, T15: EN_T10, LIVE: EN_LIVE },
-  hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE },
+const POOLS: Record<ZoomLang, string[]> = {
+  en: EN_T30,
+  hi: HI_T30,
 };
 
-export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meetingLink: string; passcode: string; timeLabel: string }): string {
-  const body = pickByDay(POOLS[opts.lang][opts.tier]);
-  // For LIVE posts, drop the passcode/time footer — they're already in the room
-  if (opts.tier === "LIVE") {
-    return `${body}\n\n🔗 ${tgEscape(opts.meetingLink)}`;
-  }
-  return `${body}\n\n🔗 ${tgEscape(opts.meetingLink)}\n🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>\n⏰ ${tgEscape(opts.timeLabel)}`;
+export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meetingLink: string; passcode: string; timeLabel: string; minutesUntil?: number }): string {
+  const body = pickByDay(POOLS[opts.lang]);
+  // Dynamic "starts in" line — computed at send time so it's always accurate.
+  const startsIn = opts.minutesUntil != null && opts.minutesUntil > 0
+    ? `\n⏳ <b>Starts in ~${opts.minutesUntil} minutes</b>`
+    : ``;
+  // Format the multi-line timezone table with a monospace block so it
+  // aligns cleanly in Telegram (each \n in timeLabel becomes a new line).
+  const timezoneBlock = opts.timeLabel
+    .split('\n')
+    .map(line => tgEscape(line))
+    .join('\n');
+  return `${body}${startsIn}
+
+🔗 ${tgEscape(opts.meetingLink)}
+🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>
+
+<b>⏰ When is this for you?</b>
+${timezoneBlock}`;
 }
 
 // =========================================================

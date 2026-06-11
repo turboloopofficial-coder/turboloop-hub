@@ -34,9 +34,17 @@ export const ZOOM_EN: ZoomSession = {
   title: "Daily English Community Call",
   description:
     "Every day. Bring your questions. Real people, real answers — no pitch, no pressure.",
-  link: "https://us06web.zoom.us/j/8347511147?pwd=g6wTqhrngaUDNbMasv9LE8iJQOSJua.1",
-  passcode: "669529",
-  timeLabel: "5:00 PM UTC daily",
+  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+  passcode: "552740",
+  // 17:00 UTC mapped across all active TurboLoop communities.
+  // Flag prefixes let mobile readers scan their own row instantly.
+  timeLabel:
+    "🕔 5:00 PM UTC\n" +
+    "🇮🇳 10:30 PM IST · 🇵🇰 10:00 PM PKT · 🇧🇩 11:00 PM BST · 🇳🇵 10:45 PM NPT\n" +
+    "🇦🇪 9:00 PM GST · 🇸🇦 8:00 PM AST · 🇹🇷 8:00 PM TRT · 🇷🇺 8:00 PM MSK\n" +
+    "🇳🇬 6:00 PM WAT · 🇬🇭 5:00 PM GMT · 🇿🇦 7:00 PM SAST · 🇰🇪 8:00 PM EAT\n" +
+    "🇬🇧 5:00 PM BST · 🇩🇪 7:00 PM CEST · 🇫🇷 7:00 PM CEST\n" +
+    "🇺🇸 1:00 PM EDT · 🇺🇸 10:00 AM PDT · 🇧🇷 2:00 PM BRT · 🇦🇺 3:00 AM AEST+1",
   startUtcMin: 17 * 60, // 17:00 UTC
   durationMin: 120,
 };

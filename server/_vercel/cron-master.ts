@@ -61,12 +61,13 @@ const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire 
 function bannerUrlBlog(slug: string, title: string): string {
   return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
-// Use the hub's own og-zoom PNG generator for zoom banners — always uses
-// the correct TurboLoop logo, palette rotates daily, tier badge changes per slot.
-// ?format=png triggers resvg-wasm rendering server-side so Telegram gets a real PNG.
-function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T10"|"T0" = "T30"): string {
-  const ogTier = tier === "T0" ? "LIVE" : tier; // og-zoom uses LIVE not T0
-  return `${BANNER_HOST}/api/og-zoom?lang=${lang}&tier=${ogTier}&format=png`;
+// Static R2 zoom banners — 3 variants per tier/lang, rotated by day-of-year.
+// Generated with cairosvg locally and uploaded to R2 for reliable Telegram delivery.
+const R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
+function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T15"|"LIVE"|"T0" = "T30"): string {
+  const t = tier === "T0" ? "live" : tier.toLowerCase(); // normalise T0→live
+  const v = (Math.floor(Date.now() / 86_400_000) % 3) + 1; // 1-3 daily rotation
+  return `${R2_ZOOM}/hub-promo-zoom-${lang}-${t}-v${v}.png`;
 }
 function bannerUrlLaunch(): string {
   return `${BANNER_HOST}/api/og-banner?type=launch`;
@@ -478,16 +479,9 @@ async function announceBlogToTelegram(
 
 async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<void> {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
-  // Map ZoomTier to banner tier key
-  const bannerTier: "T60"|"T30"|"T10"|"T0" =
-    tier === "T60" ? "T60" :
-    tier === "T15" ? "T10" :
-    tier === "LIVE" ? "T0" :
-    "T30";
-  // og-zoom?format=png returns a real PNG (resvg-wasm rendered) with the correct
-  // TurboLoop logo — no AI-generated placeholder, no native deps.
+  // bannerUrlZoom picks a static R2 PNG (3 variants, daily rotation)
   await tgBroadcastPhoto({
-    photoUrl: bannerUrlZoom(lang, bannerTier),
+    photoUrl: bannerUrlZoom(lang, tier),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "🎤 Join Zoom now", url: meetingLink }],

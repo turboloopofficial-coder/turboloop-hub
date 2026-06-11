@@ -73000,9 +73000,11 @@ var LAUNCH_GRACE_HOURS = 6;
 function bannerUrlBlog(slug, title) {
   return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
+var R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
 function bannerUrlZoom(lang, tier = "T30") {
-  const ogTier = tier === "T0" ? "LIVE" : tier;
-  return `${BANNER_HOST}/api/og-zoom?lang=${lang}&tier=${ogTier}&format=png`;
+  const t = tier === "T0" ? "live" : tier.toLowerCase();
+  const v2 = Math.floor(Date.now() / 864e5) % 3 + 1;
+  return `${R2_ZOOM}/hub-promo-zoom-${lang}-${t}-v${v2}.png`;
 }
 function bannerUrlLaunch() {
   return `${BANNER_HOST}/api/og-banner?type=launch`;
@@ -73260,9 +73262,8 @@ async function announceBlogToTelegram(post) {
 }
 async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
-  const bannerTier = tier === "T60" ? "T60" : tier === "T15" ? "T10" : tier === "LIVE" ? "T0" : "T30";
   await tgBroadcastPhoto({
-    photoUrl: bannerUrlZoom(lang, bannerTier),
+    photoUrl: bannerUrlZoom(lang, tier),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "\u{1F3A4} Join Zoom now", url: meetingLink }]

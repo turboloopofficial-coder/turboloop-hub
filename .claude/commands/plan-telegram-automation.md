@@ -1,60 +1,57 @@
 # /plan-telegram-automation
 
-Generate a comprehensive strategy and execution plan for expanding the Turbo Loop Telegram automation ecosystem.
+Generate a comprehensive strategy and execution plan for expanding the Turbo Loop Telegram automation ecosystem, focusing on live data, Ask AI integration, and a mixed content schedule.
 
 ---
 
-## Current State Analysis
+## Current Content & Automation State
 
-Turbo Loop currently operates a dual-layer Telegram automation system, consisting of a reactive auto-reply webhook and a proactive master cron scheduler.
+Turbo Loop possesses a massive repository of high-quality content and a robust automation foundation, but they are currently siloed.
 
-The **Auto-Reply Webhook** (`server/_vercel/telegram-webhook.ts`) functions as a reactive, pull-based system. It listens to incoming messages in groups and direct messages, firing canned HTML replies based on 15 hardcoded regex keyword triggers (such as `contract`, `audit`, `buy`, and `sell`). To ensure sub-500ms response times, live token price data is fetched from a database cache that refreshes every five minutes. However, this system is limited by its reliance on static responses, lack of conversational memory, and inability to track user state.
+The **Content Arsenal** includes 40 comprehensive blog posts covering everything from tokenomics to MetaMask setup. It features 20 "Cinematic Universe" films (Seasons 1-4) that explain core concepts visually. There are 42 distinct "Hub Promos" covering all 14 site pages, complete with pre-written captions and banners. Additionally, the system includes daily compounding projection banners and a fully functional Ask AI chatbot backed by Claude 3.5 Haiku, which is currently restricted to the web interface.
 
-The **Master Cron** (`server/_vercel/cron-master.ts`) operates as a proactive, push-based system. A five-minute external pinger triggers a Vercel serverless function that dispatches scheduled messages based on specific UTC time slots. These hardcoded schedules include daily blog publishes, Zoom reminders, and cinematic film releases. Additionally, the system features an **Omni-Composer (V2)**, which utilizes a dynamic queue in the `scheduled_posts` table. This allows administrators to schedule one-off or recurring posts via cron expressions to specific channels like `telegram_en` and `telegram_de`. Despite its power, the Omni-Composer is currently underutilized for community engagement, and the hardcoded schedules require code deployments to modify.
+The **Automation Infrastructure** consists of a reactive auto-reply webhook (`telegram-webhook.ts`) that uses 15 static regex triggers. It also includes a proactive master cron (`cron-master.ts`) that fires every five minutes, handling daily blog announcements, Zoom reminders, and film broadcasts. The Omni-Composer allows for admin-scheduled posts to specific language channels.
+
+The primary gap is that the Telegram group is currently a static FAQ bot and a broadcast channel. It needs to become an interactive, intelligent, and dynamic community hub that drives engagement and conversions.
 
 ---
 
-## The Grand Plan: Next-Generation Telegram Automation
+## The Grand Plan: Intelligent Community Hub
 
-To elevate the Turbo Loop Telegram presence from a basic broadcast and FAQ channel to a highly engaging, conversion-optimized community hub, we must implement a series of strategic upgrades across four distinct phases.
+To transform the Telegram presence, we must execute a three-pillar strategy: Live Data Integration, Ask AI Chat Integration, and a Master Content Schedule.
 
-### Phase 1: Dynamic Data Integration (The "Live" Bot)
+### Pillar 1: Live Data Triggers (The "Proof" Layer)
 
-The auto-reply bot currently relies heavily on static text. We need to connect it to live protocol data to make it a true utility for the community. This involves integrating real-time metrics directly into the chat interface.
+Static answers do not build trust; verifiable, real-time data does. We must integrate live protocol metrics directly into the chat interface.
 
-| Feature | Action Required | Strategic Value |
-|---------|-----------------|-----------------|
-| **Live Burn Feed** | Add a trigger (`/burns`) that fetches the latest three buyback executions from `turboloop.io/api/proxy/buybacks`. | Proves the deflationary mechanism is actively working, directly in the chat. |
-| **Live Leaderboard** | Add a trigger (`/top`) that fetches the current top five countries from the `country_leaderboard` table. | Gamifies community participation and sparks regional pride. |
-| **Live Protocol Stats** | Integrate with the main protocol's TVL endpoint or DexScreener liquidity data for a `/stats` command. | Builds trust through absolute transparency. |
+| Feature | Implementation Details | Strategic Value |
+|---------|------------------------|-----------------|
+| **Live Burn Feed (`/burns`)** | Fetch the latest three buyback executions from `turboloop.io/api/proxy/buybacks`. Display the exact USDT spent, TURBO burned, and transaction hashes. | Proves the deflationary mechanism is actively working, directly in the chat. |
+| **Live Leaderboard (`/top`)** | Fetch the current top five countries from the `country_leaderboard` table. | Gamifies community participation and sparks regional pride. |
+| **Live Protocol Stats (`/stats`)** | Integrate with the main protocol's TVL endpoint or DexScreener liquidity data. | Builds trust through absolute transparency. |
 
-### Phase 2: Proactive Engagement (The "Community Manager" Bot)
+### Pillar 2: Ask AI Telegram Integration (The "Smart" Layer)
 
-The cron system currently focuses on broadcasting announcements. It must evolve to actively drive community engagement through educational and interactive content.
+The current regex-based triggers are brittle. We must bring the power of the web-based Ask AI directly into the Telegram group.
 
-| Feature | Action Required | Strategic Value |
-|---------|-----------------|-----------------|
-| **Daily Trivia** | Schedule a recurring daily post via Omni-Composer pulling from a pool of educational snippets about DeFi and Turbo Loop mechanics. | Educates newcomers passively without requiring them to read extensive documentation. |
-| **Weekly Polls** | Schedule a weekly poll via Omni-Composer asking the community about desired features or testing their protocol knowledge. | Drives active engagement and clicks rather than passive reading. |
-| **Milestone Celebrations** | Add a cron task that monitors token price or total burned amount, automatically broadcasting a celebratory message with a generated OG image when milestones are crossed. | Creates organic hype moments and celebrates collective achievements. |
+| Component | Implementation Details | Strategic Value |
+|-----------|------------------------|-----------------|
+| **Trigger Mechanism** | Update `telegram-webhook.ts` to intercept messages starting with `/ask` or mentioning `@TurboLoop_Bot`. | Provides a clear, intentional way for users to invoke the AI without it interrupting normal conversation. |
+| **Backend Routing** | Route these specific messages to the existing `chat/route.ts` logic, bypassing the web-specific rate limits but utilizing the same `KB_CONTENT` and Anthropic streaming logic. | Reuses the highly optimized, prompt-cached knowledge base (currently 40 articles deep) without duplicating code. |
+| **Response Formatting** | Ensure the AI's markdown output is converted to Telegram-compatible HTML (`<b>`, `<i>`, `<code>`, `<a>`). | Maintains a native, premium feel within the Telegram interface. |
+| **Fallback Protocol** | If the AI cannot answer confidently, it must append: *"I'm an AI assistant. For official support, contact @TurboLoop_Support."* | Prevents hallucinations and ensures users always have an escalation path. |
 
-### Phase 3: Regional Expansion (The "Global" Bot)
+### Pillar 3: The Master Content Schedule (The "Engagement" Layer)
 
-As Turbo Loop expands internationally into markets like Germany, Nigeria, Indonesia, and India, the automation infrastructure must scale to support localized communities natively.
+We must move away from broadcasting single content types and instead weave a rich, daily tapestry of education, proof, and conversion hooks using the Omni-Composer and Master Cron.
 
-| Feature | Action Required | Strategic Value |
-|---------|-----------------|-----------------|
-| **Multi-Language Replies** | Refactor `telegram-webhook.ts` to detect incoming message language or use language-specific commands (e.g., `/buy_de`) to reply appropriately. | Supports non-English speakers natively and reduces friction for global users. |
-| **Regional Routing** | Fully utilize the `telegram_de`, `telegram_hi`, and `telegram_id` channels in the `scheduled_posts` table, ensuring major announcements are translated and scheduled simultaneously. | Ensures consistent, localized messaging across all global communities. |
-
-### Phase 4: AI-Powered Support (The "Smart" Bot)
-
-The current regex-based triggers are brittle and require users to guess the exact keywords. We must transition to a more intelligent, context-aware support system.
-
-| Feature | Action Required | Strategic Value |
-|---------|-----------------|-----------------|
-| **Semantic Search / RAG** | Replace regex triggers with a Retrieval-Augmented Generation (RAG) system. The bot will search `blog_posts` and FAQ content, using an LLM to generate conversational answers. | Provides human-like support 24/7, drastically reducing the load on human administrators. |
-| **Sentiment Monitoring** | Add a background cron task that analyzes chat sentiment over the last 24 hours, alerting admins via a private channel if negative sentiment spikes. | Allows the team to proactively address issues, confusion, or FUD before they escalate. |
+| Time (UTC) | Content Type | Source / Mechanism | Strategic Goal |
+|------------|--------------|--------------------|----------------|
+| **08:00** | **The Hook** (Hub Promo) | `pickTodaysHubPromo()` via Cron | Drives morning traffic to specific hub pages (e.g., Calculator, Security, Apply). |
+| **12:00** | **The Proof** (Compounding) | `pickTodaysMonthlyBanner()` via Cron | Shows the mathematical reality of the Loop Plans using high-quality projection banners. |
+| **14:00** | **The Deep Dive** (Blog) | Existing Blog Publish Cron | Educates the community on complex topics (e.g., Impermanent Loss, Tokenomics). |
+| **18:00** | **The Vision** (Film) | `pickTodaysFilm()` via Cron | Reinforces the brand narrative and core philosophy through the Cinematic Universe. |
+| **Random** | **The Pulse** (Poll/Trivia) | Omni-Composer (Scheduled) | Drives active clicks and engagement (e.g., "Which feature are you most excited about?"). |
 
 ---
 
@@ -62,19 +59,19 @@ The current regex-based triggers are brittle and require users to guess the exac
 
 The implementation of this grand plan will be rolled out in three distinct stages to ensure stability and continuous delivery of value.
 
-**Immediate Wins (Next 7 Days)**
-Focus on implementing Phase 1 (Live Data Triggers) by extending the existing `telegram-webhook.ts` file. Simultaneously, begin scheduling Phase 2 content (Trivia and Polls) using the already available Omni-Composer user interface.
+**Stage 1: Live Data & Schedule Overhaul (Next 7 Days)**
+Focus on implementing the Live Data Triggers (`/burns`, `/top`, `/stats`) by extending the existing `telegram-webhook.ts` file. Simultaneously, update `cron-master.ts` to implement the new Master Content Schedule, ensuring the Hub Promos and Compounding Banners fire at their designated times.
 
-**Medium Term (Next 30 Days)**
-Execute Phase 3 (Regional Expansion) by refactoring the webhook handler to support localization dictionaries. Additionally, build the automated milestone celebration logic into `cron-master.ts` to capitalize on protocol growth.
+**Stage 2: Ask AI Integration (Next 14 Days)**
+Execute the complex integration of the Ask AI system into Telegram. This involves modifying the webhook to detect `/ask` commands, routing the query to the Anthropic API using the existing `KB_CONTENT`, and formatting the response for Telegram HTML.
 
-**Long Term (Next 90 Days)**
-Undertake the complex integration of Phase 4 (AI-Powered Support). This involves connecting the Anthropic API to the webhook handler and establishing the existing blog and FAQ database as the primary knowledge base for the RAG system.
+**Stage 3: Optimization & Regional Rollout (Next 30 Days)**
+Monitor the Ask AI responses and refine the `SYSTEM_BEHAVIOR` prompt as needed. Begin utilizing the Omni-Composer to schedule translated versions of the Master Content Schedule into the `telegram_de`, `telegram_hi`, and `telegram_id` channels.
 
 ---
 
 ## Usage Instructions
 
-This document serves as the architectural blueprint for all future Telegram automation development. When implementing a new feature, refer back to this plan to ensure it aligns with the broader ecosystem strategy.
+This document serves as the architectural blueprint for the next generation of Turbo Loop's Telegram automation. When implementing a new feature, refer back to this plan to ensure it aligns with the broader ecosystem strategy.
 
-To begin implementing a specific phase, create a new Claude session and instruct it to execute the relevant actions outlined in the tables above.
+To begin implementing a specific stage, create a new Claude session and instruct it to execute the relevant actions outlined in the tables above.

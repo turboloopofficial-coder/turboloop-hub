@@ -22,7 +22,7 @@ In DeFi, trust is built on transparency and verifiable data. We must integrate l
 
 | Command | Data Source | What it shows | Strategic Value |
 |---------|-------------|---------------|-----------------|
-| `/burns` | `turboloop.io/api/proxy/buybacks` | Last 3 buybacks: USDT spent, TURBO burned, tx hash | Proves the deflationary mechanism is actively working, creating FOMO. |
+| `/burns` | `turboloop.io/api/proxy/buybacks` | Last 3 buybacks: USDT spent, TURBO burned, tx hash. **Plus totals: total USDT spent across all buybacks, total TURBO burned across all buybacks.** | Proves the deflationary mechanism is actively working. The running totals create compounding FOMO. |
 | `/top` | `country_leaderboard` DB table | Top 5 countries by community size | Gamifies community participation and sparks regional pride. |
 | `/stats` | DexScreener API | TVL, liquidity, volume | Builds absolute trust through transparency. |
 | `/price` | `/api/token-price` | Live TURBO price + 24h change | Provides instant access to the most critical conversion metric. |
@@ -31,14 +31,16 @@ In DeFi, trust is built on transparency and verifiable data. We must integrate l
 
 ## Pillar 2: Ask AI Telegram Integration (The "Smart" Layer)
 
-We will bring the power of the web-based Ask AI (backed by Claude 3.5 Haiku and a 40-article knowledge base) directly into the Telegram group.
+The existing Ask AI chatbot (Claude 3.5 Haiku, 40-article knowledge base covering tokenomics, referral system, MetaMask setup, security audits, compounding math, and more) must be connected directly to the Telegram group. Users type `/ask <question>` in the group and receive a full, sourced, accurate answer — not a canned link. This transforms the bot from a FAQ machine into an intelligent support agent.
 
 | Component | Implementation Details |
 |-----------|------------------------|
-| **Trigger Mechanism** | Update `telegram-webhook.ts` to intercept messages starting with `/ask` or mentioning `@TurboLoop_Bot`. |
-| **Backend Routing** | Route these specific messages to the existing `chat/route.ts` logic, utilizing the same `KB_CONTENT` and Anthropic streaming logic. |
-| **Response Formatting** | Ensure the AI's markdown output is converted to Telegram-compatible HTML (`<b>`, `<i>`, `<code>`, `<a>`). |
-| **Fallback Protocol** | If the AI cannot answer confidently, it must append: *"I'm an AI assistant. For official support, contact @TurboLoop_Support."* |
+| **Trigger Mechanism** | Update `telegram-webhook.ts` to intercept any message starting with `/ask`. The remainder of the message is the user's question. |
+| **Backend Routing** | Call the Anthropic API directly from the webhook handler using the same `KB_CONTENT` string from `next-app/lib/chatbot-kb.ts` and the same system prompt used in `chat/route.ts`. Do NOT use streaming — send a single complete response. |
+| **Response Formatting** | Convert the AI's markdown output to Telegram-compatible HTML using the existing `markdownToTelegramHtml()` function already in `cron-master.ts`. Truncate at 4,000 characters (Telegram message limit). |
+| **Fallback Protocol** | If the Anthropic call fails or the AI responds with low confidence, append: *"I'm an AI assistant. For official support, contact @TurboLoop_Support."* |
+| **Rate Limiting** | Limit to 1 AI response per user per 60 seconds using a simple in-memory Map keyed by `userId`. This prevents abuse and controls API costs. |
+| **Example Interaction** | User: `/ask how does the 20-level referral work?` → Bot replies with a full explanation of the referral depth, commission percentages per level, and a link to the calculator. |
 
 ---
 
@@ -55,7 +57,7 @@ We will implement a 12-slot daily schedule (one post every 2 hours) directly in 
 | **04:00** | **Security First** | Hub Promo (Security/Code-is-Law) | Rotate through the 3 caption variants for the Security and Code-is-Law hub pages. |
 | **06:00** | **Morning Hook** | Hub Promo (Calculator/Apply) | Rotate through the 3 caption variants for the Calculator and Apply hub pages. |
 | **08:00** | **Tokenomics** | Hub Promo (Ecosystem/Leaderboard) | Rotate through the 3 caption variants for the Ecosystem and Leaderboard hub pages. |
-| **10:00** | **Live Burn Proof** | Live `/burns` data | Dynamic post showing the exact USDT spent on the most recent buyback. "Deflation in action." |
+| **10:00** | **Live Burn Proof** | Live `/burns` data | Dynamic post showing the most recent buyback USDT spent, TURBO burned, **plus the running totals** (e.g., "🔥 18,249 TURBO burned so far — $1,510 USDT committed to deflation"). |
 | **12:00** | **Midday Proof** | `MONTHLY_COMPOUND_BANNERS` | Focus on the 24% Power plan. Rotate through the 10 deposit tiers. |
 | **14:00** | **The Deep Dive** | Existing Blog Cron | *Untouched.* Publishes the daily blog post. |
 | **16:00** | **Community Voice** | Hub Promo (Community/FAQ) | Rotate through the 3 caption variants for the Community and FAQ hub pages. |

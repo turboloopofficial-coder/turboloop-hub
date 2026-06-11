@@ -32,6 +32,18 @@
 //     is a non-issue. 60-second TTL per (chat, trigger) pair.
 
 import { tgSendTextMessage, tgEscape } from "./_telegram";
+// 398 KB knowledge base — 40 curated articles. Powers the /ask trigger.
+// Re-bundled by the chatbot KB build script; the import is shared
+// between the website's chat API and this webhook so they answer
+// from the same source of truth.
+import { KB_CONTENT, KB_VERSION } from "@lib/chatbot-kb";
+
+// Per-user rate limit for /ask — 1 response per 60 seconds.
+// In-memory Map is fine for Edge: each invocation is stateless, so
+// this only prevents rapid-fire bursts within a single warm instance.
+// Cold starts naturally reset the map, which acts as a soft global TTL.
+const ASK_COOLDOWN_MS = 60_000;
+const askLastFired = new Map<number, number>();
 
 // ─── Trigger definitions ──────────────────────────────────────────
 //
@@ -98,6 +110,47 @@ async function fetchLivePrice(): Promise<string> {
     return `$${price}${change}`;
   } catch {
     return "price unavailable";
+  }
+}
+
+// ─── Ask AI response builder (Claude Haiku 4.5 + 40-article KB) ──
+// Wraps the Anthropic Messages API with the same knowledge base the
+// website chat surface uses. We call the REST endpoint directly
+// instead of the SDK because the SDK pulls in axios + form-data, and
+// the Edge bundle is already heavy with the 398 KB KB string.
+async function buildAskResponse(question: string): Promise<string> {
+  const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+  if (!ANTHROPIC_API_KEY) {
+    return "🤖 AI assistant is temporarily unavailable. For support: @TurboLoop_Support";
+  }
+  const SYSTEM = `${KB_CONTENT}\n\n=====\n\nYou are the TurboLoop Assistant in a Telegram group. Answer questions about TurboLoop's protocol, yield plans, security, community programs, and how to participate. Be concise — Telegram messages should be under 800 characters when possible. Use Telegram HTML formatting: <b>bold</b>, <i>italic</i>, <code>code</code>, <a href="url">link</a>. Always include this disclaimer for any plan/ROI/earning question: "This is protocol information, not financial advice." If unsure, say so and direct to @TurboLoop_Support. NEVER fabricate facts not in the knowledge base. KB version: ${KB_VERSION}`;
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5",
+        max_tokens: 1024,
+        system: SYSTEM,
+        messages: [{ role: "user", content: question }],
+      }),
+      signal: AbortSignal.timeout(25_000),
+    });
+    if (!r.ok) throw new Error(`Anthropic HTTP ${r.status}`);
+    const d: any = await r.json();
+    const text: string = d?.content?.[0]?.text ?? "";
+    if (!text) throw new Error("Empty response");
+    // Truncate at 3800 chars (Telegram message limit is 4096, leave
+    // room for the "TurboLoop AI" header + any disclaimer text).
+    const truncated = text.length > 3800 ? text.slice(0, 3797) + "…" : text;
+    return `🤖 <b>TurboLoop AI</b>\n\n${truncated}`;
+  } catch (err) {
+    console.error("[telegram-webhook] /ask failed", err);
+    return "🤖 <b>TurboLoop AI</b>\n\nI couldn't process that right now. For official support: @TurboLoop_Support";
   }
 }
 
@@ -569,6 +622,21 @@ Our team responds daily. Please include your wallet address and a description of
       }
     },
   },
+  {
+    id: "ask",
+    // Slash-form only — keyword form would be too noisy in a busy group.
+    // Optional bot suffix (@TurboLoopHubBot) + everything after the command
+    // becomes the question.
+    pattern: /^\/ask(@\w+)?(\s+.+)?$/i,
+    response: null,
+    buildResponse: async (text?: string) => {
+      const question = (text ?? "").replace(/^\/ask(@\w+)?\s*/i, "").trim();
+      if (!question) {
+        return "🤖 <b>How to use:</b> <code>/ask your question here</code>\n\nExample: <code>/ask how does the 20-level referral work?</code>";
+      }
+      return buildAskResponse(question);
+    },
+  },
 ];
 
 // ─── Cooldown bookkeeping ─────────────────────────────────────────
@@ -714,6 +782,22 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
     }
 
     const now = Date.now();
+    // Extra per-USER rate limit for /ask — prevents an individual from
+    // burning Anthropic tokens by spamming the AI. The regular
+    // chat-level cooldown still applies below.
+    if (trigger.id === "ask") {
+      const userId = msg.from?.id;
+      if (userId !== undefined) {
+        const last = askLastFired.get(userId) ?? 0;
+        if (now - last < ASK_COOLDOWN_MS) {
+          return new Response(
+            JSON.stringify({ ok: true, matched: "ask", skipped: "ask-cooldown" }),
+            { status: 200, headers: { "Content-Type": "application/json" } }
+          );
+        }
+        askLastFired.set(userId, now);
+      }
+    }
     if (isOnCooldown(chatId, trigger.id, now)) {
       return new Response(
         JSON.stringify({ ok: true, matched: trigger.id, skipped: "cooldown" }),

@@ -1,29 +1,32 @@
-// /api/token-burns — server-side proxy for the BscScan V2 tokentx
-// Deploy: 2026-06-11-v2 (force CDN cache invalidation)
-// endpoint, filtered to TURBO transfers landing at the dead-address
-// burn sink (0x…dead). The Burn Events Feed widget on /token reads
-// from here every 5 minutes.
+// /api/token-burns — serves the burn events feed on /token.
+// Deploy: 2026-06-11-buybacks-proxy
+//
+// Data source: https://turboloop.io/api/proxy/buybacks
+// The turboloop.io backend tracks every daily buyback & burn execution
+// in its own database, including the tx hash, USDT spent, tokens burned,
+// and timestamp. This is the same data shown on the turboloop.io
+// Token Rewards dashboard.
+//
+// Why not BscScan? BscScan V1 was deprecated. BscScan V2 requires a
+// paid API key for BSC — free tier returns an error. The turboloop.io
+// proxy is public, always fresh, and returns exactly the fields we need.
 //
 // Caching strategy:
-//   • Module-scoped in-memory cache, 5-minute TTL. Survives across
-//     requests on the same Edge instance.
+//   • Module-scoped in-memory cache, 5-minute TTL.
 //   • HTTP Cache-Control: s-maxage=300, stale-while-revalidate=600 so
 //     Vercel's CDN also caches between cache misses.
 //
-// Graceful degradation: if BscScan is down or the API key is missing,
-// we serve last-good cached data when we have it, otherwise return a
-// structured `fresh: false` envelope so the widget can show "Burn
-// data unavailable" without crashing the whole page.
+// Graceful degradation: if the upstream is down we serve last-good
+// cached data, or a structured `fresh: false` envelope so the widget
+// can show "Burn data unavailable" without crashing.
 
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
-const TURBO_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
-const DEAD_ADDRESS = "0x000000000000000000000000000000000000dead";
-const BSC_CHAIN_ID = 56;
-const PAGE_SIZE = 20;
+const BUYBACKS_URL =
+  "https://turboloop.io/api/proxy/buybacks?limit=20&page=1";
 const CACHE_TTL_MS = 5 * 60_000; // 5 minutes
 
 export interface BurnEvent {
@@ -31,35 +34,35 @@ export interface BurnEvent {
   hash: string;
   /** Unix epoch (seconds). */
   timestamp: number;
-  /** Parsed token amount (value / 10^decimals). */
+  /** Parsed token amount (already divided by 1e18). */
   amount: number;
-  /** Sender address (the buyback contract for daily auto-burns). */
-  from: string;
+  /** USDT spent on this buyback. */
+  usdtSpent: number;
+  /** Execution number (1 = first ever buyback). */
+  executionNumber: number;
 }
 
 export interface BurnFeedData {
   burns: BurnEvent[];
-  /** Sum of all amounts on the current page (NOT lifetime total
-   *  burned — BscScan doesn't expose that directly, would need a
-   *  separate balance read). */
+  /** Sum of all `amount` values across all returned burns. */
   totalBurned: number;
   fetchedAt: number;
   fresh: boolean;
 }
 
-interface BscScanTx {
-  hash: string;
-  timeStamp: string;
-  value: string;
-  tokenDecimal: string;
-  from: string;
-  to: string;
+interface BuybackItem {
+  execution_number: number;
+  tx_hash: string;
+  usdt_spent: string; // raw wei string (18 decimals)
+  tokens_burned: string; // raw wei string (18 decimals), may use scientific notation
+  timestamp: string; // ISO 8601
 }
 
-interface BscScanResponse {
-  status?: string;
-  message?: string;
-  result?: BscScanTx[] | string;
+interface BuybacksResponse {
+  data?: {
+    items?: BuybackItem[];
+  };
+  error?: string;
 }
 
 let cached: { data: BurnFeedData; expiresAt: number } | null = null;
@@ -73,45 +76,48 @@ function emptyResponse(): BurnFeedData {
   };
 }
 
-async function fetchFromBscScan(): Promise<BurnFeedData> {
-  const apiKey = process.env.BSCSCAN_API_KEY ?? "";
-  // BscScan V2 still accepts the dummy `YourApiKeyToken` for very low
-  // throughput, but production-stable rates require a real key. We
-  // pass whatever we have; failure handling stays the same either way.
-  const url =
-    `https://api.bscscan.com/v2/api?chainid=${BSC_CHAIN_ID}` +
-    `&module=account&action=tokentx` +
-    `&contractaddress=${TURBO_CONTRACT}` +
-    `&address=${DEAD_ADDRESS}` +
-    `&page=1&offset=${PAGE_SIZE}&sort=desc` +
-    `&apikey=${apiKey || "YourApiKeyToken"}`;
-
+/** Parse a raw token amount string (may be scientific notation) → human units */
+function parseTokenAmount(raw: string): number {
   try {
-    const res = await fetch(url, {
+    const n = Number(raw);
+    if (!Number.isFinite(n) || n <= 0) return 0;
+    return n / 1e18;
+  } catch {
+    return 0;
+  }
+}
+
+async function fetchFromBuybacksProxy(): Promise<BurnFeedData> {
+  try {
+    const res = await fetch(BUYBACKS_URL, {
       signal: AbortSignal.timeout(6000),
       cache: "no-store",
       headers: { Accept: "application/json" },
     });
     if (!res.ok) return emptyResponse();
-    const json = (await res.json()) as BscScanResponse;
-    // BscScan V2 sometimes returns status="0" with a string result for
-    // empty queries; we treat that as "no burns yet" not as an error.
-    if (json.status !== "1" || !Array.isArray(json.result)) {
-      return emptyResponse();
-    }
-    const burns: BurnEvent[] = json.result
-      .filter((t) => t.to?.toLowerCase() === DEAD_ADDRESS)
-      .map((t) => {
-        const decimals = Number(t.tokenDecimal) || 18;
-        const amount = Number(t.value) / Math.pow(10, decimals);
+
+    const json = (await res.json()) as BuybacksResponse;
+    if (json.error || !json.data?.items?.length) return emptyResponse();
+
+    const burns: BurnEvent[] = json.data.items
+      .map((item) => {
+        const amount = parseTokenAmount(item.tokens_burned);
+        const usdtSpent = parseTokenAmount(item.usdt_spent);
+        const timestamp = item.timestamp
+          ? Math.floor(new Date(item.timestamp).getTime() / 1000)
+          : 0;
         return {
-          hash: t.hash,
-          timestamp: Number(t.timeStamp) || 0,
-          amount: Number.isFinite(amount) ? amount : 0,
-          from: t.from ?? "",
+          hash: item.tx_hash ?? "",
+          timestamp,
+          amount,
+          usdtSpent,
+          executionNumber: Number(item.execution_number) || 0,
         };
-      });
+      })
+      .sort((a, b) => b.timestamp - a.timestamp);
+
     const totalBurned = burns.reduce((sum, b) => sum + b.amount, 0);
+
     return {
       burns,
       totalBurned,
@@ -133,7 +139,7 @@ export async function GET() {
     });
   }
 
-  const data = await fetchFromBscScan();
+  const data = await fetchFromBuybacksProxy();
 
   if (data.fresh) {
     cached = { data, expiresAt: now + CACHE_TTL_MS };

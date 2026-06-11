@@ -1,17 +1,21 @@
 "use client";
 
-// BurnEventsFeed — renders the most recent $TURBO burn transactions
-// (transfers to the dead-address sink). Polls /api/token-burns every
-// 5 minutes — matches the server cache TTL so we never duplicate work.
+// BurnEventsFeed — renders the most recent $TURBO buyback & burn events.
+// Polls /api/token-burns every 5 minutes — matches the server cache TTL.
+//
+// Data source: /api/token-burns → turboloop.io/api/proxy/buybacks
 //
 // Behaviour states:
 //   • Loading      → 5 shimmer skeleton rows
 //   • Empty/error  → "Burn data unavailable" with a BscScan deep link
 //   • Loaded       → up to 10 burn rows, newest first
 //
-// Each row shows the burn amount (cyan, bold) + relative time, with
-// the full hash truncated like `0xabc1234…ef5678` and an explorer link.
-// Click anywhere on the row jumps to the BscScan tx page in a new tab.
+// Each row shows:
+//   - Execution number badge (e.g. "#9")
+//   - Burn amount in TURBO (cyan, bold)
+//   - USDT spent on the buyback
+//   - Relative time
+//   - Truncated tx hash + BscScan link
 
 import { useEffect, useState } from "react";
 import { Flame, ExternalLink } from "lucide-react";
@@ -20,7 +24,8 @@ interface BurnEvent {
   hash: string;
   timestamp: number;
   amount: number;
-  from: string;
+  usdtSpent?: number;
+  executionNumber?: number;
 }
 
 interface BurnFeedData {
@@ -42,10 +47,14 @@ function truncateHash(h: string): string {
 
 function formatAmount(n: number): string {
   if (!Number.isFinite(n) || n === 0) return "0";
-  // Avoid trailing zeros and keep small burns readable.
   if (n >= 1000) return Math.round(n).toLocaleString("en-US");
   if (n >= 1) return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
   return n.toLocaleString("en-US", { maximumFractionDigits: 4 });
+}
+
+function formatUsdt(n: number): string {
+  if (!Number.isFinite(n) || n === 0) return "";
+  return `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 function relativeTime(ts: number): string {
@@ -93,7 +102,6 @@ export function BurnEventsFeed() {
       ctrl.abort();
       window.clearInterval(id);
     };
-    // One-way `loaded` flag — same pattern as TokenPriceWidget; not in deps.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -139,11 +147,22 @@ export function BurnEventsFeed() {
                 className="flex items-center justify-between gap-3 py-2.5 min-h-[52px] hover:bg-[var(--c-bg)] -mx-2 px-2 rounded-md transition"
               >
                 <div className="min-w-0">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-base" aria-hidden="true">🔥</span>
+                  <div className="flex items-baseline gap-1.5 flex-wrap">
+                    {b.executionNumber ? (
+                      <span className="text-[10px] font-bold text-[var(--c-text-muted)] bg-[var(--c-bg)] px-1.5 py-0.5 rounded tabular-nums shrink-0">
+                        #{b.executionNumber}
+                      </span>
+                    ) : (
+                      <span className="text-base" aria-hidden="true">🔥</span>
+                    )}
                     <span className="font-bold text-[var(--c-brand-cyan)] tabular-nums text-sm md:text-base truncate">
                       {formatAmount(b.amount)} TURBO
                     </span>
+                    {b.usdtSpent ? (
+                      <span className="text-[11px] text-[var(--c-text-muted)] tabular-nums shrink-0">
+                        {formatUsdt(b.usdtSpent)} spent
+                      </span>
+                    ) : null}
                   </div>
                   <div className="text-[11px] md:text-xs text-[var(--c-text-subtle)] font-mono mt-0.5 truncate">
                     {truncateHash(b.hash)}

@@ -61,8 +61,53 @@ const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire 
 function bannerUrlBlog(slug: string, title: string): string {
   return `${BANNER_HOST}/api/og-banner?type=blog&slug=${encodeURIComponent(slug)}&title=${encodeURIComponent(title)}`;
 }
-function bannerUrlZoom(lang: ZoomLang): string {
-  return `${BANNER_HOST}/api/og-banner?type=zoom&lang=${lang}`;
+const R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
+
+// Rotating banner pools per lang+tier — picks by day-of-year so each variant
+// appears in strict rotation and never repeats two days in a row.
+const ZOOM_BANNERS: Record<ZoomLang, Record<"T60"|"T30"|"T10"|"T0", string[]>> = {
+  en: {
+    T60: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t60-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t60-v2.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t60-v3.png`,
+    ],
+    T30: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t30-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t30-v2.png`,
+    ],
+    T10: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t10-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t10-v2.png`,
+    ],
+    T0: [
+      `${R2_ZOOM}/hub-promo-zoom-en-t0-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-en-t0-v2.png`,
+    ],
+  },
+  hi: {
+    T60: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t60-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-hi-t60-v2.png`,
+    ],
+    T30: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t30-v1.png`,
+    ],
+    T10: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t10-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-hi-t10-v2.png`,
+    ],
+    T0: [
+      `${R2_ZOOM}/hub-promo-zoom-hi-t0-v1.png`,
+      `${R2_ZOOM}/hub-promo-zoom-hi-t0-v2.png`,
+    ],
+  },
+};
+
+function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T10"|"T0" = "T30"): string {
+  const pool = ZOOM_BANNERS[lang][tier];
+  const day = Math.floor(Date.now() / 86_400_000);
+  return pool[day % pool.length];
 }
 function bannerUrlLaunch(): string {
   return `${BANNER_HOST}/api/og-banner?type=launch`;
@@ -474,8 +519,14 @@ async function announceBlogToTelegram(
 
 async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: string, passcode: string, timeLabel: string): Promise<void> {
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
+  // Map ZoomTier to banner tier key
+  const bannerTier: "T60"|"T30"|"T10"|"T0" =
+    tier === "T60" ? "T60" :
+    tier === "T15" ? "T10" :
+    tier === "LIVE" ? "T0" :
+    "T30";
   await tgBroadcastPhoto({
-    photoUrl: bannerUrlZoom(lang),
+    photoUrl: bannerUrlZoom(lang, bannerTier),
     caption,
     parseMode: "HTML",
     buttons: [{ text: "🎙 Join Zoom now", url: meetingLink }],
@@ -669,6 +720,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceLiveStats = forceSet.has("live:stats");
     const forceNightlyEducation = forceSet.has("nightly:education");
     const forceBotCommands = forceSet.has("bot:commands");
+    const forceZoomHiT60 = forceSet.has("zoom:hi:T60");
+    const forceZoomHiT10 = forceSet.has("zoom:hi:T10");
+    const forceZoomHiT0  = forceSet.has("zoom:hi:T0");
+    const forceZoomEnT60 = forceSet.has("zoom:en:T60");
+    const forceZoomEnT10 = forceSet.has("zoom:en:T10");
+    const forceZoomEnT0  = forceSet.has("zoom:en:T0");
+    const forceZoomHiT30 = forceSet.has("zoom:hi:T30");
+    const forceZoomEnT30 = forceSet.has("zoom:en:T30");
 
     // ============ 0. ONE-SHOT: SITE LAUNCH ANNOUNCEMENT ============
     // Fires once when current time >= LAUNCH_FIRE_AT_UTC and within grace window,
@@ -815,12 +874,26 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       console.error("[cron-master] safety-net publishOverdueBlogs failed", err);
     }
 
-    // ============ 3. HINDI/URDU ZOOM T-30: 15:00 UTC = 8:30 PM IST ============
-    // Zoom link + passcode now resolve through getZoomConfig (Task C),
-    // which reads admin overrides from `site_settings` and falls back
-    // to the hardcoded ZOOM_HI defaults if unset or invalid.
+    // ============ 3. HINDI/URDU ZOOM — 4-tier reminder sequence ============
+    // HI call is at 16:00 UTC (9:30 PM IST)
+    // T-60 → 15:00 UTC | T-30 → 15:30 UTC | T-10 → 15:50 UTC | T-0 → 16:00 UTC
+
+    // HI T-60: 15:00 UTC
     try {
-      if (isInWindow(15, 0) && !(await hasFiredToday(db, "zoom:hi:T30"))) {
+      if ((isInWindow(15, 0) || forceZoomHiT60) && (forceZoomHiT60 || !(await hasFiredToday(db, "zoom:hi:T60")))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T60");
+        log.push("🎙 HI Zoom T-60");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T60", err).catch(() => {});
+      log.push(`❌ zoom:hi:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // HI T-30: 15:30 UTC
+    try {
+      if ((isInWindow(15, 30) || forceZoomHiT30) && (forceZoomHiT30 || !(await hasFiredToday(db, "zoom:hi:T30")))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
@@ -828,13 +901,55 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
     } catch (err) {
       await markError(db, "zoom:hi:T30", err).catch(() => {});
-      console.error("[cron-master] task zoom:hi:T30 failed", err);
       log.push(`❌ zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // ============ 4. ENGLISH ZOOM T-30: 16:30 UTC = 10:00 PM IST ============
+    // HI T-10: 15:50 UTC
     try {
-      if (isInWindow(16, 30) && !(await hasFiredToday(db, "zoom:en:T30"))) {
+      if ((isInWindow(15, 50) || forceZoomHiT10) && (forceZoomHiT10 || !(await hasFiredToday(db, "zoom:hi:T10")))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T10");
+        log.push("🎙 HI Zoom T-10");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T10", err).catch(() => {});
+      log.push(`❌ zoom:hi:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // HI T-0 LIVE: 16:00 UTC
+    try {
+      if ((isInWindow(16, 0) || forceZoomHiT0) && (forceZoomHiT0 || !(await hasFiredToday(db, "zoom:hi:T0")))) {
+        const cfg = await getZoomConfig("hi");
+        await sendZoomReminder("hi", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:hi:T0");
+        log.push("🎙 HI Zoom T-0 LIVE");
+      }
+    } catch (err) {
+      await markError(db, "zoom:hi:T0", err).catch(() => {});
+      log.push(`❌ zoom:hi:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ 4. ENGLISH ZOOM — 4-tier reminder sequence ============
+    // EN call is at 17:00 UTC (10:30 PM IST)
+    // T-60 → 16:00 UTC | T-30 → 16:30 UTC | T-10 → 16:50 UTC | T-0 → 17:00 UTC
+
+    // EN T-60: 16:00 UTC
+    try {
+      if ((isInWindow(16, 0) || forceZoomEnT60) && (forceZoomEnT60 || !(await hasFiredToday(db, "zoom:en:T60")))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T60");
+        log.push("🎙 EN Zoom T-60");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T60", err).catch(() => {});
+      log.push(`❌ zoom:en:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // EN T-30: 16:30 UTC
+    try {
+      if ((isInWindow(16, 30) || forceZoomEnT30) && (forceZoomEnT30 || !(await hasFiredToday(db, "zoom:en:T30")))) {
         const cfg = await getZoomConfig("en");
         await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");
@@ -842,8 +957,33 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
     } catch (err) {
       await markError(db, "zoom:en:T30", err).catch(() => {});
-      console.error("[cron-master] task zoom:en:T30 failed", err);
       log.push(`❌ zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // EN T-10: 16:50 UTC
+    try {
+      if ((isInWindow(16, 50) || forceZoomEnT10) && (forceZoomEnT10 || !(await hasFiredToday(db, "zoom:en:T10")))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T10");
+        log.push("🎙 EN Zoom T-10");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T10", err).catch(() => {});
+      log.push(`❌ zoom:en:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // EN T-0 LIVE: 17:00 UTC
+    try {
+      if ((isInWindow(17, 0) || forceZoomEnT0) && (forceZoomEnT0 || !(await hasFiredToday(db, "zoom:en:T0")))) {
+        const cfg = await getZoomConfig("en");
+        await sendZoomReminder("en", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
+        await markFired(db, "zoom:en:T0");
+        log.push("🎙 EN Zoom T-0 LIVE");
+      }
+    } catch (err) {
+      await markError(db, "zoom:en:T0", err).catch(() => {});
+      log.push(`❌ zoom:en:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============

@@ -12365,6 +12365,22 @@ function drizzle(...params) {
 var videoCategoryEnum = pgEnum("video_category", ["presentation", "how-to-join", "withdraw-compound", "cinematic", "other"]);
 var eventStatusEnum = pgEnum("event_status", ["upcoming", "live", "completed", "recurring"]);
 var roadmapStatusEnum = pgEnum("roadmap_status", ["completed", "current", "upcoming"]);
+var scheduledPostStatusEnum = pgEnum("scheduled_post_status", [
+  "pending",
+  "running",
+  "completed",
+  "paused",
+  "failed"
+]);
+var scheduledPostScheduleTypeEnum = pgEnum("scheduled_post_schedule_type", [
+  "once",
+  "recurring"
+]);
+var scheduledPostMediaTypeEnum = pgEnum("scheduled_post_media_type", [
+  "none",
+  "image",
+  "video"
+]);
 var adminCredentials = pgTable("admin_credentials", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
@@ -12662,6 +12678,41 @@ var jobVacancies = pgTable("job_vacancies", {
   // closing_at: roles with this set in the past auto-close on read.
   closingAt: timestamp("closing_at"),
   sortOrder: integer("sort_order").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
+});
+var scheduledPosts = pgTable("scheduled_posts", {
+  id: serial("id").primaryKey(),
+  // Editorial title — used as the blog title and prepended to the
+  // Telegram caption when present. NULL for media-only Telegram posts.
+  title: varchar("title", { length: 500 }),
+  // Body: Markdown for blog, HTML for Telegram. The Omni-Composer keeps
+  // both formats compatible by writing Markdown that the Telegram path
+  // re-renders into HTML at fire-time (or passes through if already HTML).
+  content: text("content").notNull(),
+  // R2-hosted media URL. NULL = text-only post.
+  mediaUrl: varchar("media_url", { length: 1024 }),
+  mediaType: scheduledPostMediaTypeEnum("media_type").default("none").notNull(),
+  // Per-channel routing — see header comment for allowed values.
+  channels: jsonb("channels").$type().notNull(),
+  // Optional inline keyboard buttons attached to the Telegram message(s).
+  buttons: jsonb("buttons").$type().default([]).notNull(),
+  scheduleType: scheduledPostScheduleTypeEnum("schedule_type").notNull(),
+  // Standard 5-field UTC cron string (e.g. "0 14 * * *"). Required for
+  // recurring, NULL for once-shot.
+  cronExpression: varchar("cron_expression", { length: 200 }),
+  // Next UTC tick the cron should pick this up. INDEXED so the master
+  // cron's "due now" query is cheap.
+  nextRunAt: timestamp("next_run_at").notNull(),
+  status: scheduledPostStatusEnum("status").default("pending").notNull(),
+  // Last error message — only populated when status='failed'. Truncated
+  // to 1000 chars defensively.
+  lastError: text("last_error"),
+  // Counters — useful for the Queue view's "Has fired N times" badge.
+  fireCount: integer("fire_count").default(0).notNull(),
+  lastFiredAt: timestamp("last_fired_at"),
+  // Author email — pulled from the admin JWT at create time. Audit only.
+  createdBy: varchar("created_by", { length: 320 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
 });

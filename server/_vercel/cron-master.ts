@@ -998,6 +998,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             `🌍 <b>The TurboLoop movement is global.</b>\n\nTop communities right now:\n\n${lines}\n\nEvery country on this list started with one person who decided to build differently.\n\n🔗 https://www.turboloop.tech/community`,
             `📡 <b>Where is TurboLoop growing fastest?</b>\n\nCurrent top 3:\n\n${lines}\n\nThe leaderboard updates live. Your country could be next.\n\n🔗 https://www.turboloop.tech/community`,
             `🌐 <b>100,000+ wallets. Dozens of countries. One protocol.</b>\n\nLeading communities today:\n\n${lines}\n\nJoin the global network.\n\n🔗 https://www.turboloop.tech/community`,
+            `🗺️ <b>Geography no longer determines your financial destiny.</b>\n\nLeading the charge today:\n\n${lines}\n\n14+ countries. 6 continents. 12+ languages. One protocol.\n\n🔗 https://www.turboloop.tech/community`,
+            `🚀 <b>The network effect in real time.</b>\n\nTop 3 regions by community strength:\n\n${lines}\n\nFrom local Zoom calls to global impact. See where your country ranks.\n\n🔗 https://www.turboloop.tech/community`,
           ];
           const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
           const caption = captions[day % captions.length];
@@ -1099,6 +1101,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
               `🔥 <b>Deflation in action.</b>\n\nBuyback #${latest.execution_number} just completed:\n💵 ${latestUsdt} USDT used to buy and burn <b>${latestTokens} TURBO</b>.\n\n📊 <b>All-time totals:</b>\n🔥 ${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO burned\n💵 $${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT committed\n\nEvery buyback makes the remaining supply more scarce.\n\n🔗 https://www.turboloop.tech/token`,
               `📉 <b>Supply is shrinking.</b>\n\nThe most recent buyback burned <b>${latestTokens} TURBO</b> using ${latestUsdt} of protocol revenue.\n\nRunning total: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> permanently removed from circulation.\n\nThis is not a promise. It's an on-chain fact.\n\n🔗 https://www.turboloop.tech/token`,
               `💡 <b>How the burn works.</b>\n\n10% of all admin fees go to the Buyback &amp; Burn contract. It executes automatically — no team approval needed.\n\nLatest execution #${latest.execution_number}: ${latestUsdt} → <b>${latestTokens} TURBO</b> burned.\nTotal burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
+              `⚙️ <b>Automated scarcity.</b>\n\nNo manual intervention. The smart contract just executed buyback #${latest.execution_number}.\n\n💵 ${latestUsdt} USDT deployed\n🔥 <b>${latestTokens} TURBO</b> destroyed forever\n\nTotal burned so far: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
+              `🔒 <b>Verifiable deflation.</b>\n\nDon't trust us, check the blockchain. Buyback #${latest.execution_number} is complete.\n\n🔥 <b>${latestTokens} TURBO</b> burned using ${latestUsdt} from protocol fees.\n\nTotal supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
             ];
             const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
@@ -1161,6 +1165,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
               `📊 <b>$TURBO — end of day snapshot.</b>\n\n💰 Price: <b>$${price}</b> (${changeStr} 24h)\n💧 Liquidity: <b>${liq}</b>\n📈 Volume 24h: <b>${vol24h}</b>\n\nThe protocol is open. The numbers are public. The liquidity is locked.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
               `🔍 <b>Transparency check.</b>\n\nEvery number below is verifiable on-chain, right now:\n\n💰 $TURBO price: <b>$${price}</b>\n💧 Locked liquidity: <b>${liq}</b>\n📈 24h volume: <b>${vol24h}</b>\n\nNo team can move the liquidity. No one controls the price.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
               `💡 <b>What does a healthy DeFi protocol look like?</b>\n\nThis:\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b> — 100% locked\n📈 Volume: <b>${vol24h}</b> in 24h\n\nReal volume. Real liquidity. Real yield.\n\n🔗 https://www.turboloop.tech/token`,
+              `📈 <b>The numbers don't lie.</b>\n\nLive metrics straight from the blockchain:\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b>\n📈 24h Volume: <b>${vol24h}</b>\n\nNo hidden wallets. No admin keys. Just code.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
+              `⚡ <b>$TURBO Daily Pulse</b>\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b>\n📈 24h Volume: <b>${vol24h}</b>\n\n100% of LP tokens are locked on-chain. Verify it yourself.\n\n🔗 https://www.turboloop.tech/security`,
             ];
             const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
@@ -1206,7 +1212,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // feels repetitive. Teaches the community about /ask and all commands.
     try {
       if ((isInWindow(11, 30) || forceBotCommands) && (forceBotCommands || !(await hasFiredToday(db, "bot:commands")))) {
-        const variant = new Date().getUTCDay() % 3; // 0, 1, or 2
+        const variant = new Date().getUTCDay() % 5; // 0, 1, 2, 3, or 4
         const captions = [
           // Variant 0 — spotlight /ask AI
           `🤖 <b>Meet Your TurboLoop AI Assistant</b>\n\nType <code>/ask</code> followed by any question and our AI answers instantly using the full TurboLoop knowledge base.\n\n<b>Try it now:</b>\n\u2022 <code>/ask how does the referral system work?</code>\n\u2022 <code>/ask what is the Ultimate Loop plan?</code>\n\u2022 <code>/ask how do I set up MetaMask for BSC?</code>\n\nNo waiting. No searching. Just ask. 💡`,
@@ -1214,6 +1220,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           `💬 <b>TurboLoop Bot Commands</b>\n\nGet instant answers:\n\n🔹 <code>/ask [question]</code> — AI answers anything about TurboLoop\n🔹 <code>/price</code> — Live $TURBO price\n🔹 <code>/burns</code> — Latest buyback &amp; burn data\n🔹 <code>/stats</code> — Live protocol stats\n🔹 <code>/top</code> — Global community leaderboard\n🔹 <code>/plans</code> — All 4 Loop Plans\n🔹 <code>/referral</code> — 20-level referral system\n🔹 <code>/payout</code> — Payout schedule\n🔹 <code>/calculator</code> — Yield calculator\n\nType any keyword and the bot responds automatically too. ⚡`,
           // Variant 2 — FOMO angle
           `❓ <b>Have a question about TurboLoop?</b>\n\nDon't scroll through old messages. Just type:\n\n<code>/ask your question here</code>\n\nOur AI has read every article, every plan detail, every security audit, and every FAQ. It answers in seconds — right here in this chat.\n\nOther quick commands: <code>/price</code> <code>/burns</code> <code>/stats</code> <code>/plans</code> <code>/referral</code>\n\n💬 Ask anything. We built this for you.`,
+          // Variant 3 — security and transparency focus
+          `🛡️ <b>Verify everything instantly.</b>\n\nWant to check the contract? See the audit? Understand the LP lock?\n\nType <code>/ask where is the audit?</code> or <code>/ask how is the LP locked?</code>\n\nOur AI pulls direct links to BscScan, SolidityScan, and the official documentation. Don't trust. Verify.\n\nOther commands: <code>/contract</code> <code>/stats</code> <code>/burns</code>`,
+          // Variant 4 — earning focus
+          `💰 <b>Maximize your yield.</b>\n\nNot sure which plan is right for you? Want to understand the $TURBO token rewards?\n\nType <code>/ask how do token rewards work?</code> or <code>/ask what is the difference between Power and Ultimate?</code>\n\nGet instant clarity on how to compound your returns.\n\nQuick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`,
         ];
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const channelId = process.env.TELEGRAM_CHANNEL;

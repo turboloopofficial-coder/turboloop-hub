@@ -38252,6 +38252,24 @@ ${lines}
 
 Join the global network.
 
+\u{1F517} https://www.turboloop.tech/community`,
+            `\u{1F5FA}\uFE0F <b>Geography no longer determines your financial destiny.</b>
+
+Leading the charge today:
+
+${lines}
+
+14+ countries. 6 continents. 12+ languages. One protocol.
+
+\u{1F517} https://www.turboloop.tech/community`,
+            `\u{1F680} <b>The network effect in real time.</b>
+
+Top 3 regions by community strength:
+
+${lines}
+
+From local Zoom calls to global impact. See where your country ranks.
+
 \u{1F517} https://www.turboloop.tech/community`
           ];
           const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
@@ -38369,6 +38387,25 @@ This is not a promise. It's an on-chain fact.
 Latest execution #${latest.execution_number}: ${latestUsdt} \u2192 <b>${latestTokens} TURBO</b> burned.
 Total burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.
 
+\u{1F517} https://www.turboloop.tech/token`,
+              `\u2699\uFE0F <b>Automated scarcity.</b>
+
+No manual intervention. The smart contract just executed buyback #${latest.execution_number}.
+
+\u{1F4B5} ${latestUsdt} USDT deployed
+\u{1F525} <b>${latestTokens} TURBO</b> destroyed forever
+
+Total burned so far: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.
+
+\u{1F517} https://www.turboloop.tech/token`,
+              `\u{1F512} <b>Verifiable deflation.</b>
+
+Don't trust us, check the blockchain. Buyback #${latest.execution_number} is complete.
+
+\u{1F525} <b>${latestTokens} TURBO</b> burned using ${latestUsdt} from protocol fees.
+
+Total supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.
+
 \u{1F517} https://www.turboloop.tech/token`
             ];
             const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
@@ -38454,7 +38491,27 @@ This:
 
 Real volume. Real liquidity. Real yield.
 
-\u{1F517} https://www.turboloop.tech/token`
+\u{1F517} https://www.turboloop.tech/token`,
+              `\u{1F4C8} <b>The numbers don't lie.</b>
+
+Live metrics straight from the blockchain:
+
+\u{1F4B0} Price: <b>$${price}</b> (${changeStr})
+\u{1F4A7} Liquidity: <b>${liq}</b>
+\u{1F4C8} 24h Volume: <b>${vol24h}</b>
+
+No hidden wallets. No admin keys. Just code.
+
+\u{1F517} https://dexscreener.com/bsc/${PAIR}`,
+              `\u26A1 <b>$TURBO Daily Pulse</b>
+
+\u{1F4B0} Price: <b>$${price}</b> (${changeStr})
+\u{1F4A7} Liquidity: <b>${liq}</b>
+\u{1F4C8} 24h Volume: <b>${vol24h}</b>
+
+100% of LP tokens are locked on-chain. Verify it yourself.
+
+\u{1F517} https://www.turboloop.tech/security`
             ];
             const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
             const caption = captions[day % captions.length];
@@ -38495,7 +38552,7 @@ Real volume. Real liquidity. Real yield.
     }
     try {
       if ((isInWindow(11, 30) || forceBotCommands) && (forceBotCommands || !await hasFiredToday(db, "bot:commands"))) {
-        const variant = (/* @__PURE__ */ new Date()).getUTCDay() % 3;
+        const variant = (/* @__PURE__ */ new Date()).getUTCDay() % 5;
         const captions = [
           // Variant 0 — spotlight /ask AI
           `\u{1F916} <b>Meet Your TurboLoop AI Assistant</b>
@@ -38535,7 +38592,27 @@ Our AI has read every article, every plan detail, every security audit, and ever
 
 Other quick commands: <code>/price</code> <code>/burns</code> <code>/stats</code> <code>/plans</code> <code>/referral</code>
 
-\u{1F4AC} Ask anything. We built this for you.`
+\u{1F4AC} Ask anything. We built this for you.`,
+          // Variant 3 — security and transparency focus
+          `\u{1F6E1}\uFE0F <b>Verify everything instantly.</b>
+
+Want to check the contract? See the audit? Understand the LP lock?
+
+Type <code>/ask where is the audit?</code> or <code>/ask how is the LP locked?</code>
+
+Our AI pulls direct links to BscScan, SolidityScan, and the official documentation. Don't trust. Verify.
+
+Other commands: <code>/contract</code> <code>/stats</code> <code>/burns</code>`,
+          // Variant 4 — earning focus
+          `\u{1F4B0} <b>Maximize your yield.</b>
+
+Not sure which plan is right for you? Want to understand the $TURBO token rewards?
+
+Type <code>/ask how do token rewards work?</code> or <code>/ask what is the difference between Power and Ultimate?</code>
+
+Get instant clarity on how to compound your returns.
+
+Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
         ];
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const channelId = process.env.TELEGRAM_CHANNEL;

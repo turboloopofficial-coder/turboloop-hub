@@ -1501,6 +1501,168 @@ Output: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
           .filter(Boolean);
       }),
 
+    /** Auto-discover TurboLoop-related videos not yet on the wall.
+     *  Sweeps 5 brand-relevant search terms, dedups by videoId, drops
+     *  anything already curated, then fetches statistics for the
+     *  remainder and ranks by an engagement+recency score.
+     *
+     *  Returns the top 20. If YOUTUBE_API_KEY is absent we degrade
+     *  gracefully — the admin UI renders a warning instead of a 500. */
+    getSuggestions: adminProcedure.query(async () => {
+      const apiKey = process.env.YOUTUBE_API_KEY;
+      if (!apiKey) {
+        return { missingApiKey: true as const, suggestions: [] as Array<never> };
+      }
+
+      const SEARCH_TERMS = [
+        "TurboLoop DeFi",
+        "TurboLoop protocol review",
+        "TurboLoop USDT yield",
+        "turboloop.tech",
+        "Turbo Loop crypto",
+      ];
+
+      // 1. Pull a search.list per term. 10 results × 5 terms = 50 raw
+      //    candidates before dedup. Cost: 100 quota units per call ×
+      //    5 = 500 units (5% of the daily 10k free-tier budget).
+      type RawHit = {
+        videoId: string;
+        title: string;
+        channelTitle: string | null;
+        thumbnailUrl: string | null;
+      };
+      const seen = new Map<string, RawHit>();
+      for (const q of SEARCH_TERMS) {
+        const url = new URL("https://www.googleapis.com/youtube/v3/search");
+        url.searchParams.set("part", "snippet");
+        url.searchParams.set("type", "video");
+        url.searchParams.set("maxResults", "10");
+        url.searchParams.set("q", q);
+        url.searchParams.set("key", apiKey);
+        const res = await fetch(url.toString());
+        if (!res.ok) continue;
+        const data = (await res.json()) as {
+          items?: Array<{
+            id?: { videoId?: string };
+            snippet?: {
+              title?: string;
+              channelTitle?: string;
+              thumbnails?: { medium?: { url?: string }; default?: { url?: string } };
+            };
+          }>;
+        };
+        for (const item of data.items ?? []) {
+          const id = item.id?.videoId;
+          if (!id || seen.has(id) || !item.snippet) continue;
+          const thumb =
+            item.snippet.thumbnails?.medium?.url ??
+            item.snippet.thumbnails?.default?.url ??
+            null;
+          seen.set(id, {
+            videoId: id,
+            title: item.snippet.title ?? "(no title)",
+            channelTitle: item.snippet.channelTitle ?? null,
+            thumbnailUrl: thumb,
+          });
+        }
+      }
+
+      // 2. Exclude anything already curated. Read once; the wall is
+      //    bounded so a full scan is fine.
+      const existing = await listSocialWallVideos();
+      const onWall = new Set(existing.map(v => v.youtubeId));
+      const candidates = Array.from(seen.values()).filter(h => !onWall.has(h.videoId));
+      if (candidates.length === 0) {
+        return { missingApiKey: false as const, suggestions: [] as Array<never> };
+      }
+
+      // 3. Fetch statistics + publish dates in a single videos.list call
+      //    (up to 50 ids per call — cheaper than search.list at 1 unit).
+      const ids = candidates.map(c => c.videoId).join(",");
+      const statsUrl = new URL("https://www.googleapis.com/youtube/v3/videos");
+      statsUrl.searchParams.set("part", "statistics,snippet");
+      statsUrl.searchParams.set("id", ids);
+      statsUrl.searchParams.set("key", apiKey);
+      const statsRes = await fetch(statsUrl.toString());
+      if (!statsRes.ok) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `YouTube videos.list failed: HTTP ${statsRes.status}`,
+        });
+      }
+      const statsData = (await statsRes.json()) as {
+        items?: Array<{
+          id?: string;
+          snippet?: { publishedAt?: string; channelTitle?: string };
+          statistics?: { viewCount?: string; likeCount?: string; commentCount?: string };
+        }>;
+      };
+      const statsById = new Map<string, {
+        viewCount: number;
+        likeCount: number;
+        commentCount: number;
+        publishedAt: string | null;
+        channelTitle: string | null;
+      }>();
+      for (const it of statsData.items ?? []) {
+        if (!it.id) continue;
+        statsById.set(it.id, {
+          viewCount: Number(it.statistics?.viewCount ?? 0),
+          likeCount: Number(it.statistics?.likeCount ?? 0),
+          commentCount: Number(it.statistics?.commentCount ?? 0),
+          publishedAt: it.snippet?.publishedAt ?? null,
+          channelTitle: it.snippet?.channelTitle ?? null,
+        });
+      }
+
+      // 4. Score each candidate. Recency multiplier rewards posts that
+      //    captured engagement quickly — relevant signal for a DeFi
+      //    feed where stale reviews lose context.
+      const now = Date.now();
+      const DAY_MS = 86_400_000;
+      const ranked = candidates
+        .map(c => {
+          const s = statsById.get(c.videoId);
+          if (!s) return null;
+          const base =
+            s.viewCount * 1.0 + s.likeCount * 5.0 + s.commentCount * 3.0;
+          let multiplier = 1.0;
+          if (s.publishedAt) {
+            const ageDays = (now - new Date(s.publishedAt).getTime()) / DAY_MS;
+            if (ageDays <= 30) multiplier = 1.5;
+            else if (ageDays <= 90) multiplier = 1.2;
+          }
+          return {
+            youtubeId: c.videoId,
+            title: c.title,
+            channelTitle: s.channelTitle ?? c.channelTitle,
+            thumbnailUrl: c.thumbnailUrl,
+            viewCount: s.viewCount,
+            likeCount: s.likeCount,
+            commentCount: s.commentCount,
+            publishedAt: s.publishedAt,
+            score: Math.round(base * multiplier),
+          };
+        })
+        .filter(Boolean) as Array<{
+          youtubeId: string;
+          title: string;
+          channelTitle: string | null;
+          thumbnailUrl: string | null;
+          viewCount: number;
+          likeCount: number;
+          commentCount: number;
+          publishedAt: string | null;
+          score: number;
+        }>;
+
+      ranked.sort((a, b) => b.score - a.score);
+      return {
+        missingApiKey: false as const,
+        suggestions: ranked.slice(0, 20),
+      };
+    }),
+
     /** Save a YouTube video as a row in social_wall_videos. Idempotent
      *  via the unique youtube_id constraint — re-saving the same video
      *  refreshes the cached metadata but preserves the curation flags. */

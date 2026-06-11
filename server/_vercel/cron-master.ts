@@ -653,7 +653,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     if (resetSet.size > 0) {
       const today = new Date().toISOString().slice(0, 10);
       const cleared: string[] = [];
-      for (const key of resetSet) {
+      for (const key of Array.from(resetSet)) {
         const fullKey = `lastFired:${key}:${today}`;
         await db.delete(siteSettings).where(eq(siteSettings.settingKey, fullKey)).catch(() => {});
         cleared.push(fullKey);

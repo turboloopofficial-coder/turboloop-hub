@@ -100,7 +100,7 @@ function formatWhen(iso: string): string {
 
 export default function AutomationManager() {
   const utils = trpc.useUtils();
-  const logQuery = trpc.manage.getAutomationLog.useQuery({ limit: 100 });
+  const logQuery = trpc.manage.getAutomationLog.useQuery({ limit: 500 });
   const blogQuery = trpc.manage.listBlogPosts.useQuery();
 
   const log = logQuery.data ?? [];
@@ -197,10 +197,10 @@ function ActivityLogSection(props: {
   onRefresh: () => void;
 }) {
   const { entries, loading, onRefresh } = props;
-  // Display the most-recent 50, newest first. The server already returns
+  // Display the most-recent 500, newest first. The server already returns
   // ordered by settingValue DESC; lastFired/cronError rows store an ISO
   // timestamp so that ordering reads "newest first" naturally.
-  const rows = entries.slice(0, 50);
+  const rows = entries.slice(0, 500);
 
   return (
     <section className="space-y-3">
@@ -208,7 +208,7 @@ function ActivityLogSection(props: {
         <div>
           <h3 className="text-lg font-heading font-bold text-slate-800">Activity log</h3>
           <p className="text-xs text-slate-500">
-            Last 50 cron fires + errors across all tasks. Newest first.
+            Last 500 cron fires + errors across all tasks. Newest first (~7 days of history).
           </p>
         </div>
         <Button

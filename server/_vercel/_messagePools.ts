@@ -1401,6 +1401,17 @@ export function pickTodaysHubPromo(): HubPromoEntry {
   return pickByDay(HUB_PROMOTION_POOL);
 }
 
+/** Pick a hub promo from a specific subset of pages, rotating by day.
+ *  Used by the themed cron slots (security, calculator, etc.) so a
+ *  given slot only ever surfaces banners that fit its narrative.
+ *  Falls back to the full-pool rotation when the page filter yields
+ *  nothing — better to ship a generic promo than a silent slot. */
+export function pickHubPromoByPages(pages: string[]): HubPromoEntry {
+  const subset = HUB_PROMOTION_POOL.filter((e) => pages.includes(e.page));
+  if (subset.length === 0) return pickTodaysHubPromo();
+  return pickByDay(subset);
+}
+
 /** R2 URL for an entry's banner (CDN-cached, 1y immutable). */
 export function hubPromoBannerUrl(promo: HubPromoEntry): string {
   return `${R2_BASE_HUB_PROMO}/hub-promo/${promo.banner}`;

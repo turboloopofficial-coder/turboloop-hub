@@ -30,8 +30,8 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { and, asc, eq, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
-import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo } from "./_telegram";
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -849,6 +849,283 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       console.error("[cron-master] task creatorReminder failed", err);
       log.push(`❌ creatorReminder failed: ${err instanceof Error ? err.message : String(err)}`);
     }
+
+    // ════════════════════════════════════════════════════════════════
+    //  EXPANDED CONTENT SCHEDULE — 8 additional slots
+    //  Brings the total to 12 posts/day (one every 2 hours UTC).
+    //  Each slot has its own dedup key + per-task try/catch so a
+    //  failure here can't poison the cron's other work.
+    // ════════════════════════════════════════════════════════════════
+
+    // ============ A. MIDNIGHT MATH: 00:00 UTC = 5:30 AM IST ============
+    // Compounding projection banner. Uses an offset of +10 against
+    // pickTodaysMonthlyBanner so this slot never collides with the
+    // 12:00 monthly:compound slot on the same UTC day.
+    try {
+      if (isInWindow(0, 0) && !(await hasFiredToday(db, "midnight:math"))) {
+        const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+        const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
+        const caption = monthlyCompoundingCaption(banner);
+        const photoUrl = monthlyBannerUrl(banner);
+        if (banner.lang === "de") {
+          const token = process.env.TELEGRAM_BOT_TOKEN;
+          const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+          if (token && germanChat) {
+            await tgSendPhoto(token, {
+              chatId: germanChat,
+              photoUrl,
+              caption,
+              parseMode: "HTML",
+              buttons: [{ text: "🧮 Jetzt berechnen", url: "https://turboloop.tech/calculator" }],
+            });
+          }
+        } else {
+          await tgBroadcastPhoto({
+            photoUrl,
+            caption,
+            parseMode: "HTML",
+            buttons: [{ text: "🧮 Run your projection", url: "https://turboloop.tech/calculator" }],
+          });
+        }
+        await markFired(db, "midnight:math");
+        const label = typeof banner.key === "number" ? `$${banner.key}` : banner.key;
+        log.push(`🌙 Midnight math — ${banner.lang} ${label}`);
+      }
+    } catch (err) {
+      await markError(db, "midnight:math", err).catch(() => {});
+      console.error("[cron-master] task midnight:math failed", err);
+      log.push(`❌ midnight:math failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ B. GLOBAL REACH: 02:00 UTC = 7:30 AM IST ============
+    // Live top-3 country leaderboard pulled from Neon. Rotates through
+    // 3 caption framings by day so the same wording isn't reused
+    // back-to-back if a reader is paying close attention.
+    try {
+      if (isInWindow(2, 0) && !(await hasFiredToday(db, "global:reach"))) {
+        const { neon } = await import("@neondatabase/serverless");
+        const sql2 = neon(process.env.DATABASE_URL!);
+        const leaderRows = await sql2`
+          SELECT country_name, member_count
+          FROM country_leaderboard
+          ORDER BY member_count DESC
+          LIMIT 3
+        `;
+        if (leaderRows.length > 0) {
+          const medals = ["🥇", "🥈", "🥉"];
+          const lines = leaderRows.map((r: any, i: number) =>
+            `${medals[i]} <b>${r.country_name}</b> — ${Number(r.member_count).toLocaleString()} members`
+          ).join("\n");
+          const captions = [
+            `🌍 <b>The TurboLoop movement is global.</b>\n\nTop communities right now:\n\n${lines}\n\nEvery country on this list started with one person who decided to build differently.\n\n🔗 https://www.turboloop.tech/community`,
+            `📡 <b>Where is TurboLoop growing fastest?</b>\n\nCurrent top 3:\n\n${lines}\n\nThe leaderboard updates live. Your country could be next.\n\n🔗 https://www.turboloop.tech/community`,
+            `🌐 <b>100,000+ wallets. Dozens of countries. One protocol.</b>\n\nLeading communities today:\n\n${lines}\n\nJoin the global network.\n\n🔗 https://www.turboloop.tech/community`,
+          ];
+          const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+          const caption = captions[day % captions.length];
+          await tgBroadcastMessage({
+            text: caption,
+            parseMode: "HTML",
+            disablePreview: true,
+            buttons: [{ text: "🌍 See full leaderboard", url: "https://www.turboloop.tech/community" }],
+          });
+          await markFired(db, "global:reach");
+          log.push(`🌍 Global reach — top: ${leaderRows[0]?.country_name}`);
+        }
+      }
+    } catch (err) {
+      await markError(db, "global:reach", err).catch(() => {});
+      console.error("[cron-master] task global:reach failed", err);
+      log.push(`❌ global:reach failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ C. SECURITY FIRST: 04:00 UTC = 9:30 AM IST ============
+    // Hub promo rotating through security / code-is-law pages.
+    try {
+      if (isInWindow(4, 0) && !(await hasFiredToday(db, "security:promo"))) {
+        const promo = pickHubPromoByPages(["security", "code-is-law"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "security:promo");
+        log.push(`🔐 Security promo — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "security:promo", err).catch(() => {});
+      console.error("[cron-master] task security:promo failed", err);
+      log.push(`❌ security:promo failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ D. MORNING HOOK: 06:00 UTC = 11:30 AM IST ============
+    // Hub promo — calculator / apply (highest conversion intent).
+    try {
+      if (isInWindow(6, 0) && !(await hasFiredToday(db, "morning:hook"))) {
+        const promo = pickHubPromoByPages(["calculator", "apply"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "morning:hook");
+        log.push(`⚡ Morning hook — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "morning:hook", err).catch(() => {});
+      console.error("[cron-master] task morning:hook failed", err);
+      log.push(`❌ morning:hook failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ E. ECOSYSTEM: 08:00 UTC = 1:30 PM IST ============
+    // Hub promo — ecosystem / leaderboard (community + scale).
+    try {
+      if (isInWindow(8, 0) && !(await hasFiredToday(db, "ecosystem:promo"))) {
+        const promo = pickHubPromoByPages(["ecosystem", "leaderboard"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "ecosystem:promo");
+        log.push(`🌐 Ecosystem promo — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "ecosystem:promo", err).catch(() => {});
+      console.error("[cron-master] task ecosystem:promo failed", err);
+      log.push(`❌ ecosystem:promo failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ F. LIVE BURN PROOF: 10:00 UTC = 3:30 PM IST ============
+    // Live buyback receipt + running totals. Note: 10:00 UTC also runs
+    // campaignA every 2 days, but the dedup keys differ so both can
+    // fire on the same day.
+    try {
+      if (isInWindow(10, 0) && !(await hasFiredToday(db, "burn:proof"))) {
+        const r = await fetch("https://turboloop.io/api/proxy/buybacks?limit=100", {
+          signal: AbortSignal.timeout(8000),
+        });
+        if (r.ok) {
+          const d: any = await r.json();
+          const items: any[] = d?.data?.items ?? [];
+          if (items.length > 0) {
+            const latest = items[0];
+            const latestTokens = (parseFloat(latest.tokens_burned) / 1e18).toLocaleString("en-US", { maximumFractionDigits: 0 });
+            const latestUsdt = (parseInt(latest.usdt_spent, 10) / 1e18).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+            const totalUsdt = items.reduce((s: number, i: any) => s + parseInt(i.usdt_spent, 10) / 1e18, 0);
+            const totalTokens = items.reduce((s: number, i: any) => s + parseFloat(i.tokens_burned) / 1e18, 0);
+            const captions = [
+              `🔥 <b>Deflation in action.</b>\n\nBuyback #${latest.execution_number} just completed:\n💵 ${latestUsdt} USDT used to buy and burn <b>${latestTokens} TURBO</b>.\n\n📊 <b>All-time totals:</b>\n🔥 ${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO burned\n💵 $${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT committed\n\nEvery buyback makes the remaining supply more scarce.\n\n🔗 https://www.turboloop.tech/token`,
+              `📉 <b>Supply is shrinking.</b>\n\nThe most recent buyback burned <b>${latestTokens} TURBO</b> using ${latestUsdt} of protocol revenue.\n\nRunning total: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> permanently removed from circulation.\n\nThis is not a promise. It's an on-chain fact.\n\n🔗 https://www.turboloop.tech/token`,
+              `💡 <b>How the burn works.</b>\n\n10% of all admin fees go to the Buyback &amp; Burn contract. It executes automatically — no team approval needed.\n\nLatest execution #${latest.execution_number}: ${latestUsdt} → <b>${latestTokens} TURBO</b> burned.\nTotal burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
+            ];
+            const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+            const caption = captions[day % captions.length];
+            await tgBroadcastMessage({
+              text: caption,
+              parseMode: "HTML",
+              disablePreview: true,
+              buttons: [{ text: "🔥 View burn history", url: "https://www.turboloop.tech/token" }],
+            });
+            await markFired(db, "burn:proof");
+            log.push(`🔥 Burn proof — #${latest.execution_number}, ${latestTokens} TURBO`);
+          }
+        }
+      }
+    } catch (err) {
+      await markError(db, "burn:proof", err).catch(() => {});
+      console.error("[cron-master] task burn:proof failed", err);
+      log.push(`❌ burn:proof failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ G. COMMUNITY VOICE: 16:00 UTC = 9:30 PM IST ============
+    // Hub promo — community / FAQ (trust + belonging).
+    try {
+      if (isInWindow(16, 0) && !(await hasFiredToday(db, "community:promo"))) {
+        const promo = pickHubPromoByPages(["community", "faq"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "community:promo");
+        log.push(`🤝 Community promo — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "community:promo", err).catch(() => {});
+      console.error("[cron-master] task community:promo failed", err);
+      log.push(`❌ community:promo failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ H. LIVE STATS: 20:00 UTC = 1:30 AM IST next day ============
+    // DexScreener end-of-day snapshot. Same 3-caption rotation pattern
+    // as global:reach and burn:proof.
+    try {
+      if (isInWindow(20, 0) && !(await hasFiredToday(db, "live:stats"))) {
+        const PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
+        const r = await fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${PAIR}`, {
+          signal: AbortSignal.timeout(8000),
+        });
+        if (r.ok) {
+          const d: any = await r.json();
+          const pair = d?.pairs?.[0];
+          if (pair) {
+            const price = Number(pair.priceUsd ?? 0).toFixed(6);
+            const liq = Number(pair.liquidity?.usd ?? 0).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+            const vol24h = Number(pair.volume?.h24 ?? 0).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+            const change24h = pair.priceChange?.h24 ?? 0;
+            const changeStr = `${change24h >= 0 ? "+" : ""}${Number(change24h).toFixed(2)}%`;
+            const captions = [
+              `📊 <b>$TURBO — end of day snapshot.</b>\n\n💰 Price: <b>$${price}</b> (${changeStr} 24h)\n💧 Liquidity: <b>${liq}</b>\n📈 Volume 24h: <b>${vol24h}</b>\n\nThe protocol is open. The numbers are public. The liquidity is locked.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
+              `🔍 <b>Transparency check.</b>\n\nEvery number below is verifiable on-chain, right now:\n\n💰 $TURBO price: <b>$${price}</b>\n💧 Locked liquidity: <b>${liq}</b>\n📈 24h volume: <b>${vol24h}</b>\n\nNo team can move the liquidity. No one controls the price.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
+              `💡 <b>What does a healthy DeFi protocol look like?</b>\n\nThis:\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b> — 100% locked\n📈 Volume: <b>${vol24h}</b> in 24h\n\nReal volume. Real liquidity. Real yield.\n\n🔗 https://www.turboloop.tech/token`,
+            ];
+            const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+            const caption = captions[day % captions.length];
+            await tgBroadcastMessage({
+              text: caption,
+              parseMode: "HTML",
+              disablePreview: true,
+              buttons: [{ text: "📊 Live chart", url: `https://dexscreener.com/bsc/${PAIR}` }],
+            });
+            await markFired(db, "live:stats");
+            log.push(`📊 Live stats — $${price} (${changeStr})`);
+          }
+        }
+      }
+    } catch (err) {
+      await markError(db, "live:stats", err).catch(() => {});
+      console.error("[cron-master] task live:stats failed", err);
+      log.push(`❌ live:stats failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ I. NIGHTLY EDUCATION: 22:00 UTC = 3:30 AM IST next day ============
+    // Hub promo — learn / blog / roadmap (long-term conviction).
+    try {
+      if (isInWindow(22, 0) && !(await hasFiredToday(db, "nightly:education"))) {
+        const promo = pickHubPromoByPages(["learn", "blog", "roadmap"]);
+        await tgBroadcastPhoto({
+          photoUrl: hubPromoBannerUrl(promo),
+          caption: promo.caption,
+          parseMode: "HTML",
+          buttons: [{ text: promo.buttonText, url: promo.buttonUrl }],
+        });
+        await markFired(db, "nightly:education");
+        log.push(`📚 Nightly education — ${promo.page}`);
+      }
+    } catch (err) {
+      await markError(db, "nightly:education", err).catch(() => {});
+      console.error("[cron-master] task nightly:education failed", err);
+      log.push(`❌ nightly:education failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    //  End of expanded schedule. Existing slots resume below.
+    // ════════════════════════════════════════════════════════════════
 
     // ============ 7. CAMPAIGN A — events page promo, 10:00 UTC every 2 days ============
     // Picks today's scheduled A1–A8 post by exact date match (each post

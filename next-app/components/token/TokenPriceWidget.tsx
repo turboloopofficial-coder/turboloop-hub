@@ -30,7 +30,23 @@ interface TokenPriceData {
   fresh: boolean;
 }
 
+// Inlined to avoid a server-route → client-bundle type import that
+// pulls runtime exports along for the ride. Keep in lockstep with the
+// shape returned by /api/token-price-history.
+interface TokenPriceHistoryData {
+  priceChange7d: number | null;
+  priceChange14d: number | null;
+  priceChange30d: number | null;
+  priceChangeAllTime: number | null;
+  daysSinceLaunch: number;
+  currentPriceFromCandles: number | null;
+  fetchedAt: number;
+  fresh: boolean;
+}
+
 const POLL_INTERVAL_MS = 60_000;
+// Daily candles barely move — 5 min is enough.
+const HISTORY_POLL_INTERVAL_MS = 5 * 60_000;
 
 function formatPrice(usd: number | null): string {
   if (usd === null || !Number.isFinite(usd)) return "—";
@@ -95,12 +111,25 @@ async function fetchPrice(signal?: AbortSignal): Promise<TokenPriceData | null> 
   }
 }
 
+async function fetchPriceHistory(
+  signal?: AbortSignal
+): Promise<TokenPriceHistoryData | null> {
+  try {
+    const res = await fetch("/api/token-price-history", { signal });
+    if (!res.ok) return null;
+    return (await res.json()) as TokenPriceHistoryData;
+  } catch {
+    return null;
+  }
+}
+
 export function TokenPriceWidget({
   variant = "inline",
   className = "",
 }: TokenPriceWidgetProps) {
   const [data, setData] = useState<TokenPriceData | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [historyData, setHistoryData] = useState<TokenPriceHistoryData | null>(null);
   const liveRegionId = useId();
 
   useEffect(() => {
@@ -133,6 +162,29 @@ export function TokenPriceWidget({
     // skeleton-clear path; re-tripping it would cause loop fetches.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Multi-period price history — only the `full` variant renders the
+  // performance row, so we skip the fetch entirely on `inline` to save
+  // a request on every embed (hero token chip, sidebar callout, etc).
+  useEffect(() => {
+    if (variant !== "full") return;
+    const ctrl = new AbortController();
+    let cancelled = false;
+
+    const tick = async () => {
+      const next = await fetchPriceHistory(ctrl.signal);
+      if (cancelled || !next) return;
+      setHistoryData(next);
+    };
+
+    tick();
+    const id = window.setInterval(tick, HISTORY_POLL_INTERVAL_MS);
+    return () => {
+      cancelled = true;
+      ctrl.abort();
+      window.clearInterval(id);
+    };
+  }, [variant]);
 
   const change = formatPctChange(data?.priceChange24h ?? null);
   const direction = change.direction;
@@ -169,43 +221,129 @@ export function TokenPriceWidget({
   }
 
   // ── FULL variant (stats grid for /token hero) ────────────────────
+  const daysSinceLaunch = historyData?.daysSinceLaunch ?? 0;
   return (
-    <div
-      className={`grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 ${className}`}
-      aria-label={`${TOKEN.symbol} live stats`}
-    >
-      <Stat
-        label="Price"
-        value={loaded ? formatPrice(data?.priceUsd ?? null) : "—"}
-        emphasis
-      />
-      <Stat
-        label="24h Change"
-        value={
-          <span
-            className="inline-flex items-baseline gap-1 tabular-nums"
-            style={{ color }}
-          >
-            <span aria-hidden="true">{DIRECTION_GLYPH[direction]}</span>
-            <span>{change.text}</span>
-          </span>
-        }
-        srValue={`${DIRECTION_SR[direction]} ${change.text} in the last 24 hours`}
-        emphasis
-      />
-      <Stat
-        label="24h Volume"
-        value={loaded ? formatUsdShort(data?.volume24h ?? null) : "—"}
-      />
-      <Stat
-        label="Liquidity"
-        value={loaded ? formatUsdShort(data?.liquidityUsd ?? null) : "—"}
-      />
+    <div className={className} aria-label={`${TOKEN.symbol} live stats`}>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <Stat
+          label="Price"
+          value={loaded ? formatPrice(data?.priceUsd ?? null) : "—"}
+          emphasis
+        />
+        <Stat
+          label="24h Change"
+          value={
+            <span
+              className="inline-flex items-baseline gap-1 tabular-nums"
+              style={{ color }}
+            >
+              <span aria-hidden="true">{DIRECTION_GLYPH[direction]}</span>
+              <span>{change.text}</span>
+            </span>
+          }
+          srValue={`${DIRECTION_SR[direction]} ${change.text} in the last 24 hours`}
+          emphasis
+        />
+        <Stat
+          label="24h Volume"
+          value={loaded ? formatUsdShort(data?.volume24h ?? null) : "—"}
+        />
+        <Stat
+          label="Liquidity"
+          value={loaded ? formatUsdShort(data?.liquidityUsd ?? null) : "—"}
+        />
+      </div>
+
+      {/* Price Performance — 7D / 14D / 30D / All-Time. 14D and 30D
+          render a "Coming Soon" state until the token clears each age
+          gate; the grid stays 4-wide so the layout doesn't reflow on
+          unlock day. */}
+      <div className="mt-3 md:mt-4">
+        <div className="text-[0.625rem] md:text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
+          Price Performance
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <PerfPill
+            label="7D"
+            change={historyData?.priceChange7d ?? null}
+            available={true}
+            loaded={historyData !== null}
+          />
+          <PerfPill
+            label="14D"
+            change={historyData?.priceChange14d ?? null}
+            available={daysSinceLaunch >= 14}
+            loaded={historyData !== null}
+          />
+          <PerfPill
+            label="30D"
+            change={historyData?.priceChange30d ?? null}
+            available={daysSinceLaunch >= 30}
+            loaded={historyData !== null}
+          />
+          <PerfPill
+            label="All-Time"
+            change={historyData?.priceChangeAllTime ?? null}
+            available={true}
+            loaded={historyData !== null}
+          />
+        </div>
+      </div>
+
       <span id={liveRegionId} className="sr-only" aria-live="polite">
         {loaded
           ? `${TOKEN.symbol} price ${formatPrice(data?.priceUsd ?? null)}. ${DIRECTION_SR[direction]} ${change.text} in the last 24 hours. 24-hour volume ${formatUsdShort(data?.volume24h ?? null)}.`
           : `${TOKEN.symbol} live stats loading.`}
       </span>
+    </div>
+  );
+}
+
+function PerfPill({
+  label,
+  change,
+  available,
+  loaded,
+}: {
+  label: string;
+  change: number | null;
+  available: boolean;
+  loaded: boolean;
+}) {
+  const formatted = formatPctChange(change);
+  const direction = formatted.direction;
+  const color = DIRECTION_COLOR[direction];
+
+  return (
+    <div className="rounded-[var(--r-lg)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3 py-3 md:px-4 md:py-3.5 shadow-[var(--s-sm)] flex flex-col gap-1">
+      <div className="text-[0.625rem] md:text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)]">
+        {label}
+      </div>
+      {!available ? (
+        <div className="flex items-center gap-1.5">
+          <span className="text-[0.6875rem] opacity-50" aria-hidden="true">
+            ⏳
+          </span>
+          <span className="text-xs font-semibold text-[var(--c-text-subtle)] opacity-60">
+            Coming Soon
+          </span>
+        </div>
+      ) : !loaded ? (
+        <div className="h-5 w-16 rounded bg-[var(--c-border)] animate-pulse" />
+      ) : change === null ? (
+        <span className="text-sm font-bold text-[var(--c-text-subtle)]">—</span>
+      ) : (
+        <span
+          className="inline-flex items-baseline gap-1 tabular-nums text-sm font-bold"
+          style={{ color }}
+        >
+          <span aria-hidden="true">{DIRECTION_GLYPH[direction]}</span>
+          <span>{formatted.text}</span>
+          <span className="sr-only">
+            {DIRECTION_SR[direction]} {formatted.text} over {label.toLowerCase()}.
+          </span>
+        </span>
+      )}
     </div>
   );
 }

@@ -15,6 +15,7 @@
 
 import { useEffect, useState } from "react";
 import type { TokenVestedData } from "@app/api/token-vested/route";
+import type { TokenHoldersData } from "@app/api/token-holders/route";
 
 interface TokenSupplyData {
   circulatingSupply: string;
@@ -49,6 +50,16 @@ async function fetchVested(signal?: AbortSignal): Promise<TokenVestedData | null
   }
 }
 
+async function fetchHolders(signal?: AbortSignal): Promise<TokenHoldersData | null> {
+  try {
+    const res = await fetch("/api/token-holders", { signal, cache: "no-store" });
+    if (!res.ok) return null;
+    return (await res.json()) as TokenHoldersData;
+  } catch {
+    return null;
+  }
+}
+
 interface TokenSupplyWidgetProps {
   className?: string;
 }
@@ -56,6 +67,7 @@ interface TokenSupplyWidgetProps {
 export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
   const [supplyData, setSupplyData] = useState<TokenSupplyData | null>(null);
   const [vestedData, setVestedData] = useState<TokenVestedData | null>(null);
+  const [holdersData, setHoldersData] = useState<TokenHoldersData | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -63,13 +75,15 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
     let cancelled = false;
 
     const tick = async () => {
-      const [nextSupply, nextVested] = await Promise.all([
+      const [nextSupply, nextVested, nextHolders] = await Promise.all([
         fetchSupply(ctrl.signal),
         fetchVested(ctrl.signal),
+        fetchHolders(ctrl.signal),
       ]);
       if (cancelled) return;
       if (nextSupply) setSupplyData(nextSupply);
       if (nextVested) setVestedData(nextVested);
+      if (nextHolders) setHoldersData(nextHolders);
       if (!loaded) setLoaded(true);
     };
 
@@ -105,9 +119,11 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
       ? ((vestedData.lockedVestedNum / vestedData.totalSupplyNum) * 100).toFixed(1)
       : null;
 
+  const holders = loaded ? holdersData?.holders ?? "—" : "—";
+
   return (
     <section
-      className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
+      className={`grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
       aria-label="$TURBO supply"
     >
       <SupplyCell
@@ -145,6 +161,13 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
             : "Held by contract"
         }
       />
+      <SupplyCell
+        label="Total Holders"
+        value={holders}
+        unit="wallets"
+        accent="green"
+        footnote="Unique wallet addresses"
+      />
     </section>
   );
 }
@@ -153,7 +176,7 @@ function SupplyCell(props: {
   label: string;
   value: string;
   unit: string;
-  accent: "cyan" | "violet" | "orange" | "text";
+  accent: "cyan" | "violet" | "orange" | "green" | "text";
   footnote?: string;
 }) {
   const accentColor =
@@ -163,7 +186,9 @@ function SupplyCell(props: {
         ? "#7C3AED"
         : props.accent === "orange"
           ? "#F97316"
-          : "var(--c-text)";
+          : props.accent === "green"
+            ? "#10B981"
+            : "var(--c-text)";
 
   return (
     <div className="flex flex-col">

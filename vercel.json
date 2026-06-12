@@ -1,0 +1,63 @@
+{
+  "buildCommand": "npm run build && npm run build:api",
+  "outputDirectory": "dist/public",
+  "installCommand": "npm install --legacy-peer-deps",
+  "functions": {
+    "api/trpc/[trpc].js": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "api/cron/master.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "api/cron/publish-blog.js": {
+      "memory": 512,
+      "maxDuration": 30
+    },
+    "api/og.js": {
+      "memory": 512,
+      "maxDuration": 10
+    },
+    "api/og-zoom.js": {
+      "memory": 512,
+      "maxDuration": 10
+    },
+    "api/og-banner.js": {
+      "memory": 512,
+      "maxDuration": 10
+    },
+    "api/monitor.js": {
+      "memory": 128,
+      "maxDuration": 10
+    },
+    "api/sitemap.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/rss.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/social-meta.js": {
+      "memory": 256,
+      "maxDuration": 10
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/publish-blog",
+      "schedule": "0 4 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

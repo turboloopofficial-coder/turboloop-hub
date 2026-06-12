@@ -39,7 +39,6 @@ import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
 import { TokenSupplyWidget } from "@components/token/TokenSupplyWidget";
 import { DexScreenerChart } from "@components/token/DexScreenerChart";
 import { BurnEventsFeed } from "@components/token/BurnEventsFeed";
-import { LockedSupplyWidget } from "@components/token/LockedSupplyWidget";
 import { CopyAddressButton } from "@components/token/CopyAddressButton";
 import { TrackedLink } from "@components/token/TrackedLink";
 import {
@@ -288,14 +287,9 @@ export default async function TokenPage({ searchParams }: PageProps) {
       {/* ── B. LIVE STATS BAR ────────────────────────────────────── */}
       <Container width="default">
         <TokenPriceWidget variant="full" className="mb-5 md:mb-6" />
-        {/* Live circulating / total / locked-or-burned trio. Polls
-            /api/token-supply every 5 minutes — matches the upstream
-            cache TTL so we never serve duplicate work. */}
-        <TokenSupplyWidget className="mb-6 md:mb-8" />
-        {/* On-chain locked/vested + burned + true circulating supply.
-            Reads balanceOf(TOKEN_CONTRACT) and balanceOf(DEAD) directly
-            from BSC RPC — transparent and verifiable. */}
-        <LockedSupplyWidget className="mb-10 md:mb-14" />
+        {/* Live supply trio: true circulating / total / vested+locked.
+            Reads on-chain via /api/token-vested, polls every 5 min. */}
+        <TokenSupplyWidget className="mb-10 md:mb-14" />
       </Container>
 
       {/* ── B2. LIVE CHART (DexScreener iframe) ─────────────────── */}

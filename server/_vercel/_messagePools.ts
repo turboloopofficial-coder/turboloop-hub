@@ -1605,10 +1605,262 @@ Build your team. Grow your rank. Get paid.
     buttonText: "📈 See the career path",
     buttonUrl: "https://turboloop.tech/events",
   },
+
+  // ── Day 17: Compound (Variant A) ──
+  {
+    page: "compound",
+    url: "/compound",
+    banner: "hub-promo-compound-v1.png",
+    caption: `<b>🔄 REINVEST. REPEAT. ACCELERATE.</b>
+
+The compound calculator shows you exactly what happens when you roll your yield back into a new plan instead of withdrawing it.
+
+The math is simple. The results are not.
+
+#TurboLoop #Compound #Reinvest #DeFi #YieldStrategy`,
+    buttonText: "🔄 Run the compound calculator",
+    buttonUrl: "https://turboloop.tech/compound",
+  },
+  // ── Day 17: Compound (Variant B) ──
+  {
+    page: "compound",
+    url: "/compound",
+    banner: "hub-promo-compound-v2.png",
+    caption: `<b>📈 SMALL DEPOSITS. COMPOUNDED. BECOME LARGE DEPOSITS.</b>
+
+Every plan that completes and gets reinvested multiplies your base. The TurboLoop compound tool maps out every cycle so you can see the full trajectory before you commit.
+
+#TurboLoop #Compound #DeFi #Reinvest #GrowthStrategy`,
+    buttonText: "📈 See your compound curve",
+    buttonUrl: "https://turboloop.tech/compound",
+  },
+  // ── Day 17: Compound (Variant C) ──
+  {
+    page: "compound",
+    url: "/compound",
+    banner: "hub-promo-compound-v3.png",
+    caption: `<b>💡 WITHDRAW ONCE. OR COMPOUND FOREVER.</b>
+
+Most participants withdraw after their first plan. The ones who compound are in a different category by month three.
+
+See the difference for yourself.
+
+#TurboLoop #Compound #Strategy #DeFi #USDT`,
+    buttonText: "💡 Compare withdraw vs compound",
+    buttonUrl: "https://turboloop.tech/compound",
+  },
+
+  // ── Day 18: Dashboard (Variant A) ──
+  {
+    page: "dashboard",
+    url: "/dashboard",
+    banner: "hub-promo-dashboard-v1.png",
+    caption: `<b>📊 YOUR ENTIRE DEFI POSITION. ONE SCREEN.</b>
+
+Active plans, earned yield, referral earnings, network depth — all live, all on-chain, all in one dashboard.
+
+No spreadsheets. No guessing.
+
+#TurboLoop #Dashboard #DeFi #OnChain #Portfolio`,
+    buttonText: "📊 Open your dashboard",
+    buttonUrl: "https://turboloop.tech/dashboard",
+  },
+  // ── Day 18: Dashboard (Variant B) ──
+  {
+    page: "dashboard",
+    url: "/dashboard",
+    banner: "hub-promo-dashboard-v2.png",
+    caption: `<b>⚡ REAL-TIME. VERIFIED. YOURS.</b>
+
+Every number on the TurboLoop dashboard is pulled directly from the BSC smart contract. No estimates. No delays. No intermediary.
+
+#TurboLoop #Dashboard #BSC #SmartContract #DeFi`,
+    buttonText: "⚡ View live dashboard",
+    buttonUrl: "https://turboloop.tech/dashboard",
+  },
+  // ── Day 18: Dashboard (Variant C) ──
+  {
+    page: "dashboard",
+    url: "/dashboard",
+    banner: "hub-promo-dashboard-v3.png",
+    caption: `<b>🎯 TRACK EVERY DOLLAR. EVERY PLAN. EVERY REFERRAL.</b>
+
+The dashboard is your command center. See what's active, what's earned, and what's coming — updated in real time from the blockchain.
+
+#TurboLoop #Dashboard #Tracking #DeFi #USDT`,
+    buttonText: "🎯 Track your portfolio",
+    buttonUrl: "https://turboloop.tech/dashboard",
+  },
+
+  // ── Day 19: Deposit (Variant A) ──
+  {
+    page: "deposit",
+    url: "/deposit",
+    banner: "hub-promo-deposit-v1.png",
+    caption: `<b>💰 CONNECT. CHOOSE. DEPOSIT. DONE.</b>
+
+No paperwork. No approval. No waiting period. Connect your BSC wallet, pick a plan, deposit USDT. The smart contract does the rest — no human involved, no approval needed.
+
+#TurboLoop #Deposit #USDT #BSC #DeFi #StartSmall`,
+    buttonText: "💰 Make your first deposit",
+    buttonUrl: "https://turboloop.tech/deposit",
+  },
+  // ── Day 19: Deposit (Variant B) ──
+  {
+    page: "deposit",
+    url: "/deposit",
+    banner: "hub-promo-deposit-v2.png",
+    caption: `<b>🏦 YOUR BANK REQUIRES PAPERWORK. WE REQUIRE A WALLET.</b>
+
+No ID. No credit check. No waiting period. Connect your BSC wallet, choose a plan, deposit USDT. The contract activates in seconds.
+
+#TurboLoop #Deposit #NoKYC #DeFi #BSC #Permissionless`,
+    buttonText: "🏦 Deposit now",
+    buttonUrl: "https://turboloop.tech/deposit",
+  },
+  // ── Day 19: Deposit (Variant C) ──
+  {
+    page: "deposit",
+    url: "/deposit",
+    banner: "hub-promo-deposit-v3.png",
+    caption: `<b>⏱️ 3 STEPS. 30 SECONDS. YOUR YIELD STARTS IMMEDIATELY.</b>
+
+1. Connect wallet. 2. Choose plan. 3. Deposit USDT.
+
+That's it. The 0.9% daily ROI clock starts on the next block.
+
+#TurboLoop #Deposit #Simple #DeFi #USDT #Instant`,
+    buttonText: "⏱️ Start in 30 seconds",
+    buttonUrl: "https://turboloop.tech/deposit",
+  },
+
+  // ── Day 20: Homepage (Variant A) ──
+  {
+    page: "homepage",
+    url: "/",
+    banner: "hub-promo-homepage-v1.png",
+    caption: `<b>🌐 THE TURBOLOOP HUB IS LIVE.</b>
+
+Everything in one place — yield calculator, cinematic films, community leaderboard, token data, and the full protocol documentation.
+
+This is what DeFi infrastructure looks like.
+
+#TurboLoop #Hub #DeFi #Ecosystem #Launch`,
+    buttonText: "🌐 Explore the hub",
+    buttonUrl: "https://turboloop.tech",
+  },
+  // ── Day 20: Homepage (Variant B) ──
+  {
+    page: "homepage",
+    url: "/",
+    banner: "hub-promo-homepage-v2.png",
+    caption: `<b>⚡ ONE PROTOCOL. ONE HUB. EVERYTHING YOU NEED.</b>
+
+The TurboLoop hub brings together every tool, resource, and community feature in a single premium interface. Built for the serious DeFi participant.
+
+#TurboLoop #Hub #DeFi #Premium #Ecosystem`,
+    buttonText: "⚡ Visit the hub",
+    buttonUrl: "https://turboloop.tech",
+  },
+  // ── Day 20: Homepage (Variant C) ──
+  {
+    page: "homepage",
+    url: "/",
+    banner: "hub-promo-homepage-v3.png",
+    caption: `<b>🚀 THE FUTURE OF DEFI HAS A HOME.</b>
+
+turboloop.tech — the official hub for the TurboLoop protocol. Real-time token data, yield projections, community rankings, and cinematic education. All on-chain. All verified.
+
+#TurboLoop #Hub #DeFi #OnChain #Official`,
+    buttonText: "🚀 Go to turboloop.tech",
+    buttonUrl: "https://turboloop.tech",
+  },
+
+  // ── Day 21: Plans (Variant A) ──
+  {
+    page: "plans",
+    url: "/plans",
+    banner: "hub-promo-plans-v1.png",
+    caption: `<b>📋 FOUR PLANS. ONE PROTOCOL. YOUR CHOICE.</b>
+
+7 days (3% total) · 14 days (10% total) · 30 days (24% total) · 60 days (54% total).
+
+Full principal returned at the end of every plan. No lock-in beyond the plan term.
+
+#TurboLoop #Plans #ROI #USDT #DeFi #StableYield`,
+    buttonText: "📋 Compare all plans",
+    buttonUrl: "https://turboloop.tech/plans",
+  },
+  // ── Day 21: Plans (Variant B) ──
+  {
+    page: "plans",
+    url: "/plans",
+    banner: "hub-promo-plans-v2.png",
+    caption: `<b>🎯 START SHORT. SCALE LONG.</b>
+
+The 7-day plan is the entry point. The 60-day plan is where the math compounds hardest. Most serious participants start with the 7-day to verify, then scale into the 60-day.
+
+#TurboLoop #Plans #Strategy #DeFi #Compounding`,
+    buttonText: "🎯 Choose your plan",
+    buttonUrl: "https://turboloop.tech/plans",
+  },
+  // ── Day 21: Plans (Variant C) ──
+  {
+    page: "plans",
+    url: "/plans",
+    banner: "hub-promo-plans-v3.png",
+    caption: `<b>💎 54% TOTAL ROI. 60 DAYS. STABLECOIN ONLY.</b>
+
+No price volatility. No impermanent loss. No liquidation risk. Just USDT in — USDT + yield out. The 60-day Ultimate plan is the flagship.
+
+#TurboLoop #Plans #54ROI #USDT #NoRisk #DeFi`,
+    buttonText: "💎 See the Ultimate plan",
+    buttonUrl: "https://turboloop.tech/plans",
+  },
+
+  // ── Day 22: Withdraw (Variant A) ──
+  {
+    page: "withdraw",
+    url: "/withdraw",
+    banner: "hub-promo-withdraw-v1.png",
+    caption: `<b>💸 YOUR MONEY. YOUR TIMELINE. YOUR CALL.</b>
+
+When your plan completes, your principal and yield are available to withdraw instantly. No waiting. No approval. No middleman. The smart contract releases it automatically.
+
+#TurboLoop #Withdraw #Instant #DeFi #YourMoney`,
+    buttonText: "💸 See how withdrawals work",
+    buttonUrl: "https://turboloop.tech/withdraw",
+  },
+  // ── Day 22: Withdraw (Variant B) ──
+  {
+    page: "withdraw",
+    url: "/withdraw",
+    banner: "hub-promo-withdraw-v2.png",
+    caption: `<b>⚡ PLAN ENDS. FUNDS RELEASE. INSTANTLY.</b>
+
+The moment your plan term completes, the contract makes your full balance withdrawable. No queue. No delay. No human in the loop. That's what "trustless" means.
+
+#TurboLoop #Withdraw #Trustless #BSC #DeFi #Instant`,
+    buttonText: "⚡ Withdraw your yield",
+    buttonUrl: "https://turboloop.tech/withdraw",
+  },
+  // ── Day 22: Withdraw (Variant C) ──
+  {
+    page: "withdraw",
+    url: "/withdraw",
+    banner: "hub-promo-withdraw-v3.png",
+    caption: `<b>🔓 FULL PRINCIPAL BACK. PLUS YIELD. EVERY TIME.</b>
+
+Unlike most DeFi protocols, TurboLoop returns your full principal at the end of every plan — plus the earned yield on top. Your capital is never consumed.
+
+#TurboLoop #Withdraw #FullPrincipal #DeFi #USDT #Safe`,
+    buttonText: "🔓 Understand withdrawals",
+    buttonUrl: "https://turboloop.tech/withdraw",
+  },
 ];
 
-/** Pick today's hub promo — cycles through all 42 entries deterministically
- *  via pickByDay so each entry fires exactly once per 42-day window. */
+/** Pick today's hub promo — cycles through all 60 entries deterministically
+ *  via pickByDay so each entry fires exactly once per 60-day window. */
 export function pickTodaysHubPromo(): HubPromoEntry {
   return pickByDay(HUB_PROMOTION_POOL);
 }

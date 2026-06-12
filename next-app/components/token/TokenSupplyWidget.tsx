@@ -4,13 +4,14 @@
 //   Circulating Supply  •  Total Supply  •  Burned  •  Vested / Locked
 //
 // Data sources:
-//   • /api/token-supply  — upstream proxy for circulating / total / burned
-//     (lockedOrBurned from the main app API = burned tokens)
-//   • /api/token-vested  — on-chain balanceOf(TOKEN_CONTRACT) = vested/locked
+//   • /api/token-vested  — on-chain BSC RPC reads:
+//       totalSupply, lockedVested (balanceOf TOKEN_CONTRACT), burned (balanceOf DEAD)
+//       trueCirculating = totalSupply − lockedVested − burned
+//   • /api/token-supply  — upstream proxy (used only for the Burned column
+//       as a fallback when token-vested is unavailable)
 //
-// Both endpoints are polled every 5 minutes client-side so an open /token
-// tab stays current. Shows "—" placeholders during the initial fetch and
-// on upstream failure rather than spinning indefinitely.
+// Circulating Supply is always totalSupply − burned − vested/locked (on-chain).
+// Polls every 5 minutes client-side. Shows "—" placeholders on failure.
 
 import { useEffect, useState } from "react";
 import type { TokenVestedData } from "@app/api/token-vested/route";
@@ -82,16 +83,19 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const circulating = loaded ? supplyData?.circulatingSupply ?? "—" : "—";
-  const total       = loaded ? supplyData?.totalSupply       ?? "1,000,000" : "—";
-  const burned      = loaded ? supplyData?.lockedOrBurned    ?? "—" : "—";
-  const vested      = loaded ? vestedData?.lockedVested      ?? "—" : "—";
+  // Circulating = totalSupply − burned − vested/locked (on-chain, authoritative)
+  const circulating = loaded ? vestedData?.trueCirculating ?? "—" : "—";
+  const total       = loaded ? vestedData?.totalSupply     ?? supplyData?.totalSupply ?? "1,000,000" : "—";
+  // Burned: prefer on-chain value from token-vested, fall back to upstream estimate
+  const burned      = loaded ? vestedData?.burned          ?? supplyData?.lockedOrBurned ?? "—" : "—";
+  const vested      = loaded ? vestedData?.lockedVested    ?? "—" : "—";
+
+  const burnedNum   = vestedData?.burnedNum ?? supplyData?.lockedOrBurnedNum ?? null;
+  const totalNum    = vestedData?.totalSupplyNum ?? supplyData?.totalSupplyNum ?? null;
 
   const burnedPct =
-    supplyData?.lockedOrBurnedNum != null &&
-    supplyData?.totalSupplyNum != null &&
-    supplyData.totalSupplyNum > 0
-      ? ((supplyData.lockedOrBurnedNum / supplyData.totalSupplyNum) * 100).toFixed(1)
+    burnedNum != null && totalNum != null && totalNum > 0
+      ? ((burnedNum / totalNum) * 100).toFixed(1)
       : null;
 
   const vestedPct =

@@ -66,6 +66,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESC,
+    url: "https://www.turboloop.tech/films",
     type: "website",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: TITLE }],
   },

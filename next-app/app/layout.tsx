@@ -45,6 +45,7 @@ export const metadata: Metadata = {
   description:
     "TurboLoop: audited DeFi yield on BSC. Up to 54% ROI in 60 days from a USDC/USDT LP. 100% LP-locked, ownership renounced, 1 USDT minimum.",
   applicationName: "TurboLoop",
+  category: "Finance",
   authors: [{ name: "Turbo Loop" }],
   keywords: [
     "TurboLoop",
@@ -82,6 +83,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@TurboLoop_io",
+    creator: "@TurboLoop_io",
     title:
       "TurboLoop — DeFi Yield Farming on BSC | Sustainable ROI Protocol",
     description:
@@ -364,6 +366,11 @@ export default function RootLayout({
           href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev"
           crossOrigin="anonymous"
         />
+        {/* flagcdn.com — flag images on /community and /social-wall.
+            DNS-only (not full preconnect) because flag PNGs are tiny
+            and below-fold; we just want to skip the cold DNS hop when
+            the user lands on those routes. */}
+        <link rel="dns-prefetch" href="https://flagcdn.com" />
         {/* <link rel="image_src"> — legacy social-image hint that
             Facebook, LinkedIn, and a handful of image-search tools
             still read in addition to og:image. Points to the canonical

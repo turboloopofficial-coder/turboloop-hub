@@ -29,6 +29,19 @@ export const revalidate = 300; // 5 min, matches api.blogPosts() ISR
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
+  // Stable-page lastModified — pages whose copy rarely changes get a
+  // hardcoded date rather than `now`. This stops crawlers re-fetching
+  // them on every sitemap refresh (the sitemap itself revalidates every
+  // 5 min because of the blog post fetch upstream). Bump these dates
+  // intentionally when the underlying content actually changes.
+  const STABLE_PAGE_DATES: Record<string, string> = {
+    "/privacy": "2025-01-01",
+    "/terms": "2025-01-01",
+    "/faq": "2026-01-01",
+    "/security": "2026-01-01",
+    "/roadmap": "2026-01-01",
+  };
+
   // Top-level static routes
   const top: MetadataRoute.Sitemap = [
     "",
@@ -56,7 +69,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/social-wall",
   ].map(path => ({
     url: `${BASE}${path}`,
-    lastModified: now,
+    lastModified: STABLE_PAGE_DATES[path]
+      ? new Date(STABLE_PAGE_DATES[path])
+      : now,
     changeFrequency:
       path === "" ? "daily" : path === "/blog" ? "weekly" : "monthly",
     priority: path === "" ? 1.0 : path === "/blog" ? 0.9 : 0.7,

@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: "%s · Turbo Loop",
   },
   description:
-    "TurboLoop generates fixed ROI per cycle from a USDC/USDT stablecoin LP, Turbo Swap fees, and Turbo Buy fees. 100% LP-locked, audited, ownership renounced. Up to 54% in 60 days, 1 USDT minimum.",
+    "TurboLoop: audited DeFi yield on BSC. Up to 54% ROI in 60 days from a USDC/USDT LP. 100% LP-locked, ownership renounced, 1 USDT minimum.",
   applicationName: "TurboLoop",
   authors: [{ name: "Turbo Loop" }],
   keywords: [
@@ -335,8 +335,10 @@ export default function RootLayout({
             `.trim(),
           }}
         />
-        {/* Geist font — only the 4 weights we actually use. Preloaded so
-            the hero never flashes the system fallback. */}
+        {/* Geist font — only the 4 weights we actually use.
+            Using dns-prefetch + preconnect to reduce DNS lookup time.
+            The stylesheet is loaded with media="print" onload trick to
+            prevent render-blocking while still loading asynchronously. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -346,7 +348,16 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
           rel="stylesheet"
+          media="print"
+          // @ts-expect-error onload is valid HTML but not in React types
+          onLoad="this.media='all'"
         />
+        <noscript>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+          />
+        </noscript>
         {/* R2 CDN preconnect — saves ~150 ms on the first below-fold image. */}
         <link
           rel="preconnect"

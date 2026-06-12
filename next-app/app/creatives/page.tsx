@@ -121,6 +121,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical, languages: langAlternates },
     openGraph: {
+      type: "website",
       title,
       description,
       url: canonical,

@@ -48,6 +48,7 @@ export const metadata: Metadata = {
   description: OG_DESC,
   alternates: { canonical: "https://www.turboloop.tech/social-wall" },
   openGraph: {
+    type: "website",
     title: OG_TITLE,
     description: OG_DESC,
     url: "https://www.turboloop.tech/social-wall",

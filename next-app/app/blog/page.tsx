@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   description: BLOG_OG_DESC,
   alternates: { canonical: "https://www.turboloop.tech/blog" },
   openGraph: {
+    type: "website",
     title: BLOG_OG_TITLE,
     description: BLOG_OG_DESC,
     url: "https://www.turboloop.tech/blog",
@@ -81,9 +82,17 @@ export default async function BlogIndex({
         ? langParam
         : "en";
 
-  const allPublished = await api
-    .blogPosts()
-    .then(p => p.filter(post => post.published));
+  // Wrap in try/catch so a transient API failure renders an empty blog
+  // rather than crashing the page and causing Next.js to inject noindex.
+  let allPublished: Awaited<ReturnType<typeof api.blogPosts>> = [];
+  try {
+    allPublished = await api
+      .blogPosts()
+      .then(p => p.filter(post => post.published));
+  } catch {
+    // API unavailable — render empty state, do NOT crash.
+    allPublished = [];
+  }
 
   // Per-language counts for the tab chips — computed against the full
   // published set, not the filtered view, so each chip always shows the

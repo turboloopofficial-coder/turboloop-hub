@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     "Voices from the TurboLoop community across 14+ countries on 6 continents. Daily Zoom sessions in 12+ languages. Always open.",
   alternates: { canonical: "https://www.turboloop.tech/community" },
   openGraph: {
+    type: "website",
     title: COMMUNITY_OG_TITLE,
     description: COMMUNITY_OG_DESC,
     url: "https://www.turboloop.tech/community",
@@ -66,7 +67,7 @@ export default function CommunityPage() {
               >
                 Where it&rsquo;s growing
               </Heading>
-              <Heading tier="h1">Top communities, this week.</Heading>
+              <Heading tier="h2">Top communities, this week.</Heading>
             </div>
           </div>
 
@@ -124,7 +125,7 @@ export default function CommunityPage() {
             >
               Voices
             </Heading>
-            <Heading tier="h1" as="h2">In their own words.</Heading>
+            <Heading tier="h2">In their own words.</Heading>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">

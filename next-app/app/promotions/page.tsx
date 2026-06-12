@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   description: PROMOTIONS_DESC,
   alternates: { canonical: "https://www.turboloop.tech/promotions" },
   openGraph: {
+    type: "website",
     title: PROMOTIONS_TITLE,
     description: PROMOTIONS_DESC,
     url: "https://www.turboloop.tech/promotions",
@@ -84,7 +85,7 @@ export default function PromotionsPage() {
                 <Trophy className="w-3.5 h-3.5" />
                 Headline Bounty
               </div>
-              <Heading tier="h1" className="mb-3">
+              <Heading tier="h2" className="mb-3">
                 <span className="text-brand">$100,000</span> Smart Contract Bounty
               </Heading>
               <p className="text-lg text-[var(--c-text-muted)] leading-relaxed mb-6 max-w-2xl">

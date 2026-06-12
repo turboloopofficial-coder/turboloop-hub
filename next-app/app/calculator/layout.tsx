@@ -11,7 +11,7 @@
 import type { Metadata, Viewport } from "next";
 
 const TITLE =
-  "Yield Calculator — See Your TurboLoop Returns | Up to 54% ROI";
+  "Yield Calculator — TurboLoop Returns | Up to 54% ROI";
 const DESCRIPTION =
   "Calculate your earnings on TurboLoop's 4 yield plans. From 3% in 7 days to 54% in 60 days. Real yield from PancakeSwap V3 trading fees, not new deposits.";
 const OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=calculator";
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "https://www.turboloop.tech/calculator" },
   openGraph: {
+    type: "website",
     title: TITLE,
     description: DESCRIPTION,
     url: "https://www.turboloop.tech/calculator",

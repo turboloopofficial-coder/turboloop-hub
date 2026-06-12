@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   description: FAQ_OG_DESC,
   alternates: { canonical: "https://www.turboloop.tech/faq" },
   openGraph: {
+    type: "website",
     title: FAQ_OG_TITLE,
     description: FAQ_OG_DESC,
     url: "https://www.turboloop.tech/faq",

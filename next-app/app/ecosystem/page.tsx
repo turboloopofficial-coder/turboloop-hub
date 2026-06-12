@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     "TurboLoop is six DeFi primitives working as one: Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, Smart Contract Security.",
   alternates: { canonical: "https://www.turboloop.tech/ecosystem" },
   openGraph: {
+    type: "website",
     title: ECO_OG_TITLE,
     description: ECO_OG_DESC,
     url: "https://www.turboloop.tech/ecosystem",

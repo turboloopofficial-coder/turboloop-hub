@@ -33,6 +33,7 @@ export const metadata: Metadata = {
   description: DESC,
   alternates: { canonical: "https://www.turboloop.tech/reels" },
   openGraph: {
+    type: "website",
     title: TITLE,
     description: DESC,
     url: "https://www.turboloop.tech/reels",

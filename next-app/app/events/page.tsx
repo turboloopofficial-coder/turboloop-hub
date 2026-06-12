@@ -62,6 +62,7 @@ export const metadata: Metadata = {
     "Join physical TurboLoop meetups in 14+ countries, or get funded to host your own. The Local Presenter Program pays you to grow the ecosystem.",
   alternates: { canonical: "https://www.turboloop.tech/events" },
   openGraph: {
+    type: "website",
     title: EVENTS_OG_TITLE,
     description: EVENTS_OG_DESC,
     url: "https://www.turboloop.tech/events",

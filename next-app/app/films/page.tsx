@@ -39,7 +39,7 @@ export const revalidate = 300; // 5 min ISR
 
 const TITLE = "Cinematic Universe — TurboLoop";
 const DESC =
-  "All TurboLoop films in one place. The Sovereign Series Season 2 + the original 4-season Cinematic Universe — in English, German, Hindi, and Bahasa Indonesia. Free to watch, free to share.";
+  "All TurboLoop films in one place — Sovereign Series S2 + the original 4-season Cinematic Universe. English, German, Hindi, Bahasa Indonesia. Free to watch.";
 const OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-films.png";
 

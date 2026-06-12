@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     "Audited by Haze Crypto (at launch) and SolidityScan (current). Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
   alternates: { canonical: "https://www.turboloop.tech/security" },
   openGraph: {
+    type: "website",
     title: SEC_OG_TITLE,
     description: SEC_OG_DESC,
     url: "https://www.turboloop.tech/security",
@@ -177,7 +178,7 @@ export default function SecurityPage() {
               <Trophy className="w-3.5 h-3.5" />
               Open Bounty
             </div>
-            <Heading tier="h1" className="mb-3">
+            <Heading tier="h2" className="mb-3">
               <span className="text-brand">$100,000</span> if you can prove us
               wrong.
             </Heading>

@@ -283,7 +283,19 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
-      return `🛒 <b>How to Buy $TURBO</b>\n\n💰 <b>Current Price:</b> ${priceInfo}\n\n🔹 <b>TurboSwap (Recommended):</b>\nhttps://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO\n\n🔹 <b>PancakeSwap:</b>\nhttps://pancakeswap.finance/swap?outputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3\n\n⚠️ Make sure you're on the <b>BNB Smart Chain (BSC)</b> network!`;
+      let priceExt = "";
+      try {
+        const rh = await fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) });
+        if (rh.ok) {
+          const dh: any = await rh.json();
+          const fmtPct = (v: number | null) => v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+          const c7d = dh?.daysSinceLaunch >= 7 ? fmtPct(dh?.priceChange7d ?? null) : null;
+          const cAt = fmtPct(dh?.priceChangeAllTime ?? null);
+          if (c7d) priceExt += `\n📅 <b>7d:</b> ${c7d}`;
+          if (cAt) priceExt += `\n🚀 <b>Since launch:</b> ${cAt}`;
+        }
+      } catch { /* skip */ }
+      return `🛒 <b>How to Buy $TURBO</b>\n\n💰 <b>Current Price:</b> ${priceInfo}${priceExt}\n\n🔹 <b>TurboSwap (Recommended):</b>\nhttps://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO\n\n🔹 <b>PancakeSwap:</b>\nhttps://pancakeswap.finance/swap?outputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3\n\n⚠️ Make sure you're on the <b>BNB Smart Chain (BSC)</b> network!`;
     },
   },
   {
@@ -292,7 +304,19 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
-      return `💱 <b>How to Sell $TURBO</b>\n\n💰 <b>Current Price:</b> ${priceInfo}\n\n🔹 <b>TurboSwap (Recommended):</b>\nhttps://turboloop.io/dashboard/swap?from=TURBO&amp;to=USDT\n\n🔹 <b>PancakeSwap:</b>\nhttps://pancakeswap.finance/swap?inputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3\n\n⚠️ Make sure you're on the <b>BNB Smart Chain (BSC)</b> network!`;
+      let priceExt = "";
+      try {
+        const rh = await fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) });
+        if (rh.ok) {
+          const dh: any = await rh.json();
+          const fmtPct = (v: number | null) => v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+          const c7d = dh?.daysSinceLaunch >= 7 ? fmtPct(dh?.priceChange7d ?? null) : null;
+          const cAt = fmtPct(dh?.priceChangeAllTime ?? null);
+          if (c7d) priceExt += `\n📅 <b>7d:</b> ${c7d}`;
+          if (cAt) priceExt += `\n🚀 <b>Since launch:</b> ${cAt}`;
+        }
+      } catch { /* skip */ }
+      return `💱 <b>How to Sell $TURBO</b>\n\n💰 <b>Current Price:</b> ${priceInfo}${priceExt}\n\n🔹 <b>TurboSwap (Recommended):</b>\nhttps://turboloop.io/dashboard/swap?from=TURBO&amp;to=USDT\n\n🔹 <b>PancakeSwap:</b>\nhttps://pancakeswap.finance/swap?inputCurrency=0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3\n\n⚠️ Make sure you're on the <b>BNB Smart Chain (BSC)</b> network!`;
     },
   },
   {
@@ -301,7 +325,19 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
-      return `💰 <b>$TURBO Live Price</b>\n\n🔹 <b>Price:</b> ${priceInfo}\n\n📈 <b>Chart:</b> https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759\n🔗 <b>Buy:</b> https://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO`;
+      let priceExt = "";
+      try {
+        const rh = await fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) });
+        if (rh.ok) {
+          const dh: any = await rh.json();
+          const fmtPct = (v: number | null) => v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+          const c7d = dh?.daysSinceLaunch >= 7 ? fmtPct(dh?.priceChange7d ?? null) : null;
+          const cAt = fmtPct(dh?.priceChangeAllTime ?? null);
+          if (c7d) priceExt += `\n📅 <b>7d:</b> ${c7d}`;
+          if (cAt) priceExt += `\n🚀 <b>Since launch:</b> ${cAt}`;
+        }
+      } catch { /* skip */ }
+      return `💰 <b>$TURBO Live Price</b>\n\n💰 <b>Price:</b> ${priceInfo}${priceExt}\n\n📈 <b>Chart:</b> https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759\n🔗 <b>Buy:</b> https://turboloop.io/dashboard/swap?from=USDT&amp;to=TURBO`;
     },
   },
   {
@@ -647,7 +683,21 @@ Our team responds daily. Please include your wallet address and a description of
           const hash = String(i.tx_hash).slice(0, 10) + "…";
           return `  #${i.execution_number} — <b>${tokens} TURBO</b> | ${usdt} | <code>${hash}</code>`;
         }).join("\n");
-        return `🔥 <b>$TURBO Buyback &amp; Burn</b>\n\n<b>Last 3 executions:</b>\n${rows}\n\n📊 <b>All-time totals:</b>\n🔥 <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> burned\n💵 <b>$${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT</b> committed to deflation\n\n🔗 https://www.turboloop.tech/token`;
+        // Fetch current price + all-time change to show burn → price impact
+        let priceFooter = "";
+        try {
+          const [rp, rh] = await Promise.all([
+            fetch("https://www.turboloop.tech/api/token-price", { signal: AbortSignal.timeout(5000) }),
+            fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) }),
+          ]);
+          const dp: any = rp.ok ? await rp.json() : null;
+          const dh: any = rh.ok ? await rh.json() : null;
+          const price = dp?.priceUsd ? `$${Number(dp.priceUsd).toFixed(6)}` : null;
+          const fmtPct = (v: number | null) => v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+          const cAt = fmtPct(dh?.priceChangeAllTime ?? null);
+          if (price) priceFooter = `\n\n💰 <b>Current $TURBO price:</b> ${price}${cAt ? ` (<b>${cAt}</b> since launch)` : ""}`;
+        } catch { /* skip */ }
+        return `🔥 <b>$TURBO Buyback &amp; Burn</b>\n\n<b>Last 3 executions:</b>\n${rows}\n\n📊 <b>All-time totals:</b>\n🔥 <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> burned\n💵 <b>$${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT</b> committed to deflation${priceFooter}\n\n🔗 https://www.turboloop.tech/token`;
       } catch {
         return "🔥 <b>Burn data unavailable right now.</b> Try again shortly.";
       }
@@ -673,7 +723,24 @@ Our team responds daily. Please include your wallet address and a description of
         const mcap = pair.marketCap ? Number(pair.marketCap).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "N/A";
         const change24h = pair.priceChange?.h24 ?? 0;
         const changeStr = `${change24h >= 0 ? "+" : ""}${Number(change24h).toFixed(2)}%`;
-        return `📊 <b>$TURBO Live Stats</b>\n\n💰 <b>Price:</b> $${price} (${changeStr} 24h)\n💧 <b>Liquidity:</b> ${liq}\n📈 <b>Volume 24h:</b> ${vol24h}\n🏦 <b>Market Cap:</b> ${mcap}\n\n🔗 Chart: https://dexscreener.com/bsc/${PAIR}`;
+        // Fetch 7d / all-time from history endpoint
+        let change7dLine = "";
+        let changeAllTimeLine = "";
+        try {
+          const rh = await fetch("https://www.turboloop.tech/api/token-price-history", {
+            signal: AbortSignal.timeout(5000),
+          });
+          if (rh.ok) {
+            const dh: any = await rh.json();
+            const fmtPct = (v: number | null) =>
+              v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+            const c7d = dh?.daysSinceLaunch >= 7 ? fmtPct(dh?.priceChange7d ?? null) : null;
+            const cAt = fmtPct(dh?.priceChangeAllTime ?? null);
+            if (c7d) change7dLine = `\n📅 <b>7d:</b> ${c7d}`;
+            if (cAt) changeAllTimeLine = `\n🚀 <b>Since launch:</b> ${cAt}`;
+          }
+        } catch { /* skip if unavailable */ }
+        return `📊 <b>$TURBO Live Stats</b>\n\n💰 <b>Price:</b> $${price}\n📈 <b>24h:</b> ${changeStr}${change7dLine}${changeAllTimeLine}\n\n💧 <b>Liquidity:</b> ${liq}\n📊 <b>Volume 24h:</b> ${vol24h}\n🏦 <b>Market Cap:</b> ${mcap}\n\n🔗 Chart: https://dexscreener.com/bsc/${PAIR}`;
       } catch {
         return "📊 <b>Stats unavailable right now.</b> Try again shortly.";
       }

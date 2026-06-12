@@ -875,7 +875,7 @@ export const HUB_PROMOTION_POOL: HubPromoEntry[] = [
   {
     page: "calculator",
     url: "/calculator",
-    banner: "hub-promo-calculator.png",
+    banner: "hub-promo-calculator-v1.png",
     caption: `<b>📊 WHAT DOES YOUR NUMBER LOOK LIKE?</b>
 
 Everyone talks about compounding. Few actually run the numbers for their own situation.
@@ -891,7 +891,7 @@ The math doesn't care about your starting point — it rewards consistency.
   {
     page: "calculator",
     url: "/calculator",
-    banner: "hub-promo-calculator.png",
+    banner: "hub-promo-calculator-v2.png",
     caption: `<b>⚡ THE CALCULATOR DOESN'T LIE</b>
 
 No promises. No projections we control. Just the public yield model from PancakeSwap V3 — applied to whatever amount you choose.
@@ -906,7 +906,7 @@ Pick your deposit. See the curve. Decide for yourself.
   {
     page: "calculator",
     url: "/calculator",
-    banner: "hub-promo-calculator.png",
+    banner: "hub-promo-calculator-v3.png",
     caption: `<b>🧮 MOST PEOPLE GUESS. SMART PEOPLE CALCULATE.</b>
 
 What does $1,000/month look like after 12 months of compounding at stable LP fees?
@@ -922,7 +922,7 @@ It's better.
   {
     page: "security",
     url: "/security",
-    banner: "hub-promo-security.png",
+    banner: "hub-promo-security-v1.png",
     caption: `<b>🔐 THREE QUESTIONS BEFORE YOU TRUST ANYTHING WITH YOUR MONEY:</b>
 
 1. Can anyone freeze your funds?
@@ -939,7 +939,7 @@ TurboLoop: No. Yes. No.
   {
     page: "security",
     url: "/security",
-    banner: "hub-promo-security.png",
+    banner: "hub-promo-security-v2.png",
     caption: `<b>🛡️ YOUR BANK CAN FREEZE YOUR ACCOUNT TOMORROW.</b>
 
 No warning. No explanation. Legal in most countries.
@@ -954,7 +954,7 @@ TurboLoop's smart contract is renounced. Immutable. No admin keys. No kill switc
   {
     page: "security",
     url: "/security",
-    banner: "hub-promo-security.png",
+    banner: "hub-promo-security-v3.png",
     caption: `<b>⚖️ "BUT IS IT SAFE?"</b>
 
 The most important question. And the one most projects avoid answering clearly.
@@ -971,7 +971,7 @@ Audits. Renounced ownership. Locked liquidity. Zero admin access.
   {
     page: "community",
     url: "/community",
-    banner: "hub-promo-community.png",
+    banner: "hub-promo-community-v1.png",
     caption: `<b>🌍 14+ COUNTRIES. 6 CONTINENTS. ONE PROTOCOL.</b>
 
 From Lagos to London. From Jakarta to São Paulo. The same smart contract serves everyone equally.
@@ -986,7 +986,7 @@ No geographic restrictions. No tier-based access. Same math, same opportunity.
   {
     page: "community",
     url: "/community",
-    banner: "hub-promo-community.png",
+    banner: "hub-promo-community-v2.png",
     caption: `<b>📡 THE MAP IS GROWING EVERY WEEK.</b>
 
 Germany leads Europe. Nigeria leads Africa. Indonesia leads Southeast Asia. India is accelerating.
@@ -1001,7 +1001,7 @@ Where does your country stand?
   {
     page: "community",
     url: "/community",
-    banner: "hub-promo-community.png",
+    banner: "hub-promo-community-v3.png",
     caption: `<b>🤝 YOU'RE NOT ALONE IN THIS.</b>
 
 Thousands of people across 14+ countries made the same decision you're considering.
@@ -1016,7 +1016,7 @@ They verified. They calculated. They joined.
   {
     page: "films",
     url: "/films",
-    banner: "hub-promo-films.png",
+    banner: "hub-promo-films-v1.png",
     caption: `<b>🎬 HAVE YOU WATCHED THE FILMS YET?</b>
 
 20 episodes. 4 seasons. Each one explains a different piece of the TurboLoop system — in cinematic quality.
@@ -1031,7 +1031,7 @@ Not a webinar. Not a slideshow. A film series.
   {
     page: "films",
     url: "/films",
-    banner: "hub-promo-films.png",
+    banner: "hub-promo-films-v2.png",
     caption: `<b>🎥 MOST PROJECTS WRITE WHITEPAPERS.</b>
 
 We made films.
@@ -1046,7 +1046,7 @@ We made films.
   {
     page: "films",
     url: "/films",
-    banner: "hub-promo-films.png",
+    banner: "hub-promo-films-v3.png",
     caption: `<b>📽️ 60 SECONDS TO UNDERSTAND TURBOLOOP.</b>
 
 Don't read. Watch.
@@ -1061,7 +1061,7 @@ Each film is crafted to explain one concept clearly, beautifully, and without ja
   {
     page: "creatives",
     url: "/creatives",
-    banner: "hub-promo-creatives.png",
+    banner: "hub-promo-creatives-v1.png",
     caption: `<b>🎨 161 BANNERS. READY TO SHARE.</b>
 
 Monthly projections. Security visuals. Community graphics. Ecosystem explainers.
@@ -1076,7 +1076,7 @@ Download any banner. Share it with your network. The message is already written 
   {
     page: "creatives",
     url: "/creatives",
-    banner: "hub-promo-creatives.png",
+    banner: "hub-promo-creatives-v2.png",
     caption: `<b>📱 YOUR NEXT WHATSAPP STATUS IS READY.</b>
 
 Pick a banner. Tap share. Done.
@@ -1093,7 +1093,7 @@ No design skills needed.
   {
     page: "creatives",
     url: "/creatives",
-    banner: "hub-promo-creatives.png",
+    banner: "hub-promo-creatives-v3.png",
     caption: `<b>🖼️ WANT TO SHARE TURBOLOOP BUT DON'T KNOW WHAT TO SAY?</b>
 
 We solved that.
@@ -1110,7 +1110,7 @@ Every banner comes with a compelling caption, hashtags, and a clear message. Jus
   {
     page: "ecosystem",
     url: "/ecosystem",
-    banner: "hub-promo-ecosystem.png",
+    banner: "hub-promo-ecosystem-v1.png",
     caption: `<b>🔄 THE FULL PICTURE — IN ONE PAGE.</b>
 
 How does the yield come from PancakeSwap V3?
@@ -1127,7 +1127,7 @@ One page. Complete clarity.
   {
     page: "ecosystem",
     url: "/ecosystem",
-    banner: "hub-promo-ecosystem.png",
+    banner: "hub-promo-ecosystem-v2.png",
     caption: `<b>🧩 EVER WONDER WHERE THE YIELD ACTUALLY COMES FROM?</b>
 
 Not from new deposits. Not from recruitment. From PancakeSwap V3 trading fees — generated by millions of real trades every day.
@@ -1142,7 +1142,7 @@ The ecosystem page breaks it all down. Visually.
   {
     page: "ecosystem",
     url: "/ecosystem",
-    banner: "hub-promo-ecosystem.png",
+    banner: "hub-promo-ecosystem-v3.png",
     caption: `<b>⚙️ MOST PROTOCOLS HIDE THE PLUMBING.</b>
 
 We made it the main page.
@@ -1157,7 +1157,7 @@ Smart contract → PancakeSwap V3 → LP fees → Auto-compound → Your wallet.
   {
     page: "blog",
     url: "/blog",
-    banner: "hub-promo-blog.png",
+    banner: "hub-promo-learn-v1.png",
     caption: `<b>📚 DEEP DIVES THAT ACTUALLY MATTER.</b>
 
 Not fluff. Not hype. Real analysis of stablecoin yields, compounding mathematics, and on-chain transparency.
@@ -1172,7 +1172,7 @@ Written for people who think before they invest.
   {
     page: "blog",
     url: "/blog",
-    banner: "hub-promo-blog.png",
+    banner: "hub-promo-learn-v2.png",
     caption: `<b>🔬 RESEARCH YOU CAN ACTUALLY VERIFY.</b>
 
 Every claim in our blog links to an on-chain source. Every number is traceable. Every statement is falsifiable.
@@ -1187,7 +1187,7 @@ That's the standard we hold ourselves to.
   {
     page: "blog",
     url: "/blog",
-    banner: "hub-promo-blog.png",
+    banner: "hub-promo-learn-v3.png",
     caption: `<b>📖 THE BLOG ISN'T MARKETING. IT'S EDUCATION.</b>
 
 We write about what matters: how compounding works, why security architecture matters, what makes real yield different from Ponzi yield.
@@ -1202,7 +1202,7 @@ No sales pitch. Just signal.
   {
     page: "roadmap",
     url: "/roadmap",
-    banner: "hub-promo-roadmap.png",
+    banner: "hub-promo-roadmap-v1.png",
     caption: `<b>🗺️ WHAT'S COMING NEXT?</b>
 
 The Hub is live. The calculator works. The films are streaming. The community is growing.
@@ -1217,7 +1217,7 @@ But we're just getting started.
   {
     page: "roadmap",
     url: "/roadmap",
-    banner: "hub-promo-roadmap.png",
+    banner: "hub-promo-roadmap-v2.png",
     caption: `<b>🚧 BUILT IN PUBLIC. SHIPPED IN PUBLIC.</b>
 
 Every milestone we hit, you see it. Every feature we plan, you know about it before it ships.
@@ -1232,7 +1232,7 @@ That's what "built in public" actually means.
   {
     page: "roadmap",
     url: "/roadmap",
-    banner: "hub-promo-roadmap.png",
+    banner: "hub-promo-roadmap-v3.png",
     caption: `<b>📍 THE JOURNEY ISN'T OVER. IT'S ACCELERATING.</b>
 
 Phase 1: Protocol live ✓
@@ -1249,7 +1249,7 @@ What comes after? The roadmap tells all.
   {
     page: "faq",
     url: "/faq",
-    banner: "hub-promo-faq.png",
+    banner: "hub-promo-faq-v1.png",
     caption: `<b>❓ EVERY QUESTION. ANSWERED.</b>
 
 "Is it a Ponzi?" — No. Here's why.
@@ -1266,7 +1266,7 @@ What comes after? The roadmap tells all.
   {
     page: "faq",
     url: "/faq",
-    banner: "hub-promo-faq.png",
+    banner: "hub-promo-faq-v2.png",
     caption: `<b>🤔 STILL HAVE DOUBTS? GOOD.</b>
 
 Doubt is healthy. Skepticism is smart. We don't want blind believers — we want informed participants.
@@ -1281,7 +1281,7 @@ That's why we answered 40+ hard questions publicly. Including the uncomfortable 
   {
     page: "faq",
     url: "/faq",
-    banner: "hub-promo-faq.png",
+    banner: "hub-promo-faq-v3.png",
     caption: `<b>💬 THE QUESTIONS EVERYONE ASKS (BUT FEW PROJECTS ANSWER)</b>
 
 "Where does the yield come from?"
@@ -1298,7 +1298,7 @@ We answer them all. Publicly. Permanently.
   {
     page: "leaderboard",
     url: "/#leaderboard",
-    banner: "hub-promo-leaderboard.png",
+    banner: "hub-promo-leaderboard-v1.png",
     caption: `<b>🏆 WHO'S LEADING THIS WEEK?</b>
 
 The global leaderboard updates in real-time. Countries competing. Communities growing. Numbers climbing.
@@ -1313,7 +1313,7 @@ Is your country on the board?
   {
     page: "leaderboard",
     url: "/#leaderboard",
-    banner: "hub-promo-leaderboard.png",
+    banner: "hub-promo-leaderboard-v2.png",
     caption: `<b>📊 THE NUMBERS DON'T LIE. THE LEADERBOARD PROVES IT.</b>
 
 Real deposits. Real countries. Real growth — tracked live on the homepage.
@@ -1328,7 +1328,7 @@ Some countries are sprinting. Others are just waking up. Where's yours?
   {
     page: "leaderboard",
     url: "/#leaderboard",
-    banner: "hub-promo-leaderboard.png",
+    banner: "hub-promo-leaderboard-v3.png",
     caption: `<b>🥇 FRIENDLY COMPETITION. GLOBAL SCALE.</b>
 
 Germany vs Nigeria. Indonesia vs Turkey. India vs Brazil.
@@ -1343,7 +1343,7 @@ The leaderboard isn't just numbers — it's communities proving what's possible.
   {
     page: "calculator-de",
     url: "/calculator",
-    banner: "hub-promo-calculator-de.png",
+    banner: "hub-promo-calculator-v1.png",
     caption: `<b>🇩🇪 RECHNE SELBST NACH.</b>
 
 Kein Versprechen. Keine Garantie. Nur die öffentliche Rendite aus PancakeSwap V3 — angewandt auf deinen Betrag.
@@ -1358,7 +1358,7 @@ Wähle deine Einzahlung. Sieh die Kurve. Entscheide selbst.
   {
     page: "calculator-de",
     url: "/calculator",
-    banner: "hub-promo-calculator-de.png",
+    banner: "hub-promo-calculator-v2.png",
     caption: `<b>🇩🇪 DIE MEISTEN RATEN. KLUGE LEUTE RECHNEN.</b>
 
 Was passiert mit 500€/Monat nach 12 Monaten Zinseszins bei stabilen LP-Gebühren?
@@ -1373,7 +1373,7 @@ Die Antwort überrascht. Positiv.
   {
     page: "calculator-de",
     url: "/calculator",
-    banner: "hub-promo-calculator-de.png",
+    banner: "hub-promo-calculator-v3.png",
     caption: `<b>🇩🇪 DEINE ZAHLEN. DEINE ENTSCHEIDUNG.</b>
 
 Der Rendite-Rechner zeigt dir genau, was Zinseszins mit deinem Betrag macht. Keine Versprechen — nur Mathematik.
@@ -1388,7 +1388,7 @@ Der Rendite-Rechner zeigt dir genau, was Zinseszins mit deinem Betrag macht. Kei
   {
     page: "code-is-law",
     url: "/films/code-is-law",
-    banner: "hub-promo-code-is-law.png",
+    banner: "hub-promo-security-v1.png",
     caption: `<b>🎬 EMPFEHLUNG: "CODE IS LAW"</b>
 
 Season 3, Episode 1.
@@ -1405,7 +1405,7 @@ Every line of code is public. Every transaction is traceable. This film explains
   {
     page: "code-is-law",
     url: "/films/code-is-law",
-    banner: "hub-promo-code-is-law.png",
+    banner: "hub-promo-security-v2.png",
     caption: `<b>📜 "YOU DON'T TRUST. YOU VERIFY."</b>
 
 The single most important principle in DeFi — explained in under 2 minutes.
@@ -1420,7 +1420,7 @@ If you watch one TurboLoop film, make it this one.
   {
     page: "code-is-law",
     url: "/films/code-is-law",
-    banner: "hub-promo-code-is-law.png",
+    banner: "hub-promo-security-v3.png",
     caption: `<b>⚖️ IN DEFI, THE CODE IS THE CONTRACT.</b>
 
 No lawyers. No fine print. No "terms may change." The smart contract does exactly what it says — forever.
@@ -1435,7 +1435,7 @@ This film shows you why that's revolutionary.
   {
     page: "apply",
     url: "/apply",
-    banner: "hub-promo-apply.png",
+    banner: "hub-promo-profile-v1.png",
     caption: `<b>🚀 YOUR SPOT IS OPEN.</b>
 
 The protocol doesn't wait. The yield compounds daily. The community grows hourly.
@@ -1450,7 +1450,7 @@ The only thing missing is your decision.
   {
     page: "apply",
     url: "/apply",
-    banner: "hub-promo-apply.png",
+    banner: "hub-promo-profile-v2.png",
     caption: `<b>🚪 THE DOOR IS OPEN. BUT NOT FOREVER.</b>
 
 Every day you wait, the compounding curve starts one day later. The math is simple: earlier = more.
@@ -1465,7 +1465,7 @@ The application takes 2 minutes.
   {
     page: "apply",
     url: "/apply",
-    banner: "hub-promo-apply.png",
+    banner: "hub-promo-profile-v3.png",
     caption: `<b>⏰ THE BEST TIME WAS YESTERDAY. THE SECOND BEST IS NOW.</b>
 
 You've read the blog. You've watched the films. You've run the calculator.
@@ -1480,7 +1480,7 @@ Now what?
   {
     page: "learn",
     url: "/learn",
-    banner: "hub-promo-learn.png",
+    banner: "hub-promo-learn-v1.png",
     caption: `<b>🎓 NEW HERE? START WITH THIS.</b>
 
 The Learn Hub walks you through everything — step by step. No jargon. No assumptions. Just clarity.
@@ -1495,7 +1495,7 @@ From "What is DeFi?" to "How do I compound?" — all covered.
   {
     page: "learn",
     url: "/learn",
-    banner: "hub-promo-learn.png",
+    banner: "hub-promo-learn-v2.png",
     caption: `<b>📘 DON'T INVEST IN WHAT YOU DON'T UNDERSTAND.</b>
 
 That's rule #1. And we take it seriously.
@@ -1510,7 +1510,7 @@ The Learn Hub exists so you never have to invest blind. Every concept, explained
   {
     page: "learn",
     url: "/learn",
-    banner: "hub-promo-learn.png",
+    banner: "hub-promo-learn-v3.png",
     caption: `<b>🧠 FROM ZERO TO DEFI IN 10 MINUTES.</b>
 
 The Learn Hub is designed for complete beginners. No crypto jargon. No assumed knowledge. Just a clear path from "I'm curious" to "I understand."
@@ -1523,7 +1523,7 @@ The Learn Hub is designed for complete beginners. No crypto jargon. No assumed k
   {
     page: "social-wall",
     url: "/social-wall",
-    banner: "hub-promo-social-wall.png",
+    banner: "hub-promo-community-v1.png",
     caption: `<b>📱 VOICES FROM EVERYWHERE.</b>
 
 Every community-made TurboLoop video, in one place. Stories, tutorials, recaps — curated by the team, free to watch, ready to share.
@@ -1538,7 +1538,7 @@ Submit your own and join the wall.
   {
     page: "social-wall",
     url: "/social-wall",
-    banner: "hub-promo-social-wall.png",
+    banner: "hub-promo-community-v2.png",
     caption: `<b>🎥 YOUR TURN ON THE WALL.</b>
 
 Made a TurboLoop video? Share the link — approved submissions are featured here within 48 hours and may qualify for Creator Star payouts.
@@ -1551,7 +1551,7 @@ Made a TurboLoop video? Share the link — approved submissions are featured her
   {
     page: "social-wall",
     url: "/social-wall",
-    banner: "hub-promo-social-wall.png",
+    banner: "hub-promo-community-v3.png",
     caption: `<b>🌍 REAL PEOPLE. REAL STORIES.</b>
 
 Don't just take our word for it. Watch the Social Wall to see how the TurboLoop ecosystem is changing lives across 14+ countries.
@@ -1564,7 +1564,7 @@ Don't just take our word for it. Watch the Social Wall to see how the TurboLoop 
   {
     page: "events",
     url: "/events",
-    banner: "hub-promo-events.png",
+    banner: "hub-promo-referral-v1.png",
     caption: `<b>🎟️ REAL MEETUPS. REAL PEOPLE. REAL FUNDING.</b>
 
 Join physical TurboLoop meetups in 14+ countries, or get funded to host your own. We pay you to grow the ecosystem.
@@ -1579,7 +1579,7 @@ From local coffee shops to national summits.
   {
     page: "events",
     url: "/events",
-    banner: "hub-promo-events.png",
+    banner: "hub-promo-referral-v2.png",
     caption: `<b>💰 GET FUNDED TO HOST.</b>
 
 Want to build your local community? We provide the budget, the presentation deck, and the merch designs.
@@ -1594,7 +1594,7 @@ You receive 50% as an advance to book your venue, and 50% after a successful eve
   {
     page: "events",
     url: "/events",
-    banner: "hub-promo-events.png",
+    banner: "hub-promo-referral-v3.png",
     caption: `<b>📈 UNLOCK OFFICIAL ROLES.</b>
 
 Every event you host stacks toward a permanent monthly stipend. From City Ambassador ($250/mo) to Global Presenter ($2,500/mo).

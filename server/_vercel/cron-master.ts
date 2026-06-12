@@ -754,7 +754,28 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if (isInWindow(12, 0) && !(await hasFiredToday(db, "monthly:compound"))) {
         const banner = pickTodaysMonthlyBanner();
-        const caption = monthlyCompoundingCaption(banner);
+        let mcCaption = monthlyCompoundingCaption(banner);
+        // Append live price + all-time change to ground the compounding
+        // projection in the current token value.
+        try {
+          const [rp4, rh4] = await Promise.all([
+            fetch("https://www.turboloop.tech/api/token-price", { signal: AbortSignal.timeout(5000) }),
+            fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) }),
+          ]);
+          const dp4: any = rp4.ok ? await rp4.json() : null;
+          const dh4: any = rh4.ok ? await rh4.json() : null;
+          const mcPrice = dp4?.priceUsd ? `$${Number(dp4.priceUsd).toFixed(6)}` : null;
+          const mcAt = dh4?.priceChangeAllTime != null
+            ? `${dh4.priceChangeAllTime >= 0 ? "+" : ""}${(dh4.priceChangeAllTime * 100).toFixed(2)}%`
+            : null;
+          if (mcPrice) {
+            const priceLine = banner.lang === "de"
+              ? `\n\n💰 <b>Aktueller $TURBO-Preis:</b> ${mcPrice}${mcAt ? ` (<b>${mcAt}</b> seit Launch)` : ""}`
+              : `\n\n💰 <b>Current $TURBO price:</b> ${mcPrice}${mcAt ? ` (<b>${mcAt}</b> since launch)` : ""}`;
+            mcCaption = mcCaption + priceLine;
+          }
+        } catch { /* skip */ }
+        const caption = mcCaption;
         const button = {
           text:
             banner.lang === "de"
@@ -1106,7 +1127,28 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       if ((isInWindow(0, 0) || forceMidnightMath) && (forceMidnightMath || !(await hasFiredToday(db, "midnight:math")))) {
         const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
         const banner = MONTHLY_COMPOUND_BANNERS[(day + 10) % MONTHLY_COMPOUND_BANNERS.length];
-        const caption = monthlyCompoundingCaption(banner);
+        let baseCaption = monthlyCompoundingCaption(banner);
+        // Append live price + all-time change so the compounding message
+        // is grounded in the current token value.
+        try {
+          const [rp3, rh3] = await Promise.all([
+            fetch("https://www.turboloop.tech/api/token-price", { signal: AbortSignal.timeout(5000) }),
+            fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) }),
+          ]);
+          const dp3: any = rp3.ok ? await rp3.json() : null;
+          const dh3: any = rh3.ok ? await rh3.json() : null;
+          const mmPrice = dp3?.priceUsd ? `$${Number(dp3.priceUsd).toFixed(6)}` : null;
+          const mmAt = dh3?.priceChangeAllTime != null
+            ? `${dh3.priceChangeAllTime >= 0 ? "+" : ""}${(dh3.priceChangeAllTime * 100).toFixed(2)}%`
+            : null;
+          if (mmPrice) {
+            const priceLine = banner.lang === "de"
+              ? `\n\n💰 <b>Aktueller $TURBO-Preis:</b> ${mmPrice}${mmAt ? ` (<b>${mmAt}</b> seit Launch)` : ""}`
+              : `\n\n💰 <b>Current $TURBO price:</b> ${mmPrice}${mmAt ? ` (<b>${mmAt}</b> since launch)` : ""}`;
+            baseCaption = baseCaption + priceLine;
+          }
+        } catch { /* skip */ }
+        const caption = baseCaption;
         const photoUrl = monthlyBannerUrl(banner);
         if (banner.lang === "de") {
           const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -1260,12 +1302,27 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             const latestUsdt = (parseInt(latest.usdt_spent, 10) / 1e18).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
             const totalUsdt = items.reduce((s: number, i: any) => s + parseInt(i.usdt_spent, 10) / 1e18, 0);
             const totalTokens = items.reduce((s: number, i: any) => s + parseFloat(i.tokens_burned) / 1e18, 0);
+            // Fetch current price + all-time change — ties deflation to price appreciation
+            let burnPriceFooter = "";
+            try {
+              const [rp2, rh2] = await Promise.all([
+                fetch("https://www.turboloop.tech/api/token-price", { signal: AbortSignal.timeout(5000) }),
+                fetch("https://www.turboloop.tech/api/token-price-history", { signal: AbortSignal.timeout(5000) }),
+              ]);
+              const dp2: any = rp2.ok ? await rp2.json() : null;
+              const dh2: any = rh2.ok ? await rh2.json() : null;
+              const bPrice = dp2?.priceUsd ? `$${Number(dp2.priceUsd).toFixed(6)}` : null;
+              const bAt = dh2?.priceChangeAllTime != null
+                ? `${dh2.priceChangeAllTime >= 0 ? "+" : ""}${(dh2.priceChangeAllTime * 100).toFixed(2)}%`
+                : null;
+              if (bPrice) burnPriceFooter = `\n\n💰 <b>Current $TURBO:</b> ${bPrice}${bAt ? ` (<b>${bAt}</b> since launch)` : ""}`;
+            } catch { /* skip */ }
             const captions = [
-              `🔥 <b>Deflation in action.</b>\n\nBuyback #${latest.execution_number} just completed:\n💵 ${latestUsdt} USDT used to buy and burn <b>${latestTokens} TURBO</b>.\n\n📊 <b>All-time totals:</b>\n🔥 ${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO burned\n💵 $${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT committed\n\nEvery buyback makes the remaining supply more scarce.\n\n🔗 https://www.turboloop.tech/token`,
-              `📉 <b>Supply is shrinking.</b>\n\nThe most recent buyback burned <b>${latestTokens} TURBO</b> using ${latestUsdt} of protocol revenue.\n\nRunning total: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> permanently removed from circulation.\n\nThis is not a promise. It's an on-chain fact.\n\n🔗 https://www.turboloop.tech/token`,
-              `💡 <b>How the burn works.</b>\n\n10% of all admin fees go to the Buyback &amp; Burn contract. It executes automatically — no team approval needed.\n\nLatest execution #${latest.execution_number}: ${latestUsdt} → <b>${latestTokens} TURBO</b> burned.\nTotal burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
-              `⚙️ <b>Automated scarcity.</b>\n\nNo manual intervention. The smart contract just executed buyback #${latest.execution_number}.\n\n💵 ${latestUsdt} USDT deployed\n🔥 <b>${latestTokens} TURBO</b> destroyed forever\n\nTotal burned so far: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
-              `🔒 <b>Verifiable deflation.</b>\n\nDon't trust us, check the blockchain. Buyback #${latest.execution_number} is complete.\n\n🔥 <b>${latestTokens} TURBO</b> burned using ${latestUsdt} from protocol fees.\n\nTotal supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.\n\n🔗 https://www.turboloop.tech/token`,
+              `🔥 <b>Deflation in action.</b>\n\nBuyback #${latest.execution_number} just completed:\n💵 ${latestUsdt} USDT used to buy and burn <b>${latestTokens} TURBO</b>.\n\n📊 <b>All-time totals:</b>\n🔥 ${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO burned\n💵 $${totalUsdt.toLocaleString("en-US", { maximumFractionDigits: 0 })} USDT committed\n\nEvery buyback makes the remaining supply more scarce.${burnPriceFooter}\n\n🔗 https://www.turboloop.tech/token`,
+              `📉 <b>Supply is shrinking.</b>\n\nThe most recent buyback burned <b>${latestTokens} TURBO</b> using ${latestUsdt} of protocol revenue.\n\nRunning total: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b> permanently removed from circulation.\n\nThis is not a promise. It's an on-chain fact.${burnPriceFooter}\n\n🔗 https://www.turboloop.tech/token`,
+              `💡 <b>How the burn works.</b>\n\n10% of all admin fees go to the Buyback &amp; Burn contract. It executes automatically \u2014 no team approval needed.\n\nLatest execution #${latest.execution_number}: ${latestUsdt} \u2192 <b>${latestTokens} TURBO</b> burned.\nTotal burned to date: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.${burnPriceFooter}\n\n🔗 https://www.turboloop.tech/token`,
+              `⚙️ <b>Automated scarcity.</b>\n\nNo manual intervention. The smart contract just executed buyback #${latest.execution_number}.\n\n💵 ${latestUsdt} USDT deployed\n🔥 <b>${latestTokens} TURBO</b> destroyed forever\n\nTotal burned so far: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.${burnPriceFooter}\n\n🔗 https://www.turboloop.tech/token`,
+              `🔒 <b>Verifiable deflation.</b>\n\nDon't trust us, check the blockchain. Buyback #${latest.execution_number} is complete.\n\n🔥 <b>${latestTokens} TURBO</b> burned using ${latestUsdt} from protocol fees.\n\nTotal supply reduced by: <b>${totalTokens.toLocaleString("en-US", { maximumFractionDigits: 0 })} TURBO</b>.${burnPriceFooter}\n\n🔗 https://www.turboloop.tech/token`,
             ];
             const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const caption = captions[day % captions.length];

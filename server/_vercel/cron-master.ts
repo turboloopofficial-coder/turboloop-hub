@@ -56,6 +56,17 @@ const BANNER_HOST = "https://www.turboloop.tech";
 const LAUNCH_FIRE_AT_UTC = "2026-04-29T12:00:00.000Z";
 const LAUNCH_GRACE_HOURS = 6; // window after target during which we still fire (in case of deploy delays)
 
+// Temporary EN Zoom time override — set to a UTC date string (YYYY-MM-DD) to shift
+// the EN call 1 hour earlier on that specific day. Automatically reverts the next day.
+// Set to null to always use the normal 17:00 UTC schedule.
+const EN_ZOOM_EARLY_DATE: string | null = "2026-06-12"; // 4pm UTC today only
+
+/** Returns true if today (UTC) matches the early-zoom override date. */
+function isEnZoomEarlyToday(): boolean {
+  if (!EN_ZOOM_EARLY_DATE) return false;
+  return new Date().toISOString().slice(0, 10) === EN_ZOOM_EARLY_DATE;
+}
+
 // Real PNG banner endpoints (Edge runtime, @vercel/og generates fresh PNG per request).
 // Daily palette rotation = "different banner every day" automatically.
 function bannerUrlBlog(slug: string, title: string): string {
@@ -886,59 +897,67 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
 
     // ============ 4. ENGLISH ZOOM — 4-tier reminder sequence ============
-    // EN call is at 16:00 UTC (9:30 PM IST) — TODAY ONLY (normally 17:00 UTC)
-    // T-60 → 15:00 UTC | T-30 → 15:30 UTC | T-10 → 15:50 UTC | T-0 → 16:00 UTC
+    // Normal schedule: EN call at 17:00 UTC — T-60=16:00, T-30=16:30, T-10=16:50, T-0=17:00
+    // Override: if EN_ZOOM_EARLY_DATE matches today, shift all windows -1h (16:00 UTC call).
+    // Auto-reverts the next day — no manual cleanup needed.
+    {
+      const early = isEnZoomEarlyToday();
+      const [h60, m60] = early ? [15,  0] : [16,  0];
+      const [h30, m30] = early ? [15, 30] : [16, 30];
+      const [h10, m10] = early ? [15, 50] : [16, 50];
+      const [h0,  m0 ] = early ? [16,  0] : [17,  0];
 
-    // EN T-60: 15:00 UTC
-    try {
-      if ((isInWindow(15, 0) || forceZoomEnT60) && (forceZoomEnT60 || !(await hasFiredToday(db, "zoom:en:T60")))) {
-        const cfg = await getZoomConfig("en");
-        await sendZoomReminder("en", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
-        await markFired(db, "zoom:en:T60");
-        log.push("🎙 EN Zoom T-60");
+      // EN T-60
+      try {
+        if ((isInWindow(h60, m60) || forceZoomEnT60) && (forceZoomEnT60 || !(await hasFiredToday(db, "zoom:en:T60")))) {
+          const cfg = await getZoomConfig("en");
+          await sendZoomReminder("en", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
+          await markFired(db, "zoom:en:T60");
+          log.push(`\uD83C\uDFA4 EN Zoom T-60${early ? " (early)" : ""}`);
+        }
+      } catch (err) {
+        await markError(db, "zoom:en:T60", err).catch(() => {});
+        log.push(`❌ zoom:en:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
-    } catch (err) {
-      await markError(db, "zoom:en:T60", err).catch(() => {});
-      log.push(`❌ zoom:en:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
-    }
 
-    // EN T-30: 15:30 UTC
-    try {
-      if ((isInWindow(15, 30) || forceZoomEnT30) && (forceZoomEnT30 || !(await hasFiredToday(db, "zoom:en:T30")))) {
-        const cfg = await getZoomConfig("en");
-        await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
-        await markFired(db, "zoom:en:T30");
-        log.push("🎙 EN Zoom T-30");
+      // EN T-30
+      try {
+        if ((isInWindow(h30, m30) || forceZoomEnT30) && (forceZoomEnT30 || !(await hasFiredToday(db, "zoom:en:T30")))) {
+          const cfg = await getZoomConfig("en");
+          await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
+          await markFired(db, "zoom:en:T30");
+          log.push(`\uD83C\uDFA4 EN Zoom T-30${early ? " (early)" : ""}`);
+        }
+      } catch (err) {
+        await markError(db, "zoom:en:T30", err).catch(() => {});
+        log.push(`❌ zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
-    } catch (err) {
-      await markError(db, "zoom:en:T30", err).catch(() => {});
-      log.push(`❌ zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
-    }
 
-    // EN T-10: 15:50 UTC
-    try {
-      if ((isInWindow(15, 50) || forceZoomEnT10) && (forceZoomEnT10 || !(await hasFiredToday(db, "zoom:en:T10")))) {
-        const cfg = await getZoomConfig("en");
-        await sendZoomReminder("en", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
-        await markFired(db, "zoom:en:T10");
-        log.push("🎙 EN Zoom T-10");
+      // EN T-10
+      try {
+        if ((isInWindow(h10, m10) || forceZoomEnT10) && (forceZoomEnT10 || !(await hasFiredToday(db, "zoom:en:T10")))) {
+          const cfg = await getZoomConfig("en");
+          await sendZoomReminder("en", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
+          await markFired(db, "zoom:en:T10");
+          log.push(`\uD83C\uDFA4 EN Zoom T-10${early ? " (early)" : ""}`);
+        }
+      } catch (err) {
+        await markError(db, "zoom:en:T10", err).catch(() => {});
+        log.push(`❌ zoom:en:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
-    } catch (err) {
-      await markError(db, "zoom:en:T10", err).catch(() => {});
-      log.push(`❌ zoom:en:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
-    }
 
-    // EN T-0 LIVE: 16:00 UTC
-    try {
-      if ((isInWindow(16, 0) || forceZoomEnT0) && (forceZoomEnT0 || !(await hasFiredToday(db, "zoom:en:T0")))) {
-        const cfg = await getZoomConfig("en");
-        await sendZoomReminder("en", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
-        await markFired(db, "zoom:en:T0");
-        log.push("🎙 EN Zoom T-0 LIVE");
+      // EN T-0 LIVE
+      try {
+        if ((isInWindow(h0, m0) || forceZoomEnT0) && (forceZoomEnT0 || !(await hasFiredToday(db, "zoom:en:T0")))) {
+          const cfg = await getZoomConfig("en");
+          await sendZoomReminder("en", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
+          await markFired(db, "zoom:en:T0");
+          log.push(`\uD83C\uDFA4 EN Zoom T-0 LIVE${early ? " (early)" : ""}`);
+        }
+      } catch (err) {
+        await markError(db, "zoom:en:T0", err).catch(() => {});
+        log.push(`❌ zoom:en:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
-    } catch (err) {
-      await markError(db, "zoom:en:T0", err).catch(() => {});
-      log.push(`❌ zoom:en:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============

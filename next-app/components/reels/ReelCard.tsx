@@ -92,7 +92,6 @@ export function ReelCard({ reel }: ReelCardProps) {
               sizes="260px"
               className="object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
-              unoptimized
             />
           ) : (
             <div

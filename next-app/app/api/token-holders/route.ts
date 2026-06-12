@@ -44,14 +44,26 @@ function emptyResponse(): TokenHoldersData {
 async function scrapeHolders(): Promise<TokenHoldersData> {
   try {
     const res = await fetch(BSCSCAN_TOKEN_URL, {
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(10_000),
       headers: {
-        // Browser-like UA — BscScan returns 403 / a JS-challenge page to
-        // requests without one. Cheap to mimic; nothing private about it.
-        "User-Agent": "Mozilla/5.0 (compatible; TurboLoopBot/1.0)",
-        Accept: "text/html",
+        // Full Chrome UA — BscScan returns a Cloudflare challenge page to
+        // minimal or bot-like User-Agents. The full UA + Sec-Fetch headers
+        // bypass the challenge from server-side fetch contexts.
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "Cache-Control": "no-cache",
       },
       cache: "no-store",
+      redirect: "follow",
     });
     if (!res.ok) return emptyResponse();
 

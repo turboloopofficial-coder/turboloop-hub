@@ -123,51 +123,66 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
 
   return (
     <section
-      className={`grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
+      className={`rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
       aria-label="$TURBO supply"
     >
-      <SupplyCell
-        label="Circulating Supply"
-        value={circulating}
-        unit="TURBO"
-        accent="cyan"
-      />
-      <SupplyCell
-        label="Total Supply"
-        value={total}
-        unit="TURBO"
-        accent="text"
-        footnote="Fixed by protocol — no mint function."
-      />
-      <SupplyCell
-        label="Burned"
-        value={burned}
-        unit="TURBO"
-        accent="orange"
-        footnote={
-          burnedPct !== null
-            ? `${burnedPct}% of total supply`
-            : "Daily auto-buyback & burn"
-        }
-      />
-      <SupplyCell
-        label="Vested / Locked"
-        value={vested}
-        unit="TURBO"
-        accent="violet"
-        footnote={
-          vestedPct !== null
-            ? `${vestedPct}% of total supply`
-            : "Held by contract"
-        }
-      />
-      <SupplyCell
-        label="Total Holders"
-        value={holders}
-        unit="wallets"
-        accent="green"
-        footnote="Unique wallet addresses"
-      />
+      {/* 4-column supply grid — unchanged layout */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+        <SupplyCell
+          label="Circulating Supply"
+          value={circulating}
+          unit="TURBO"
+          accent="cyan"
+        />
+        <SupplyCell
+          label="Total Supply"
+          value={total}
+          unit="TURBO"
+          accent="text"
+          footnote="Fixed by protocol — no mint function."
+        />
+        <SupplyCell
+          label="Burned"
+          value={burned}
+          unit="TURBO"
+          accent="orange"
+          footnote={
+            burnedPct !== null
+              ? `${burnedPct}% of total supply`
+              : "Daily auto-buyback & burn"
+          }
+        />
+        <SupplyCell
+          label="Vested / Locked"
+          value={vested}
+          unit="TURBO"
+          accent="violet"
+          footnote={
+            vestedPct !== null
+              ? `${vestedPct}% of total supply`
+              : "Held by contract"
+          }
+        />
+      </div>
+
+      {/* Holders row — compact strip below the supply grid */}
+      <div className="mt-4 pt-4 border-t border-[var(--c-border)] flex flex-wrap items-center gap-x-3 gap-y-1">
+        <span className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)]">
+          Total Holders
+        </span>
+        <span
+          className="text-xl font-heading font-bold tabular-nums leading-none"
+          style={{ color: "#10B981" }}
+        >
+          {holders}
+        </span>
+        <span className="text-xs font-bold tracking-[0.15em] uppercase text-[var(--c-text-muted)]">
+          wallets
+        </span>
+        <span className="text-[11px] text-[var(--c-text-subtle)]">
+          · Unique wallet addresses on BscScan
+        </span>
+      </div>
     </section>
   );
 }

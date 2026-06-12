@@ -49,11 +49,5 @@
       "path": "/api/cron/publish-blog",
       "schedule": "0 4 * * *"
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/(?!api/).*",
-      "destination": "/index.html"
-    }
   ]
 }

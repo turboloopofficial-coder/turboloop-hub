@@ -139,7 +139,6 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
           value={total}
           unit="TURBO"
           accent="text"
-          footnote="Fixed by protocol — no mint function."
         />
         <SupplyCell
           label="Burned"

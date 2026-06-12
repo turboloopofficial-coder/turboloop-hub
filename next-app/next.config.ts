@@ -28,8 +28,18 @@ const config: NextConfig = {
   // dynamic rendering on a per-page basis via `export const dynamic`.
   experimental: {
     // Granular package import optimization — only imports what's used
-    // from these libraries instead of the whole bundle.
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    // from these libraries instead of the whole bundle. Radix UI
+    // primitives are barrel-imported across the admin panel + ui
+    // components, and date-fns is touched by the blog/events. Adding
+    // them here trims the homepage chunk without source changes.
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-tooltip",
+      "date-fns",
+    ],
   },
   poweredByHeader: false,
   reactStrictMode: true,

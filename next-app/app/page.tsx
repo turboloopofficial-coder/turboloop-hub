@@ -23,21 +23,50 @@
 // itself; the only client islands are the mobile menu, the bottom CTA
 // bar (in the layout), and the small countdown ticker inside ZoomLive.
 
+import dynamic from "next/dynamic";
 import { ShieldCheck, Lock, CheckCircle2, Globe2, Rocket } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { SectionDivider } from "@components/ui/SectionDivider";
 import { NumbersSection } from "@components/sections/NumbersSection";
-import { HomeGlobalReelsSection } from "@components/sections/HomeGlobalReelsSection";
-import { HomeBlogSection } from "@components/sections/HomeBlogSection";
 import { TestimonialSection } from "@components/sections/TestimonialSection";
-import { NewsletterSection } from "@components/sections/NewsletterSection";
 import { ProtocolBentoSection } from "@components/sections/ProtocolBentoSection";
 import { TokenSpotlightSection } from "@components/sections/TokenSpotlightSection";
-import { ZoomLiveSection } from "@components/sections/ZoomLiveSection";
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
+
+// Below-fold sections — dynamically imported so their JS chunk lands
+// after the hero is interactive. ssr:true keeps the HTML server-rendered
+// so SEO/CLS are unchanged; the only difference is the JS bundle split.
+const HomeGlobalReelsSection = dynamic(
+  () =>
+    import("@components/sections/HomeGlobalReelsSection").then(m => ({
+      default: m.HomeGlobalReelsSection,
+    })),
+  { ssr: true }
+);
+const ZoomLiveSection = dynamic(
+  () =>
+    import("@components/sections/ZoomLiveSection").then(m => ({
+      default: m.ZoomLiveSection,
+    })),
+  { ssr: true }
+);
+const HomeBlogSection = dynamic(
+  () =>
+    import("@components/sections/HomeBlogSection").then(m => ({
+      default: m.HomeBlogSection,
+    })),
+  { ssr: true }
+);
+const NewsletterSection = dynamic(
+  () =>
+    import("@components/sections/NewsletterSection").then(m => ({
+      default: m.NewsletterSection,
+    })),
+  { ssr: true }
+);
 
 const TRUST_BADGES = [
   {

@@ -886,12 +886,12 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
 
     // ============ 4. ENGLISH ZOOM — 4-tier reminder sequence ============
-    // EN call is at 17:00 UTC (10:30 PM IST)
-    // T-60 → 16:00 UTC | T-30 → 16:30 UTC | T-10 → 16:50 UTC | T-0 → 17:00 UTC
+    // EN call is at 16:00 UTC (9:30 PM IST) — TODAY ONLY (normally 17:00 UTC)
+    // T-60 → 15:00 UTC | T-30 → 15:30 UTC | T-10 → 15:50 UTC | T-0 → 16:00 UTC
 
-    // EN T-60: 16:00 UTC
+    // EN T-60: 15:00 UTC
     try {
-      if ((isInWindow(16, 0) || forceZoomEnT60) && (forceZoomEnT60 || !(await hasFiredToday(db, "zoom:en:T60")))) {
+      if ((isInWindow(15, 0) || forceZoomEnT60) && (forceZoomEnT60 || !(await hasFiredToday(db, "zoom:en:T60")))) {
         const cfg = await getZoomConfig("en");
         await sendZoomReminder("en", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T60");
@@ -902,9 +902,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:en:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // EN T-30: 16:30 UTC
+    // EN T-30: 15:30 UTC
     try {
-      if ((isInWindow(16, 30) || forceZoomEnT30) && (forceZoomEnT30 || !(await hasFiredToday(db, "zoom:en:T30")))) {
+      if ((isInWindow(15, 30) || forceZoomEnT30) && (forceZoomEnT30 || !(await hasFiredToday(db, "zoom:en:T30")))) {
         const cfg = await getZoomConfig("en");
         await sendZoomReminder("en", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T30");
@@ -915,9 +915,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:en:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // EN T-10: 16:50 UTC
+    // EN T-10: 15:50 UTC
     try {
-      if ((isInWindow(16, 50) || forceZoomEnT10) && (forceZoomEnT10 || !(await hasFiredToday(db, "zoom:en:T10")))) {
+      if ((isInWindow(15, 50) || forceZoomEnT10) && (forceZoomEnT10 || !(await hasFiredToday(db, "zoom:en:T10")))) {
         const cfg = await getZoomConfig("en");
         await sendZoomReminder("en", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T10");
@@ -928,9 +928,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:en:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // EN T-0 LIVE: 17:00 UTC
+    // EN T-0 LIVE: 16:00 UTC
     try {
-      if ((isInWindow(17, 0) || forceZoomEnT0) && (forceZoomEnT0 || !(await hasFiredToday(db, "zoom:en:T0")))) {
+      if ((isInWindow(16, 0) || forceZoomEnT0) && (forceZoomEnT0 || !(await hasFiredToday(db, "zoom:en:T0")))) {
         const cfg = await getZoomConfig("en");
         await sendZoomReminder("en", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:en:T0");

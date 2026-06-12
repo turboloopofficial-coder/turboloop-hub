@@ -1,31 +1,25 @@
-// /api/token-holders — scrapes the BscScan token page for the current
-// holder count. BscScan exposes "Holders: <n>" in the og:description
-// meta tag on the public token page, so no API key is needed and we
-// avoid the paid V2 free-tier limits on BSC.
+// /api/token-holders — fetches the current holder count via a Cloudflare
+// Worker proxy (turboloop-holders.turbo-loop-official.workers.dev).
 //
-// Cache: 30-min in-memory TTL. BscScan itself only refreshes the
-// holder count every few hours so a 5-min poll from the widget plus a
-// 30-min server cache means the actual scrape fires only a few times
-// per hour regardless of traffic.
+// Why a proxy? BscScan blocks Vercel datacenter IPs even with full browser
+// headers. The Cloudflare Worker runs on Cloudflare's network which is not
+// blocked, so it can scrape BscScan and return clean JSON.
 //
-// On failure we serve stale cache if available; if nothing is cached
-// we return { holders: null, fresh: false } and the widget renders
-// "—" without breaking the rest of the supply panel.
+// Cache: 30-min in-memory TTL on the Next.js side; the Worker itself also
+// caches for 30 min. On failure we serve stale cache if available; if
+// nothing is cached we return { holders: null, fresh: false } and the
+// widget renders "—" without breaking the rest of the supply panel.
 
 import { NextResponse } from "next/server";
-import { TOKEN } from "@lib/tokenFacts";
 
-// Node.js runtime — Edge runtime cannot decompress gzip responses from BscScan,
-// which causes the HTML to arrive as binary garbage and the regex to fail.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const BSCSCAN_TOKEN_URL = `https://bscscan.com/token/${TOKEN.contract}`;
+const WORKER_URL =
+  "https://turboloop-holders.turbo-loop-official.workers.dev/";
 
 export interface TokenHoldersData {
-  /** Display string, e.g. "1,234". null when scrape failed and no cache. */
   holders: string | null;
-  /** Raw integer (no commas). null when scrape failed and no cache. */
   holdersNum: number | null;
   fetchedAt: number;
   fresh: boolean;
@@ -35,55 +29,24 @@ let cached: { data: TokenHoldersData; expiresAt: number } | null = null;
 const CACHE_TTL_MS = 30 * 60_000;
 
 function emptyResponse(): TokenHoldersData {
-  return {
-    holders: null,
-    holdersNum: null,
-    fetchedAt: Date.now(),
-    fresh: false,
-  };
+  return { holders: null, holdersNum: null, fetchedAt: Date.now(), fresh: false };
 }
 
-async function scrapeHolders(): Promise<TokenHoldersData> {
+async function fetchFromWorker(): Promise<TokenHoldersData> {
   try {
-    const res = await fetch(BSCSCAN_TOKEN_URL, {
+    const res = await fetch(WORKER_URL, {
       signal: AbortSignal.timeout(10_000),
-      headers: {
-        // Full Chrome UA — BscScan returns a Cloudflare challenge page to
-        // minimal or bot-like User-Agents. The full UA + Sec-Fetch headers
-        // bypass the challenge from server-side fetch contexts.
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        // No Accept-Encoding header — Node.js fetch handles decompression
-        // automatically; sending it explicitly can cause double-decode issues.
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-        "Upgrade-Insecure-Requests": "1",
-        "Cache-Control": "no-cache",
-      },
+      headers: { "User-Agent": "turboloop-next/1.0" },
       cache: "no-store",
-      redirect: "follow",
     });
     if (!res.ok) return emptyResponse();
 
-    const html = await res.text();
-    const match = html.match(/Holders:\s*([\d,]+)/);
-    if (!match) return emptyResponse();
-
-    const holdersStr = match[1];
-    const holdersNum = parseInt(holdersStr.replace(/,/g, ""), 10);
-    if (!Number.isFinite(holdersNum) || holdersNum < 0) return emptyResponse();
-
-    // Re-format with commas in case BscScan ever ships a raw integer.
-    const formatted = holdersNum.toLocaleString("en-US");
+    const json = await res.json();
+    if (!json.holdersNum) return emptyResponse();
 
     return {
-      holders: formatted,
-      holdersNum,
+      holders: json.holders,
+      holdersNum: json.holdersNum,
       fetchedAt: Date.now(),
       fresh: true,
     };
@@ -94,26 +57,20 @@ async function scrapeHolders(): Promise<TokenHoldersData> {
 
 export async function GET() {
   const now = Date.now();
+
   if (cached && cached.expiresAt > now) {
     return NextResponse.json(cached.data, {
-      headers: {
-        "Cache-Control":
-          "public, s-maxage=1800, stale-while-revalidate=3600",
-      },
+      headers: { "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600" },
     });
   }
 
-  const data = await scrapeHolders();
+  const data = await fetchFromWorker();
+
   if (data.fresh) {
     cached = { data, expiresAt: now + CACHE_TTL_MS };
   } else if (cached) {
-    // Upstream failed but we have an older successful read — keep
-    // serving it with a shorter SWR so the next request retries soon.
     return NextResponse.json(cached.data, {
-      headers: {
-        "Cache-Control":
-          "public, s-maxage=60, stale-while-revalidate=300",
-      },
+      headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" },
     });
   }
 

@@ -15,7 +15,9 @@
 import { NextResponse } from "next/server";
 import { TOKEN } from "@lib/tokenFacts";
 
-export const runtime = "edge";
+// Node.js runtime — Edge runtime cannot decompress gzip responses from BscScan,
+// which causes the HTML to arrive as binary garbage and the regex to fail.
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const BSCSCAN_TOKEN_URL = `https://bscscan.com/token/${TOKEN.contract}`;
@@ -54,7 +56,8 @@ async function scrapeHolders(): Promise<TokenHoldersData> {
         Accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
-        "Accept-Encoding": "gzip, deflate, br",
+        // No Accept-Encoding header — Node.js fetch handles decompression
+        // automatically; sending it explicitly can cause double-decode issues.
         "Sec-Fetch-Dest": "document",
         "Sec-Fetch-Mode": "navigate",
         "Sec-Fetch-Site": "none",

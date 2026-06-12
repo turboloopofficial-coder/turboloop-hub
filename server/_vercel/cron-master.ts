@@ -1312,6 +1312,32 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(20, 0) || forceLiveStats) && (forceLiveStats || !(await hasFiredToday(db, "live:stats")))) {
         const PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
+        // Fetch 7d / all-time price change from our own cached history endpoint
+        // (GeckoTerminal OHLCV, 5-min cache). Runs in parallel with DexScreener.
+        let change7d: number | null = null;
+        let changeAllTime: number | null = null;
+        let daysSinceLaunch = 0;
+        try {
+          const rh = await fetch("https://www.turboloop.tech/api/token-price-history", {
+            signal: AbortSignal.timeout(6000),
+          });
+          if (rh.ok) {
+            const dh: any = await rh.json();
+            change7d = dh?.priceChange7d ?? null;
+            changeAllTime = dh?.priceChangeAllTime ?? null;
+            daysSinceLaunch = dh?.daysSinceLaunch ?? 0;
+          }
+        } catch { /* history unavailable — omit extended lines */ }
+        // Format helper: decimal fraction → "+12.34%" string
+        const fmtPct = (v: number | null): string | null =>
+          v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+        const change7dStr = daysSinceLaunch >= 7 ? fmtPct(change7d) : null;
+        const changeAllTimeStr = fmtPct(changeAllTime);
+        // Extended change block appended after 24h line (only shown when data available)
+        const extBlock = [
+          change7dStr ? `📅 7d: <b>${change7dStr}</b>` : null,
+          changeAllTimeStr ? `🚀 Since launch: <b>${changeAllTimeStr}</b>` : null,
+        ].filter(Boolean).join("\n");
         const r = await fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${PAIR}`, {
           signal: AbortSignal.timeout(8000),
         });
@@ -1324,12 +1350,14 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             const vol24h = Number(pair.volume?.h24 ?? 0).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
             const change24h = pair.priceChange?.h24 ?? 0;
             const changeStr = `${change24h >= 0 ? "+" : ""}${Number(change24h).toFixed(2)}%`;
+            // ext suffix: blank line + extended block if available, else empty string
+            const ext = extBlock ? `\n${extBlock}` : "";
             const captions = [
-              `📊 <b>$TURBO — end of day snapshot.</b>\n\n💰 Price: <b>$${price}</b> (${changeStr} 24h)\n💧 Liquidity: <b>${liq}</b>\n📈 Volume 24h: <b>${vol24h}</b>\n\nThe protocol is open. The numbers are public. The liquidity is locked.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
-              `🔍 <b>Transparency check.</b>\n\nEvery number below is verifiable on-chain, right now:\n\n💰 $TURBO price: <b>$${price}</b>\n💧 Locked liquidity: <b>${liq}</b>\n📈 24h volume: <b>${vol24h}</b>\n\nNo team can move the liquidity. No one controls the price.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
-              `💡 <b>What does a healthy DeFi protocol look like?</b>\n\nThis:\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b> — 100% locked\n📈 Volume: <b>${vol24h}</b> in 24h\n\nReal volume. Real liquidity. Real yield.\n\n🔗 https://www.turboloop.tech/token`,
-              `📈 <b>The numbers don't lie.</b>\n\nLive metrics straight from the blockchain:\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b>\n📈 24h Volume: <b>${vol24h}</b>\n\nNo hidden wallets. No admin keys. Just code.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
-              `⚡ <b>$TURBO Daily Pulse</b>\n\n💰 Price: <b>$${price}</b> (${changeStr})\n💧 Liquidity: <b>${liq}</b>\n📈 24h Volume: <b>${vol24h}</b>\n\n100% of LP tokens are locked on-chain. Verify it yourself.\n\n🔗 https://www.turboloop.tech/security`,
+              `📊 <b>$TURBO — end of day snapshot.</b>\n\n💰 Price: <b>$${price}</b>\n📈 24h: <b>${changeStr}</b>${ext}\n\n💧 Liquidity: <b>${liq}</b>\n📊 Volume 24h: <b>${vol24h}</b>\n\nThe protocol is open. The numbers are public. The liquidity is locked.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
+              `🔍 <b>Transparency check.</b>\n\nEvery number below is verifiable on-chain, right now:\n\n💰 $TURBO price: <b>$${price}</b>\n📈 24h: <b>${changeStr}</b>${ext}\n\n💧 Locked liquidity: <b>${liq}</b>\n📊 24h volume: <b>${vol24h}</b>\n\nNo team can move the liquidity. No one controls the price.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
+              `💡 <b>What does a healthy DeFi protocol look like?</b>\n\nThis:\n\n💰 Price: <b>$${price}</b>\n📈 24h: <b>${changeStr}</b>${ext}\n\n💧 Liquidity: <b>${liq}</b> — 100% locked\n📊 Volume: <b>${vol24h}</b> in 24h\n\nReal volume. Real liquidity. Real yield.\n\n🔗 https://www.turboloop.tech/token`,
+              `📈 <b>The numbers don't lie.</b>\n\nLive metrics straight from the blockchain:\n\n💰 Price: <b>$${price}</b>\n📈 24h: <b>${changeStr}</b>${ext}\n\n💧 Liquidity: <b>${liq}</b>\n📊 24h Volume: <b>${vol24h}</b>\n\nNo hidden wallets. No admin keys. Just code.\n\n🔗 https://dexscreener.com/bsc/${PAIR}`,
+              `⚡ <b>$TURBO Daily Pulse</b>\n\n💰 Price: <b>$${price}</b>\n📈 24h: <b>${changeStr}</b>${ext}\n\n💧 Liquidity: <b>${liq}</b>\n📊 24h Volume: <b>${vol24h}</b>\n\n100% of LP tokens are locked on-chain. Verify it yourself.\n\n🔗 https://www.turboloop.tech/security`,
             ];
             const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const caption = captions[day % captions.length];

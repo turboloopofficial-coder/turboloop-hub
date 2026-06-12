@@ -673,7 +673,24 @@ Our team responds daily. Please include your wallet address and a description of
         const mcap = pair.marketCap ? Number(pair.marketCap).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "N/A";
         const change24h = pair.priceChange?.h24 ?? 0;
         const changeStr = `${change24h >= 0 ? "+" : ""}${Number(change24h).toFixed(2)}%`;
-        return `📊 <b>$TURBO Live Stats</b>\n\n💰 <b>Price:</b> $${price} (${changeStr} 24h)\n💧 <b>Liquidity:</b> ${liq}\n📈 <b>Volume 24h:</b> ${vol24h}\n🏦 <b>Market Cap:</b> ${mcap}\n\n🔗 Chart: https://dexscreener.com/bsc/${PAIR}`;
+        // Fetch 7d / all-time from history endpoint
+        let change7dLine = "";
+        let changeAllTimeLine = "";
+        try {
+          const rh = await fetch("https://www.turboloop.tech/api/token-price-history", {
+            signal: AbortSignal.timeout(5000),
+          });
+          if (rh.ok) {
+            const dh: any = await rh.json();
+            const fmtPct = (v: number | null) =>
+              v === null ? null : `${v >= 0 ? "+" : ""}${(v * 100).toFixed(2)}%`;
+            const c7d = dh?.daysSinceLaunch >= 7 ? fmtPct(dh?.priceChange7d ?? null) : null;
+            const cAt = fmtPct(dh?.priceChangeAllTime ?? null);
+            if (c7d) change7dLine = `\n📅 <b>7d:</b> ${c7d}`;
+            if (cAt) changeAllTimeLine = `\n🚀 <b>Since launch:</b> ${cAt}`;
+          }
+        } catch { /* skip if unavailable */ }
+        return `📊 <b>$TURBO Live Stats</b>\n\n💰 <b>Price:</b> $${price}\n📈 <b>24h:</b> ${changeStr}${change7dLine}${changeAllTimeLine}\n\n💧 <b>Liquidity:</b> ${liq}\n📊 <b>Volume 24h:</b> ${vol24h}\n🏦 <b>Market Cap:</b> ${mcap}\n\n🔗 Chart: https://dexscreener.com/bsc/${PAIR}`;
       } catch {
         return "📊 <b>Stats unavailable right now.</b> Try again shortly.";
       }

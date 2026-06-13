@@ -1,8 +1,2 @@
 .vercel
 .env*
-
-# cron-master.ts must NOT be in next-app/server/_vercel/ — it is compiled
-# separately by build:api (esbuild) and causes Next.js typecheck failures.
-server/_vercel/cron-master.ts
-server/_vercel/_messagePools.ts
-server/_vercel/_campaigns.ts

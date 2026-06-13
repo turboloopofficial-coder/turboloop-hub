@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1778736666379,
+      "tag": "0000_fuzzy_famine",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778764398015,
+      "tag": "0001_talented_venus",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778853997607,
+      "tag": "0002_tan_iron_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1779088181976,
+      "tag": "0003_optimal_blacklash",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,19 +1,18 @@
-// /creatives — full branded banner library, fully static.
+// /creatives — TurboLoop Marketing Hub
 //
-// Two sources, one merged grid:
-//   1. Legacy kit: 141 pillar/myth/product banners (all English).
-//   2. Language Kit: 65 educational banners × 6 languages = 390
-//      (en/hi/id/fr/ar/es), uploaded via scripts/upload-lang-kit.mjs.
+// Three content libraries, cleanly separated:
+//   1. Campaign Suite (NEW) — 504 images × 12 categories, each with its own
+//      sub-page at /creatives/[category]. Shown as a card grid at the top.
+//   2. Branded Library — 175 legacy pillar/myth/product banners (English).
+//   3. Language Kit — 65 educational banners × 7 languages = 455 entries.
 //
-// Content data (manifests + captions) ships in the bundle — it's just
-// text + R2 URLs, small enough not to bloat the build. The actual
-// banner images load lazily as they scroll.
-//
-// Language filter: ?lang=<code> filters the visible grid + adjusts the
-// per-category counts. Without the param, "All" is active and every
-// banner shows. Tabs are server-rendered Link tags (no client JS).
+// The Campaign Suite section links out to sub-pages rather than inlining
+// all 504 images — keeps the main page fast and each sub-page SEO-indexable.
+// The Branded Library + Language Kit remain as the full inline grid below.
 
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
@@ -27,24 +26,14 @@ import {
   isBannerLanguage,
   type BannerLanguage,
 } from "@lib/creativesData";
+import {
+  CAMPAIGN_CATEGORIES,
+  TOTAL_CAMPAIGN_CREATIVES,
+} from "@lib/campaignData";
 
-// Per-language Metadata for the OG card. Static title/description still
-// works for crawlers that hit /creatives without a lang param; the
-// generateMetadata below upgrades it when a ?lang= is present so the
-// title, description, OG image (via /api/og-banner?type=creatives&lang=)
-// and canonical all align with the locale being shared.
-//
-// The OG image route is now content-aware — it reads the lang-kit
-// manifest at request time and renders the current per-language banner
-// count. Adding a new banner means the OG image updates on next render;
-// no static asset re-upload needed. See app/api/og-banner/route.ts.
+// ── Metadata ───────────────────────────────────────────────────────────────
 
-const LANG_META: Partial<
-  Record<
-    BannerLanguage,
-    { title: string; description: string }
-  >
-> = {
+const LANG_META: Partial<Record<BannerLanguage, { title: string; description: string }>> = {
   en: {
     title: "English Banners — Ready to share",
     description: "240 pre-designed English banners with captions. Free for the community.",
@@ -75,17 +64,12 @@ const LANG_META: Partial<
   },
 };
 
-// Numbers verified against the manifests: 175 legacy banners +
-// 455 lang-kit entries (65 × 7 languages) = 630 total. Bump these
-// constants when scripts/upload-lang-kit.mjs adds another language.
 const DEFAULT_TITLE =
-  "Marketing Banners — 630+ Free Designs in 7 Languages | TurboLoop";
+  "Marketing Hub — 1,100+ Free DeFi Banners in 7 Languages | TurboLoop";
 const DEFAULT_DESCRIPTION =
-  "Download 630+ pre-designed marketing banners with captions. Available in English, German, Hindi, Indonesian, French, Arabic, and Spanish. Free for the TurboLoop community.";
+  "Download 1,100+ free DeFi marketing banners. 12 campaign categories, 7 languages, branded educational kit. Free for the TurboLoop community — no attribution required.";
 
 function ogImageUrl(lang: BannerLanguage | null): string {
-  // Always hit the www host explicitly. Apex 307s to www, and some OG
-  // crawlers (Telegram especially) don't follow redirects on image URLs.
   const base = "https://www.turboloop.tech/api/og-banner?type=creatives";
   return lang ? `${base}&lang=${lang}` : base;
 }
@@ -97,9 +81,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await searchParams;
   const langParam = Array.isArray(lang) ? lang[0] : lang;
-  const activeLang: BannerLanguage | null = isBannerLanguage(langParam)
-    ? langParam
-    : null;
+  const activeLang: BannerLanguage | null = isBannerLanguage(langParam) ? langParam : null;
   const meta = activeLang ? LANG_META[activeLang] : undefined;
   const title = meta?.title ?? DEFAULT_TITLE;
   const description = meta?.description ?? DEFAULT_DESCRIPTION;
@@ -107,18 +89,18 @@ export async function generateMetadata({
     ? `https://www.turboloop.tech/creatives?lang=${activeLang}`
     : "https://www.turboloop.tech/creatives";
   const image = ogImageUrl(activeLang);
-  // Hreflang — declare every language variant of /creatives so Google
-  // serves the right locale on the SERP. Mirror the pattern already
-  // used on /films. `x-default` points at the unfiltered EN landing.
+
   const langAlternates: Record<string, string> = {
     "x-default": "https://www.turboloop.tech/creatives",
   };
   for (const l of BANNER_LANGUAGES) {
     langAlternates[l.code] = `https://www.turboloop.tech/creatives?lang=${l.code}`;
   }
+
   return {
     title,
     description,
+    keywords: "DeFi marketing banners, free crypto banners, TurboLoop marketing kit, passive income banners, blockchain marketing",
     alternates: { canonical, languages: langAlternates },
     openGraph: {
       type: "website",
@@ -136,6 +118,8 @@ export async function generateMetadata({
   };
 }
 
+// ── Page ───────────────────────────────────────────────────────────────────
+
 export default async function CreativesPage({
   searchParams,
 }: {
@@ -143,14 +127,8 @@ export default async function CreativesPage({
 }) {
   const { lang } = await searchParams;
   const langParam = Array.isArray(lang) ? lang[0] : lang;
-  const activeLang: BannerLanguage | null = isBannerLanguage(langParam)
-    ? langParam
-    : null;
+  const activeLang: BannerLanguage | null = isBannerLanguage(langParam) ? langParam : null;
 
-  // Filter once up front; everything downstream (category counts, section
-  // grids) operates against this filtered set so the page reflects the
-  // active language end-to-end. Per-language counts for the tab chips are
-  // computed against the FULL set so each chip always shows true totals.
   const visible = activeLang
     ? ALL_CREATIVES.filter(c => c.language === activeLang)
     : ALL_CREATIVES;
@@ -160,65 +138,200 @@ export default async function CreativesPage({
     langCounts[l.code] = ALL_CREATIVES.filter(c => c.language === l.code).length;
   }
 
-  // Categories that have at least one banner in the current filter —
-  // hides empty sections (e.g. lang-kit-Hindi has no monthly-projections).
   const activeCategories = CREATIVE_CATEGORIES.filter(cat =>
     visible.some(c => c.categoryId === cat.id)
   );
 
+  const totalImages = ALL_CREATIVES.length + TOTAL_CAMPAIGN_CREATIVES;
+
+  // ImageGallery structured data for the main page (uses first image of each campaign category)
+  const imageGallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "TurboLoop DeFi Marketing Hub — Free Banner Library",
+    description: DEFAULT_DESCRIPTION,
+    url: "https://www.turboloop.tech/creatives",
+    numberOfItems: totalImages,
+    itemListElement: CAMPAIGN_CATEGORIES.map((cat, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: cat.label,
+      url: `https://www.turboloop.tech/creatives/${cat.id}`,
+      description: cat.metaDescription,
+    })),
+  };
+
   return (
-    <main className="relative pb-12 md:pb-20">
-      <PageHero
-        eyebrow="Branded Library"
-        title="Premium banners. Ready to share."
-        subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }}
       />
 
-      <CreativesLanguageTabs
-        active={activeLang}
-        counts={langCounts}
-        total={ALL_CREATIVES.length}
-      />
+      <main className="relative pb-12 md:pb-20">
+        {/* ── Hero ──────────────────────────────────────────────────────── */}
+        <PageHero
+          eyebrow="Marketing Hub"
+          title={`${totalImages.toLocaleString()}+ free banners. Ready to share.`}
+          subtitle="Campaign suites, branded pillars, and a 7-language educational kit. Download, share on Telegram or WhatsApp — no attribution required."
+        />
 
-      <CreativesCategoryNav categories={activeCategories} />
-
-      <Container width="wide">
-        {activeCategories.map(cat => {
-          const items = visible.filter(c => c.categoryId === cat.id);
-          if (items.length === 0) return null;
-          // Each banner carries its own palette; sample the first one for
-          // the section header tint so each category has a unique accent.
-          const sectionPalette =
-            items[0]?.palette ?? { from: "#0891B2", via: "#22D3EE", to: "#7C3AED" };
-          return (
-            <section
-              key={cat.id}
-              className="mb-12 md:mb-16 scroll-mt-20"
-              id={cat.id}
-            >
-              <div className="flex items-end justify-between mb-5 gap-4 flex-wrap">
-                <div>
-                  <div
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-2"
-                    style={{
-                      background: `${sectionPalette.from}15`,
-                      color: sectionPalette.from,
-                      border: `1px solid ${sectionPalette.from}30`,
-                    }}
-                  >
-                    <span>{cat.emoji}</span>
-                    <span>{cat.label}</span>
+        {/* ── Stats bar ─────────────────────────────────────────────────── */}
+        <div className="border-y border-[var(--c-border)] bg-[var(--c-surface)]">
+          <Container width="wide">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[var(--c-border)] py-0">
+              {[
+                { label: "Campaign banners", value: TOTAL_CAMPAIGN_CREATIVES.toLocaleString() },
+                { label: "Branded library", value: ALL_CREATIVES.length.toLocaleString() },
+                { label: "Languages", value: "7" },
+                { label: "Categories", value: (CAMPAIGN_CATEGORIES.length + CREATIVE_CATEGORIES.length).toString() },
+              ].map(stat => (
+                <div key={stat.label} className="px-4 md:px-8 py-4 text-center">
+                  <div className="text-xl md:text-2xl font-extrabold text-[var(--c-text)]">
+                    {stat.value}
                   </div>
-                  <Heading tier="h2">
-                    {items.length} {items.length === 1 ? "banner" : "banners"}
-                  </Heading>
+                  <div className="text-xs text-[var(--c-text-subtle)] mt-0.5">{stat.label}</div>
                 </div>
+              ))}
+            </div>
+          </Container>
+        </div>
+
+        {/* ── Campaign Suite ────────────────────────────────────────────── */}
+        <Container width="wide">
+          <section className="mt-12 md:mt-16" aria-labelledby="campaign-suite-heading">
+            <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">
+              <div>
+                <p className="text-xs font-bold tracking-[0.18em] uppercase text-[var(--c-brand-cyan)] mb-1">
+                  New
+                </p>
+                <h2
+                  id="campaign-suite-heading"
+                  className="text-xl md:text-2xl font-extrabold text-[var(--c-text)]"
+                >
+                  Campaign Suite
+                </h2>
+                <p className="text-sm text-[var(--c-text-subtle)] mt-1 max-w-xl">
+                  {TOTAL_CAMPAIGN_CREATIVES} banners across 12 targeted categories — lifestyle, objection handlers, DeFi education, regional markets, and more.
+                </p>
               </div>
-              <CategoryGrid items={items} catLabel={cat.label} />
-            </section>
-          );
-        })}
-      </Container>
-    </main>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+              {CAMPAIGN_CATEGORIES.map(cat => (
+                <Link
+                  key={cat.id}
+                  href={`/creatives/${cat.id}`}
+                  className="group relative flex flex-col p-4 rounded-[var(--r-xl)] bg-[var(--c-surface)] border border-[var(--c-border)] hover:border-transparent hover:shadow-[var(--s-lg)] hover:-translate-y-1 transition overflow-hidden"
+                  style={{
+                    ["--cat-from" as any]: cat.accent.from,
+                    ["--cat-to" as any]: cat.accent.to,
+                  }}
+                >
+                  {/* Gradient top accent line */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: `linear-gradient(90deg, ${cat.accent.from}, ${cat.accent.to})`,
+                    }}
+                  />
+
+                  <span className="text-2xl mb-3" aria-hidden="true">{cat.emoji}</span>
+                  <h3 className="text-sm font-bold text-[var(--c-text)] leading-tight mb-1">
+                    {cat.label}
+                  </h3>
+                  <p className="text-xs text-[var(--c-text-subtle)] line-clamp-2 leading-relaxed flex-1">
+                    {cat.description}
+                  </p>
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-[var(--c-border)]">
+                    <span
+                      className="text-xs font-bold"
+                      style={{ color: cat.accent.from }}
+                    >
+                      {cat.count} banners
+                    </span>
+                    <ArrowRight
+                      size={14}
+                      className="text-[var(--c-text-subtle)] group-hover:text-[var(--c-text)] group-hover:translate-x-0.5 transition"
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Divider ───────────────────────────────────────────────────── */}
+          <div className="mt-16 mb-12 flex items-center gap-4">
+            <div className="flex-1 h-px bg-[var(--c-border)]" />
+            <div className="px-4 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] text-xs font-bold text-[var(--c-text-subtle)] tracking-[0.15em] uppercase">
+              Branded Library
+            </div>
+            <div className="flex-1 h-px bg-[var(--c-border)]" />
+          </div>
+        </Container>
+
+        {/* ── Language tabs + sticky category nav (existing) ────────────── */}
+        <CreativesLanguageTabs
+          active={activeLang}
+          counts={langCounts}
+          total={ALL_CREATIVES.length}
+        />
+
+        <CreativesCategoryNav categories={activeCategories} />
+
+        {/* ── Branded Library grid (existing) ───────────────────────────── */}
+        <Container width="wide">
+          {activeCategories.map(cat => {
+            const items = visible.filter(c => c.categoryId === cat.id);
+            if (items.length === 0) return null;
+            const sectionPalette =
+              items[0]?.palette ?? { from: "#0891B2", via: "#22D3EE", to: "#7C3AED" };
+            return (
+              <section
+                key={cat.id}
+                className="mb-12 md:mb-16 scroll-mt-20"
+                id={cat.id}
+              >
+                <div className="flex items-end justify-between mb-5 gap-4 flex-wrap">
+                  <div>
+                    <div
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-2"
+                      style={{
+                        background: `${sectionPalette.from}15`,
+                        color: sectionPalette.from,
+                        border: `1px solid ${sectionPalette.from}30`,
+                      }}
+                    >
+                      <span>{cat.emoji}</span>
+                      <span>{cat.label}</span>
+                    </div>
+                    <Heading tier="h2">
+                      {items.length} {items.length === 1 ? "banner" : "banners"}
+                    </Heading>
+                  </div>
+                </div>
+                <CategoryGrid items={items} catLabel={cat.label} />
+              </section>
+            );
+          })}
+
+          {/* SEO footer text */}
+          <section className="mt-8 p-6 rounded-[var(--r-xl)] bg-[var(--c-surface)] border border-[var(--c-border)]">
+            <h2 className="text-base font-bold text-[var(--c-text)] mb-3">
+              About the TurboLoop Marketing Hub
+            </h2>
+            <p className="text-sm text-[var(--c-text-subtle)] leading-relaxed">
+              The TurboLoop Marketing Hub is the largest free DeFi marketing resource library, with over{" "}
+              <strong>{totalImages.toLocaleString()} free banners</strong> across 12 campaign categories and 7 languages.
+              All images are free to download and share on Telegram, WhatsApp, Twitter/X, and any social platform.
+              No account required. No attribution needed. The library covers passive income lifestyle, $TURBO tokenomics,
+              DeFi education, objection handling, regional markets (Hindi, Nigerian), success stories, buyback &amp; burn proof,
+              and more.
+            </p>
+          </section>
+        </Container>
+      </main>
+    </>
   );
 }

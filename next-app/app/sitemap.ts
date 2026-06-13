@@ -15,6 +15,7 @@ import type { MetadataRoute } from "next";
 import { fetchAllFilmSlugs } from "@lib/filmsApi";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 import { LESSONS } from "@lib/defi101";
+import { CAMPAIGN_CATEGORIES } from "@lib/campaignData";
 import {
   api,
   blogTranslationGroup,
@@ -184,5 +185,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((x): x is NonNullable<typeof x> => Boolean(x));
   } catch {}
 
-  return [...top, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels];
+  // Campaign Suite sub-pages — 12 category pages, each with 30-50 images
+  const campaignPages: MetadataRoute.Sitemap = CAMPAIGN_CATEGORIES.map(cat => ({
+    url: `${BASE}/creatives/${cat.id}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  return [...top, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels, ...campaignPages];
 }

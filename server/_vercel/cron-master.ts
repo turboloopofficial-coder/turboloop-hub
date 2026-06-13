@@ -31,6 +31,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
+import { CAMPAIGN_SLOTS, pickCampaignImage } from "./_campaignSchedule";
 import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
@@ -694,6 +695,18 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceZoomEnT0  = forceSet.has("zoom:en:T0");
     const forceZoomHiT30 = forceSet.has("zoom:hi:T30");
     const forceZoomEnT30 = forceSet.has("zoom:en:T30");
+    const forceCampaignLifestyle   = forceSet.has("campaign:lifestyle");
+    const forceCampaignToken        = forceSet.has("campaign:token");
+    const forceCampaignReferral     = forceSet.has("campaign:referral");
+    const forceCampaignObjection    = forceSet.has("campaign:objection");
+    const forceCampaignHindi        = forceSet.has("campaign:hindi");
+    const forceCampaignNigerian     = forceSet.has("campaign:nigerian");
+    const forceCampaignSuccess      = forceSet.has("campaign:success");
+    const forceCampaignEducation    = forceSet.has("campaign:education");
+    const forceCampaignUrgency      = forceSet.has("campaign:urgency");
+    const forceCampaignBuyback      = forceSet.has("campaign:buyback");
+    const forceCampaignComparison   = forceSet.has("campaign:comparison");
+    const forceCampaignCommunity    = forceSet.has("campaign:community");
 
     // ============ 0. ONE-SHOT: SITE LAUNCH ANNOUNCEMENT ============
     // Fires once when current time >= LAUNCH_FIRE_AT_UTC and within grace window,
@@ -1639,7 +1652,57 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ campaignB failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // ============ 10. OMNI-COMPOSER SCHEDULED POSTS (Automation V2) ============
+    // ============ 10. CAMPAIGN CREATIVE SLOTS — 12 hourly posts from 504-image library ============
+    // Each slot fires once per day at its UTC hour, picks today's image deterministically
+    // (dayIndex % categorySize), and posts with a unique per-image caption + live price.
+    {
+      const campaignForceMap: Record<string, boolean> = {
+        "campaign:lifestyle":   forceCampaignLifestyle,
+        "campaign:token":       forceCampaignToken,
+        "campaign:referral":    forceCampaignReferral,
+        "campaign:objection":   forceCampaignObjection,
+        "campaign:hindi":       forceCampaignHindi,
+        "campaign:nigerian":    forceCampaignNigerian,
+        "campaign:success":     forceCampaignSuccess,
+        "campaign:education":   forceCampaignEducation,
+        "campaign:urgency":     forceCampaignUrgency,
+        "campaign:buyback":     forceCampaignBuyback,
+        "campaign:comparison":  forceCampaignComparison,
+        "campaign:community":   forceCampaignCommunity,
+      };
+      for (const slot of CAMPAIGN_SLOTS) {
+        const forceSlot = campaignForceMap[slot.cronKey] ?? false;
+        try {
+          if ((isInWindow(slot.utcHour, 0) || forceSlot) && (forceSlot || !(await hasFiredToday(db, slot.cronKey)))) {
+            const dayIndex = Math.floor(Date.now() / 86400000);
+            const pick = pickCampaignImage(slot.category, dayIndex);
+            if (pick) {
+              // Fetch live price for appending (best-effort)
+              let priceTag = "";
+              try {
+                const ph = await fetch(`${BANNER_HOST}/api/token-price-history`);
+                if (ph.ok) {
+                  const phData = await ph.json() as { currentPrice?: number; priceChangeAllTime?: number };
+                  if (phData.currentPrice) {
+                    const pct = phData.priceChangeAllTime ? ` (+${phData.priceChangeAllTime.toFixed(2)}% since launch)` : "";
+                    priceTag = `\n\n💰 Current $TURBO: $${phData.currentPrice.toFixed(6)}${pct}`;
+                  }
+                }
+              } catch { /* price append is best-effort */ }
+              const caption = pick.caption + priceTag;
+              await tgBroadcastPhoto({ photoUrl: pick.url, caption, buttons: [{ text: slot.ctaText, url: slot.ctaUrl }] });
+              await markFired(db, slot.cronKey);
+              log.push(`✅ ${slot.cronKey} → ${pick.filename}`);
+            }
+          }
+        } catch (err) {
+          console.error(`[cron-master] ${slot.cronKey} failed`, err);
+          log.push(`❌ ${slot.cronKey} failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+      }
+    }
+
+    // ============ 11. OMNI-COMPOSER SCHEDULED POSTS (Automation V2) ============
     // Process anything in `scheduled_posts` with status='pending' AND
     // next_run_at <= now. Each post wraps in its own try/catch — one
     // bad post can't sink the queue or the hardcoded slots above.

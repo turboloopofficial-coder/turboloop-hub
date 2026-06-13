@@ -1,7 +1,6 @@
 // Telegram bot helper — used by all server-side automation.
-// Reads TELEGRAM_BOT_TOKEN from env. Broadcast functions send to both
-// TELEGRAM_CHANNEL and TELEGRAM_CHAT so posts land in both places directly,
-// without relying on Telegram's native channel→group auto-forward.
+// Reads TELEGRAM_BOT_TOKEN from env. Broadcast functions send to
+// TELEGRAM_CHANNEL only — channel auto-forwards to the linked group.
 
 const TG_API = "https://api.telegram.org/bot";
 
@@ -167,13 +166,11 @@ export async function tgSendMessage(token: string, msg: TgTextMessage): Promise<
   }
 }
 
-/** Broadcast a photo to the channel AND the chat group directly.
- *  Both destinations receive the post independently — no reliance on
- *  Telegram's native channel→group auto-forward. */
+/** Broadcast a photo to the channel only — channel auto-forwards to the linked group. */
 export async function tgBroadcastPhoto(msg: Omit<TgPhotoMessage, "chatId">): Promise<Array<{ chatId: string; ok: boolean; error?: string }>> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendPhoto(token, { ...msg, chatId });
@@ -182,11 +179,11 @@ export async function tgBroadcastPhoto(msg: Omit<TgPhotoMessage, "chatId">): Pro
   return results;
 }
 
-/** Broadcast a video to the channel AND the chat group directly. */
+/** Broadcast a video to the channel only — channel auto-forwards to the linked group. */
 export async function tgBroadcastVideo(msg: Omit<TgVideoMessage, "chatId">): Promise<Array<{ chatId: string; ok: boolean; error?: string }>> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendVideo(token, { ...msg, chatId });
@@ -195,11 +192,11 @@ export async function tgBroadcastVideo(msg: Omit<TgVideoMessage, "chatId">): Pro
   return results;
 }
 
-/** Broadcast a text message to the channel AND the chat group directly. */
+/** Broadcast a text message to the channel only — channel auto-forwards to the linked group. */
 export async function tgBroadcastMessage(msg: Omit<TgTextMessage, "chatId">): Promise<Array<{ chatId: string; ok: boolean; error?: string }>> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return [];
-  const dests = [process.env.TELEGRAM_CHANNEL, process.env.TELEGRAM_CHAT].filter(Boolean) as string[];
+  const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
   const results = [];
   for (const chatId of dests) {
     const r = await tgSendMessage(token, { ...msg, chatId });

@@ -33,18 +33,31 @@ async function handleRequest(request) {
     var html = await res.text();
 
     var holders = null;
-    var patterns = [
-      /Holders:\s*([\d,]+)/i,
-      /"holdersCount"\s*:\s*"?([\d,]+)"?/i,
-      /(\d[\d,]+)\s+(?:token\s+)?holders/i,
-    ];
 
-    for (var i = 0; i < patterns.length; i++) {
-      var match = html.match(patterns[i]);
-      if (match) {
-        holders = match[1].replace(/,/g, "");
-        break;
-      }
+    // Priority 1: BscScan meta description tag — most reliable, e.g.:
+    // <meta name="Description" content="Token Rep: Unknown | Holders: 437 | As at ...">
+    // <meta name="description" content="Token Rep: Unknown | Holders: 437 | As at ...">
+    var metaMatch = html.match(/Holders:\s*([\d,]+)/i);
+    if (metaMatch) {
+      holders = metaMatch[1].replace(/,/g, "");
+    }
+
+    // Priority 2: JSON-LD or data attribute patterns
+    if (!holders) {
+      var jsonMatch = html.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/i);
+      if (jsonMatch) holders = jsonMatch[1].replace(/,/g, "");
+    }
+
+    // Priority 3: Inline text patterns like "437 token holders" or "437 holders"
+    if (!holders) {
+      var inlineMatch = html.match(/(\d[\d,]+)\s+(?:token\s+)?holders/i);
+      if (inlineMatch) holders = inlineMatch[1].replace(/,/g, "");
+    }
+
+    // Priority 4: BscScan hidden input hdnTotalHolders or similar
+    if (!holders) {
+      var hdnMatch = html.match(/hdnTotalHolders[^>]*value="([\d,]+)"/i);
+      if (hdnMatch) holders = hdnMatch[1].replace(/,/g, "");
     }
 
     if (!holders) {

@@ -31,7 +31,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -1720,6 +1720,112 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       await markError(db, "omniComposer", err).catch(() => {});
       console.error("[cron-master] omniComposer queue scan failed", err);
       log.push(`❌ omniComposer queue scan failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============================================================
+    // CAMPAIGN CREATIVES — 12 hourly slots, one category per slot
+    // ============================================================
+    // Each slot pulls today's banner from R2 (rotation = daysSinceLaunch
+    // mod the category file count, so every banner fires deterministically
+    // and no two days repeat within a full cycle), picks today's caption
+    // from the matching 12-entry pool (also `pickByDay`-rotated), appends
+    // a one-line live $TURBO price + all-time change, and fans out via
+    // tgBroadcastPhoto (channel-only — the channel's native auto-forward
+    // handles the linked group).
+    //
+    // Slot picks intentionally avoid existing windows to prevent
+    // double-posts:
+    //   12:30 not 12:00 → avoids monthly:compound
+    //   13:30 not 15:00 → avoids zoom:hi T-60 (Hindi audience would see
+    //                     both the campaign and the zoom reminder back-
+    //                     to-back if they shared the 15:00 slot)
+    //   14:30 not 14:00 → avoids blog:evening
+    //   09:30 not 09:00 → avoids hubPromo
+    const daysSinceLaunch = Math.max(
+      0,
+      Math.floor(
+        (Date.now() - new Date("2026-06-01T00:00:00Z").getTime()) / 86_400_000
+      )
+    );
+
+    // Build the live-price suffix once per cron tick. If the upstream
+    // routes are flapping we just omit the line — the caption alone is
+    // still on-brand and useful.
+    let campaignPriceLine = "";
+    try {
+      const [rpc, rhc] = await Promise.all([
+        fetch("https://www.turboloop.tech/api/token-price", {
+          signal: AbortSignal.timeout(5000),
+        }).catch(() => null),
+        fetch("https://www.turboloop.tech/api/token-price-history", {
+          signal: AbortSignal.timeout(5000),
+        }).catch(() => null),
+      ]);
+      const dpc: any = rpc && rpc.ok ? await rpc.json() : null;
+      const dhc: any = rhc && rhc.ok ? await rhc.json() : null;
+      const priceStr = dpc?.priceUsd
+        ? `$${Number(dpc.priceUsd).toFixed(6)}`
+        : null;
+      const atStr =
+        dhc?.priceChangeAllTime != null
+          ? `${dhc.priceChangeAllTime >= 0 ? "+" : ""}${(dhc.priceChangeAllTime * 100).toFixed(2)}%`
+          : null;
+      if (priceStr) {
+        campaignPriceLine = `\n\n💰 <b>$TURBO:</b> ${priceStr}${atStr ? ` (<b>${atStr}</b> since launch)` : ""}`;
+      }
+    } catch {
+      // Price feeds down — fall through with no price suffix.
+    }
+
+    // Helper: each task block follows the same shape. Wrapping it
+    // keeps cron-master from ballooning by 200+ lines of repetition.
+    type CampaignSlot = {
+      hour: number;
+      minute: number;
+      taskId: string;
+      category: string;
+      captions: string[];
+    };
+    const CAMPAIGN_SLOTS: CampaignSlot[] = [
+      { hour: 1,  minute: 0,  taskId: "campaign:lifestyle",  category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 3,  minute: 0,  taskId: "campaign:education",  category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      { hour: 5,  minute: 0,  taskId: "campaign:objection",  category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      { hour: 7,  minute: 0,  taskId: "campaign:token",      category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      { hour: 9,  minute: 30, taskId: "campaign:referral",   category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 12, minute: 30, taskId: "campaign:comparison", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 13, minute: 30, taskId: "campaign:hindi",      category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 14, minute: 30, taskId: "campaign:success",    category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 21, minute: 0,  taskId: "campaign:urgency",    category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 21, minute: 30, taskId: "campaign:buyback",    category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      { hour: 23, minute: 0,  taskId: "campaign:naija",      category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      { hour: 23, minute: 30, taskId: "campaign:community",  category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+    ];
+
+    for (const slot of CAMPAIGN_SLOTS) {
+      try {
+        if (
+          !isInWindow(slot.hour, slot.minute) ||
+          (await hasFiredToday(db, slot.taskId))
+        ) {
+          continue;
+        }
+        const imgUrl = campaignBannerUrl(slot.category, daysSinceLaunch);
+        const caption =
+          pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
+        await tgBroadcastPhoto({
+          photoUrl: imgUrl,
+          caption,
+          parseMode: "HTML",
+        });
+        await markFired(db, slot.taskId);
+        log.push(`📣 ${slot.taskId} → ${slot.category}`);
+      } catch (err) {
+        await markError(db, slot.taskId, err).catch(() => {});
+        console.error(`[cron-master] ${slot.taskId} failed`, err);
+        log.push(
+          `❌ ${slot.taskId} failed: ${err instanceof Error ? err.message : String(err)}`
+        );
+      }
     }
 
     res.statusCode = 200;

@@ -172,6 +172,73 @@ export function stripMarkdown(s: string): string {
   return (s || "").replace(/\*\*/g, "").replace(/\*/g, "").trim();
 }
 
+// ─── 504 Campaign Creatives ───────────────────────────────────────
+// 12 categories living under /creatives/{category}. The 504 image
+// records themselves live in public/campaigns-manifest.json so the
+// JSON ships unchanged to the browser without bundling into the JS;
+// only the lightweight category descriptors below are imported by
+// pages.
+
+export type CampaignCategoryDef = {
+  id: string;
+  label: string;
+  emoji: string;
+  description: string;
+  /** Short SEO keywords used in <meta name="keywords"> */
+  keywords: string[];
+  /** Expected image count; cross-checked against the manifest at build. */
+  count: number;
+};
+
+export const CAMPAIGN_CATEGORIES: ReadonlyArray<CampaignCategoryDef> = [
+  { id: "lifestyle",         label: "Lifestyle & Aspiration",  emoji: "🌅", description: "Passive income lifestyle banners — beach, freedom, luxury, family.", keywords: ["passive income", "financial freedom", "lifestyle", "DeFi"], count: 50 },
+  { id: "token",             label: "$TURBO Token",            emoji: "🪙", description: "Token launch, tokenomics, supply, and $TURBO price banners.", keywords: ["TURBO token", "tokenomics", "DeFi token", "BSC"], count: 50 },
+  { id: "referral",          label: "Referral & Network",      emoji: "🔗", description: "20-level referral system, commission tables, rank progression banners.", keywords: ["referral", "network income", "20 levels", "affiliate"], count: 50 },
+  { id: "objection-handler", label: "Trust & Transparency",    emoji: "🛡️", description: "FUD-busting, smart contract proof, and objection-handling banners.", keywords: ["is it a scam", "smart contract", "DeFi trust", "transparency"], count: 50 },
+  { id: "hindi-new",         label: "India 🇮🇳",                emoji: "🇮🇳", description: "Hindi-language banners for the Indian market.", keywords: ["TurboLoop India", "DeFi India", "passive income Hindi"], count: 50 },
+  { id: "nigerian",          label: "Nigeria 🇳🇬",              emoji: "🇳🇬", description: "Nigerian-market banners in local cultural context.", keywords: ["TurboLoop Nigeria", "DeFi Nigeria", "Naija passive income"], count: 50 },
+  { id: "success-story",     label: "Success Stories",         emoji: "🏆", description: "Real member withdrawal proofs, rank achievements, and testimonials.", keywords: ["success story", "withdrawal proof", "DeFi earnings"], count: 40 },
+  { id: "education-defi",    label: "DeFi Education",          emoji: "🎓", description: "What is DeFi, smart contracts, blockchain, and yield farming explained.", keywords: ["what is DeFi", "smart contract", "blockchain education", "yield farming"], count: 40 },
+  { id: "urgency",           label: "Start Today",             emoji: "⏰", description: "FOMO and urgency banners — every day without TurboLoop is a missed opportunity.", keywords: ["start today", "passive income now", "DeFi FOMO"], count: 34 },
+  { id: "buyback",           label: "Buyback & Burn",          emoji: "🔥", description: "Daily $TURBO buyback and burn proof — deflationary mechanics.", keywords: ["buyback burn", "TURBO deflation", "token burn"], count: 30 },
+  { id: "comparison",        label: "vs Traditional Finance",  emoji: "⚖️", description: "TurboLoop vs banks, stocks, crypto, forex, and savings accounts.", keywords: ["DeFi vs banks", "TurboLoop vs crypto", "better than savings"], count: 30 },
+  { id: "community",         label: "Global Community",        emoji: "🌍", description: "TurboLoop's worldwide community, Telegram family, and global reach.", keywords: ["TurboLoop community", "global DeFi", "Telegram group"], count: 30 },
+];
+
+export const TOTAL_CAMPAIGN_BANNERS = CAMPAIGN_CATEGORIES.reduce(
+  (sum, c) => sum + c.count,
+  0
+);
+
+export function findCampaignCategory(
+  id: string
+): CampaignCategoryDef | undefined {
+  return CAMPAIGN_CATEGORIES.find(c => c.id === id);
+}
+
+export type CampaignImage = {
+  filename: string;
+  url: string;
+  alt: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  category: string;
+};
+
+export type CampaignsManifest = {
+  generatedAt: string;
+  baseUrl: string;
+  categories: Array<{
+    id: string;
+    label: string;
+    description: string;
+    keywords: string[];
+    count: number;
+    images: CampaignImage[];
+  }>;
+};
+
 /**
  * Build the full "share text" for a banner — combines headline + caption + fact
  * + hashtags into one polished message that reads well in Telegram/X/WhatsApp.

@@ -26,6 +26,8 @@ import {
   BANNER_LANGUAGES,
   isBannerLanguage,
   type BannerLanguage,
+  CAMPAIGN_CATEGORIES,
+  TOTAL_CAMPAIGN_BANNERS,
 } from "@lib/creativesData";
 
 // Per-language Metadata for the OG card. Static title/description still
@@ -76,12 +78,14 @@ const LANG_META: Partial<
 };
 
 // Numbers verified against the manifests: 175 legacy banners +
-// 455 lang-kit entries (65 × 7 languages) = 630 total. Bump these
-// constants when scripts/upload-lang-kit.mjs adds another language.
+// 455 lang-kit entries (65 × 7 languages) + 504 campaign creatives =
+// 1,134 total. Bump these constants when scripts/upload-lang-kit.mjs
+// adds another language or scripts/generate-campaigns-manifest.mjs
+// adds another category.
 const DEFAULT_TITLE =
-  "Marketing Banners — 630+ Free Designs in 7 Languages | TurboLoop";
+  "504 Free TurboLoop Marketing Creatives — DeFi Banners, Referral Graphics & Education Posters";
 const DEFAULT_DESCRIPTION =
-  "Download 630+ pre-designed marketing banners with captions. Available in English, German, Hindi, Indonesian, French, Arabic, and Spanish. Free for the TurboLoop community.";
+  "Download 504 free TurboLoop marketing banners across 12 campaign categories — passive income lifestyle, DeFi education, objection handling, referral graphics, token charts, India + Nigeria-localised — plus the original 630-banner library in 7 languages.";
 
 function ogImageUrl(lang: BannerLanguage | null): string {
   // Always hit the www host explicitly. Apex 307s to www, and some OG
@@ -166,13 +170,78 @@ export default async function CreativesPage({
     visible.some(c => c.categoryId === cat.id)
   );
 
+  // ImageGallery JSON-LD covering both the existing library and the 504
+  // campaign creatives — gives Google a single structured anchor for
+  // every banner discoverable from this page.
+  const galleryJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: "TurboLoop Marketing Creatives",
+    description:
+      "504 free DeFi marketing banners across 12 categories, plus 630+ pre-designed banners in 7 languages.",
+    numberOfItems: ALL_CREATIVES.length + TOTAL_CAMPAIGN_BANNERS,
+    url: "https://www.turboloop.tech/creatives",
+  };
+
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryJsonLd) }}
+      />
+
       <PageHero
         eyebrow="Branded Library"
         title="Premium banners. Ready to share."
         subtitle="Pre-designed images with captions, grouped by ecosystem pillar. Free to share on Telegram, X, WhatsApp — no attribution required."
       />
+
+      {/* ─── Campaign Suite (504 new creatives, 12 categories) ──── */}
+      <Container width="wide">
+        <section className="mb-12 md:mb-16">
+          <div className="flex items-end justify-between mb-5 gap-4 flex-wrap">
+            <div>
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-2"
+                style={{
+                  background: "rgba(124,58,237,0.10)",
+                  color: "#7C3AED",
+                  border: "1px solid rgba(124,58,237,0.20)",
+                }}
+              >
+                <span>✨</span>
+                <span>Campaign Suite</span>
+              </div>
+              <Heading tier="h2">
+                {TOTAL_CAMPAIGN_BANNERS} campaign creatives, 12 categories
+              </Heading>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {CAMPAIGN_CATEGORIES.map(cat => (
+              <a
+                key={cat.id}
+                href={`/creatives/${cat.id}`}
+                className="group block rounded-[var(--r-lg)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition p-4"
+              >
+                <div className="text-2xl mb-2" aria-hidden="true">
+                  {cat.emoji}
+                </div>
+                <div className="text-sm font-bold text-[var(--c-text)] mb-1 leading-snug">
+                  {cat.label}
+                </div>
+                <div className="text-[11px] text-[var(--c-text-subtle)] leading-snug line-clamp-2 mb-2">
+                  {cat.description}
+                </div>
+                <div className="text-[11px] font-bold text-[var(--c-brand-cyan)]">
+                  {cat.count} banners →
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      </Container>
 
       <CreativesLanguageTabs
         active={activeLang}

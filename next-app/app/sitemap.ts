@@ -15,6 +15,7 @@ import type { MetadataRoute } from "next";
 import { fetchAllFilmSlugs } from "@lib/filmsApi";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 import { LESSONS } from "@lib/defi101";
+import { CAMPAIGN_CATEGORIES } from "@lib/creativesData";
 import {
   api,
   blogTranslationGroup,
@@ -118,6 +119,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
+  // /creatives/[category] — 12 pre-rendered sub-pages, one per
+  // CAMPAIGN_CATEGORIES entry. Higher priority than blog leaf pages
+  // because each surfaces 30-50 downloadable brand assets.
+  const campaignPages: MetadataRoute.Sitemap = CAMPAIGN_CATEGORIES.map(cat => ({
+    url: `${BASE}/creatives/${cat.id}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   // Blog posts (build-time fetch from legacy API; if it fails, just skip).
   //
   // Hreflang annotations: each entry's `alternates.languages` map lists
@@ -184,5 +195,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((x): x is NonNullable<typeof x> => Boolean(x));
   } catch {}
 
-  return [...top, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels];
+  return [
+    ...top,
+    ...films,
+    ...pillars,
+    ...lessons,
+    ...comparisons,
+    ...campaignPages,
+    ...blog,
+    ...reels,
+  ];
 }

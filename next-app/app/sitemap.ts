@@ -119,16 +119,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  // /creatives/[category] — 12 pre-rendered sub-pages, one per
-  // CAMPAIGN_CATEGORIES entry. Higher priority than blog leaf pages
-  // because each surfaces 30-50 downloadable brand assets.
-  const campaignPages: MetadataRoute.Sitemap = CAMPAIGN_CATEGORIES.map(cat => ({
-    url: `${BASE}/creatives/${cat.id}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
   // Blog posts (build-time fetch from legacy API; if it fails, just skip).
   //
   // Hreflang annotations: each entry's `alternates.languages` map lists

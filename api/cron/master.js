@@ -77214,6 +77214,8 @@ async function handler(req, res) {
     const forceCampaignBuyback = forceSet.has("campaign:buyback");
     const forceCampaignComparison = forceSet.has("campaign:comparison");
     const forceCampaignCommunity = forceSet.has("campaign:community");
+    const forceCreativesPromoA = forceSet.has("creatives:promo:A");
+    const forceCreativesPromoB = forceSet.has("creatives:promo:B");
     try {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = /* @__PURE__ */ new Date();
@@ -78110,6 +78112,121 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       });
       console.error("[cron-master] task events:promo failed", err);
       log.push(`\u274C events:promo failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    const CREATIVES_PROMO_CAPTIONS = [
+      // Day 1 — Discovery
+      `\u{1F3A8} <b>1,134+ free marketing banners. Right now.</b>
+
+Every category. Every language. Every format.
+Lifestyle. Token. Referral. Objection-handler. Success stories. And more.
+
+Download any banner in one tap \u2014 no login, no design skills needed.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #MarketingKit #FreeResources #DeFiMarketing`,
+      // Day 2 — Community empowerment
+      `\u{1F680} <b>Your community is your marketing team.</b>
+
+Give them the tools to spread the word.
+TurboLoop's free creatives library has 1,134+ banners across 28 categories \u2014 ready to share on Telegram, WhatsApp, Instagram, and everywhere else.
+
+No watermarks. No fees. Just results.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #CommunityGrowth #ShareAndEarn #DeFi`,
+      // Day 3 — Category spotlight
+      `\u{1F4C2} <b>28 categories. One place.</b>
+
+Lifestyle \u2726 Token \u2726 Referral \u2726 Objection Handler
+Success Stories \u2726 Education \u2726 Urgency \u2726 Buyback
+Comparison \u2726 Community \u2726 Hindi \u2726 Nigerian
+
+Every banner is premium, on-brand, and ready to post.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #MarketingBanners #FreeKit #BSC`,
+      // Day 4 — Share-ready
+      `\u{1F4F2} <b>Download. Share. Done.</b>
+
+No Canva. No Photoshop. No waiting.
+Pick a banner, tap download, post it.
+Every image is sized perfectly for Telegram and WhatsApp.
+
+The fastest way to market TurboLoop to your network.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #EasyMarketing #ShareToEarn #DeFiTools`,
+      // Day 5 — Languages
+      `\u{1F30D} <b>7 languages. One brand.</b>
+
+English. Hindi. Yoruba. Igbo. Hausa. And more.
+TurboLoop's creatives library speaks your community's language \u2014 so your message lands every time.
+
+Browse by language or category and find the perfect banner in seconds.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #MultiLanguage #GlobalDeFi #MarketingKit`,
+      // Day 6 — FOMO / urgency
+      `\u26A1 <b>Every post you don't share is a missed invite.</b>
+
+Your network is growing. Or someone else's is.
+TurboLoop's free banner library makes it effortless to stay visible, stay relevant, and keep your referral pipeline full.
+
+1,134+ banners. Zero excuses.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #ReferralMarketing #DeFiGrowth #TakeAction`,
+      // Day 7 — Social proof
+      `\u{1F3C6} <b>The banners your top referrers use \u2014 now available to everyone.</b>
+
+Premium marketing materials used to be reserved for the top of the network.
+Not anymore. TurboLoop's entire creative library is free, open, and updated regularly.
+
+Browse 28 categories. Download anything. Share everywhere.
+
+\u{1F449} <b>https://turboloop.tech/creatives</b>
+
+#TurboLoop #LevelUp #FreeMarketing #DeFiCommunity`
+    ];
+    try {
+      if ((forceCreativesPromoA || isInWindow(7, 30) || isMissedToday(7, 30, 90)) && (forceCreativesPromoA || !await hasFiredToday(db, "creatives:promo:A"))) {
+        const caption = pickByDay(CREATIVES_PROMO_CAPTIONS, daysSinceLaunch);
+        await tgBroadcastMessage({
+          text: caption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F3A8} Browse Free Banners", url: "https://turboloop.tech/creatives" }]
+        });
+        await markFired(db, "creatives:promo:A");
+        log.push("\u{1F3A8} creatives:promo:A fired");
+      }
+    } catch (err) {
+      await markError(db, "creatives:promo:A", err).catch(() => {
+      });
+      console.error("[cron-master] creatives:promo:A failed", err);
+      log.push(`\u274C creatives:promo:A failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((forceCreativesPromoB || isInWindow(20, 30) || isMissedToday(20, 30, 90)) && (forceCreativesPromoB || !await hasFiredToday(db, "creatives:promo:B"))) {
+        const caption = pickByDay(CREATIVES_PROMO_CAPTIONS, daysSinceLaunch + 1);
+        await tgBroadcastMessage({
+          text: caption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F3A8} Browse Free Banners", url: "https://turboloop.tech/creatives" }]
+        });
+        await markFired(db, "creatives:promo:B");
+        log.push("\u{1F3A8} creatives:promo:B fired");
+      }
+    } catch (err) {
+      await markError(db, "creatives:promo:B", err).catch(() => {
+      });
+      console.error("[cron-master] creatives:promo:B failed", err);
+      log.push(`\u274C creatives:promo:B failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
       if ((isInWindow(10, 0) || forceCampaignA) && !await hasFiredToday(db, "campaignA")) {

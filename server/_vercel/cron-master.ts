@@ -721,7 +721,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceCampaignUrgency      = forceSet.has("campaign:urgency");
     const forceCampaignBuyback      = forceSet.has("campaign:buyback");
     const forceCampaignComparison   = forceSet.has("campaign:comparison");
-    const forceCampaignCommunity    = forceSet.has("campaign:community");
+    const forceCampaignCommunity   = forceSet.has("campaign:community");
+    const forceCreativesPromoA      = forceSet.has("creatives:promo:A");
+    const forceCreativesPromoB      = forceSet.has("creatives:promo:B");
 
     // ============ 0. ONE-SHOT: SITE LAUNCH ANNOUNCEMENT ============
     // Fires once when current time >= LAUNCH_FIRE_AT_UTC and within grace window,
@@ -1570,6 +1572,70 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ════════════════════════════════════════════════════════════════
     //  End of expanded schedule. Existing slots resume below.
     // ════════════════════════════════════════════════════════════════
+
+    // ════════════════════════════════════════════════════════════════
+    //  CREATIVES PAGE PROMO — 07:30 UTC (Slot A) + 20:30 UTC (Slot B)
+    //  7 rotating captions drive community to turboloop.tech/creatives
+    // ════════════════════════════════════════════════════════════════
+    const CREATIVES_PROMO_CAPTIONS = [
+      // Day 1 — Discovery
+      `🎨 <b>1,134+ free marketing banners. Right now.</b>\n\nEvery category. Every language. Every format.\nLifestyle. Token. Referral. Objection-handler. Success stories. And more.\n\nDownload any banner in one tap — no login, no design skills needed.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #MarketingKit #FreeResources #DeFiMarketing`,
+
+      // Day 2 — Community empowerment
+      `🚀 <b>Your community is your marketing team.</b>\n\nGive them the tools to spread the word.\nTurboLoop's free creatives library has 1,134+ banners across 28 categories — ready to share on Telegram, WhatsApp, Instagram, and everywhere else.\n\nNo watermarks. No fees. Just results.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #CommunityGrowth #ShareAndEarn #DeFi`,
+
+      // Day 3 — Category spotlight
+      `📂 <b>28 categories. One place.</b>\n\nLifestyle ✦ Token ✦ Referral ✦ Objection Handler\nSuccess Stories ✦ Education ✦ Urgency ✦ Buyback\nComparison ✦ Community ✦ Hindi ✦ Nigerian\n\nEvery banner is premium, on-brand, and ready to post.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #MarketingBanners #FreeKit #BSC`,
+
+      // Day 4 — Share-ready
+      `📲 <b>Download. Share. Done.</b>\n\nNo Canva. No Photoshop. No waiting.\nPick a banner, tap download, post it.\nEvery image is sized perfectly for Telegram and WhatsApp.\n\nThe fastest way to market TurboLoop to your network.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #EasyMarketing #ShareToEarn #DeFiTools`,
+
+      // Day 5 — Languages
+      `🌍 <b>7 languages. One brand.</b>\n\nEnglish. Hindi. Yoruba. Igbo. Hausa. And more.\nTurboLoop's creatives library speaks your community's language — so your message lands every time.\n\nBrowse by language or category and find the perfect banner in seconds.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #MultiLanguage #GlobalDeFi #MarketingKit`,
+
+      // Day 6 — FOMO / urgency
+      `⚡ <b>Every post you don't share is a missed invite.</b>\n\nYour network is growing. Or someone else's is.\nTurboLoop's free banner library makes it effortless to stay visible, stay relevant, and keep your referral pipeline full.\n\n1,134+ banners. Zero excuses.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #ReferralMarketing #DeFiGrowth #TakeAction`,
+
+      // Day 7 — Social proof
+      `🏆 <b>The banners your top referrers use — now available to everyone.</b>\n\nPremium marketing materials used to be reserved for the top of the network.\nNot anymore. TurboLoop's entire creative library is free, open, and updated regularly.\n\nBrowse 28 categories. Download anything. Share everywhere.\n\n👉 <b>https://turboloop.tech/creatives</b>\n\n#TurboLoop #LevelUp #FreeMarketing #DeFiCommunity`,
+    ];
+
+    // Slot A — 07:30 UTC (India 1:00 PM, Europe morning)
+    try {
+      if (
+        (forceCreativesPromoA || isInWindow(7, 30) || isMissedToday(7, 30, 90)) &&
+        (forceCreativesPromoA || !(await hasFiredToday(db, "creatives:promo:A")))
+      ) {
+        const caption = pickByDay(CREATIVES_PROMO_CAPTIONS, daysSinceLaunch);
+        await tgBroadcastMessage({ text: caption, parseMode: "HTML",
+          buttons: [{ text: "🎨 Browse Free Banners", url: "https://turboloop.tech/creatives" }] });
+        await markFired(db, "creatives:promo:A");
+        log.push("🎨 creatives:promo:A fired");
+      }
+    } catch (err) {
+      await markError(db, "creatives:promo:A", err).catch(() => {});
+      console.error("[cron-master] creatives:promo:A failed", err);
+      log.push(`❌ creatives:promo:A failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // Slot B — 20:30 UTC (India 2:00 AM IST+1, Americas afternoon)
+    try {
+      if (
+        (forceCreativesPromoB || isInWindow(20, 30) || isMissedToday(20, 30, 90)) &&
+        (forceCreativesPromoB || !(await hasFiredToday(db, "creatives:promo:B")))
+      ) {
+        // Offset by 1 day so Slot B caption is always different from Slot A on the same day
+        const caption = pickByDay(CREATIVES_PROMO_CAPTIONS, daysSinceLaunch + 1);
+        await tgBroadcastMessage({ text: caption, parseMode: "HTML",
+          buttons: [{ text: "🎨 Browse Free Banners", url: "https://turboloop.tech/creatives" }] });
+        await markFired(db, "creatives:promo:B");
+        log.push("🎨 creatives:promo:B fired");
+      }
+    } catch (err) {
+      await markError(db, "creatives:promo:B", err).catch(() => {});
+      console.error("[cron-master] creatives:promo:B failed", err);
+      log.push(`❌ creatives:promo:B failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
 
     // ============ 7. CAMPAIGN A — events page promo, 10:00 UTC every 2 days ============
     // Picks today's scheduled A1–A8 post by exact date match (each post

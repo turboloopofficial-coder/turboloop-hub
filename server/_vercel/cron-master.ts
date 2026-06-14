@@ -937,9 +937,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // HI T-10: 15:50 UTC
+    // HI T-15: 15:45 UTC (15 minutes before 16:00 UTC call)
     try {
-      if ((isInWindow(15, 50) || isMissedToday(15, 50) || forceZoomHiT10) && (forceZoomHiT10 || !(await hasFiredToday(db, "zoom:hi:T10")))) {
+      if ((isInWindow(15, 45) || isMissedToday(15, 45) || forceZoomHiT10) && (forceZoomHiT10 || !(await hasFiredToday(db, "zoom:hi:T10")))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T10");

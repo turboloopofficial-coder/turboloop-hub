@@ -473,21 +473,21 @@ Sawaal, strategy, security — sab kuch apni zubaan mein. Ek ghante mein milte h
 
 // ── Hindi T-10 pool ────────────────────────────────────────────────────────
 const HI_T10 = [
-  `<b>Hindi/Urdu Daily Call — sirf 10 minute.</b>
+  `<b>Hindi/Urdu Daily Call — sirf 15 minute.</b>
 
-Room 10 minute mein khulega. Abhi join karne ki tayaari karo.
-
-🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
-
-  `<b>10 minute baad — Hindi/Urdu Zoom.</b>
-
-Aakhri reminder. 10 minute mein live ho raha hai. Aao.
+Room 15 minute mein khulega. Abhi join karne ki tayaari karo.
 
 🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
 
-  `<b>Hindi/Urdu Call — 10 min mein shuru.</b>
+  `<b>15 minute baad — Hindi/Urdu Zoom.</b>
 
-Ab waqt aa gaya. 10 minute mein room open hoga.`,
+Aakhri reminder. 15 minute mein live ho raha hai. Aao.
+
+🇮🇳 India · 🇵🇰 Pakistan · 🇧🇩 Bangladesh · 🇳🇵 Nepal · 🇦🇪 Dubai`,
+
+  `<b>Hindi/Urdu Call — 15 min mein shuru.</b>
+
+Ab waqt aa gaya. 15 minute mein room open hoga.`,
 ];
 
 // ── Hindi T-0 LIVE pool ───────────────────────────────────────────────────

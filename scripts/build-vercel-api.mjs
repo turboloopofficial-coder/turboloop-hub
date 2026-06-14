@@ -69,6 +69,7 @@ for (const b of bundles) {
     target: "node20",
     outfile: b.out,
     logLevel: "warning",
+    external: ["@resvg/resvg-wasm"],
   });
   const stats = fs.statSync(b.out);
   console.log(`  ✓ ${b.label}: ${path.relative(projectRoot, b.out)} (${(stats.size / 1024).toFixed(1)} KB)`);

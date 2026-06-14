@@ -1,16 +1,20 @@
 "use client";
 // ShareModal — premium share experience for TurboLoop creatives.
 //
+// Fixes applied:
+//   1. Regenerate always sends categoryId/categoryLabel/title — context never lost
+//   2. handleShare includes `text: selectedText` in the Web Share API call
+//   3. Image is compressed to ≤2MB JPEG via canvas before sharing (social-safe)
+//
 // Features:
 //   • Referral username/link field (persisted in localStorage)
 //   • 3 AI-generated share text options (Claude Haiku)
-//   • Regenerate button (re-calls AI with a new seed)
+//   • Regenerate button (re-calls AI with a new seed, keeps category)
 //   • Select an option → Share button activates
-//   • Share: Web Share API (includes image file on mobile) → clipboard fallback
-//   • Download: fetches blob and triggers browser download
+//   • Share: Web Share API with text + compressed image file → clipboard fallback
+//   • Download: fetches original blob and triggers browser download
 //   • Copy text: copies selected option to clipboard
 //   • Bottom sheet on mobile, centered modal on desktop
-//   • Fully accessible (focus trap, ESC to close, ARIA labels)
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
@@ -34,13 +38,77 @@ interface ShareModalProps {
 }
 
 const REF_STORAGE_KEY = "tl_referral_username";
+// Max image size for social media sharing (2MB is safe for WhatsApp/Telegram/Instagram)
+const MAX_SHARE_BYTES = 2 * 1024 * 1024;
 
 function buildRefLink(username: string): string {
   const u = username.trim();
   if (!u) return "https://turboloop.io";
-  // Accept full URL or just username
   if (u.startsWith("https://turboloop.io")) return u;
   return `https://turboloop.io?ref=${u}`;
+}
+
+/**
+ * Compress an image blob to a JPEG ≤ maxBytes using canvas.
+ * Tries quality 0.85 → 0.7 → 0.5 → 0.35 until under limit.
+ * Returns a File ready for Web Share API.
+ */
+async function compressImageForShare(
+  blob: Blob,
+  fileName: string,
+  maxBytes: number
+): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const img = new window.Image();
+    const objectUrl = URL.createObjectURL(blob);
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      const canvas = document.createElement("canvas");
+      // Cap dimensions at 1200px on the longest side (social-safe)
+      const MAX_DIM = 1200;
+      let { width, height } = img;
+      if (width > MAX_DIM || height > MAX_DIM) {
+        if (width >= height) {
+          height = Math.round((height / width) * MAX_DIM);
+          width = MAX_DIM;
+        } else {
+          width = Math.round((width / height) * MAX_DIM);
+          height = MAX_DIM;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) { reject(new Error("No canvas context")); return; }
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const qualities = [0.85, 0.70, 0.50, 0.35];
+      let attempt = 0;
+
+      const tryQuality = () => {
+        const q = qualities[attempt] ?? 0.35;
+        canvas.toBlob(
+          (compressed) => {
+            if (!compressed) { reject(new Error("Canvas toBlob failed")); return; }
+            if (compressed.size <= maxBytes || attempt >= qualities.length - 1) {
+              resolve(new File([compressed], fileName, { type: "image/jpeg" }));
+            } else {
+              attempt++;
+              tryQuality();
+            }
+          },
+          "image/jpeg",
+          q
+        );
+      };
+      tryQuality();
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Image load failed"));
+    };
+    img.src = objectUrl;
+  });
 }
 
 export function ShareModal({ item, onClose }: ShareModalProps) {
@@ -66,6 +134,8 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
   }, []);
 
   // ── Fetch AI share text options ───────────────────────────────────────────
+  // FIX 1: Always pass item.categoryId, item.categoryLabel, item.title explicitly
+  // so regenerate never loses category context.
   const fetchOptions = useCallback(async (username: string, currentSeed: number) => {
     setLoading(true);
     setError(null);
@@ -75,41 +145,46 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          categoryId: item.categoryId,
-          categoryLabel: item.categoryLabel,
-          title: item.title,
+          categoryId: item.categoryId,       // always from item prop — never stale
+          categoryLabel: item.categoryLabel, // always from item prop
+          title: item.title,                 // always from item prop
           referralUsername: username.trim() || undefined,
           seed: currentSeed,
         }),
       });
-      if (!res.ok) throw new Error("API error");
+      if (!res.ok) throw new Error(`API error ${res.status}`);
       const data = await res.json() as { options: [string, string, string] };
+      if (!Array.isArray(data.options) || data.options.length < 3) {
+        throw new Error("Invalid response shape");
+      }
       setOptions(data.options);
-    } catch {
+      setSelectedIdx(0); // auto-select first option so Share is always active
+    } catch (err) {
+      console.error("[ShareModal] fetchOptions failed:", err);
       setError("Couldn't generate options. Using defaults.");
-      // Provide basic fallback
       const link = buildRefLink(username);
       setOptions([
         `TurboLoop delivers daily passive income backed by real protocol fees. Join the community today.\n\n👉 ${link}`,
         `Real yield. On-chain proof. Daily passive income. That's TurboLoop — DeFi done right.\n\n👉 ${link}`,
         `Your path to financial freedom starts with TurboLoop. Daily passive income, 20-level referrals, and full transparency.\n\n👉 ${link}`,
       ]);
+      setSelectedIdx(0); // auto-select first fallback option too
     } finally {
       setLoading(false);
     }
-  }, [item]);
+  }, [item.categoryId, item.categoryLabel, item.title]); // stable deps — item fields only
 
   // ── Auto-fetch on mount ───────────────────────────────────────────────────
   useEffect(() => {
-    fetchOptions(refInput, seed);
+    // Use the restored refInput from localStorage (or empty string on first render)
+    const saved = (() => { try { return localStorage.getItem(REF_STORAGE_KEY) ?? ""; } catch { return ""; } })();
+    fetchOptions(saved, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── ESC to close ─────────────────────────────────────────────────────────
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
@@ -129,7 +204,7 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
   const handleRegenerate = () => {
     const nextSeed = seed + 1;
     setSeed(nextSeed);
-    fetchOptions(refInput, nextSeed);
+    fetchOptions(refInput, nextSeed); // FIX 1: passes current refInput + new seed
   };
 
   const handleApplyRef = () => {
@@ -172,35 +247,45 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
     if (!selectedText || sharing) return;
     setSharing(true);
     try {
-      // Try to fetch the image as a File for native share (mobile)
-      let files: File[] | undefined;
-      try {
-        const res = await fetch(item.url);
-        const blob = await res.blob();
-        const ext = item.url.split(".").pop()?.split("?")[0] ?? "png";
-        const fileName = `turboloop-${item.id.replace(/[^a-z0-9-]/gi, "-").toLowerCase()}.${ext}`;
-        const file = new File([blob], fileName, { type: blob.type });
-        if (navigator.canShare?.({ files: [file] })) {
-          files = [file];
-        }
-      } catch {
-        // Image fetch failed — share without file
-      }
-
       if (navigator.share) {
+        // FIX 3: Compress image to ≤2MB before sharing
+        let file: File | undefined;
+        try {
+          const res = await fetch(item.url);
+          const blob = await res.blob();
+          const ext = item.url.split(".").pop()?.split("?")[0] ?? "jpg";
+          const baseName = `turboloop-${item.id.replace(/[^a-z0-9-]/gi, "-").toLowerCase()}`;
+          const fileName = `${baseName}.jpg`; // always JPEG after compression
+
+          // If original is already small enough, use it directly; otherwise compress
+          let shareFile: File;
+          if (blob.size <= MAX_SHARE_BYTES && (ext === "jpg" || ext === "jpeg")) {
+            shareFile = new File([blob], `${baseName}.${ext}`, { type: blob.type });
+          } else {
+            shareFile = await compressImageForShare(blob, fileName, MAX_SHARE_BYTES);
+          }
+
+          if (navigator.canShare?.({ files: [shareFile] })) {
+            file = shareFile;
+          }
+        } catch {
+          // Image processing failed — share text only
+        }
+
+        // FIX 2: Always include `text: selectedText` in the share payload
         const shareData: ShareData = {
           text: selectedText,
-          ...(files ? { files } : {}),
+          ...(file ? { files: [file] } : {}),
         };
         await navigator.share(shareData);
       } else {
-        // Desktop fallback: copy to clipboard
+        // Desktop: copy text to clipboard as fallback
         await navigator.clipboard.writeText(selectedText).catch(() => {});
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);
       }
     } catch {
-      // User cancelled or share failed — silently ignore
+      // User cancelled or share API unavailable — silently ignore
     } finally {
       setSharing(false);
     }
@@ -395,7 +480,7 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
 
         {/* ── Action bar (sticky bottom) ───────────────────────────────────── */}
         <div className="flex-shrink-0 px-5 py-4 border-t border-[var(--c-border)] space-y-2.5 bg-[var(--c-surface)]">
-          {/* Primary: Share (with image) */}
+          {/* Primary: Share (with image + text) */}
           <button
             onClick={handleShare}
             type="button"
@@ -409,7 +494,7 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
             }}
           >
             <Share2 size={15} className={sharing ? "animate-pulse" : ""} />
-            {sharing ? "Sharing…" : selectedText ? "Share with image" : "Select a text to share"}
+            {sharing ? "Preparing…" : selectedText ? "Share with image" : "Select a text to share"}
           </button>
 
           {/* Secondary row: Copy + Download */}

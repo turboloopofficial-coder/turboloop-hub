@@ -141,11 +141,27 @@ Rules:
 - Never say "not financial advice"
 - Make it feel premium, confident, and community-driven`;
 
-    const userPrompt = `Generate exactly 3 unique share text options for this TurboLoop marketing banner:
+    // Use seed to rotate tone angles — never expose raw seed to the model
+    // as it causes topic drift. Instead map seed → tone instruction.
+    const TONE_SETS = [
+      "Use angles: curiosity, aspiration, and social proof",
+      "Use angles: urgency, community belonging, and financial empowerment",
+      "Use angles: sceptic-to-believer, transparency, and simplicity",
+      "Use angles: lifestyle upgrade, passive income freedom, and network effect",
+      "Use angles: bold confidence, on-chain proof, and FOMO",
+      "Use angles: storytelling, daily habit, and long-term wealth",
+      "Use angles: comparison to traditional finance, DeFi education, and trust",
+    ];
+    const toneInstruction = TONE_SETS[seed % TONE_SETS.length];
+
+    const userPrompt = `Generate exactly 3 unique share text options for this TurboLoop marketing banner.
+
+IMPORTANT: ALL 3 options MUST be specifically about the "${categoryLabel ?? categoryId}" category. Do NOT write about other TurboLoop features unless they directly relate to this category.
+
 Category: ${categoryLabel ?? categoryId}
 Banner title: ${title ?? categoryLabel ?? categoryId}
 Referral link to include: ${refLink}
-Seed (for variety): ${seed}
+Tone variation: ${toneInstruction}
 
 Return ONLY a JSON object in this exact format, no other text:
 {"options":["option1 text here","option2 text here","option3 text here"]}`;

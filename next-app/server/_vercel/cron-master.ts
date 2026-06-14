@@ -1794,12 +1794,26 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       const priceStr = dpc?.priceUsd
         ? `$${Number(dpc.priceUsd).toFixed(6)}`
         : null;
+      // 24h change — from token-price endpoint (priceChange24h is a decimal, e.g. 0.1791 = +17.91%)
+      const change24h: number | null = dpc?.priceChange24h != null ? Number(dpc.priceChange24h) : null;
+      const change24hStr = change24h != null
+        ? `${change24h >= 0 ? "📈" : "📉"} 24h: <b>${change24h >= 0 ? "+" : ""}${(change24h * 100).toFixed(2)}%</b>`
+        : null;
+      // 7d change — from token-price-history endpoint (priceChange7d is a decimal)
+      const change7d: number | null = dhc?.priceChange7d != null ? Number(dhc.priceChange7d) : null;
+      const change7dStr = change7d != null
+        ? `📅 7d: <b>${change7d >= 0 ? "+" : ""}${(change7d * 100).toFixed(2)}%</b>`
+        : null;
+      // All-time change
       const atStr =
         dhc?.priceChangeAllTime != null
           ? `${dhc.priceChangeAllTime >= 0 ? "+" : ""}${(dhc.priceChangeAllTime * 100).toFixed(2)}%`
           : null;
       if (priceStr) {
-        campaignPriceLine = `\n\n💰 <b>$TURBO:</b> ${priceStr}${atStr ? ` (<b>${atStr}</b> since launch)` : ""}`;
+        const changeParts = [change24hStr, change7dStr].filter(Boolean).join("  ");
+        campaignPriceLine =
+          `\n\n💰 <b>$TURBO:</b> ${priceStr}${atStr ? ` (<b>${atStr}</b> since launch)` : ""}` +
+          (changeParts ? `\n${changeParts}` : "");
       }
     } catch {
       // Price feeds down — fall through with no price suffix.

@@ -78252,11 +78252,17 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
       const dpc = rpc && rpc.ok ? await rpc.json() : null;
       const dhc = rhc && rhc.ok ? await rhc.json() : null;
       const priceStr = dpc?.priceUsd ? `$${Number(dpc.priceUsd).toFixed(6)}` : null;
+      const change24h = dpc?.priceChange24h != null ? Number(dpc.priceChange24h) : null;
+      const change24hStr = change24h != null ? `${change24h >= 0 ? "\u{1F4C8}" : "\u{1F4C9}"} 24h: <b>${change24h >= 0 ? "+" : ""}${(change24h * 100).toFixed(2)}%</b>` : null;
+      const change7d = dhc?.priceChange7d != null ? Number(dhc.priceChange7d) : null;
+      const change7dStr = change7d != null ? `\u{1F4C5} 7d: <b>${change7d >= 0 ? "+" : ""}${(change7d * 100).toFixed(2)}%</b>` : null;
       const atStr = dhc?.priceChangeAllTime != null ? `${dhc.priceChangeAllTime >= 0 ? "+" : ""}${(dhc.priceChangeAllTime * 100).toFixed(2)}%` : null;
       if (priceStr) {
+        const changeParts = [change24hStr, change7dStr].filter(Boolean).join("  ");
         campaignPriceLine = `
 
-\u{1F4B0} <b>$TURBO:</b> ${priceStr}${atStr ? ` (<b>${atStr}</b> since launch)` : ""}`;
+\u{1F4B0} <b>$TURBO:</b> ${priceStr}${atStr ? ` (<b>${atStr}</b> since launch)` : ""}` + (changeParts ? `
+${changeParts}` : "");
       }
     } catch {
     }

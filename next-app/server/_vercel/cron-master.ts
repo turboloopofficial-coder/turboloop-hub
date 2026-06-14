@@ -1991,7 +1991,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           continue;
         }
         const imgUrl  = campaignBannerUrl(slot.category, daysSinceLaunch);
-        const caption = pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
+        // Price line only on token posts — other categories don't need it
+        const priceSuffix = slot.category === "token" ? campaignPriceLine : "";
+        const caption = pickByDay(slot.captions, daysSinceLaunch) + priceSuffix;
         const { delivered, channels, failed } =
           await sendCampaignWithVerification(slot.taskId, imgUrl, caption);
         // Only mark fired if at least one channel received the post

@@ -78395,7 +78395,8 @@ ${changeParts}` : "");
           continue;
         }
         const imgUrl = campaignBannerUrl(slot.category, daysSinceLaunch);
-        const caption = pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
+        const priceSuffix = slot.category === "token" ? campaignPriceLine : "";
+        const caption = pickByDay(slot.captions, daysSinceLaunch) + priceSuffix;
         const { delivered, channels, failed } = await sendCampaignWithVerification(slot.taskId, imgUrl, caption);
         await markFired(db, slot.taskId);
         log.push(`\u{1F4E3} ${slot.taskId} \u2192 ${slot.category} (\u2705 ${delivered}/${channels} channels)`);

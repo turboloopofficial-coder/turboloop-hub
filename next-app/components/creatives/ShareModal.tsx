@@ -121,6 +121,7 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
   const [seed, setSeed] = useState(0);
   const [copied, setCopied] = useState(false);
   const [textCopiedForShare, setTextCopiedForShare] = useState(false);
+  const [desktopShareMode, setDesktopShareMode] = useState(false); // desktop: show copy panel
   const [downloading, setDownloading] = useState(false);
   const [sharing, setSharing] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -290,10 +291,8 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
         setTextCopiedForShare(true);
         setTimeout(() => setTextCopiedForShare(false), 4000);
       } else {
-        // Desktop: copy text to clipboard as fallback
-        await navigator.clipboard.writeText(selectedText).catch(() => {});
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
+        // Desktop: no native share sheet — show the desktop share panel
+        setDesktopShareMode(true);
       }
     } catch {
       // User cancelled or share API unavailable — silently ignore
@@ -491,11 +490,66 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
 
         {/* ── Action bar (sticky bottom) ───────────────────────────────────── */}
         <div className="flex-shrink-0 px-5 py-4 border-t border-[var(--c-border)] space-y-2.5 bg-[var(--c-surface)]">
-          {/* Toast: text copied for share */}
+          {/* Toast: text copied for share (mobile) */}
           {textCopiedForShare && (
             <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
               <Check size={13} />
               <span>Caption copied to clipboard — paste it after sharing the image!</span>
+            </div>
+          )}
+
+          {/* Desktop share panel — shown when native share sheet is unavailable */}
+          {desktopShareMode && selectedText && (
+            <div className="rounded-xl border border-[var(--c-border)] bg-[var(--c-bg)] p-3.5 space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--c-text-subtle)]">
+                  Your caption is ready
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setDesktopShareMode(false)}
+                  className="text-[var(--c-text-subtle)] hover:text-[var(--c-text)] transition"
+                  aria-label="Close share panel"
+                >
+                  <X size={13} />
+                </button>
+              </div>
+              {/* Caption text box */}
+              <div
+                className="rounded-lg border border-[var(--c-border)] p-3 text-xs text-[var(--c-text)] leading-relaxed whitespace-pre-wrap select-all max-h-32 overflow-y-auto"
+                style={{ background: `${item.accent.from}08` }}
+              >
+                {selectedText}
+              </div>
+              {/* Action row */}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(selectedText).catch(() => {});
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2500);
+                  }}
+                  className="flex-1 flex items-center justify-center gap-1.5 h-9 rounded-lg text-xs font-bold transition-all active:scale-95"
+                  style={{
+                    background: `linear-gradient(135deg, ${item.accent.from}, ${item.accent.to})`,
+                    color: "white",
+                    boxShadow: `0 2px 10px ${item.accent.from}40`,
+                  }}
+                >
+                  {copied ? <Check size={12} /> : <Copy size={12} />}
+                  {copied ? "Copied!" : "Copy caption"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  disabled={downloading}
+                  className="flex items-center justify-center gap-1.5 px-3 h-9 rounded-lg text-xs font-semibold border border-[var(--c-border)] bg-[var(--c-bg)] text-[var(--c-text)] hover:border-[var(--c-brand-cyan)] hover:text-[var(--c-brand-cyan)] transition disabled:opacity-40"
+                >
+                  <Download size={12} className={downloading ? "animate-bounce" : ""} />
+                  {downloading ? "Saving…" : "Download image"}
+                </button>
+              </div>
             </div>
           )}
           {/* Primary: Share (with image + text) */}

@@ -77057,6 +77057,16 @@ async function sendZoomReminder(lang, tier, meetingLink, passcode, timeLabel) {
 async function handler(req, res) {
   const log = [];
   res.setHeader("Content-Type", "application/json");
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret) {
+    const authHeader = req.headers["authorization"] || "";
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+    if (token !== cronSecret) {
+      res.statusCode = 401;
+      res.end(JSON.stringify({ ok: false, error: "Unauthorized" }));
+      return;
+    }
+  }
   try {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) throw new Error("DATABASE_URL missing");

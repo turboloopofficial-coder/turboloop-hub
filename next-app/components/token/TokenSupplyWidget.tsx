@@ -123,11 +123,11 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
 
   return (
     <section
-      className={`rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
+      className={`rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-4 sm:p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
       aria-label="$TURBO supply"
     >
-      {/* 4-column supply grid — unchanged layout */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+      {/* 2-col on mobile → 4-col on md+ */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
         <SupplyCell
           label="Circulating Supply"
           value={circulating}
@@ -205,23 +205,25 @@ function SupplyCell(props: {
             : "var(--c-text)";
 
   return (
-    <div className="flex flex-col">
-      <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-1">
+    <div className="flex flex-col min-w-0">
+      {/* Label */}
+      <div className="text-[0.6rem] sm:text-[0.6875rem] font-bold tracking-[0.15em] sm:tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-1 leading-tight">
         {props.label}
       </div>
-      <div className="flex items-baseline gap-1.5">
+      {/* Number — shrinks on mobile to prevent overflow */}
+      <div className="flex flex-col gap-0.5">
         <span
-          className="text-3xl md:text-4xl font-heading font-bold tabular-nums leading-none"
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold tabular-nums leading-none break-all"
           style={{ color: accentColor }}
         >
           {props.value}
         </span>
-        <span className="text-xs font-bold tracking-[0.15em] uppercase text-[var(--c-text-muted)]">
+        <span className="text-[0.6rem] sm:text-xs font-bold tracking-[0.12em] sm:tracking-[0.15em] uppercase text-[var(--c-text-muted)]">
           {props.unit}
         </span>
       </div>
       {props.footnote && (
-        <div className="text-[11px] text-[var(--c-text-subtle)] mt-1.5 leading-snug">
+        <div className="text-[10px] sm:text-[11px] text-[var(--c-text-subtle)] mt-1 leading-snug">
           {props.footnote}
         </div>
       )}

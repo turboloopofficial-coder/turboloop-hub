@@ -10,21 +10,40 @@
 // panels (`info=0&trades=0`) because we already render price / supply /
 // burn widgets elsewhere on the page — keeps the chart focused.
 //
-// Height: clamped between 360px (mobile) and 480px (desktop) so the
-// chart stays usable across viewports without dominating the page.
+// Mobile fix: the iframe requires `allow-scripts allow-same-origin
+// allow-popups` in the sandbox attribute to execute its JS and render
+// the chart. Without these the chart stays blank (black box).
+//
+// Height: clamped between 380px (mobile) and 500px (desktop).
+
+import { useState } from "react";
 
 export function DexScreenerChart() {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <div
-      className="w-full rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] shadow-[var(--s-sm)]"
-      style={{ height: "clamp(360px, 60vw, 480px)" }}
+      className="relative w-full rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] shadow-[var(--s-sm)]"
+      style={{ height: "clamp(380px, 65vw, 500px)" }}
     >
+      {/* Loading skeleton — shown until iframe fires onLoad */}
+      {!loaded && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[var(--c-surface)] z-10">
+          <div className="w-8 h-8 rounded-full border-2 border-[var(--c-brand-cyan)] border-t-transparent animate-spin" />
+          <span className="text-xs text-[var(--c-text-subtle)] font-medium">
+            Loading chart…
+          </span>
+        </div>
+      )}
       <iframe
         src="https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759?embed=1&theme=dark&info=0&trades=0"
         title="$TURBO / USDT price chart on DexScreener"
         className="w-full h-full border-0"
         loading="lazy"
-        allow="clipboard-write"
+        // Required for DexScreener chart JS to execute inside the iframe
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox"
+        allow="clipboard-write; fullscreen"
+        onLoad={() => setLoaded(true)}
       />
     </div>
   );

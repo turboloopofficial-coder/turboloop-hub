@@ -120,6 +120,7 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
   const [error, setError] = useState<string | null>(null);
   const [seed, setSeed] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [textCopiedForShare, setTextCopiedForShare] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [sharing, setSharing] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -248,16 +249,21 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
     setSharing(true);
     try {
       if (navigator.share) {
-        // FIX 3: Compress image to ≤2MB before sharing
+        // Step 1: Always copy text to clipboard FIRST.
+        // This is necessary because the Web Share API drops the `text` field
+        // when files are included (Android Chrome, WhatsApp, etc.).
+        // We copy silently so the user can paste after sharing the image.
+        try { await navigator.clipboard.writeText(selectedText); } catch {}
+
+        // Step 2: Compress image to ≤2MB for social media
         let file: File | undefined;
         try {
           const res = await fetch(item.url);
           const blob = await res.blob();
           const ext = item.url.split(".").pop()?.split("?")[0] ?? "jpg";
           const baseName = `turboloop-${item.id.replace(/[^a-z0-9-]/gi, "-").toLowerCase()}`;
-          const fileName = `${baseName}.jpg`; // always JPEG after compression
+          const fileName = `${baseName}.jpg`;
 
-          // If original is already small enough, use it directly; otherwise compress
           let shareFile: File;
           if (blob.size <= MAX_SHARE_BYTES && (ext === "jpg" || ext === "jpeg")) {
             shareFile = new File([blob], `${baseName}.${ext}`, { type: blob.type });
@@ -272,12 +278,17 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
           // Image processing failed — share text only
         }
 
-        // FIX 2: Always include `text: selectedText` in the share payload
+        // Step 3: Share image + text (text may be dropped by some apps, but
+        // it's already in clipboard so user can paste it)
         const shareData: ShareData = {
           text: selectedText,
           ...(file ? { files: [file] } : {}),
         };
         await navigator.share(shareData);
+
+        // Step 4: After share sheet closes, show "text copied" toast
+        setTextCopiedForShare(true);
+        setTimeout(() => setTextCopiedForShare(false), 4000);
       } else {
         // Desktop: copy text to clipboard as fallback
         await navigator.clipboard.writeText(selectedText).catch(() => {});
@@ -480,6 +491,13 @@ export function ShareModal({ item, onClose }: ShareModalProps) {
 
         {/* ── Action bar (sticky bottom) ───────────────────────────────────── */}
         <div className="flex-shrink-0 px-5 py-4 border-t border-[var(--c-border)] space-y-2.5 bg-[var(--c-surface)]">
+          {/* Toast: text copied for share */}
+          {textCopiedForShare && (
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+              <Check size={13} />
+              <span>Caption copied to clipboard — paste it after sharing the image!</span>
+            </div>
+          )}
           {/* Primary: Share (with image + text) */}
           <button
             onClick={handleShare}

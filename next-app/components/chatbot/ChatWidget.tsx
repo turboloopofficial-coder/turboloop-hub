@@ -149,10 +149,9 @@ export function ChatWidget() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open TurboLoop assistant"
-        // z-[70] sits the launcher ABOVE the MobileBottomCTA (z-60) so
-        // it never gets covered. bottom-20 on mobile keeps it clear of
-        // the CTA visually so both are tappable.
-        className="fixed z-[70] right-4 bottom-20 md:right-6 md:bottom-6 rounded-full shadow-[var(--s-xl)] text-white inline-flex items-center gap-2 pl-4 pr-5 min-h-[48px] transition active:scale-[0.97]"
+        // bottom-5 on mobile (MobileBottomCTA removed Jun 2026).
+        // md:bottom-6 on desktop unchanged.
+        className="fixed z-[70] right-4 bottom-5 md:right-6 md:bottom-6 rounded-full shadow-[var(--s-xl)] text-white inline-flex items-center gap-2 pl-4 pr-5 min-h-[48px] transition active:scale-[0.97]"
         style={{
           background: "var(--c-brand-gradient)",
         }}

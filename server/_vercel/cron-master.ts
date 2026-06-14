@@ -1392,7 +1392,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ============ G. COMMUNITY VOICE: 16:00 UTC = 9:30 PM IST ============
     // Hub promo — community / FAQ (trust + belonging).
     try {
-      if ((isInWindow(16, 0) || forceCommunityPromo) && (forceCommunityPromo || !(await hasFiredToday(db, "community:promo")))) {
+      if ((isInWindow(17, 15) || forceCommunityPromo) && (forceCommunityPromo || !(await hasFiredToday(db, "community:promo")))) { // moved from 16:00 — clear Zoom window
         const promo = pickHubPromoByPages(["community", "faq"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -1568,7 +1568,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Hub promo — events / apply (offline community focus).
     try {
       const forceEventsPromo = reqUrl.searchParams.get("force") === "events:promo";
-      if ((isInWindow(17, 0) || forceEventsPromo) && (forceEventsPromo || !(await hasFiredToday(db, "events:promo")))) {
+      if ((isInWindow(17, 30) || forceEventsPromo) && (forceEventsPromo || !(await hasFiredToday(db, "events:promo")))) { // moved from 17:00 — clear Zoom window
         const promo = pickHubPromoByPages(["events", "apply"]);
         await tgBroadcastPhoto({
           photoUrl: hubPromoBannerUrl(promo),
@@ -1966,18 +1966,22 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // ── 14:xx ──
       { hour: 14, minute:  0, taskId: "campaign:c29", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
       { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
-      // ── 15:xx ──
-      { hour: 15, minute:  0, taskId: "campaign:c31", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
-      { hour: 15, minute: 30, taskId: "campaign:c32", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
-      // ── 16:xx ──
-      { hour: 16, minute:  0, taskId: "campaign:c33", category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 16, minute: 30, taskId: "campaign:c34", category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
-      // ── 17:xx ──
-      { hour: 17, minute:  0, taskId: "campaign:c35", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 17, minute: 30, taskId: "campaign:c36", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
-      // ── 18:xx ──
-      { hour: 18, minute:  0, taskId: "campaign:c37", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 18, minute: 30, taskId: "campaign:c38", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 14:xx (moved from 15:xx — clear Zoom window 15:00–17:00 UTC) ──
+      { hour: 14, minute: 45, taskId: "campaign:c31", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      // ── 15:xx — ZOOM WINDOW (HI T-60 @ 15:00, T-30 @ 15:30, T-15 @ 15:45, LIVE @ 16:00) ──
+      // No campaign posts in this window — keep Zoom sequence clean
+      // ── 16:xx — ZOOM WINDOW (EN T-60 @ 16:00, T-30 @ 16:30, T-15 @ 16:45, LIVE @ 17:00) ──
+      // No campaign posts in this window — keep Zoom sequence clean
+      // ── 17:xx (moved from 15:30, 16:00, 16:30 — after Zoom window ends) ──
+      { hour: 17, minute: 15, taskId: "campaign:c32", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      { hour: 17, minute: 30, taskId: "campaign:c33", category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 17, minute: 45, taskId: "campaign:c34", category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 18:xx (moved from 17:00, 17:30) ──
+      { hour: 18, minute:  0, taskId: "campaign:c35", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 18, minute: 15, taskId: "campaign:c36", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 18:xx (c37/c38 shifted to avoid collision with c35/c36) ──
+      { hour: 18, minute: 30, taskId: "campaign:c37", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 18, minute: 45, taskId: "campaign:c38", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
       // ── 19:xx ──
       { hour: 19, minute:  0, taskId: "campaign:c39", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
       { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },

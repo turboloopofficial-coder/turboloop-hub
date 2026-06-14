@@ -31,8 +31,8 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
-import { CAMPAIGN_SLOTS, pickCampaignImage } from "./_campaignSchedule";
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
+// _campaignSchedule is no longer imported — campaign slots are defined inline below
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -1667,56 +1667,6 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ campaignB failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // ============ 10. CAMPAIGN CREATIVE SLOTS — 12 hourly posts from 504-image library ============
-    // Each slot fires once per day at its UTC hour, picks today's image deterministically
-    // (dayIndex % categorySize), and posts with a unique per-image caption + live price.
-    {
-      const campaignForceMap: Record<string, boolean> = {
-        "campaign:lifestyle":   forceCampaignLifestyle,
-        "campaign:token":       forceCampaignToken,
-        "campaign:referral":    forceCampaignReferral,
-        "campaign:objection":   forceCampaignObjection,
-        "campaign:hindi":       forceCampaignHindi,
-        "campaign:nigerian":    forceCampaignNigerian,
-        "campaign:success":     forceCampaignSuccess,
-        "campaign:education":   forceCampaignEducation,
-        "campaign:urgency":     forceCampaignUrgency,
-        "campaign:buyback":     forceCampaignBuyback,
-        "campaign:comparison":  forceCampaignComparison,
-        "campaign:community":   forceCampaignCommunity,
-      };
-      for (const slot of CAMPAIGN_SLOTS) {
-        const forceSlot = campaignForceMap[slot.cronKey] ?? false;
-        try {
-          if ((isInWindow(slot.utcHour, 0) || forceSlot) && (forceSlot || !(await hasFiredToday(db, slot.cronKey)))) {
-            const dayIndex = Math.floor(Date.now() / 86400000);
-            const pick = pickCampaignImage(slot.category, dayIndex);
-            if (pick) {
-              // Fetch live price for appending (best-effort)
-              let priceTag = "";
-              try {
-                const ph = await fetch(`${BANNER_HOST}/api/token-price-history`);
-                if (ph.ok) {
-                  const phData = await ph.json() as { currentPrice?: number; priceChangeAllTime?: number };
-                  if (phData.currentPrice) {
-                    const pct = phData.priceChangeAllTime ? ` (+${phData.priceChangeAllTime.toFixed(2)}% since launch)` : "";
-                    priceTag = `\n\n💰 Current $TURBO: $${phData.currentPrice.toFixed(6)}${pct}`;
-                  }
-                }
-              } catch { /* price append is best-effort */ }
-              const caption = pick.caption + priceTag;
-              await tgBroadcastPhoto({ photoUrl: pick.url, caption, buttons: [{ text: slot.ctaText, url: slot.ctaUrl }] });
-              await markFired(db, slot.cronKey);
-              log.push(`✅ ${slot.cronKey} → ${pick.filename}`);
-            }
-          }
-        } catch (err) {
-          console.error(`[cron-master] ${slot.cronKey} failed`, err);
-          log.push(`❌ ${slot.cronKey} failed: ${err instanceof Error ? err.message : String(err)}`);
-        }
-      }
-    }
-
     // ============ 11. OMNI-COMPOSER SCHEDULED POSTS (Automation V2) ============
     // Process anything in `scheduled_posts` with status='pending' AND
     // next_run_at <= now. Each post wraps in its own try/catch — one
@@ -1800,6 +1750,129 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ omniComposer queue scan failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
+    // ============================================================
+    // CAMPAIGN CREATIVES — 12 hourly slots, one category per slot
+    // ============================================================
+    // Each slot pulls today's banner from R2 (rotation = daysSinceLaunch
+    // mod the category file count, so every banner fires deterministically
+    // and no two days repeat within a full cycle), picks today's caption
+    // from the matching 12-entry pool (also `pickByDay`-rotated), appends
+    // a one-line live $TURBO price + all-time change, and fans out via
+    // tgBroadcastPhoto (channel-only — the channel's native auto-forward
+    // handles the linked group).
+    //
+    // Slot picks intentionally avoid existing windows to prevent
+    // double-posts:
+    //   12:30 not 12:00 → avoids monthly:compound
+    //   13:30 not 15:00 → avoids zoom:hi T-60 (Hindi audience would see
+    //                     both the campaign and the zoom reminder back-
+    //                     to-back if they shared the 15:00 slot)
+    //   14:30 not 14:00 → avoids blog:evening
+    //   09:30 not 09:00 → avoids hubPromo
+    const daysSinceLaunch = Math.max(
+      0,
+      Math.floor(
+        (Date.now() - new Date("2026-06-01T00:00:00Z").getTime()) / 86_400_000
+      )
+    );
+
+    // Build the live-price suffix once per cron tick. If the upstream
+    // routes are flapping we just omit the line — the caption alone is
+    // still on-brand and useful.
+    let campaignPriceLine = "";
+    try {
+      const [rpc, rhc] = await Promise.all([
+        fetch("https://www.turboloop.tech/api/token-price", {
+          signal: AbortSignal.timeout(5000),
+        }).catch(() => null),
+        fetch("https://www.turboloop.tech/api/token-price-history", {
+          signal: AbortSignal.timeout(5000),
+        }).catch(() => null),
+      ]);
+      const dpc: any = rpc && rpc.ok ? await rpc.json() : null;
+      const dhc: any = rhc && rhc.ok ? await rhc.json() : null;
+      const priceStr = dpc?.priceUsd
+        ? `$${Number(dpc.priceUsd).toFixed(6)}`
+        : null;
+      const atStr =
+        dhc?.priceChangeAllTime != null
+          ? `${dhc.priceChangeAllTime >= 0 ? "+" : ""}${(dhc.priceChangeAllTime * 100).toFixed(2)}%`
+          : null;
+      if (priceStr) {
+        campaignPriceLine = `\n\n💰 <b>$TURBO:</b> ${priceStr}${atStr ? ` (<b>${atStr}</b> since launch)` : ""}`;
+      }
+    } catch {
+      // Price feeds down — fall through with no price suffix.
+    }
+
+    // Helper: each task block follows the same shape. Wrapping it
+    // keeps cron-master from ballooning by 200+ lines of repetition.
+    type CampaignSlot = {
+      hour: number;
+      minute: number;
+      taskId: string;
+      category: string;
+      captions: string[];
+    };
+    const CAMPAIGN_SLOTS: CampaignSlot[] = [
+      { hour: 1,  minute: 0,  taskId: "campaign:lifestyle",  category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 3,  minute: 0,  taskId: "campaign:education",  category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      { hour: 5,  minute: 0,  taskId: "campaign:objection",  category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      { hour: 7,  minute: 0,  taskId: "campaign:token",      category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      { hour: 9,  minute: 30, taskId: "campaign:referral",   category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 12, minute: 30, taskId: "campaign:comparison", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 13, minute: 30, taskId: "campaign:hindi",      category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 14, minute: 30, taskId: "campaign:success",    category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 21, minute: 0,  taskId: "campaign:urgency",    category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 21, minute: 30, taskId: "campaign:buyback",    category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      { hour: 23, minute: 0,  taskId: "campaign:naija",      category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      { hour: 23, minute: 30, taskId: "campaign:community",  category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+    ];
+
+    // Force-fire map: ?force=campaign:lifestyle,campaign:token etc.
+    const campaignForceMap: Record<string, boolean> = {
+      "campaign:lifestyle":  forceCampaignLifestyle,
+      "campaign:token":      forceCampaignToken,
+      "campaign:referral":   forceCampaignReferral,
+      "campaign:objection":  forceCampaignObjection,
+      "campaign:hindi":      forceCampaignHindi,
+      "campaign:naija":      forceCampaignNigerian,
+      "campaign:success":    forceCampaignSuccess,
+      "campaign:education":  forceCampaignEducation,
+      "campaign:urgency":    forceCampaignUrgency,
+      "campaign:buyback":    forceCampaignBuyback,
+      "campaign:comparison": forceCampaignComparison,
+      "campaign:community":  forceCampaignCommunity,
+    };
+
+    for (const slot of CAMPAIGN_SLOTS) {
+      const forceSlot = campaignForceMap[slot.taskId] ?? false;
+      try {
+        const shouldFire =
+          forceSlot ||
+          isInWindow(slot.hour, slot.minute) ||
+          isMissedToday(slot.hour, slot.minute, 90);
+        if (!shouldFire || (!forceSlot && (await hasFiredToday(db, slot.taskId)))) {
+          continue;
+        }
+        const imgUrl = campaignBannerUrl(slot.category, daysSinceLaunch);
+        const caption =
+          pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
+        await tgBroadcastPhoto({
+          photoUrl: imgUrl,
+          caption,
+          parseMode: "HTML",
+        });
+        await markFired(db, slot.taskId);
+        log.push(`📣 ${slot.taskId} → ${slot.category}`);
+      } catch (err) {
+        await markError(db, slot.taskId, err).catch(() => {});
+        console.error(`[cron-master] ${slot.taskId} failed`, err);
+        log.push(
+          `❌ ${slot.taskId} failed: ${err instanceof Error ? err.message : String(err)}`
+        );
+      }
+    }
 
     res.statusCode = 200;
     res.end(JSON.stringify({ ok: true, ranAt: new Date().toISOString(), fired: log }));

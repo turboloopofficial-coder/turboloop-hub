@@ -78436,81 +78436,81 @@ The marketing toolkit your uplines never told you existed.
     }
     const CAMPAIGN_SLOTS = [
       // ── 00:xx ──
-      { hour: 0, minute: 0, taskId: "campaign:c01", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 0, minute: 30, taskId: "campaign:c02", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      { hour: 0, minute: 0, taskId: "campaign:c01", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 0 },
+      { hour: 0, minute: 30, taskId: "campaign:c02", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 0 },
       // ── 01:xx ──
-      { hour: 1, minute: 0, taskId: "campaign:c03", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
-      { hour: 1, minute: 30, taskId: "campaign:c04", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      { hour: 1, minute: 0, taskId: "campaign:c03", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 0 },
+      { hour: 1, minute: 30, taskId: "campaign:c04", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 0 },
       // ── 02:xx ──
-      { hour: 2, minute: 0, taskId: "campaign:c05", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
-      { hour: 2, minute: 30, taskId: "campaign:c06", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      { hour: 2, minute: 0, taskId: "campaign:c05", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 0 },
+      { hour: 2, minute: 30, taskId: "campaign:c06", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 0 },
       // ── 03:xx ──
-      { hour: 3, minute: 0, taskId: "campaign:c07", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
-      { hour: 3, minute: 30, taskId: "campaign:c08", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      { hour: 3, minute: 0, taskId: "campaign:c07", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 0 },
+      { hour: 3, minute: 30, taskId: "campaign:c08", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS, slotOffset: 0 },
       // ── 04:xx ──
-      { hour: 4, minute: 0, taskId: "campaign:c09", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 4, minute: 30, taskId: "campaign:c10", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      { hour: 4, minute: 0, taskId: "campaign:c09", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS, slotOffset: 0 },
+      { hour: 4, minute: 30, taskId: "campaign:c10", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS, slotOffset: 0 },
       // ── 05:xx ──
-      { hour: 5, minute: 0, taskId: "campaign:c11", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 5, minute: 30, taskId: "campaign:c12", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      { hour: 5, minute: 0, taskId: "campaign:c11", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS, slotOffset: 0 },
+      { hour: 5, minute: 30, taskId: "campaign:c12", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 0 },
       // ── 06:xx ──
-      { hour: 6, minute: 0, taskId: "campaign:c13", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 6, minute: 30, taskId: "campaign:c14", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      { hour: 6, minute: 0, taskId: "campaign:c13", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 1 },
+      { hour: 6, minute: 30, taskId: "campaign:c14", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 1 },
       // ── 07:xx ──
-      { hour: 7, minute: 0, taskId: "campaign:c15", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
-      { hour: 7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      { hour: 7, minute: 0, taskId: "campaign:c15", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 1 },
+      { hour: 7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 1 },
       // ── 08:xx ──
-      { hour: 8, minute: 0, taskId: "campaign:c17", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
-      { hour: 8, minute: 30, taskId: "campaign:c18", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      { hour: 8, minute: 0, taskId: "campaign:c17", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 1 },
+      { hour: 8, minute: 30, taskId: "campaign:c18", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 1 },
       // ── 09:xx ──
-      { hour: 9, minute: 0, taskId: "campaign:c19", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
-      { hour: 9, minute: 30, taskId: "campaign:c20", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      { hour: 9, minute: 0, taskId: "campaign:c19", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 1 },
+      { hour: 9, minute: 30, taskId: "campaign:c20", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS, slotOffset: 1 },
       // ── 10:xx ──
-      { hour: 10, minute: 0, taskId: "campaign:c21", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 10, minute: 30, taskId: "campaign:c22", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      { hour: 10, minute: 0, taskId: "campaign:c21", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS, slotOffset: 1 },
+      { hour: 10, minute: 30, taskId: "campaign:c22", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS, slotOffset: 1 },
       // ── 11:xx ──
-      { hour: 11, minute: 0, taskId: "campaign:c23", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 11, minute: 30, taskId: "campaign:c24", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      { hour: 11, minute: 0, taskId: "campaign:c23", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS, slotOffset: 1 },
+      { hour: 11, minute: 30, taskId: "campaign:c24", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 1 },
       // ── 12:xx ──
-      { hour: 12, minute: 0, taskId: "campaign:c25", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 12, minute: 30, taskId: "campaign:c26", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      { hour: 12, minute: 0, taskId: "campaign:c25", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 2 },
+      { hour: 12, minute: 30, taskId: "campaign:c26", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 2 },
       // ── 13:xx ──
-      { hour: 13, minute: 0, taskId: "campaign:c27", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
-      { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      { hour: 13, minute: 0, taskId: "campaign:c27", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 2 },
+      { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 2 },
       // ── 14:xx ──
-      { hour: 14, minute: 0, taskId: "campaign:c29", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
-      { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      { hour: 14, minute: 0, taskId: "campaign:c29", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 2 },
+      { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 2 },
       // ── 14:xx (moved from 15:xx — clear Zoom window 15:00–17:00 UTC) ──
-      { hour: 14, minute: 45, taskId: "campaign:c31", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 14, minute: 45, taskId: "campaign:c31", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 2 },
       // ── 15:xx — ZOOM WINDOW (HI T-60 @ 15:00, T-30 @ 15:30, T-15 @ 15:45, LIVE @ 16:00) ──
       // No campaign posts in this window — keep Zoom sequence clean
       // ── 16:xx — ZOOM WINDOW (EN T-60 @ 16:00, T-30 @ 16:30, T-15 @ 16:45, LIVE @ 17:00) ──
       // No campaign posts in this window — keep Zoom sequence clean
       // ── 17:xx (moved from 15:30, 16:00, 16:30 — after Zoom window ends) ──
-      { hour: 17, minute: 15, taskId: "campaign:c32", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
-      { hour: 17, minute: 30, taskId: "campaign:c33", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 17, minute: 45, taskId: "campaign:c34", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      { hour: 17, minute: 15, taskId: "campaign:c32", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS, slotOffset: 2 },
+      { hour: 17, minute: 30, taskId: "campaign:c33", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS, slotOffset: 2 },
+      { hour: 17, minute: 45, taskId: "campaign:c34", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS, slotOffset: 2 },
       // ── 18:xx (moved from 17:00, 17:30) ──
-      { hour: 18, minute: 0, taskId: "campaign:c35", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 18, minute: 15, taskId: "campaign:c36", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      { hour: 18, minute: 0, taskId: "campaign:c35", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS, slotOffset: 2 },
+      { hour: 18, minute: 15, taskId: "campaign:c36", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 2 },
       // ── 18:xx (c37/c38 shifted to avoid collision with c35/c36) ──
-      { hour: 18, minute: 30, taskId: "campaign:c37", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 18, minute: 45, taskId: "campaign:c38", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      { hour: 18, minute: 30, taskId: "campaign:c37", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 3 },
+      { hour: 18, minute: 45, taskId: "campaign:c38", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 3 },
       // ── 19:xx ──
-      { hour: 19, minute: 0, taskId: "campaign:c39", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
-      { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      { hour: 19, minute: 0, taskId: "campaign:c39", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 3 },
+      { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 3 },
       // ── 20:xx ──
-      { hour: 20, minute: 0, taskId: "campaign:c41", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
-      { hour: 20, minute: 30, taskId: "campaign:c42", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      { hour: 20, minute: 0, taskId: "campaign:c41", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 3 },
+      { hour: 20, minute: 30, taskId: "campaign:c42", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 3 },
       // ── 21:xx ──
-      { hour: 21, minute: 0, taskId: "campaign:c43", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
-      { hour: 21, minute: 30, taskId: "campaign:c44", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      { hour: 21, minute: 0, taskId: "campaign:c43", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 3 },
+      { hour: 21, minute: 30, taskId: "campaign:c44", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS, slotOffset: 3 },
       // ── 22:xx ──
-      { hour: 22, minute: 0, taskId: "campaign:c45", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 22, minute: 30, taskId: "campaign:c46", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      { hour: 22, minute: 0, taskId: "campaign:c45", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS, slotOffset: 3 },
+      { hour: 22, minute: 30, taskId: "campaign:c46", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS, slotOffset: 3 },
       // ── 23:xx ──
-      { hour: 23, minute: 0, taskId: "campaign:c47", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 23, minute: 30, taskId: "campaign:c48", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS }
+      { hour: 23, minute: 0, taskId: "campaign:c47", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS, slotOffset: 3 },
+      { hour: 23, minute: 30, taskId: "campaign:c48", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 3 }
     ];
     const campaignForceSet = new Set(
       forceSet.has("campaign:all") ? CAMPAIGN_SLOTS.map((s) => s.taskId) : CAMPAIGN_SLOTS.map((s) => s.taskId).filter((id) => forceSet.has(id))
@@ -78566,9 +78566,10 @@ The marketing toolkit your uplines never told you existed.
         if (!shouldFire || !forceSlot && await hasFiredToday(db, slot.taskId)) {
           continue;
         }
-        const imgUrl = campaignBannerUrl(slot.category, daysSinceLaunch);
+        const rotationIndex = daysSinceLaunch * 4 + slot.slotOffset;
+        const imgUrl = campaignBannerUrl(slot.category, rotationIndex);
         const priceSuffix = slot.category === "token" ? campaignPriceLine : "";
-        const caption = pickByDay(slot.captions, daysSinceLaunch) + priceSuffix;
+        const caption = pickByDay(slot.captions, rotationIndex) + priceSuffix;
         const { delivered, channels, failed } = await sendCampaignWithVerification(slot.taskId, imgUrl, caption);
         await markFired(db, slot.taskId);
         log.push(`\u{1F4E3} ${slot.taskId} \u2192 ${slot.category} (\u2705 ${delivered}/${channels} channels)`);

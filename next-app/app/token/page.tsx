@@ -153,6 +153,22 @@ function buildJsonLd(lang: SupportedLang, circulatingSupply: string) {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      // Organization node — referenced by other nodes via @id.
+      // Mirrors the one on the homepage so Google merges them into
+      // a single knowledge-panel entity.
+      {
+        "@type": "Organization",
+        "@id": "https://www.turboloop.tech/#organization",
+        name: "TurboLoop",
+        url: "https://www.turboloop.tech",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://www.turboloop.tech/logo.png",
+          width: 512,
+          height: 512,
+        },
+      },
+      // Product node — covers the token as a tradeable asset.
       {
         "@type": "Product",
         "@id": `${CANONICAL}#token`,
@@ -183,6 +199,33 @@ function buildJsonLd(lang: SupportedLang, circulatingSupply: string) {
           { "@type": "PropertyValue", name: "Sell Tax", value: `${TOKEN.sellTaxPct}%` },
           { "@type": "PropertyValue", name: "LP Status", value: "100% Locked" },
           { "@type": "PropertyValue", name: "Team Allocation", value: "0%" },
+        ],
+      },
+      // FinancialProduct node — covers the yield farming plans.
+      // Surfaces APY/yield data in Google's financial rich results.
+      {
+        "@type": "FinancialProduct",
+        "@id": `${CANONICAL}#yield-plans`,
+        name: "TurboLoop Yield Farming Plans",
+        description: "Fixed-ROI DeFi yield plans on BSC. Sprint 3% (7d), Boost 10% (14d), Power 24% (30d), Ultimate 54% (60d). Revenue from real USDC/USDT LP rewards, Turbo Swap fees, and Turbo Buy fees.",
+        url: "https://turboloop.io",
+        provider: { "@id": "https://www.turboloop.tech/#organization" },
+        feesAndCommissionsSpecification: "No management fees. Yield is paid from on-chain LP rewards and protocol fees.",
+        annualPercentageRate: {
+          "@type": "QuantitativeValue",
+          value: 329,
+          unitText: "% APR (Ultimate 60-day plan annualised)",
+        },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "Sprint Plan ROI", value: "3% in 7 days" },
+          { "@type": "PropertyValue", name: "Boost Plan ROI", value: "10% in 14 days" },
+          { "@type": "PropertyValue", name: "Power Plan ROI", value: "24% in 30 days" },
+          { "@type": "PropertyValue", name: "Ultimate Plan ROI", value: "54% in 60 days" },
+          { "@type": "PropertyValue", name: "Minimum Deposit", value: "1 USDT" },
+          { "@type": "PropertyValue", name: "Network", value: "Binance Smart Chain (BSC)" },
+          { "@type": "PropertyValue", name: "Audit Status", value: "Independently Audited" },
+          { "@type": "PropertyValue", name: "LP Lock", value: "100% Locked" },
+          { "@type": "PropertyValue", name: "Ownership", value: "Renounced" },
         ],
       },
     ],

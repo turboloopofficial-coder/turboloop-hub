@@ -229,8 +229,85 @@ export default function CalculatorPage() {
     }
   };
 
+  // ─── JSON-LD structured data ───────────────────────────────────────────────
+  // HowTo schema → enables rich step-by-step results in Google Search.
+  // SoftwareApplication schema → surfaces the calculator as a tool.
+  const calculatorJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HowTo",
+        "@id": "https://www.turboloop.tech/calculator#howto",
+        name: "How to Calculate Your TurboLoop DeFi Yield",
+        description: "Use the TurboLoop yield calculator to estimate your fixed ROI from DeFi yield farming on BSC. Pick a plan, enter your deposit, and see your projected returns at maturity.",
+        image: "https://www.turboloop.tech/api/og-banner?type=launch",
+        totalTime: "PT2M",
+        tool: [
+          { "@type": "HowToTool", name: "TurboLoop Yield Calculator" },
+          { "@type": "HowToTool", name: "USDT or USDC (minimum 1 USDT)" },
+        ],
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Choose a yield plan",
+            text: "Select one of four fixed-ROI plans: Sprint (3% in 7 days), Boost (10% in 14 days), Power (24% in 30 days), or Ultimate (54% in 60 days).",
+            url: "https://www.turboloop.tech/calculator#plans",
+            position: 1,
+          },
+          {
+            "@type": "HowToStep",
+            name: "Enter your deposit amount",
+            text: "Type in how much USDT you plan to deposit. The minimum is 1 USDT. Use the preset chips ($100, $500, $1,000, $5,000, $10,000) or the slider for a quick estimate.",
+            url: "https://www.turboloop.tech/calculator#deposit",
+            position: 2,
+          },
+          {
+            "@type": "HowToStep",
+            name: "Review your projected returns",
+            text: "The projection panel shows your total return at maturity (deposit + flat ROI), plus any $TURBO token rewards for Power and Ultimate plans.",
+            url: "https://www.turboloop.tech/calculator#projection",
+            position: 3,
+          },
+          {
+            "@type": "HowToStep",
+            name: "Start your plan on the dApp",
+            text: "Click \"Start a Plan\" to go to turboloop.io and deposit. Connect your BSC wallet, choose the same plan, and confirm the transaction.",
+            url: "https://turboloop.io",
+            position: 4,
+          },
+        ],
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://www.turboloop.tech/calculator#app",
+        name: "TurboLoop Yield Calculator",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+        url: "https://www.turboloop.tech/calculator",
+        description: "Free online DeFi yield calculator for TurboLoop. Instantly compute fixed ROI returns for Sprint (3%), Boost (10%), Power (24%), and Ultimate (54%) plans on Binance Smart Chain.",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        provider: { "@id": "https://www.turboloop.tech/#organization" },
+        featureList: [
+          "Four fixed-ROI plan comparison",
+          "Real-time $TURBO token price integration",
+          "Token reward projection for Power and Ultimate plans",
+          "Vesting rank breakdown",
+          "Deposit preset chips and slider",
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorJsonLd) }}
+      />
       {/* Aurora wash behind the hero — same drift as the homepage so the
           calculator feels like part of the same visual world rather than
           a sub-page. Pinned to the top portion of the route only. */}

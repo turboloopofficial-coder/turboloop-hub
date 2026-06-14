@@ -91,9 +91,75 @@ const TRUST_BADGES = [
   },
 ];
 
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+// Organization schema → establishes brand knowledge panel in Google.
+// WebSite schema → enables Sitelinks Search Box in SERPs.
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.turboloop.tech/#organization",
+      "name": "TurboLoop",
+      "url": "https://www.turboloop.tech",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.turboloop.tech/logo.png",
+        "width": 512,
+        "height": 512,
+      },
+      "description": "TurboLoop is an audited DeFi yield farming protocol on Binance Smart Chain. Earn up to 54% ROI in 60 days from a real USDC/USDT liquidity pool. 100% LP-locked, ownership renounced, 1 USDT minimum.",
+      "sameAs": [
+        "https://t.me/TurboLoopOfficial",
+        "https://twitter.com/TurboLoopDeFi",
+        "https://turboloop.io",
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://t.me/TurboLoopOfficial",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.turboloop.tech/#website",
+      "url": "https://www.turboloop.tech",
+      "name": "TurboLoop Hub",
+      "description": "The official hub for TurboLoop DeFi — yield calculator, token info, blog, creatives, and community.",
+      "publisher": { "@id": "https://www.turboloop.tech/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.turboloop.tech/blog?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "FinancialService",
+      "@id": "https://www.turboloop.tech/#protocol",
+      "name": "TurboLoop DeFi Protocol",
+      "url": "https://turboloop.io",
+      "description": "Decentralized yield farming protocol on BSC. Fixed ROI per cycle: Sprint 3% (7d), Boost 10% (14d), Power 24% (30d), Ultimate 54% (60d). Revenue from USDC/USDT LP rewards, Turbo Swap fees, and Turbo Buy fees.",
+      "provider": { "@id": "https://www.turboloop.tech/#organization" },
+      "areaServed": "Worldwide",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://turboloop.io",
+        "serviceType": "DeFi Yield Farming",
+      },
+    },
+  ],
+};
+
 export default function HomePage() {
   return (
     <main className="relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       {/* Aurora background — three brand-tinted radial gradients stitched
           across a 200 % canvas, slid horizontally on a 15 s loop via
           .aurora-bg in globals.css. Reads as a slow, expensive shimmer

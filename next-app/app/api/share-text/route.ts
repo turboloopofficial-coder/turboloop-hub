@@ -11,7 +11,10 @@
 // https://turboloop.io?ref=<username>. If absent, the link is plain
 // https://turboloop.io
 //
-// Rate limited to 30 req/min per IP via simple in-memory counter.
+// Rate limited to 30 req/min per IP via Upstash KV sliding window.
+// The KV-backed limiter persists across cold starts (unlike the old
+// in-memory counter which reset on every new Edge function instance).
+// Degrades gracefully to a no-op if KV env vars are not configured.
 // Falls back to static options if Claude is unavailable.
 
 import { anthropic } from "@ai-sdk/anthropic";
@@ -20,6 +23,42 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
 export const maxDuration = 30;
+
+// ── KV-backed rate limiter (persistent across cold starts) ────────────────────
+// Uses the same Upstash KV instance as /api/chat. Sliding window of
+// 30 requests per minute per IP. Degrades to a no-op if KV is absent
+// so the endpoint still works in dev / preview deploys without KV.
+let ratelimit: {
+  limit: (key: string) => Promise<{ success: boolean; reset: number; remaining: number }>;
+} | null = null;
+
+async function initRatelimit() {
+  if (ratelimit !== null) return; // already initialised in this instance
+  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+    // No KV configured — degrade to a permissive no-op.
+    ratelimit = { limit: async () => ({ success: true, reset: 0, remaining: 999 }) };
+    return;
+  }
+  try {
+    const [{ Ratelimit }, { kv }] = await Promise.all([
+      import("@upstash/ratelimit"),
+      import("@vercel/kv"),
+    ]);
+    ratelimit = new Ratelimit({
+      redis: kv,
+      // 30 requests per 60-second sliding window per IP.
+      // Generous enough for real usage (a user browsing creatives and
+      // generating share text for several banners) but tight enough to
+      // prevent abuse of the Anthropic API key.
+      limiter: Ratelimit.slidingWindow(30, "1 m"),
+      analytics: false,
+      prefix: "tl_sharetext_rl",
+    }) as unknown as typeof ratelimit;
+  } catch (err) {
+    console.error("[share-text] KV init failed; rate limit disabled:", err);
+    ratelimit = { limit: async () => ({ success: true, reset: 0, remaining: 999 }) };
+  }
+}
 
 // ── Static fallback options per category ──────────────────────────────────────
 const STATIC_FALLBACKS: Record<string, [string, string, string]> = {
@@ -94,6 +133,26 @@ const DEFAULT_FALLBACK: [string, string, string] = [
 // ── Main handler ──────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  // ── 1. Persistent rate limit check ────────────────────────────────
+  await initRatelimit();
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    req.headers.get("x-real-ip") ??
+    "unknown";
+  const rl = await ratelimit!.limit(`ip:${ip}`);
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: "Too many requests — slow down and try again in a minute." },
+      {
+        status: 429,
+        headers: {
+          "retry-after": String(Math.ceil((rl.reset - Date.now()) / 1000)),
+        },
+      }
+    );
+  }
+
+  // ── 2. Parse body ─────────────────────────────────────────────────
   let body: {
     categoryId?: string;
     categoryLabel?: string;
@@ -115,7 +174,7 @@ export async function POST(req: NextRequest) {
     ? `https://turboloop.io?ref=${referralUsername.trim()}`
     : "https://turboloop.io";
 
-  // Try AI generation first
+  // ── 3. Try AI generation ──────────────────────────────────────────
   try {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) throw new Error("No ANTHROPIC_API_KEY");

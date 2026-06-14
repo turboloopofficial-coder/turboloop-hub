@@ -62288,7 +62288,7 @@ The only thing missing is your decision.
 
 #TurboLoop #JoinNow #DeFi #Opportunity #StartToday`,
     buttonText: "\u{1F680} Apply now",
-    buttonUrl: "https://turboloop.tech/apply"
+    buttonUrl: "https://turboloop.io"
   },
   // ── Day 13: Apply / Join (Variant B) ──
   {
@@ -62303,7 +62303,7 @@ The application takes 2 minutes.
 
 #TurboLoop #Apply #Compounding #DeFi #StartNow`,
     buttonText: "\u{1F6AA} Start your application",
-    buttonUrl: "https://turboloop.tech/apply"
+    buttonUrl: "https://turboloop.io"
   },
   // ── Day 13: Apply / Join (Variant C) ──
   {
@@ -62318,7 +62318,7 @@ Now what?
 
 #TurboLoop #Apply #Decision #DeFi #Action`,
     buttonText: "\u23F0 Take the next step",
-    buttonUrl: "https://turboloop.tech/apply"
+    buttonUrl: "https://turboloop.io"
   },
   // ── Day 14: Learn Hub (Variant A) ──
   {
@@ -62900,84 +62900,84 @@ var CAMPAIGN_REFERRAL_CAPTIONS = [
 
 TurboLoop's 20-level referral system pays commissions all the way down your network \u2014 permanently.
 
-\u{1F449} Get your referral link: https://turboloop.tech/apply
+\u{1F449} Get your referral link: https://turboloop.io
 
 #TurboLoop #ReferralIncome #NetworkIncome #20Levels #PassiveIncome`,
   `One referral can change your financial life. Twenty levels of them can change your family's.
 
 TurboLoop pays network commissions on 20 levels deep \u2014 every time anyone in your downline earns, you earn too.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #20Levels #NetworkIncome #ReferralMarketing #DeFi`,
   `The most powerful income is the one that grows while you sleep \u2014 from people you've never met.
 
 Your level-5 referral's deposit earns you a commission. Automatically. On-chain. Every day.
 
-\u{1F449} Build your network: https://turboloop.tech/apply
+\u{1F449} Build your network: https://turboloop.io
 
 #TurboLoop #NetworkIncome #PassiveIncome #ReferralSystem #DeFi`,
   `Share once. Earn forever.
 
 Your TurboLoop referral link is permanent. Every person who joins under you \u2014 and everyone they refer \u2014 contributes to your network income for life.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #ShareAndEarn #ReferralIncome #DeFi #PassiveIncome`,
   `From Turbo Partner to Turbo Legend \u2014 every rank unlocks higher network commissions.
 
 The more your team grows, the more you earn. The system rewards builders.
 
-\u{1F449} See all ranks: https://turboloop.tech/apply
+\u{1F449} See all ranks: https://turboloop.io
 
 #TurboLoop #TurboLegend #RankUp #NetworkIncome #DeFi`,
   `Your upline is permanent. Your downline is permanent. Your commissions are permanent.
 
 Once someone joins TurboLoop through your link, they're in your network forever \u2014 no transfers, no reassignments.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #PermanentNetwork #ReferralIncome #DeFi #PassiveIncome`,
   `Level 1: 10% commission. Level 2: 5%. All the way to Level 20.
 
 TurboLoop's commission table is transparent, on-chain, and pays automatically \u2014 no manual claims, no waiting.
 
-\u{1F449} See the full table: https://turboloop.tech/apply
+\u{1F449} See the full table: https://turboloop.io
 
 #TurboLoop #CommissionTable #NetworkIncome #20Levels #DeFi`,
   `The best time to build your TurboLoop network was at launch. The second best time is right now.
 
 Every day you wait, someone else is building the network that could have been yours.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #BuildNow #ReferralIncome #NetworkMarketing #DeFi`,
   `Imagine 100 people in your network, each depositing $100. That's $10,000 in active deposits \u2014 and you earn commissions on all of it.
 
 TurboLoop's 20-level system makes this possible.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #NetworkMath #ReferralIncome #DeFi #PassiveIncome`,
   `You don't need to be a crypto expert to build a TurboLoop network. You just need to share.
 
 Share your link. Your referrals deposit USDT. You earn commissions. Repeat.
 
-\u{1F449} Get started: https://turboloop.tech/apply
+\u{1F449} Get started: https://turboloop.io
 
 #TurboLoop #SimpleReferral #NetworkIncome #DeFi #EarnOnline`,
   `Network income is the only income that scales without more of your time.
 
 Your TurboLoop downline earns 24/7 \u2014 and so do you, from their activity.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #ScalableIncome #NetworkIncome #DeFi #PassiveIncome`,
   `The Turbo Legend rank isn't a title. It's a lifestyle.
 
 Reach the top of TurboLoop's rank system and your network income alone can replace a full-time salary.
 
-\u{1F449} Start your journey: https://turboloop.tech/apply
+\u{1F449} Start your journey: https://turboloop.io
 
 #TurboLoop #TurboLegend #NetworkIncome #DeFi #FinancialFreedom`
 ];
@@ -63108,7 +63108,7 @@ TurboLoop ka referral system India ke liye perfect hai \u2014 jitna bada aapka n
 
 Ek baar share karo. Hamesha ke liye kamao.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #NetworkIncome #ReferralIndia #20Levels #PassiveIncome`,
   `Scam nahi hai \u2014 smart contract hai.
@@ -63205,7 +63205,7 @@ Do the math.
 
 TurboLoop's referral system dey pay commissions 20 levels deep \u2014 every time anybody for your downline earn, you earn too.
 
-\u{1F449} Get your link: https://turboloop.tech/apply
+\u{1F449} Get your link: https://turboloop.io
 
 #TurboLoop #NetworkIncome #20Levels #NaijaHustle #PassiveIncome`,
   `You no need to understand blockchain to use TurboLoop.
@@ -63277,7 +63277,7 @@ Every TurboLoop member who doubted it changed their mind the first time they wit
 
 TurboLoop members who build their network don't just earn yield \u2014 they earn commissions from 20 levels of referrals. Some have replaced their full salary.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #RankUp #NetworkIncome #DeFi #SuccessStory`,
   `The best investment advice I ever got: let the smart contract work.
@@ -63319,7 +63319,7 @@ I didn't check my phone once. When I came back, my TurboLoop balance was higher 
 
 Building a TurboLoop downline took 3 months. Now the commissions come in daily \u2014 from people I've never met, in countries I've never visited.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #NetworkIncome #FamilyLife #DeFi #SuccessStory`,
   `I compounded for 6 months. The results were unbelievable.
@@ -63721,7 +63721,7 @@ TurboLoop's Telegram is full of real members sharing real withdrawals, real stra
 
 The strongest TurboLoop members didn't just deposit \u2014 they built teams. Teams that earn together, grow together.
 
-\u{1F449} https://turboloop.tech/apply
+\u{1F449} https://turboloop.io
 
 #TurboLoop #NetworkCommunity #DeFi #ReferralIncome #Together`,
   `From strangers to teammates \u2014 that's the TurboLoop story.
@@ -76664,8 +76664,8 @@ var GERMAN_KIT_TOPICAL = {
   22: { url: "https://turboloop.tech/ecosystem", buttonText: "\u{1F3C6} Leadership-R\xE4nge" },
   23: { url: "https://turboloop.tech/promotions", buttonText: "\u{1F381} Onboarding-Bonus" },
   // 24–26: paid programs + bug bounty
-  24: { url: "https://turboloop.tech/apply#creator", buttonText: "\u2B50 Creator werden" },
-  25: { url: "https://turboloop.tech/apply#presenter", buttonText: "\u{1F399} Presenter werden" },
+  24: { url: "https://turboloop.io#creator", buttonText: "\u2B50 Creator werden" },
+  25: { url: "https://turboloop.io#presenter", buttonText: "\u{1F399} Presenter werden" },
   26: { url: "https://turboloop.tech/security", buttonText: "\u{1F4B0} $100k Challenge" },
   // 27–28: products
   27: { url: "https://turboloop.tech/ecosystem", buttonText: "\u{1F4B3} Turbo Buy" },
@@ -76679,7 +76679,7 @@ var GERMAN_KIT_TOPICAL = {
   34: { url: "https://turboloop.tech/security", buttonText: "\u{1F6E1} Deine Mittel" },
   // 35–37: earnings vibe
   35: { url: "https://turboloop.tech/calculator", buttonText: "\u{1F4C8} T\xE4gliche Renditen" },
-  36: { url: "https://turboloop.tech/apply", buttonText: "\u{1F48E} Ab $1 starten" },
+  36: { url: "https://turboloop.io", buttonText: "\u{1F48E} Ab $1 starten" },
   37: { url: "https://turboloop.tech/calculator", buttonText: "\u{1F4C8} Passives Einkommen" },
   // 38–43: referral / leadership / compound deep-dives
   38: { url: "https://turboloop.tech/ecosystem", buttonText: "\u{1F91D} Empfehlungssystem" },
@@ -76695,8 +76695,8 @@ var GERMAN_KIT_TOPICAL = {
   47: { url: "https://turboloop.tech/calculator", buttonText: "\u{1F9EE} Ultimate Detail" },
   // 48–51: programs + bug bounty (second pass)
   48: { url: "https://turboloop.tech/promotions", buttonText: "\u{1F381} Onboarding-Bonus" },
-  49: { url: "https://turboloop.tech/apply#creator", buttonText: "\u2B50 Creator werden" },
-  50: { url: "https://turboloop.tech/apply#presenter", buttonText: "\u{1F399} Presenter werden" },
+  49: { url: "https://turboloop.io#creator", buttonText: "\u2B50 Creator werden" },
+  50: { url: "https://turboloop.io#presenter", buttonText: "\u{1F399} Presenter werden" },
   51: { url: "https://turboloop.tech/security", buttonText: "\u{1F4B0} $100k Challenge" },
   // 52–53: products (second pass)
   52: { url: "https://turboloop.tech/ecosystem", buttonText: "\u{1F4B3} Turbo Buy" },
@@ -76715,7 +76715,7 @@ var GERMAN_KIT_TOPICAL = {
   63: { url: "https://turboloop.tech/ecosystem", buttonText: "\u{1F3C6} Leadership Detail" },
   // 64–65: closer CTAs
   64: { url: "https://turboloop.tech/", buttonText: "\u{1F310} Der Loop l\xE4uft" },
-  65: { url: "https://turboloop.tech/apply", buttonText: "\u{1F680} Jetzt anmelden" }
+  65: { url: "https://turboloop.io", buttonText: "\u{1F680} Jetzt anmelden" }
 };
 var DE_KIT_BY_NUMBER = /* @__PURE__ */ new Map();
 for (const item of creatives_language_kit_manifest_default.items ?? []) {

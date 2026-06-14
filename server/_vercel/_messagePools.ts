@@ -1444,7 +1444,7 @@ The only thing missing is your decision.
 
 #TurboLoop #JoinNow #DeFi #Opportunity #StartToday`,
     buttonText: "🚀 Apply now",
-    buttonUrl: "https://turboloop.tech/apply",
+    buttonUrl: "https://turboloop.io",
   },
   // ── Day 13: Apply / Join (Variant B) ──
   {
@@ -1459,7 +1459,7 @@ The application takes 2 minutes.
 
 #TurboLoop #Apply #Compounding #DeFi #StartNow`,
     buttonText: "🚪 Start your application",
-    buttonUrl: "https://turboloop.tech/apply",
+    buttonUrl: "https://turboloop.io",
   },
   // ── Day 13: Apply / Join (Variant C) ──
   {
@@ -1474,7 +1474,7 @@ Now what?
 
 #TurboLoop #Apply #Decision #DeFi #Action`,
     buttonText: "⏰ Take the next step",
-    buttonUrl: "https://turboloop.tech/apply",
+    buttonUrl: "https://turboloop.io",
   },
   // ── Day 14: Learn Hub (Variant A) ──
   {
@@ -1931,18 +1931,18 @@ export const CAMPAIGN_TOKEN_CAPTIONS = [
 
 /** Pool for `campaigns/referral/` — 20-level network income. */
 export const CAMPAIGN_REFERRAL_CAPTIONS = [
-  `You earn. Your team earns. Their team earns. And you earn from all of it.\n\nTurboLoop's 20-level referral system pays commissions all the way down your network — permanently.\n\n👉 Get your referral link: https://turboloop.tech/apply\n\n#TurboLoop #ReferralIncome #NetworkIncome #20Levels #PassiveIncome`,
-  `One referral can change your financial life. Twenty levels of them can change your family's.\n\nTurboLoop pays network commissions on 20 levels deep — every time anyone in your downline earns, you earn too.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #20Levels #NetworkIncome #ReferralMarketing #DeFi`,
-  `The most powerful income is the one that grows while you sleep — from people you've never met.\n\nYour level-5 referral's deposit earns you a commission. Automatically. On-chain. Every day.\n\n👉 Build your network: https://turboloop.tech/apply\n\n#TurboLoop #NetworkIncome #PassiveIncome #ReferralSystem #DeFi`,
-  `Share once. Earn forever.\n\nYour TurboLoop referral link is permanent. Every person who joins under you — and everyone they refer — contributes to your network income for life.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #ShareAndEarn #ReferralIncome #DeFi #PassiveIncome`,
-  `From Turbo Partner to Turbo Legend — every rank unlocks higher network commissions.\n\nThe more your team grows, the more you earn. The system rewards builders.\n\n👉 See all ranks: https://turboloop.tech/apply\n\n#TurboLoop #TurboLegend #RankUp #NetworkIncome #DeFi`,
-  `Your upline is permanent. Your downline is permanent. Your commissions are permanent.\n\nOnce someone joins TurboLoop through your link, they're in your network forever — no transfers, no reassignments.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #PermanentNetwork #ReferralIncome #DeFi #PassiveIncome`,
-  `Level 1: 10% commission. Level 2: 5%. All the way to Level 20.\n\nTurboLoop's commission table is transparent, on-chain, and pays automatically — no manual claims, no waiting.\n\n👉 See the full table: https://turboloop.tech/apply\n\n#TurboLoop #CommissionTable #NetworkIncome #20Levels #DeFi`,
-  `The best time to build your TurboLoop network was at launch. The second best time is right now.\n\nEvery day you wait, someone else is building the network that could have been yours.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #BuildNow #ReferralIncome #NetworkMarketing #DeFi`,
-  `Imagine 100 people in your network, each depositing $100. That's $10,000 in active deposits — and you earn commissions on all of it.\n\nTurboLoop's 20-level system makes this possible.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #NetworkMath #ReferralIncome #DeFi #PassiveIncome`,
-  `You don't need to be a crypto expert to build a TurboLoop network. You just need to share.\n\nShare your link. Your referrals deposit USDT. You earn commissions. Repeat.\n\n👉 Get started: https://turboloop.tech/apply\n\n#TurboLoop #SimpleReferral #NetworkIncome #DeFi #EarnOnline`,
-  `Network income is the only income that scales without more of your time.\n\nYour TurboLoop downline earns 24/7 — and so do you, from their activity.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #ScalableIncome #NetworkIncome #DeFi #PassiveIncome`,
-  `The Turbo Legend rank isn't a title. It's a lifestyle.\n\nReach the top of TurboLoop's rank system and your network income alone can replace a full-time salary.\n\n👉 Start your journey: https://turboloop.tech/apply\n\n#TurboLoop #TurboLegend #NetworkIncome #DeFi #FinancialFreedom`,
+  `You earn. Your team earns. Their team earns. And you earn from all of it.\n\nTurboLoop's 20-level referral system pays commissions all the way down your network — permanently.\n\n👉 Get your referral link: https://turboloop.io\n\n#TurboLoop #ReferralIncome #NetworkIncome #20Levels #PassiveIncome`,
+  `One referral can change your financial life. Twenty levels of them can change your family's.\n\nTurboLoop pays network commissions on 20 levels deep — every time anyone in your downline earns, you earn too.\n\n👉 https://turboloop.io\n\n#TurboLoop #20Levels #NetworkIncome #ReferralMarketing #DeFi`,
+  `The most powerful income is the one that grows while you sleep — from people you've never met.\n\nYour level-5 referral's deposit earns you a commission. Automatically. On-chain. Every day.\n\n👉 Build your network: https://turboloop.io\n\n#TurboLoop #NetworkIncome #PassiveIncome #ReferralSystem #DeFi`,
+  `Share once. Earn forever.\n\nYour TurboLoop referral link is permanent. Every person who joins under you — and everyone they refer — contributes to your network income for life.\n\n👉 https://turboloop.io\n\n#TurboLoop #ShareAndEarn #ReferralIncome #DeFi #PassiveIncome`,
+  `From Turbo Partner to Turbo Legend — every rank unlocks higher network commissions.\n\nThe more your team grows, the more you earn. The system rewards builders.\n\n👉 See all ranks: https://turboloop.io\n\n#TurboLoop #TurboLegend #RankUp #NetworkIncome #DeFi`,
+  `Your upline is permanent. Your downline is permanent. Your commissions are permanent.\n\nOnce someone joins TurboLoop through your link, they're in your network forever — no transfers, no reassignments.\n\n👉 https://turboloop.io\n\n#TurboLoop #PermanentNetwork #ReferralIncome #DeFi #PassiveIncome`,
+  `Level 1: 10% commission. Level 2: 5%. All the way to Level 20.\n\nTurboLoop's commission table is transparent, on-chain, and pays automatically — no manual claims, no waiting.\n\n👉 See the full table: https://turboloop.io\n\n#TurboLoop #CommissionTable #NetworkIncome #20Levels #DeFi`,
+  `The best time to build your TurboLoop network was at launch. The second best time is right now.\n\nEvery day you wait, someone else is building the network that could have been yours.\n\n👉 https://turboloop.io\n\n#TurboLoop #BuildNow #ReferralIncome #NetworkMarketing #DeFi`,
+  `Imagine 100 people in your network, each depositing $100. That's $10,000 in active deposits — and you earn commissions on all of it.\n\nTurboLoop's 20-level system makes this possible.\n\n👉 https://turboloop.io\n\n#TurboLoop #NetworkMath #ReferralIncome #DeFi #PassiveIncome`,
+  `You don't need to be a crypto expert to build a TurboLoop network. You just need to share.\n\nShare your link. Your referrals deposit USDT. You earn commissions. Repeat.\n\n👉 Get started: https://turboloop.io\n\n#TurboLoop #SimpleReferral #NetworkIncome #DeFi #EarnOnline`,
+  `Network income is the only income that scales without more of your time.\n\nYour TurboLoop downline earns 24/7 — and so do you, from their activity.\n\n👉 https://turboloop.io\n\n#TurboLoop #ScalableIncome #NetworkIncome #DeFi #PassiveIncome`,
+  `The Turbo Legend rank isn't a title. It's a lifestyle.\n\nReach the top of TurboLoop's rank system and your network income alone can replace a full-time salary.\n\n👉 Start your journey: https://turboloop.io\n\n#TurboLoop #TurboLegend #NetworkIncome #DeFi #FinancialFreedom`,
 ];
 
 /** Pool for `campaigns/objection-handler/` — FUD/trust answers. */
@@ -1967,7 +1967,7 @@ export const CAMPAIGN_HINDI_CAPTIONS = [
   `Ghar baithe kamao — yeh sirf ek sapna nahi, TurboLoop ki reality hai.\n\n0.9% daily yield. 60 din mein pura capital wapas. Kabhi bhi withdraw karo.\n\nBNB Smart Chain pe immutable smart contract — koi bhi control nahi kar sakta.\n\n👉 https://turboloop.tech\n\n#TurboLoop #GharBaitheKamao #PassiveIncome #DeFi #India`,
   `Agar aapka paisa aapke liye kaam nahi kar raha, toh aap paisa ke liye kaam kar rahe ho.\n\nTurboLoop mein USDT deposit karo. Har 24 ghante mein 0.9% earn karo. Apni zindagi jiyo.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #PaisaKaamKare #PassiveIncome #DeFiIndia #FinancialFreedom`,
   `Inflation beat karo DeFi se.\n\nBank FD deta hai 6-7% per year. TurboLoop deta hai 0.9% per DAY — on-chain, transparent, aur verifiable.\n\nFark samjho. Faisla karo.\n\n👉 https://turboloop.tech\n\n#TurboLoop #InflationBeat #DeFiIndia #BankVsDeFi #PassiveIncome`,
-  `Apne network se kamao — 20 levels tak.\n\nTurboLoop ka referral system India ke liye perfect hai — jitna bada aapka network, utni zyada aapki income.\n\nEk baar share karo. Hamesha ke liye kamao.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #NetworkIncome #ReferralIndia #20Levels #PassiveIncome`,
+  `Apne network se kamao — 20 levels tak.\n\nTurboLoop ka referral system India ke liye perfect hai — jitna bada aapka network, utni zyada aapki income.\n\nEk baar share karo. Hamesha ke liye kamao.\n\n👉 https://turboloop.io\n\n#TurboLoop #NetworkIncome #ReferralIndia #20Levels #PassiveIncome`,
   `Scam nahi hai — smart contract hai.\n\nTurboLoop ka code BscScan pe public hai. Koi bhi verify kar sakta hai. Koi team wallet nahi. Koi admin key nahi. Sirf code.\n\n👉 Verify karo: https://turboloop.tech/token\n\n#TurboLoop #ScamNahi #SmartContract #DeFiTrust #India`,
   `Sirf 1 USDT se shuru karo.\n\nTurboLoop mein minimum deposit sirf 1 USDT hai. Chota shuru karo, bada sochho. Protocol sab ke liye banaya gaya hai.\n\n👉 https://turboloop.tech\n\n#TurboLoop #1USDT #ChhoteSeShuru #DeFiIndia #PassiveIncome`,
   `Naukri chhodo nahi — pehle passive income banao.\n\nJab aapki TurboLoop income aapki salary se zyada ho jaye, tab decide karna. Tab tak dono chalao.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #NaukriChhodo #PassiveIncome #DeFiIndia #FinancialFreedom`,
@@ -1984,7 +1984,7 @@ export const CAMPAIGN_NIGERIAN_CAPTIONS = [
   `From Danfo to Benz — one step at a time.\n\nTurboLoop's daily yield dey compound. Small small, e dey grow. Start with what you have. Scale as you go.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #DanfoToBenz #PassiveIncome #NaijaDeFi #Compounding`,
   `No be scam — na smart contract.\n\nTurboLoop code dey public on BscScan. No team wallet. No admin key. The contract dey run itself — nobody fit touch your money.\n\n👉 Verify am: https://turboloop.tech/token\n\n#TurboLoop #NoBeScam #SmartContract #DeFiTrust #Nigeria`,
   `Naija inflation dey chop your savings. DeFi yield dey beat am.\n\nBank dey give 10% per year. TurboLoop dey give 0.9% per DAY — on-chain, transparent, verifiable.\n\nDo the math.\n\n👉 https://turboloop.tech\n\n#TurboLoop #BeatInflation #NaijaDeFi #BankVsDeFi #PassiveIncome`,
-  `Build your network. Earn from 20 levels.\n\nTurboLoop's referral system dey pay commissions 20 levels deep — every time anybody for your downline earn, you earn too.\n\n👉 Get your link: https://turboloop.tech/apply\n\n#TurboLoop #NetworkIncome #20Levels #NaijaHustle #PassiveIncome`,
+  `Build your network. Earn from 20 levels.\n\nTurboLoop's referral system dey pay commissions 20 levels deep — every time anybody for your downline earn, you earn too.\n\n👉 Get your link: https://turboloop.io\n\n#TurboLoop #NetworkIncome #20Levels #NaijaHustle #PassiveIncome`,
   `You no need to understand blockchain to use TurboLoop.\n\nIf you fit send WhatsApp message, you fit use TurboLoop. Deposit USDT. Watch am grow. Withdraw when you want.\n\n👉 https://turboloop.tech\n\n#TurboLoop #EasyDeFi #NaijaDeFi #CryptoForAll #PassiveIncome`,
   `Abuja mansion, Lagos lifestyle — passive income dey make am possible.\n\nTurboLoop members dey earn 0.9% daily on their USDT. No trading. No stress. Just yield.\n\n👉 https://turboloop.tech\n\n#TurboLoop #AbujaLife #LagosLife #PassiveIncome #NaijaDeFi`,
   `Diaspora Naija — your money fit work for you from anywhere.\n\nTurboLoop dey accessible from UK, US, Canada, everywhere. Deposit USDT. Earn daily. Send back home.\n\n👉 https://turboloop.tech\n\n#TurboLoop #NaijaDiaspora #PassiveIncome #DeFi #RemittanceAlternative`,
@@ -1998,13 +1998,13 @@ export const CAMPAIGN_SUCCESS_CAPTIONS = [
   `First withdrawal hits different.\n\nThe moment you see USDT land in your wallet from TurboLoop — that's when it becomes real. Not a promise. Not a projection. Real money.\n\n👉 Start your story: https://turboloop.tech\n\n#TurboLoop #FirstWithdrawal #DeFiYield #PassiveIncome #RealResults`,
   `60 days in. Full capital back. Plus 54% earned on top.\n\nThat's what TurboLoop's 0.9% daily yield looks like after a full cycle. The math was always right — the experience confirms it.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #60DayCycle #DeFiYield #PassiveIncome #RealResults`,
   `From skeptic to believer — one withdrawal at a time.\n\nEvery TurboLoop member who doubted it changed their mind the first time they withdrew. The protocol doesn't argue. It just pays.\n\n👉 https://turboloop.tech\n\n#TurboLoop #FromSkepticToBeliever #DeFiYield #PassiveIncome #RealResults`,
-  `Rank up. Earn more. Repeat.\n\nTurboLoop members who build their network don't just earn yield — they earn commissions from 20 levels of referrals. Some have replaced their full salary.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #RankUp #NetworkIncome #DeFi #SuccessStory`,
+  `Rank up. Earn more. Repeat.\n\nTurboLoop members who build their network don't just earn yield — they earn commissions from 20 levels of referrals. Some have replaced their full salary.\n\n👉 https://turboloop.io\n\n#TurboLoop #RankUp #NetworkIncome #DeFi #SuccessStory`,
   `The best investment advice I ever got: let the smart contract work.\n\nStop timing the market. Stop chasing 100x tokens. Deposit USDT. Earn 0.9% daily. Compound. Repeat.\n\n👉 https://turboloop.tech\n\n#TurboLoop #SmartInvestment #DeFiYield #PassiveIncome #SuccessStory`,
   `She started with $100. 60 days later, she had $154 — and her $100 back.\n\nThat's TurboLoop's 0.9% daily yield in action. Small start. Real results. Compounding magic.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #StartSmall #DeFiYield #PassiveIncome #SuccessStory`,
   `Paid off debt with DeFi yield. Not clickbait — just math.\n\nWhen your passive income exceeds your monthly debt payment, you're winning. TurboLoop makes that possible.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DebtFree #DeFiYield #PassiveIncome #SuccessStory`,
   `My TurboLoop earnings covered my rent this month.\n\nThat's the goal — when passive income starts covering real expenses. It starts small. It compounds. It changes everything.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #RentPaid #PassiveIncome #DeFiYield #SuccessStory`,
   `The protocol paid me while I was on holiday.\n\nI didn't check my phone once. When I came back, my TurboLoop balance was higher than when I left. That's passive income.\n\n👉 https://turboloop.tech\n\n#TurboLoop #HolidayEarnings #PassiveIncome #DeFiYield #SuccessStory`,
-  `Network income changed my family's life.\n\nBuilding a TurboLoop downline took 3 months. Now the commissions come in daily — from people I've never met, in countries I've never visited.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #NetworkIncome #FamilyLife #DeFi #SuccessStory`,
+  `Network income changed my family's life.\n\nBuilding a TurboLoop downline took 3 months. Now the commissions come in daily — from people I've never met, in countries I've never visited.\n\n👉 https://turboloop.io\n\n#TurboLoop #NetworkIncome #FamilyLife #DeFi #SuccessStory`,
   `I compounded for 6 months. The results were unbelievable.\n\nReinvesting TurboLoop earnings instead of withdrawing them creates exponential growth. 6 months of compounding at 0.9% daily is transformative.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #Compounding #DeFiYield #PassiveIncome #SuccessStory`,
   `The withdrawal proof is on-chain. Anyone can verify it.\n\nEvery TurboLoop payout is a blockchain transaction — public, permanent, and verifiable. No screenshots needed. Just BscScan.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #WithdrawalProof #OnChain #DeFiYield #Transparency`,
 ];
@@ -2078,7 +2078,7 @@ export const CAMPAIGN_COMMUNITY_CAPTIONS = [
   `The TurboLoop community spans 50+ countries.\n\nFrom India to Nigeria, from Germany to Brazil — TurboLoop members are earning passive income in every timezone. The protocol never sleeps, and neither does the community.\n\n👉 Join us: https://t.me/turboloopofficial\n\n#TurboLoop #GlobalCommunity #DeFi #PassiveIncome #Worldwide`,
   `You're not alone in this. 1,000+ members are earning alongside you.\n\nEvery day, the TurboLoop community grows. Every new member strengthens the protocol. Every withdrawal proves the system works.\n\n👉 https://t.me/turboloopofficial\n\n#TurboLoop #Community #DeFi #PassiveIncome #Together`,
   `The best investment community is one that shares knowledge, not just hype.\n\nTurboLoop's Telegram is full of real members sharing real withdrawals, real strategies, and real support. No bots. No fake hype.\n\n👉 https://t.me/turboloopofficial\n\n#TurboLoop #RealCommunity #DeFi #PassiveIncome #KnowledgeSharing`,
-  `Your referral network is your community. Your community is your network.\n\nThe strongest TurboLoop members didn't just deposit — they built teams. Teams that earn together, grow together.\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #NetworkCommunity #DeFi #ReferralIncome #Together`,
+  `Your referral network is your community. Your community is your network.\n\nThe strongest TurboLoop members didn't just deposit — they built teams. Teams that earn together, grow together.\n\n👉 https://turboloop.io\n\n#TurboLoop #NetworkCommunity #DeFi #ReferralIncome #Together`,
   `From strangers to teammates — that's the TurboLoop story.\n\nMembers who found TurboLoop independently are now building networks together, sharing strategies, and growing each other's income.\n\n👉 https://t.me/turboloopofficial\n\n#TurboLoop #Teammates #DeFi #Community #NetworkIncome`,
   `The global leaderboard is live. Where does your country rank?\n\n👉 Check the rankings: https://turboloop.tech/community\n\n#TurboLoop #GlobalLeaderboard #Community #DeFi #CountryRanking`,
   `Every member who joins makes the community stronger.\n\nMore deposits = more protocol fees = more buybacks = stronger $TURBO. The community's growth directly benefits every holder.\n\n👉 https://t.me/turboloopofficial\n\n#TurboLoop #CommunityGrowth #DeFi #TURBO #NetworkEffect`,

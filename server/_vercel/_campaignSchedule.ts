@@ -225,15 +225,15 @@ export interface CampaignSlot {
 // Free hours: 1, 3, 5, 7, 9, 15, 19, 21, 23
 // We also add :30 slots at 1:30, 3:30, 5:30 to reach 12 campaign slots
 export const CAMPAIGN_SLOTS: CampaignSlot[] = [
-  { category: "lifestyle",         utcHour: 1,  cronKey: "campaign:lifestyle",         ctaText: "Start earning today",     ctaUrl: "https://turboloop.tech/apply" },
+  { category: "lifestyle",         utcHour: 1,  cronKey: "campaign:lifestyle",         ctaText: "Start earning today",     ctaUrl: "https://turboloop.io" },
   { category: "token",             utcHour: 3,  cronKey: "campaign:token",             ctaText: "View $TURBO token",       ctaUrl: "https://turboloop.tech/token" },
-  { category: "referral",          utcHour: 5,  cronKey: "campaign:referral",          ctaText: "Build your network",      ctaUrl: "https://turboloop.tech/apply" },
+  { category: "referral",          utcHour: 5,  cronKey: "campaign:referral",          ctaText: "Build your network",      ctaUrl: "https://turboloop.io" },
   { category: "objection-handler", utcHour: 7,  cronKey: "campaign:objection",         ctaText: "Get the facts",           ctaUrl: "https://turboloop.tech/faq" },
-  { category: "hindi-new",         utcHour: 9,  cronKey: "campaign:hindi",             ctaText: "अभी शुरू करें",           ctaUrl: "https://turboloop.tech/apply" },
-  { category: "nigerian",          utcHour: 15, cronKey: "campaign:nigerian",          ctaText: "Start earning today",     ctaUrl: "https://turboloop.tech/apply" },
-  { category: "success-story",     utcHour: 19, cronKey: "campaign:success",           ctaText: "Join them today",         ctaUrl: "https://turboloop.tech/apply" },
+  { category: "hindi-new",         utcHour: 9,  cronKey: "campaign:hindi",             ctaText: "अभी शुरू करें",           ctaUrl: "https://turboloop.io" },
+  { category: "nigerian",          utcHour: 15, cronKey: "campaign:nigerian",          ctaText: "Start earning today",     ctaUrl: "https://turboloop.io" },
+  { category: "success-story",     utcHour: 19, cronKey: "campaign:success",           ctaText: "Join them today",         ctaUrl: "https://turboloop.io" },
   { category: "education-defi",    utcHour: 21, cronKey: "campaign:education",         ctaText: "Learn DeFi basics",       ctaUrl: "https://turboloop.tech/learn" },
-  { category: "urgency",           utcHour: 23, cronKey: "campaign:urgency",           ctaText: "Don't wait — start now",  ctaUrl: "https://turboloop.tech/apply" },
+  { category: "urgency",           utcHour: 23, cronKey: "campaign:urgency",           ctaText: "Don't wait — start now",  ctaUrl: "https://turboloop.io" },
   { category: "buyback",           utcHour: 1,  cronKey: "campaign:buyback",           ctaText: "See the proof",           ctaUrl: "https://turboloop.tech/token" },
   { category: "comparison",        utcHour: 3,  cronKey: "campaign:comparison",        ctaText: "Compare for yourself",    ctaUrl: "https://turboloop.tech/calculator" },
   { category: "community",         utcHour: 5,  cronKey: "campaign:community",         ctaText: "Join the community",      ctaUrl: "https://t.me/turboloopofficial" },

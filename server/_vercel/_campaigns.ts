@@ -385,8 +385,8 @@ const GERMAN_KIT_TOPICAL: Record<
   23: { url: "https://turboloop.tech/promotions",buttonText: "🎁 Onboarding-Bonus" },
 
   // 24–26: paid programs + bug bounty
-  24: { url: "https://turboloop.tech/apply#creator",   buttonText: "⭐ Creator werden" },
-  25: { url: "https://turboloop.tech/apply#presenter", buttonText: "🎙 Presenter werden" },
+  24: { url: "https://turboloop.io#creator",   buttonText: "⭐ Creator werden" },
+  25: { url: "https://turboloop.io#presenter", buttonText: "🎙 Presenter werden" },
   26: { url: "https://turboloop.tech/security",  buttonText: "💰 $100k Challenge" },
 
   // 27–28: products
@@ -403,7 +403,7 @@ const GERMAN_KIT_TOPICAL: Record<
 
   // 35–37: earnings vibe
   35: { url: "https://turboloop.tech/calculator",buttonText: "📈 Tägliche Renditen" },
-  36: { url: "https://turboloop.tech/apply",     buttonText: "💎 Ab $1 starten" },
+  36: { url: "https://turboloop.io",     buttonText: "💎 Ab $1 starten" },
   37: { url: "https://turboloop.tech/calculator",buttonText: "📈 Passives Einkommen" },
 
   // 38–43: referral / leadership / compound deep-dives
@@ -422,8 +422,8 @@ const GERMAN_KIT_TOPICAL: Record<
 
   // 48–51: programs + bug bounty (second pass)
   48: { url: "https://turboloop.tech/promotions",buttonText: "🎁 Onboarding-Bonus" },
-  49: { url: "https://turboloop.tech/apply#creator",   buttonText: "⭐ Creator werden" },
-  50: { url: "https://turboloop.tech/apply#presenter", buttonText: "🎙 Presenter werden" },
+  49: { url: "https://turboloop.io#creator",   buttonText: "⭐ Creator werden" },
+  50: { url: "https://turboloop.io#presenter", buttonText: "🎙 Presenter werden" },
   51: { url: "https://turboloop.tech/security",  buttonText: "💰 $100k Challenge" },
 
   // 52–53: products (second pass)
@@ -446,7 +446,7 @@ const GERMAN_KIT_TOPICAL: Record<
 
   // 64–65: closer CTAs
   64: { url: "https://turboloop.tech/",          buttonText: "🌐 Der Loop läuft" },
-  65: { url: "https://turboloop.tech/apply",     buttonText: "🚀 Jetzt anmelden" },
+  65: { url: "https://turboloop.io",     buttonText: "🚀 Jetzt anmelden" },
 };
 
 /** Lookup table built from the language-kit manifest: banner number →

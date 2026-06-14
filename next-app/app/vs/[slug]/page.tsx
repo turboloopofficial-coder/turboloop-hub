@@ -47,7 +47,37 @@ export default async function ComparisonPage({
   const c = getComparison(slug);
   if (!c) notFound();
 
+  const pageUrl = `https://www.turboloop.tech/vs/${c.slug}`;
+
+  // FAQPage schema — each comparison row becomes a Q&A for rich snippets
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: c.rows.map(row => ({
+      "@type": "Question",
+      name: `${row.metric}: TurboLoop vs ${c.competitorName}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `TurboLoop: ${row.turboloop}. ${c.competitorName}: ${row.competitor}.`,
+      },
+    })),
+  };
+
+  // BreadcrumbList schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.turboloop.tech" },
+      { "@type": "ListItem", position: 2, name: "Comparisons", item: "https://www.turboloop.tech/vs" },
+      { "@type": "ListItem", position: 3, name: `TurboLoop vs ${c.competitorName}`, item: pageUrl },
+    ],
+  };
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     <main className="relative pb-12 md:pb-20">
       <Container width="default" className="pt-6 md:pt-10">
         <Breadcrumbs
@@ -188,5 +218,6 @@ export default async function ComparisonPage({
         </div>
       </Container>
     </main>
+    </>
   );
 }

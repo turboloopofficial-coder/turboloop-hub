@@ -61400,19 +61400,19 @@ Get your questions ready. The room opens in one hour \u2014 free, open, no agend
 Members from 20+ countries join this call every day. Add your voice in 60 minutes.`
 ];
 var EN_T10 = [
-  `<b>English Community Call \u2014 10 minutes.</b>
+  `<b>English Community Call \u2014 15 minutes.</b>
 
 The room is filling up. Join now and get a front-row seat.`,
-  `<b>10 minutes to the Daily English Call.</b>
+  `<b>15 minutes to the Daily English Call.</b>
 
-Last call. The Zoom opens in 10 minutes \u2014 don't miss it.`,
+Last call. The Zoom opens in 15 minutes \u2014 don't miss it.`,
   `<b>Almost live \u2014 English Community Call.</b>
 
-Final reminder. 10 minutes. Bring your best question.`,
-  `<b>Daily English Call \u2014 10 min away.</b>
+Final reminder. 15 minutes. Bring your best question.`,
+  `<b>Daily English Call \u2014 15 min away.</b>
 
-The door opens in 10 minutes. Real conversation, real answers.`,
-  `<b>English Zoom \u2014 starting in 10 minutes.</b>
+The door opens in 15 minutes. Real conversation, real answers.`,
+  `<b>English Zoom \u2014 starting in 15 minutes.</b>
 
 Wrap up what you're doing. The daily call is about to begin.`
 ];
@@ -77408,7 +77408,7 @@ async function handler(req, res) {
       const early = isEnZoomEarlyToday();
       const [h60, m60] = early ? [15, 0] : [16, 0];
       const [h30, m30] = early ? [15, 30] : [16, 30];
-      const [h10, m10] = early ? [15, 50] : [16, 50];
+      const [h10, m10] = early ? [15, 45] : [16, 45];
       const [h0, m0] = early ? [16, 0] : [17, 0];
       try {
         if ((isInWindow(h60, m60) || isMissedToday(h60, m60) || forceZoomEnT60) && (forceZoomEnT60 || !await hasFiredToday(db, "zoom:en:T60"))) {

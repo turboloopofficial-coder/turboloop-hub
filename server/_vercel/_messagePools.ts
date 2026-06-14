@@ -408,23 +408,23 @@ Members from 20+ countries join this call every day. Add your voice in 60 minute
 
 // ── English T-10 pool (10 minutes before) ─────────────────────────────────
 const EN_T10 = [
-  `<b>English Community Call — 10 minutes.</b>
+  `<b>English Community Call — 15 minutes.</b>
 
 The room is filling up. Join now and get a front-row seat.`,
 
-  `<b>10 minutes to the Daily English Call.</b>
+  `<b>15 minutes to the Daily English Call.</b>
 
-Last call. The Zoom opens in 10 minutes — don't miss it.`,
+Last call. The Zoom opens in 15 minutes — don't miss it.`,
 
   `<b>Almost live — English Community Call.</b>
 
-Final reminder. 10 minutes. Bring your best question.`,
+Final reminder. 15 minutes. Bring your best question.`,
 
-  `<b>Daily English Call — 10 min away.</b>
+  `<b>Daily English Call — 15 min away.</b>
 
-The door opens in 10 minutes. Real conversation, real answers.`,
+The door opens in 15 minutes. Real conversation, real answers.`,
 
-  `<b>English Zoom — starting in 10 minutes.</b>
+  `<b>English Zoom — starting in 15 minutes.</b>
 
 Wrap up what you're doing. The daily call is about to begin.`,
 ];

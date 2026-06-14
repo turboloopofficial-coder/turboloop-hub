@@ -971,7 +971,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       const early = isEnZoomEarlyToday();
       const [h60, m60] = early ? [15,  0] : [16,  0];
       const [h30, m30] = early ? [15, 30] : [16, 30];
-      const [h10, m10] = early ? [15, 50] : [16, 50];
+      const [h10, m10] = early ? [15, 45] : [16, 45]; // T-15: fires 15 min before call
       const [h0,  m0 ] = early ? [16,  0] : [17,  0];
 
       // EN T-60

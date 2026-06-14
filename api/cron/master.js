@@ -78261,35 +78261,128 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
     } catch {
     }
     const CAMPAIGN_SLOTS = [
-      { hour: 1, minute: 0, taskId: "campaign:lifestyle", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 3, minute: 0, taskId: "campaign:education", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
-      { hour: 5, minute: 0, taskId: "campaign:objection", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
-      { hour: 7, minute: 0, taskId: "campaign:token", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
-      { hour: 9, minute: 30, taskId: "campaign:referral", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
-      { hour: 12, minute: 30, taskId: "campaign:comparison", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 13, minute: 30, taskId: "campaign:hindi", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
-      { hour: 14, minute: 30, taskId: "campaign:success", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
-      { hour: 21, minute: 0, taskId: "campaign:urgency", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 21, minute: 30, taskId: "campaign:buyback", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
-      { hour: 23, minute: 0, taskId: "campaign:naija", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
-      { hour: 23, minute: 30, taskId: "campaign:community", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS }
+      // ── 00:xx ──
+      { hour: 0, minute: 0, taskId: "campaign:c01", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 0, minute: 30, taskId: "campaign:c02", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 01:xx ──
+      { hour: 1, minute: 0, taskId: "campaign:c03", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 1, minute: 30, taskId: "campaign:c04", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 02:xx ──
+      { hour: 2, minute: 0, taskId: "campaign:c05", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 2, minute: 30, taskId: "campaign:c06", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 03:xx ──
+      { hour: 3, minute: 0, taskId: "campaign:c07", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 3, minute: 30, taskId: "campaign:c08", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 04:xx ──
+      { hour: 4, minute: 0, taskId: "campaign:c09", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 4, minute: 30, taskId: "campaign:c10", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 05:xx ──
+      { hour: 5, minute: 0, taskId: "campaign:c11", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 5, minute: 30, taskId: "campaign:c12", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 06:xx ──
+      { hour: 6, minute: 0, taskId: "campaign:c13", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 6, minute: 30, taskId: "campaign:c14", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 07:xx ──
+      { hour: 7, minute: 0, taskId: "campaign:c15", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 08:xx ──
+      { hour: 8, minute: 0, taskId: "campaign:c17", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 8, minute: 30, taskId: "campaign:c18", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 09:xx ──
+      { hour: 9, minute: 0, taskId: "campaign:c19", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 9, minute: 30, taskId: "campaign:c20", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 10:xx ──
+      { hour: 10, minute: 0, taskId: "campaign:c21", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 10, minute: 30, taskId: "campaign:c22", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 11:xx ──
+      { hour: 11, minute: 0, taskId: "campaign:c23", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 11, minute: 30, taskId: "campaign:c24", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 12:xx ──
+      { hour: 12, minute: 0, taskId: "campaign:c25", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 12, minute: 30, taskId: "campaign:c26", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 13:xx ──
+      { hour: 13, minute: 0, taskId: "campaign:c27", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 14:xx ──
+      { hour: 14, minute: 0, taskId: "campaign:c29", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 15:xx ──
+      { hour: 15, minute: 0, taskId: "campaign:c31", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 15, minute: 30, taskId: "campaign:c32", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 16:xx ──
+      { hour: 16, minute: 0, taskId: "campaign:c33", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 16, minute: 30, taskId: "campaign:c34", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 17:xx ──
+      { hour: 17, minute: 0, taskId: "campaign:c35", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 17, minute: 30, taskId: "campaign:c36", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 18:xx ──
+      { hour: 18, minute: 0, taskId: "campaign:c37", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 18, minute: 30, taskId: "campaign:c38", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 19:xx ──
+      { hour: 19, minute: 0, taskId: "campaign:c39", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 20:xx ──
+      { hour: 20, minute: 0, taskId: "campaign:c41", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 20, minute: 30, taskId: "campaign:c42", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 21:xx ──
+      { hour: 21, minute: 0, taskId: "campaign:c43", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 21, minute: 30, taskId: "campaign:c44", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 22:xx ──
+      { hour: 22, minute: 0, taskId: "campaign:c45", category: "urgency", captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 22, minute: 30, taskId: "campaign:c46", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 23:xx ──
+      { hour: 23, minute: 0, taskId: "campaign:c47", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 23, minute: 30, taskId: "campaign:c48", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS }
     ];
-    const campaignForceMap = {
-      "campaign:lifestyle": forceCampaignLifestyle,
-      "campaign:token": forceCampaignToken,
-      "campaign:referral": forceCampaignReferral,
-      "campaign:objection": forceCampaignObjection,
-      "campaign:hindi": forceCampaignHindi,
-      "campaign:naija": forceCampaignNigerian,
-      "campaign:success": forceCampaignSuccess,
-      "campaign:education": forceCampaignEducation,
-      "campaign:urgency": forceCampaignUrgency,
-      "campaign:buyback": forceCampaignBuyback,
-      "campaign:comparison": forceCampaignComparison,
-      "campaign:community": forceCampaignCommunity
+    const campaignForceSet = new Set(
+      forceSet.has("campaign:all") ? CAMPAIGN_SLOTS.map((s) => s.taskId) : CAMPAIGN_SLOTS.map((s) => s.taskId).filter((id) => forceSet.has(id))
+    );
+    const legacyCategoryForce = {
+      "campaign:lifestyle": ["campaign:c01", "campaign:c13", "campaign:c25", "campaign:c37"],
+      "campaign:token": ["campaign:c02", "campaign:c14", "campaign:c26", "campaign:c38"],
+      "campaign:referral": ["campaign:c03", "campaign:c15", "campaign:c27", "campaign:c39"],
+      "campaign:objection": ["campaign:c04", "campaign:c16", "campaign:c28", "campaign:c40"],
+      "campaign:hindi": ["campaign:c05", "campaign:c17", "campaign:c29", "campaign:c41"],
+      "campaign:naija": ["campaign:c06", "campaign:c18", "campaign:c30", "campaign:c42"],
+      "campaign:success": ["campaign:c07", "campaign:c19", "campaign:c31", "campaign:c43"],
+      "campaign:education": ["campaign:c08", "campaign:c20", "campaign:c32", "campaign:c44"],
+      "campaign:urgency": ["campaign:c09", "campaign:c21", "campaign:c33", "campaign:c45"],
+      "campaign:buyback": ["campaign:c10", "campaign:c22", "campaign:c34", "campaign:c46"],
+      "campaign:comparison": ["campaign:c11", "campaign:c23", "campaign:c35", "campaign:c47"],
+      "campaign:community": ["campaign:c12", "campaign:c24", "campaign:c36", "campaign:c48"]
     };
+    for (const [legacyKey, slotIds] of Object.entries(legacyCategoryForce)) {
+      if (forceSet.has(legacyKey)) slotIds.forEach((id) => campaignForceSet.add(id));
+    }
+    async function sendCampaignWithVerification(taskId, imgUrl, caption) {
+      const attempt = async () => tgBroadcastPhoto({ photoUrl: imgUrl, caption, parseMode: "HTML" });
+      let results = await attempt();
+      const failedChannels = results.filter((r5) => !r5.ok);
+      if (failedChannels.length > 0) {
+        await new Promise((r5) => setTimeout(r5, 3e3));
+        const retryResults = await attempt();
+        const retryMap = new Map(retryResults.map((r5) => [r5.chatId, r5]));
+        results = results.map((r5) => retryMap.get(r5.chatId) ?? r5);
+      }
+      const delivered = results.filter((r5) => r5.ok).length;
+      const failed = results.filter((r5) => !r5.ok).length;
+      const deliveryKey = `tgDelivery:${taskId}:${todayKey()}`;
+      const deliveryVal = JSON.stringify({
+        at: (/* @__PURE__ */ new Date()).toISOString(),
+        delivered,
+        failed,
+        channels: results.map((r5) => ({ id: r5.chatId, ok: r5.ok, err: r5.error }))
+      });
+      await db.insert(siteSettings).values({ settingKey: deliveryKey, settingValue: deliveryVal }).onConflictDoUpdate({ target: siteSettings.settingKey, set: { settingValue: deliveryVal } }).catch(() => {
+      });
+      if (delivered === 0 && results.length > 0) {
+        const errMsg = results.map((r5) => `${r5.chatId}: ${r5.error}`).join("; ");
+        throw new Error(`TG delivery failed on all channels \u2014 ${errMsg}`);
+      }
+      return { delivered, channels: results.length, failed };
+    }
     for (const slot of CAMPAIGN_SLOTS) {
-      const forceSlot = campaignForceMap[slot.taskId] ?? false;
+      const forceSlot = campaignForceSet.has(slot.taskId);
       try {
         const shouldFire = forceSlot || isInWindow(slot.hour, slot.minute) || isMissedToday(slot.hour, slot.minute, 90);
         if (!shouldFire || !forceSlot && await hasFiredToday(db, slot.taskId)) {
@@ -78297,13 +78390,12 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
         }
         const imgUrl = campaignBannerUrl(slot.category, daysSinceLaunch);
         const caption = pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
-        await tgBroadcastPhoto({
-          photoUrl: imgUrl,
-          caption,
-          parseMode: "HTML"
-        });
+        const { delivered, channels, failed } = await sendCampaignWithVerification(slot.taskId, imgUrl, caption);
         await markFired(db, slot.taskId);
-        log.push(`\u{1F4E3} ${slot.taskId} \u2192 ${slot.category}`);
+        log.push(`\u{1F4E3} ${slot.taskId} \u2192 ${slot.category} (\u2705 ${delivered}/${channels} channels)`);
+        if (failed > 0) {
+          log.push(`\u26A0\uFE0F ${slot.taskId}: ${failed} channel(s) failed but ${delivered} delivered`);
+        }
       } catch (err) {
         await markError(db, slot.taskId, err).catch(() => {
         });

@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -1805,8 +1805,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // Price feeds down — fall through with no price suffix.
     }
 
-    // Helper: each task block follows the same shape. Wrapping it
-    // keeps cron-master from ballooning by 200+ lines of repetition.
+    // ── 48-slot campaign schedule ─────────────────────────────────────────────
+    // One campaign post every 30 minutes, 00:00–23:30 UTC.
+    // 12 categories cycle across all 48 slots (each category fires 4×/day).
+    // Each slot has a unique taskId (campaign:c01..c48) so dedup is per-slot.
     type CampaignSlot = {
       hour: number;
       minute: number;
@@ -1815,38 +1817,157 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       captions: string[];
     };
     const CAMPAIGN_SLOTS: CampaignSlot[] = [
-      { hour: 1,  minute: 0,  taskId: "campaign:lifestyle",  category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
-      { hour: 3,  minute: 0,  taskId: "campaign:education",  category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
-      { hour: 5,  minute: 0,  taskId: "campaign:objection",  category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
-      { hour: 7,  minute: 0,  taskId: "campaign:token",      category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
-      { hour: 9,  minute: 30, taskId: "campaign:referral",   category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
-      { hour: 12, minute: 30, taskId: "campaign:comparison", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
-      { hour: 13, minute: 30, taskId: "campaign:hindi",      category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
-      { hour: 14, minute: 30, taskId: "campaign:success",    category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
-      { hour: 21, minute: 0,  taskId: "campaign:urgency",    category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
-      { hour: 21, minute: 30, taskId: "campaign:buyback",    category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
-      { hour: 23, minute: 0,  taskId: "campaign:naija",      category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
-      { hour: 23, minute: 30, taskId: "campaign:community",  category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 00:xx ──
+      { hour:  0, minute:  0, taskId: "campaign:c01", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour:  0, minute: 30, taskId: "campaign:c02", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 01:xx ──
+      { hour:  1, minute:  0, taskId: "campaign:c03", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour:  1, minute: 30, taskId: "campaign:c04", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 02:xx ──
+      { hour:  2, minute:  0, taskId: "campaign:c05", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour:  2, minute: 30, taskId: "campaign:c06", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 03:xx ──
+      { hour:  3, minute:  0, taskId: "campaign:c07", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour:  3, minute: 30, taskId: "campaign:c08", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 04:xx ──
+      { hour:  4, minute:  0, taskId: "campaign:c09", category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour:  4, minute: 30, taskId: "campaign:c10", category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 05:xx ──
+      { hour:  5, minute:  0, taskId: "campaign:c11", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour:  5, minute: 30, taskId: "campaign:c12", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 06:xx ──
+      { hour:  6, minute:  0, taskId: "campaign:c13", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour:  6, minute: 30, taskId: "campaign:c14", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 07:xx ──
+      { hour:  7, minute:  0, taskId: "campaign:c15", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour:  7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 08:xx ──
+      { hour:  8, minute:  0, taskId: "campaign:c17", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour:  8, minute: 30, taskId: "campaign:c18", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 09:xx ──
+      { hour:  9, minute:  0, taskId: "campaign:c19", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour:  9, minute: 30, taskId: "campaign:c20", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 10:xx ──
+      { hour: 10, minute:  0, taskId: "campaign:c21", category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 10, minute: 30, taskId: "campaign:c22", category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 11:xx ──
+      { hour: 11, minute:  0, taskId: "campaign:c23", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 11, minute: 30, taskId: "campaign:c24", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 12:xx ──
+      { hour: 12, minute:  0, taskId: "campaign:c25", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 12, minute: 30, taskId: "campaign:c26", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 13:xx ──
+      { hour: 13, minute:  0, taskId: "campaign:c27", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 14:xx ──
+      { hour: 14, minute:  0, taskId: "campaign:c29", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 15:xx ──
+      { hour: 15, minute:  0, taskId: "campaign:c31", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 15, minute: 30, taskId: "campaign:c32", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 16:xx ──
+      { hour: 16, minute:  0, taskId: "campaign:c33", category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 16, minute: 30, taskId: "campaign:c34", category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 17:xx ──
+      { hour: 17, minute:  0, taskId: "campaign:c35", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 17, minute: 30, taskId: "campaign:c36", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
+      // ── 18:xx ──
+      { hour: 18, minute:  0, taskId: "campaign:c37", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS },
+      { hour: 18, minute: 30, taskId: "campaign:c38", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS },
+      // ── 19:xx ──
+      { hour: 19, minute:  0, taskId: "campaign:c39", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
+      { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },
+      // ── 20:xx ──
+      { hour: 20, minute:  0, taskId: "campaign:c41", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
+      { hour: 20, minute: 30, taskId: "campaign:c42", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 21:xx ──
+      { hour: 21, minute:  0, taskId: "campaign:c43", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
+      { hour: 21, minute: 30, taskId: "campaign:c44", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS },
+      // ── 22:xx ──
+      { hour: 22, minute:  0, taskId: "campaign:c45", category: "urgency",           captions: CAMPAIGN_URGENCY_CAPTIONS },
+      { hour: 22, minute: 30, taskId: "campaign:c46", category: "buyback",           captions: CAMPAIGN_BUYBACK_CAPTIONS },
+      // ── 23:xx ──
+      { hour: 23, minute:  0, taskId: "campaign:c47", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
+      { hour: 23, minute: 30, taskId: "campaign:c48", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS },
     ];
 
-    // Force-fire map: ?force=campaign:lifestyle,campaign:token etc.
-    const campaignForceMap: Record<string, boolean> = {
-      "campaign:lifestyle":  forceCampaignLifestyle,
-      "campaign:token":      forceCampaignToken,
-      "campaign:referral":   forceCampaignReferral,
-      "campaign:objection":  forceCampaignObjection,
-      "campaign:hindi":      forceCampaignHindi,
-      "campaign:naija":      forceCampaignNigerian,
-      "campaign:success":    forceCampaignSuccess,
-      "campaign:education":  forceCampaignEducation,
-      "campaign:urgency":    forceCampaignUrgency,
-      "campaign:buyback":    forceCampaignBuyback,
-      "campaign:comparison": forceCampaignComparison,
-      "campaign:community":  forceCampaignCommunity,
+    // Force-fire map: ?force=campaign:c01,campaign:c02 etc.
+    // Legacy named keys still work for manual triggers.
+    const campaignForceSet = new Set(
+      forceSet.has("campaign:all")
+        ? CAMPAIGN_SLOTS.map(s => s.taskId)
+        : CAMPAIGN_SLOTS.map(s => s.taskId).filter(id => forceSet.has(id))
+    );
+    // Also support legacy named forces (e.g. ?force=campaign:lifestyle fires c01,c13,c25,c37)
+    const legacyCategoryForce: Record<string, string[]> = {
+      "campaign:lifestyle":  ["campaign:c01","campaign:c13","campaign:c25","campaign:c37"],
+      "campaign:token":      ["campaign:c02","campaign:c14","campaign:c26","campaign:c38"],
+      "campaign:referral":   ["campaign:c03","campaign:c15","campaign:c27","campaign:c39"],
+      "campaign:objection":  ["campaign:c04","campaign:c16","campaign:c28","campaign:c40"],
+      "campaign:hindi":      ["campaign:c05","campaign:c17","campaign:c29","campaign:c41"],
+      "campaign:naija":      ["campaign:c06","campaign:c18","campaign:c30","campaign:c42"],
+      "campaign:success":    ["campaign:c07","campaign:c19","campaign:c31","campaign:c43"],
+      "campaign:education":  ["campaign:c08","campaign:c20","campaign:c32","campaign:c44"],
+      "campaign:urgency":    ["campaign:c09","campaign:c21","campaign:c33","campaign:c45"],
+      "campaign:buyback":    ["campaign:c10","campaign:c22","campaign:c34","campaign:c46"],
+      "campaign:comparison": ["campaign:c11","campaign:c23","campaign:c35","campaign:c47"],
+      "campaign:community":  ["campaign:c12","campaign:c24","campaign:c36","campaign:c48"],
     };
+    for (const [legacyKey, slotIds] of Object.entries(legacyCategoryForce)) {
+      if (forceSet.has(legacyKey)) slotIds.forEach(id => campaignForceSet.add(id));
+    }
+
+    // ── TG delivery verification helper ──────────────────────────────────────
+    // Calls tgBroadcastPhoto, checks every channel result, retries once on
+    // failure, logs delivery status to DB so the admin panel can surface it.
+    async function sendCampaignWithVerification(
+      taskId: string,
+      imgUrl: string,
+      caption: string
+    ): Promise<{ delivered: boolean; channels: number; failed: number }> {
+      const attempt = async () =>
+        tgBroadcastPhoto({ photoUrl: imgUrl, caption, parseMode: "HTML" });
+
+      let results = await attempt();
+
+      // Retry any failed channels once after 3 s
+      const failedChannels = results.filter(r => !r.ok);
+      if (failedChannels.length > 0) {
+        await new Promise(r => setTimeout(r, 3000));
+        const retryResults = await attempt();
+        // Merge: prefer retry result for each chatId
+        const retryMap = new Map(retryResults.map(r => [r.chatId, r]));
+        results = results.map(r => retryMap.get(r.chatId) ?? r);
+      }
+
+      const delivered = results.filter(r => r.ok).length;
+      const failed    = results.filter(r => !r.ok).length;
+
+      // Log delivery status to DB (tgDelivery:<taskId>:<date>)
+      const deliveryKey = `tgDelivery:${taskId}:${todayKey()}`;
+      const deliveryVal = JSON.stringify({
+        at: new Date().toISOString(),
+        delivered,
+        failed,
+        channels: results.map(r => ({ id: r.chatId, ok: r.ok, err: r.error })),
+      });
+      await db
+        .insert(siteSettings)
+        .values({ settingKey: deliveryKey, settingValue: deliveryVal })
+        .onConflictDoUpdate({ target: siteSettings.settingKey, set: { settingValue: deliveryVal } })
+        .catch(() => {});
+
+      // If ALL channels failed, throw so markError is called and slot can retry
+      if (delivered === 0 && results.length > 0) {
+        const errMsg = results.map(r => `${r.chatId}: ${r.error}`).join("; ");
+        throw new Error(`TG delivery failed on all channels — ${errMsg}`);
+      }
+
+      return { delivered, channels: results.length, failed };
+    }
 
     for (const slot of CAMPAIGN_SLOTS) {
-      const forceSlot = campaignForceMap[slot.taskId] ?? false;
+      const forceSlot = campaignForceSet.has(slot.taskId);
       try {
         const shouldFire =
           forceSlot ||
@@ -1855,16 +1976,16 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         if (!shouldFire || (!forceSlot && (await hasFiredToday(db, slot.taskId)))) {
           continue;
         }
-        const imgUrl = campaignBannerUrl(slot.category, daysSinceLaunch);
-        const caption =
-          pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
-        await tgBroadcastPhoto({
-          photoUrl: imgUrl,
-          caption,
-          parseMode: "HTML",
-        });
+        const imgUrl  = campaignBannerUrl(slot.category, daysSinceLaunch);
+        const caption = pickByDay(slot.captions, daysSinceLaunch) + campaignPriceLine;
+        const { delivered, channels, failed } =
+          await sendCampaignWithVerification(slot.taskId, imgUrl, caption);
+        // Only mark fired if at least one channel received the post
         await markFired(db, slot.taskId);
-        log.push(`📣 ${slot.taskId} → ${slot.category}`);
+        log.push(`📣 ${slot.taskId} → ${slot.category} (✅ ${delivered}/${channels} channels)`);
+        if (failed > 0) {
+          log.push(`⚠️ ${slot.taskId}: ${failed} channel(s) failed but ${delivered} delivered`);
+        }
       } catch (err) {
         await markError(db, slot.taskId, err).catch(() => {});
         console.error(`[cron-master] ${slot.taskId} failed`, err);

@@ -14,6 +14,10 @@ import {
   TOTAL_CATEGORIES,
 } from "@lib/unifiedCreativesData";
 
+// First page of items for SSR — avoids serialising all 1,134+ items into HTML.
+// The UnifiedCreativesGrid fetches subsequent pages from /api/creatives.
+const INITIAL_ITEMS = ALL_UNIFIED_CREATIVES.slice(0, 48);
+
 // ── Metadata ───────────────────────────────────────────────────────────────
 
 const TITLE = "Marketing Hub — 1,100+ Free DeFi Banners in 7 Languages | TurboLoop";
@@ -125,7 +129,8 @@ export default function CreativesPage() {
 
         {/* ── Unified grid (full-width, no container — grid has its own padding) */}
         <UnifiedCreativesGrid
-          items={ALL_UNIFIED_CREATIVES}
+          initialItems={INITIAL_ITEMS}
+          initialTotal={TOTAL_CREATIVES}
           categories={UNIFIED_CATEGORIES}
         />
 

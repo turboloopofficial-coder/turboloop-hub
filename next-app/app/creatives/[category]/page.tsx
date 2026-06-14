@@ -176,7 +176,8 @@ export default async function CategoryPage({
 
         {/* ── Unified grid (pre-filtered to this category) ────────────────── */}
         <UnifiedCreativesGrid
-          items={items}
+          initialItems={items.slice(0, 48)}
+          initialTotal={items.length}
           categories={UNIFIED_CATEGORIES}
           initialCategory={category}
         />

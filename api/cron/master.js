@@ -60578,8 +60578,540 @@ function tgEscape(s) {
   return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// server/_vercel/_campaignFileIndex.ts
+var CAMPAIGN_FILE_INDEX = {
+  "lifestyle": [
+    "01_Lifestyle_Morning_Coffee_Earnings.png",
+    "02_Lifestyle_Beach_Laptop.png",
+    "03_Lifestyle_Luxury_Car.png",
+    "04_Lifestyle_Family_Freedom.png",
+    "05_Lifestyle_Private_Jet.png",
+    "06_Lifestyle_Rooftop_Pool.png",
+    "07_Lifestyle_Yoga_Sunrise.png",
+    "08_Lifestyle_Home_Office_Dream.png",
+    "09_Lifestyle_Travel_Passport.png",
+    "10_Lifestyle_Sleeping_Earning.png",
+    "11_Lifestyle_Penthouse_View.png",
+    "12_Lifestyle_Entrepreneur_Hustle.png",
+    "13_Lifestyle_Luxury_Watch.png",
+    "14_Lifestyle_Island_Hammock.png",
+    "15_Lifestyle_Graduation_Freedom.png",
+    "16_Lifestyle_Gym_Grind.png",
+    "17_Lifestyle_Sunset_Sailboat.png",
+    "18_Lifestyle_Kids_Education.png",
+    "19_Lifestyle_Retirement_Early.png",
+    "20_Lifestyle_Midnight_Hustle.png",
+    "21_Lifestyle_Couple_Goals.png",
+    "22_Lifestyle_Skydiving_Freedom.png",
+    "23_Lifestyle_Luxury_Dining.png",
+    "24_Lifestyle_Mountain_Summit.png",
+    "25_Lifestyle_Bookshelf_Wealth.png",
+    "26_Lifestyle_Vintage_Map_Plan.png",
+    "27_Lifestyle_Supercar_Keys.png",
+    "28_Lifestyle_Nomad_Cafe.png",
+    "29_Lifestyle_New_Home.png",
+    "30_Lifestyle_Giving_Back.png",
+    "31_Lifestyle_Vintage_Vinyl.png",
+    "32_Lifestyle_Rooftop_Garden.png",
+    "33_Lifestyle_Art_Gallery.png",
+    "34_Lifestyle_Helicopter_View.png",
+    "35_Lifestyle_Spa_Wellness.png",
+    "36_Lifestyle_Midnight_City.png",
+    "37_Lifestyle_Surfing_Wave.png",
+    "38_Lifestyle_Penthouse_Party.png",
+    "39_Lifestyle_Meditation_Wealth.png",
+    "40_Lifestyle_Luxury_Hotel.png",
+    "41_Lifestyle_Vintage_Motorcycle.png",
+    "42_Lifestyle_Greenhouse_Abundance.png",
+    "43_Lifestyle_Stargazing.png",
+    "44_Lifestyle_Chef_Kitchen.png",
+    "45_Lifestyle_Vintage_Paris.png",
+    "46_Lifestyle_Piano_Passion.png",
+    "47_Lifestyle_Safari_Adventure.png",
+    "48_Lifestyle_Northern_Lights.png",
+    "49_Lifestyle_Skyscraper_Office.png",
+    "50_Lifestyle_Final_Freedom.png"
+  ],
+  "token": [
+    "01_Token_Launch_Story.png",
+    "02_TURBO_Buyback_Daily.png",
+    "03_TURBO_Vesting_Schedule.png",
+    "04_TURBO_Fixed_Supply.png",
+    "05_TURBO_Burn_Wallet.png",
+    "06_TURBO_PancakeSwap.png",
+    "07_TURBO_Native_Swap.png",
+    "08_TURBO_Power_Plan_Rewards.png",
+    "09_TURBO_Ultimate_Plan_Gold.png",
+    "10_TURBO_All_Time_Performance.png",
+    "11_TURBO_Tokenomics_Overview.png",
+    "12_TURBO_Liquidity_Lock.png",
+    "13_TURBO_Smart_Contract_Audit.png",
+    "14_TURBO_BSC_Network.png",
+    "15_TURBO_Holder_Rewards.png",
+    "16_TURBO_Token_Utility.png",
+    "17_TURBO_Price_Discovery.png",
+    "18_TURBO_Governance_Power.png",
+    "19_TURBO_Staking_Yield.png",
+    "20_TURBO_Ecosystem_Growth.png",
+    "21_TURBO_Anti_Whale.png",
+    "22_TURBO_Deflationary_Model.png",
+    "23_TURBO_Rank_Journey.png",
+    "24_TURBO_Legend_Rank.png",
+    "25_TURBO_Token_Launch_BSC.png",
+    "26_TURBO_Transparent_Protocol.png",
+    "27_TURBO_Compound_Power.png",
+    "28_TURBO_USDT_Pool.png",
+    "29_TURBO_60Day_Plan.png",
+    "30_TURBO_30Day_Plan.png",
+    "31_TURBO_14Day_Plan.png",
+    "32_TURBO_7Day_Plan.png",
+    "33_TURBO_Min_Deposit.png",
+    "34_TURBO_Daily_Rewards.png",
+    "35_TURBO_Network_Income.png",
+    "36_TURBO_Smart_Contract_Power.png",
+    "37_TURBO_Passive_Income.png",
+    "38_TURBO_Withdraw_Anytime.png",
+    "39_TURBO_Referral_Level1.png",
+    "40_TURBO_DeFi_Future.png",
+    "41_TURBO_All_Plans_Overview.png",
+    "42_TURBO_Security_First.png",
+    "43_TURBO_No_IL_Risk.png",
+    "44_TURBO_Daily_UTC_Rewards.png",
+    "45_TURBO_Compound_Network.png",
+    "46_TURBO_Global_Access.png",
+    "47_TURBO_Trustless_Finance.png",
+    "48_TURBO_Earn_While_Sleep.png",
+    "49_TURBO_Join_Revolution.png",
+    "50_TURBO_Start_Now.png"
+  ],
+  "referral": [
+    "01_Referral_20_Levels.png",
+    "02_Referral_Level1_Commission.png",
+    "03_Referral_Network_Tree.png",
+    "04_Referral_Passive_Income_Streams.png",
+    "05_Referral_Commission_Table.png",
+    "06_Referral_Neon_Grid.png",
+    "07_Referral_Rank_Staircase.png",
+    "08_Referral_Globe_Network.png",
+    "09_Referral_Income_Calculator.png",
+    "10_Referral_Turbo_Legend.png",
+    "11_Referral_Share_Link.png",
+    "12_Referral_Compound_Network.png",
+    "13_Referral_Ambassador_Rank.png",
+    "14_Referral_Team_Building.png",
+    "15_Referral_Permanent_Upline.png",
+    "16_Referral_Income_Explosion.png",
+    "17_Referral_Director_Rank.png",
+    "18_Referral_Waterfall_Income.png",
+    "19_Referral_Turbo_Partner_Start.png",
+    "20_Referral_Daily_Network_Calc.png",
+    "21_Referral_Executive_Rank.png",
+    "22_Referral_Builder_Rank.png",
+    "23_Referral_Accelerator_Rank.png",
+    "24_Referral_Invite_Friends.png",
+    "25_Referral_Network_Map.png",
+    "26_Referral_Chess_Master.png",
+    "27_Referral_Origami_Network.png",
+    "28_Referral_Domino_Effect.png",
+    "29_Referral_Constellation_Map.png",
+    "30_Referral_Neon_Fingerprint.png",
+    "31_Referral_Spiderweb_Income.png",
+    "32_Referral_Hourglass_Time.png",
+    "33_Referral_Viral_Spread.png",
+    "34_Referral_River_Delta.png",
+    "35_Referral_Architect_Blueprint.png",
+    "36_Referral_Seed_Tree.png",
+    "37_Referral_Pyramid_Light.png",
+    "38_Referral_Phone_Notification.png",
+    "39_Referral_Magnetic_Force.png",
+    "40_Referral_Crown_Throne.png",
+    "41_Referral_Kaleidoscope.png",
+    "42_Referral_Wormhole.png",
+    "43_Referral_Lighthouse.png",
+    "44_Referral_Snowball_Hill.png",
+    "45_Referral_Neon_City_Network.png",
+    "46_Referral_Treasure_Map.png",
+    "47_Referral_DNA_Helix.png",
+    "48_Referral_Infinity_Loop.png",
+    "49_Referral_Sunrise_Horizon.png",
+    "50_Referral_Final_CTA.png"
+  ],
+  "objection-handler": [
+    "01_Objection_Is_It_A_Scam.png",
+    "02_Objection_Too_Good_True.png",
+    "03_Objection_Where_Does_Money_Come.png",
+    "04_Objection_Is_It_Safe.png",
+    "05_Objection_Can_I_Withdraw.png",
+    "06_Objection_Need_Crypto_Knowledge.png",
+    "07_Objection_What_If_Market_Crashes.png",
+    "08_Objection_Who_Controls_Funds.png",
+    "09_Objection_Minimum_Investment.png",
+    "10_Objection_What_About_Taxes.png",
+    "11_Objection_Ponzi_Accusation.png",
+    "12_Objection_What_If_Team_Runs.png",
+    "13_Objection_Returns_Sustainable.png",
+    "14_Objection_BSC_Trust.png",
+    "15_Objection_No_Impermanent_Loss.png",
+    "16_Objection_Too_Technical.png",
+    "17_Objection_Need_Large_Capital.png",
+    "18_Objection_Crypto_Volatile.png",
+    "19_Objection_Already_Lost_Money.png",
+    "20_Objection_How_Long_Running.png",
+    "21_Objection_Not_For_Me.png",
+    "22_Objection_Referral_Pyramid.png",
+    "23_Objection_Gas_Fees.png",
+    "24_Objection_What_Wallet.png",
+    "25_Objection_What_If_I_Lose.png",
+    "26_Objection_No_Team_Visible.png",
+    "27_Objection_What_Is_DeFi.png",
+    "28_Objection_Heard_It_Before.png",
+    "29_Objection_Complicated_Setup.png",
+    "30_Objection_Final_Trust.png",
+    "31_Objection_Fees_Hidden.png",
+    "32_Objection_Need_Bank_Account.png",
+    "33_Objection_What_Is_USDT.png",
+    "34_Objection_24_7_Support.png",
+    "35_Objection_Referral_Optional.png",
+    "36_Objection_Inflation_Hedge.png",
+    "37_Objection_My_Country_Blocked.png",
+    "38_Objection_Smart_Contract_Hack.png",
+    "39_Objection_Daily_Payout_Real.png",
+    "40_Objection_Liquidity_Risk.png",
+    "41_Objection_Compare_Banks.png",
+    "42_Objection_KYC_Privacy.png",
+    "43_Objection_What_Is_Yield_Farming.png",
+    "44_Objection_What_If_Protocol_Stops.png",
+    "45_Objection_Need_To_Understand_Blockchain.png",
+    "46_Objection_Compound_Doubt.png",
+    "47_Objection_Not_Enough_Time.png",
+    "48_Objection_Heard_Crypto_Is_Dead.png",
+    "49_Objection_Proof_Of_Payments.png",
+    "50_Objection_Final_CTA.png"
+  ],
+  "hindi-new": [
+    "01_Hindi_Passive_Income.png",
+    "02_Hindi_7_Day_Plan.png",
+    "03_Hindi_Referral_Income.png",
+    "04_Hindi_Financial_Freedom.png",
+    "05_Hindi_Smart_Investment.png",
+    "06_Hindi_No_Bank_Needed.png",
+    "07_Hindi_60_Day_Plan.png",
+    "08_Hindi_BSC_Secure.png",
+    "09_Hindi_Daily_Rewards.png",
+    "10_Hindi_Compound_Interest.png",
+    "11_Hindi_Turbo_Legend.png",
+    "12_Hindi_No_IL.png",
+    "13_Hindi_Start_1_USDT.png",
+    "14_Hindi_Withdraw_Anytime.png",
+    "15_Hindi_14_Day_Plan.png",
+    "16_Hindi_30_Day_Plan.png",
+    "17_Hindi_Referral_Level1.png",
+    "18_Hindi_Trustless.png",
+    "19_Hindi_India_Rising.png",
+    "20_Hindi_Scam_Nahi.png",
+    "21_Hindi_Ghar_Baithe.png",
+    "22_Hindi_Paisa_Kaam_Kare.png",
+    "23_Hindi_Apna_Team.png",
+    "24_Hindi_Sapna_Pura.png",
+    "25_Hindi_Aaj_Hi_Shuru.png",
+    "26_Hindi_Blockchain_Kya_Hai.png",
+    "27_Hindi_USDT_Kya_Hai.png",
+    "28_Hindi_Mahila_Shakti.png",
+    "29_Hindi_Yuva_Kamai.png",
+    "30_Hindi_Network_Income.png",
+    "31_Hindi_Kisan_DeFi.png",
+    "32_Hindi_Retirement.png",
+    "33_Hindi_Naukri_Chhodo.png",
+    "34_Hindi_Parivar_Ke_Liye.png",
+    "35_Hindi_DeFi_Kya_Hai.png",
+    "36_Hindi_Turbo_Partner.png",
+    "37_Hindi_Inflation_Beat.png",
+    "38_Hindi_Desh_Videsh.png",
+    "39_Hindi_Sone_Pe_Suhaga.png",
+    "40_Hindi_Aaj_Ka_Neta.png",
+    "41_Hindi_Crypto_Seekho.png",
+    "42_Hindi_Paisa_Badhao.png",
+    "43_Hindi_Sab_Ke_Liye.png",
+    "44_Hindi_Vishwas_Ka_Platform.png",
+    "45_Hindi_Turbo_Legend_Final.png",
+    "46_Hindi_Kal_Nahi_Aaj.png",
+    "47_Hindi_Mera_TurboLoop.png",
+    "48_Hindi_Naya_Bharat.png",
+    "49_Hindi_Safalta_Ki_Kahani.png",
+    "50_Hindi_Final_CTA.png"
+  ],
+  "nigerian": [
+    "01_Naija_Make_Money.png",
+    "02_Naija_7_Day_Plan.png",
+    "03_Naija_No_Scam.png",
+    "04_Naija_Referral.png",
+    "05_Naija_Financial_Freedom.png",
+    "06_Naija_Hustle_Smart.png",
+    "07_Naija_60_Day.png",
+    "08_Naija_No_Bank.png",
+    "09_Naija_Turbo_Legend.png",
+    "10_Naija_Compound_Interest.png",
+    "11_Naija_Abuja_Lagos.png",
+    "12_Naija_Women_Power.png",
+    "13_Naija_Diaspora.png",
+    "14_Naija_Jollof_Wealth.png",
+    "15_Naija_Youth_Earn.png",
+    "16_Naija_Inflation_Beat.png",
+    "17_Naija_30_Day.png",
+    "18_Naija_Network_Tree.png",
+    "19_Naija_Eko_Hotel.png",
+    "20_Naija_Passive_Income.png",
+    "21_Naija_Start_Now.png",
+    "22_Naija_Owambe.png",
+    "23_Naija_Smart_Contract.png",
+    "24_Naija_Builder_Rank.png",
+    "25_Naija_Accelerator_Rank.png",
+    "26_Naija_Market_Woman.png",
+    "27_Naija_Director_Rank.png",
+    "28_Naija_Okada_To_Benz.png",
+    "29_Naija_Executive_Rank.png",
+    "30_Naija_Ambassador_Rank.png",
+    "31_Naija_No_Wahala.png",
+    "32_Naija_14_Day.png",
+    "33_Naija_Suya_Wealth.png",
+    "34_Naija_Turbo_Legend_Final.png",
+    "35_Naija_Crypto_Education.png",
+    "36_Naija_Unbanked.png",
+    "37_Naija_Compound_Daily.png",
+    "38_Naija_Abuja_Mansion.png",
+    "39_Naija_Hustle_Story.png",
+    "40_Naija_Turbo_Partner.png",
+    "41_Naija_Crypto_Is_Real.png",
+    "42_Naija_Min_1_USDT.png",
+    "43_Naija_Community_Power.png",
+    "44_Naija_Sapa_No_More.png",
+    "45_Naija_Agege_Bread.png",
+    "46_Naija_Danfo_To_Benz.png",
+    "47_Naija_Eko_Bridge.png",
+    "48_Naija_Mama_Put.png",
+    "49_Naija_Arise_Compatriots.png",
+    "50_Naija_Final_CTA.png"
+  ],
+  "success-story": [
+    "01_Success_First_Withdrawal.png",
+    "02_Success_Quit_Job.png",
+    "03_Success_Paid_Off_Debt.png",
+    "04_Success_Community_Milestone.png",
+    "05_Success_New_Car.png",
+    "06_Success_Turbo_Legend_Rank.png",
+    "07_Success_Family_Vacation.png",
+    "08_Success_60_Day_Plan_Complete.png",
+    "09_Success_Team_Builder.png",
+    "10_Success_Student_Earner.png",
+    "11_Success_Retired_Parent.png",
+    "12_Success_Ambassador_Rank.png",
+    "13_Success_From_Zero.png",
+    "14_Success_30_Day_Plan.png",
+    "15_Success_Global_Earner.png",
+    "16_Success_Accelerator_Rank.png",
+    "17_Success_Passive_Income_Dashboard.png",
+    "18_Success_Housewife_Earner.png",
+    "19_Success_First_Month.png",
+    "20_Success_Farmer_DeFi.png",
+    "21_Success_Director_Rank.png",
+    "22_Success_Bought_House.png",
+    "23_Success_Builder_Rank.png",
+    "24_Success_Freelancer_Freedom.png",
+    "25_Success_Executive_Rank.png",
+    "26_Success_Turbo_Partner_Start.png",
+    "27_Success_Multiple_Plans.png",
+    "28_Success_Community_Leader.png",
+    "29_Success_7_Day_Quick_Win.png",
+    "30_Success_Year_One.png",
+    "31_Success_14_Day_Plan.png",
+    "32_Success_Network_Income_Day.png",
+    "33_Success_Couple_Financial_Freedom.png",
+    "34_Success_Reinvest_Compound.png",
+    "35_Success_Financial_Independence.png",
+    "36_Success_Passive_While_Traveling.png",
+    "37_Success_Referral_Income_Surprise.png",
+    "38_Success_Consistent_Earner.png",
+    "39_Success_Crypto_Journey.png",
+    "40_Success_Final_Legacy.png"
+  ],
+  "education-defi": [
+    "01_Edu_What_Is_DeFi.png",
+    "02_Edu_What_Is_Smart_Contract.png",
+    "03_Edu_What_Is_Blockchain.png",
+    "04_Edu_What_Is_Liquidity_Pool.png",
+    "05_Edu_What_Is_Yield_Farming.png",
+    "06_Edu_What_Is_Stablecoin.png",
+    "07_Edu_What_Is_Wallet.png",
+    "08_Edu_What_Is_BSC.png",
+    "09_Edu_What_Is_Compound_Interest.png",
+    "10_Edu_What_Is_ROI.png",
+    "11_Edu_What_Is_Gas_Fee.png",
+    "12_Edu_What_Is_Passive_Income.png",
+    "13_Edu_What_Is_Decentralization.png",
+    "14_Edu_How_TurboLoop_Works.png",
+    "15_Edu_What_Is_Network_Income.png",
+    "16_Edu_What_Is_Impermanent_Loss.png",
+    "17_Edu_What_Is_APY.png",
+    "18_Edu_What_Is_Trustless.png",
+    "19_Edu_What_Is_Token.png",
+    "20_Edu_DeFi_vs_CeFi.png",
+    "21_Edu_What_Is_Crypto.png",
+    "22_Edu_What_Is_Mining.png",
+    "23_Edu_What_Is_DEX.png",
+    "24_Edu_What_Is_Web3.png",
+    "25_Edu_What_Is_Audit.png",
+    "26_Edu_What_Is_Staking.png",
+    "27_Edu_What_Is_Permissionless.png",
+    "28_Edu_What_Is_Transparency.png",
+    "29_Edu_What_Is_Referral_System.png",
+    "30_Edu_What_Is_Immutable.png",
+    "31_Edu_What_Is_Volatility.png",
+    "32_Edu_What_Is_Private_Key.png",
+    "33_Edu_What_Is_MetaMask.png",
+    "34_Edu_What_Is_Tokenomics.png",
+    "35_Edu_What_Is_BSC_Chain.png",
+    "36_Edu_What_Is_Whitepaper.png",
+    "37_Edu_What_Is_Airdrop.png",
+    "38_Edu_What_Is_DAO.png",
+    "39_Edu_What_Is_Interoperability.png",
+    "40_Edu_DeFi_Is_The_Future.png"
+  ],
+  "urgency": [
+    "01_Urgency_Every_Day_Counts.png",
+    "02_Urgency_Your_Friends_Started.png",
+    "03_Urgency_Compound_Starts_Now.png",
+    "04_Urgency_Inflation_Eating_Cash.png",
+    "05_Urgency_7_Day_Plan_Running.png",
+    "06_Urgency_Opportunity_Window.png",
+    "07_Urgency_Missed_Gains.png",
+    "08_Urgency_Early_Adopter.png",
+    "09_Urgency_24_Hours.png",
+    "10_Urgency_Regret_Is_Expensive.png",
+    "11_Urgency_Global_Race.png",
+    "12_Urgency_Sleeping_Money.png",
+    "13_Urgency_Next_Bull_Run.png",
+    "14_Urgency_One_Decision.png",
+    "15_Urgency_Procrastination_Cost.png",
+    "16_Urgency_Snowball_Now.png",
+    "17_Urgency_Burning_Platform.png",
+    "18_Urgency_Time_Stamp.png",
+    "19_Urgency_Seat_At_Table.png",
+    "20_Urgency_Last_Chance.png",
+    "21_Urgency_Domino_Effect.png",
+    "22_Urgency_Midnight_Clock.png",
+    "22_Urgency_Midnight_Deadline.png",
+    "23_Urgency_60_Day_Calendar.png",
+    "23_Urgency_Compound_Calendar.png",
+    "24_Urgency_Sunrise_Era.png",
+    "24_Urgency_Volcano_Eruption.png",
+    "25_Urgency_Pressure_Building.png",
+    "25_Urgency_Sunrise_Opportunity.png",
+    "26_Urgency_Ship_Is_Sailing.png",
+    "27_Urgency_Ticking_Wealth.png",
+    "28_Urgency_Plant_Today.png",
+    "29_Urgency_Wormhole_Now.png",
+    "30_Urgency_Final_CTA.png"
+  ],
+  "buyback": [
+    "01_Buyback_Mechanism_Explained.png",
+    "02_Buyback_On_Chain_Proof.png",
+    "03_Buyback_Scarcity_Engine.png",
+    "04_Buyback_Fee_Flow.png",
+    "05_Buyback_Daily_Schedule.png",
+    "06_Buyback_Price_Support.png",
+    "07_Buyback_Trustless.png",
+    "08_Buyback_Community_Benefit.png",
+    "09_Buyback_Vs_Inflation.png",
+    "10_Buyback_Compound_Effect.png",
+    "11_Buyback_Token_Burn.png",
+    "12_Buyback_Transparent_Wallet.png",
+    "13_Buyback_Demand_Shock.png",
+    "14_Buyback_Long_Term.png",
+    "15_Buyback_Why_It_Matters.png",
+    "16_Buyback_Holder_Loyalty.png",
+    "17_Buyback_Market_Cap.png",
+    "18_Buyback_Protocol_Revenue.png",
+    "19_Buyback_Vs_Competitors.png",
+    "20_Buyback_Ecosystem_Health.png",
+    "21_Buyback_Flywheel.png",
+    "22_Buyback_Investor_Confidence.png",
+    "23_Buyback_Zero_Manipulation.png",
+    "24_Buyback_Real_World_Impact.png",
+    "25_Buyback_Accumulation.png",
+    "26_Buyback_Unstoppable.png",
+    "27_Buyback_New_Standard.png",
+    "28_Buyback_Community_Vote.png",
+    "29_Buyback_Transparency_Report.png",
+    "30_Buyback_Join_Now.png"
+  ],
+  "comparison": [
+    "01_Compare_TurboLoop_vs_Bank.png",
+    "02_Compare_TurboLoop_vs_Stock_Market.png",
+    "03_Compare_TurboLoop_vs_Crypto_Trading.png",
+    "04_Compare_TurboLoop_vs_Real_Estate.png",
+    "05_Compare_TurboLoop_vs_Fixed_Deposit.png",
+    "06_Compare_TurboLoop_vs_MLM.png",
+    "07_Compare_TurboLoop_vs_Savings_Account.png",
+    "08_Compare_TurboLoop_vs_Gold.png",
+    "09_Compare_TurboLoop_vs_Inflation.png",
+    "10_Compare_TurboLoop_vs_Mutual_Funds.png",
+    "11_Compare_TurboLoop_vs_NFTs.png",
+    "12_Compare_TurboLoop_vs_P2P_Lending.png",
+    "13_Compare_TurboLoop_vs_CEX.png",
+    "14_Compare_TurboLoop_vs_Freelancing.png",
+    "15_Compare_TurboLoop_vs_Business.png",
+    "16_Compare_TurboLoop_vs_Ponzi.png",
+    "17_Compare_TurboLoop_vs_Crypto_Lending.png",
+    "18_Compare_TurboLoop_vs_Savings_Challenge.png",
+    "19_Compare_TurboLoop_vs_Meme_Coins.png",
+    "20_Compare_TurboLoop_vs_Traditional_Investment.png",
+    "21_Compare_TurboLoop_vs_Forex.png",
+    "22_Compare_TurboLoop_vs_Bonds.png",
+    "23_Compare_TurboLoop_vs_Startup_Investing.png",
+    "24_Compare_TurboLoop_vs_Crypto_Holding.png",
+    "25_Compare_TurboLoop_vs_Insurance.png",
+    "26_Compare_TurboLoop_vs_Pension.png",
+    "27_Compare_TurboLoop_vs_Remittance.png",
+    "28_Compare_TurboLoop_vs_Crowdfunding.png",
+    "29_Compare_TurboLoop_vs_Hedge_Fund.png",
+    "30_Compare_TurboLoop_Ultimate.png"
+  ],
+  "community": [
+    "01_Community_Global_Family.png",
+    "02_Community_Telegram_Group.png",
+    "03_Community_Team_Celebration.png",
+    "04_Community_No_Borders.png",
+    "05_Community_Leaders_Circle.png",
+    "06_Community_Mentorship.png",
+    "07_Community_Weekly_Call.png",
+    "08_Community_Strength_Numbers.png",
+    "09_Community_Rank_Ceremony.png",
+    "10_Community_24_7_Support.png",
+    "11_Community_Referral_Chain.png",
+    "12_Community_India_Hub.png",
+    "13_Community_Africa_Hub.png",
+    "14_Community_UAE_Hub.png",
+    "15_Community_Trust_Transparency.png",
+    "16_Community_Women_Empowerment.png",
+    "17_Community_Youth_Finance.png",
+    "18_Community_Farmers_DeFi.png",
+    "19_Community_Unbanked.png",
+    "20_Community_Shared_Mission.png",
+    "21_Community_Knowledge_Sharing.png",
+    "22_Community_Accountability.png",
+    "23_Community_Ripple_Effect.png",
+    "24_Community_Builders.png",
+    "25_Community_Legends_Wall.png",
+    "26_Community_Southeast_Asia.png",
+    "27_Community_Referral_Tree.png",
+    "28_Community_Unstoppable.png",
+    "29_Community_Next_Chapter.png",
+    "30_Community_Final_CTA.png"
+  ]
+};
+
 // server/_vercel/_messagePools.ts
-function pickByDay2(arr, offset = 0) {
+function pickByDay(arr, offset = 0) {
   if (arr.length === 0) throw new Error("Empty pool");
   const day = Math.floor(Date.now() / (1e3 * 60 * 60 * 24));
   return arr[(day + offset) % arr.length];
@@ -60696,7 +61228,7 @@ function footerFor(lang) {
 }
 function blogPostCaption(opts) {
   const lang = opts.lang ?? "en";
-  const headline = pickByDay2(poolFor(lang));
+  const headline = pickByDay(poolFor(lang));
   const title = tgEscape(opts.title);
   const excerpt = opts.excerpt ? tgEscape(opts.excerpt.slice(0, 280)) : "";
   const footer = footerFor(lang);
@@ -60951,7 +61483,7 @@ var POOLS = {
   hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE }
 };
 function zoomReminderCaption(opts) {
-  const body = pickByDay2(POOLS[opts.lang][opts.tier]);
+  const body = pickByDay(POOLS[opts.lang][opts.tier]);
   if (opts.tier === "LIVE") {
     return `${body}
 
@@ -60987,7 +61519,7 @@ var CINEMATIC_FILMS = [
   { season: 4, episode: 5, slug: "manifesto", title: "The TurboLoop Manifesto \u2014 Join the Sovereign Movement", headline: "\u26A1 THE SOVEREIGN MOVEMENT \u26A1", tagline: "Your Money. Your Power. Your Future.", description: "TurboLoop is a declaration of financial independence. The math is proven. The code is live. The community is growing. The only thing missing is you." }
 ];
 function pickTodaysFilm() {
-  return pickByDay2(CINEMATIC_FILMS);
+  return pickByDay(CINEMATIC_FILMS);
 }
 function cinematicCaption(film) {
   const headline = tgEscape(film.headline);
@@ -61154,7 +61686,7 @@ function monthlyCompoundingCaption(b5) {
     body = b5.lang === "en" ? MONTHLY_CAPTION_GRAND_MASTER_EN : MONTHLY_CAPTION_GRAND_MASTER_DE;
   } else {
     const pool = b5.lang === "en" ? MONTHLY_CAPTION_EN : MONTHLY_CAPTION_DE;
-    body = pickByDay2(pool);
+    body = pickByDay(pool);
   }
   const cta = b5.lang === "en" ? `
 
@@ -62165,15 +62697,1096 @@ Unlike most DeFi protocols, TurboLoop returns your full principal at the end of 
   }
 ];
 function pickTodaysHubPromo() {
-  return pickByDay2(HUB_PROMOTION_POOL);
+  return pickByDay(HUB_PROMOTION_POOL);
 }
 function pickHubPromoByPages(pages) {
   const subset = HUB_PROMOTION_POOL.filter((e5) => pages.includes(e5.page));
   if (subset.length === 0) return pickTodaysHubPromo();
-  return pickByDay2(subset);
+  return pickByDay(subset);
 }
 function hubPromoBannerUrl(promo) {
   return `${R2_BASE_HUB_PROMO}/hub-promo/${promo.banner}`;
+}
+var CAMPAIGN_LIFESTYLE_CAPTIONS = [
+  `Your coffee gets cold. Your TurboLoop earnings don't.
+
+While most people trade time for money, TurboLoop members earn 0.9% daily on deposited USDT \u2014 automatically, on-chain, every 24 hours.
+
+No trading. No watching charts. No waiting for a salary.
+
+\u{1F449} Start your passive income: https://turboloop.tech
+
+#TurboLoop #PassiveIncome #DeFiYield #FinancialFreedom #OnChain`,
+  `The beach doesn't care what time it is. Neither does your TurboLoop wallet.
+
+Every 24 hours, your USDT earns 0.9% \u2014 whether you're working, sleeping, or on a plane.
+
+This is what financial freedom actually looks like.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #BeachLife #PassiveIncome #DeFi #FreedomLifestyle`,
+  `Most people work for money. TurboLoop members make money work for them.
+
+0.9% daily yield. Full capital back after 60 days. No lock-up. No volatility risk.
+
+The math is simple. The lifestyle change is real.
+
+\u{1F449} Calculate your earnings: https://turboloop.tech/calculator
+
+#TurboLoop #MoneyMindset #DeFiYield #PassiveIncome #FinancialFreedom`,
+  `Imagine waking up and your balance is already higher than when you went to sleep.
+
+That's not a dream. That's TurboLoop \u2014 0.9% daily yield, on-chain, transparent, and running 24/7.
+
+\u{1F449} Join today: https://turboloop.tech
+
+#TurboLoop #WakeUpRicher #PassiveIncome #DeFi #OnChain`,
+  `Your 9-to-5 pays once. TurboLoop pays every single day.
+
+Deposit USDT. Earn 0.9% daily. Withdraw anytime. Get your full capital back after 60 days.
+
+One decision. Daily rewards.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #9to5Escape #DeFiYield #DailyRewards #FinancialFreedom`,
+  `Luxury isn't about spending more. It's about worrying less.
+
+When your money earns 0.9% daily on TurboLoop, the question stops being "can I afford this?" and starts being "what do I want to do today?"
+
+\u{1F449} Start building: https://turboloop.tech
+
+#TurboLoop #LuxuryMindset #PassiveIncome #DeFi #WealthBuilding`,
+  `Family time is priceless. TurboLoop makes sure you have more of it.
+
+Earn 0.9% daily on your USDT without sitting at a desk. The protocol runs itself \u2014 you just live your life.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #FamilyFirst #PassiveIncome #DeFiYield #TimeIsWealth`,
+  `The difference between people who travel freely and those who can't? Passive income.
+
+TurboLoop members earn 0.9% daily on deposited USDT \u2014 from anywhere in the world, on any device.
+
+\u{1F449} Start earning: https://turboloop.tech
+
+#TurboLoop #TravelFreedom #PassiveIncome #DeFi #LocationFree`,
+  `Retirement isn't an age. It's a number.
+
+When your passive income covers your expenses, you're retired \u2014 regardless of how old you are. TurboLoop helps you get there faster.
+
+0.9% daily. On-chain. Transparent.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #EarlyRetirement #PassiveIncome #DeFiYield #FinancialFreedom`,
+  `The best investment you can make is in a system that works while you don't.
+
+TurboLoop's smart contract runs 24/7 on BNB Smart Chain \u2014 no team intervention, no downtime, no excuses.
+
+Your money. Your rules. Your earnings.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #SmartMoney #DeFi #PassiveIncome #OnChain`,
+  `Some people spend their whole lives working for the weekend. TurboLoop members make every day feel like the weekend.
+
+0.9% daily yield. Withdraw anytime. Full capital back at 60 days.
+
+\u{1F449} Join the movement: https://turboloop.tech
+
+#TurboLoop #EveryDayFreedom #PassiveIncome #DeFiYield #FinancialFreedom`,
+  `The goal isn't to be rich. The goal is to never have to check the price before you order.
+
+TurboLoop's daily yield gets you there \u2014 one compounding day at a time.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #FinancialFreedom #DeFiYield #PassiveIncome #WealthBuilding`
+];
+var CAMPAIGN_TOKEN_CAPTIONS = [
+  `$TURBO isn't just a token. It's proof the protocol works.
+
+No team mint. No admin key. Fixed supply. Every $TURBO in existence was earned by the protocol \u2014 not printed by a team.
+
+\u{1F449} Verify on-chain: https://turboloop.tech/token
+
+#TURBO #DeFiToken #BSC #Tokenomics #OnChain`,
+  `The rarest tokens are the ones no one can create more of.
+
+$TURBO has a fixed supply, no mint function, and a daily buyback mechanism that permanently removes tokens from circulation.
+
+Scarcity is built in.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #FixedSupply #Deflationary #BSC #DeFiToken`,
+  `$TURBO price update: check turboloop.tech/token for the latest.
+
+Every day, the protocol buys back $TURBO from the open market and burns it. Less supply. Same demand. You do the math.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #BuybackBurn #Deflationary #DeFiToken #BSC`,
+  `A token backed by real protocol activity \u2014 not hype.
+
+$TURBO's value comes from daily buybacks funded by protocol fees. No team allocation. No VC dump. Just on-chain mechanics.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #RealYield #DeFiToken #BSC #Tokenomics`,
+  `The $TURBO token was launched on June 1, 2026. No presale. No whitelist. Fair launch.
+
+Every holder got in on the same terms. The protocol runs the buyback. The community holds the supply.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #FairLaunch #DeFiToken #BSC #OnChain`,
+  `Locked liquidity means no one can pull the rug \u2014 not even the team.
+
+$TURBO's liquidity is locked on-chain. The LP tokens are in a contract, not a wallet. Verifiable. Permanent.
+
+\u{1F449} Verify: https://turboloop.tech/token
+
+#TURBO #LockedLiquidity #NoRugPull #DeFiToken #BSC`,
+  `$TURBO tokenomics in one line: fixed supply, daily buyback, locked liquidity, no mint function.
+
+That's it. No complex vesting schedules. No team allocation cliff. Just clean, transparent mechanics.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #Tokenomics #DeFi #BSC #FixedSupply`,
+  `Every protocol fee goes back to $TURBO holders through the buyback mechanism.
+
+When the protocol earns, $TURBO gets bought and burned. When more people deposit, more $TURBO gets removed from supply.
+
+Growth = scarcity.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #Deflationary #RealYield #DeFiToken #BSC`,
+  `You can earn USDT yield AND hold $TURBO for price appreciation. Two income streams. One protocol.
+
+Deposit USDT \u2192 earn 0.9% daily. Hold $TURBO \u2192 benefit from daily buybacks.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #DualIncome #DeFiYield #BSC #PassiveIncome`,
+  `$TURBO is listed on DexScreener. Every trade, every buyback, every burn \u2014 all public.
+
+No private transactions. No hidden wallets. Just on-chain data anyone can verify in real time.
+
+\u{1F449} https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759
+
+#TURBO #DexScreener #OnChain #Transparency #BSC`,
+  `The smart contract holds the liquidity. The smart contract runs the buyback. The smart contract is the team.
+
+$TURBO is governed by code, not promises.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #SmartContract #DeFi #CodeIsLaw #BSC`,
+  `Most tokens go to zero because the team sells. $TURBO can't be minted \u2014 so there's nothing to sell.
+
+Fixed supply. Daily buyback. Locked liquidity. This is what a clean token looks like.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #FixedSupply #NoMint #DeFiToken #BSC`
+];
+var CAMPAIGN_REFERRAL_CAPTIONS = [
+  `You earn. Your team earns. Their team earns. And you earn from all of it.
+
+TurboLoop's 20-level referral system pays commissions all the way down your network \u2014 permanently.
+
+\u{1F449} Get your referral link: https://turboloop.tech/apply
+
+#TurboLoop #ReferralIncome #NetworkIncome #20Levels #PassiveIncome`,
+  `One referral can change your financial life. Twenty levels of them can change your family's.
+
+TurboLoop pays network commissions on 20 levels deep \u2014 every time anyone in your downline earns, you earn too.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #20Levels #NetworkIncome #ReferralMarketing #DeFi`,
+  `The most powerful income is the one that grows while you sleep \u2014 from people you've never met.
+
+Your level-5 referral's deposit earns you a commission. Automatically. On-chain. Every day.
+
+\u{1F449} Build your network: https://turboloop.tech/apply
+
+#TurboLoop #NetworkIncome #PassiveIncome #ReferralSystem #DeFi`,
+  `Share once. Earn forever.
+
+Your TurboLoop referral link is permanent. Every person who joins under you \u2014 and everyone they refer \u2014 contributes to your network income for life.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #ShareAndEarn #ReferralIncome #DeFi #PassiveIncome`,
+  `From Turbo Partner to Turbo Legend \u2014 every rank unlocks higher network commissions.
+
+The more your team grows, the more you earn. The system rewards builders.
+
+\u{1F449} See all ranks: https://turboloop.tech/apply
+
+#TurboLoop #TurboLegend #RankUp #NetworkIncome #DeFi`,
+  `Your upline is permanent. Your downline is permanent. Your commissions are permanent.
+
+Once someone joins TurboLoop through your link, they're in your network forever \u2014 no transfers, no reassignments.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #PermanentNetwork #ReferralIncome #DeFi #PassiveIncome`,
+  `Level 1: 10% commission. Level 2: 5%. All the way to Level 20.
+
+TurboLoop's commission table is transparent, on-chain, and pays automatically \u2014 no manual claims, no waiting.
+
+\u{1F449} See the full table: https://turboloop.tech/apply
+
+#TurboLoop #CommissionTable #NetworkIncome #20Levels #DeFi`,
+  `The best time to build your TurboLoop network was at launch. The second best time is right now.
+
+Every day you wait, someone else is building the network that could have been yours.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #BuildNow #ReferralIncome #NetworkMarketing #DeFi`,
+  `Imagine 100 people in your network, each depositing $100. That's $10,000 in active deposits \u2014 and you earn commissions on all of it.
+
+TurboLoop's 20-level system makes this possible.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #NetworkMath #ReferralIncome #DeFi #PassiveIncome`,
+  `You don't need to be a crypto expert to build a TurboLoop network. You just need to share.
+
+Share your link. Your referrals deposit USDT. You earn commissions. Repeat.
+
+\u{1F449} Get started: https://turboloop.tech/apply
+
+#TurboLoop #SimpleReferral #NetworkIncome #DeFi #EarnOnline`,
+  `Network income is the only income that scales without more of your time.
+
+Your TurboLoop downline earns 24/7 \u2014 and so do you, from their activity.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #ScalableIncome #NetworkIncome #DeFi #PassiveIncome`,
+  `The Turbo Legend rank isn't a title. It's a lifestyle.
+
+Reach the top of TurboLoop's rank system and your network income alone can replace a full-time salary.
+
+\u{1F449} Start your journey: https://turboloop.tech/apply
+
+#TurboLoop #TurboLegend #NetworkIncome #DeFi #FinancialFreedom`
+];
+var CAMPAIGN_OBJECTION_CAPTIONS = [
+  `"Is it a scam?" \u2014 The smart contract answers.
+
+Every dollar in TurboLoop is governed by an immutable smart contract on BNB Smart Chain. No team wallet. No admin key. No rug pull mechanism. The code is the boss.
+
+\u{1F449} Read the contract: https://turboloop.tech/token
+
+#TurboLoop #NotAScam #SmartContract #DeFiTransparency #DYOR`,
+  `"Too good to be true?" \u2014 Check the on-chain data.
+
+0.9% daily yield sounds extraordinary until you understand DeFi liquidity provision. The protocol earns from real trading activity. The yield is real. The math is public.
+
+\u{1F449} Verify everything: https://turboloop.tech/token
+
+#TurboLoop #TooGoodToBeTrue #DeFiYield #OnChain #Transparency`,
+  `"Where does the money come from?" \u2014 Liquidity provision fees.
+
+TurboLoop provides liquidity to PancakeSwap. Trading fees fund the yield. The more volume, the more the protocol earns. It's DeFi 101.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #YieldSource #DeFiLiquidity #PancakeSwap #Transparency`,
+  `"What if the team runs?" \u2014 There is no team to run.
+
+The smart contract is autonomous. No admin can pause it, drain it, or change the rules. The protocol runs itself \u2014 permanently.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #Trustless #SmartContract #DeFi #NoTeamRisk`,
+  `"Can I withdraw anytime?" \u2014 Yes. Always.
+
+TurboLoop has no lock-up period. You can withdraw your earnings at any time. Your full capital is returned after 60 days. The contract enforces this \u2014 not a promise.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #WithdrawAnytime #DeFi #NoLockup #Transparency`,
+  `"What about impermanent loss?" \u2014 There is none.
+
+TurboLoop's yield structure is fixed at 0.9% daily on your deposited USDT. You're not exposed to token price volatility in your principal. USDT in, USDT out.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #NoImpermanentLoss #StableYield #DeFi #USDT`,
+  `"Do I need to understand crypto?" \u2014 Not really.
+
+If you can send a WhatsApp message, you can use TurboLoop. Deposit USDT. Watch it grow. Withdraw when you want. The complexity is in the contract \u2014 not the user experience.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #EasyDeFi #CryptoForEveryone #PassiveIncome #BeginnerFriendly`,
+  `"Is the liquidity locked?" \u2014 Yes. Verifiably.
+
+The LP tokens are locked in a smart contract \u2014 not held in a team wallet. Anyone can verify this on BscScan right now.
+
+\u{1F449} Verify: https://turboloop.tech/token
+
+#TurboLoop #LockedLiquidity #NoRugPull #DeFi #Transparency`,
+  `"What's the minimum deposit?" \u2014 1 USDT.
+
+There's no barrier to entry. Start with $1. See how it works. Scale when you're confident. TurboLoop was built for everyone \u2014 not just whales.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #StartSmall #1USDT #DeFiForAll #PassiveIncome`,
+  `"What if the smart contract gets hacked?" \u2014 It's been audited.
+
+TurboLoop's smart contract has been reviewed for vulnerabilities. The code is public. The audit is public. You don't have to trust anyone \u2014 you can verify it yourself.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #Audited #SmartContract #DeFiSecurity #DYOR`,
+  `"Is the referral system a pyramid?" \u2014 No. Here's the difference.
+
+A pyramid scheme requires recruitment to pay existing members. TurboLoop pays yield from DeFi liquidity fees \u2014 referral commissions are a bonus, not the source of yield.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #NotAPyramid #DeFiYield #ReferralBonus #Transparency`,
+  `"What if I've been burned by crypto before?" \u2014 We understand.
+
+TurboLoop was built specifically to remove the risks that burned you: no team control, no token volatility on principal, no lock-up, no hidden fees. Just on-chain yield.
+
+\u{1F449} Start with $1: https://turboloop.tech
+
+#TurboLoop #CryptoRecovery #DeFiTrust #SafeYield #OnChain`
+];
+var CAMPAIGN_HINDI_CAPTIONS = [
+  `\u{1F1EE}\u{1F1F3} India ka DeFi revolution shuru ho gaya hai.
+
+TurboLoop pe daily 0.9% yield earn karo apne USDT pe \u2014 bina kisi bank ke, bina kisi middleman ke.
+
+Smart contract pe sab kuch transparent hai. Verify karo khud.
+
+\u{1F449} Aaj hi shuru karo: https://turboloop.tech
+
+#TurboLoop #IndiaKaDeFi #PassiveIncome #DeFiIndia #USDT`,
+  `Ghar baithe kamao \u2014 yeh sirf ek sapna nahi, TurboLoop ki reality hai.
+
+0.9% daily yield. 60 din mein pura capital wapas. Kabhi bhi withdraw karo.
+
+BNB Smart Chain pe immutable smart contract \u2014 koi bhi control nahi kar sakta.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #GharBaitheKamao #PassiveIncome #DeFi #India`,
+  `Agar aapka paisa aapke liye kaam nahi kar raha, toh aap paisa ke liye kaam kar rahe ho.
+
+TurboLoop mein USDT deposit karo. Har 24 ghante mein 0.9% earn karo. Apni zindagi jiyo.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #PaisaKaamKare #PassiveIncome #DeFiIndia #FinancialFreedom`,
+  `Inflation beat karo DeFi se.
+
+Bank FD deta hai 6-7% per year. TurboLoop deta hai 0.9% per DAY \u2014 on-chain, transparent, aur verifiable.
+
+Fark samjho. Faisla karo.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #InflationBeat #DeFiIndia #BankVsDeFi #PassiveIncome`,
+  `Apne network se kamao \u2014 20 levels tak.
+
+TurboLoop ka referral system India ke liye perfect hai \u2014 jitna bada aapka network, utni zyada aapki income.
+
+Ek baar share karo. Hamesha ke liye kamao.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #NetworkIncome #ReferralIndia #20Levels #PassiveIncome`,
+  `Scam nahi hai \u2014 smart contract hai.
+
+TurboLoop ka code BscScan pe public hai. Koi bhi verify kar sakta hai. Koi team wallet nahi. Koi admin key nahi. Sirf code.
+
+\u{1F449} Verify karo: https://turboloop.tech/token
+
+#TurboLoop #ScamNahi #SmartContract #DeFiTrust #India`,
+  `Sirf 1 USDT se shuru karo.
+
+TurboLoop mein minimum deposit sirf 1 USDT hai. Chota shuru karo, bada sochho. Protocol sab ke liye banaya gaya hai.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #1USDT #ChhoteSeShuru #DeFiIndia #PassiveIncome`,
+  `Naukri chhodo nahi \u2014 pehle passive income banao.
+
+Jab aapki TurboLoop income aapki salary se zyada ho jaye, tab decide karna. Tab tak dono chalao.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #NaukriChhodo #PassiveIncome #DeFiIndia #FinancialFreedom`,
+  `Aapka paisa 24/7 kaam karta hai \u2014 aap soye ho ya jaag rahe ho.
+
+TurboLoop ka smart contract kabhi band nahi hota. Har 24 ghante mein 0.9% yield \u2014 automatically.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #24x7Kamao #PassiveIncome #DeFi #India`,
+  `Parivar ke liye kuch alag karo.
+
+TurboLoop se jo passive income aati hai, woh aapke bacchon ki education, aapke parents ki care, aapke sapnon ke liye hoti hai.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #ParivarKeLiye #PassiveIncome #DeFiIndia #FamilyFirst`,
+  `Blockchain kya hai? Simple hai.
+
+Ek public ledger jahan sab kuch record hota hai \u2014 permanently, transparently, aur without any central authority. TurboLoop isi pe chalta hai.
+
+\u{1F449} Aur seekho: https://turboloop.tech/learn
+
+#TurboLoop #BlockchainKyaHai #DeFiEducation #India #CryptoSikho`,
+  `Aaj ka ek chota kadam \u2014 kal ki badi azaadi.
+
+Jitna jaldi TurboLoop mein shuru karo, utna zyada compounding ka faida milega. Kal ka wait mat karo.
+
+\u{1F449} Abhi shuru karo: https://turboloop.tech
+
+#TurboLoop #AajHiShuru #Compounding #DeFiIndia #PassiveIncome`
+];
+var CAMPAIGN_NIGERIAN_CAPTIONS = [
+  `\u{1F1F3}\u{1F1EC} Naija, the DeFi revolution don reach our side.
+
+TurboLoop dey pay 0.9% daily yield on your USDT \u2014 no bank, no wahala, no middleman. Just smart contract.
+
+\u{1F449} Start today: https://turboloop.tech
+
+#TurboLoop #NaijaDeFi #PassiveIncome #MakeMoneyOnline #Nigeria`,
+  `Sapa no go catch you if your money dey work for you.
+
+Deposit USDT. Earn 0.9% every day. Withdraw anytime. Full capital back after 60 days.
+
+This na real deal \u2014 verify am on BscScan.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #SapaNoMore #PassiveIncome #NaijaDeFi #USDT`,
+  `From Danfo to Benz \u2014 one step at a time.
+
+TurboLoop's daily yield dey compound. Small small, e dey grow. Start with what you have. Scale as you go.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #DanfoToBenz #PassiveIncome #NaijaDeFi #Compounding`,
+  `No be scam \u2014 na smart contract.
+
+TurboLoop code dey public on BscScan. No team wallet. No admin key. The contract dey run itself \u2014 nobody fit touch your money.
+
+\u{1F449} Verify am: https://turboloop.tech/token
+
+#TurboLoop #NoBeScam #SmartContract #DeFiTrust #Nigeria`,
+  `Naija inflation dey chop your savings. DeFi yield dey beat am.
+
+Bank dey give 10% per year. TurboLoop dey give 0.9% per DAY \u2014 on-chain, transparent, verifiable.
+
+Do the math.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #BeatInflation #NaijaDeFi #BankVsDeFi #PassiveIncome`,
+  `Build your network. Earn from 20 levels.
+
+TurboLoop's referral system dey pay commissions 20 levels deep \u2014 every time anybody for your downline earn, you earn too.
+
+\u{1F449} Get your link: https://turboloop.tech/apply
+
+#TurboLoop #NetworkIncome #20Levels #NaijaHustle #PassiveIncome`,
+  `You no need to understand blockchain to use TurboLoop.
+
+If you fit send WhatsApp message, you fit use TurboLoop. Deposit USDT. Watch am grow. Withdraw when you want.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #EasyDeFi #NaijaDeFi #CryptoForAll #PassiveIncome`,
+  `Abuja mansion, Lagos lifestyle \u2014 passive income dey make am possible.
+
+TurboLoop members dey earn 0.9% daily on their USDT. No trading. No stress. Just yield.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #AbujaLife #LagosLife #PassiveIncome #NaijaDeFi`,
+  `Diaspora Naija \u2014 your money fit work for you from anywhere.
+
+TurboLoop dey accessible from UK, US, Canada, everywhere. Deposit USDT. Earn daily. Send back home.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #NaijaDiaspora #PassiveIncome #DeFi #RemittanceAlternative`,
+  `Market woman, Okada rider, banker \u2014 TurboLoop dey for everybody.
+
+Minimum deposit na 1 USDT. No barrier. No discrimination. Just on-chain yield for anyone wey wan earn.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFiForAll #NaijaDeFi #1USDT #PassiveIncome`,
+  `Arise, compatriots \u2014 the financial system wey serve us don change.
+
+DeFi no need your BVN. No need your bank account. Just your wallet and your USDT.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #NaijaDeFi #Unbanked #FinancialInclusion #PassiveIncome`,
+  `Owambe season go better when passive income dey flow.
+
+TurboLoop members dey earn every day \u2014 whether dem dey party or dem dey sleep. That na the real flex.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #Owambe #PassiveIncome #NaijaDeFi #DailyYield`
+];
+var CAMPAIGN_SUCCESS_CAPTIONS = [
+  `First withdrawal hits different.
+
+The moment you see USDT land in your wallet from TurboLoop \u2014 that's when it becomes real. Not a promise. Not a projection. Real money.
+
+\u{1F449} Start your story: https://turboloop.tech
+
+#TurboLoop #FirstWithdrawal #DeFiYield #PassiveIncome #RealResults`,
+  `60 days in. Full capital back. Plus 54% earned on top.
+
+That's what TurboLoop's 0.9% daily yield looks like after a full cycle. The math was always right \u2014 the experience confirms it.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #60DayCycle #DeFiYield #PassiveIncome #RealResults`,
+  `From skeptic to believer \u2014 one withdrawal at a time.
+
+Every TurboLoop member who doubted it changed their mind the first time they withdrew. The protocol doesn't argue. It just pays.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #FromSkepticToBeliever #DeFiYield #PassiveIncome #RealResults`,
+  `Rank up. Earn more. Repeat.
+
+TurboLoop members who build their network don't just earn yield \u2014 they earn commissions from 20 levels of referrals. Some have replaced their full salary.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #RankUp #NetworkIncome #DeFi #SuccessStory`,
+  `The best investment advice I ever got: let the smart contract work.
+
+Stop timing the market. Stop chasing 100x tokens. Deposit USDT. Earn 0.9% daily. Compound. Repeat.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #SmartInvestment #DeFiYield #PassiveIncome #SuccessStory`,
+  `She started with $100. 60 days later, she had $154 \u2014 and her $100 back.
+
+That's TurboLoop's 0.9% daily yield in action. Small start. Real results. Compounding magic.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #StartSmall #DeFiYield #PassiveIncome #SuccessStory`,
+  `Paid off debt with DeFi yield. Not clickbait \u2014 just math.
+
+When your passive income exceeds your monthly debt payment, you're winning. TurboLoop makes that possible.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DebtFree #DeFiYield #PassiveIncome #SuccessStory`,
+  `My TurboLoop earnings covered my rent this month.
+
+That's the goal \u2014 when passive income starts covering real expenses. It starts small. It compounds. It changes everything.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #RentPaid #PassiveIncome #DeFiYield #SuccessStory`,
+  `The protocol paid me while I was on holiday.
+
+I didn't check my phone once. When I came back, my TurboLoop balance was higher than when I left. That's passive income.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #HolidayEarnings #PassiveIncome #DeFiYield #SuccessStory`,
+  `Network income changed my family's life.
+
+Building a TurboLoop downline took 3 months. Now the commissions come in daily \u2014 from people I've never met, in countries I've never visited.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #NetworkIncome #FamilyLife #DeFi #SuccessStory`,
+  `I compounded for 6 months. The results were unbelievable.
+
+Reinvesting TurboLoop earnings instead of withdrawing them creates exponential growth. 6 months of compounding at 0.9% daily is transformative.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #Compounding #DeFiYield #PassiveIncome #SuccessStory`,
+  `The withdrawal proof is on-chain. Anyone can verify it.
+
+Every TurboLoop payout is a blockchain transaction \u2014 public, permanent, and verifiable. No screenshots needed. Just BscScan.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #WithdrawalProof #OnChain #DeFiYield #Transparency`
+];
+var CAMPAIGN_EDUCATION_CAPTIONS = [
+  `What is DeFi? \u2014 Decentralized Finance explained in one minute.
+
+DeFi is a financial system that runs on smart contracts instead of banks. No middlemen. No opening hours. No permission required. TurboLoop is DeFi.
+
+\u{1F449} Learn more: https://turboloop.tech/learn
+
+#WhatIsDeFi #DeFiEducation #TurboLoop #Blockchain #Web3`,
+  `What is a smart contract? \u2014 The most important invention in finance since the ATM.
+
+A smart contract is code that executes automatically when conditions are met. No human can override it. TurboLoop's yield is paid by a smart contract \u2014 not a team.
+
+\u{1F449} https://turboloop.tech/learn
+
+#SmartContract #DeFiEducation #TurboLoop #Blockchain #Web3`,
+  `What is a stablecoin? \u2014 Crypto without the volatility.
+
+USDT is a stablecoin pegged to the US dollar. $1 of USDT is always worth $1. TurboLoop pays 0.9% daily on USDT \u2014 so your principal never loses value to crypto volatility.
+
+\u{1F449} https://turboloop.tech/learn
+
+#WhatIsUSDT #Stablecoin #DeFiEducation #TurboLoop #Crypto`,
+  `What is compound interest? \u2014 Einstein called it the eighth wonder of the world.
+
+When you reinvest your TurboLoop earnings, your next day's yield is calculated on a larger base. Over time, this creates exponential growth.
+
+\u{1F449} See the math: https://turboloop.tech/calculator
+
+#CompoundInterest #DeFiEducation #TurboLoop #PassiveIncome #Compounding`,
+  `What is a liquidity pool? \u2014 The engine behind DeFi yields.
+
+A liquidity pool is a smart contract holding pairs of tokens that traders can swap against. Liquidity providers earn fees from every trade. TurboLoop uses this mechanism to generate yield.
+
+\u{1F449} https://turboloop.tech/learn
+
+#LiquidityPool #DeFiEducation #TurboLoop #YieldFarming #DeFi`,
+  `What is BNB Smart Chain? \u2014 The blockchain TurboLoop runs on.
+
+BSC is a fast, low-fee blockchain compatible with Ethereum tools. Gas fees are cents, not dollars. TurboLoop chose BSC for accessibility \u2014 so anyone can participate.
+
+\u{1F449} https://turboloop.tech/learn
+
+#BNBSmartChain #BSC #DeFiEducation #TurboLoop #Blockchain`,
+  `What is yield farming? \u2014 Putting your crypto to work.
+
+Yield farming means providing liquidity or capital to a DeFi protocol in exchange for returns. TurboLoop is a yield farming protocol \u2014 you provide USDT, the protocol generates returns.
+
+\u{1F449} https://turboloop.tech/learn
+
+#YieldFarming #DeFiEducation #TurboLoop #DeFiYield #Crypto`,
+  `What is a crypto wallet? \u2014 Your key to DeFi.
+
+A crypto wallet stores your private keys \u2014 the passwords that prove you own your crypto. MetaMask and Trust Wallet work with TurboLoop. You control your funds, always.
+
+\u{1F449} https://turboloop.tech/learn
+
+#CryptoWallet #MetaMask #DeFiEducation #TurboLoop #Web3`,
+  `DeFi vs CeFi \u2014 what's the difference?
+
+CeFi (Centralized Finance) = banks, exchanges, custodians. They hold your money. DeFi = smart contracts. The code holds your money. TurboLoop is DeFi \u2014 no one can freeze your funds.
+
+\u{1F449} https://turboloop.tech/learn
+
+#DeFiVsCeFi #DeFiEducation #TurboLoop #Blockchain #FinancialFreedom`,
+  `What is ROI? \u2014 Return on Investment, explained for DeFi.
+
+ROI = (Earnings / Investment) \xD7 100. At 0.9% daily for 60 days, TurboLoop's ROI is 54% per cycle \u2014 plus your full capital back. Compare that to any bank.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#ROI #DeFiEducation #TurboLoop #DeFiYield #PassiveIncome`,
+  `What is decentralization? \u2014 Why it matters for your money.
+
+Decentralization means no single entity controls the system. TurboLoop's smart contract has no owner, no admin, no off switch. Your funds are governed by math, not people.
+
+\u{1F449} https://turboloop.tech/learn
+
+#Decentralization #DeFiEducation #TurboLoop #Trustless #Blockchain`,
+  `What is immutability? \u2014 The property that makes DeFi trustworthy.
+
+Immutable means unchangeable. Once TurboLoop's smart contract was deployed, its rules cannot be altered \u2014 not by the team, not by anyone. The yield rate, the withdrawal rules, all permanent.
+
+\u{1F449} https://turboloop.tech/token
+
+#Immutability #DeFiEducation #TurboLoop #SmartContract #Trustless`
+];
+var CAMPAIGN_URGENCY_CAPTIONS = [
+  `Every day you wait is a day you didn't earn 0.9%.
+
+That's not pressure \u2014 that's math. Compound interest rewards the early. The protocol doesn't wait for you.
+
+\u{1F449} Start today: https://turboloop.tech
+
+#TurboLoop #StartToday #DeFiYield #PassiveIncome #Compounding`,
+  `The best time to start was yesterday. The second best time is right now.
+
+Every TurboLoop member who waited a month to join wishes they hadn't. The compounding clock started without them.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #StartNow #DeFiYield #PassiveIncome #NoMoreWaiting`,
+  `Your savings account earned $0.08 today. TurboLoop would have earned 0.9%.
+
+The gap between what your bank pays and what DeFi pays is not a rounding error. It's a different financial system.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #BankVsDeFi #PassiveIncome #DeFiYield #StartToday`,
+  `Inflation is running at 5-8% per year. TurboLoop pays 0.9% per day.
+
+Every day you keep your savings in a bank account, inflation is winning. DeFi is the answer.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #BeatInflation #DeFiYield #PassiveIncome #StartToday`,
+  `You've been thinking about it for weeks. The protocol has been paying without you.
+
+Stop researching. Start earning. You can always add more later \u2014 but you can't get back the days you missed.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #StopWaiting #DeFiYield #PassiveIncome #StartNow`,
+  `Tonight, while you sleep, TurboLoop members will earn 0.9% on their USDT.
+
+Will you be one of them?
+
+\u{1F449} Deposit before midnight: https://turboloop.tech
+
+#TurboLoop #EarnWhileYouSleep #DeFiYield #PassiveIncome #Tonight`,
+  `The protocol doesn't care about market conditions. It pays 0.9% daily regardless.
+
+Bull market, bear market, sideways market \u2014 TurboLoop's yield is fixed. Your USDT earns the same every day.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #FixedYield #DeFiYield #PassiveIncome #MarketProof`,
+  `$100 deposited today = $154 in 60 days + your $100 back.
+
+$100 NOT deposited today = $100 in 60 days.
+
+The difference is $54. The decision is yours.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #54Percent #DeFiYield #PassiveIncome #StartToday`,
+  `Every hour you wait, someone else is compounding ahead of you.
+
+TurboLoop's community is growing daily. The early movers are already on their second and third cycles. Don't let the gap grow wider.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DontWait #Compounding #DeFiYield #PassiveIncome`,
+  `You don't need to understand everything to start. You just need to start.
+
+Deposit $10. Watch it earn 0.9% tomorrow. Then decide if you want to add more. The protocol will still be here.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #StartSmall #DeFiYield #PassiveIncome #JustStart`,
+  `The window to earn from day one is always open \u2014 but every day you delay is a day of yield you'll never get back.
+
+Compound interest is unforgiving to procrastinators.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #CompoundingClock #DeFiYield #PassiveIncome #StartToday`,
+  `Your future self is either thanking you for starting today, or wishing you had.
+
+Which version do you want to be?
+
+\u{1F449} Start now: https://turboloop.tech
+
+#TurboLoop #FutureSelf #DeFiYield #PassiveIncome #StartToday`
+];
+var CAMPAIGN_BUYBACK_CAPTIONS = [
+  `Daily buyback executed. More $TURBO removed from circulation.
+
+Every day, TurboLoop's protocol buys $TURBO from the open market and burns it permanently. Less supply. Same demand. Deflationary by design.
+
+\u{1F449} Verify on-chain: https://turboloop.tech/token
+
+#TURBO #BuybackBurn #Deflationary #DeFiToken #BSC`,
+  `The protocol bought back $TURBO again today.
+
+This isn't marketing. It's an on-chain transaction \u2014 verifiable on BscScan right now. The buyback happens daily, automatically, from protocol fees.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #DailyBuyback #OnChain #Deflationary #BSC`,
+  `Fewer $TURBO tokens exist today than yesterday.
+
+That's the buyback and burn mechanism at work. Every day the protocol operates, the circulating supply decreases. Scarcity compounds over time.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #BurnedForever #Deflationary #DeFiToken #Scarcity`,
+  `$TURBO's supply is shrinking. The protocol is working.
+
+Daily buybacks remove tokens from circulation permanently. No re-minting. No inflation. Just a smaller and smaller supply.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #ShrinkingSupply #Deflationary #BSC #DeFiToken`,
+  `Proof of work: today's buyback is on-chain.
+
+Skeptics welcome. Every buyback transaction is public on BscScan. The protocol doesn't ask you to trust it \u2014 it shows you the receipts.
+
+\u{1F449} Verify: https://turboloop.tech/token
+
+#TURBO #ProofOfWork #BuybackBurn #OnChain #Transparency`,
+  `The buyback engine never stops.
+
+Whether markets are up or down, TurboLoop's protocol executes daily buybacks from fee revenue. The mechanism is autonomous \u2014 no human decision required.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #AutomaticBuyback #Deflationary #DeFiToken #BSC`,
+  `Every USDT deposited in TurboLoop contributes to the $TURBO buyback.
+
+Protocol fees fund the buyback. More deposits = more fees = more $TURBO bought and burned. Growth creates scarcity.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #BuybackMechanism #Deflationary #DeFiToken #Scarcity`,
+  `$TURBO burned today: check the contract.
+
+The burn address balance grows every day. Every token sent there is gone forever \u2014 reducing supply, increasing scarcity, rewarding holders.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #BurnAddress #Deflationary #DeFiToken #BSC`,
+  `Most tokens inflate. $TURBO deflates.
+
+While other projects print new tokens for team salaries and marketing, $TURBO's supply only goes in one direction: down.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #Deflationary #FixedSupply #DeFiToken #BSC`,
+  `The buyback is funded by real protocol activity \u2014 not promises.
+
+TurboLoop earns fees from liquidity provision. Those fees buy $TURBO. That $TURBO gets burned. Real yield. Real deflation.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #RealYield #BuybackBurn #Deflationary #BSC`,
+  `Holders benefit from every new deposit.
+
+When new members deposit USDT, protocol fees increase, buybacks increase, and $TURBO supply decreases faster. Growth benefits all holders.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #HolderBenefit #Deflationary #DeFiToken #NetworkEffect`,
+  `$TURBO: the token that gets rarer every day.
+
+Fixed supply. Daily buyback. Permanent burn. No mint function. This is what a properly designed deflationary token looks like.
+
+\u{1F449} https://turboloop.tech/token
+
+#TURBO #GetsRarer #Deflationary #FixedSupply #DeFiToken`
+];
+var CAMPAIGN_COMPARISON_CAPTIONS = [
+  `Bank savings account: 0.5% per year.
+TurboLoop: 0.9% per day.
+
+That's not a typo. That's DeFi.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #BankVsDeFi #DeFiYield #PassiveIncome #FinancialFreedom`,
+  `Stocks: average 10% per year (if you're lucky).
+TurboLoop: 0.9% per day, every day, regardless of market conditions.
+
+Different asset class. Different rules.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #StocksVsDeFi #DeFiYield #PassiveIncome #FixedYield`,
+  `Crypto trading: high risk, high stress, unpredictable returns.
+TurboLoop: fixed 0.9% daily, USDT principal, no volatility exposure.
+
+Same ecosystem. Completely different risk profile.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #CryptoVsDeFi #StableYield #PassiveIncome #LowRisk`,
+  `Forex trading: requires skill, time, and constant attention.
+TurboLoop: deposit once, earn daily, withdraw anytime.
+
+One requires expertise. The other just requires a wallet.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #ForexVsDeFi #PassiveIncome #DeFiYield #NoExpertiseNeeded`,
+  `Fixed deposit: 6-8% per year, locked for 1-5 years.
+TurboLoop: 54% per 60-day cycle, withdraw anytime.
+
+Better returns. More flexibility. On-chain transparency.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #FDVsDeFi #DeFiYield #PassiveIncome #BetterReturns`,
+  `Hedge funds: minimum $1M investment, 2% management fee, 20% performance fee.
+TurboLoop: minimum 1 USDT, no management fee, no performance fee.
+
+DeFi democratizes finance.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #HedgeFundVsDeFi #DeFiForAll #PassiveIncome #FinancialInclusion`,
+  `Meme coins: 100x potential, 99% chance of going to zero.
+TurboLoop: 0.9% daily, fixed, on USDT principal.
+
+One is gambling. The other is yield.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #MemeCoinsVsDeFi #StableYield #DeFi #NotGambling`,
+  `Crypto lending platforms (CeFi): your funds are held by a company that can go bankrupt.
+TurboLoop (DeFi): your funds are held by a smart contract that can't go bankrupt.
+
+Custody matters.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #CeFiVsDeFi #SmartContract #DeFiYield #NoCounterpartyRisk`,
+  `Savings challenge: save $X per month, earn nothing on it.
+TurboLoop: deposit USDT, earn 0.9% daily while it sits there.
+
+Same discipline. Completely different outcome.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #SavingsVsDeFi #DeFiYield #PassiveIncome #MoneyHabits`,
+  `Pension fund: wait 30-40 years, get back less than inflation took.
+TurboLoop: earn 0.9% daily, compound for years, retire early.
+
+DeFi is the pension fund the system never gave you.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #PensionVsDeFi #EarlyRetirement #DeFiYield #FinancialFreedom`,
+  `Bonds: 3-5% per year, locked, government-dependent.
+TurboLoop: 0.9% per day, no lock-up, code-dependent.
+
+Trust the math, not the government.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #BondsVsDeFi #DeFiYield #PassiveIncome #TrustTheMath`,
+  `Traditional investment: complex, expensive, exclusive.
+TurboLoop: simple, free to use, open to anyone with 1 USDT.
+
+Financial freedom shouldn't require a financial advisor.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #TraditionalVsDeFi #DeFiForAll #PassiveIncome #FinancialFreedom`
+];
+var CAMPAIGN_COMMUNITY_CAPTIONS = [
+  `The TurboLoop community spans 50+ countries.
+
+From India to Nigeria, from Germany to Brazil \u2014 TurboLoop members are earning passive income in every timezone. The protocol never sleeps, and neither does the community.
+
+\u{1F449} Join us: https://t.me/turboloopofficial
+
+#TurboLoop #GlobalCommunity #DeFi #PassiveIncome #Worldwide`,
+  `You're not alone in this. 1,000+ members are earning alongside you.
+
+Every day, the TurboLoop community grows. Every new member strengthens the protocol. Every withdrawal proves the system works.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #Community #DeFi #PassiveIncome #Together`,
+  `The best investment community is one that shares knowledge, not just hype.
+
+TurboLoop's Telegram is full of real members sharing real withdrawals, real strategies, and real support. No bots. No fake hype.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #RealCommunity #DeFi #PassiveIncome #KnowledgeSharing`,
+  `Your referral network is your community. Your community is your network.
+
+The strongest TurboLoop members didn't just deposit \u2014 they built teams. Teams that earn together, grow together.
+
+\u{1F449} https://turboloop.tech/apply
+
+#TurboLoop #NetworkCommunity #DeFi #ReferralIncome #Together`,
+  `From strangers to teammates \u2014 that's the TurboLoop story.
+
+Members who found TurboLoop independently are now building networks together, sharing strategies, and growing each other's income.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #Teammates #DeFi #Community #NetworkIncome`,
+  `The global leaderboard is live. Where does your country rank?
+
+\u{1F449} Check the rankings: https://turboloop.tech/community
+
+#TurboLoop #GlobalLeaderboard #Community #DeFi #CountryRanking`,
+  `Every member who joins makes the community stronger.
+
+More deposits = more protocol fees = more buybacks = stronger $TURBO. The community's growth directly benefits every holder.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #CommunityGrowth #DeFi #TURBO #NetworkEffect`,
+  `Real people. Real withdrawals. Real community.
+
+No anonymous team. No fake testimonials. Just members sharing their TurboLoop journey \u2014 transparently, on-chain.
+
+\u{1F449} https://turboloop.tech/community
+
+#TurboLoop #RealPeople #Community #DeFi #Transparency`,
+  `The TurboLoop Telegram is the most active DeFi community on BSC.
+
+Join 10,000+ members discussing strategies, sharing withdrawals, and building their networks together.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #ActiveCommunity #DeFi #BSC #Telegram`,
+  `Community is the moat. Protocol is the foundation.
+
+TurboLoop's smart contract can't be copied without the community. And the community grows stronger every day.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #CommunityMoat #DeFi #PassiveIncome #NetworkEffect`,
+  `Share your TurboLoop journey. Inspire the next member.
+
+Every withdrawal you share, every rank you achieve, every milestone you post \u2014 it helps someone else take the first step.
+
+\u{1F449} https://turboloop.tech/community
+
+#TurboLoop #ShareYourJourney #Community #DeFi #Inspire`,
+  `The TurboLoop family doesn't care where you're from. Just that you're in.
+
+India, Nigeria, Germany, Brazil, Philippines \u2014 one protocol, one community, one mission: financial freedom for everyone.
+
+\u{1F449} https://t.me/turboloopofficial
+
+#TurboLoop #GlobalFamily #DeFi #FinancialFreedom #Community`
+];
+function campaignBannerUrl(category, index) {
+  const R22 = process.env.R2_PUBLIC_URL ?? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+  const files = CAMPAIGN_FILE_INDEX[category] ?? [];
+  if (!files.length) {
+    throw new Error(`No campaign files indexed for category "${category}"`);
+  }
+  const i5 = Math.abs(index) % files.length;
+  return `${R22}/campaigns/${category}/${files[i5]}`;
 }
 
 // server/db.ts

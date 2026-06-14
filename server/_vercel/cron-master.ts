@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,

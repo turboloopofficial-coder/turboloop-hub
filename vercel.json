@@ -46,6 +46,10 @@
   },
   "crons": [
     {
+      "path": "/api/cron/master",
+      "schedule": "*/5 * * * *"
+    },
+    {
       "path": "/api/cron/publish-blog",
       "schedule": "0 4 * * *"
     }

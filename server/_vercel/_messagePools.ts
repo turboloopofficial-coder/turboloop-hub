@@ -2118,3 +2118,51 @@ export function campaignBannerUrl(category: string, index: number): string {
   const i = Math.abs(index) % files.length;
   return `${R2}/campaigns/${category}/${files[i]}`;
 }
+
+export const CAMPAIGN_INDONESIAN_CAPTIONS = [
+  `🇮🇩🚀 Wujudkan kebebasan finansial dengan TurboLoop!\n\nDapatkan hasil DeFi di BSC: 7 hari (3%), 14 hari (7%), 30 hari (18%), 60 hari (40%). Modal + keuntungan dikembalikan di akhir periode.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #InvestasiCrypto #PenghasilanPasif`,
+  `💰 Mulai dengan hanya $1 USDT. Tanpa KYC.\n\nTurboLoop adalah platform DeFi teraudit di BSC — transparan, aman, dan menguntungkan.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #USDT #CryptoIndonesia`,
+  `🔥 Komisi referral dibayar setiap hari pukul 13.00 UTC.\n\nBangun jaringan 20 level dan dapatkan komisi harian langsung ke wallet kamu.\n\n👉 https://turboloop.tech\n\n#TurboLoop #Referral #PenghasilanPasif #DeFi`,
+  `📊 Plan 30 hari: titik optimal keuntungan.\n\nTunggu sebulan. Dapatkan modal + 18% ROI di akhir periode. Tanpa trading, tanpa stres.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #Plan30Hari #DeFi #USDT`,
+  `✅ Smart contract teraudit. 100% transparan.\n\nSemua bisa diverifikasi di BSCScan. Uangmu, aturanmu.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #Teraudit #DeFi #Blockchain`,
+];
+
+export const CAMPAIGN_CHINESE_CAPTIONS = [
+  `🇨🇳🚀 财富自由从TurboLoop开始！\n\nBSC链上DeFi收益：7天3%、14天7%、30天18%、60天40% ROI。期末返还本金+收益。\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #被动收入 #USDT`,
+  `💰 最低$1 USDT起投，无需KYC。\n\nTurboLoop是BSC上经过审计的DeFi平台——透明、安全、高收益。\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #加密货币 #理财`,
+  `🔥 推荐佣金每天UTC下午1点发放。\n\n建立20级推荐网络，每天直接到账佣金。\n\n👉 https://turboloop.tech\n\n#TurboLoop #推荐奖励 #被动收入 #DeFi`,
+  `📊 30天计划：收益最优选择。\n\n等待一个月，获得本金+18% ROI。无需交易，无压力。\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #30天计划 #DeFi #USDT`,
+  `✅ 智能合约已审计，100%透明。\n\n一切均可在BSCScan验证。你的钱，你做主。\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #已审计 #DeFi #区块链`,
+];
+
+export const CAMPAIGN_ITALIAN_CAPTIONS = [
+  `🇮🇹🚀 La libertà finanziaria inizia con TurboLoop!\n\nRendimenti DeFi su BSC: 7 giorni (3%), 14 giorni (7%), 30 giorni (18%), 60 giorni (40%). Capitale + guadagni restituiti a fine periodo.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #RedditoPassivo #USDT`,
+  `💰 Inizia con soli $1 USDT. Nessun KYC.\n\nTurboLoop è una piattaforma DeFi certificata su BSC — trasparente, sicura e redditizia.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #CryptoItalia #InvestimentoCrypto`,
+  `🔥 Le commissioni referral vengono pagate ogni giorno alle 13:00 UTC.\n\nCostruisci una rete a 20 livelli e guadagna commissioni giornaliere direttamente nel tuo wallet.\n\n👉 https://turboloop.tech\n\n#TurboLoop #Referral #RedditoPassivo #DeFi`,
+  `📊 Piano da 30 giorni: il punto ottimale di rendimento.\n\nAspetta un mese. Ricevi capitale + 18% ROI a fine periodo. Senza trading, senza stress.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #Piano30Giorni #DeFi #USDT`,
+  `✅ Smart contract certificato. 100% trasparente.\n\nTutto verificabile su BSCScan. I tuoi soldi, le tue regole.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #Certificato #DeFi #Blockchain`,
+];
+
+export const CAMPAIGN_ARABIC_CAPTIONS = [
+  `🇸🇦🚀 الحرية المالية تبدأ مع TurboLoop!\n\nعوائد DeFi على BSC: 7 أيام (3%)، 14 يوم (7%)، 30 يوم (18%)، 60 يوم (40%). رأس المال + الأرباح تُعاد في نهاية الفترة.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #دخل_سلبي #USDT`,
+  `💰 ابدأ بدولار واحد فقط. بدون KYC.\n\nTurboLoop منصة DeFi مدققة على BSC — شفافة وآمنة ومربحة.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #كريبتو #استثمار`,
+  `🔥 عمولات الإحالة تُدفع يومياً الساعة 1 ظهراً UTC.\n\nابنِ شبكة من 20 مستوى واحصل على عمولات يومية مباشرة في محفظتك.\n\n👉 https://turboloop.tech\n\n#TurboLoop #إحالة #دخل_سلبي #DeFi`,
+  `📊 خطة 30 يوماً: أفضل نقطة للعائد.\n\nانتظر شهراً. احصل على رأس المال + 18% ROI في نهاية الفترة. بدون تداول، بدون ضغط.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #خطة30يوم #DeFi #USDT`,
+  `✅ عقد ذكي مدقق. شفافية 100%.\n\nكل شيء قابل للتحقق على BSCScan. مالك، قواعدك.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #مدقق #DeFi #بلوكتشين`,
+];
+
+export const CAMPAIGN_URDU_CAPTIONS = [
+  `🇵🇰🚀 مالی آزادی TurboLoop سے شروع ہوتی ہے!\n\nBSC پر DeFi منافع: 7 دن (3%)، 14 دن (7%)، 30 دن (18%)، 60 دن (40%)۔ مدت کے آخر میں اصل رقم + منافع واپس۔\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #غیرفعال_آمدنی #USDT`,
+  `💰 صرف $1 USDT سے شروع کریں۔ کوئی KYC نہیں۔\n\nTurboLoop BSC پر ایک آڈٹ شدہ DeFi پلیٹ فارم ہے — شفاف، محفوظ اور منافع بخش۔\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #کرپٹو #پاکستان`,
+  `🔥 ریفرل کمیشن روزانہ دوپہر 1 بجے UTC ادا ہوتا ہے۔\n\n20 سطحی نیٹ ورک بنائیں اور روزانہ کمیشن سیدھے اپنے والیٹ میں پائیں۔\n\n👉 https://turboloop.tech\n\n#TurboLoop #ریفرل #غیرفعال_آمدنی #DeFi`,
+  `📊 30 دن کا پلان: منافع کا بہترین نقطہ۔\n\nایک ماہ انتظار کریں۔ مدت کے آخر میں اصل رقم + 18% ROI حاصل کریں۔ بغیر ٹریڈنگ، بغیر تناؤ۔\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #30دن_پلان #DeFi #USDT`,
+  `✅ آڈٹ شدہ سمارٹ کنٹریکٹ۔ 100% شفاف۔\n\nسب کچھ BSCScan پر قابل تصدیق۔ آپ کا پیسہ، آپ کے اصول۔\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #آڈٹ_شدہ #DeFi #بلاکچین`,
+];
+
+export const CAMPAIGN_GERMAN_CAPTIONS = [
+  `🇩🇪🚀 Finanzielle Freiheit beginnt mit TurboLoop!\n\nDeFi-Renditen auf BSC: 7 Tage (3%), 14 Tage (7%), 30 Tage (18%), 60 Tage (40%). Kapital + Gewinne werden am Ende der Laufzeit zurückgegeben.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #PassivesEinkommen #USDT`,
+  `💰 Starte mit nur $1 USDT. Kein KYC.\n\nTurboLoop ist eine geprüfte DeFi-Plattform auf BSC — transparent, sicher und rentabel.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #KryptoInvestition #Deutschland`,
+  `🔥 Referral-Provisionen werden täglich um 13:00 Uhr UTC ausgezahlt.\n\nBaue ein 20-stufiges Netzwerk auf und erhalte täglich Provisionen direkt in dein Wallet.\n\n👉 https://turboloop.tech\n\n#TurboLoop #Referral #PassivesEinkommen #DeFi`,
+  `📊 30-Tage-Plan: Der optimale Rendite-Punkt.\n\nEinen Monat warten. Kapital + 18% ROI am Ende der Laufzeit erhalten. Kein Trading, kein Stress.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #Plan30Tage #DeFi #USDT`,
+  `✅ Geprüfter Smart Contract. 100% transparent.\n\nAlles auf BSCScan verifizierbar. Dein Geld, deine Regeln.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #Geprüft #DeFi #Blockchain`,
+];

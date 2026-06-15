@@ -14,7 +14,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -72,6 +72,12 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   comparison:         { from: "#0EA5E9", to: "#6366F1" },
   community:          { from: "#14B8A6", to: "#06B6D4" },
   spanish:            { from: "#F59E0B", to: "#DC2626" },
+  indonesian:         { from: "#EF4444", to: "#DC2626" },
+  chinese:            { from: "#DC2626", to: "#F59E0B" },
+  italian:            { from: "#22C55E", to: "#3B82F6" },
+  arabic:             { from: "#8B5CF6", to: "#F59E0B" },
+  urdu:               { from: "#06B6D4", to: "#8B5CF6" },
+  german:             { from: "#3B82F6", to: "#1D4ED8" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -88,6 +94,12 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   comparison:          { label: "TurboLoop vs Banks", emoji: "⚖️", description: "Side-by-side comparisons against banks, stocks, and traditional crypto." },
   community:           { label: "Community", emoji: "🌍", description: "Global family, Telegram growth, and community milestones." },
   spanish:             { label: "Spanish / LATAM", emoji: "🇪🇸", description: "Spanish-language banners for Latin America and Spain." },
+  indonesian:          { label: "Indonesian Market", emoji: "🇮🇩", description: "Bahasa Indonesia banners for the Indonesian DeFi community." },
+  chinese:             { label: "Chinese Market", emoji: "🇨🇳", description: "Simplified Chinese banners for the Chinese-speaking DeFi community." },
+  italian:             { label: "Italian Market", emoji: "🇮🇹", description: "Italian-language banners for the Italian DeFi community." },
+  arabic:              { label: "Arabic Market", emoji: "🇸🇦", description: "Arabic-language banners for the Arab DeFi community." },
+  urdu:                { label: "Urdu Market", emoji: "🇵🇰", description: "Urdu-language banners for the Pakistani DeFi community." },
+  german:              { label: "German Market", emoji: "🇩🇪", description: "German-language banners for the DACH DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -111,6 +123,12 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   comparison:          { label: "Compare & Decide", url: "https://turboloop.tech/calculator" },
   community:           { label: "Join the Community", url: "https://turboloop.tech/community" },
   spanish:             { label: "Empieza a Ganar", url: "https://turboloop.tech/apply" },
+  indonesian:          { label: "Mulai Sekarang", url: "https://turboloop.tech/apply" },
+  chinese:             { label: "立即开始", url: "https://turboloop.tech/apply" },
+  italian:             { label: "Inizia Adesso", url: "https://turboloop.tech/apply" },
+  arabic:              { label: "ابدأ الآن", url: "https://turboloop.tech/apply" },
+  urdu:                { label: "ابھی شروع کریں", url: "https://turboloop.tech/apply" },
+  german:              { label: "Jetzt Starten", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -215,8 +233,14 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
   // Hindi and Nigerian banners keep their language tag
   const language: CreativeLanguage =
     b.category === "hindi-new" ? "hi" :
-    b.category === "nigerian" ? "en" :
-    b.category === "spanish" ? "es" : "en";
+    b.category === "nigerian" ? "pcm" :
+    b.category === "spanish" ? "es" :
+    b.category === "indonesian" ? "id" :
+    b.category === "chinese" ? "zh" :
+    b.category === "italian" ? "it" :
+    b.category === "arabic" ? "ar" :
+    b.category === "urdu" ? "ur" :
+    b.category === "german" ? "de" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,
@@ -303,6 +327,10 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "fr", label: "Français", flag: "🇫🇷" },
   { code: "ar", label: "العربية", flag: "🇸🇦" },
   { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "zh", label: "中文", flag: "🇨🇳" },
+  { code: "it", label: "Italiano", flag: "🇮🇹" },
+  { code: "ur", label: "اردو", flag: "🇵🇰" },
+  { code: "pcm", label: "Naija", flag: "🇳🇬" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

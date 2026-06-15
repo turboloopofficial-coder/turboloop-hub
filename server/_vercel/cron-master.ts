@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, CAMPAIGN_INDONESIAN_CAPTIONS, CAMPAIGN_CHINESE_CAPTIONS, CAMPAIGN_ITALIAN_CAPTIONS, CAMPAIGN_ARABIC_CAPTIONS, CAMPAIGN_URDU_CAPTIONS, CAMPAIGN_GERMAN_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -2010,6 +2010,36 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour: 17, minute:  0, taskId: "campaign:es02", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 1 },
       { hour: 21, minute: 15, taskId: "campaign:es03", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 2 },
       { hour: 23, minute: 45, taskId: "campaign:es04", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 3 },
+      // Indonesian — 4 daily slots (staggered)
+      { hour:  1, minute: 30, taskId: "campaign:id01", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 0 },
+      { hour:  7, minute: 45, taskId: "campaign:id02", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 1 },
+      { hour: 13, minute: 45, taskId: "campaign:id03", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 2 },
+      { hour: 19, minute: 45, taskId: "campaign:id04", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 3 },
+      // Chinese — 4 daily slots
+      { hour:  2, minute: 15, taskId: "campaign:zh01", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 0 },
+      { hour:  8, minute: 15, taskId: "campaign:zh02", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 1 },
+      { hour: 14, minute: 15, taskId: "campaign:zh03", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 2 },
+      { hour: 20, minute: 15, taskId: "campaign:zh04", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 3 },
+      // Italian — 4 daily slots
+      { hour:  3, minute: 15, taskId: "campaign:it01", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 0 },
+      { hour:  9, minute: 15, taskId: "campaign:it02", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 1 },
+      { hour: 15, minute: 15, taskId: "campaign:it03", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 2 },
+      { hour: 21, minute: 15, taskId: "campaign:it04", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 3 },
+      // Arabic — 4 daily slots
+      { hour:  4, minute: 15, taskId: "campaign:ar01", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 0 },
+      { hour: 10, minute: 15, taskId: "campaign:ar02", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 1 },
+      { hour: 16, minute: 15, taskId: "campaign:ar03", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 2 },
+      { hour: 22, minute: 15, taskId: "campaign:ar04", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 3 },
+      // Urdu — 4 daily slots
+      { hour:  4, minute: 45, taskId: "campaign:ur01", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 0 },
+      { hour: 10, minute: 45, taskId: "campaign:ur02", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 1 },
+      { hour: 16, minute: 45, taskId: "campaign:ur03", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 2 },
+      { hour: 22, minute: 45, taskId: "campaign:ur04", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 3 },
+      // German — 4 daily slots (DACH timezone friendly)
+      { hour:  6, minute: 45, taskId: "campaign:de01", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 0 },
+      { hour: 11, minute: 45, taskId: "campaign:de02", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 1 },
+      { hour: 16, minute:  0, taskId: "campaign:de03", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 2 },
+      { hour: 20, minute: 45, taskId: "campaign:de04", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 3 },
     ];
 
     // Force-fire map: ?force=campaign:c01,campaign:c02 etc.

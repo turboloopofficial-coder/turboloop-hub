@@ -127,6 +127,7 @@ export default function SubmitPage() {
         authorCountry: authorCountry.trim() || undefined,
         body: body.trim(),
         fileUrl: fileUrl.trim() || undefined,
+        whatsappNumber: authorContact.trim() || "N/A",
       });
     } catch (err: any) {
       setError(err?.message || "Submission failed. Please try again.");

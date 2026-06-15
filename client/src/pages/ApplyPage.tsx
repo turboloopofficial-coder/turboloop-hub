@@ -117,6 +117,7 @@ export default function ApplyPage() {
         authorCountry: country.trim() || undefined,
         body: body.trim(),
         fileUrl: fileUrl.trim() || undefined,
+        whatsappNumber: contact.trim(),
       });
     } catch (err: any) {
       setError(err?.message || "Application failed. Please try again.");

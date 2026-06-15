@@ -2037,11 +2037,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ── TG delivery verification helper ──────────────────────────────────────
     // Calls tgBroadcastPhoto, checks every channel result, retries once on
     // failure, logs delivery status to DB so the admin panel can surface it.
-    async function sendCampaignWithVerification(
+    const sendCampaignWithVerification = async (
       taskId: string,
       imgUrl: string,
       caption: string
-    ): Promise<{ delivered: boolean; channels: number; failed: number }> {
+    ): Promise<{ delivered: number; channels: number; failed: number }> => {
       const attempt = async () =>
         tgBroadcastPhoto({ photoUrl: imgUrl, caption, parseMode: "HTML" });
 
@@ -2081,7 +2081,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
 
       return { delivered, channels: results.length, failed };
-    }
+    };
 
     for (const slot of CAMPAIGN_SLOTS) {
       const forceSlot = campaignForceSet.has(slot.taskId);

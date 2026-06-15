@@ -1950,9 +1950,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour:  7, minute:  0, taskId: "campaign:c15", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 1 },
       { hour:  7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 1 },
       // ── 08:xx ──
-      { hour:  8, minute:  0, taskId: "campaign:c17", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS,       slotOffset: 1 },
-      { hour:  8, minute: 30, taskId: "campaign:c18", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS,    slotOffset: 1 },
-      // ── 09:xx ──
+      { hour:  8, minute:  0, taskId: "campaign:c17", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS,       slotOffset: 1 },      // ── 09:xx ──
       { hour:  9, minute:  0, taskId: "campaign:c19", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS,     slotOffset: 1 },
       { hour:  9, minute: 30, taskId: "campaign:c20", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS,   slotOffset: 1 },
       // ── 10:xx ──
@@ -1968,9 +1966,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour: 13, minute:  0, taskId: "campaign:c27", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 2 },
       { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 2 },
       // ── 14:xx ──
-      { hour: 14, minute:  0, taskId: "campaign:c29", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS,       slotOffset: 2 },
-      { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS,    slotOffset: 2 },
-      // ── 14:xx (moved from 15:xx — clear Zoom window 15:00–17:00 UTC) ──
+      { hour: 14, minute:  0, taskId: "campaign:c29", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS,       slotOffset: 2 },      // ── 14:xx (moved from 15:xx — clear Zoom window 15:00–17:00 UTC) ──
       { hour: 14, minute: 45, taskId: "campaign:c31", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS,     slotOffset: 2 },
       // ── 15:xx — ZOOM WINDOW (HI T-60 @ 15:00, T-30 @ 15:30, T-15 @ 15:45, LIVE @ 16:00) ──
       // No campaign posts in this window — keep Zoom sequence clean
@@ -1990,9 +1986,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour: 19, minute:  0, taskId: "campaign:c39", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 3 },
       { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 3 },
       // ── 20:xx ──
-      { hour: 20, minute:  0, taskId: "campaign:c41", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS,       slotOffset: 3 },
-      { hour: 20, minute: 30, taskId: "campaign:c42", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS,    slotOffset: 3 },
-      // ── 21:xx ──
+      { hour: 20, minute:  0, taskId: "campaign:c41", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS,       slotOffset: 3 },      // ── 21:xx ──
       { hour: 21, minute:  0, taskId: "campaign:c43", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS,     slotOffset: 3 },
       { hour: 21, minute: 30, taskId: "campaign:c44", category: "education-defi",    captions: CAMPAIGN_EDUCATION_CAPTIONS,   slotOffset: 3 },
       // ── 22:xx ──
@@ -2006,41 +2000,13 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // 16:00 UTC = 10:00 AM Mexico / 12:00 PM Buenos Aires (mid-morning) — outside Zoom window
       // 21:00 UTC = 15:00 PM Mexico / 17:00 PM Buenos Aires (afternoon peak)
       // 23:30 UTC = 17:30 PM Mexico / 19:30 PM Buenos Aires (evening prime)
-      { hour: 12, minute: 45, taskId: "campaign:es01", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 0 },
-      { hour: 17, minute:  0, taskId: "campaign:es02", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 1 },
-      { hour: 21, minute: 15, taskId: "campaign:es03", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 2 },
-      { hour: 23, minute: 45, taskId: "campaign:es04", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 3 },
-      // Indonesian — 4 daily slots (staggered)
-      { hour:  1, minute: 30, taskId: "campaign:id01", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 0 },
-      { hour:  7, minute: 45, taskId: "campaign:id02", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 1 },
-      { hour: 13, minute: 45, taskId: "campaign:id03", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 2 },
-      { hour: 19, minute: 45, taskId: "campaign:id04", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 3 },
-      // Chinese — 4 daily slots
-      { hour:  2, minute: 15, taskId: "campaign:zh01", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 0 },
-      { hour:  8, minute: 15, taskId: "campaign:zh02", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 1 },
-      { hour: 14, minute: 15, taskId: "campaign:zh03", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 2 },
-      { hour: 20, minute: 15, taskId: "campaign:zh04", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 3 },
-      // Italian — 4 daily slots
-      { hour:  3, minute: 15, taskId: "campaign:it01", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 0 },
-      { hour:  9, minute: 15, taskId: "campaign:it02", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 1 },
-      { hour: 15, minute: 15, taskId: "campaign:it03", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 2 },
-      { hour: 21, minute: 15, taskId: "campaign:it04", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 3 },
-      // Arabic — 4 daily slots
-      { hour:  4, minute: 15, taskId: "campaign:ar01", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 0 },
-      { hour: 10, minute: 15, taskId: "campaign:ar02", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 1 },
-      { hour: 16, minute: 15, taskId: "campaign:ar03", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 2 },
-      { hour: 22, minute: 15, taskId: "campaign:ar04", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 3 },
-      // Urdu — 4 daily slots
-      { hour:  4, minute: 45, taskId: "campaign:ur01", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 0 },
-      { hour: 10, minute: 45, taskId: "campaign:ur02", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 1 },
-      { hour: 16, minute: 45, taskId: "campaign:ur03", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 2 },
-      { hour: 22, minute: 45, taskId: "campaign:ur04", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 3 },
-      // German — 4 daily slots (DACH timezone friendly)
-      { hour:  6, minute: 45, taskId: "campaign:de01", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 0 },
-      { hour: 11, minute: 45, taskId: "campaign:de02", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 1 },
-      { hour: 16, minute:  0, taskId: "campaign:de03", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 2 },
-      { hour: 20, minute: 45, taskId: "campaign:de04", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 3 },
-    ];
+      { hour: 12, minute: 45, taskId: "campaign:es01", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 0 },      // Indonesian — 4 daily slots (staggered)
+      { hour: 1, minute: 45, taskId: "campaign:id01", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 0 },      // Chinese — 4 daily slots
+      { hour:  2, minute: 15, taskId: "campaign:zh01", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 0 },      // Italian — 4 daily slots
+      { hour:  3, minute: 15, taskId: "campaign:it01", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 0 },      // Arabic — 4 daily slots
+      { hour:  4, minute: 15, taskId: "campaign:ar01", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 0 },      // Urdu — 4 daily slots
+      { hour:  4, minute: 45, taskId: "campaign:ur01", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 0 },      // German — 4 daily slots (DACH timezone friendly)
+      { hour:  6, minute: 45, taskId: "campaign:de01", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 0 },    ];
 
     // Force-fire map: ?force=campaign:c01,campaign:c02 etc.
     // Legacy named keys still work for manual triggers.

@@ -1,5 +1,5 @@
 // /creatives — TurboLoop Marketing Hub
-// Unified creative library: 1,134+ banners in one filterable, searchable grid.
+// Unified creative library: 1,400+ banners in one filterable, searchable grid.
 // All three libraries (Campaign, Legacy, Lang-Kit) merged into a single pool.
 // Mobile-first, sticky filter bar, share + download per card, SEO-optimised.
 
@@ -14,15 +14,15 @@ import {
   TOTAL_CATEGORIES,
 } from "@lib/unifiedCreativesData";
 
-// First page of items for SSR — avoids serialising all 1,134+ items into HTML.
+// First page of items for SSR — avoids serialising all 1,400+ items into HTML.
 // The UnifiedCreativesGrid fetches subsequent pages from /api/creatives.
 const INITIAL_ITEMS = ALL_UNIFIED_CREATIVES.slice(0, 48);
 
 // ── Metadata ───────────────────────────────────────────────────────────────
 
-const TITLE = "Marketing Hub — 1,100+ Free DeFi Banners in 7 Languages | TurboLoop";
+const TITLE = "Marketing Hub — 1,400+ Free DeFi Banners in 11 Languages | TurboLoop";
 const DESCRIPTION =
-  "Download 1,100+ free DeFi marketing banners. 20+ categories, 7 languages, campaign suites, branded educational kit. Free for the TurboLoop community — no attribution required.";
+  "Download 1,400+ free DeFi marketing banners. 19 categories, 11 languages, campaign suites, branded educational kit. Free for the TurboLoop community — no attribution required.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -103,7 +103,7 @@ export default function CreativesPage() {
         <PageHero
           eyebrow="Marketing Hub"
           title={`${TOTAL_CREATIVES.toLocaleString()}+ free banners. Ready to share.`}
-          subtitle="Campaign suites, branded pillars, and a 7-language educational kit. Download, share on Telegram or WhatsApp — no attribution required."
+          subtitle="Campaign suites, branded pillars, and an 11-language educational kit. Download, share on Telegram or WhatsApp — no attribution required."
         />
 
         {/* ── Stats bar ───────────────────────────────────────────────────── */}
@@ -113,7 +113,7 @@ export default function CreativesPage() {
               {[
                 { label: "Total banners", value: TOTAL_CREATIVES.toLocaleString() + "+" },
                 { label: "Categories", value: TOTAL_CATEGORIES.toString() },
-                { label: "Languages", value: "7" },
+                { label: "Languages", value: "11" },
                 { label: "Free to share", value: "100%" },
               ].map(stat => (
                 <div key={stat.label} className="px-4 md:px-8 py-4 text-center">
@@ -142,10 +142,10 @@ export default function CreativesPage() {
             </h2>
             <p className="text-sm text-[var(--c-text-subtle)] leading-relaxed">
               The TurboLoop Marketing Hub is the largest free DeFi marketing resource library, with over{" "}
-              <strong>{TOTAL_CREATIVES.toLocaleString()} free banners</strong> across {TOTAL_CATEGORIES} categories and 7 languages.
+              <strong>{TOTAL_CREATIVES.toLocaleString()} free banners</strong> across {TOTAL_CATEGORIES} categories and 11 languages.
               All images are free to download and share on Telegram, WhatsApp, Twitter/X, and any social platform.
               Categories include passive income lifestyle, $TURBO token education, referral system explainers, DeFi objection handlers,
-              regional market banners (Hindi, Nigerian), success stories, DeFi education, urgency and FOMO content,
+              regional market banners (Hindi, Nigerian, Spanish, Indonesian, Chinese, Italian, Arabic, Urdu, German), success stories, DeFi education, urgency and FOMO content,
               buyback and burn proof, comparison charts, and community content.
             </p>
             <p className="text-sm text-[var(--c-text-subtle)] leading-relaxed mt-3">

@@ -33,7 +33,7 @@ const STATIC_ITEMS: Item[] = [
   { title: "Apply (Creator Star + Local Presenter)", href: "/apply", group: "Pages" },
   { title: "Submit your story", href: "/submit", group: "Pages" },
   { title: "Library — videos + decks in 48 languages", href: "/library", group: "Pages" },
-  { title: "Creatives — 141 banners", href: "/creatives", group: "Pages" },
+  { title: "Creatives — 1,400+ banners in 11 languages", href: "/creatives", group: "Pages" },
   { title: "Learn — DeFi 101", href: "/learn", group: "Pages" },
   { title: "Ecosystem — 6 pillars", href: "/ecosystem", group: "Pages" },
   { title: "FAQ", href: "/faq", group: "Pages" },

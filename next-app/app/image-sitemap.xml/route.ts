@@ -174,7 +174,7 @@ const PAGE_IMAGES: Array<{
         url: `${R2}/hub-promo/hub-promo-creatives.png`,
         title: "TurboLoop creatives library",
         caption:
-          "TurboLoop branded marketing banners. 630+ designs in 7 languages — English, German, Hindi, Indonesian, French, Arabic, Spanish.",
+          "TurboLoop branded marketing banners. 1,400+ designs in 11 languages — English, Hindi, Spanish, Nigerian Pidgin, Indonesian, Chinese, Italian, Arabic, Urdu, German and more.",
       },
       {
         url: `${WWW}/api/og-banner?type=creatives`,

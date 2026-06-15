@@ -18,6 +18,9 @@ const HomeNumbersTeaser = lazy(
   () => import("@/components/sections/HomeNumbersTeaser")
 );
 const ReelsSection = lazy(() => import("@/components/sections/ReelsSection"));
+const CreativeExplorerSection = lazy(
+  () => import("@/components/sections/CreativeExplorerSection")
+);
 const BlogSection = lazy(() => import("@/components/sections/BlogSection"));
 const HomeSecurityTeaser = lazy(
   () => import("@/components/sections/HomeSecurityTeaser")
@@ -170,6 +173,11 @@ export default function Home() {
 
         <Suspense fallback={<SectionFallback h={520} />}>
           <ReelsSection />
+        </Suspense>
+
+        {/* Creative Explorer — interactive banner browser by language/category */}
+        <Suspense fallback={<SectionFallback h={560} />}>
+          <CreativeExplorerSection />
         </Suspense>
 
         <Suspense fallback={<SectionFallback h={520} />}>

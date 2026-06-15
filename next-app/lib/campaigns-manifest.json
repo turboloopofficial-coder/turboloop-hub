@@ -12642,3069 +12642,3288 @@
     ]
   },
   {
-    "id": "spanish-001",
+    "category": "spanish",
+    "filename": "001_Spanish_Libertad_Financiera.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/001_Spanish_Libertad_Financiera.png",
+    "alt": "Libertad Financiera — TurboLoop Spanish Banner",
     "title": "Libertad Financiera (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Libertad Financiera",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/001_Spanish_Libertad_Financiera.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/001_Spanish_Libertad_Financiera.png",
-    "slug": "001-spanish-libertad-financiera"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-002",
+    "category": "spanish",
+    "filename": "002_Spanish_Dinero_Trabaja_Por_Ti.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/002_Spanish_Dinero_Trabaja_Por_Ti.png",
+    "alt": "Dinero Trabaja Por Ti — TurboLoop Spanish Banner",
     "title": "Dinero Trabaja Por Ti (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Dinero Trabaja Por Ti",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/002_Spanish_Dinero_Trabaja_Por_Ti.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/002_Spanish_Dinero_Trabaja_Por_Ti.png",
-    "slug": "002-spanish-dinero-trabaja-por-ti"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-003",
+    "category": "spanish",
+    "filename": "003_Spanish_Futuro_Brillante.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/003_Spanish_Futuro_Brillante.png",
+    "alt": "Futuro Brillante — TurboLoop Spanish Banner",
     "title": "Futuro Brillante (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Futuro Brillante",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/003_Spanish_Futuro_Brillante.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/003_Spanish_Futuro_Brillante.png",
-    "slug": "003-spanish-futuro-brillante"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-004",
+    "category": "spanish",
+    "filename": "004_Spanish_Casa_Propia.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/004_Spanish_Casa_Propia.png",
+    "alt": "Casa Propia — TurboLoop Spanish Banner",
     "title": "Casa Propia (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Casa Propia",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/004_Spanish_Casa_Propia.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/004_Spanish_Casa_Propia.png",
-    "slug": "004-spanish-casa-propia"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-005",
+    "category": "spanish",
+    "filename": "005_Spanish_Viaje_Suenos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/005_Spanish_Viaje_Suenos.png",
+    "alt": "Viaje Suenos — TurboLoop Spanish Banner",
     "title": "Viaje Suenos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Viaje Suenos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/005_Spanish_Viaje_Suenos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/005_Spanish_Viaje_Suenos.png",
-    "slug": "005-spanish-viaje-suenos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-006",
+    "category": "spanish",
+    "filename": "006_Spanish_Jubilacion_Temprana.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/006_Spanish_Jubilacion_Temprana.png",
+    "alt": "Jubilacion Temprana — TurboLoop Spanish Banner",
     "title": "Jubilacion Temprana (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Jubilacion Temprana",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/006_Spanish_Jubilacion_Temprana.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/006_Spanish_Jubilacion_Temprana.png",
-    "slug": "006-spanish-jubilacion-temprana"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-007",
+    "category": "spanish",
+    "filename": "007_Spanish_Familia_Segura.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/007_Spanish_Familia_Segura.png",
+    "alt": "Familia Segura — TurboLoop Spanish Banner",
     "title": "Familia Segura (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Familia Segura",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/007_Spanish_Familia_Segura.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/007_Spanish_Familia_Segura.png",
-    "slug": "007-spanish-familia-segura"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-008",
+    "category": "spanish",
+    "filename": "008_Spanish_Independencia_Total.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/008_Spanish_Independencia_Total.png",
+    "alt": "Independencia Total — TurboLoop Spanish Banner",
     "title": "Independencia Total (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Independencia Total",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/008_Spanish_Independencia_Total.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/008_Spanish_Independencia_Total.png",
-    "slug": "008-spanish-independencia-total"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-009",
+    "category": "spanish",
+    "filename": "009_Spanish_Vida_Sin_Jefe.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/009_Spanish_Vida_Sin_Jefe.png",
+    "alt": "Vida Sin Jefe — TurboLoop Spanish Banner",
     "title": "Vida Sin Jefe (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Vida Sin Jefe",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/009_Spanish_Vida_Sin_Jefe.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/009_Spanish_Vida_Sin_Jefe.png",
-    "slug": "009-spanish-vida-sin-jefe"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-010",
+    "category": "spanish",
+    "filename": "010_Spanish_Ingresos_Pasivos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/010_Spanish_Ingresos_Pasivos.png",
+    "alt": "Ingresos Pasivos — TurboLoop Spanish Banner",
     "title": "Ingresos Pasivos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Ingresos Pasivos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/010_Spanish_Ingresos_Pasivos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/010_Spanish_Ingresos_Pasivos.png",
-    "slug": "010-spanish-ingresos-pasivos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-011",
+    "category": "spanish",
+    "filename": "011_Spanish_Construye_Tu_Legado.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/011_Spanish_Construye_Tu_Legado.png",
+    "alt": "Construye Tu Legado — TurboLoop Spanish Banner",
     "title": "Construye Tu Legado (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Construye Tu Legado",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/011_Spanish_Construye_Tu_Legado.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/011_Spanish_Construye_Tu_Legado.png",
-    "slug": "011-spanish-construye-tu-legado"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-012",
+    "category": "spanish",
+    "filename": "012_Spanish_Tiempo_Libre.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/012_Spanish_Tiempo_Libre.png",
+    "alt": "Tiempo Libre — TurboLoop Spanish Banner",
     "title": "Tiempo Libre (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Tiempo Libre",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/012_Spanish_Tiempo_Libre.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/012_Spanish_Tiempo_Libre.png",
-    "slug": "012-spanish-tiempo-libre"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-013",
+    "category": "spanish",
+    "filename": "013_Spanish_Sueno_Americano_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/013_Spanish_Sueno_Americano_DeFi.png",
+    "alt": "Sueno Americano DeFi — TurboLoop Spanish Banner",
     "title": "Sueno Americano DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sueno Americano DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/013_Spanish_Sueno_Americano_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/013_Spanish_Sueno_Americano_DeFi.png",
-    "slug": "013-spanish-sueno-americano-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-014",
+    "category": "spanish",
+    "filename": "014_Spanish_Trabajo_Desde_Casa.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/014_Spanish_Trabajo_Desde_Casa.png",
+    "alt": "Trabajo Desde Casa — TurboLoop Spanish Banner",
     "title": "Trabajo Desde Casa (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Trabajo Desde Casa",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/014_Spanish_Trabajo_Desde_Casa.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/014_Spanish_Trabajo_Desde_Casa.png",
-    "slug": "014-spanish-trabajo-desde-casa"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-015",
+    "category": "spanish",
+    "filename": "015_Spanish_Cero_Deudas.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/015_Spanish_Cero_Deudas.png",
+    "alt": "Cero Deudas — TurboLoop Spanish Banner",
     "title": "Cero Deudas (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Cero Deudas",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/015_Spanish_Cero_Deudas.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/015_Spanish_Cero_Deudas.png",
-    "slug": "015-spanish-cero-deudas"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-016",
+    "category": "spanish",
+    "filename": "016_Spanish_Primer_Millon.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/016_Spanish_Primer_Millon.png",
+    "alt": "Primer Millon — TurboLoop Spanish Banner",
     "title": "Primer Millon (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Primer Millon",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/016_Spanish_Primer_Millon.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/016_Spanish_Primer_Millon.png",
-    "slug": "016-spanish-primer-millon"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-017",
+    "category": "spanish",
+    "filename": "017_Spanish_Educacion_Hijos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/017_Spanish_Educacion_Hijos.png",
+    "alt": "Educacion Hijos — TurboLoop Spanish Banner",
     "title": "Educacion Hijos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Educacion Hijos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/017_Spanish_Educacion_Hijos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/017_Spanish_Educacion_Hijos.png",
-    "slug": "017-spanish-educacion-hijos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-018",
+    "category": "spanish",
+    "filename": "018_Spanish_Boda_Suenos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/018_Spanish_Boda_Suenos.png",
+    "alt": "Boda Suenos — TurboLoop Spanish Banner",
     "title": "Boda Suenos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Boda Suenos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/018_Spanish_Boda_Suenos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/018_Spanish_Boda_Suenos.png",
-    "slug": "018-spanish-boda-suenos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-019",
+    "category": "spanish",
+    "filename": "019_Spanish_Auto_Nuevo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/019_Spanish_Auto_Nuevo.png",
+    "alt": "Auto Nuevo — TurboLoop Spanish Banner",
     "title": "Auto Nuevo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Auto Nuevo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/019_Spanish_Auto_Nuevo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/019_Spanish_Auto_Nuevo.png",
-    "slug": "019-spanish-auto-nuevo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-020",
+    "category": "spanish",
+    "filename": "020_Spanish_Negocio_Propio.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/020_Spanish_Negocio_Propio.png",
+    "alt": "Negocio Propio — TurboLoop Spanish Banner",
     "title": "Negocio Propio (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Negocio Propio",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/020_Spanish_Negocio_Propio.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/020_Spanish_Negocio_Propio.png",
-    "slug": "020-spanish-negocio-propio"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-021",
+    "category": "spanish",
+    "filename": "021_Spanish_Playa_Todos_Dias.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/021_Spanish_Playa_Todos_Dias.png",
+    "alt": "Playa Todos Dias — TurboLoop Spanish Banner",
     "title": "Playa Todos Dias (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Playa Todos Dias",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/021_Spanish_Playa_Todos_Dias.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/021_Spanish_Playa_Todos_Dias.png",
-    "slug": "021-spanish-playa-todos-dias"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-022",
+    "category": "spanish",
+    "filename": "022_Spanish_Despertar_Rico.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/022_Spanish_Despertar_Rico.png",
+    "alt": "Despertar Rico — TurboLoop Spanish Banner",
     "title": "Despertar Rico (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Despertar Rico",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/022_Spanish_Despertar_Rico.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/022_Spanish_Despertar_Rico.png",
-    "slug": "022-spanish-despertar-rico"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-023",
+    "category": "spanish",
+    "filename": "023_Spanish_Mujer_Empoderada.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/023_Spanish_Mujer_Empoderada.png",
+    "alt": "Mujer Empoderada — TurboLoop Spanish Banner",
     "title": "Mujer Empoderada (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Mujer Empoderada",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/023_Spanish_Mujer_Empoderada.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/023_Spanish_Mujer_Empoderada.png",
-    "slug": "023-spanish-mujer-empoderada"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-024",
+    "category": "spanish",
+    "filename": "024_Spanish_Joven_Millonario.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/024_Spanish_Joven_Millonario.png",
+    "alt": "Joven Millonario — TurboLoop Spanish Banner",
     "title": "Joven Millonario (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Joven Millonario",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/024_Spanish_Joven_Millonario.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/024_Spanish_Joven_Millonario.png",
-    "slug": "024-spanish-joven-millonario"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-025",
+    "category": "spanish",
+    "filename": "025_Spanish_Abuelos_Tranquilos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/025_Spanish_Abuelos_Tranquilos.png",
+    "alt": "Abuelos Tranquilos — TurboLoop Spanish Banner",
     "title": "Abuelos Tranquilos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Abuelos Tranquilos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/025_Spanish_Abuelos_Tranquilos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/025_Spanish_Abuelos_Tranquilos.png",
-    "slug": "025-spanish-abuelos-tranquilos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-026",
+    "category": "spanish",
+    "filename": "026_Spanish_Inversion_Minima.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/026_Spanish_Inversion_Minima.png",
+    "alt": "Inversion Minima — TurboLoop Spanish Banner",
     "title": "Inversion Minima (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Inversion Minima",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/026_Spanish_Inversion_Minima.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/026_Spanish_Inversion_Minima.png",
-    "slug": "026-spanish-inversion-minima"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-027",
+    "category": "spanish",
+    "filename": "027_Spanish_Sin_Banco.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/027_Spanish_Sin_Banco.png",
+    "alt": "Sin Banco — TurboLoop Spanish Banner",
     "title": "Sin Banco (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin Banco",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/027_Spanish_Sin_Banco.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/027_Spanish_Sin_Banco.png",
-    "slug": "027-spanish-sin-banco"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-028",
+    "category": "spanish",
+    "filename": "028_Spanish_Dinero_24_7.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/028_Spanish_Dinero_24_7.png",
+    "alt": "Dinero 24 7 — TurboLoop Spanish Banner",
     "title": "Dinero 24 7 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Dinero 24 7",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/028_Spanish_Dinero_24_7.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/028_Spanish_Dinero_24_7.png",
-    "slug": "028-spanish-dinero-24-7"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-029",
+    "category": "spanish",
+    "filename": "029_Spanish_Cambia_Tu_Vida.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/029_Spanish_Cambia_Tu_Vida.png",
+    "alt": "Cambia Tu Vida — TurboLoop Spanish Banner",
     "title": "Cambia Tu Vida (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Cambia Tu Vida",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/029_Spanish_Cambia_Tu_Vida.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/029_Spanish_Cambia_Tu_Vida.png",
-    "slug": "029-spanish-cambia-tu-vida"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-030",
+    "category": "spanish",
+    "filename": "030_Spanish_Poder_Del_Interes.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/030_Spanish_Poder_Del_Interes.png",
+    "alt": "Poder Del Interes — TurboLoop Spanish Banner",
     "title": "Poder Del Interes (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Poder Del Interes",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/030_Spanish_Poder_Del_Interes.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/030_Spanish_Poder_Del_Interes.png",
-    "slug": "030-spanish-poder-del-interes"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-031",
+    "category": "spanish",
+    "filename": "031_Spanish_Manana_Mejor.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/031_Spanish_Manana_Mejor.png",
+    "alt": "Manana Mejor — TurboLoop Spanish Banner",
     "title": "Manana Mejor (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Manana Mejor",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/031_Spanish_Manana_Mejor.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/031_Spanish_Manana_Mejor.png",
-    "slug": "031-spanish-manana-mejor"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-032",
+    "category": "spanish",
+    "filename": "032_Spanish_Comunidad_Latina.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/032_Spanish_Comunidad_Latina.png",
+    "alt": "Comunidad Latina — TurboLoop Spanish Banner",
     "title": "Comunidad Latina (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comunidad Latina",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/032_Spanish_Comunidad_Latina.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/032_Spanish_Comunidad_Latina.png",
-    "slug": "032-spanish-comunidad-latina"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-033",
+    "category": "spanish",
+    "filename": "033_Spanish_Exito_Real.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/033_Spanish_Exito_Real.png",
+    "alt": "Exito Real — TurboLoop Spanish Banner",
     "title": "Exito Real (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Exito Real",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/033_Spanish_Exito_Real.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/033_Spanish_Exito_Real.png",
-    "slug": "033-spanish-exito-real"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-034",
+    "category": "spanish",
+    "filename": "034_Spanish_Ingresos_Extra.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/034_Spanish_Ingresos_Extra.png",
+    "alt": "Ingresos Extra — TurboLoop Spanish Banner",
     "title": "Ingresos Extra (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Ingresos Extra",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/034_Spanish_Ingresos_Extra.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/034_Spanish_Ingresos_Extra.png",
-    "slug": "034-spanish-ingresos-extra"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-035",
+    "category": "spanish",
+    "filename": "035_Spanish_Vacaciones_Pagadas.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/035_Spanish_Vacaciones_Pagadas.png",
+    "alt": "Vacaciones Pagadas — TurboLoop Spanish Banner",
     "title": "Vacaciones Pagadas (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Vacaciones Pagadas",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/035_Spanish_Vacaciones_Pagadas.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/035_Spanish_Vacaciones_Pagadas.png",
-    "slug": "035-spanish-vacaciones-pagadas"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-036",
+    "category": "spanish",
+    "filename": "036_Spanish_Salud_Y_Riqueza.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/036_Spanish_Salud_Y_Riqueza.png",
+    "alt": "Salud Y Riqueza — TurboLoop Spanish Banner",
     "title": "Salud Y Riqueza (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Salud Y Riqueza",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/036_Spanish_Salud_Y_Riqueza.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/036_Spanish_Salud_Y_Riqueza.png",
-    "slug": "036-spanish-salud-y-riqueza"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-037",
+    "category": "spanish",
+    "filename": "037_Spanish_Emprendedor_Digital.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/037_Spanish_Emprendedor_Digital.png",
+    "alt": "Emprendedor Digital — TurboLoop Spanish Banner",
     "title": "Emprendedor Digital (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Emprendedor Digital",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/037_Spanish_Emprendedor_Digital.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/037_Spanish_Emprendedor_Digital.png",
-    "slug": "037-spanish-emprendedor-digital"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-038",
+    "category": "spanish",
+    "filename": "038_Spanish_Generacion_Crypto.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/038_Spanish_Generacion_Crypto.png",
+    "alt": "Generacion Crypto — TurboLoop Spanish Banner",
     "title": "Generacion Crypto (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Generacion Crypto",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/038_Spanish_Generacion_Crypto.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/038_Spanish_Generacion_Crypto.png",
-    "slug": "038-spanish-generacion-crypto"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-039",
+    "category": "spanish",
+    "filename": "039_Spanish_Paz_Financiera.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/039_Spanish_Paz_Financiera.png",
+    "alt": "Paz Financiera — TurboLoop Spanish Banner",
     "title": "Paz Financiera (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Paz Financiera",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/039_Spanish_Paz_Financiera.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/039_Spanish_Paz_Financiera.png",
-    "slug": "039-spanish-paz-financiera"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-040",
+    "category": "spanish",
+    "filename": "040_Spanish_Riqueza_Generacional.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/040_Spanish_Riqueza_Generacional.png",
+    "alt": "Riqueza Generacional — TurboLoop Spanish Banner",
     "title": "Riqueza Generacional (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Riqueza Generacional",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/040_Spanish_Riqueza_Generacional.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/040_Spanish_Riqueza_Generacional.png",
-    "slug": "040-spanish-riqueza-generacional"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-041",
+    "category": "spanish",
+    "filename": "041_Spanish_Invierte_Hoy.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/041_Spanish_Invierte_Hoy.png",
+    "alt": "Invierte Hoy — TurboLoop Spanish Banner",
     "title": "Invierte Hoy (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Invierte Hoy",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/041_Spanish_Invierte_Hoy.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/041_Spanish_Invierte_Hoy.png",
-    "slug": "041-spanish-invierte-hoy"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-042",
+    "category": "spanish",
+    "filename": "042_Spanish_Sin_Riesgo_Volatil.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/042_Spanish_Sin_Riesgo_Volatil.png",
+    "alt": "Sin Riesgo Volatil — TurboLoop Spanish Banner",
     "title": "Sin Riesgo Volatil (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin Riesgo Volatil",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/042_Spanish_Sin_Riesgo_Volatil.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/042_Spanish_Sin_Riesgo_Volatil.png",
-    "slug": "042-spanish-sin-riesgo-volatil"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-043",
+    "category": "spanish",
+    "filename": "043_Spanish_Gana_Durmiendo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/043_Spanish_Gana_Durmiendo.png",
+    "alt": "Gana Durmiendo — TurboLoop Spanish Banner",
     "title": "Gana Durmiendo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Durmiendo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/043_Spanish_Gana_Durmiendo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/043_Spanish_Gana_Durmiendo.png",
-    "slug": "043-spanish-gana-durmiendo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-044",
+    "category": "spanish",
+    "filename": "044_Spanish_Gana_Viajando.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/044_Spanish_Gana_Viajando.png",
+    "alt": "Gana Viajando — TurboLoop Spanish Banner",
     "title": "Gana Viajando (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Viajando",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/044_Spanish_Gana_Viajando.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/044_Spanish_Gana_Viajando.png",
-    "slug": "044-spanish-gana-viajando"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-045",
+    "category": "spanish",
+    "filename": "045_Spanish_Gana_Comiendo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/045_Spanish_Gana_Comiendo.png",
+    "alt": "Gana Comiendo — TurboLoop Spanish Banner",
     "title": "Gana Comiendo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Comiendo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/045_Spanish_Gana_Comiendo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/045_Spanish_Gana_Comiendo.png",
-    "slug": "045-spanish-gana-comiendo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-046",
+    "category": "spanish",
+    "filename": "046_Spanish_Blockchain_Explicado.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/046_Spanish_Blockchain_Explicado.png",
+    "alt": "Blockchain Explicado — TurboLoop Spanish Banner",
     "title": "Blockchain Explicado (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Blockchain Explicado",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/046_Spanish_Blockchain_Explicado.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/046_Spanish_Blockchain_Explicado.png",
-    "slug": "046-spanish-blockchain-explicado"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-047",
+    "category": "spanish",
+    "filename": "047_Spanish_Contrato_Inteligente.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/047_Spanish_Contrato_Inteligente.png",
+    "alt": "Contrato Inteligente — TurboLoop Spanish Banner",
     "title": "Contrato Inteligente (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Contrato Inteligente",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/047_Spanish_Contrato_Inteligente.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/047_Spanish_Contrato_Inteligente.png",
-    "slug": "047-spanish-contrato-inteligente"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-048",
+    "category": "spanish",
+    "filename": "048_Spanish_USDT_Explicado.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/048_Spanish_USDT_Explicado.png",
+    "alt": "USDT Explicado — TurboLoop Spanish Banner",
     "title": "USDT Explicado (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: USDT Explicado",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/048_Spanish_USDT_Explicado.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/048_Spanish_USDT_Explicado.png",
-    "slug": "048-spanish-usdt-explicado"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-049",
+    "category": "spanish",
+    "filename": "049_Spanish_Como_Empezar.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/049_Spanish_Como_Empezar.png",
+    "alt": "Como Empezar — TurboLoop Spanish Banner",
     "title": "Como Empezar (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Como Empezar",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/049_Spanish_Como_Empezar.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/049_Spanish_Como_Empezar.png",
-    "slug": "049-spanish-como-empezar"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-050",
+    "category": "spanish",
+    "filename": "050_Spanish_Referidos_Explicado.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/050_Spanish_Referidos_Explicado.png",
+    "alt": "Referidos Explicado — TurboLoop Spanish Banner",
     "title": "Referidos Explicado (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Referidos Explicado",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/050_Spanish_Referidos_Explicado.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/050_Spanish_Referidos_Explicado.png",
-    "slug": "050-spanish-referidos-explicado"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-051",
+    "category": "spanish",
+    "filename": "051_Spanish_Plan1_7Dias.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/051_Spanish_Plan1_7Dias.png",
+    "alt": "Plan1 7Dias — TurboLoop Spanish Banner",
     "title": "Plan1 7Dias (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan1 7Dias",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/051_Spanish_Plan1_7Dias.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/051_Spanish_Plan1_7Dias.png",
-    "slug": "051-spanish-plan1-7dias"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-052",
+    "category": "spanish",
+    "filename": "052_Spanish_Plan2_14Dias.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/052_Spanish_Plan2_14Dias.png",
+    "alt": "Plan2 14Dias — TurboLoop Spanish Banner",
     "title": "Plan2 14Dias (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan2 14Dias",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/052_Spanish_Plan2_14Dias.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/052_Spanish_Plan2_14Dias.png",
-    "slug": "052-spanish-plan2-14dias"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-053",
+    "category": "spanish",
+    "filename": "053_Spanish_Plan3_30Dias.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/053_Spanish_Plan3_30Dias.png",
+    "alt": "Plan3 30Dias — TurboLoop Spanish Banner",
     "title": "Plan3 30Dias (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan3 30Dias",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/053_Spanish_Plan3_30Dias.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/053_Spanish_Plan3_30Dias.png",
-    "slug": "053-spanish-plan3-30dias"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-054",
+    "category": "spanish",
+    "filename": "054_Spanish_Plan4_60Dias.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/054_Spanish_Plan4_60Dias.png",
+    "alt": "Plan4 60Dias — TurboLoop Spanish Banner",
     "title": "Plan4 60Dias (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan4 60Dias",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/054_Spanish_Plan4_60Dias.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/054_Spanish_Plan4_60Dias.png",
-    "slug": "054-spanish-plan4-60dias"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-055",
+    "category": "spanish",
+    "filename": "055_Spanish_Comparacion_Planes.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/055_Spanish_Comparacion_Planes.png",
+    "alt": "Comparacion Planes — TurboLoop Spanish Banner",
     "title": "Comparacion Planes (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comparacion Planes",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/055_Spanish_Comparacion_Planes.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/055_Spanish_Comparacion_Planes.png",
-    "slug": "055-spanish-comparacion-planes"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-056",
+    "category": "spanish",
+    "filename": "056_Spanish_Turbo_Partner.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/056_Spanish_Turbo_Partner.png",
+    "alt": "Turbo Partner — TurboLoop Spanish Banner",
     "title": "Turbo Partner (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Partner",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/056_Spanish_Turbo_Partner.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/056_Spanish_Turbo_Partner.png",
-    "slug": "056-spanish-turbo-partner"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-057",
+    "category": "spanish",
+    "filename": "057_Spanish_Turbo_Legend.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/057_Spanish_Turbo_Legend.png",
+    "alt": "Turbo Legend — TurboLoop Spanish Banner",
     "title": "Turbo Legend (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Legend",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/057_Spanish_Turbo_Legend.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/057_Spanish_Turbo_Legend.png",
-    "slug": "057-spanish-turbo-legend"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-058",
+    "category": "spanish",
+    "filename": "058_Spanish_Referido_Nivel1.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/058_Spanish_Referido_Nivel1.png",
+    "alt": "Referido Nivel1 — TurboLoop Spanish Banner",
     "title": "Referido Nivel1 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Referido Nivel1",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/058_Spanish_Referido_Nivel1.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/058_Spanish_Referido_Nivel1.png",
-    "slug": "058-spanish-referido-nivel1"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-059",
+    "category": "spanish",
+    "filename": "059_Spanish_Sin_KYC.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/059_Spanish_Sin_KYC.png",
+    "alt": "Sin KYC — TurboLoop Spanish Banner",
     "title": "Sin KYC (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin KYC",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/059_Spanish_Sin_KYC.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/059_Spanish_Sin_KYC.png",
-    "slug": "059-spanish-sin-kyc"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-060",
+    "category": "spanish",
+    "filename": "060_Spanish_Reinvierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/060_Spanish_Reinvierte.png",
+    "alt": "Reinvierte — TurboLoop Spanish Banner",
     "title": "Reinvierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Reinvierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/060_Spanish_Reinvierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/060_Spanish_Reinvierte.png",
-    "slug": "060-spanish-reinvierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-061",
+    "category": "spanish",
+    "filename": "061_Spanish_Token_Burn.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/061_Spanish_Token_Burn.png",
+    "alt": "Token Burn — TurboLoop Spanish Banner",
     "title": "Token Burn (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Token Burn",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/061_Spanish_Token_Burn.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/061_Spanish_Token_Burn.png",
-    "slug": "061-spanish-token-burn"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-062",
+    "category": "spanish",
+    "filename": "062_Spanish_Seguridad_BSC.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/062_Spanish_Seguridad_BSC.png",
+    "alt": "Seguridad BSC — TurboLoop Spanish Banner",
     "title": "Seguridad BSC (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Seguridad BSC",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/062_Spanish_Seguridad_BSC.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/062_Spanish_Seguridad_BSC.png",
-    "slug": "062-spanish-seguridad-bsc"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-063",
+    "category": "spanish",
+    "filename": "063_Spanish_Transparencia_Total.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/063_Spanish_Transparencia_Total.png",
+    "alt": "Transparencia Total — TurboLoop Spanish Banner",
     "title": "Transparencia Total (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Transparencia Total",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/063_Spanish_Transparencia_Total.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/063_Spanish_Transparencia_Total.png",
-    "slug": "063-spanish-transparencia-total"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-064",
+    "category": "spanish",
+    "filename": "064_Spanish_Sin_Impermanent.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/064_Spanish_Sin_Impermanent.png",
+    "alt": "Sin Impermanent — TurboLoop Spanish Banner",
     "title": "Sin Impermanent (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin Impermanent",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/064_Spanish_Sin_Impermanent.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/064_Spanish_Sin_Impermanent.png",
-    "slug": "064-spanish-sin-impermanent"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-065",
+    "category": "spanish",
+    "filename": "065_Spanish_Mujer_Inversora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/065_Spanish_Mujer_Inversora.png",
+    "alt": "Mujer Inversora — TurboLoop Spanish Banner",
     "title": "Mujer Inversora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Mujer Inversora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/065_Spanish_Mujer_Inversora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/065_Spanish_Mujer_Inversora.png",
-    "slug": "065-spanish-mujer-inversora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-066",
+    "category": "spanish",
+    "filename": "066_Spanish_Joven_Universitario.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/066_Spanish_Joven_Universitario.png",
+    "alt": "Joven Universitario — TurboLoop Spanish Banner",
     "title": "Joven Universitario (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Joven Universitario",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/066_Spanish_Joven_Universitario.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/066_Spanish_Joven_Universitario.png",
-    "slug": "066-spanish-joven-universitario"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-067",
+    "category": "spanish",
+    "filename": "067_Spanish_Adulto_Mayor.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/067_Spanish_Adulto_Mayor.png",
+    "alt": "Adulto Mayor — TurboLoop Spanish Banner",
     "title": "Adulto Mayor (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Adulto Mayor",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/067_Spanish_Adulto_Mayor.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/067_Spanish_Adulto_Mayor.png",
-    "slug": "067-spanish-adulto-mayor"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-068",
+    "category": "spanish",
+    "filename": "068_Spanish_Freelancer.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/068_Spanish_Freelancer.png",
+    "alt": "Freelancer — TurboLoop Spanish Banner",
     "title": "Freelancer (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Freelancer",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/068_Spanish_Freelancer.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/068_Spanish_Freelancer.png",
-    "slug": "068-spanish-freelancer"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-069",
+    "category": "spanish",
+    "filename": "069_Spanish_Mama_Emprendedora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/069_Spanish_Mama_Emprendedora.png",
+    "alt": "Mama Emprendedora — TurboLoop Spanish Banner",
     "title": "Mama Emprendedora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Mama Emprendedora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/069_Spanish_Mama_Emprendedora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/069_Spanish_Mama_Emprendedora.png",
-    "slug": "069-spanish-mama-emprendedora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-070",
+    "category": "spanish",
+    "filename": "070_Spanish_Agricultor_Digital.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/070_Spanish_Agricultor_Digital.png",
+    "alt": "Agricultor Digital — TurboLoop Spanish Banner",
     "title": "Agricultor Digital (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Agricultor Digital",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/070_Spanish_Agricultor_Digital.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/070_Spanish_Agricultor_Digital.png",
-    "slug": "070-spanish-agricultor-digital"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-071",
+    "category": "spanish",
+    "filename": "071_Spanish_Navidad_Especial.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/071_Spanish_Navidad_Especial.png",
+    "alt": "Navidad Especial — TurboLoop Spanish Banner",
     "title": "Navidad Especial (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Navidad Especial",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/071_Spanish_Navidad_Especial.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/071_Spanish_Navidad_Especial.png",
-    "slug": "071-spanish-navidad-especial"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-072",
+    "category": "spanish",
+    "filename": "072_Spanish_Ano_Nuevo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/072_Spanish_Ano_Nuevo.png",
+    "alt": "Ano Nuevo — TurboLoop Spanish Banner",
     "title": "Ano Nuevo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Ano Nuevo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/072_Spanish_Ano_Nuevo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/072_Spanish_Ano_Nuevo.png",
-    "slug": "072-spanish-ano-nuevo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-073",
+    "category": "spanish",
+    "filename": "073_Spanish_Dia_Madres.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/073_Spanish_Dia_Madres.png",
+    "alt": "Dia Madres — TurboLoop Spanish Banner",
     "title": "Dia Madres (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Dia Madres",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/073_Spanish_Dia_Madres.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/073_Spanish_Dia_Madres.png",
-    "slug": "073-spanish-dia-madres"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-074",
+    "category": "spanish",
+    "filename": "074_Spanish_Dia_Independencia.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/074_Spanish_Dia_Independencia.png",
+    "alt": "Dia Independencia — TurboLoop Spanish Banner",
     "title": "Dia Independencia (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Dia Independencia",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/074_Spanish_Dia_Independencia.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/074_Spanish_Dia_Independencia.png",
-    "slug": "074-spanish-dia-independencia"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-075",
+    "category": "spanish",
+    "filename": "075_Spanish_Quinceanos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/075_Spanish_Quinceanos.png",
+    "alt": "Quinceanos — TurboLoop Spanish Banner",
     "title": "Quinceanos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Quinceanos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/075_Spanish_Quinceanos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/075_Spanish_Quinceanos.png",
-    "slug": "075-spanish-quinceanos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-076",
+    "category": "spanish",
+    "filename": "076_Spanish_Taxista_Digital.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/076_Spanish_Taxista_Digital.png",
+    "alt": "Taxista Digital — TurboLoop Spanish Banner",
     "title": "Taxista Digital (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Taxista Digital",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/076_Spanish_Taxista_Digital.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/076_Spanish_Taxista_Digital.png",
-    "slug": "076-spanish-taxista-digital"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-077",
+    "category": "spanish",
+    "filename": "077_Spanish_Vendedor_Ambulante.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/077_Spanish_Vendedor_Ambulante.png",
+    "alt": "Vendedor Ambulante — TurboLoop Spanish Banner",
     "title": "Vendedor Ambulante (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Vendedor Ambulante",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/077_Spanish_Vendedor_Ambulante.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/077_Spanish_Vendedor_Ambulante.png",
-    "slug": "077-spanish-vendedor-ambulante"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-078",
+    "category": "spanish",
+    "filename": "078_Spanish_Maestro_Invierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/078_Spanish_Maestro_Invierte.png",
+    "alt": "Maestro Invierte — TurboLoop Spanish Banner",
     "title": "Maestro Invierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Maestro Invierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/078_Spanish_Maestro_Invierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/078_Spanish_Maestro_Invierte.png",
-    "slug": "078-spanish-maestro-invierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-079",
+    "category": "spanish",
+    "filename": "079_Spanish_Medico_Invierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/079_Spanish_Medico_Invierte.png",
+    "alt": "Medico Invierte — TurboLoop Spanish Banner",
     "title": "Medico Invierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Medico Invierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/079_Spanish_Medico_Invierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/079_Spanish_Medico_Invierte.png",
-    "slug": "079-spanish-medico-invierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-080",
+    "category": "spanish",
+    "filename": "080_Spanish_Ingeniero_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/080_Spanish_Ingeniero_DeFi.png",
+    "alt": "Ingeniero DeFi — TurboLoop Spanish Banner",
     "title": "Ingeniero DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Ingeniero DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/080_Spanish_Ingeniero_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/080_Spanish_Ingeniero_DeFi.png",
-    "slug": "080-spanish-ingeniero-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-081",
+    "category": "spanish",
+    "filename": "081_Spanish_Abogado_Invierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/081_Spanish_Abogado_Invierte.png",
+    "alt": "Abogado Invierte — TurboLoop Spanish Banner",
     "title": "Abogado Invierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Abogado Invierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/081_Spanish_Abogado_Invierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/081_Spanish_Abogado_Invierte.png",
-    "slug": "081-spanish-abogado-invierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-082",
+    "category": "spanish",
+    "filename": "082_Spanish_Contador_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/082_Spanish_Contador_DeFi.png",
+    "alt": "Contador DeFi — TurboLoop Spanish Banner",
     "title": "Contador DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Contador DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/082_Spanish_Contador_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/082_Spanish_Contador_DeFi.png",
-    "slug": "082-spanish-contador-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-083",
+    "category": "spanish",
+    "filename": "083_Spanish_Chef_Invierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/083_Spanish_Chef_Invierte.png",
+    "alt": "Chef Invierte — TurboLoop Spanish Banner",
     "title": "Chef Invierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Chef Invierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/083_Spanish_Chef_Invierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/083_Spanish_Chef_Invierte.png",
-    "slug": "083-spanish-chef-invierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-084",
+    "category": "spanish",
+    "filename": "084_Spanish_Artista_Cripto.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/084_Spanish_Artista_Cripto.png",
+    "alt": "Artista Cripto — TurboLoop Spanish Banner",
     "title": "Artista Cripto (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Artista Cripto",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/084_Spanish_Artista_Cripto.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/084_Spanish_Artista_Cripto.png",
-    "slug": "084-spanish-artista-cripto"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-085",
+    "category": "spanish",
+    "filename": "085_Spanish_Deportista_Invierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/085_Spanish_Deportista_Invierte.png",
+    "alt": "Deportista Invierte — TurboLoop Spanish Banner",
     "title": "Deportista Invierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Deportista Invierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/085_Spanish_Deportista_Invierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/085_Spanish_Deportista_Invierte.png",
-    "slug": "085-spanish-deportista-invierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-086",
+    "category": "spanish",
+    "filename": "086_Spanish_Musico_Cripto.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/086_Spanish_Musico_Cripto.png",
+    "alt": "Musico Cripto — TurboLoop Spanish Banner",
     "title": "Musico Cripto (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Musico Cripto",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/086_Spanish_Musico_Cripto.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/086_Spanish_Musico_Cripto.png",
-    "slug": "086-spanish-musico-cripto"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-087",
+    "category": "spanish",
+    "filename": "087_Spanish_Programador_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/087_Spanish_Programador_DeFi.png",
+    "alt": "Programador DeFi — TurboLoop Spanish Banner",
     "title": "Programador DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Programador DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/087_Spanish_Programador_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/087_Spanish_Programador_DeFi.png",
-    "slug": "087-spanish-programador-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-088",
+    "category": "spanish",
+    "filename": "088_Spanish_Influencer_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/088_Spanish_Influencer_DeFi.png",
+    "alt": "Influencer DeFi — TurboLoop Spanish Banner",
     "title": "Influencer DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Influencer DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/088_Spanish_Influencer_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/088_Spanish_Influencer_DeFi.png",
-    "slug": "088-spanish-influencer-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-089",
+    "category": "spanish",
+    "filename": "089_Spanish_Ganadero_Digital.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/089_Spanish_Ganadero_Digital.png",
+    "alt": "Ganadero Digital — TurboLoop Spanish Banner",
     "title": "Ganadero Digital (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Ganadero Digital",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/089_Spanish_Ganadero_Digital.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/089_Spanish_Ganadero_Digital.png",
-    "slug": "089-spanish-ganadero-digital"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-090",
+    "category": "spanish",
+    "filename": "090_Spanish_Migrante_Invierte.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/090_Spanish_Migrante_Invierte.png",
+    "alt": "Migrante Invierte — TurboLoop Spanish Banner",
     "title": "Migrante Invierte (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Migrante Invierte",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/090_Spanish_Migrante_Invierte.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/090_Spanish_Migrante_Invierte.png",
-    "slug": "090-spanish-migrante-invierte"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-091",
+    "category": "spanish",
+    "filename": "091_Spanish_Turbo_Director.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/091_Spanish_Turbo_Director.png",
+    "alt": "Turbo Director — TurboLoop Spanish Banner",
     "title": "Turbo Director (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Director",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/091_Spanish_Turbo_Director.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/091_Spanish_Turbo_Director.png",
-    "slug": "091-spanish-turbo-director"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-092",
+    "category": "spanish",
+    "filename": "092_Spanish_Turbo_Executive.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/092_Spanish_Turbo_Executive.png",
+    "alt": "Turbo Executive — TurboLoop Spanish Banner",
     "title": "Turbo Executive (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Executive",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/092_Spanish_Turbo_Executive.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/092_Spanish_Turbo_Executive.png",
-    "slug": "092-spanish-turbo-executive"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-093",
+    "category": "spanish",
+    "filename": "093_Spanish_Comision_Diaria.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/093_Spanish_Comision_Diaria.png",
+    "alt": "Comision Diaria — TurboLoop Spanish Banner",
     "title": "Comision Diaria (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comision Diaria",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/093_Spanish_Comision_Diaria.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/093_Spanish_Comision_Diaria.png",
-    "slug": "093-spanish-comision-diaria"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-094",
+    "category": "spanish",
+    "filename": "094_Spanish_Quema_2PM.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/094_Spanish_Quema_2PM.png",
+    "alt": "Quema 2PM — TurboLoop Spanish Banner",
     "title": "Quema 2PM (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Quema 2PM",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/094_Spanish_Quema_2PM.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/094_Spanish_Quema_2PM.png",
-    "slug": "094-spanish-quema-2pm"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-095",
+    "category": "spanish",
+    "filename": "095_Spanish_Objecion_Seguro.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/095_Spanish_Objecion_Seguro.png",
+    "alt": "Objecion Seguro — TurboLoop Spanish Banner",
     "title": "Objecion Seguro (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Seguro",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/095_Spanish_Objecion_Seguro.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/095_Spanish_Objecion_Seguro.png",
-    "slug": "095-spanish-objecion-seguro"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-096",
+    "category": "spanish",
+    "filename": "096_Spanish_Objecion_Scam.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/096_Spanish_Objecion_Scam.png",
+    "alt": "Objecion Scam — TurboLoop Spanish Banner",
     "title": "Objecion Scam (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Scam",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/096_Spanish_Objecion_Scam.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/096_Spanish_Objecion_Scam.png",
-    "slug": "096-spanish-objecion-scam"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-097",
+    "category": "spanish",
+    "filename": "097_Spanish_Objecion_Retiro.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/097_Spanish_Objecion_Retiro.png",
+    "alt": "Objecion Retiro — TurboLoop Spanish Banner",
     "title": "Objecion Retiro (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Retiro",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/097_Spanish_Objecion_Retiro.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/097_Spanish_Objecion_Retiro.png",
-    "slug": "097-spanish-objecion-retiro"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-098",
+    "category": "spanish",
+    "filename": "098_Spanish_Objecion_Minimo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/098_Spanish_Objecion_Minimo.png",
+    "alt": "Objecion Minimo — TurboLoop Spanish Banner",
     "title": "Objecion Minimo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Minimo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/098_Spanish_Objecion_Minimo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/098_Spanish_Objecion_Minimo.png",
-    "slug": "098-spanish-objecion-minimo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-099",
+    "category": "spanish",
+    "filename": "099_Spanish_Objecion_Tiempo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/099_Spanish_Objecion_Tiempo.png",
+    "alt": "Objecion Tiempo — TurboLoop Spanish Banner",
     "title": "Objecion Tiempo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Tiempo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/099_Spanish_Objecion_Tiempo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/099_Spanish_Objecion_Tiempo.png",
-    "slug": "099-spanish-objecion-tiempo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-100",
+    "category": "spanish",
+    "filename": "100_Spanish_Cien_Banners.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/100_Spanish_Cien_Banners.png",
+    "alt": "Cien Banners — TurboLoop Spanish Banner",
     "title": "Cien Banners (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Cien Banners",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/100_Spanish_Cien_Banners.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/100_Spanish_Cien_Banners.png",
-    "slug": "100-spanish-cien-banners"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-101",
+    "category": "spanish",
+    "filename": "101_Spanish_Testimonio_Carlos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/101_Spanish_Testimonio_Carlos.png",
+    "alt": "Testimonio Carlos — TurboLoop Spanish Banner",
     "title": "Testimonio Carlos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Carlos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/101_Spanish_Testimonio_Carlos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/101_Spanish_Testimonio_Carlos.png",
-    "slug": "101-spanish-testimonio-carlos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-102",
+    "category": "spanish",
+    "filename": "102_Spanish_Testimonio_Maria.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/102_Spanish_Testimonio_Maria.png",
+    "alt": "Testimonio Maria — TurboLoop Spanish Banner",
     "title": "Testimonio Maria (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Maria",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/102_Spanish_Testimonio_Maria.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/102_Spanish_Testimonio_Maria.png",
-    "slug": "102-spanish-testimonio-maria"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-103",
+    "category": "spanish",
+    "filename": "103_Spanish_Testimonio_Juan.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/103_Spanish_Testimonio_Juan.png",
+    "alt": "Testimonio Juan — TurboLoop Spanish Banner",
     "title": "Testimonio Juan (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Juan",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/103_Spanish_Testimonio_Juan.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/103_Spanish_Testimonio_Juan.png",
-    "slug": "103-spanish-testimonio-juan"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-104",
+    "category": "spanish",
+    "filename": "104_Spanish_Red_Exponencial.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/104_Spanish_Red_Exponencial.png",
+    "alt": "Red Exponencial — TurboLoop Spanish Banner",
     "title": "Red Exponencial (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Red Exponencial",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/104_Spanish_Red_Exponencial.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/104_Spanish_Red_Exponencial.png",
-    "slug": "104-spanish-red-exponencial"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-105",
+    "category": "spanish",
+    "filename": "105_Spanish_Nivel_2_5pct.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/105_Spanish_Nivel_2_5pct.png",
+    "alt": "Nivel 2 5pct — TurboLoop Spanish Banner",
     "title": "Nivel 2 5pct (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Nivel 2 5pct",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/105_Spanish_Nivel_2_5pct.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/105_Spanish_Nivel_2_5pct.png",
-    "slug": "105-spanish-nivel-2-5pct"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-106",
+    "category": "spanish",
+    "filename": "106_Spanish_Compartir_Ganar.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/106_Spanish_Compartir_Ganar.png",
+    "alt": "Compartir Ganar — TurboLoop Spanish Banner",
     "title": "Compartir Ganar (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Compartir Ganar",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/106_Spanish_Compartir_Ganar.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/106_Spanish_Compartir_Ganar.png",
-    "slug": "106-spanish-compartir-ganar"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-107",
+    "category": "spanish",
+    "filename": "107_Spanish_Red_Pasiva.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/107_Spanish_Red_Pasiva.png",
+    "alt": "Red Pasiva — TurboLoop Spanish Banner",
     "title": "Red Pasiva (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Red Pasiva",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/107_Spanish_Red_Pasiva.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/107_Spanish_Red_Pasiva.png",
-    "slug": "107-spanish-red-pasiva"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-108",
+    "category": "spanish",
+    "filename": "108_Spanish_Turbo_Ambassador.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/108_Spanish_Turbo_Ambassador.png",
+    "alt": "Turbo Ambassador — TurboLoop Spanish Banner",
     "title": "Turbo Ambassador (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Ambassador",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/108_Spanish_Turbo_Ambassador.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/108_Spanish_Turbo_Ambassador.png",
-    "slug": "108-spanish-turbo-ambassador"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-109",
+    "category": "spanish",
+    "filename": "109_Spanish_DeFi_Vs_Banco.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/109_Spanish_DeFi_Vs_Banco.png",
+    "alt": "DeFi Vs Banco — TurboLoop Spanish Banner",
     "title": "DeFi Vs Banco (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: DeFi Vs Banco",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/109_Spanish_DeFi_Vs_Banco.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/109_Spanish_DeFi_Vs_Banco.png",
-    "slug": "109-spanish-defi-vs-banco"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-110",
+    "category": "spanish",
+    "filename": "110_Spanish_Wallet_MetaMask.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/110_Spanish_Wallet_MetaMask.png",
+    "alt": "Wallet MetaMask — TurboLoop Spanish Banner",
     "title": "Wallet MetaMask (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Wallet MetaMask",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/110_Spanish_Wallet_MetaMask.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/110_Spanish_Wallet_MetaMask.png",
-    "slug": "110-spanish-wallet-metamask"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-111",
+    "category": "spanish",
+    "filename": "111_Spanish_USDT_Estable.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/111_Spanish_USDT_Estable.png",
+    "alt": "USDT Estable — TurboLoop Spanish Banner",
     "title": "USDT Estable (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: USDT Estable",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/111_Spanish_USDT_Estable.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/111_Spanish_USDT_Estable.png",
-    "slug": "111-spanish-usdt-estable"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-112",
+    "category": "spanish",
+    "filename": "112_Spanish_Contrato_Auditado.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/112_Spanish_Contrato_Auditado.png",
+    "alt": "Contrato Auditado — TurboLoop Spanish Banner",
     "title": "Contrato Auditado (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Contrato Auditado",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/112_Spanish_Contrato_Auditado.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/112_Spanish_Contrato_Auditado.png",
-    "slug": "112-spanish-contrato-auditado"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-113",
+    "category": "spanish",
+    "filename": "113_Spanish_Sin_Intermediarios.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/113_Spanish_Sin_Intermediarios.png",
+    "alt": "Sin Intermediarios — TurboLoop Spanish Banner",
     "title": "Sin Intermediarios (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin Intermediarios",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/113_Spanish_Sin_Intermediarios.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/113_Spanish_Sin_Intermediarios.png",
-    "slug": "113-spanish-sin-intermediarios"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-114",
+    "category": "spanish",
+    "filename": "114_Spanish_Gana_Viajando.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/114_Spanish_Gana_Viajando.png",
+    "alt": "Gana Viajando — TurboLoop Spanish Banner",
     "title": "Gana Viajando (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Viajando",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/114_Spanish_Gana_Viajando.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/114_Spanish_Gana_Viajando.png",
-    "slug": "114-spanish-gana-viajando"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-115",
+    "category": "spanish",
+    "filename": "115_Spanish_Carro_Nuevo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/115_Spanish_Carro_Nuevo.png",
+    "alt": "Carro Nuevo — TurboLoop Spanish Banner",
     "title": "Carro Nuevo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Carro Nuevo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/115_Spanish_Carro_Nuevo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/115_Spanish_Carro_Nuevo.png",
-    "slug": "115-spanish-carro-nuevo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-116",
+    "category": "spanish",
+    "filename": "116_Spanish_Casa_Propia.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/116_Spanish_Casa_Propia.png",
+    "alt": "Casa Propia — TurboLoop Spanish Banner",
     "title": "Casa Propia (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Casa Propia",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/116_Spanish_Casa_Propia.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/116_Spanish_Casa_Propia.png",
-    "slug": "116-spanish-casa-propia"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-117",
+    "category": "spanish",
+    "filename": "117_Spanish_Educacion_Hijos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/117_Spanish_Educacion_Hijos.png",
+    "alt": "Educacion Hijos — TurboLoop Spanish Banner",
     "title": "Educacion Hijos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Educacion Hijos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/117_Spanish_Educacion_Hijos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/117_Spanish_Educacion_Hijos.png",
-    "slug": "117-spanish-educacion-hijos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-118",
+    "category": "spanish",
+    "filename": "118_Spanish_Boda_Suenos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/118_Spanish_Boda_Suenos.png",
+    "alt": "Boda Suenos — TurboLoop Spanish Banner",
     "title": "Boda Suenos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Boda Suenos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/118_Spanish_Boda_Suenos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/118_Spanish_Boda_Suenos.png",
-    "slug": "118-spanish-boda-suenos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-119",
+    "category": "spanish",
+    "filename": "119_Spanish_Negocio_Capital.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/119_Spanish_Negocio_Capital.png",
+    "alt": "Negocio Capital — TurboLoop Spanish Banner",
     "title": "Negocio Capital (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Negocio Capital",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/119_Spanish_Negocio_Capital.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/119_Spanish_Negocio_Capital.png",
-    "slug": "119-spanish-negocio-capital"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-120",
+    "category": "spanish",
+    "filename": "120_Spanish_Pensionado_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/120_Spanish_Pensionado_DeFi.png",
+    "alt": "Pensionado DeFi — TurboLoop Spanish Banner",
     "title": "Pensionado DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Pensionado DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/120_Spanish_Pensionado_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/120_Spanish_Pensionado_DeFi.png",
-    "slug": "120-spanish-pensionado-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-121",
+    "category": "spanish",
+    "filename": "121_Spanish_Turbo_Builder.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/121_Spanish_Turbo_Builder.png",
+    "alt": "Turbo Builder — TurboLoop Spanish Banner",
     "title": "Turbo Builder (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Builder",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/121_Spanish_Turbo_Builder.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/121_Spanish_Turbo_Builder.png",
-    "slug": "121-spanish-turbo-builder"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-122",
+    "category": "spanish",
+    "filename": "122_Spanish_Criptomoneda_Explicada.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/122_Spanish_Criptomoneda_Explicada.png",
+    "alt": "Criptomoneda Explicada — TurboLoop Spanish Banner",
     "title": "Criptomoneda Explicada (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Criptomoneda Explicada",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/122_Spanish_Criptomoneda_Explicada.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/122_Spanish_Criptomoneda_Explicada.png",
-    "slug": "122-spanish-criptomoneda-explicada"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-123",
+    "category": "spanish",
+    "filename": "123_Spanish_Primer_Deposito.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/123_Spanish_Primer_Deposito.png",
+    "alt": "Primer Deposito — TurboLoop Spanish Banner",
     "title": "Primer Deposito (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Primer Deposito",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/123_Spanish_Primer_Deposito.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/123_Spanish_Primer_Deposito.png",
-    "slug": "123-spanish-primer-deposito"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-124",
+    "category": "spanish",
+    "filename": "124_Spanish_Urgencia_Hoy.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/124_Spanish_Urgencia_Hoy.png",
+    "alt": "Urgencia Hoy — TurboLoop Spanish Banner",
     "title": "Urgencia Hoy (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Urgencia Hoy",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/124_Spanish_Urgencia_Hoy.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/124_Spanish_Urgencia_Hoy.png",
-    "slug": "124-spanish-urgencia-hoy"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-125",
+    "category": "spanish",
+    "filename": "125_Spanish_Mina_De_Oro.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/125_Spanish_Mina_De_Oro.png",
+    "alt": "Mina De Oro — TurboLoop Spanish Banner",
     "title": "Mina De Oro (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Mina De Oro",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/125_Spanish_Mina_De_Oro.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/125_Spanish_Mina_De_Oro.png",
-    "slug": "125-spanish-mina-de-oro"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-126",
+    "category": "spanish",
+    "filename": "126_Spanish_Frase_Motivacional1.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/126_Spanish_Frase_Motivacional1.png",
+    "alt": "Frase Motivacional1 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional1 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional1",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/126_Spanish_Frase_Motivacional1.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/126_Spanish_Frase_Motivacional1.png",
-    "slug": "126-spanish-frase-motivacional1"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-127",
+    "category": "spanish",
+    "filename": "127_Spanish_Frase_Motivacional2.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/127_Spanish_Frase_Motivacional2.png",
+    "alt": "Frase Motivacional2 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional2 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional2",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/127_Spanish_Frase_Motivacional2.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/127_Spanish_Frase_Motivacional2.png",
-    "slug": "127-spanish-frase-motivacional2"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-128",
+    "category": "spanish",
+    "filename": "128_Spanish_Frase_Motivacional3.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/128_Spanish_Frase_Motivacional3.png",
+    "alt": "Frase Motivacional3 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional3 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional3",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/128_Spanish_Frase_Motivacional3.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/128_Spanish_Frase_Motivacional3.png",
-    "slug": "128-spanish-frase-motivacional3"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-129",
+    "category": "spanish",
+    "filename": "129_Spanish_Poder_Compuesto.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/129_Spanish_Poder_Compuesto.png",
+    "alt": "Poder Compuesto — TurboLoop Spanish Banner",
     "title": "Poder Compuesto (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Poder Compuesto",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/129_Spanish_Poder_Compuesto.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/129_Spanish_Poder_Compuesto.png",
-    "slug": "129-spanish-poder-compuesto"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-130",
+    "category": "spanish",
+    "filename": "130_Spanish_Turbo_Networker.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/130_Spanish_Turbo_Networker.png",
+    "alt": "Turbo Networker — TurboLoop Spanish Banner",
     "title": "Turbo Networker (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Networker",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/130_Spanish_Turbo_Networker.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/130_Spanish_Turbo_Networker.png",
-    "slug": "130-spanish-turbo-networker"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-131",
+    "category": "spanish",
+    "filename": "131_Spanish_Turbo_Connector.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/131_Spanish_Turbo_Connector.png",
+    "alt": "Turbo Connector — TurboLoop Spanish Banner",
     "title": "Turbo Connector (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Connector",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/131_Spanish_Turbo_Connector.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/131_Spanish_Turbo_Connector.png",
-    "slug": "131-spanish-turbo-connector"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-132",
+    "category": "spanish",
+    "filename": "132_Spanish_Turbo_Starter.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/132_Spanish_Turbo_Starter.png",
+    "alt": "Turbo Starter — TurboLoop Spanish Banner",
     "title": "Turbo Starter (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Starter",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/132_Spanish_Turbo_Starter.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/132_Spanish_Turbo_Starter.png",
-    "slug": "132-spanish-turbo-starter"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-133",
+    "category": "spanish",
+    "filename": "133_Spanish_Turbo_Explorer.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/133_Spanish_Turbo_Explorer.png",
+    "alt": "Turbo Explorer — TurboLoop Spanish Banner",
     "title": "Turbo Explorer (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Explorer",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/133_Spanish_Turbo_Explorer.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/133_Spanish_Turbo_Explorer.png",
-    "slug": "133-spanish-turbo-explorer"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-134",
+    "category": "spanish",
+    "filename": "134_Spanish_Turbo_Legend.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/134_Spanish_Turbo_Legend.png",
+    "alt": "Turbo Legend — TurboLoop Spanish Banner",
     "title": "Turbo Legend (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Legend",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/134_Spanish_Turbo_Legend.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/134_Spanish_Turbo_Legend.png",
-    "slug": "134-spanish-turbo-legend"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-135",
+    "category": "spanish",
+    "filename": "135_Spanish_Quema_Deflacion.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/135_Spanish_Quema_Deflacion.png",
+    "alt": "Quema Deflacion — TurboLoop Spanish Banner",
     "title": "Quema Deflacion (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Quema Deflacion",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/135_Spanish_Quema_Deflacion.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/135_Spanish_Quema_Deflacion.png",
-    "slug": "135-spanish-quema-deflacion"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-136",
+    "category": "spanish",
+    "filename": "136_Spanish_BSC_Network.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/136_Spanish_BSC_Network.png",
+    "alt": "BSC Network — TurboLoop Spanish Banner",
     "title": "BSC Network (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: BSC Network",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/136_Spanish_BSC_Network.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/136_Spanish_BSC_Network.png",
-    "slug": "136-spanish-bsc-network"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-137",
+    "category": "spanish",
+    "filename": "137_Spanish_Transparencia_BSCScan.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/137_Spanish_Transparencia_BSCScan.png",
+    "alt": "Transparencia BSCScan — TurboLoop Spanish Banner",
     "title": "Transparencia BSCScan (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Transparencia BSCScan",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/137_Spanish_Transparencia_BSCScan.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/137_Spanish_Transparencia_BSCScan.png",
-    "slug": "137-spanish-transparencia-bscscan"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-138",
+    "category": "spanish",
+    "filename": "138_Spanish_Sin_Custodia.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/138_Spanish_Sin_Custodia.png",
+    "alt": "Sin Custodia — TurboLoop Spanish Banner",
     "title": "Sin Custodia (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin Custodia",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/138_Spanish_Sin_Custodia.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/138_Spanish_Sin_Custodia.png",
-    "slug": "138-spanish-sin-custodia"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-139",
+    "category": "spanish",
+    "filename": "139_Spanish_Comunidad_Global.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/139_Spanish_Comunidad_Global.png",
+    "alt": "Comunidad Global — TurboLoop Spanish Banner",
     "title": "Comunidad Global (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comunidad Global",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/139_Spanish_Comunidad_Global.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/139_Spanish_Comunidad_Global.png",
-    "slug": "139-spanish-comunidad-global"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-140",
+    "category": "spanish",
+    "filename": "140_Spanish_Telegram_Comunidad.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/140_Spanish_Telegram_Comunidad.png",
+    "alt": "Telegram Comunidad — TurboLoop Spanish Banner",
     "title": "Telegram Comunidad (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Telegram Comunidad",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/140_Spanish_Telegram_Comunidad.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/140_Spanish_Telegram_Comunidad.png",
-    "slug": "140-spanish-telegram-comunidad"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-141",
+    "category": "spanish",
+    "filename": "141_Spanish_Soporte_24_7.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/141_Spanish_Soporte_24_7.png",
+    "alt": "Soporte 24 7 — TurboLoop Spanish Banner",
     "title": "Soporte 24 7 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Soporte 24 7",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/141_Spanish_Soporte_24_7.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/141_Spanish_Soporte_24_7.png",
-    "slug": "141-spanish-soporte-24-7"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-142",
+    "category": "spanish",
+    "filename": "142_Spanish_Video_Tutorial.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/142_Spanish_Video_Tutorial.png",
+    "alt": "Video Tutorial — TurboLoop Spanish Banner",
     "title": "Video Tutorial (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Video Tutorial",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/142_Spanish_Video_Tutorial.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/142_Spanish_Video_Tutorial.png",
-    "slug": "142-spanish-video-tutorial"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-143",
+    "category": "spanish",
+    "filename": "143_Spanish_Navidad_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/143_Spanish_Navidad_DeFi.png",
+    "alt": "Navidad DeFi — TurboLoop Spanish Banner",
     "title": "Navidad DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Navidad DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/143_Spanish_Navidad_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/143_Spanish_Navidad_DeFi.png",
-    "slug": "143-spanish-navidad-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-144",
+    "category": "spanish",
+    "filename": "144_Spanish_Ano_Nuevo_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/144_Spanish_Ano_Nuevo_DeFi.png",
+    "alt": "Ano Nuevo DeFi — TurboLoop Spanish Banner",
     "title": "Ano Nuevo DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Ano Nuevo DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/144_Spanish_Ano_Nuevo_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/144_Spanish_Ano_Nuevo_DeFi.png",
-    "slug": "144-spanish-ano-nuevo-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-145",
+    "category": "spanish",
+    "filename": "145_Spanish_Dia_Madres.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/145_Spanish_Dia_Madres.png",
+    "alt": "Dia Madres — TurboLoop Spanish Banner",
     "title": "Dia Madres (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Dia Madres",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/145_Spanish_Dia_Madres.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/145_Spanish_Dia_Madres.png",
-    "slug": "145-spanish-dia-madres"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-146",
+    "category": "spanish",
+    "filename": "146_Spanish_Dia_Padre.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/146_Spanish_Dia_Padre.png",
+    "alt": "Dia Padre — TurboLoop Spanish Banner",
     "title": "Dia Padre (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Dia Padre",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/146_Spanish_Dia_Padre.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/146_Spanish_Dia_Padre.png",
-    "slug": "146-spanish-dia-padre"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-147",
+    "category": "spanish",
+    "filename": "147_Spanish_Semana_Santa.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/147_Spanish_Semana_Santa.png",
+    "alt": "Semana Santa — TurboLoop Spanish Banner",
     "title": "Semana Santa (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Semana Santa",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/147_Spanish_Semana_Santa.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/147_Spanish_Semana_Santa.png",
-    "slug": "147-spanish-semana-santa"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-148",
+    "category": "spanish",
+    "filename": "148_Spanish_Verano_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/148_Spanish_Verano_DeFi.png",
+    "alt": "Verano DeFi — TurboLoop Spanish Banner",
     "title": "Verano DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Verano DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/148_Spanish_Verano_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/148_Spanish_Verano_DeFi.png",
-    "slug": "148-spanish-verano-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-149",
+    "category": "spanish",
+    "filename": "149_Spanish_Invierno_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/149_Spanish_Invierno_DeFi.png",
+    "alt": "Invierno DeFi — TurboLoop Spanish Banner",
     "title": "Invierno DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Invierno DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/149_Spanish_Invierno_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/149_Spanish_Invierno_DeFi.png",
-    "slug": "149-spanish-invierno-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-150",
+    "category": "spanish",
+    "filename": "150_Spanish_150_Milestone.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/150_Spanish_150_Milestone.png",
+    "alt": "150 Milestone — TurboLoop Spanish Banner",
     "title": "150 Milestone (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: 150 Milestone",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/150_Spanish_150_Milestone.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/150_Spanish_150_Milestone.png",
-    "slug": "150-spanish-150-milestone"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-151",
+    "category": "spanish",
+    "filename": "151_Spanish_Objecion_Es_Seguro.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/151_Spanish_Objecion_Es_Seguro.png",
+    "alt": "Objecion Es Seguro — TurboLoop Spanish Banner",
     "title": "Objecion Es Seguro (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Es Seguro",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/151_Spanish_Objecion_Es_Seguro.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/151_Spanish_Objecion_Es_Seguro.png",
-    "slug": "151-spanish-objecion-es-seguro"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-152",
+    "category": "spanish",
+    "filename": "152_Spanish_Objecion_No_Es_Scam.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/152_Spanish_Objecion_No_Es_Scam.png",
+    "alt": "Objecion No Es Scam — TurboLoop Spanish Banner",
     "title": "Objecion No Es Scam (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion No Es Scam",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/152_Spanish_Objecion_No_Es_Scam.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/152_Spanish_Objecion_No_Es_Scam.png",
-    "slug": "152-spanish-objecion-no-es-scam"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-153",
+    "category": "spanish",
+    "filename": "153_Spanish_Objecion_Retiro.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/153_Spanish_Objecion_Retiro.png",
+    "alt": "Objecion Retiro — TurboLoop Spanish Banner",
     "title": "Objecion Retiro (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Retiro",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/153_Spanish_Objecion_Retiro.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/153_Spanish_Objecion_Retiro.png",
-    "slug": "153-spanish-objecion-retiro"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-154",
+    "category": "spanish",
+    "filename": "154_Spanish_Objecion_Minimo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/154_Spanish_Objecion_Minimo.png",
+    "alt": "Objecion Minimo — TurboLoop Spanish Banner",
     "title": "Objecion Minimo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Minimo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/154_Spanish_Objecion_Minimo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/154_Spanish_Objecion_Minimo.png",
-    "slug": "154-spanish-objecion-minimo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-155",
+    "category": "spanish",
+    "filename": "155_Spanish_Objecion_Tiempo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/155_Spanish_Objecion_Tiempo.png",
+    "alt": "Objecion Tiempo — TurboLoop Spanish Banner",
     "title": "Objecion Tiempo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Tiempo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/155_Spanish_Objecion_Tiempo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/155_Spanish_Objecion_Tiempo.png",
-    "slug": "155-spanish-objecion-tiempo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-156",
+    "category": "spanish",
+    "filename": "156_Spanish_Objecion_Crypto.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/156_Spanish_Objecion_Crypto.png",
+    "alt": "Objecion Crypto — TurboLoop Spanish Banner",
     "title": "Objecion Crypto (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Crypto",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/156_Spanish_Objecion_Crypto.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/156_Spanish_Objecion_Crypto.png",
-    "slug": "156-spanish-objecion-crypto"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-157",
+    "category": "spanish",
+    "filename": "157_Spanish_Objecion_No_Entiendo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/157_Spanish_Objecion_No_Entiendo.png",
+    "alt": "Objecion No Entiendo — TurboLoop Spanish Banner",
     "title": "Objecion No Entiendo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion No Entiendo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/157_Spanish_Objecion_No_Entiendo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/157_Spanish_Objecion_No_Entiendo.png",
-    "slug": "157-spanish-objecion-no-entiendo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-158",
+    "category": "spanish",
+    "filename": "158_Spanish_Objecion_Ya_Perdi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/158_Spanish_Objecion_Ya_Perdi.png",
+    "alt": "Objecion Ya Perdi — TurboLoop Spanish Banner",
     "title": "Objecion Ya Perdi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Objecion Ya Perdi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/158_Spanish_Objecion_Ya_Perdi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/158_Spanish_Objecion_Ya_Perdi.png",
-    "slug": "158-spanish-objecion-ya-perdi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-159",
+    "category": "spanish",
+    "filename": "159_Spanish_Testimonio_Ana.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/159_Spanish_Testimonio_Ana.png",
+    "alt": "Testimonio Ana — TurboLoop Spanish Banner",
     "title": "Testimonio Ana (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Ana",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/159_Spanish_Testimonio_Ana.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/159_Spanish_Testimonio_Ana.png",
-    "slug": "159-spanish-testimonio-ana"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-160",
+    "category": "spanish",
+    "filename": "160_Spanish_Testimonio_Roberto.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/160_Spanish_Testimonio_Roberto.png",
+    "alt": "Testimonio Roberto — TurboLoop Spanish Banner",
     "title": "Testimonio Roberto (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Roberto",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/160_Spanish_Testimonio_Roberto.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/160_Spanish_Testimonio_Roberto.png",
-    "slug": "160-spanish-testimonio-roberto"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-161",
+    "category": "spanish",
+    "filename": "161_Spanish_Testimonio_Maria.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/161_Spanish_Testimonio_Maria.png",
+    "alt": "Testimonio Maria — TurboLoop Spanish Banner",
     "title": "Testimonio Maria (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Maria",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/161_Spanish_Testimonio_Maria.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/161_Spanish_Testimonio_Maria.png",
-    "slug": "161-spanish-testimonio-maria"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-162",
+    "category": "spanish",
+    "filename": "162_Spanish_Testimonio_Carlos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/162_Spanish_Testimonio_Carlos.png",
+    "alt": "Testimonio Carlos — TurboLoop Spanish Banner",
     "title": "Testimonio Carlos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Carlos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/162_Spanish_Testimonio_Carlos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/162_Spanish_Testimonio_Carlos.png",
-    "slug": "162-spanish-testimonio-carlos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-163",
+    "category": "spanish",
+    "filename": "163_Spanish_Testimonio_Sofia.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/163_Spanish_Testimonio_Sofia.png",
+    "alt": "Testimonio Sofia — TurboLoop Spanish Banner",
     "title": "Testimonio Sofia (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Testimonio Sofia",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/163_Spanish_Testimonio_Sofia.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/163_Spanish_Testimonio_Sofia.png",
-    "slug": "163-spanish-testimonio-sofia"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-164",
+    "category": "spanish",
+    "filename": "164_Spanish_Plan1_Calculadora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/164_Spanish_Plan1_Calculadora.png",
+    "alt": "Plan1 Calculadora — TurboLoop Spanish Banner",
     "title": "Plan1 Calculadora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan1 Calculadora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/164_Spanish_Plan1_Calculadora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/164_Spanish_Plan1_Calculadora.png",
-    "slug": "164-spanish-plan1-calculadora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-165",
+    "category": "spanish",
+    "filename": "165_Spanish_Plan2_Calculadora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/165_Spanish_Plan2_Calculadora.png",
+    "alt": "Plan2 Calculadora — TurboLoop Spanish Banner",
     "title": "Plan2 Calculadora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan2 Calculadora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/165_Spanish_Plan2_Calculadora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/165_Spanish_Plan2_Calculadora.png",
-    "slug": "165-spanish-plan2-calculadora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-166",
+    "category": "spanish",
+    "filename": "166_Spanish_Plan3_Calculadora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/166_Spanish_Plan3_Calculadora.png",
+    "alt": "Plan3 Calculadora — TurboLoop Spanish Banner",
     "title": "Plan3 Calculadora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan3 Calculadora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/166_Spanish_Plan3_Calculadora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/166_Spanish_Plan3_Calculadora.png",
-    "slug": "166-spanish-plan3-calculadora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-167",
+    "category": "spanish",
+    "filename": "167_Spanish_Plan4_Calculadora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/167_Spanish_Plan4_Calculadora.png",
+    "alt": "Plan4 Calculadora — TurboLoop Spanish Banner",
     "title": "Plan4 Calculadora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Plan4 Calculadora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/167_Spanish_Plan4_Calculadora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/167_Spanish_Plan4_Calculadora.png",
-    "slug": "167-spanish-plan4-calculadora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-168",
+    "category": "spanish",
+    "filename": "168_Spanish_Comparacion_4_Planes.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/168_Spanish_Comparacion_4_Planes.png",
+    "alt": "Comparacion 4 Planes — TurboLoop Spanish Banner",
     "title": "Comparacion 4 Planes (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comparacion 4 Planes",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/168_Spanish_Comparacion_4_Planes.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/168_Spanish_Comparacion_4_Planes.png",
-    "slug": "168-spanish-comparacion-4-planes"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-169",
+    "category": "spanish",
+    "filename": "169_Spanish_Reinversion_Estrategia.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/169_Spanish_Reinversion_Estrategia.png",
+    "alt": "Reinversion Estrategia — TurboLoop Spanish Banner",
     "title": "Reinversion Estrategia (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Reinversion Estrategia",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/169_Spanish_Reinversion_Estrategia.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/169_Spanish_Reinversion_Estrategia.png",
-    "slug": "169-spanish-reinversion-estrategia"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-170",
+    "category": "spanish",
+    "filename": "170_Spanish_Diversificacion.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/170_Spanish_Diversificacion.png",
+    "alt": "Diversificacion — TurboLoop Spanish Banner",
     "title": "Diversificacion (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Diversificacion",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/170_Spanish_Diversificacion.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/170_Spanish_Diversificacion.png",
-    "slug": "170-spanish-diversificacion"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-171",
+    "category": "spanish",
+    "filename": "171_Spanish_Primer_Semana.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/171_Spanish_Primer_Semana.png",
+    "alt": "Primer Semana — TurboLoop Spanish Banner",
     "title": "Primer Semana (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Primer Semana",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/171_Spanish_Primer_Semana.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/171_Spanish_Primer_Semana.png",
-    "slug": "171-spanish-primer-semana"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-172",
+    "category": "spanish",
+    "filename": "172_Spanish_Primer_Mes.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/172_Spanish_Primer_Mes.png",
+    "alt": "Primer Mes — TurboLoop Spanish Banner",
     "title": "Primer Mes (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Primer Mes",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/172_Spanish_Primer_Mes.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/172_Spanish_Primer_Mes.png",
-    "slug": "172-spanish-primer-mes"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-173",
+    "category": "spanish",
+    "filename": "173_Spanish_60_Dias_Transformacion.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/173_Spanish_60_Dias_Transformacion.png",
+    "alt": "60 Dias Transformacion — TurboLoop Spanish Banner",
     "title": "60 Dias Transformacion (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: 60 Dias Transformacion",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/173_Spanish_60_Dias_Transformacion.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/173_Spanish_60_Dias_Transformacion.png",
-    "slug": "173-spanish-60-dias-transformacion"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-174",
+    "category": "spanish",
+    "filename": "174_Spanish_Gana_Durmiendo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/174_Spanish_Gana_Durmiendo.png",
+    "alt": "Gana Durmiendo — TurboLoop Spanish Banner",
     "title": "Gana Durmiendo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Durmiendo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/174_Spanish_Gana_Durmiendo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/174_Spanish_Gana_Durmiendo.png",
-    "slug": "174-spanish-gana-durmiendo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-175",
+    "category": "spanish",
+    "filename": "175_Spanish_Gana_Comiendo.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/175_Spanish_Gana_Comiendo.png",
+    "alt": "Gana Comiendo — TurboLoop Spanish Banner",
     "title": "Gana Comiendo (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Comiendo",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/175_Spanish_Gana_Comiendo.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/175_Spanish_Gana_Comiendo.png",
-    "slug": "175-spanish-gana-comiendo"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-176",
+    "category": "spanish",
+    "filename": "176_Spanish_Gana_Jugando.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/176_Spanish_Gana_Jugando.png",
+    "alt": "Gana Jugando — TurboLoop Spanish Banner",
     "title": "Gana Jugando (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Jugando",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/176_Spanish_Gana_Jugando.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/176_Spanish_Gana_Jugando.png",
-    "slug": "176-spanish-gana-jugando"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-177",
+    "category": "spanish",
+    "filename": "177_Spanish_Gana_Ejercitando.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/177_Spanish_Gana_Ejercitando.png",
+    "alt": "Gana Ejercitando — TurboLoop Spanish Banner",
     "title": "Gana Ejercitando (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Ejercitando",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/177_Spanish_Gana_Ejercitando.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/177_Spanish_Gana_Ejercitando.png",
-    "slug": "177-spanish-gana-ejercitando"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-178",
+    "category": "spanish",
+    "filename": "178_Spanish_Gana_Viajando2.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/178_Spanish_Gana_Viajando2.png",
+    "alt": "Gana Viajando2 — TurboLoop Spanish Banner",
     "title": "Gana Viajando2 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Gana Viajando2",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/178_Spanish_Gana_Viajando2.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/178_Spanish_Gana_Viajando2.png",
-    "slug": "178-spanish-gana-viajando2"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-179",
+    "category": "spanish",
+    "filename": "179_Spanish_Frase_Motivacional4.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/179_Spanish_Frase_Motivacional4.png",
+    "alt": "Frase Motivacional4 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional4 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional4",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/179_Spanish_Frase_Motivacional4.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/179_Spanish_Frase_Motivacional4.png",
-    "slug": "179-spanish-frase-motivacional4"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-180",
+    "category": "spanish",
+    "filename": "180_Spanish_Frase_Motivacional5.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/180_Spanish_Frase_Motivacional5.png",
+    "alt": "Frase Motivacional5 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional5 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional5",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/180_Spanish_Frase_Motivacional5.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/180_Spanish_Frase_Motivacional5.png",
-    "slug": "180-spanish-frase-motivacional5"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-181",
+    "category": "spanish",
+    "filename": "181_Spanish_Frase_Motivacional6.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/181_Spanish_Frase_Motivacional6.png",
+    "alt": "Frase Motivacional6 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional6 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional6",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/181_Spanish_Frase_Motivacional6.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/181_Spanish_Frase_Motivacional6.png",
-    "slug": "181-spanish-frase-motivacional6"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-182",
+    "category": "spanish",
+    "filename": "182_Spanish_Frase_Motivacional7.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/182_Spanish_Frase_Motivacional7.png",
+    "alt": "Frase Motivacional7 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional7 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional7",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/182_Spanish_Frase_Motivacional7.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/182_Spanish_Frase_Motivacional7.png",
-    "slug": "182-spanish-frase-motivacional7"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-183",
+    "category": "spanish",
+    "filename": "183_Spanish_Frase_Motivacional8.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/183_Spanish_Frase_Motivacional8.png",
+    "alt": "Frase Motivacional8 — TurboLoop Spanish Banner",
     "title": "Frase Motivacional8 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Frase Motivacional8",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/183_Spanish_Frase_Motivacional8.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/183_Spanish_Frase_Motivacional8.png",
-    "slug": "183-spanish-frase-motivacional8"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-184",
+    "category": "spanish",
+    "filename": "184_Spanish_Urgencia_Ahora.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/184_Spanish_Urgencia_Ahora.png",
+    "alt": "Urgencia Ahora — TurboLoop Spanish Banner",
     "title": "Urgencia Ahora (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Urgencia Ahora",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/184_Spanish_Urgencia_Ahora.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/184_Spanish_Urgencia_Ahora.png",
-    "slug": "184-spanish-urgencia-ahora"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-185",
+    "category": "spanish",
+    "filename": "185_Spanish_Urgencia_Oportunidad.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/185_Spanish_Urgencia_Oportunidad.png",
+    "alt": "Urgencia Oportunidad — TurboLoop Spanish Banner",
     "title": "Urgencia Oportunidad (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Urgencia Oportunidad",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/185_Spanish_Urgencia_Oportunidad.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/185_Spanish_Urgencia_Oportunidad.png",
-    "slug": "185-spanish-urgencia-oportunidad"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-186",
+    "category": "spanish",
+    "filename": "186_Spanish_Urgencia_Manana.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/186_Spanish_Urgencia_Manana.png",
+    "alt": "Urgencia Manana — TurboLoop Spanish Banner",
     "title": "Urgencia Manana (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Urgencia Manana",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/186_Spanish_Urgencia_Manana.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/186_Spanish_Urgencia_Manana.png",
-    "slug": "186-spanish-urgencia-manana"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-187",
+    "category": "spanish",
+    "filename": "187_Spanish_Como_Empezar_Paso1.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/187_Spanish_Como_Empezar_Paso1.png",
+    "alt": "Como Empezar Paso1 — TurboLoop Spanish Banner",
     "title": "Como Empezar Paso1 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Como Empezar Paso1",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/187_Spanish_Como_Empezar_Paso1.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/187_Spanish_Como_Empezar_Paso1.png",
-    "slug": "187-spanish-como-empezar-paso1"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-188",
+    "category": "spanish",
+    "filename": "188_Spanish_Como_Empezar_Paso2.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/188_Spanish_Como_Empezar_Paso2.png",
+    "alt": "Como Empezar Paso2 — TurboLoop Spanish Banner",
     "title": "Como Empezar Paso2 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Como Empezar Paso2",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/188_Spanish_Como_Empezar_Paso2.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/188_Spanish_Como_Empezar_Paso2.png",
-    "slug": "188-spanish-como-empezar-paso2"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-189",
+    "category": "spanish",
+    "filename": "189_Spanish_Como_Empezar_Paso3.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/189_Spanish_Como_Empezar_Paso3.png",
+    "alt": "Como Empezar Paso3 — TurboLoop Spanish Banner",
     "title": "Como Empezar Paso3 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Como Empezar Paso3",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/189_Spanish_Como_Empezar_Paso3.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/189_Spanish_Como_Empezar_Paso3.png",
-    "slug": "189-spanish-como-empezar-paso3"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-190",
+    "category": "spanish",
+    "filename": "190_Spanish_Guia_Completa.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/190_Spanish_Guia_Completa.png",
+    "alt": "Guia Completa — TurboLoop Spanish Banner",
     "title": "Guia Completa (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Guia Completa",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/190_Spanish_Guia_Completa.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/190_Spanish_Guia_Completa.png",
-    "slug": "190-spanish-guia-completa"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-191",
+    "category": "spanish",
+    "filename": "191_Spanish_Wallet_MetaMask.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/191_Spanish_Wallet_MetaMask.png",
+    "alt": "Wallet MetaMask — TurboLoop Spanish Banner",
     "title": "Wallet MetaMask (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Wallet MetaMask",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/191_Spanish_Wallet_MetaMask.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/191_Spanish_Wallet_MetaMask.png",
-    "slug": "191-spanish-wallet-metamask"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-192",
+    "category": "spanish",
+    "filename": "192_Spanish_USDT_Como_Comprar.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/192_Spanish_USDT_Como_Comprar.png",
+    "alt": "USDT Como Comprar — TurboLoop Spanish Banner",
     "title": "USDT Como Comprar (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: USDT Como Comprar",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/192_Spanish_USDT_Como_Comprar.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/192_Spanish_USDT_Como_Comprar.png",
-    "slug": "192-spanish-usdt-como-comprar"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-193",
+    "category": "spanish",
+    "filename": "193_Spanish_Trust_Wallet_Guide.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/193_Spanish_Trust_Wallet_Guide.png",
+    "alt": "Trust Wallet Guide — TurboLoop Spanish Banner",
     "title": "Trust Wallet Guide (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Trust Wallet Guide",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/193_Spanish_Trust_Wallet_Guide.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/193_Spanish_Trust_Wallet_Guide.png",
-    "slug": "193-spanish-trust-wallet-guide"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-194",
+    "category": "spanish",
+    "filename": "194_Spanish_Referidos_Nivel1.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/194_Spanish_Referidos_Nivel1.png",
+    "alt": "Referidos Nivel1 — TurboLoop Spanish Banner",
     "title": "Referidos Nivel1 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Referidos Nivel1",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/194_Spanish_Referidos_Nivel1.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/194_Spanish_Referidos_Nivel1.png",
-    "slug": "194-spanish-referidos-nivel1"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-195",
+    "category": "spanish",
+    "filename": "195_Spanish_Referidos_Nivel2.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/195_Spanish_Referidos_Nivel2.png",
+    "alt": "Referidos Nivel2 — TurboLoop Spanish Banner",
     "title": "Referidos Nivel2 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Referidos Nivel2",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/195_Spanish_Referidos_Nivel2.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/195_Spanish_Referidos_Nivel2.png",
-    "slug": "195-spanish-referidos-nivel2"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-196",
+    "category": "spanish",
+    "filename": "196_Spanish_20_Niveles_Red.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/196_Spanish_20_Niveles_Red.png",
+    "alt": "20 Niveles Red — TurboLoop Spanish Banner",
     "title": "20 Niveles Red (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: 20 Niveles Red",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/196_Spanish_20_Niveles_Red.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/196_Spanish_20_Niveles_Red.png",
-    "slug": "196-spanish-20-niveles-red"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-197",
+    "category": "spanish",
+    "filename": "197_Spanish_Comision_Diaria_1PM.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/197_Spanish_Comision_Diaria_1PM.png",
+    "alt": "Comision Diaria 1PM — TurboLoop Spanish Banner",
     "title": "Comision Diaria 1PM (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comision Diaria 1PM",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/197_Spanish_Comision_Diaria_1PM.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/197_Spanish_Comision_Diaria_1PM.png",
-    "slug": "197-spanish-comision-diaria-1pm"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-198",
+    "category": "spanish",
+    "filename": "198_Spanish_Quema_Token_2PM.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/198_Spanish_Quema_Token_2PM.png",
+    "alt": "Quema Token 2PM — TurboLoop Spanish Banner",
     "title": "Quema Token 2PM (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Quema Token 2PM",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/198_Spanish_Quema_Token_2PM.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/198_Spanish_Quema_Token_2PM.png",
-    "slug": "198-spanish-quema-token-2pm"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-199",
+    "category": "spanish",
+    "filename": "199_Spanish_Turbo_Token_Explicado.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/199_Spanish_Turbo_Token_Explicado.png",
+    "alt": "Turbo Token Explicado — TurboLoop Spanish Banner",
     "title": "Turbo Token Explicado (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Token Explicado",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/199_Spanish_Turbo_Token_Explicado.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/199_Spanish_Turbo_Token_Explicado.png",
-    "slug": "199-spanish-turbo-token-explicado"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-200",
+    "category": "spanish",
+    "filename": "200_Spanish_200_Milestone.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/200_Spanish_200_Milestone.png",
+    "alt": "200 Milestone — TurboLoop Spanish Banner",
     "title": "200 Milestone (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: 200 Milestone",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/200_Spanish_200_Milestone.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/200_Spanish_200_Milestone.png",
-    "slug": "200-spanish-200-milestone"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-201",
+    "category": "spanish",
+    "filename": "201_Spanish_Seguridad_Fondos.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/201_Spanish_Seguridad_Fondos.png",
+    "alt": "Seguridad Fondos — TurboLoop Spanish Banner",
     "title": "Seguridad Fondos (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Seguridad Fondos",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/201_Spanish_Seguridad_Fondos.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/201_Spanish_Seguridad_Fondos.png",
-    "slug": "201-spanish-seguridad-fondos"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-202",
+    "category": "spanish",
+    "filename": "202_Spanish_Auditoria_Contrato.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/202_Spanish_Auditoria_Contrato.png",
+    "alt": "Auditoria Contrato — TurboLoop Spanish Banner",
     "title": "Auditoria Contrato (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Auditoria Contrato",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/202_Spanish_Auditoria_Contrato.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/202_Spanish_Auditoria_Contrato.png",
-    "slug": "202-spanish-auditoria-contrato"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-203",
+    "category": "spanish",
+    "filename": "203_Spanish_Sin_Intermediarios.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/203_Spanish_Sin_Intermediarios.png",
+    "alt": "Sin Intermediarios — TurboLoop Spanish Banner",
     "title": "Sin Intermediarios (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin Intermediarios",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/203_Spanish_Sin_Intermediarios.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/203_Spanish_Sin_Intermediarios.png",
-    "slug": "203-spanish-sin-intermediarios"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-204",
+    "category": "spanish",
+    "filename": "204_Spanish_Velocidad_BSC.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/204_Spanish_Velocidad_BSC.png",
+    "alt": "Velocidad BSC — TurboLoop Spanish Banner",
     "title": "Velocidad BSC (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Velocidad BSC",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/204_Spanish_Velocidad_BSC.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/204_Spanish_Velocidad_BSC.png",
-    "slug": "204-spanish-velocidad-bsc"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-205",
+    "category": "spanish",
+    "filename": "205_Spanish_Comunidad_Telegram.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/205_Spanish_Comunidad_Telegram.png",
+    "alt": "Comunidad Telegram — TurboLoop Spanish Banner",
     "title": "Comunidad Telegram (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Comunidad Telegram",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/205_Spanish_Comunidad_Telegram.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/205_Spanish_Comunidad_Telegram.png",
-    "slug": "205-spanish-comunidad-telegram"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-206",
+    "category": "spanish",
+    "filename": "206_Spanish_Soporte_24_7.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/206_Spanish_Soporte_24_7.png",
+    "alt": "Soporte 24 7 — TurboLoop Spanish Banner",
     "title": "Soporte 24 7 (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Soporte 24 7",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/206_Spanish_Soporte_24_7.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/206_Spanish_Soporte_24_7.png",
-    "slug": "206-spanish-soporte-24-7"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-207",
+    "category": "spanish",
+    "filename": "207_Spanish_Video_Tutorial.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/207_Spanish_Video_Tutorial.png",
+    "alt": "Video Tutorial — TurboLoop Spanish Banner",
     "title": "Video Tutorial (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Video Tutorial",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/207_Spanish_Video_Tutorial.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/207_Spanish_Video_Tutorial.png",
-    "slug": "207-spanish-video-tutorial"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-208",
+    "category": "spanish",
+    "filename": "208_Spanish_FAQ.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/208_Spanish_FAQ.png",
+    "alt": "FAQ — TurboLoop Spanish Banner",
     "title": "FAQ (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: FAQ",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/208_Spanish_FAQ.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/208_Spanish_FAQ.png",
-    "slug": "208-spanish-faq"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-209",
+    "category": "spanish",
+    "filename": "209_Spanish_Sin_KYC.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/209_Spanish_Sin_KYC.png",
+    "alt": "Sin KYC — TurboLoop Spanish Banner",
     "title": "Sin KYC (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Sin KYC",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/209_Spanish_Sin_KYC.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/209_Spanish_Sin_KYC.png",
-    "slug": "209-spanish-sin-kyc"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-210",
+    "category": "spanish",
+    "filename": "210_Spanish_Turbo_Starter_Rank.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/210_Spanish_Turbo_Starter_Rank.png",
+    "alt": "Turbo Starter Rank — TurboLoop Spanish Banner",
     "title": "Turbo Starter Rank (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Starter Rank",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/210_Spanish_Turbo_Starter_Rank.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/210_Spanish_Turbo_Starter_Rank.png",
-    "slug": "210-spanish-turbo-starter-rank"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-211",
+    "category": "spanish",
+    "filename": "211_Spanish_Turbo_Partner_Rank.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/211_Spanish_Turbo_Partner_Rank.png",
+    "alt": "Turbo Partner Rank — TurboLoop Spanish Banner",
     "title": "Turbo Partner Rank (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Partner Rank",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/211_Spanish_Turbo_Partner_Rank.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/211_Spanish_Turbo_Partner_Rank.png",
-    "slug": "211-spanish-turbo-partner-rank"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-212",
+    "category": "spanish",
+    "filename": "212_Spanish_Turbo_Director_Rank.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/212_Spanish_Turbo_Director_Rank.png",
+    "alt": "Turbo Director Rank — TurboLoop Spanish Banner",
     "title": "Turbo Director Rank (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Director Rank",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/212_Spanish_Turbo_Director_Rank.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/212_Spanish_Turbo_Director_Rank.png",
-    "slug": "212-spanish-turbo-director-rank"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-213",
+    "category": "spanish",
+    "filename": "213_Spanish_Turbo_Executive_Rank.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/213_Spanish_Turbo_Executive_Rank.png",
+    "alt": "Turbo Executive Rank — TurboLoop Spanish Banner",
     "title": "Turbo Executive Rank (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Executive Rank",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/213_Spanish_Turbo_Executive_Rank.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/213_Spanish_Turbo_Executive_Rank.png",
-    "slug": "213-spanish-turbo-executive-rank"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-214",
+    "category": "spanish",
+    "filename": "214_Spanish_Turbo_Legend_Rank.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/214_Spanish_Turbo_Legend_Rank.png",
+    "alt": "Turbo Legend Rank — TurboLoop Spanish Banner",
     "title": "Turbo Legend Rank (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Turbo Legend Rank",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/214_Spanish_Turbo_Legend_Rank.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/214_Spanish_Turbo_Legend_Rank.png",
-    "slug": "214-spanish-turbo-legend-rank"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-215",
+    "category": "spanish",
+    "filename": "215_Spanish_Mexico_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/215_Spanish_Mexico_DeFi.png",
+    "alt": "Mexico DeFi — TurboLoop Spanish Banner",
     "title": "Mexico DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Mexico DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/215_Spanish_Mexico_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/215_Spanish_Mexico_DeFi.png",
-    "slug": "215-spanish-mexico-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-216",
+    "category": "spanish",
+    "filename": "216_Spanish_Colombia_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/216_Spanish_Colombia_DeFi.png",
+    "alt": "Colombia DeFi — TurboLoop Spanish Banner",
     "title": "Colombia DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Colombia DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/216_Spanish_Colombia_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/216_Spanish_Colombia_DeFi.png",
-    "slug": "216-spanish-colombia-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-217",
+    "category": "spanish",
+    "filename": "217_Spanish_Argentina_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/217_Spanish_Argentina_DeFi.png",
+    "alt": "Argentina DeFi — TurboLoop Spanish Banner",
     "title": "Argentina DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Argentina DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/217_Spanish_Argentina_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/217_Spanish_Argentina_DeFi.png",
-    "slug": "217-spanish-argentina-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-218",
+    "category": "spanish",
+    "filename": "218_Spanish_Venezuela_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/218_Spanish_Venezuela_DeFi.png",
+    "alt": "Venezuela DeFi — TurboLoop Spanish Banner",
     "title": "Venezuela DeFi (Spanish)",
-    "category": "spanish",
-    "language": "es",
-    "tags": [
+    "description": "TurboLoop DeFi banner in Spanish: Venezuela DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/218_Spanish_Venezuela_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/218_Spanish_Venezuela_DeFi.png",
-    "slug": "218-spanish-venezuela-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   },
   {
-    "id": "spanish-219",
-    "title": "Peru DeFi (Spanish)",
     "category": "spanish",
-    "language": "es",
-    "tags": [
+    "filename": "219_Spanish_Peru_DeFi.png",
+    "url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/219_Spanish_Peru_DeFi.png",
+    "alt": "Peru DeFi — TurboLoop Spanish Banner",
+    "title": "Peru DeFi (Spanish)",
+    "description": "TurboLoop DeFi banner in Spanish: Peru DeFi",
+    "keywords": [
       "spanish",
       "espanol",
-      "latam"
-    ],
-    "imageUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/219_Spanish_Peru_DeFi.png",
-    "downloadUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/campaigns/spanish/219_Spanish_Peru_DeFi.png",
-    "slug": "219-spanish-peru-defi"
+      "latam",
+      "defi",
+      "turboloop"
+    ]
   }
 ]

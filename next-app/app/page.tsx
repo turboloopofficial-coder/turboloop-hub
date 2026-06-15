@@ -67,6 +67,13 @@ const NewsletterSection = dynamic(
     })),
   { ssr: true }
 );
+const CreativeExplorerSection = dynamic(
+  () =>
+    import("@components/sections/CreativeExplorerSection").then(m => ({
+      default: m.CreativeExplorerSection,
+    })),
+  { ssr: false }
+);
 
 const TRUST_BADGES = [
   {
@@ -319,11 +326,13 @@ export default function HomePage() {
         <TestimonialSection />
       </Reveal>
 
-      {/* 5. Global Reels — multi-language content proof */}
+            {/* 5. Global Reels — multi-language content proof */}
       <Reveal>
         <HomeGlobalReelsSection />
       </Reveal>
-
+      <SectionDivider />
+      {/* 5b. Creative Explorer — interactive banner browser by language/category */}
+      <CreativeExplorerSection />
       <SectionDivider />
 
       {/* 6. Community Live — Zoom calls with countdown */}

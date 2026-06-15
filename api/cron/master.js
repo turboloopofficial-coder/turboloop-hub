@@ -61557,6 +61557,227 @@ var CAMPAIGN_FILE_INDEX = {
     "28_Community_Unstoppable.png",
     "29_Community_Next_Chapter.png",
     "30_Community_Final_CTA.png"
+  ],
+  "spanish": [
+    "001_Spanish_Libertad_Financiera.png",
+    "002_Spanish_Dinero_Trabaja_Por_Ti.png",
+    "003_Spanish_Futuro_Brillante.png",
+    "004_Spanish_Casa_Propia.png",
+    "005_Spanish_Viaje_Suenos.png",
+    "006_Spanish_Jubilacion_Temprana.png",
+    "007_Spanish_Familia_Segura.png",
+    "008_Spanish_Independencia_Total.png",
+    "009_Spanish_Vida_Sin_Jefe.png",
+    "010_Spanish_Ingresos_Pasivos.png",
+    "011_Spanish_Construye_Tu_Legado.png",
+    "012_Spanish_Tiempo_Libre.png",
+    "013_Spanish_Sueno_Americano_DeFi.png",
+    "014_Spanish_Trabajo_Desde_Casa.png",
+    "015_Spanish_Cero_Deudas.png",
+    "016_Spanish_Primer_Millon.png",
+    "017_Spanish_Educacion_Hijos.png",
+    "018_Spanish_Boda_Suenos.png",
+    "019_Spanish_Auto_Nuevo.png",
+    "020_Spanish_Negocio_Propio.png",
+    "021_Spanish_Playa_Todos_Dias.png",
+    "022_Spanish_Despertar_Rico.png",
+    "023_Spanish_Mujer_Empoderada.png",
+    "024_Spanish_Joven_Millonario.png",
+    "025_Spanish_Abuelos_Tranquilos.png",
+    "026_Spanish_Inversion_Minima.png",
+    "027_Spanish_Sin_Banco.png",
+    "028_Spanish_Dinero_24_7.png",
+    "029_Spanish_Cambia_Tu_Vida.png",
+    "030_Spanish_Poder_Del_Interes.png",
+    "031_Spanish_Manana_Mejor.png",
+    "032_Spanish_Comunidad_Latina.png",
+    "033_Spanish_Exito_Real.png",
+    "034_Spanish_Ingresos_Extra.png",
+    "035_Spanish_Vacaciones_Pagadas.png",
+    "036_Spanish_Salud_Y_Riqueza.png",
+    "037_Spanish_Emprendedor_Digital.png",
+    "038_Spanish_Generacion_Crypto.png",
+    "039_Spanish_Paz_Financiera.png",
+    "040_Spanish_Riqueza_Generacional.png",
+    "041_Spanish_Invierte_Hoy.png",
+    "042_Spanish_Sin_Riesgo_Volatil.png",
+    "043_Spanish_Gana_Durmiendo.png",
+    "044_Spanish_Gana_Viajando.png",
+    "045_Spanish_Gana_Comiendo.png",
+    "046_Spanish_Blockchain_Explicado.png",
+    "047_Spanish_Contrato_Inteligente.png",
+    "048_Spanish_USDT_Explicado.png",
+    "049_Spanish_Como_Empezar.png",
+    "050_Spanish_Referidos_Explicado.png",
+    "051_Spanish_Plan1_7Dias.png",
+    "052_Spanish_Plan2_14Dias.png",
+    "053_Spanish_Plan3_30Dias.png",
+    "054_Spanish_Plan4_60Dias.png",
+    "055_Spanish_Comparacion_Planes.png",
+    "056_Spanish_Turbo_Partner.png",
+    "057_Spanish_Turbo_Legend.png",
+    "058_Spanish_Referido_Nivel1.png",
+    "059_Spanish_Sin_KYC.png",
+    "060_Spanish_Reinvierte.png",
+    "061_Spanish_Token_Burn.png",
+    "062_Spanish_Seguridad_BSC.png",
+    "063_Spanish_Transparencia_Total.png",
+    "064_Spanish_Sin_Impermanent.png",
+    "065_Spanish_Mujer_Inversora.png",
+    "066_Spanish_Joven_Universitario.png",
+    "067_Spanish_Adulto_Mayor.png",
+    "068_Spanish_Freelancer.png",
+    "069_Spanish_Mama_Emprendedora.png",
+    "070_Spanish_Agricultor_Digital.png",
+    "071_Spanish_Navidad_Especial.png",
+    "072_Spanish_Ano_Nuevo.png",
+    "073_Spanish_Dia_Madres.png",
+    "074_Spanish_Dia_Independencia.png",
+    "075_Spanish_Quinceanos.png",
+    "076_Spanish_Taxista_Digital.png",
+    "077_Spanish_Vendedor_Ambulante.png",
+    "078_Spanish_Maestro_Invierte.png",
+    "079_Spanish_Medico_Invierte.png",
+    "080_Spanish_Ingeniero_DeFi.png",
+    "081_Spanish_Abogado_Invierte.png",
+    "082_Spanish_Contador_DeFi.png",
+    "083_Spanish_Chef_Invierte.png",
+    "084_Spanish_Artista_Cripto.png",
+    "085_Spanish_Deportista_Invierte.png",
+    "086_Spanish_Musico_Cripto.png",
+    "087_Spanish_Programador_DeFi.png",
+    "088_Spanish_Influencer_DeFi.png",
+    "089_Spanish_Ganadero_Digital.png",
+    "090_Spanish_Migrante_Invierte.png",
+    "091_Spanish_Turbo_Director.png",
+    "092_Spanish_Turbo_Executive.png",
+    "093_Spanish_Comision_Diaria.png",
+    "094_Spanish_Quema_2PM.png",
+    "095_Spanish_Objecion_Seguro.png",
+    "096_Spanish_Objecion_Scam.png",
+    "097_Spanish_Objecion_Retiro.png",
+    "098_Spanish_Objecion_Minimo.png",
+    "099_Spanish_Objecion_Tiempo.png",
+    "100_Spanish_Cien_Banners.png",
+    "101_Spanish_Testimonio_Carlos.png",
+    "102_Spanish_Testimonio_Maria.png",
+    "103_Spanish_Testimonio_Juan.png",
+    "104_Spanish_Red_Exponencial.png",
+    "105_Spanish_Nivel_2_5pct.png",
+    "106_Spanish_Compartir_Ganar.png",
+    "107_Spanish_Red_Pasiva.png",
+    "108_Spanish_Turbo_Ambassador.png",
+    "109_Spanish_DeFi_Vs_Banco.png",
+    "110_Spanish_Wallet_MetaMask.png",
+    "111_Spanish_USDT_Estable.png",
+    "112_Spanish_Contrato_Auditado.png",
+    "113_Spanish_Sin_Intermediarios.png",
+    "114_Spanish_Gana_Viajando.png",
+    "115_Spanish_Carro_Nuevo.png",
+    "116_Spanish_Casa_Propia.png",
+    "117_Spanish_Educacion_Hijos.png",
+    "118_Spanish_Boda_Suenos.png",
+    "119_Spanish_Negocio_Capital.png",
+    "120_Spanish_Pensionado_DeFi.png",
+    "121_Spanish_Turbo_Builder.png",
+    "122_Spanish_Criptomoneda_Explicada.png",
+    "123_Spanish_Primer_Deposito.png",
+    "124_Spanish_Urgencia_Hoy.png",
+    "125_Spanish_Mina_De_Oro.png",
+    "126_Spanish_Frase_Motivacional1.png",
+    "127_Spanish_Frase_Motivacional2.png",
+    "128_Spanish_Frase_Motivacional3.png",
+    "129_Spanish_Poder_Compuesto.png",
+    "130_Spanish_Turbo_Networker.png",
+    "131_Spanish_Turbo_Connector.png",
+    "132_Spanish_Turbo_Starter.png",
+    "133_Spanish_Turbo_Explorer.png",
+    "134_Spanish_Turbo_Legend.png",
+    "135_Spanish_Quema_Deflacion.png",
+    "136_Spanish_BSC_Network.png",
+    "137_Spanish_Transparencia_BSCScan.png",
+    "138_Spanish_Sin_Custodia.png",
+    "139_Spanish_Comunidad_Global.png",
+    "140_Spanish_Telegram_Comunidad.png",
+    "141_Spanish_Soporte_24_7.png",
+    "142_Spanish_Video_Tutorial.png",
+    "143_Spanish_Navidad_DeFi.png",
+    "144_Spanish_Ano_Nuevo_DeFi.png",
+    "145_Spanish_Dia_Madres.png",
+    "146_Spanish_Dia_Padre.png",
+    "147_Spanish_Semana_Santa.png",
+    "148_Spanish_Verano_DeFi.png",
+    "149_Spanish_Invierno_DeFi.png",
+    "150_Spanish_150_Milestone.png",
+    "151_Spanish_Objecion_Es_Seguro.png",
+    "152_Spanish_Objecion_No_Es_Scam.png",
+    "153_Spanish_Objecion_Retiro.png",
+    "154_Spanish_Objecion_Minimo.png",
+    "155_Spanish_Objecion_Tiempo.png",
+    "156_Spanish_Objecion_Crypto.png",
+    "157_Spanish_Objecion_No_Entiendo.png",
+    "158_Spanish_Objecion_Ya_Perdi.png",
+    "159_Spanish_Testimonio_Ana.png",
+    "160_Spanish_Testimonio_Roberto.png",
+    "161_Spanish_Testimonio_Maria.png",
+    "162_Spanish_Testimonio_Carlos.png",
+    "163_Spanish_Testimonio_Sofia.png",
+    "164_Spanish_Plan1_Calculadora.png",
+    "165_Spanish_Plan2_Calculadora.png",
+    "166_Spanish_Plan3_Calculadora.png",
+    "167_Spanish_Plan4_Calculadora.png",
+    "168_Spanish_Comparacion_4_Planes.png",
+    "169_Spanish_Reinversion_Estrategia.png",
+    "170_Spanish_Diversificacion.png",
+    "171_Spanish_Primer_Semana.png",
+    "172_Spanish_Primer_Mes.png",
+    "173_Spanish_60_Dias_Transformacion.png",
+    "174_Spanish_Gana_Durmiendo.png",
+    "175_Spanish_Gana_Comiendo.png",
+    "176_Spanish_Gana_Jugando.png",
+    "177_Spanish_Gana_Ejercitando.png",
+    "178_Spanish_Gana_Viajando2.png",
+    "179_Spanish_Frase_Motivacional4.png",
+    "180_Spanish_Frase_Motivacional5.png",
+    "181_Spanish_Frase_Motivacional6.png",
+    "182_Spanish_Frase_Motivacional7.png",
+    "183_Spanish_Frase_Motivacional8.png",
+    "184_Spanish_Urgencia_Ahora.png",
+    "185_Spanish_Urgencia_Oportunidad.png",
+    "186_Spanish_Urgencia_Manana.png",
+    "187_Spanish_Como_Empezar_Paso1.png",
+    "188_Spanish_Como_Empezar_Paso2.png",
+    "189_Spanish_Como_Empezar_Paso3.png",
+    "190_Spanish_Guia_Completa.png",
+    "191_Spanish_Wallet_MetaMask.png",
+    "192_Spanish_USDT_Como_Comprar.png",
+    "193_Spanish_Trust_Wallet_Guide.png",
+    "194_Spanish_Referidos_Nivel1.png",
+    "195_Spanish_Referidos_Nivel2.png",
+    "196_Spanish_20_Niveles_Red.png",
+    "197_Spanish_Comision_Diaria_1PM.png",
+    "198_Spanish_Quema_Token_2PM.png",
+    "199_Spanish_Turbo_Token_Explicado.png",
+    "200_Spanish_200_Milestone.png",
+    "201_Spanish_Seguridad_Fondos.png",
+    "202_Spanish_Auditoria_Contrato.png",
+    "203_Spanish_Sin_Intermediarios.png",
+    "204_Spanish_Velocidad_BSC.png",
+    "205_Spanish_Comunidad_Telegram.png",
+    "206_Spanish_Soporte_24_7.png",
+    "207_Spanish_Video_Tutorial.png",
+    "208_Spanish_FAQ.png",
+    "209_Spanish_Sin_KYC.png",
+    "210_Spanish_Turbo_Starter_Rank.png",
+    "211_Spanish_Turbo_Partner_Rank.png",
+    "212_Spanish_Turbo_Director_Rank.png",
+    "213_Spanish_Turbo_Executive_Rank.png",
+    "214_Spanish_Turbo_Legend_Rank.png",
+    "215_Spanish_Mexico_DeFi.png",
+    "216_Spanish_Colombia_DeFi.png",
+    "217_Spanish_Argentina_DeFi.png",
+    "218_Spanish_Venezuela_DeFi.png",
+    "219_Spanish_Peru_DeFi.png"
   ]
 };
 
@@ -64228,6 +64449,92 @@ India, Nigeria, Germany, Brazil, Philippines \u2014 one protocol, one community,
 \u{1F449} https://t.me/turboloopofficial
 
 #TurboLoop #GlobalFamily #DeFi #FinancialFreedom #Community`
+];
+var CAMPAIGN_SPANISH_CAPTIONS = [
+  `\u{1F1EA}\u{1F1F8}\u{1F30E} Tu dinero trabaja mientras t\xFA descansas.
+
+TurboLoop genera rendimiento pasivo en USDT \u2014 sin bancos, sin intermediarios, 100% en blockchain.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #IngresosPasivos #DeFi #USDT #LibertadFinanciera`,
+  `\u{1F4B0} Deposita USDT. Espera el plazo. Recibe capital + ganancias.
+
+As\xED de simple es TurboLoop. Sin trading, sin estr\xE9s, sin complicaciones.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #IngresosPasivos #USDT #CriptoLatam`,
+  `\u{1F525} El burn diario ocurre a las 2 PM UTC.
+
+Cada d\xEDa, el 10% de las comisiones se quema. Menos supply. M\xE1s valor. As\xED funciona el tokenomics de TurboLoop.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #TokenBurn #TURBO #DeFi #CriptoLatam`,
+  `\u{1F30D} M\xE1s de 10,000 personas en Latinoam\xE9rica ya est\xE1n generando rendimiento pasivo con TurboLoop.
+
+\xBFCu\xE1ndo empiezas t\xFA?
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #ComunidadLatam #IngresosPasivos #DeFi #USDT`,
+  `\u{1F4F1} Refiere a un amigo. Gana comisiones diarias a la 1 PM UTC.
+
+El programa de referidos de TurboLoop paga comisiones en 20 niveles \u2014 todos los d\xEDas, en cadena.
+
+\u{1F449} https://turboloop.io
+
+#TurboLoop #ProgramaReferidos #IngresosPasivos #DeFi #CriptoLatam`,
+  `\u{1F3E6} Los bancos te dan 0.1% al a\xF1o. TurboLoop te da rendimiento real al final de tu plazo.
+
+Sin permiso bancario. Sin burocracia. Solo smart contracts.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #VsBancos #DeFi #IngresosPasivos #LibertadFinanciera`,
+  `\u{1F510} Plan de 7 d\xEDas: bloquea hoy, recibe capital + ganancias la pr\xF3xima semana.
+
+El contrato inteligente garantiza tu pago al final del plazo. Sin excepciones.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #Plan7Dias #DeFi #USDT #IngresosPasivos`,
+  `\u{1F4CA} Plan de 30 d\xEDas: el punto \xF3ptimo de rendimiento.
+
+Un mes de espera. M\xE1ximo efecto compuesto. Capital + ganancias devueltos al final del plazo.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #Plan30Dias #DeFi #USDT #IngresosPasivos`,
+  `\u{1F680} La revoluci\xF3n DeFi ya lleg\xF3 a Latinoam\xE9rica.
+
+TurboLoop es 100% on-chain, auditado y verificable en BSCScan. Tu dinero, tus reglas.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFiLatam #CriptoLatam #IngresosPasivos #LibertadFinanciera`,
+  `\u{1F48E} Empieza con solo $1 USDT.
+
+No hay m\xEDnimo alto. No hay barrera de entrada. TurboLoop es para todos \u2014 desde M\xE9xico hasta Argentina.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #Accesible #DeFi #USDT #CriptoLatam`,
+  `\u{1F31F} Construye tu red. Gana comisiones diarias.
+
+Cada persona que invitas genera comisiones para ti \u2014 pagadas todos los d\xEDas a la 1 PM UTC, directamente en tu wallet.
+
+\u{1F449} https://turboloop.io
+
+#TurboLoop #RedDeReferidos #IngresosPasivos #DeFi #CriptoLatam`,
+  `\u2705 Contrato inteligente auditado. 100% transparente.
+
+Todo en TurboLoop es verificable en blockchain. Sin promesas vac\xEDas \u2014 solo c\xF3digo que se ejecuta solo.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #Auditado #DeFi #Transparencia #CriptoLatam`
 ];
 function campaignBannerUrl(category, index) {
   const R22 = process.env.R2_PUBLIC_URL ?? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
@@ -78960,7 +79267,16 @@ The marketing toolkit your uplines never told you existed.
       { hour: 22, minute: 30, taskId: "campaign:c46", category: "buyback", captions: CAMPAIGN_BUYBACK_CAPTIONS, slotOffset: 3 },
       // ── 23:xx ──
       { hour: 23, minute: 0, taskId: "campaign:c47", category: "comparison", captions: CAMPAIGN_COMPARISON_CAPTIONS, slotOffset: 3 },
-      { hour: 23, minute: 30, taskId: "campaign:c48", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 3 }
+      { hour: 23, minute: 30, taskId: "campaign:c48", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 3 },
+      // ── Spanish / LATAM slots — peak times for UTC-6 to UTC-3 timezones ──
+      // 12:00 UTC = 06:00 AM Mexico / 08:00 AM Buenos Aires (morning)
+      // 16:00 UTC = 10:00 AM Mexico / 12:00 PM Buenos Aires (mid-morning) — outside Zoom window
+      // 21:00 UTC = 15:00 PM Mexico / 17:00 PM Buenos Aires (afternoon peak)
+      // 23:30 UTC = 17:30 PM Mexico / 19:30 PM Buenos Aires (evening prime)
+      { hour: 12, minute: 45, taskId: "campaign:es01", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 0 },
+      { hour: 17, minute: 0, taskId: "campaign:es02", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 1 },
+      { hour: 21, minute: 15, taskId: "campaign:es03", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 2 },
+      { hour: 23, minute: 45, taskId: "campaign:es04", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 3 }
     ];
     const campaignForceSet = new Set(
       forceSet.has("campaign:all") ? CAMPAIGN_SLOTS.map((s) => s.taskId) : CAMPAIGN_SLOTS.map((s) => s.taskId).filter((id) => forceSet.has(id))

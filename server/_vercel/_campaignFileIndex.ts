@@ -980,15 +980,6 @@ export const CAMPAIGN_FILE_INDEX: Record<string, string[]> = {
     "29_Community_Next_Chapter.png",
     "30_Community_Final_CTA.png",
   ],
-};
-
-export function campaignBannerUrl(category: string, dayIndex: number): string {
-  const R2 = process.env.R2_PUBLIC_URL ?? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
-  const files = CAMPAIGN_FILE_INDEX[category] ?? [];
-  if (!files.length) return "";
-  const file = files[dayIndex % files.length];
-  return `${R2}/campaigns/${category}/${file}`;
-
   "spanish": [
     "001_Spanish_Libertad_Financiera.png",
     "002_Spanish_Dinero_Trabaja_Por_Ti.png",
@@ -1210,4 +1201,12 @@ export function campaignBannerUrl(category: string, dayIndex: number): string {
     "218_Spanish_Venezuela_DeFi.png",
     "219_Spanish_Peru_DeFi.png"
   ],
+};
+
+export function campaignBannerUrl(category: string, dayIndex: number): string {
+  const R2 = process.env.R2_PUBLIC_URL ?? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+  const files = CAMPAIGN_FILE_INDEX[category] ?? [];
+  if (!files.length) return "";
+  const file = files[dayIndex % files.length];
+  return `${R2}/campaigns/${category}/${file}`;
 }

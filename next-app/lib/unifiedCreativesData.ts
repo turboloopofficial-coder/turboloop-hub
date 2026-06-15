@@ -71,6 +71,7 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   buyback:            { from: "#EC4899", to: "#8B5CF6" },
   comparison:         { from: "#0EA5E9", to: "#6366F1" },
   community:          { from: "#14B8A6", to: "#06B6D4" },
+  spanish:            { from: "#F59E0B", to: "#DC2626" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -86,6 +87,7 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   buyback:             { label: "Buyback & Burn", emoji: "🔥", description: "Daily buyback proof, scarcity engine, and deflationary mechanics." },
   comparison:          { label: "TurboLoop vs Banks", emoji: "⚖️", description: "Side-by-side comparisons against banks, stocks, and traditional crypto." },
   community:           { label: "Community", emoji: "🌍", description: "Global family, Telegram growth, and community milestones." },
+  spanish:             { label: "Spanish / LATAM", emoji: "🇪🇸", description: "Spanish-language banners for Latin America and Spain." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -108,6 +110,7 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   buyback:             { label: "View Buyback Proof", url: "https://turboloop.tech/token" },
   comparison:          { label: "Compare & Decide", url: "https://turboloop.tech/calculator" },
   community:           { label: "Join the Community", url: "https://turboloop.tech/community" },
+  spanish:             { label: "Empieza a Ganar", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -212,7 +215,8 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
   // Hindi and Nigerian banners keep their language tag
   const language: CreativeLanguage =
     b.category === "hindi-new" ? "hi" :
-    b.category === "nigerian" ? "en" : "en";
+    b.category === "nigerian" ? "en" :
+    b.category === "spanish" ? "es" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,

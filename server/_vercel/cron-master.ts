@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -2001,6 +2001,15 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // ── 23:xx ──
       { hour: 23, minute:  0, taskId: "campaign:c47", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS,  slotOffset: 3 },
       { hour: 23, minute: 30, taskId: "campaign:c48", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS,   slotOffset: 3 },
+      // ── Spanish / LATAM slots — peak times for UTC-6 to UTC-3 timezones ──
+      // 12:00 UTC = 06:00 AM Mexico / 08:00 AM Buenos Aires (morning)
+      // 16:00 UTC = 10:00 AM Mexico / 12:00 PM Buenos Aires (mid-morning) — outside Zoom window
+      // 21:00 UTC = 15:00 PM Mexico / 17:00 PM Buenos Aires (afternoon peak)
+      // 23:30 UTC = 17:30 PM Mexico / 19:30 PM Buenos Aires (evening prime)
+      { hour: 12, minute: 45, taskId: "campaign:es01", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 0 },
+      { hour: 17, minute:  0, taskId: "campaign:es02", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 1 },
+      { hour: 21, minute: 15, taskId: "campaign:es03", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 2 },
+      { hour: 23, minute: 45, taskId: "campaign:es04", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 3 },
     ];
 
     // Force-fire map: ?force=campaign:c01,campaign:c02 etc.

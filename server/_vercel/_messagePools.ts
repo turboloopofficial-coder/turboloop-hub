@@ -2089,6 +2089,22 @@ export const CAMPAIGN_COMMUNITY_CAPTIONS = [
   `The TurboLoop family doesn't care where you're from. Just that you're in.\n\nIndia, Nigeria, Germany, Brazil, Philippines — one protocol, one community, one mission: financial freedom for everyone.\n\n👉 https://t.me/turboloopofficial\n\n#TurboLoop #GlobalFamily #DeFi #FinancialFreedom #Community`,
 ];
 
+/** Pool for `campaigns/spanish/` — Spanish-language campaign banners for LATAM + Spain audience. */
+export const CAMPAIGN_SPANISH_CAPTIONS = [
+  `🇪🇸🌎 Tu dinero trabaja mientras tú descansas.\n\nTurboLoop genera rendimiento pasivo en USDT — sin bancos, sin intermediarios, 100% en blockchain.\n\n👉 https://turboloop.tech\n\n#TurboLoop #IngresosPasivos #DeFi #USDT #LibertadFinanciera`,
+  `💰 Deposita USDT. Espera el plazo. Recibe capital + ganancias.\n\nAsí de simple es TurboLoop. Sin trading, sin estrés, sin complicaciones.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFi #IngresosPasivos #USDT #CriptoLatam`,
+  `🔥 El burn diario ocurre a las 2 PM UTC.\n\nCada día, el 10% de las comisiones se quema. Menos supply. Más valor. Así funciona el tokenomics de TurboLoop.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #TokenBurn #TURBO #DeFi #CriptoLatam`,
+  `🌍 Más de 10,000 personas en Latinoamérica ya están generando rendimiento pasivo con TurboLoop.\n\n¿Cuándo empiezas tú?\n\n👉 https://turboloop.tech\n\n#TurboLoop #ComunidadLatam #IngresosPasivos #DeFi #USDT`,
+  `📱 Refiere a un amigo. Gana comisiones diarias a la 1 PM UTC.\n\nEl programa de referidos de TurboLoop paga comisiones en 20 niveles — todos los días, en cadena.\n\n👉 https://turboloop.io\n\n#TurboLoop #ProgramaReferidos #IngresosPasivos #DeFi #CriptoLatam`,
+  `🏦 Los bancos te dan 0.1% al año. TurboLoop te da rendimiento real al final de tu plazo.\n\nSin permiso bancario. Sin burocracia. Solo smart contracts.\n\n👉 https://turboloop.tech\n\n#TurboLoop #VsBancos #DeFi #IngresosPasivos #LibertadFinanciera`,
+  `🔐 Plan de 7 días: bloquea hoy, recibe capital + ganancias la próxima semana.\n\nEl contrato inteligente garantiza tu pago al final del plazo. Sin excepciones.\n\n👉 https://turboloop.tech\n\n#TurboLoop #Plan7Dias #DeFi #USDT #IngresosPasivos`,
+  `📊 Plan de 30 días: el punto óptimo de rendimiento.\n\nUn mes de espera. Máximo efecto compuesto. Capital + ganancias devueltos al final del plazo.\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #Plan30Dias #DeFi #USDT #IngresosPasivos`,
+  `🚀 La revolución DeFi ya llegó a Latinoamérica.\n\nTurboLoop es 100% on-chain, auditado y verificable en BSCScan. Tu dinero, tus reglas.\n\n👉 https://turboloop.tech\n\n#TurboLoop #DeFiLatam #CriptoLatam #IngresosPasivos #LibertadFinanciera`,
+  `💎 Empieza con solo $1 USDT.\n\nNo hay mínimo alto. No hay barrera de entrada. TurboLoop es para todos — desde México hasta Argentina.\n\n👉 https://turboloop.tech\n\n#TurboLoop #Accesible #DeFi #USDT #CriptoLatam`,
+  `🌟 Construye tu red. Gana comisiones diarias.\n\nCada persona que invitas genera comisiones para ti — pagadas todos los días a la 1 PM UTC, directamente en tu wallet.\n\n👉 https://turboloop.io\n\n#TurboLoop #RedDeReferidos #IngresosPasivos #DeFi #CriptoLatam`,
+  `✅ Contrato inteligente auditado. 100% transparente.\n\nTodo en TurboLoop es verificable en blockchain. Sin promesas vacías — solo código que se ejecuta solo.\n\n👉 https://turboloop.tech/token\n\n#TurboLoop #Auditado #DeFi #Transparencia #CriptoLatam`,
+];
+
 /** Public URL builder for a campaign image. Used by cron-master to
  *  pick today's banner. `index` is the rotation offset (typically
  *  `daysSinceLaunch`); the function takes care of wrapping it modulo

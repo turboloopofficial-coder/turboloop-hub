@@ -1049,6 +1049,54 @@ Output: respond with VALID JSON ONLY. No prose outside the JSON. Schema:
       }),
   }),
 
+  // Public share-text generator — generates 3 AI caption variants for a banner
+  shareText: router({
+    generate: publicProcedure
+      .input(z.object({
+        bannerTitle: z.string().min(2).max(200),
+        category: z.string().min(2).max(80),
+        language: z.string().default("english"),
+        existingCaption: z.string().max(1000).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          // Fallback: return the existing caption as 3 variants if no API key
+          const fallback = input.existingCaption || `Discover TurboLoop — earn passive income daily. Start your 30 or 60-day Loop Plan today at turboloop.tech`;
+          return { captions: [fallback, fallback, fallback] };
+        }
+        const { default: Anthropic } = await import("@anthropic-ai/sdk");
+        const client = new Anthropic({ apiKey });
+        const langMap: Record<string, string> = {
+          hindi: "Hindi", spanish: "Spanish", nigerian: "Nigerian Pidgin",
+          indonesian: "Indonesian", chinese: "Simplified Chinese", italian: "Italian",
+          arabic: "Arabic", urdu: "Urdu", german: "German", english: "English",
+        };
+        const lang = langMap[input.language] ?? "English";
+        const systemPrompt = `You are a social media copywriter for TurboLoop, a transparent DeFi yield protocol on BSC.
+Core message: Users earn $TURBO tokens for FREE for 10 months simply by investing in the 30 or 60-day Loop Plan. No trading, no risk of price manipulation — just invest in the plan and earn tokens passively.
+Voice: confident, premium, community-first. No hype (no MOON, 100x). 1-3 emoji max per caption. Natural, conversational.
+Write in ${lang}.
+Return ONLY valid JSON: { "captions": ["caption1", "caption2", "caption3"] } — 3 unique variants, each 80-160 characters, each ending with turboloop.tech`;
+        const userPrompt = `Banner: "${input.bannerTitle}" (category: ${input.category})${input.existingCaption ? `\nExisting caption for reference: ${input.existingCaption}` : ""}`;
+        const response = await client.messages.create({
+          model: "claude-haiku-4-5",
+          max_tokens: 600,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+        });
+        const textBlock = response.content.find((b) => b.type === "text");
+        if (!textBlock || textBlock.type !== "text") return { captions: [input.existingCaption ?? ""] };
+        const raw = textBlock.text.trim().replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+        try {
+          const parsed = JSON.parse(raw);
+          return { captions: Array.isArray(parsed.captions) ? parsed.captions : [input.existingCaption ?? ""] };
+        } catch {
+          return { captions: [input.existingCaption ?? ""] };
+        }
+      }),
+  }),
+
   // Public content submission + admin moderation
   submissions: router({
     submit: publicProcedure

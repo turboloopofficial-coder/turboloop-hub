@@ -5,8 +5,9 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, Link2, ChevronRight, X } from "lucide-react";
+import { Share2, ChevronRight, X } from "lucide-react";
 import campaignsManifest from "@/lib/campaigns-manifest.json";
+import { BannerShareModal } from "@/components/BannerShareModal";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -15,6 +16,7 @@ interface BannerItem {
   alt: string;
   title: string;
   category: string;
+  filename?: string;
 }
 
 interface TabDef {
@@ -110,30 +112,22 @@ function buildCatTabs(): TabDef[] {
 
 // ── Banner Card ───────────────────────────────────────────────────────────
 
-function BannerCard({ item, index }: { item: BannerItem; index: number }) {
-  const [copied, setCopied] = useState(false);
+function BannerCard({
+  item,
+  index,
+  language,
+}: {
+  item: BannerItem;
+  index: number;
+  language: string;
+}) {
+  const [shareOpen, setShareOpen] = useState(false);
   const [lightbox, setLightbox] = useState(false);
 
-  const handleDownload = useCallback(async (e: React.MouseEvent) => {
+  const openShare = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    try {
-      const res = await fetch(item.url);
-      const blob = await res.blob();
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = item.url.split("/").pop() ?? "turboloop-banner.png";
-      a.click();
-    } catch {
-      window.open(item.url, "_blank");
-    }
-  }, [item.url]);
-
-  const handleCopy = useCallback(async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    await navigator.clipboard.writeText(item.url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [item.url]);
+    setShareOpen(true);
+  }, []);
 
   return (
     <>
@@ -157,53 +151,38 @@ function BannerCard({ item, index }: { item: BannerItem; index: number }) {
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          {/* Hover overlay */}
+          {/* Hover overlay — desktop */}
           <div
-            className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(2px)" }}
           >
             <button
-              onClick={handleDownload}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-white transition-transform active:scale-95"
-              style={{ background: "linear-gradient(135deg, #06b6d4, #0891b2)", boxShadow: "0 4px 16px rgba(6,182,212,0.4)" }}
-            >
-              <Download size={14} />
-              Download
-            </button>
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-transform active:scale-95"
+              onClick={openShare}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-transform active:scale-95"
               style={{
-                background: "rgba(255,255,255,0.12)",
-                border: "1px solid rgba(255,255,255,0.25)",
-                color: "white",
+                background: "linear-gradient(135deg, #06b6d4, #7c3aed)",
+                boxShadow: "0 4px 20px rgba(6,182,212,0.45)",
               }}
             >
-              <Link2 size={14} />
-              {copied ? "Copied!" : "Copy Link"}
+              <Share2 size={14} />
+              Share
             </button>
           </div>
         </div>
-        {/* Mobile action buttons — always visible below the image on touch devices */}
+
+        {/* Mobile action button — always visible on touch devices */}
         <div className="flex gap-2 px-3 py-2 sm:hidden">
           <button
-            onClick={handleDownload}
+            onClick={openShare}
             className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold text-white"
-            style={{ background: "linear-gradient(135deg, #06b6d4, #0891b2)" }}
+            style={{ background: "linear-gradient(135deg, #06b6d4, #7c3aed)" }}
           >
-            <Download size={12} />
-            Download
-          </button>
-          <button
-            onClick={handleCopy}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold"
-            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "white" }}
-          >
-            <Link2 size={12} />
-            {copied ? "Copied!" : "Copy"}
+            <Share2 size={12} />
+            Share
           </button>
         </div>
-        {/* Title strip — desktop only (mobile shows buttons instead) */}
+
+        {/* Title strip — desktop only */}
         <div className="hidden sm:block px-3 py-2">
           <p className="text-xs font-medium truncate text-slate-400">
             {item.title || item.alt}
@@ -247,24 +226,26 @@ function BannerCard({ item, index }: { item: BannerItem; index: number }) {
                 style={{ background: "rgba(15,23,42,0.95)" }}
               >
                 <button
-                  onClick={handleDownload}
+                  onClick={(e) => { setLightbox(false); openShare(e); }}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold text-white"
-                  style={{ background: "linear-gradient(135deg, #06b6d4, #0891b2)" }}
+                  style={{ background: "linear-gradient(135deg, #06b6d4, #7c3aed)" }}
                 >
-                  <Download size={15} /> Download Free
-                </button>
-                <button
-                  onClick={handleCopy}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold"
-                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "white" }}
-                >
-                  <Link2 size={15} /> {copied ? "Copied!" : "Copy Link"}
+                  <Share2 size={15} /> Share Banner
                 </button>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Share Modal */}
+      {shareOpen && (
+        <BannerShareModal
+          banner={item}
+          language={language}
+          onClose={() => setShareOpen(false)}
+        />
+      )}
     </>
   );
 }
@@ -422,7 +403,12 @@ export default function CreativeExplorerSection() {
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4"
           >
             {activeTab?.banners.map((item, i) => (
-              <BannerCard key={item.url} item={item} index={i} />
+              <BannerCard
+                key={item.url}
+                item={item}
+                index={i}
+                language={activeId}
+              />
             ))}
           </motion.div>
         </AnimatePresence>

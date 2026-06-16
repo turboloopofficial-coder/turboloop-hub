@@ -12,8 +12,8 @@
 // Features: category tabs, language filter, search, load-more pagination.
 // Mobile-first: sticky filter bar, 2-col mobile → 3-col tablet → 4-col desktop.
 
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import { Search, X, ChevronDown, Filter, Loader2 } from "lucide-react";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { Search, X, Filter, Loader2 } from "lucide-react";
 import { UnifiedBannerCard } from "./UnifiedBannerCard";
 import type { UnifiedCreative, UnifiedCategoryDef, CreativeLanguage } from "@lib/unifiedCreativesData";
 import { UNIFIED_LANGUAGES } from "@lib/unifiedCreativesData";
@@ -120,6 +120,27 @@ export function UnifiedCreativesGrid({
       setLoadingMore(false);
     }
   }, [loadingMore, hasMore, currentPage, activeCategory, activeLang, debouncedSearch]);
+
+  // ── Infinite scroll sentinel ──────────────────────────────────────
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const loadMoreRef = useRef(loadMore);
+
+  // Keep loadMoreRef current so the observer callback always calls the latest version
+  useEffect(() => { loadMoreRef.current = loadMore; }, [loadMore]);
+
+  // Attach IntersectionObserver to the sentinel div
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) loadMoreRef.current();
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const clearFilters = useCallback(() => {
     setActiveCategory(initialCategory ?? "all");
@@ -286,31 +307,26 @@ export function UnifiedCreativesGrid({
             ))}
           </div>
 
-          {/* Load more */}
-          {hasMore && (
-            <div className="flex flex-col items-center gap-2 mt-10">
-              <p className="text-xs text-[var(--c-text-subtle)]">
-                Showing {items.length.toLocaleString()} of {total.toLocaleString()}
-              </p>
-              <button
-                onClick={loadMore}
-                disabled={loadingMore}
-                className="flex items-center gap-2 h-12 px-8 rounded-xl border border-[var(--c-border)] bg-[var(--c-surface)] text-sm font-semibold text-[var(--c-text)] hover:border-[var(--c-brand-cyan)] hover:text-[var(--c-brand-cyan)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loadingMore ? (
-                  <>
-                    <Loader2 size={15} className="animate-spin" />
-                    Loading…
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown size={15} />
-                    Load more ({Math.min(PAGE_SIZE, total - items.length)} more)
-                  </>
+          {/* Infinite scroll sentinel + loading indicator */}
+          <div className="flex flex-col items-center gap-2 mt-8 pb-4">
+            {hasMore && (
+              <>
+                {/* Invisible sentinel — triggers load when it enters the viewport */}
+                <div ref={sentinelRef} className="w-full h-1" aria-hidden="true" />
+                {loadingMore && (
+                  <div className="flex items-center gap-2 text-xs text-[var(--c-text-subtle)] py-4">
+                    <Loader2 size={14} className="animate-spin" />
+                    Loading more banners…
+                  </div>
                 )}
-              </button>
-            </div>
-          )}
+              </>
+            )}
+            {!hasMore && items.length > PAGE_SIZE && (
+              <p className="text-xs text-[var(--c-text-subtle)] py-4">
+                All {total.toLocaleString()} banners loaded
+              </p>
+            )}
+          </div>
         </div>
       )}
     </div>

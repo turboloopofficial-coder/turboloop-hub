@@ -72,7 +72,7 @@ const CreativeExplorerSection = dynamic(
     import("@components/sections/CreativeExplorerSection").then(m => ({
       default: m.CreativeExplorerSection,
     })),
-  { ssr: false }
+  { ssr: true }
 );
 
 const TRUST_BADGES = [

@@ -1,5 +1,5 @@
 // ── Creative Explorer Section (Vite/React) ────────────────────────────────
-// Interactive homepage section — browse 1,400+ banners by Language or Category.
+// Interactive homepage section — browse 2,100+ banners by Language or Category.
 // Uses Framer Motion (already in the project) for card animations.
 // Data is imported at build time from campaigns-manifest.json.
 
@@ -352,7 +352,7 @@ export default function CreativeExplorerSection() {
             Free Creative Library
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 text-white">
-            1,400+ Banners.{" "}
+            2,100+ Banners.{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #06b6d4, #818cf8)",

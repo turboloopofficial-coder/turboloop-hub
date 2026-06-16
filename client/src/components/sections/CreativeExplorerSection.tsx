@@ -184,8 +184,27 @@ function BannerCard({ item, index }: { item: BannerItem; index: number }) {
             </button>
           </div>
         </div>
-        {/* Title strip */}
-        <div className="px-3 py-2">
+        {/* Mobile action buttons — always visible below the image on touch devices */}
+        <div className="flex gap-2 px-3 py-2 sm:hidden">
+          <button
+            onClick={handleDownload}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold text-white"
+            style={{ background: "linear-gradient(135deg, #06b6d4, #0891b2)" }}
+          >
+            <Download size={12} />
+            Download
+          </button>
+          <button
+            onClick={handleCopy}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold"
+            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "white" }}
+          >
+            <Link2 size={12} />
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+        {/* Title strip — desktop only (mobile shows buttons instead) */}
+        <div className="hidden sm:block px-3 py-2">
           <p className="text-xs font-medium truncate text-slate-400">
             {item.title || item.alt}
           </p>

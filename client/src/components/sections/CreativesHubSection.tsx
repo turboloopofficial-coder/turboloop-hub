@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import { X, Download, Sparkles, ImageIcon, Copy, Check } from "lucide-react";
@@ -124,7 +124,7 @@ function CreativeCard({ banner, onOpen }: { banner: CreativeBanner; onOpen: () =
           </a>
           <div onClick={(e) => e.stopPropagation()}>
             <ShareButton
-              path={`/creatives?banner=${encodeURIComponent(banner.slug)}`}
+              path="/#creatives"
               message={bannerShareText(banner)}
               variant="icon"
               className="!w-8 !h-8"
@@ -303,7 +303,7 @@ function Lightbox({ banner, onClose }: { banner: CreativeBanner; onClose: () => 
               </a>
 
               <ShareButton
-                path={`/creatives?banner=${encodeURIComponent(banner.slug)}`}
+                path="/#creatives"
                 message={fullShareText}
                 variant="ghost"
                 label="Share"
@@ -325,20 +325,6 @@ export default function CreativesHubSection() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [openBanner, setOpenBanner] = useState<CreativeBanner | null>(null);
   const [shown, setShown] = useState<number>(PAGE_SIZE);
-
-  // Auto-open lightbox when ?banner=slug is in the URL
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const slugParam = params.get("banner");
-    if (slugParam) {
-      const found = ALL_CREATIVES.find(b => b.slug === slugParam);
-      if (found) {
-        setOpenBanner(found);
-        // Scroll to creatives section
-        document.getElementById("creatives")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  }, []);
 
   const filtered = useMemo(() => bannersForCategory(activeCategory), [activeCategory]);
   const visible = filtered.slice(0, shown);

@@ -1699,9 +1699,9 @@ export const CAMPAIGN_COPY: Record<string, CampaignCopyEntry> = {
     caption: "Clear vesting schedules protect the ecosystem and align incentives. \ud83d\udcc5\ud83d\udd12\n\nWe designed TURBO vesting to balance growth with responsible token distribution. \u2696\ufe0f\n\nUnderstand timelines and protections built into the schedule. turboloop.tech",
     shareText: "Explore TURBO's vesting schedule for token security: https://turboloop.tech",
   },
-  "token/04_TURBO_Fixed_Supply.png": {
-    caption: "A capped supply helps preserve scarcity and long-term value potential. \ud83e\ude99\ud83d\udeab\n\nTURBO's fixed supply is a core design choice that guides responsible tokenomics. \ud83d\udcca\n\nLearn about how a finite token pool shapes value over time. turboloop.tech",
-    shareText: "Learn why TURBO has a fixed supply: https://turboloop.tech",
+  "token/04_TURBO_Reward_Mint_Model.png": {
+    caption: "A daily burn mechanism is what creates real scarcity. 🪙🔥\n\n$TURBO is minted as participant rewards and burned every day via the Burn Contract — 10% of all admin fees, automatically. 📊\n\nLearn how the reward-and-burn economy works at turboloop.tech",
+    shareText: "Daily burn + reward minting = real deflationary pressure. Learn how $TURBO works: https://turboloop.tech/token",
   },
   "token/05_TURBO_Burn_Wallet.png": {
     caption: "Tokens moved to the burn wallet are permanently out of circulation. \ud83d\udd25\ud83d\udcee\n\nThis irreversible step is a deflationary lever built into TURBO\u2019s architecture. \ud83e\uddef\ud83d\udee0\ufe0f\n\nCheck the burn history and how it strengthens the supply model. turboloop.tech",

@@ -1691,10 +1691,6 @@
     "caption": "Wondering how $TURBO vesting works? Skip the complexity—just invest in our 30 or 60-day Loop Plan and earn $TURBO tokens FREE for 10 months with zero price risk. Start your plan today and watch your rewards compound.",
     "shareText": "Earn $TURBO free for 10 months through the Loop Plan—no trading, no speculation, just passive rewards."
   },
-  "token/04_TURBO_Fixed_Supply.png": {
-    "caption": "$TURBO has a fixed supply—which means early movers gain real advantage. Skip the trading game and start earning $TURBO tokens FREE for 10 months through our 30 or 60-day Loop Plan. Lock in your position risk-free today.",
-    "shareText": "Fixed supply = fixed opportunity. Earn $TURBO free for 10 months with the Loop Plan—no trading needed."
-  },
   "token/05_TURBO_Burn_Wallet.png": {
     "caption": "Every $TURBO burned strengthens the ecosystem—and your rewards grow stronger too. Stop waiting for price moves and start earning $TURBO free for 10 months with our 30 or 60-day Loop Plan. Join risk-free today.",
     "shareText": "Forget buying $TURBO—earn it free for 10 months with TurboLoop's Loop Plan 🚀"
@@ -7930,5 +7926,9 @@
   "hindi-new/500_Hindi_500_Grand_Finale.png": {
     "caption": "यह आखिरी मौका है! 500 का ग्रैंड फिनाले शुरू हो गया है और आप अभी भी $TURBO खरीदे बिना मुफ्त टोकन कमा सकते हैं। 30 या 60-दिन का Loop Plan चुनें, निवेश करें, और 10 महीने तक हर दिन $TURBO अर्जित करें - बिना किसी जोखिम के! 🚀\n\n30 या 60-दिन का Loop Plan शुरू करें और 10 महीने मुफ्त $TURBO कमाएं",
     "shareText": "500 ग्रैंड फिनाले में शामिल हों - 30 या 60-दिन के Loop Plan से मुफ्त $TURBO कमाएं, कोई खतरा नहीं! 🎯"
+  },
+  "token/04_TURBO_Reward_Mint_Model.png": {
+    "caption": "$TURBO is minted as plan rewards and burned daily — a self-sustaining economy where participants earn and the supply deflates. Skip the trading game and start earning $TURBO tokens FREE for 10 months through our 30 or 60-day Loop Plan.",
+    "shareText": "Reward minting + daily burn = real scarcity. Earn $TURBO free for 10 months with the Loop Plan — no trading needed."
   }
 }

@@ -22,8 +22,11 @@ export const TOKEN = {
   contract: "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3",
   pair: "0x5bede66bb27184001960e769efab95304f0e1759",
   buybackContract: "0xd8735b03e0b18f1e0598c211cee9558c6247b6b9",
+  // Initial supply: 1,000,000 TURBO — locked and burned 100% by devs at launch.
+  // Current supply is dynamic: token contract mints rewards for plan participants;
+  // Burn Contract receives 10% of admin fees daily and burns $TURBO at 2PM UTC.
   totalSupply: 1_000_000,
-  totalSupplyFormatted: "1,000,000",
+  totalSupplyFormatted: "1,000,000", // initial supply only — live supply decreasing via daily burn
   launchPrice: 0.001,
   launchPriceFormatted: "$0.001",
   initialLpToken: 1_000_000,

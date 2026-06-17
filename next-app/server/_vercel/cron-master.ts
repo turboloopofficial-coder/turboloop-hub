@@ -892,12 +892,12 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
 
     // ============ 3. HINDI/URDU ZOOM — 4-tier reminder sequence ============
-    // HI call is at 16:00 UTC (9:30 PM IST)
+    // HI call is at 15:30 UTC (9:00 PM IST) — shifted 30 min earlier
     // T-60 → 15:00 UTC | T-30 → 15:30 UTC | T-10 → 15:50 UTC | T-0 → 16:00 UTC
 
-    // HI T-60: 15:00 UTC
+    // HI T-60: 14:30 UTC
     try {
-      if ((isInWindow(15, 0) || isMissedToday(15, 0) || forceZoomHiT60) && (forceZoomHiT60 || !(await hasFiredToday(db, "zoom:hi:T60")))) {
+      if ((isInWindow(14, 30) || isMissedToday(14, 30) || forceZoomHiT60) && (forceZoomHiT60 || !(await hasFiredToday(db, "zoom:hi:T60")))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T60");
@@ -908,9 +908,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:hi:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // HI T-30: 15:30 UTC
+    // HI T-30: 15:00 UTC
     try {
-      if ((isInWindow(15, 30) || isMissedToday(15, 30) || forceZoomHiT30) && (forceZoomHiT30 || !(await hasFiredToday(db, "zoom:hi:T30")))) {
+      if ((isInWindow(15, 0) || isMissedToday(15, 0) || forceZoomHiT30) && (forceZoomHiT30 || !(await hasFiredToday(db, "zoom:hi:T30")))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
@@ -921,9 +921,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // HI T-10: 15:50 UTC
+    // HI T-10: 15:20 UTC
     try {
-      if ((isInWindow(15, 50) || isMissedToday(15, 50) || forceZoomHiT10) && (forceZoomHiT10 || !(await hasFiredToday(db, "zoom:hi:T10")))) {
+      if ((isInWindow(15, 20) || isMissedToday(15, 20) || forceZoomHiT10) && (forceZoomHiT10 || !(await hasFiredToday(db, "zoom:hi:T10")))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T10");
@@ -934,9 +934,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       log.push(`❌ zoom:hi:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
-    // HI T-0 LIVE: 16:00 UTC
+    // HI T-0 LIVE: 15:30 UTC
     try {
-      if ((isInWindow(16, 0) || isMissedToday(16, 0) || forceZoomHiT0) && (forceZoomHiT0 || !(await hasFiredToday(db, "zoom:hi:T0")))) {
+      if ((isInWindow(15, 30) || isMissedToday(15, 30) || forceZoomHiT0) && (forceZoomHiT0 || !(await hasFiredToday(db, "zoom:hi:T0")))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T0");

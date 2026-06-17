@@ -893,7 +893,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // ============ 3. HINDI/URDU ZOOM — 4-tier reminder sequence ============
     // HI call is at 15:30 UTC (9:00 PM IST) — shifted 30 min earlier
-    // T-60 → 15:00 UTC | T-30 → 15:30 UTC | T-10 → 15:50 UTC | T-0 → 16:00 UTC
+    // T-60 → 14:30 UTC | T-30 → 15:00 UTC | T-10 → 15:20 UTC | T-0 → 15:30 UTC
 
     // HI T-60: 14:30 UTC
     try {

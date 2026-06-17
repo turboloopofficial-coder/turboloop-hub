@@ -128,19 +128,20 @@ export function UnifiedCreativesGrid({
   // Keep loadMoreRef current so the observer callback always calls the latest version
   useEffect(() => { loadMoreRef.current = loadMore; }, [loadMore]);
 
-  // Attach IntersectionObserver to the sentinel div
+  // Attach IntersectionObserver to the sentinel div — re-run whenever hasMore changes
+  // so the observer is always watching when there is more content to load.
   useEffect(() => {
     const el = sentinelRef.current;
-    if (!el) return;
+    if (!el || !hasMore) return;
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) loadMoreRef.current();
       },
-      { rootMargin: "200px" }
+      { rootMargin: "400px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [hasMore]);
 
   const clearFilters = useCallback(() => {
     setActiveCategory(initialCategory ?? "all");
@@ -307,19 +308,17 @@ export function UnifiedCreativesGrid({
             ))}
           </div>
 
-          {/* Infinite scroll sentinel + loading indicator */}
-          <div className="flex flex-col items-center gap-2 mt-8 pb-4">
-            {hasMore && (
-              <>
-                {/* Invisible sentinel — triggers load when it enters the viewport */}
-                <div ref={sentinelRef} className="w-full h-1" aria-hidden="true" />
-                {loadingMore && (
-                  <div className="flex items-center gap-2 text-xs text-[var(--c-text-subtle)] py-4">
-                    <Loader2 size={14} className="animate-spin" />
-                    Loading more banners…
-                  </div>
-                )}
-              </>
+          {/* Infinite scroll sentinel — always rendered so the observer can attach */}
+          {/* The sentinel is invisible; the observer fires loadMore when it enters the viewport */}
+          <div ref={sentinelRef} className="w-full h-1" aria-hidden="true" />
+
+          {/* Loading indicator + end-of-list message */}
+          <div className="flex flex-col items-center gap-2 mt-4 pb-6">
+            {loadingMore && (
+              <div className="flex items-center gap-2 text-xs text-[var(--c-text-subtle)] py-4">
+                <Loader2 size={14} className="animate-spin" />
+                Loading more banners…
+              </div>
             )}
             {!hasMore && items.length > PAGE_SIZE && (
               <p className="text-xs text-[var(--c-text-subtle)] py-4">

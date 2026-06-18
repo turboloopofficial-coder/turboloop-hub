@@ -206,12 +206,64 @@ async function fetchLivePrice(): Promise<string> {
 // website chat surface uses. We call the REST endpoint directly
 // instead of the SDK because the SDK pulls in axios + form-data, and
 // the Edge bundle is already heavy with the 398 KB KB string.
-async function buildAskResponse(question: string): Promise<string> {
+//
+// MULTILINGUAL: Detects the language of the user's question and
+// instructs Claude to reply in the same language automatically.
+async function buildAskResponse(question: string, isAutoFallback = false): Promise<string> {
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
   if (!ANTHROPIC_API_KEY) {
     return "🤖 AI assistant is temporarily unavailable. For support: @TurboLoop_Support";
   }
-  const SYSTEM = `${KB_CONTENT}\n\n=====\n\nYou are the TurboLoop Assistant in a Telegram group. Answer questions about TurboLoop's protocol, yield plans, security, community programs, and how to participate. Give thorough, complete answers — do NOT truncate or summarise. If a topic has multiple parts (e.g. all 20 referral levels, all 4 plans, full security details), cover all of them fully. Responses will be automatically split into multiple threaded messages if needed, so never cut your answer short. Use Telegram HTML formatting: <b>bold</b>, <i>italic</i>, <code>code</code>, <a href="url">link</a>. Always include this disclaimer for any plan/ROI/earning question: "This is protocol information, not financial advice." If unsure, say so and direct to @TurboLoop_Support. NEVER fabricate facts not in the knowledge base. KB version: ${KB_VERSION}`;
+
+  const SYSTEM = `${KB_CONTENT}
+
+=====
+
+You are TurboLoop AI — the official intelligent assistant for TurboLoop, a DeFi yield protocol on BNB Smart Chain.
+
+## YOUR IDENTITY
+- Name: TurboLoop AI
+- Role: Community assistant in the official TurboLoop Telegram group
+- Personality: Knowledgeable, warm, confident, concise but thorough
+
+## VERIFIED FACTS (always use these — never guess)
+- Contract: 0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3 (BSC)
+- Token: $TURBO
+- Website: https://www.turboloop.tech
+- Telegram: @TurboLoop_Official
+- Support: @TurboLoop_Support
+- Plans: T30 (3% daily, 30 days), T90 (3.5% daily, 90 days), T180 (4% daily, 180 days), T365 (5% daily, 365 days)
+- Minimum deposit: $10 USDT
+- Referral: 20-level system, Level 1 = 10%, Level 2 = 5%, Levels 3-20 = 1% each
+- Buyback: 10% of all deposits go to $TURBO buyback
+- Audit: Smart contract audited
+- Zoom calls: Weekly community calls (Hindi + English)
+
+## LANGUAGE RULE — CRITICAL
+Detect the language of the user's message. Reply ENTIRELY in that same language.
+- If the message is in Hindi → reply in Hindi
+- If in Arabic → reply in Arabic  
+- If in Spanish → reply in Spanish
+- If in any other language → reply in that language
+- Only use English if the message is in English or the language is undetectable
+Do NOT mix languages. Do NOT add an English translation unless explicitly asked.
+
+## RESPONSE RULES
+- Use Telegram HTML formatting: <b>bold</b>, <i>italic</i>, <code>code</code>
+- Give thorough, complete answers — never truncate. Responses are auto-split into threaded messages.
+- For ROI/earnings questions: always add <i>This is protocol information, not financial advice.</i>
+- If unsure about something: say so and direct to @TurboLoop_Support
+- NEVER fabricate facts not in the knowledge base
+- For greetings or casual messages: respond warmly and briefly, invite them to ask a question
+- KB version: ${KB_VERSION}`;
+
+  // For auto-fallback (unmatched messages), only respond if the message
+  // looks like a genuine question or TurboLoop-related inquiry.
+  // Skip greetings-only, memes, or pure emoji messages to avoid being noisy.
+  const autoFallbackGuard = isAutoFallback
+    ? `\n\nIMPORTANT: This message was NOT prefixed with /ask — it was sent as a regular group message. Only respond if it is clearly a question or inquiry about TurboLoop, crypto, DeFi, or the community. If it is just a greeting, emoji, meme, or unrelated chat, respond with EXACTLY: __SKIP__ and nothing else.`
+    : "";
+
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -223,7 +275,7 @@ async function buildAskResponse(question: string): Promise<string> {
       body: JSON.stringify({
         model: "claude-haiku-4-5",
         max_tokens: 4096,
-        system: SYSTEM,
+        system: SYSTEM + autoFallbackGuard,
         messages: [{ role: "user", content: question }],
       }),
       signal: AbortSignal.timeout(25_000),
@@ -232,11 +284,14 @@ async function buildAskResponse(question: string): Promise<string> {
     const d: any = await r.json();
     const text: string = d?.content?.[0]?.text ?? "";
     if (!text) throw new Error("Empty response");
+    // Auto-fallback skip signal — Claude decided the message isn't worth answering
+    if (text.trim() === "__SKIP__") return "";
     // Return full text — sendThreadedReply splits it into chained
     // messages if it exceeds 3800 chars. No truncation here.
     return `🤖 <b>TurboLoop AI</b>\n\n${text}`;
   } catch (err) {
     console.error("[telegram-webhook] /ask failed", err);
+    if (isAutoFallback) return ""; // Silently skip on auto-fallback errors
     return "🤖 <b>TurboLoop AI</b>\n\nI couldn't process that right now. For official support: @TurboLoop_Support";
   }
 }
@@ -924,6 +979,44 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
 
     const trigger = matchTrigger(text);
     if (!trigger) {
+      // ── Smart fallback: route unmatched messages through Claude AI ──
+      // Only fires for DMs or if the message looks like a question/inquiry.
+      // Group chats get Claude only if the message contains a question mark,
+      // mentions TurboLoop/TURBO, or is a /ask-style query without the prefix.
+      const chatType = msg?.chat?.type ?? "private";
+      const isPrivate = chatType === "private";
+      const looksLikeQuestion =
+        text.includes("?") ||
+        /\b(turbo|turboloop|deposit|withdraw|plan|referral|yield|apy|roi|zoom|token|buy|sell|invest|earn|profit|how|what|when|where|why|who|can i|is it|tell me)\b/i.test(text);
+
+      if (isPrivate || looksLikeQuestion) {
+        // Rate-limit auto-fallback per user (same 60s window as /ask)
+        const userId = msg.from?.id;
+        const now = Date.now();
+        if (userId !== undefined) {
+          const last = askLastFired.get(userId) ?? 0;
+          if (now - last < ASK_COOLDOWN_MS) {
+            return new Response(JSON.stringify({ ok: true, matched: false, skipped: "fallback-cooldown" }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+          askLastFired.set(userId, now);
+        }
+        try {
+          const fallbackReply = await buildAskResponse(text, true);
+          if (fallbackReply) {
+            const safeReplyId = typeof messageId === "number" && messageId > 0 ? messageId : undefined;
+            await sendThreadedReply(token, String(chatId), fallbackReply, safeReplyId);
+            return new Response(JSON.stringify({ ok: true, matched: "ai-fallback" }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+        } catch (fallbackErr) {
+          console.error("[telegram-webhook] auto-fallback error", fallbackErr);
+        }
+      }
       return new Response(JSON.stringify({ ok: true, matched: false }), {
         status: 200,
         headers: { "Content-Type": "application/json" },

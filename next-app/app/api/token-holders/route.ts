@@ -70,8 +70,9 @@ async function fetchFromDB(): Promise<TokenHoldersData> {
       .limit(1);
     if (!rows.length || !rows[0].settingValue) return emptyResponse();
     const parsed = JSON.parse(rows[0].settingValue) as TokenHoldersData;
-    // Accept DB cache if it's less than 2 hours old
-    if (parsed.holdersNum && parsed.fetchedAt && Date.now() - parsed.fetchedAt < 2 * 60 * 60_000) {
+    // Always trust the DB cache — the Manus scheduled task keeps it fresh
+    // (runs every 30 min). Even a stale count is better than null.
+    if (parsed.holdersNum && parsed.holdersNum > 0) {
       return { ...parsed, fresh: true };
     }
     return emptyResponse();

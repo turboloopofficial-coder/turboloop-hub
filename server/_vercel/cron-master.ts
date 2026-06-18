@@ -690,6 +690,105 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // Non-fatal — stale cache is fine, bot will use last known price.
     }
 
+    // ─── Milestone auto-detection & auto-post ────────────────────────
+    // Checks if the current holder count has crossed a milestone threshold
+    // that hasn't been celebrated yet. If so, posts a pre-generated
+    // milestone banner to Telegram automatically.
+    //
+    // Milestones: 1100, 1200, 1500, 2000, 2500, 3000, 5000, 10000
+    // State: stored in site_settings as `milestone:last_celebrated` (integer)
+    // Banners: stored on R2 under brand/milestones/{N}-holders.png
+    //          Falls back to brand/milestones/generic-milestone.png if not found.
+    try {
+      const MILESTONES = [1100, 1200, 1500, 2000, 2500, 3000, 5000, 10000];
+      const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+      // Read current holder count from DB cache
+      const _holderRows = await db
+        .select({ settingValue: siteSettings.settingValue })
+        .from(siteSettings)
+        .where(eq(siteSettings.settingKey, "cache:token_holders"))
+        .limit(1);
+      const _currentHolders: number = _holderRows[0]
+        ? (JSON.parse(_holderRows[0].settingValue)?.holdersNum ?? 0)
+        : 0;
+
+      // Read last celebrated milestone from DB
+      const _lastRows = await db
+        .select({ settingValue: siteSettings.settingValue })
+        .from(siteSettings)
+        .where(eq(siteSettings.settingKey, "milestone:last_celebrated"))
+        .limit(1);
+      const _lastCelebrated: number = _lastRows[0]
+        ? (parseInt(_lastRows[0].settingValue, 10) || 0)
+        : 0;
+
+      // Find the highest milestone crossed that hasn't been celebrated yet
+      const _nextMilestone = MILESTONES
+        .filter(m => m > _lastCelebrated && _currentHolders >= m)
+        .pop(); // highest crossed
+
+      if (_nextMilestone && _currentHolders > 0) {
+        // Build the celebration caption using Claude
+        let _milestoneCaption = `🎉 <b>${_nextMilestone.toLocaleString("en-US")} Unique $TURBO Token Holders!</b>\n\nOur community keeps growing stronger. Thank you to every holder who believes in TurboLoop! 🚀\n\n<b>Join the revolution:</b> https://www.turboloop.tech`;
+        try {
+          const _claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+              "anthropic-version": "2023-06-01",
+            },
+            body: JSON.stringify({
+              model: "claude-haiku-4-5",
+              max_tokens: 300,
+              system: "You write short, exciting Telegram celebration posts for TurboLoop, a DeFi yield protocol on BSC. Use Telegram HTML formatting (<b>bold</b>, <i>italic</i>). Always include the website link https://www.turboloop.tech. Keep it under 250 characters. No hashtags. End with a rocket or fire emoji.",
+              messages: [{ role: "user", content: `Write a celebration post for reaching ${_nextMilestone.toLocaleString("en-US")} unique $TURBO token holders. Current count: ${_currentHolders.toLocaleString("en-US")}.` }],
+            }),
+            signal: AbortSignal.timeout(15000),
+          });
+          if (_claudeRes.ok) {
+            const _claudeData: any = await _claudeRes.json();
+            const _claudeText: string = _claudeData?.content?.[0]?.text ?? "";
+            if (_claudeText) _milestoneCaption = _claudeText;
+          }
+        } catch { /* Use fallback caption */ }
+
+        // Use milestone-specific banner if it exists, else generic
+        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextMilestone}-holders.png`;
+        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
+
+        // Check if specific banner exists
+        let _finalBannerUrl = _fallbackUrl;
+        try {
+          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5000) });
+          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
+        } catch { /* Use fallback */ }
+
+        // Post to Telegram
+        await tgBroadcastPhoto({
+          photoUrl: _finalBannerUrl,
+          caption: _milestoneCaption,
+          parseMode: "HTML",
+          buttons: [{ text: "🌐 Join TurboLoop", url: "https://www.turboloop.tech" }],
+        });
+
+        // Record the celebrated milestone so we don't post again
+        await db
+          .insert(siteSettings)
+          .values({ settingKey: "milestone:last_celebrated", settingValue: String(_nextMilestone) })
+          .onConflictDoUpdate({
+            target: siteSettings.settingKey,
+            set: { settingValue: String(_nextMilestone), updatedAt: new Date() },
+          });
+
+        console.log(`[cron-master] 🎉 Milestone celebrated: ${_nextMilestone} holders (current: ${_currentHolders})`);
+      }
+    } catch (_milestoneErr) {
+      // Non-fatal — milestone detection failure should never break the cron.
+      console.error("[cron-master] milestone detection error:", _milestoneErr);
+    }
+
     // ─── Manual force-fire overrides ────────────────────────────────
     // Allows campaign slots to fire on demand outside their normal time
     // window. Used on launch day for each campaign when the regular

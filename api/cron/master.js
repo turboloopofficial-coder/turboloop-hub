@@ -78490,6 +78490,66 @@ async function handler(req, res) {
       }
     } catch (_priceErr) {
     }
+    try {
+      const MILESTONES = [1100, 1200, 1500, 2e3, 2500, 3e3, 5e3, 1e4];
+      const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+      const _holderRows = await db.select({ settingValue: siteSettings.settingValue }).from(siteSettings).where(eq(siteSettings.settingKey, "cache:token_holders")).limit(1);
+      const _currentHolders = _holderRows[0] ? JSON.parse(_holderRows[0].settingValue)?.holdersNum ?? 0 : 0;
+      const _lastRows = await db.select({ settingValue: siteSettings.settingValue }).from(siteSettings).where(eq(siteSettings.settingKey, "milestone:last_celebrated")).limit(1);
+      const _lastCelebrated = _lastRows[0] ? parseInt(_lastRows[0].settingValue, 10) || 0 : 0;
+      const _nextMilestone = MILESTONES.filter((m4) => m4 > _lastCelebrated && _currentHolders >= m4).pop();
+      if (_nextMilestone && _currentHolders > 0) {
+        let _milestoneCaption = `\u{1F389} <b>${_nextMilestone.toLocaleString("en-US")} Unique $TURBO Token Holders!</b>
+
+Our community keeps growing stronger. Thank you to every holder who believes in TurboLoop! \u{1F680}
+
+<b>Join the revolution:</b> https://www.turboloop.tech`;
+        try {
+          const _claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+              "anthropic-version": "2023-06-01"
+            },
+            body: JSON.stringify({
+              model: "claude-haiku-4-5",
+              max_tokens: 300,
+              system: "You write short, exciting Telegram celebration posts for TurboLoop, a DeFi yield protocol on BSC. Use Telegram HTML formatting (<b>bold</b>, <i>italic</i>). Always include the website link https://www.turboloop.tech. Keep it under 250 characters. No hashtags. End with a rocket or fire emoji.",
+              messages: [{ role: "user", content: `Write a celebration post for reaching ${_nextMilestone.toLocaleString("en-US")} unique $TURBO token holders. Current count: ${_currentHolders.toLocaleString("en-US")}.` }]
+            }),
+            signal: AbortSignal.timeout(15e3)
+          });
+          if (_claudeRes.ok) {
+            const _claudeData = await _claudeRes.json();
+            const _claudeText = _claudeData?.content?.[0]?.text ?? "";
+            if (_claudeText) _milestoneCaption = _claudeText;
+          }
+        } catch {
+        }
+        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextMilestone}-holders.png`;
+        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
+        let _finalBannerUrl = _fallbackUrl;
+        try {
+          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5e3) });
+          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
+        } catch {
+        }
+        await tgBroadcastPhoto({
+          photoUrl: _finalBannerUrl,
+          caption: _milestoneCaption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F310} Join TurboLoop", url: "https://www.turboloop.tech" }]
+        });
+        await db.insert(siteSettings).values({ settingKey: "milestone:last_celebrated", settingValue: String(_nextMilestone) }).onConflictDoUpdate({
+          target: siteSettings.settingKey,
+          set: { settingValue: String(_nextMilestone), updatedAt: /* @__PURE__ */ new Date() }
+        });
+        console.log(`[cron-master] \u{1F389} Milestone celebrated: ${_nextMilestone} holders (current: ${_currentHolders})`);
+      }
+    } catch (_milestoneErr) {
+      console.error("[cron-master] milestone detection error:", _milestoneErr);
+    }
     const reqUrl = new URL(req.url || "/", "http://x");
     const forceSet = new Set(
       (reqUrl.searchParams.get("force") || "").split(",").map((s) => s.trim()).filter(Boolean)

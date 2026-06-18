@@ -201,6 +201,90 @@ async function fetchLivePrice(): Promise<string> {
   }
 }
 
+// ─── Language detection + Claude translation layer ───────────────
+//
+// Detects the user's language from Telegram's `language_code` field
+// (BCP-47 tag, e.g. "hi", "ar", "es", "tr", "id", "pt", "vi").
+// If non-English, translates the English response via Claude Haiku.
+// In-memory cache prevents re-translating the same static text.
+
+const SUPPORTED_LANGS: Record<string, string> = {
+  hi: "Hindi",
+  ar: "Arabic",
+  es: "Spanish",
+  tr: "Turkish",
+  id: "Indonesian",
+  pt: "Portuguese",
+  vi: "Vietnamese",
+  bn: "Bengali",
+  ur: "Urdu",
+  ru: "Russian",
+  zh: "Chinese",
+  fr: "French",
+  de: "German",
+  it: "Italian",
+  ko: "Korean",
+  ja: "Japanese",
+};
+
+// Cache: key = `${langCode}:${triggerId}:${hash}`, value = translated text
+const translationCache = new Map<string, string>();
+
+function simpleHash(s: string): number {
+  let h = 0;
+  for (let i = 0; i < Math.min(s.length, 200); i++) {
+    h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  }
+  return h >>> 0;
+}
+
+async function translateResponse(
+  text: string,
+  langCode: string,
+  triggerId: string
+): Promise<string> {
+  const langName = SUPPORTED_LANGS[langCode];
+  if (!langName) return text; // unsupported lang — return English
+
+  const cacheKey = `${langCode}:${triggerId}:${simpleHash(text)}`;
+  const cached = translationCache.get(cacheKey);
+  if (cached) return cached;
+
+  const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+  if (!ANTHROPIC_API_KEY) return text;
+
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5",
+        max_tokens: 2048,
+        system: `You are a precise translator for TurboLoop, a DeFi yield farming protocol. Translate the following Telegram message from English to ${langName}. Rules:
+1. Keep ALL HTML tags exactly as-is: <b>, </b>, <i>, </i>, <code>, </code>, <a href="...">...</a>
+2. Keep ALL URLs, wallet addresses, numbers, percentages, and emojis exactly as-is
+3. Keep ALL Telegram usernames (@...) and channel links exactly as-is
+4. Translate only the human-readable text portions
+5. Return ONLY the translated message, nothing else`,
+        messages: [{ role: "user", content: text }],
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!r.ok) return text;
+    const d: any = await r.json();
+    const translated: string = d?.content?.[0]?.text ?? "";
+    if (!translated) return text;
+    translationCache.set(cacheKey, translated);
+    return translated;
+  } catch {
+    return text; // fallback to English on error
+  }
+}
+
 // ─── Ask AI response builder (Claude Haiku 4.5 + 40-article KB) ──
 // Wraps the Anthropic Messages API with the same knowledge base the
 // website chat surface uses. We call the REST endpoint directly
@@ -256,7 +340,7 @@ const TRIGGERS: Trigger[] = [
     // "ca" alone is a very short alias for contract address — common
     // shorthand in crypto chats. The `\b` keeps it from matching
     // "casual" / "scared" etc.
-    pattern: /\b(contract|ca|address|token\s+address|contract\s+address)\b|^\/ca(@\w+)?$/i,
+    pattern: /\b(contract|ca|address|token\s+address|contract\s+address)\b|^\/ca(@\w+)?$|^\/contract(@\w+)?$|^\/पता(@\w+)?$|^\/عقد(@\w+)?$/i,
     response:
 `Here are the Turbo Loop contract addresses:
 
@@ -268,7 +352,7 @@ All verified on BscScan: https://bscscan.com`,
   },
   {
     id: "audit",
-    pattern: /\b(audit|security|verified|audited|safe)\b|^\/audit(@\w+)?$/i,
+    pattern: /\b(audit|security|verified|audited|safe)\b|^\/audit(@\w+)?$|^\/सुरक्षा(@\w+)?$|^\/أمان(@\w+)?$/i,
     response:
 `Turbo Loop has been audited by reputable security firms:
 
@@ -279,7 +363,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "buy",
-    pattern: /\b(buy|purchase|how\s+to\s+buy|where\s+to\s+buy|swap)\b|^\/buy(@\w+)?$/i,
+    pattern: /\b(buy|purchase|how\s+to\s+buy|where\s+to\s+buy|swap)\b|^\/buy(@\w+)?$|^\/खरीदें(@\w+)?$|^\/اشتري(@\w+)?$/i,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
@@ -300,7 +384,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "sell",
-    pattern: /\b(sell|dump|exit|cash\s+out)\b|^\/sell(@\w+)?$/i,
+    pattern: /\b(sell|dump|exit|cash\s+out)\b|^\/sell(@\w+)?$|^\/बेचें(@\w+)?$|^\/بيع(@\w+)?$/i,
     response: null,
     buildResponse: async () => {
       const priceInfo = await fetchLivePrice();
@@ -342,7 +426,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
   },
   {
     id: "plans",
-    pattern: /\b(plans|roi|returns|earnings|yield|how\s+much)\b|^\/plans(@\w+)?$/i,
+    pattern: /\b(plans|roi|returns|earnings|yield|how\s+much)\b|^\/plans(@\w+)?$|^\/योजनाएं(@\w+)?$|^\/خطط(@\w+)?$/i,
     response:
 `Turbo Loop Investment Plans:
 
@@ -359,7 +443,7 @@ Start here: https://turboloop.io`,
   },
   {
     id: "referral",
-    pattern: /\b(referral|commission|earn|affiliate|partner|bonus)\b|^\/referral(@\w+)?$/i,
+    pattern: /\b(referral|commission|earn|affiliate|partner|bonus)\b|^\/referral(@\w+)?$|^\/रेफरल(@\w+)?$|^\/إحالة(@\w+)?$/i,
     response:
 `Join our Referral Program:
 
@@ -419,7 +503,7 @@ Need more help? Ask in the group or contact support!`,
   },
   {
     id: "deposit",
-    pattern: /\b(deposit|start|begin|join|invest|how\s+to\s+start)\b|^\/deposit(@\w+)?$/i,
+    pattern: /\b(deposit|start|begin|join|invest|how\s+to\s+start)\b|^\/deposit(@\w+)?$|^\/शुरू(@\w+)?$|^\/ابدأ(@\w+)?$/i,
     response:
 `Getting Started with Turbo Loop:
 
@@ -435,7 +519,7 @@ Need help? Ask in the group!`,
   },
   {
     id: "payout",
-    pattern: /\b(payout|withdraw|claim|payment|when\s+paid)\b|^\/payout(@\w+)?$/i,
+    pattern: /\b(payout|withdraw|claim|payment|when\s+paid)\b|^\/payout(@\w+)?$|^\/भुगतान(@\w+)?$|^\/دفع(@\w+)?$/i,
     response:
 `Turbo Loop Payouts:
 💰 <b>Referral Commissions:</b> Paid daily at 1 PM UTC
@@ -457,7 +541,7 @@ This ensures $TURBO becomes increasingly scarce over time, supporting price appr
   },
   {
     id: "zoom",
-    pattern: /\b(zoom|session|webinar|live|call|meeting)\b|^\/zoom(@\w+)?$/i,
+    pattern: /\b(zoom|session|webinar|live|call|meeting)\b|^\/zoom(@\w+)?$|^\/ज़ूम(@\w+)?$|^\/زووم(@\w+)?$/i,
     // Full per-region timezone list for both daily calls. One line
     // per region (flag first → scannable on mobile, no mid-entry wrap).
     // Final message ~2.4k chars, well under Telegram's 4096 sendMessage
@@ -505,7 +589,7 @@ Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
   },
   {
     id: "calculator",
-    pattern: /\b(calculate|calc|how\s+much|how\s+much\s+can\s+i\s+earn|\d+\s*(usdt|usd|\$))\b|^\/calc(@\w+)?$/i,
+    pattern: /\b(calculate|calc|how\s+much|how\s+much\s+can\s+i\s+earn|\d+\s*(usdt|usd|\$))\b|^\/calc(@\w+)?$|^\/कैलकुलेटर(@\w+)?$|^\/حساب(@\w+)?$/i,
     response: null,
     buildResponse: async (text?: string) => {
       // Extract a deposit amount from the user's message. Accepts plain
@@ -572,7 +656,7 @@ Earn <b>1% to 10%</b> of the leadership pool across <b>100 levels</b> of your ne
   },
   {
     id: "roadmap",
-    pattern: /\b(roadmap|future|upcoming|next|whats\s+next|what's\s+next|plans\s+ahead)\b|^\/roadmap(@\w+)?$/i,
+    pattern: /\b(roadmap|future|upcoming|next|whats\s+next|what's\s+next|plans\s+ahead)\b|^\/roadmap(@\w+)?$|^\/रोडमैप(@\w+)?$|^\/خارطة(@\w+)?$/i,
     response:
 `🗺️ <b>TurboLoop Roadmap</b>
 
@@ -648,7 +732,7 @@ All official links are verified above. Stay safe!`,
   },
   {
     id: "support",
-    pattern: /\b(support|admin|owner|help|contact|complaint|issue|problem|stuck|not\s+working)\b|^\/support(@\w+)?$/i,
+    pattern: /\b(support|admin|owner|help|contact|complaint|issue|problem|stuck|not\s+working)\b|^\/support(@\w+)?$|^\/मदद(@\w+)?$|^\/مساعدة(@\w+)?$/i,
     response:
 `Need help? Our support team is here:
 
@@ -922,6 +1006,10 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
       });
     }
 
+    // Detect user language from Telegram's language_code field
+    const userLangCode = (msg.from as any)?.language_code?.split("-")?.[0] ?? "en";
+    const isNonEnglish = userLangCode !== "en" && userLangCode in SUPPORTED_LANGS;
+
     const trigger = matchTrigger(text);
     if (!trigger) {
       return new Response(JSON.stringify({ ok: true, matched: false }), {
@@ -971,9 +1059,13 @@ export async function handleTelegramWebhook(req: Request): Promise<Response> {
     // await adds only ~500 ms total (Edge + DB + Telegram send), and a
     // single try/catch around the whole thing keeps logging tight.
     try {
-      const responseText = trigger.buildResponse
+      let responseText = trigger.buildResponse
         ? await trigger.buildResponse(text)
         : (trigger.response ?? "");
+      // Translate to user's language if non-English (skip /ask — it's already multilingual)
+      if (isNonEnglish && trigger.id !== "ask") {
+        responseText = await translateResponse(responseText, userLangCode, trigger.id);
+      }
       // sendThreadedReply handles BOTH short (single-bubble) and long
       // (multi-bubble cascade) responses uniformly. Triggers like /ca
       // that return a tight HTML snippet still ship as one message

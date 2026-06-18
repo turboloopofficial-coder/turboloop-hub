@@ -61295,7 +61295,17 @@ var CAMPAIGN_FILE_INDEX = {
     "02_Naija_7_Day_Plan.png",
     "03_Naija_No_Scam.png",
     "04_Naija_Referral.png",
+    "051_Naija_E_Don_Do.png",
+    "052_Naija_Make_Mama_Proud.png",
+    "053_Naija_No_More_9to5.png",
+    "054_Naija_Omo_See_Balance.png",
+    "055_Naija_Danfo_To_Benz.png",
+    "056_Naija_Japa_No_Be_Only_Way.png",
+    "057_Naija_Your_Children_Go_Thank_You.png",
+    "058_Naija_Hustle_Smart.png",
+    "059_Naija_Eko_Dey_For_Us.png",
     "05_Naija_Financial_Freedom.png",
+    "060_Naija_Abuja_Boy_Don_Blow.png",
     "06_Naija_Hustle_Smart.png",
     "07_Naija_60_Day.png",
     "08_Naija_No_Bank.png",
@@ -61305,7 +61315,17 @@ var CAMPAIGN_FILE_INDEX = {
     "12_Naija_Women_Power.png",
     "13_Naija_Diaspora.png",
     "14_Naija_Jollof_Wealth.png",
+    "151_Naija_Wetin_Be_Smart_Contract.png",
+    "152_Naija_How_7Day_Plan_Work.png",
+    "153_Naija_Wetin_Be_DeFi.png",
+    "154_Naija_How_Your_Money_Grow.png",
+    "155_Naija_USDT_Stable_Coin.png",
+    "156_Naija_BSC_Chain.png",
+    "157_Naija_Wetin_Be_Yield.png",
+    "158_Naija_How_Referral_Work.png",
+    "159_Naija_Why_No_Bank_Needed.png",
     "15_Naija_Youth_Earn.png",
+    "160_Naija_How_To_Start_3_Steps.png",
     "16_Naija_Inflation_Beat.png",
     "17_Naija_30_Day.png",
     "18_Naija_Network_Tree.png",
@@ -61315,6 +61335,11 @@ var CAMPAIGN_FILE_INDEX = {
     "22_Naija_Owambe.png",
     "23_Naija_Smart_Contract.png",
     "24_Naija_Builder_Rank.png",
+    "251_Naija_7Days_Big_Reward.png",
+    "252_Naija_14Days_Double_Patience.png",
+    "253_Naija_30Days_Sweet_Spot.png",
+    "254_Naija_60Days_Real_Investors.png",
+    "255_Naija_All_4_Plans.png",
     "25_Naija_Accelerator_Rank.png",
     "26_Naija_Market_Woman.png",
     "27_Naija_Director_Rank.png",
@@ -61322,6 +61347,11 @@ var CAMPAIGN_FILE_INDEX = {
     "29_Naija_Executive_Rank.png",
     "30_Naija_Ambassador_Rank.png",
     "31_Naija_No_Wahala.png",
+    "321_Naija_Refer_One_Earn_Daily.png",
+    "322_Naija_Network_Net_Worth.png",
+    "323_Naija_See_My_Referral_Earnings.png",
+    "324_Naija_Tell_Your_People.png",
+    "325_Naija_WhatsApp_Strategy.png",
     "32_Naija_14_Day.png",
     "33_Naija_Suya_Wealth.png",
     "34_Naija_Turbo_Legend_Final.png",
@@ -61330,7 +61360,17 @@ var CAMPAIGN_FILE_INDEX = {
     "37_Naija_Compound_Daily.png",
     "38_Naija_Abuja_Mansion.png",
     "39_Naija_Hustle_Story.png",
+    "401_Naija_Na_Scam_No_O.png",
+    "402_Naija_My_Money_Go_Lost.png",
+    "403_Naija_I_No_Sabi_Crypto.png",
+    "404_Naija_Wetin_If_I_Need_Money.png",
+    "405_Naija_Na_Ponzi.png",
+    "406_Naija_E_Don_Pay_Me.png",
+    "407_Naija_No_Human_Control.png",
+    "408_Naija_Oya_Join_Us.png",
+    "409_Naija_Token_Burn_Daily.png",
     "40_Naija_Turbo_Partner.png",
+    "410_Naija_Start_Today.png",
     "41_Naija_Crypto_Is_Real.png",
     "42_Naija_Min_1_USDT.png",
     "43_Naija_Community_Power.png",
@@ -61778,6 +61818,288 @@ var CAMPAIGN_FILE_INDEX = {
     "217_Spanish_Argentina_DeFi.png",
     "218_Spanish_Venezuela_DeFi.png",
     "219_Spanish_Peru_DeFi.png"
+  ],
+  "indonesian": [
+    "051_Indo_Bebas_Finansial.png",
+    "052_Indo_Uang_Bekerja_Untukmu.png",
+    "053_Indo_Rumah_Impian.png",
+    "054_Indo_Pensiun_Dini.png",
+    "055_Indo_Keliling_Indonesia.png",
+    "056_Indo_Bisnis_Sendiri.png",
+    "057_Indo_Ibu_Rumah_Tangga.png",
+    "058_Indo_Mahasiswa_Cerdas.png",
+    "059_Indo_Petani_Digital.png",
+    "060_Indo_Generasi_Crypto.png",
+    "151_Indo_Apa_Itu_DeFi.png",
+    "152_Indo_Smart_Contract_Explained.png",
+    "153_Indo_USDT_Explained.png",
+    "154_Indo_Cara_Mulai_3_Langkah.png",
+    "155_Indo_BSC_Network.png",
+    "156_Indo_Referral_Explained.png",
+    "157_Indo_Token_Burn_Explained.png",
+    "158_Indo_Wallet_Guide.png",
+    "159_Indo_ROI_Explained.png",
+    "160_Indo_Keamanan_Dana.png",
+    "251_Indo_Plan1_7Hari.png",
+    "252_Indo_Plan2_14Hari.png",
+    "253_Indo_Plan3_30Hari.png",
+    "254_Indo_Plan4_60Hari.png",
+    "255_Indo_Semua_Plan.png",
+    "256_Indo_Kalkulator_Plan1.png",
+    "257_Indo_Kalkulator_Plan4.png",
+    "258_Indo_Reinvestasi.png",
+    "259_Indo_Plan_Vs_Deposito.png",
+    "260_Indo_Min_1_USDT.png",
+    "321_Indo_Referral_Harian.png",
+    "322_Indo_20_Level_Network.png",
+    "323_Indo_Ajak_Teman.png",
+    "324_Indo_Turbo_Ambassador.png",
+    "325_Indo_Strategi_WhatsApp.png",
+    "326_Indo_Passive_Network.png",
+    "327_Indo_Keluarga_Bersama.png",
+    "328_Indo_Komunitas_Telegram.png",
+    "329_Indo_Turbo_Legend.png",
+    "330_Indo_Mulai_Sekarang.png",
+    "401_Indo_Bukan_Scam.png",
+    "402_Indo_Uangku_Aman.png",
+    "403_Indo_Tidak_Mengerti_Crypto.png",
+    "404_Indo_Kapan_Bisa_Tarik.png",
+    "405_Indo_Sudah_Terbukti.png",
+    "406_Indo_Lebaran_Special.png",
+    "407_Indo_Ramadan_Berkah.png",
+    "408_Indo_Kemerdekaan.png",
+    "409_Indo_Tahun_Baru.png",
+    "410_Indo_Bergabung_Sekarang.png"
+  ],
+  "chinese": [
+    "051_Chinese_Caifu_Ziyou.png",
+    "052_Chinese_Tiqian_Tuixiu.png",
+    "053_Chinese_Haizi_Jiaoyu.png",
+    "054_Chinese_Ziji_De_Fangzi.png",
+    "055_Chinese_Chuangjia_Ziben.png",
+    "056_Chinese_Huanqiu_L\xFCxing.png",
+    "057_Chinese_N\xFCxing_Liliang.png",
+    "058_Chinese_Niannian_Shouru.png",
+    "059_Chinese_Gongzuo_Ziyou.png",
+    "060_Chinese_Chunyun_Touzi.png",
+    "151_Chinese_Shenme_Shi_DeFi.png",
+    "152_Chinese_Zhineng_Hetong.png",
+    "153_Chinese_USDT_Jieshao.png",
+    "154_Chinese_Ruhe_Kaishi.png",
+    "155_Chinese_BSC_Wanglu.png",
+    "156_Chinese_Tuijian_Shouru.png",
+    "157_Chinese_Token_Xiaohui.png",
+    "158_Chinese_Qianbao_Zhinan.png",
+    "159_Chinese_ROI_Jieshao.png",
+    "160_Chinese_Zijin_Anquan.png",
+    "251_Chinese_Plan1_7Tian.png",
+    "252_Chinese_Plan2_14Tian.png",
+    "253_Chinese_Plan3_30Tian.png",
+    "254_Chinese_Plan4_60Tian.png",
+    "255_Chinese_Sijian_Bijiao.png",
+    "321_Chinese_Tuijian_Shouru.png",
+    "322_Chinese_20_Ceng_Wang.png",
+    "323_Chinese_Wechat_Fenxiang.png",
+    "324_Chinese_Turbo_Ambassador.png",
+    "325_Chinese_Tuandui_Liliang.png",
+    "401_Chinese_Bu_Shi_Pian_Ju.png",
+    "402_Chinese_Zijin_Anquan2.png",
+    "403_Chinese_Bu_Dong_Meiguan.png",
+    "404_Chinese_Suishi_Tiquan.png",
+    "405_Chinese_Yijing_Zhengming.png",
+    "406_Chinese_Chungjie_Special.png",
+    "407_Chinese_Qingniandai.png",
+    "408_Chinese_Jiaru_Xianzai.png",
+    "409_Chinese_Telegram_Shequ.png",
+    "410_Chinese_50_Milestone.png"
+  ],
+  "italian": [
+    "051_Italian_Liberta_Finanziaria.png",
+    "052_Italian_Pensione_Anticipata.png",
+    "053_Italian_Casa_Dei_Sogni.png",
+    "054_Italian_Donna_Imprenditrice.png",
+    "055_Italian_Studente_Universitario.png",
+    "056_Italian_Guadagna_Dormendo.png",
+    "057_Italian_Viaggio_Sogno.png",
+    "058_Italian_Pensionato_Felice.png",
+    "059_Italian_Artigiano_Digitale.png",
+    "060_Italian_Freelancer_Digitale.png",
+    "151_Italian_Cosa_E_DeFi.png",
+    "152_Italian_Smart_Contract_Spiegato.png",
+    "153_Italian_USDT_Spiegato.png",
+    "154_Italian_Come_Iniziare_3_Passi.png",
+    "155_Italian_BSC_Network.png",
+    "156_Italian_Referral_Spiegato.png",
+    "157_Italian_Token_Burn_Spiegato.png",
+    "158_Italian_Guida_Wallet.png",
+    "159_Italian_ROI_Spiegato.png",
+    "160_Italian_Sicurezza_Fondi.png",
+    "251_Italian_Piano1_7Giorni.png",
+    "252_Italian_Piano2_14Giorni.png",
+    "253_Italian_Piano3_30Giorni.png",
+    "254_Italian_Piano4_60Giorni.png",
+    "255_Italian_Confronto_Piani.png",
+    "256_Italian_Calcolatore_Piano1.png",
+    "257_Italian_Calcolatore_Piano4.png",
+    "258_Italian_Reinvestimento.png",
+    "259_Italian_DeFi_Vs_Banca.png",
+    "260_Italian_Min_1_USDT.png",
+    "321_Italian_Referral_Giornaliero.png",
+    "322_Italian_20_Livelli_Rete.png",
+    "323_Italian_Invita_Amici.png",
+    "324_Italian_Turbo_Ambassador.png",
+    "325_Italian_Strategia_Telegram.png",
+    "326_Italian_Rete_Passiva.png",
+    "327_Italian_Famiglia_Insieme.png",
+    "328_Italian_Comunita_Telegram.png",
+    "329_Italian_Turbo_Legend.png",
+    "330_Italian_Inizia_Adesso.png",
+    "401_Italian_Non_E_Una_Truffa.png",
+    "402_Italian_I_Miei_Fondi_Sono_Sicuri.png",
+    "403_Italian_Non_Capisco_Crypto.png",
+    "404_Italian_Quando_Posso_Prelevare.png",
+    "405_Italian_Gia_Dimostrato.png",
+    "406_Italian_Natale_DeFi.png",
+    "407_Italian_Ferragosto_DeFi.png",
+    "408_Italian_Capodanno_DeFi.png",
+    "409_Italian_Pasqua_DeFi.png",
+    "410_Italian_50_Milestone.png"
+  ],
+  "arabic": [
+    "051_Arabic_Hurriya_Maliya.png",
+    "052_Arabic_Bayt_Ahlam.png",
+    "053_Arabic_Taaqud_Mubakir.png",
+    "054_Arabic_Maraa_Mutamakina.png",
+    "055_Arabic_Taleb_Dhaki.png",
+    "056_Arabic_Riyadh_DeFi.png",
+    "057_Arabic_Misr_DeFi.png",
+    "058_Arabic_Earn_Sleeping.png",
+    "059_Arabic_Eid_Mubarak.png",
+    "060_Arabic_Ramadan_Kareem.png",
+    "151_Arabic_Ma_Huwa_DeFi.png",
+    "152_Arabic_Smart_Contract.png",
+    "153_Arabic_USDT_Explained.png",
+    "154_Arabic_Kaifa_Tabda.png",
+    "155_Arabic_BSC_Network.png",
+    "156_Arabic_Referral_Explained.png",
+    "157_Arabic_Token_Burn.png",
+    "158_Arabic_Wallet_Guide.png",
+    "159_Arabic_ROI_Explained.png",
+    "160_Arabic_Amaan_Amwal.png",
+    "251_Arabic_Plan1_7Days.png",
+    "252_Arabic_Plan2_14Days.png",
+    "253_Arabic_Plan3_30Days.png",
+    "254_Arabic_Plan4_60Days.png",
+    "255_Arabic_All_4_Plans.png",
+    "321_Arabic_Referral_Daily.png",
+    "322_Arabic_Network_20_Levels.png",
+    "323_Arabic_Share_Earn.png",
+    "324_Arabic_Turbo_Ambassador.png",
+    "325_Arabic_Family_Network.png",
+    "401_Arabic_Laysa_Nasiha.png",
+    "402_Arabic_My_Money_Safe.png",
+    "403_Arabic_No_Crypto_Knowledge.png",
+    "404_Arabic_When_Withdraw.png",
+    "405_Arabic_Already_Proven.png",
+    "406_Arabic_Ramadan_Special.png",
+    "407_Arabic_Eid_Special.png",
+    "408_Arabic_Join_Telegram.png",
+    "409_Arabic_Start_Now.png",
+    "410_Arabic_50_Milestone.png"
+  ],
+  "urdu": [
+    "051_Urdu_Mali_Azadi.png",
+    "052_Urdu_Apna_Ghar.png",
+    "053_Urdu_Jaldi_Retire.png",
+    "054_Urdu_Bachon_Ki_Taleem.png",
+    "055_Urdu_Khwab_Poora_Karo.png",
+    "056_Urdu_Naukri_Choro.png",
+    "057_Urdu_Khatoon_Investor.png",
+    "058_Urdu_Talaba_Kamai.png",
+    "059_Urdu_Sote_Mein_Kamai.png",
+    "060_Urdu_Pakistan_Crypto.png",
+    "151_Urdu_DeFi_Kya_Hai.png",
+    "152_Urdu_Smart_Contract.png",
+    "153_Urdu_USDT_Kya_Hai.png",
+    "154_Urdu_Kaise_Shuru_Karein.png",
+    "155_Urdu_BSC_Network.png",
+    "156_Urdu_Referral_Explained.png",
+    "157_Urdu_Token_Burn.png",
+    "158_Urdu_Wallet_Guide.png",
+    "159_Urdu_ROI_Explained.png",
+    "160_Urdu_Funds_Safe.png",
+    "251_Urdu_Plan1_7Din.png",
+    "252_Urdu_Plan2_14Din.png",
+    "253_Urdu_Plan3_30Din.png",
+    "254_Urdu_Plan4_60Din.png",
+    "255_Urdu_Sab_4_Plan.png",
+    "321_Urdu_Referral_Rozana.png",
+    "322_Urdu_20_Level_Network.png",
+    "323_Urdu_Dost_Ko_Batao.png",
+    "324_Urdu_Turbo_Ambassador.png",
+    "325_Urdu_Passive_Network.png",
+    "401_Urdu_Scam_Nahi.png",
+    "402_Urdu_Paisa_Mehfooz.png",
+    "403_Urdu_Crypto_Nahi_Samjha.png",
+    "404_Urdu_Paisa_Kab_Milega.png",
+    "405_Urdu_Sabit_Ho_Chuka.png",
+    "406_Urdu_Eid_Mubarak.png",
+    "407_Urdu_Ramadan_Mubarak.png",
+    "408_Urdu_Telegram_Community.png",
+    "409_Urdu_Abhi_Shuru_Karo.png",
+    "410_Urdu_50_Milestone.png"
+  ],
+  "german": [
+    "051_German_Finanzielle_Freiheit.png",
+    "052_German_Fruehzeitig_Rente.png",
+    "053_German_Traumhaus.png",
+    "054_German_Frau_Investiert.png",
+    "055_German_Student_Verdient.png",
+    "056_German_Weltreise.png",
+    "057_German_Passives_Einkommen.png",
+    "058_German_Rentner_DeFi.png",
+    "059_German_Handwerker_Investiert.png",
+    "060_German_Generationsreichtum.png",
+    "151_German_Was_Ist_DeFi.png",
+    "152_German_Smart_Contract.png",
+    "153_German_USDT_Erklaert.png",
+    "154_German_Wie_Starten.png",
+    "155_German_BSC_Netzwerk.png",
+    "156_German_Referral_Erklaert.png",
+    "157_German_Token_Burn.png",
+    "158_German_Wallet_Guide.png",
+    "159_German_ROI_Erklaert.png",
+    "160_German_Sicherheit.png",
+    "251_German_Plan1_7Tage.png",
+    "252_German_Plan2_14Tage.png",
+    "253_German_Plan3_30Tage.png",
+    "254_German_Plan4_60Tage.png",
+    "255_German_Plan_Vergleich.png",
+    "256_German_Kalkulator_Plan1.png",
+    "257_German_Kalkulator_Plan4.png",
+    "258_German_Reinvestition.png",
+    "259_German_DeFi_Vs_Bank.png",
+    "260_German_Min_1_USDT.png",
+    "321_German_Referral_Taeglich.png",
+    "322_German_20_Ebenen_Netzwerk.png",
+    "323_German_Freunde_Einladen.png",
+    "324_German_Turbo_Ambassador.png",
+    "325_German_Netzwerk_Strategie.png",
+    "326_German_Passives_Netzwerk.png",
+    "327_German_Familie_Gemeinsam.png",
+    "328_German_Telegram_Community.png",
+    "329_German_Turbo_Legend.png",
+    "330_German_Jetzt_Starten.png",
+    "401_German_Kein_Betrug.png",
+    "402_German_Mein_Geld_Sicher.png",
+    "403_German_Kein_Crypto_Wissen.png",
+    "404_German_Wann_Auszahlung.png",
+    "405_German_Bereits_Bewiesen.png",
+    "406_German_Weihnachten_DeFi.png",
+    "407_German_Silvester_DeFi.png",
+    "408_German_Oktoberfest_DeFi.png",
+    "409_German_Telegram_Beitreten.png",
+    "410_German_50_Milestone.png"
   ]
 };
 
@@ -63479,20 +63801,20 @@ TurboLoop's daily yield gets you there \u2014 one compounding day at a time.
 var CAMPAIGN_TOKEN_CAPTIONS = [
   `$TURBO isn't just a token. It's proof the protocol works.
 
-No team mint. No admin key. Fixed supply. Every $TURBO in existence was earned by the protocol \u2014 not printed by a team.
+No team allocation. No admin key. Reward-based minting. Every $TURBO in existence was earned by a participant \u2014 not printed by a team.
 
 \u{1F449} Verify on-chain: https://turboloop.tech/token
 
 #TURBO #DeFiToken #BSC #Tokenomics #OnChain`,
-  `The rarest tokens are the ones no one can create more of.
+  `The rarest tokens are the ones that get burned every single day.
 
-$TURBO has a fixed supply, no mint function, and a daily buyback mechanism that permanently removes tokens from circulation.
+$TURBO has a daily burn mechanism \u2014 10% of all admin fees go to the Burn Contract at 2PM UTC, permanently removing $TURBO from circulation. No team allocation. No insider reserve.
 
-Scarcity is built in.
+Scarcity is earned, not declared.
 
 \u{1F449} https://turboloop.tech/token
 
-#TURBO #FixedSupply #Deflationary #BSC #DeFiToken`,
+#TURBO #DailyBurn #Deflationary #BSC #DeFiToken`,
   `$TURBO price update: check turboloop.tech/token for the latest.
 
 Every day, the protocol buys back $TURBO from the open market and burns it. Less supply. Same demand. You do the math.
@@ -63521,13 +63843,13 @@ $TURBO's liquidity is locked on-chain. The LP tokens are in a contract, not a wa
 \u{1F449} Verify: https://turboloop.tech/token
 
 #TURBO #LockedLiquidity #NoRugPull #DeFiToken #BSC`,
-  `$TURBO tokenomics in one line: fixed supply, daily buyback, locked liquidity, no mint function.
+  `$TURBO tokenomics in one line: reward-based minting, daily buyback, locked liquidity, no team allocation.
 
-That's it. No complex vesting schedules. No team allocation cliff. Just clean, transparent mechanics.
+That's it. No complex vesting schedules. No insider cliff. Just clean, transparent mechanics \u2014 verifiable on-chain.
 
 \u{1F449} https://turboloop.tech/token
 
-#TURBO #Tokenomics #DeFi #BSC #FixedSupply`,
+#TURBO #Tokenomics #DeFi #BSC #DailyBurn`,
   `Every protocol fee goes back to $TURBO holders through the buyback mechanism.
 
 When the protocol earns, $TURBO gets bought and burned. When more people deposit, more $TURBO gets removed from supply.
@@ -63558,13 +63880,13 @@ $TURBO is governed by code, not promises.
 \u{1F449} https://turboloop.tech/token
 
 #TURBO #SmartContract #DeFi #CodeIsLaw #BSC`,
-  `Most tokens go to zero because the team sells. $TURBO can't be minted \u2014 so there's nothing to sell.
+  `Most tokens go to zero because the team sells. $TURBO has zero team allocation \u2014 there's nothing to dump.
 
-Fixed supply. Daily buyback. Locked liquidity. This is what a clean token looks like.
+Reward-minted supply. Daily buyback. Locked liquidity. This is what a clean token looks like.
 
 \u{1F449} https://turboloop.tech/token
 
-#TURBO #FixedSupply #NoMint #DeFiToken #BSC`
+#TURBO #NoTeamAllocation #DailyBurn #DeFiToken #BSC`
 ];
 var CAMPAIGN_REFERRAL_CAPTIONS = [
   `You earn. Your team earns. Their team earns. And you earn from all of it.
@@ -64241,11 +64563,11 @@ The burn address balance grows every day. Every token sent there is gone forever
 #TURBO #BurnAddress #Deflationary #DeFiToken #BSC`,
   `Most tokens inflate. $TURBO deflates.
 
-While other projects print new tokens for team salaries and marketing, $TURBO's supply only goes in one direction: down.
+While other projects print new tokens for team salaries and marketing, $TURBO mints only for participant rewards \u2014 and burns daily via the Burn Contract. Net supply pressure: down.
 
 \u{1F449} https://turboloop.tech/token
 
-#TURBO #Deflationary #FixedSupply #DeFiToken #BSC`,
+#TURBO #Deflationary #DailyBurn #DeFiToken #BSC`,
   `The buyback is funded by real protocol activity \u2014 not promises.
 
 TurboLoop earns fees from liquidity provision. Those fees buy $TURBO. That $TURBO gets burned. Real yield. Real deflation.
@@ -64262,11 +64584,11 @@ When new members deposit USDT, protocol fees increase, buybacks increase, and $T
 #TURBO #HolderBenefit #Deflationary #DeFiToken #NetworkEffect`,
   `$TURBO: the token that gets rarer every day.
 
-Fixed supply. Daily buyback. Permanent burn. No mint function. This is what a properly designed deflationary token looks like.
+Reward-based minting. Daily buyback. Permanent burn. No team allocation. This is what a properly designed deflationary token looks like.
 
 \u{1F449} https://turboloop.tech/token
 
-#TURBO #GetsRarer #Deflationary #FixedSupply #DeFiToken`
+#TURBO #GetsRarer #Deflationary #DailyBurn #DeFiToken`
 ];
 var CAMPAIGN_COMPARISON_CAPTIONS = [
   `Bank savings account: 0.5% per year.
@@ -64545,6 +64867,228 @@ function campaignBannerUrl(category, index) {
   const i5 = Math.abs(index) % files.length;
   return `${R22}/campaigns/${category}/${files[i5]}`;
 }
+var CAMPAIGN_INDONESIAN_CAPTIONS = [
+  `\u{1F1EE}\u{1F1E9}\u{1F680} Wujudkan kebebasan finansial dengan TurboLoop!
+
+Dapatkan hasil DeFi di BSC: 7 hari (3%), 14 hari (7%), 30 hari (18%), 60 hari (40%). Modal + keuntungan dikembalikan di akhir periode.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #InvestasiCrypto #PenghasilanPasif`,
+  `\u{1F4B0} Mulai dengan hanya $1 USDT. Tanpa KYC.
+
+TurboLoop adalah platform DeFi teraudit di BSC \u2014 transparan, aman, dan menguntungkan.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #USDT #CryptoIndonesia`,
+  `\u{1F525} Komisi referral dibayar setiap hari pukul 13.00 UTC.
+
+Bangun jaringan 20 level dan dapatkan komisi harian langsung ke wallet kamu.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #Referral #PenghasilanPasif #DeFi`,
+  `\u{1F4CA} Plan 30 hari: titik optimal keuntungan.
+
+Tunggu sebulan. Dapatkan modal + 18% ROI di akhir periode. Tanpa trading, tanpa stres.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #Plan30Hari #DeFi #USDT`,
+  `\u2705 Smart contract teraudit. 100% transparan.
+
+Semua bisa diverifikasi di BSCScan. Uangmu, aturanmu.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #Teraudit #DeFi #Blockchain`
+];
+var CAMPAIGN_CHINESE_CAPTIONS = [
+  `\u{1F1E8}\u{1F1F3}\u{1F680} \u8D22\u5BCC\u81EA\u7531\u4ECETurboLoop\u5F00\u59CB\uFF01
+
+BSC\u94FE\u4E0ADeFi\u6536\u76CA\uFF1A7\u59293%\u300114\u59297%\u300130\u592918%\u300160\u592940% ROI\u3002\u671F\u672B\u8FD4\u8FD8\u672C\u91D1+\u6536\u76CA\u3002
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #\u88AB\u52A8\u6536\u5165 #USDT`,
+  `\u{1F4B0} \u6700\u4F4E$1 USDT\u8D77\u6295\uFF0C\u65E0\u9700KYC\u3002
+
+TurboLoop\u662FBSC\u4E0A\u7ECF\u8FC7\u5BA1\u8BA1\u7684DeFi\u5E73\u53F0\u2014\u2014\u900F\u660E\u3001\u5B89\u5168\u3001\u9AD8\u6536\u76CA\u3002
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #\u52A0\u5BC6\u8D27\u5E01 #\u7406\u8D22`,
+  `\u{1F525} \u63A8\u8350\u4F63\u91D1\u6BCF\u5929UTC\u4E0B\u53481\u70B9\u53D1\u653E\u3002
+
+\u5EFA\u7ACB20\u7EA7\u63A8\u8350\u7F51\u7EDC\uFF0C\u6BCF\u5929\u76F4\u63A5\u5230\u8D26\u4F63\u91D1\u3002
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #\u63A8\u8350\u5956\u52B1 #\u88AB\u52A8\u6536\u5165 #DeFi`,
+  `\u{1F4CA} 30\u5929\u8BA1\u5212\uFF1A\u6536\u76CA\u6700\u4F18\u9009\u62E9\u3002
+
+\u7B49\u5F85\u4E00\u4E2A\u6708\uFF0C\u83B7\u5F97\u672C\u91D1+18% ROI\u3002\u65E0\u9700\u4EA4\u6613\uFF0C\u65E0\u538B\u529B\u3002
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #30\u5929\u8BA1\u5212 #DeFi #USDT`,
+  `\u2705 \u667A\u80FD\u5408\u7EA6\u5DF2\u5BA1\u8BA1\uFF0C100%\u900F\u660E\u3002
+
+\u4E00\u5207\u5747\u53EF\u5728BSCScan\u9A8C\u8BC1\u3002\u4F60\u7684\u94B1\uFF0C\u4F60\u505A\u4E3B\u3002
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #\u5DF2\u5BA1\u8BA1 #DeFi #\u533A\u5757\u94FE`
+];
+var CAMPAIGN_ITALIAN_CAPTIONS = [
+  `\u{1F1EE}\u{1F1F9}\u{1F680} La libert\xE0 finanziaria inizia con TurboLoop!
+
+Rendimenti DeFi su BSC: 7 giorni (3%), 14 giorni (7%), 30 giorni (18%), 60 giorni (40%). Capitale + guadagni restituiti a fine periodo.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #RedditoPassivo #USDT`,
+  `\u{1F4B0} Inizia con soli $1 USDT. Nessun KYC.
+
+TurboLoop \xE8 una piattaforma DeFi certificata su BSC \u2014 trasparente, sicura e redditizia.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #CryptoItalia #InvestimentoCrypto`,
+  `\u{1F525} Le commissioni referral vengono pagate ogni giorno alle 13:00 UTC.
+
+Costruisci una rete a 20 livelli e guadagna commissioni giornaliere direttamente nel tuo wallet.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #Referral #RedditoPassivo #DeFi`,
+  `\u{1F4CA} Piano da 30 giorni: il punto ottimale di rendimento.
+
+Aspetta un mese. Ricevi capitale + 18% ROI a fine periodo. Senza trading, senza stress.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #Piano30Giorni #DeFi #USDT`,
+  `\u2705 Smart contract certificato. 100% trasparente.
+
+Tutto verificabile su BSCScan. I tuoi soldi, le tue regole.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #Certificato #DeFi #Blockchain`
+];
+var CAMPAIGN_ARABIC_CAPTIONS = [
+  `\u{1F1F8}\u{1F1E6}\u{1F680} \u0627\u0644\u062D\u0631\u064A\u0629 \u0627\u0644\u0645\u0627\u0644\u064A\u0629 \u062A\u0628\u062F\u0623 \u0645\u0639 TurboLoop!
+
+\u0639\u0648\u0627\u0626\u062F DeFi \u0639\u0644\u0649 BSC: 7 \u0623\u064A\u0627\u0645 (3%)\u060C 14 \u064A\u0648\u0645 (7%)\u060C 30 \u064A\u0648\u0645 (18%)\u060C 60 \u064A\u0648\u0645 (40%). \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 + \u0627\u0644\u0623\u0631\u0628\u0627\u062D \u062A\u064F\u0639\u0627\u062F \u0641\u064A \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0641\u062A\u0631\u0629.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #\u062F\u062E\u0644_\u0633\u0644\u0628\u064A #USDT`,
+  `\u{1F4B0} \u0627\u0628\u062F\u0623 \u0628\u062F\u0648\u0644\u0627\u0631 \u0648\u0627\u062D\u062F \u0641\u0642\u0637. \u0628\u062F\u0648\u0646 KYC.
+
+TurboLoop \u0645\u0646\u0635\u0629 DeFi \u0645\u062F\u0642\u0642\u0629 \u0639\u0644\u0649 BSC \u2014 \u0634\u0641\u0627\u0641\u0629 \u0648\u0622\u0645\u0646\u0629 \u0648\u0645\u0631\u0628\u062D\u0629.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #\u0643\u0631\u064A\u0628\u062A\u0648 #\u0627\u0633\u062A\u062B\u0645\u0627\u0631`,
+  `\u{1F525} \u0639\u0645\u0648\u0644\u0627\u062A \u0627\u0644\u0625\u062D\u0627\u0644\u0629 \u062A\u064F\u062F\u0641\u0639 \u064A\u0648\u0645\u064A\u0627\u064B \u0627\u0644\u0633\u0627\u0639\u0629 1 \u0638\u0647\u0631\u0627\u064B UTC.
+
+\u0627\u0628\u0646\u0650 \u0634\u0628\u0643\u0629 \u0645\u0646 20 \u0645\u0633\u062A\u0648\u0649 \u0648\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0639\u0645\u0648\u0644\u0627\u062A \u064A\u0648\u0645\u064A\u0629 \u0645\u0628\u0627\u0634\u0631\u0629 \u0641\u064A \u0645\u062D\u0641\u0638\u062A\u0643.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #\u0625\u062D\u0627\u0644\u0629 #\u062F\u062E\u0644_\u0633\u0644\u0628\u064A #DeFi`,
+  `\u{1F4CA} \u062E\u0637\u0629 30 \u064A\u0648\u0645\u0627\u064B: \u0623\u0641\u0636\u0644 \u0646\u0642\u0637\u0629 \u0644\u0644\u0639\u0627\u0626\u062F.
+
+\u0627\u0646\u062A\u0638\u0631 \u0634\u0647\u0631\u0627\u064B. \u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 + 18% ROI \u0641\u064A \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0641\u062A\u0631\u0629. \u0628\u062F\u0648\u0646 \u062A\u062F\u0627\u0648\u0644\u060C \u0628\u062F\u0648\u0646 \u0636\u063A\u0637.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #\u062E\u0637\u062930\u064A\u0648\u0645 #DeFi #USDT`,
+  `\u2705 \u0639\u0642\u062F \u0630\u0643\u064A \u0645\u062F\u0642\u0642. \u0634\u0641\u0627\u0641\u064A\u0629 100%.
+
+\u0643\u0644 \u0634\u064A\u0621 \u0642\u0627\u0628\u0644 \u0644\u0644\u062A\u062D\u0642\u0642 \u0639\u0644\u0649 BSCScan. \u0645\u0627\u0644\u0643\u060C \u0642\u0648\u0627\u0639\u062F\u0643.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #\u0645\u062F\u0642\u0642 #DeFi #\u0628\u0644\u0648\u0643\u062A\u0634\u064A\u0646`
+];
+var CAMPAIGN_URDU_CAPTIONS = [
+  `\u{1F1F5}\u{1F1F0}\u{1F680} \u0645\u0627\u0644\u06CC \u0622\u0632\u0627\u062F\u06CC TurboLoop \u0633\u06D2 \u0634\u0631\u0648\u0639 \u06C1\u0648\u062A\u06CC \u06C1\u06D2!
+
+BSC \u067E\u0631 DeFi \u0645\u0646\u0627\u0641\u0639: 7 \u062F\u0646 (3%)\u060C 14 \u062F\u0646 (7%)\u060C 30 \u062F\u0646 (18%)\u060C 60 \u062F\u0646 (40%)\u06D4 \u0645\u062F\u062A \u06A9\u06D2 \u0622\u062E\u0631 \u0645\u06CC\u06BA \u0627\u0635\u0644 \u0631\u0642\u0645 + \u0645\u0646\u0627\u0641\u0639 \u0648\u0627\u067E\u0633\u06D4
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #\u063A\u06CC\u0631\u0641\u0639\u0627\u0644_\u0622\u0645\u062F\u0646\u06CC #USDT`,
+  `\u{1F4B0} \u0635\u0631\u0641 $1 USDT \u0633\u06D2 \u0634\u0631\u0648\u0639 \u06A9\u0631\u06CC\u06BA\u06D4 \u06A9\u0648\u0626\u06CC KYC \u0646\u06C1\u06CC\u06BA\u06D4
+
+TurboLoop BSC \u067E\u0631 \u0627\u06CC\u06A9 \u0622\u0688\u0679 \u0634\u062F\u06C1 DeFi \u067E\u0644\u06CC\u0679 \u0641\u0627\u0631\u0645 \u06C1\u06D2 \u2014 \u0634\u0641\u0627\u0641\u060C \u0645\u062D\u0641\u0648\u0638 \u0627\u0648\u0631 \u0645\u0646\u0627\u0641\u0639 \u0628\u062E\u0634\u06D4
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #\u06A9\u0631\u067E\u0679\u0648 #\u067E\u0627\u06A9\u0633\u062A\u0627\u0646`,
+  `\u{1F525} \u0631\u06CC\u0641\u0631\u0644 \u06A9\u0645\u06CC\u0634\u0646 \u0631\u0648\u0632\u0627\u0646\u06C1 \u062F\u0648\u067E\u06C1\u0631 1 \u0628\u062C\u06D2 UTC \u0627\u062F\u0627 \u06C1\u0648\u062A\u0627 \u06C1\u06D2\u06D4
+
+20 \u0633\u0637\u062D\u06CC \u0646\u06CC\u0679 \u0648\u0631\u06A9 \u0628\u0646\u0627\u0626\u06CC\u06BA \u0627\u0648\u0631 \u0631\u0648\u0632\u0627\u0646\u06C1 \u06A9\u0645\u06CC\u0634\u0646 \u0633\u06CC\u062F\u06BE\u06D2 \u0627\u067E\u0646\u06D2 \u0648\u0627\u0644\u06CC\u0679 \u0645\u06CC\u06BA \u067E\u0627\u0626\u06CC\u06BA\u06D4
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #\u0631\u06CC\u0641\u0631\u0644 #\u063A\u06CC\u0631\u0641\u0639\u0627\u0644_\u0622\u0645\u062F\u0646\u06CC #DeFi`,
+  `\u{1F4CA} 30 \u062F\u0646 \u06A9\u0627 \u067E\u0644\u0627\u0646: \u0645\u0646\u0627\u0641\u0639 \u06A9\u0627 \u0628\u06C1\u062A\u0631\u06CC\u0646 \u0646\u0642\u0637\u06C1\u06D4
+
+\u0627\u06CC\u06A9 \u0645\u0627\u06C1 \u0627\u0646\u062A\u0638\u0627\u0631 \u06A9\u0631\u06CC\u06BA\u06D4 \u0645\u062F\u062A \u06A9\u06D2 \u0622\u062E\u0631 \u0645\u06CC\u06BA \u0627\u0635\u0644 \u0631\u0642\u0645 + 18% ROI \u062D\u0627\u0635\u0644 \u06A9\u0631\u06CC\u06BA\u06D4 \u0628\u063A\u06CC\u0631 \u0679\u0631\u06CC\u0688\u0646\u06AF\u060C \u0628\u063A\u06CC\u0631 \u062A\u0646\u0627\u0624\u06D4
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #30\u062F\u0646_\u067E\u0644\u0627\u0646 #DeFi #USDT`,
+  `\u2705 \u0622\u0688\u0679 \u0634\u062F\u06C1 \u0633\u0645\u0627\u0631\u0679 \u06A9\u0646\u0679\u0631\u06CC\u06A9\u0679\u06D4 100% \u0634\u0641\u0627\u0641\u06D4
+
+\u0633\u0628 \u06A9\u0686\u06BE BSCScan \u067E\u0631 \u0642\u0627\u0628\u0644 \u062A\u0635\u062F\u06CC\u0642\u06D4 \u0622\u067E \u06A9\u0627 \u067E\u06CC\u0633\u06C1\u060C \u0622\u067E \u06A9\u06D2 \u0627\u0635\u0648\u0644\u06D4
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #\u0622\u0688\u0679_\u0634\u062F\u06C1 #DeFi #\u0628\u0644\u0627\u06A9\u0686\u06CC\u0646`
+];
+var CAMPAIGN_GERMAN_CAPTIONS = [
+  `\u{1F1E9}\u{1F1EA}\u{1F680} Finanzielle Freiheit beginnt mit TurboLoop!
+
+DeFi-Renditen auf BSC: 7 Tage (3%), 14 Tage (7%), 30 Tage (18%), 60 Tage (40%). Kapital + Gewinne werden am Ende der Laufzeit zur\xFCckgegeben.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #PassivesEinkommen #USDT`,
+  `\u{1F4B0} Starte mit nur $1 USDT. Kein KYC.
+
+TurboLoop ist eine gepr\xFCfte DeFi-Plattform auf BSC \u2014 transparent, sicher und rentabel.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #DeFi #KryptoInvestition #Deutschland`,
+  `\u{1F525} Referral-Provisionen werden t\xE4glich um 13:00 Uhr UTC ausgezahlt.
+
+Baue ein 20-stufiges Netzwerk auf und erhalte t\xE4glich Provisionen direkt in dein Wallet.
+
+\u{1F449} https://turboloop.tech
+
+#TurboLoop #Referral #PassivesEinkommen #DeFi`,
+  `\u{1F4CA} 30-Tage-Plan: Der optimale Rendite-Punkt.
+
+Einen Monat warten. Kapital + 18% ROI am Ende der Laufzeit erhalten. Kein Trading, kein Stress.
+
+\u{1F449} https://turboloop.tech/calculator
+
+#TurboLoop #Plan30Tage #DeFi #USDT`,
+  `\u2705 Gepr\xFCfter Smart Contract. 100% transparent.
+
+Alles auf BSCScan verifizierbar. Dein Geld, deine Regeln.
+
+\u{1F449} https://turboloop.tech/token
+
+#TurboLoop #Gepr\xFCft #DeFi #Blockchain`
+];
 
 // server/db.ts
 init_drizzle_orm();
@@ -79218,7 +79762,6 @@ The marketing toolkit your uplines never told you existed.
       { hour: 7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 1 },
       // ── 08:xx ──
       { hour: 8, minute: 0, taskId: "campaign:c17", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 1 },
-      { hour: 8, minute: 30, taskId: "campaign:c18", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 1 },
       // ── 09:xx ──
       { hour: 9, minute: 0, taskId: "campaign:c19", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 1 },
       { hour: 9, minute: 30, taskId: "campaign:c20", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS, slotOffset: 1 },
@@ -79236,7 +79779,6 @@ The marketing toolkit your uplines never told you existed.
       { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 2 },
       // ── 14:xx ──
       { hour: 14, minute: 0, taskId: "campaign:c29", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 2 },
-      { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 2 },
       // ── 14:xx (moved from 15:xx — clear Zoom window 15:00–17:00 UTC) ──
       { hour: 14, minute: 45, taskId: "campaign:c31", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 2 },
       // ── 15:xx — ZOOM WINDOW (HI T-60 @ 15:00, T-30 @ 15:30, T-15 @ 15:45, LIVE @ 16:00) ──
@@ -79258,7 +79800,6 @@ The marketing toolkit your uplines never told you existed.
       { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 3 },
       // ── 20:xx ──
       { hour: 20, minute: 0, taskId: "campaign:c41", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 3 },
-      { hour: 20, minute: 30, taskId: "campaign:c42", category: "nigerian", captions: CAMPAIGN_NIGERIAN_CAPTIONS, slotOffset: 3 },
       // ── 21:xx ──
       { hour: 21, minute: 0, taskId: "campaign:c43", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 3 },
       { hour: 21, minute: 30, taskId: "campaign:c44", category: "education-defi", captions: CAMPAIGN_EDUCATION_CAPTIONS, slotOffset: 3 },
@@ -79274,9 +79815,18 @@ The marketing toolkit your uplines never told you existed.
       // 21:00 UTC = 15:00 PM Mexico / 17:00 PM Buenos Aires (afternoon peak)
       // 23:30 UTC = 17:30 PM Mexico / 19:30 PM Buenos Aires (evening prime)
       { hour: 12, minute: 45, taskId: "campaign:es01", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 0 },
-      { hour: 17, minute: 0, taskId: "campaign:es02", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 1 },
-      { hour: 21, minute: 15, taskId: "campaign:es03", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 2 },
-      { hour: 23, minute: 45, taskId: "campaign:es04", category: "spanish", captions: CAMPAIGN_SPANISH_CAPTIONS, slotOffset: 3 }
+      // Indonesian — 4 daily slots (staggered)
+      { hour: 1, minute: 45, taskId: "campaign:id01", category: "indonesian", captions: CAMPAIGN_INDONESIAN_CAPTIONS, slotOffset: 0 },
+      // Chinese — 4 daily slots
+      { hour: 2, minute: 15, taskId: "campaign:zh01", category: "chinese", captions: CAMPAIGN_CHINESE_CAPTIONS, slotOffset: 0 },
+      // Italian — 4 daily slots
+      { hour: 3, minute: 15, taskId: "campaign:it01", category: "italian", captions: CAMPAIGN_ITALIAN_CAPTIONS, slotOffset: 0 },
+      // Arabic — 4 daily slots
+      { hour: 4, minute: 15, taskId: "campaign:ar01", category: "arabic", captions: CAMPAIGN_ARABIC_CAPTIONS, slotOffset: 0 },
+      // Urdu — 4 daily slots
+      { hour: 4, minute: 45, taskId: "campaign:ur01", category: "urdu", captions: CAMPAIGN_URDU_CAPTIONS, slotOffset: 0 },
+      // German — 4 daily slots (DACH timezone friendly)
+      { hour: 6, minute: 45, taskId: "campaign:de01", category: "german", captions: CAMPAIGN_GERMAN_CAPTIONS, slotOffset: 0 }
     ];
     const campaignForceSet = new Set(
       forceSet.has("campaign:all") ? CAMPAIGN_SLOTS.map((s) => s.taskId) : CAMPAIGN_SLOTS.map((s) => s.taskId).filter((id) => forceSet.has(id))
@@ -79298,7 +79848,7 @@ The marketing toolkit your uplines never told you existed.
     for (const [legacyKey, slotIds] of Object.entries(legacyCategoryForce)) {
       if (forceSet.has(legacyKey)) slotIds.forEach((id) => campaignForceSet.add(id));
     }
-    async function sendCampaignWithVerification(taskId, imgUrl, caption) {
+    const sendCampaignWithVerification = async (taskId, imgUrl, caption) => {
       const attempt = async () => tgBroadcastPhoto({ photoUrl: imgUrl, caption, parseMode: "HTML" });
       let results = await attempt();
       const failedChannels = results.filter((r5) => !r5.ok);
@@ -79324,7 +79874,7 @@ The marketing toolkit your uplines never told you existed.
         throw new Error(`TG delivery failed on all channels \u2014 ${errMsg}`);
       }
       return { delivered, channels: results.length, failed };
-    }
+    };
     for (const slot of CAMPAIGN_SLOTS) {
       const forceSlot = campaignForceSet.has(slot.taskId);
       try {

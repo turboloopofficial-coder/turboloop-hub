@@ -78458,6 +78458,24 @@ async function handler(req, res) {
       }
       return;
     }
+    if (reqUrlDebug.searchParams.get("broadcastphoto") === "1") {
+      const photoUrl = reqUrlDebug.searchParams.get("photoUrl") || "";
+      const caption = reqUrlDebug.searchParams.get("caption") || "";
+      const buttonsParam = reqUrlDebug.searchParams.get("buttons") || "";
+      if (!photoUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Missing ?photoUrl= param" }));
+        return;
+      }
+      const buttons = buttonsParam ? buttonsParam.split(",").map((b5) => {
+        const [text2, url] = b5.split("|");
+        return { text: text2 || "", url: url || "" };
+      }).filter((b5) => b5.text && b5.url) : [];
+      const results = await tgBroadcastPhoto({ photoUrl, caption, parseMode: "HTML", buttons: buttons.length ? buttons : void 0 });
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, results }));
+      return;
+    }
     try {
       const priceRes = await fetch("https://www.turboloop.tech/api/token-price", {
         signal: AbortSignal.timeout(8e3)

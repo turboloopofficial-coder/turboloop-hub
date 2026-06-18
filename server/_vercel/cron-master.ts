@@ -637,6 +637,27 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return;
     }
 
+    // ─── Manual broadcast: ?broadcastphoto=1&photoUrl=...&caption=... ────────────
+    // Immediately sends a photo to TELEGRAM_CHANNEL with the given caption.
+    // Usage: ?broadcastphoto=1&photoUrl=https://...&caption=Your+caption+here
+    if (reqUrlDebug.searchParams.get("broadcastphoto") === "1") {
+      const photoUrl = reqUrlDebug.searchParams.get("photoUrl") || "";
+      const caption = reqUrlDebug.searchParams.get("caption") || "";
+      const buttonsParam = reqUrlDebug.searchParams.get("buttons") || "";
+      if (!photoUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Missing ?photoUrl= param" }));
+        return;
+      }
+      const buttons = buttonsParam
+        ? buttonsParam.split(",").map((b: string) => { const [text, url] = b.split("|"); return { text: text || "", url: url || "" }; }).filter((b: {text:string;url:string}) => b.text && b.url)
+        : [];
+      const results = await tgBroadcastPhoto({ photoUrl, caption, parseMode: "HTML", buttons: buttons.length ? buttons : undefined });
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, results }));
+      return;
+    }
+
     // ─── Price cache refresh (runs every cron tick) ──────────────
     // Pulls fresh DexScreener data via our own /api/token-price proxy
     // and writes it into site_settings under `cache:token_price`. The

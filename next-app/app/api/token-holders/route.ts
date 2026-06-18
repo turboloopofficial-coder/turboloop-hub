@@ -17,7 +17,7 @@ import { NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
-import { siteSettings } from "../../../server/drizzle/schema";
+import { siteSettings } from "../../../drizzle/schema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

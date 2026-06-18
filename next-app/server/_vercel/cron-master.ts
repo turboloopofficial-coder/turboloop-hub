@@ -653,6 +653,55 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // Non-fatal — stale cache is fine, bot will use last known price.
     }
 
+    // ─── Holder count cache refresh (runs every cron tick) ───────────
+    // Fetches TURBO token holder count from BscScan and caches it in
+    // site_settings under `cache:token_holders`. The /api/token-holders
+    // route reads this row as its primary source — BscScan blocks
+    // Cloudflare Worker and Vercel datacenter IPs but the cron-master
+    // runs on a different IP pool (turboloop-hub project) that is not
+    // blocked. Non-fatal: stale cache is fine.
+    try {
+      const _CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
+      const _BSCSCAN_AJAX = `https://bscscan.com/token/generic-tokenholders2?m=normal&a=${_CONTRACT}&s=0&sid=0&l=10&p=1&f=0&mode=&chainid=56`;
+      const _BSCSCAN_TOKEN = `https://bscscan.com/token/${_CONTRACT}`;
+      const _BSC_HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+      };
+      let _holdersNum: number | null = null;
+      for (const _url of [_BSCSCAN_AJAX, _BSCSCAN_TOKEN]) {
+        try {
+          const _bscRes = await fetch(_url, { signal: AbortSignal.timeout(12000), headers: _BSC_HEADERS });
+          if (!_bscRes.ok) continue;
+          const _html = await _bscRes.text();
+          if (_html.length < 500) continue;
+          const _m1 = _html.match(/total of ([\d,]+) holder/i);
+          const _m2 = _html.match(/Holders:\s*([\d,]+)/i);
+          const _raw = (_m1 || _m2)?.[1]?.replace(/,/g, "");
+          if (_raw) { _holdersNum = parseInt(_raw, 10); break; }
+        } catch { /* try next */ }
+      }
+      if (_holdersNum && _holdersNum > 0) {
+        const _holderValue = JSON.stringify({
+          holders: _holdersNum.toLocaleString("en-US"),
+          holdersNum: _holdersNum,
+          fetchedAt: Date.now(),
+          fresh: true,
+        });
+        await db
+          .insert(siteSettings)
+          .values({ settingKey: "cache:token_holders", settingValue: _holderValue })
+          .onConflictDoUpdate({
+            target: siteSettings.settingKey,
+            set: { settingValue: _holderValue, updatedAt: new Date() },
+          });
+      }
+    } catch (_holderErr) {
+      // Non-fatal — stale cache is fine.
+    }
+
     // ─── Manual force-fire overrides ────────────────────────────────
     // Allows campaign slots to fire on demand outside their normal time
     // window. Used on launch day for each campaign when the regular

@@ -1,22 +1,29 @@
-// /api/token-holders — fetches the current holder count for the TURBO token.
+// /api/token-holders — serves the TURBO token holder count.
 //
-// Strategy (in order):
-//   1. Try BscScan AJAX endpoint directly from Vercel (Node.js runtime, not blocked)
-//   2. Try BscScan main token page meta description
-//   3. Fall back to Cloudflare Worker proxy (legacy, may be blocked)
+// Primary source: `cache:token_holders` row in site_settings DB.
+// The cron-master (turboloop-hub project) fetches from BscScan every
+// 5 minutes and writes this row. BscScan blocks Cloudflare Worker and
+// Vercel datacenter IPs, but the cron-master runs on a different IP
+// pool that is NOT blocked.
 //
-// Cache: 30-min in-memory TTL. On failure we serve stale cache if available;
-// if nothing is cached we return { holders: null, fresh: false } and the
-// widget renders "—" without breaking the rest of the supply panel.
+// Fallback: try BscScan directly (may work from some Vercel regions),
+// then the Cloudflare Worker proxy.
+//
+// Cache: 30-min in-memory TTL. On failure we serve stale cache if
+// available; if nothing is cached we return { holders: null, fresh: false }
+// and the widget renders "—" without breaking the rest of the supply panel.
 
 import { NextResponse } from "next/server";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { eq } from "drizzle-orm";
+import { siteSettings } from "../../../server/drizzle/schema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
-const BSCSCAN_AJAX_URL =
-  `https://bscscan.com/token/generic-tokenholders2?m=normal&a=${CONTRACT}&s=0&sid=0&l=10&p=1&f=0&mode=&chainid=56`;
+const BSCSCAN_AJAX_URL = `https://bscscan.com/token/generic-tokenholders2?m=normal&a=${CONTRACT}&s=0&sid=0&l=10&p=1&f=0&mode=&chainid=56`;
 const BSCSCAN_TOKEN_URL = `https://bscscan.com/token/${CONTRACT}`;
 const WORKER_URL = "https://turboloop-holders.turbo-loop-official.workers.dev/";
 
@@ -33,15 +40,9 @@ const CACHE_TTL_MS = 30 * 60_000;
 const BROWSER_HEADERS = {
   "User-Agent":
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-  Accept:
-    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
   "Accept-Language": "en-US,en;q=0.9",
   "Cache-Control": "no-cache",
-  Pragma: "no-cache",
-  "Sec-Fetch-Dest": "document",
-  "Sec-Fetch-Mode": "navigate",
-  "Sec-Fetch-Site": "none",
-  "Upgrade-Insecure-Requests": "1",
 };
 
 function emptyResponse(): TokenHoldersData {
@@ -49,23 +50,37 @@ function emptyResponse(): TokenHoldersData {
 }
 
 function parseHolders(html: string): string | null {
-  // Pattern 1: AJAX page — "A total of X,XXX holder addresses found"
   const m1 = html.match(/total of ([\d,]+) holder/i);
   if (m1) return m1[1].replace(/,/g, "");
-
-  // Pattern 2: Meta description — "Holders: X,XXX"
   const m2 = html.match(/Holders:\s*([\d,]+)/i);
   if (m2) return m2[1].replace(/,/g, "");
-
-  // Pattern 3: JSON-LD or data attribute
-  const m3 = html.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/i);
-  if (m3) return m3[1].replace(/,/g, "");
-
   return null;
 }
 
+async function fetchFromDB(): Promise<TokenHoldersData> {
+  try {
+    const dbUrl = process.env.DATABASE_URL;
+    if (!dbUrl) return emptyResponse();
+    const sql = neon(dbUrl);
+    const db = drizzle(sql);
+    const rows = await db
+      .select()
+      .from(siteSettings)
+      .where(eq(siteSettings.settingKey, "cache:token_holders"))
+      .limit(1);
+    if (!rows.length || !rows[0].settingValue) return emptyResponse();
+    const parsed = JSON.parse(rows[0].settingValue) as TokenHoldersData;
+    // Accept DB cache if it's less than 2 hours old
+    if (parsed.holdersNum && parsed.fetchedAt && Date.now() - parsed.fetchedAt < 2 * 60 * 60_000) {
+      return { ...parsed, fresh: true };
+    }
+    return emptyResponse();
+  } catch {
+    return emptyResponse();
+  }
+}
+
 async function fetchDirect(): Promise<TokenHoldersData> {
-  // Try AJAX endpoint first (lighter page)
   for (const url of [BSCSCAN_AJAX_URL, BSCSCAN_TOKEN_URL]) {
     try {
       const res = await fetch(url, {
@@ -75,7 +90,7 @@ async function fetchDirect(): Promise<TokenHoldersData> {
       });
       if (!res.ok) continue;
       const html = await res.text();
-      if (html.length < 500) continue; // Challenge page
+      if (html.length < 500) continue;
       const holders = parseHolders(html);
       if (holders) {
         const holdersNum = parseInt(holders, 10);
@@ -123,10 +138,15 @@ export async function GET() {
     });
   }
 
-  // Try direct BscScan fetch first (Vercel IPs are not blocked)
-  let data = await fetchDirect();
+  // 1. Try DB cache (populated by cron-master every 5 min)
+  let data = await fetchFromDB();
 
-  // Fall back to Cloudflare Worker if direct fetch fails
+  // 2. Try direct BscScan fetch (may work from some Vercel regions)
+  if (!data.fresh) {
+    data = await fetchDirect();
+  }
+
+  // 3. Fall back to Cloudflare Worker
   if (!data.fresh) {
     data = await fetchFromWorker();
   }

@@ -757,6 +757,185 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       console.error("[cron-master] holder count refresh error:", _holderErr);
     }
 
+    // ─── Days Since Launch Milestone ─────────────────────────────────
+    // Celebrates major time milestones (e.g., 100 Days, 6 Months, 1 Year).
+    // Deploy date: March 10, 2026 (Block 85,676,981).
+    try {
+      const DEPLOY_DATE = new Date("2026-03-10T00:00:00Z");
+      const daysSinceLaunch = Math.floor((Date.now() - DEPLOY_DATE.getTime()) / 86_400_000);
+      
+      // Milestones to celebrate (in days)
+      const TIME_MILESTONES = [100, 150, 180, 200, 250, 300, 365, 500, 730, 1000];
+      const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+      // Read last celebrated time milestone from DB
+      const _lastTimeRows = await db
+        .select({ settingValue: siteSettings.settingValue })
+        .from(siteSettings)
+        .where(eq(siteSettings.settingKey, "milestone:last_time_celebrated"))
+        .limit(1);
+      const _lastTimeCelebrated: number = _lastTimeRows[0]
+        ? (parseInt(_lastTimeRows[0].settingValue, 10) || 0)
+        : 0;
+
+      // Find the highest milestone crossed that hasn't been celebrated yet
+      const _nextTimeMilestone = TIME_MILESTONES
+        .filter(m => m > _lastTimeCelebrated && daysSinceLaunch >= m)
+        .pop(); // highest crossed
+
+      if (_nextTimeMilestone) {
+        // Build the celebration caption using Claude
+        let _timeCaption = `🎉 <b>${_nextTimeMilestone} Days of TurboLoop!</b>\n\nIt's been ${_nextTimeMilestone} days since the smart contract was deployed. Thank you to everyone building the future of DeFi with us! 🚀\n\n<b>Join the revolution:</b> https://www.turboloop.tech`;
+        try {
+          const _claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+              "anthropic-version": "2023-06-01",
+            },
+            body: JSON.stringify({
+              model: "claude-haiku-4-5",
+              max_tokens: 300,
+              system: "You write short, exciting Telegram celebration posts for TurboLoop, a DeFi yield protocol on BSC. Use Telegram HTML formatting (<b>bold</b>, <i>italic</i>). Always include the website link https://www.turboloop.tech. Keep it under 250 characters. No hashtags. End with a rocket or fire emoji.",
+              messages: [{ role: "user", content: `Write a celebration post for reaching ${_nextTimeMilestone} days since the TurboLoop smart contract was deployed. Current days: ${daysSinceLaunch}.` }],
+            }),
+            signal: AbortSignal.timeout(15000),
+          });
+          if (_claudeRes.ok) {
+            const _claudeData: any = await _claudeRes.json();
+            const _claudeText: string = _claudeData?.content?.[0]?.text ?? "";
+            if (_claudeText) _timeCaption = _claudeText;
+          }
+        } catch { /* Use fallback caption */ }
+
+        // Use milestone-specific banner if it exists, else generic
+        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextTimeMilestone}-days.png`;
+        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
+
+        // Check if specific banner exists
+        let _finalBannerUrl = _fallbackUrl;
+        try {
+          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5000) });
+          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
+        } catch { /* Use fallback */ }
+
+        // Post to Telegram
+        await tgBroadcastPhoto({
+          photoUrl: _finalBannerUrl,
+          caption: _timeCaption,
+          parseMode: "HTML",
+          buttons: [{ text: "🌐 Join TurboLoop", url: "https://www.turboloop.tech" }],
+        });
+
+        // Record the celebrated milestone so we don't post again
+        await db
+          .insert(siteSettings)
+          .values({ settingKey: "milestone:last_time_celebrated", settingValue: String(_nextTimeMilestone) })
+          .onConflictDoUpdate({
+            target: siteSettings.settingKey,
+            set: { settingValue: String(_nextTimeMilestone), updatedAt: new Date() },
+          });
+
+        console.log(`[cron-master] 🎉 Time Milestone celebrated: ${_nextTimeMilestone} days (current: ${daysSinceLaunch})`);
+      }
+    } catch (_timeMilestoneErr) {
+      console.error("[cron-master] time milestone detection error:", _timeMilestoneErr);
+    }
+
+    // ─── Unique Depositors Milestone ─────────────────────────────────
+    // Celebrates major unique depositor milestones (e.g., 1000, 2000, 5000).
+    // The cron-master does not count depositors itself (too heavy for Edge).
+    // Instead, a background worker updates `cache:unique_depositors` in DB.
+    try {
+      const DEPOSITOR_MILESTONES = [500, 1000, 1500, 2000, 2500, 3000, 5000, 10000];
+      const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+
+      // Read current unique depositors from DB cache
+      const _depRows = await db
+        .select({ settingValue: siteSettings.settingValue })
+        .from(siteSettings)
+        .where(eq(siteSettings.settingKey, "cache:unique_depositors"))
+        .limit(1);
+      const _currentDepositors: number = _depRows[0]
+        ? (parseInt(_depRows[0].settingValue, 10) || 0)
+        : 0;
+
+      // Read last celebrated depositor milestone from DB
+      const _lastDepRows = await db
+        .select({ settingValue: siteSettings.settingValue })
+        .from(siteSettings)
+        .where(eq(siteSettings.settingKey, "milestone:last_depositor_celebrated"))
+        .limit(1);
+      const _lastDepCelebrated: number = _lastDepRows[0]
+        ? (parseInt(_lastDepRows[0].settingValue, 10) || 0)
+        : 0;
+
+      // Find the highest milestone crossed that hasn't been celebrated yet
+      const _nextDepMilestone = DEPOSITOR_MILESTONES
+        .filter(m => m > _lastDepCelebrated && _currentDepositors >= m)
+        .pop(); // highest crossed
+
+      if (_nextDepMilestone && _currentDepositors > 0) {
+        // Build the celebration caption using Claude
+        let _depCaption = `🎉 <b>${_nextDepMilestone.toLocaleString("en-US")} Unique Depositors!</b>\n\nOur protocol just crossed ${_nextDepMilestone.toLocaleString("en-US")} unique wallets actively earning yield. The network effect is real. 🚀\n\n<b>Start earning today:</b> https://www.turboloop.tech`;
+        try {
+          const _claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+              "anthropic-version": "2023-06-01",
+            },
+            body: JSON.stringify({
+              model: "claude-haiku-4-5",
+              max_tokens: 300,
+              system: "You write short, exciting Telegram celebration posts for TurboLoop, a DeFi yield protocol on BSC. Use Telegram HTML formatting (<b>bold</b>, <i>italic</i>). Always include the website link https://www.turboloop.tech. Keep it under 250 characters. No hashtags. End with a rocket or fire emoji.",
+              messages: [{ role: "user", content: `Write a celebration post for reaching ${_nextDepMilestone.toLocaleString("en-US")} unique depositors (wallets actively earning yield). Current count: ${_currentDepositors.toLocaleString("en-US")}.` }],
+            }),
+            signal: AbortSignal.timeout(15000),
+          });
+          if (_claudeRes.ok) {
+            const _claudeData: any = await _claudeRes.json();
+            const _claudeText: string = _claudeData?.content?.[0]?.text ?? "";
+            if (_claudeText) _depCaption = _claudeText;
+          }
+        } catch { /* Use fallback caption */ }
+
+        // Use milestone-specific banner if it exists, else generic
+        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextDepMilestone}-depositors.png`;
+        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
+
+        // Check if specific banner exists
+        let _finalBannerUrl = _fallbackUrl;
+        try {
+          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5000) });
+          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
+        } catch { /* Use fallback */ }
+
+        // Post to Telegram
+        await tgBroadcastPhoto({
+          photoUrl: _finalBannerUrl,
+          caption: _depCaption,
+          parseMode: "HTML",
+          buttons: [{ text: "🌐 Join TurboLoop", url: "https://www.turboloop.tech" }],
+        });
+
+        // Record the celebrated milestone so we don't post again
+        await db
+          .insert(siteSettings)
+          .values({ settingKey: "milestone:last_depositor_celebrated", settingValue: String(_nextDepMilestone) })
+          .onConflictDoUpdate({
+            target: siteSettings.settingKey,
+            set: { settingValue: String(_nextDepMilestone), updatedAt: new Date() },
+          });
+
+        console.log(`[cron-master] 🎉 Depositor Milestone celebrated: ${_nextDepMilestone} depositors (current: ${_currentDepositors})`);
+      }
+    } catch (_depMilestoneErr) {
+      console.error("[cron-master] depositor milestone detection error:", _depMilestoneErr);
+    }
+
     // ─── Milestone auto-detection & auto-post ────────────────────────
     // Checks if the current holder count has crossed a milestone threshold
     // that hasn't been celebrated yet. If so, posts a pre-generated

@@ -690,6 +690,73 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // Non-fatal — stale cache is fine, bot will use last known price.
     }
 
+    // ─── Holder count refresh (runs every cron tick) ────────────────
+    // Scrapes BscScan for the current $TURBO holder count and writes it
+    // into site_settings under `cache:token_holders`. Runs unconditionally
+    // on every tick so the token page always shows a fresh count.
+    // Non-fatal — a stale cache is better than a broken cron.
+    try {
+      const TURBO_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
+      const USER_AGENTS = [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
+      ];
+      const _uaIdx = new Date().getMinutes() % USER_AGENTS.length;
+      const _bscHeaders: Record<string, string> = {
+        "User-Agent": USER_AGENTS[_uaIdx],
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+        "Referer": "https://www.google.com/",
+      };
+      let _bscHtml = "";
+      const _bscRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
+        headers: _bscHeaders,
+        signal: AbortSignal.timeout(20000),
+      });
+      if (_bscRes.status === 403) {
+        // Retry once with a different user agent
+        const _retryHeaders = { ..._bscHeaders, "User-Agent": USER_AGENTS[(_uaIdx + 2) % USER_AGENTS.length], "Referer": "https://etherscan.io/" };
+        const _retryRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
+          headers: _retryHeaders,
+          signal: AbortSignal.timeout(20000),
+        });
+        if (_retryRes.ok) _bscHtml = await _retryRes.text();
+      } else if (_bscRes.ok) {
+        _bscHtml = await _bscRes.text();
+      }
+      if (_bscHtml) {
+        // Primary pattern: "Holders: 1,234" or "Holders 1,234"
+        const _holdersMatch = _bscHtml.match(/Holders[:\s]*([\d,]+)/i)
+          || _bscHtml.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/);
+        if (_holdersMatch) {
+          const _holdersNum = parseInt(_holdersMatch[1].replace(/,/g, ""), 10);
+          if (_holdersNum > 0) {
+            const _holdersValue = JSON.stringify({
+              holders: _holdersNum.toLocaleString("en-US"),
+              holdersNum: _holdersNum,
+              fetchedAt: new Date().toISOString(),
+              fresh: true,
+              source: "bscscan-scrape",
+            });
+            await db
+              .insert(siteSettings)
+              .values({ settingKey: "cache:token_holders", settingValue: _holdersValue })
+              .onConflictDoUpdate({
+                target: siteSettings.settingKey,
+                set: { settingValue: _holdersValue, updatedAt: new Date() },
+              });
+            console.log(`[cron-master] holder count refreshed: ${_holdersNum.toLocaleString("en-US")}`);
+          }
+        }
+      }
+    } catch (_holderErr) {
+      // Non-fatal — stale cache is fine.
+      console.error("[cron-master] holder count refresh error:", _holderErr);
+    }
+
     // ─── Milestone auto-detection & auto-post ────────────────────────
     // Checks if the current holder count has crossed a milestone threshold
     // that hasn't been celebrated yet. If so, posts a pre-generated

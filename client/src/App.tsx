@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -100,7 +100,36 @@ function Router() {
   );
 }
 
+// Prefetch all nav-linked lazy chunks shortly after app mounts.
+// This ensures that when a user taps a nav link on mobile, the JS chunk
+// is already in the browser cache — eliminating the blank-screen delay.
+function usePrefetchNavChunks() {
+  useEffect(() => {
+    // Wait until the browser is idle (or 2s) before prefetching
+    const prefetch = () => {
+      import("./pages/EcosystemPage");
+      import("./pages/CommunityPage");
+      import("./pages/FeedPage");
+      import("./pages/SecurityPage");
+      import("./pages/RoadmapPage");
+      import("./pages/SubmitPage");
+      import("./pages/PromotionsPage");
+      import("./pages/CreativesPage");
+      import("./pages/FilmsPage");
+      import("./pages/Defi101Page");
+      import("./pages/LibraryPage");
+      import("./pages/FaqPage");
+    };
+    if ("requestIdleCallback" in window) {
+      (window as Window & typeof globalThis & { requestIdleCallback: (cb: () => void, opts?: object) => void }).requestIdleCallback(prefetch, { timeout: 3000 });
+    } else {
+      setTimeout(prefetch, 2000);
+    }
+  }, []);
+}
+
 function App() {
+  usePrefetchNavChunks();
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">

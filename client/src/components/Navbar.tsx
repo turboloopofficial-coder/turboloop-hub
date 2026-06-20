@@ -330,7 +330,7 @@ export default function Navbar() {
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="fixed inset-0 z-[60] md:hidden overflow-y-auto"
             style={{
               background: "rgba(255, 255, 255, 0.98)",
@@ -344,23 +344,17 @@ export default function Navbar() {
               >
                 <X className="w-7 h-7" />
               </button>
-              {NAV_LINKS.map((link, i) => (
-                <motion.button
+              {NAV_LINKS.map((link) => (
+                <button
                   key={link.href}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
                   onClick={() => navigate(link.href)}
                   className="text-2xl font-bold text-slate-800 tracking-wide"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {link.label}
-                </motion.button>
+                </button>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+              <div
                 className="w-full max-w-xs mt-4 pt-6 flex flex-col gap-2"
                 style={{ borderTop: "1px solid rgba(15,23,42,0.06)" }}
               >
@@ -379,11 +373,8 @@ export default function Navbar() {
                     </div>
                   </button>
                 ))}
-              </motion.div>
-              <motion.a
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+              </div>
+              <a
                 href={SITE.mainApp}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -394,7 +385,7 @@ export default function Navbar() {
                 }}
               >
                 Launch App
-              </motion.a>
+              </a>
             </div>
           </motion.div>
         )}

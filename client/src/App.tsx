@@ -8,6 +8,7 @@ import PageErrorBoundary from "./components/PageErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import PageLoader from "./components/PageLoader";
+import NavProgressBar from "./components/NavProgressBar";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import InstallPrompt from "./components/InstallPrompt";
 import MobileCTABar from "./components/MobileCTABar";
@@ -135,6 +136,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
+          <NavProgressBar />
           <AnalyticsTracker />
           <Router />
           <MobileCTABar />

@@ -74,8 +74,15 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  // Track which nav item was just clicked so we can show immediate visual feedback
+  const [activeHref, setActiveHref] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
+
+  // Clear active highlight when route settles
+  useEffect(() => {
+    setActiveHref(null);
+  }, [location]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -128,7 +135,22 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
+  /**
+   * navigate() — called on every nav link click.
+   *
+   * 1. Immediately sets `activeHref` → button turns cyan/highlighted right away
+   *    (the user sees instant feedback within the same frame as their tap)
+   * 2. Fires a "navstart" CustomEvent → NavProgressBar picks this up and shows
+   *    the top progress bar immediately
+   * 3. Closes the mobile drawer
+   * 4. Calls setLocation() to trigger the actual route change
+   */
   const navigate = (href: string) => {
+    // Immediate visual feedback — highlight the tapped item
+    setActiveHref(href);
+    // Signal NavProgressBar to start
+    window.dispatchEvent(new CustomEvent("navstart"));
+    // Close overlays
     setMobileOpen(false);
     setResourcesOpen(false);
     if (href.startsWith("/#")) {
@@ -195,21 +217,61 @@ export default function Navbar() {
 
           {/* Center nav (desktop) */}
           <div className="hidden md:flex items-center gap-7">
-            {NAV_LINKS.map(link => (
-              <button
-                key={link.href}
-                onClick={() => navigate(link.href)}
-                className="text-sm text-slate-600 hover:text-cyan-700 transition-colors duration-200 tracking-wide font-semibold"
-              >
-                {link.label}
-              </button>
-            ))}
+            {NAV_LINKS.map(link => {
+              const isActive = activeHref === link.href;
+              return (
+                <button
+                  key={link.href}
+                  onClick={() => navigate(link.href)}
+                  className="relative text-sm tracking-wide font-semibold transition-all duration-150 select-none"
+                  style={{
+                    color: isActive ? "#0891B2" : undefined,
+                  }}
+                  // CSS active state — fires on mousedown/touchstart, gives
+                  // instant sub-frame feedback before onClick even runs
+                  onMouseDown={e =>
+                    (e.currentTarget.style.opacity = "0.55")
+                  }
+                  onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+                  onTouchStart={e =>
+                    (e.currentTarget.style.opacity = "0.55")
+                  }
+                  onTouchEnd={e => (e.currentTarget.style.opacity = "1")}
+                >
+                  <span
+                    className={
+                      isActive
+                        ? "text-cyan-700"
+                        : "text-slate-600 hover:text-cyan-700"
+                    }
+                  >
+                    {link.label}
+                  </span>
+                  {/* Active underline indicator */}
+                  {isActive && (
+                    <span
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, #0891B2, #7C3AED)",
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
 
             {/* Resources dropdown */}
             <div ref={dropdownRef} className="relative">
               <button
                 onClick={() => setResourcesOpen(o => !o)}
-                className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-cyan-700 transition-colors duration-200 tracking-wide font-semibold"
+                className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-cyan-700 transition-colors duration-200 tracking-wide font-semibold select-none"
+                onMouseDown={e => (e.currentTarget.style.opacity = "0.55")}
+                onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+                onTouchStart={e => (e.currentTarget.style.opacity = "0.55")}
+                onTouchEnd={e => (e.currentTarget.style.opacity = "1")}
               >
                 Resources
                 <ChevronDown
@@ -230,23 +292,60 @@ export default function Navbar() {
                       boxShadow: "0 20px 50px -10px rgba(15,23,42,0.15)",
                     }}
                   >
-                    {RESOURCES.map(r => (
-                      <button
-                        key={r.href}
-                        onClick={() => navigate(r.href)}
-                        className="w-full text-left flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 transition group"
-                      >
-                        <div className="text-2xl shrink-0">{r.emoji}</div>
-                        <div className="min-w-0">
-                          <div className="text-sm font-bold text-slate-900 group-hover:text-cyan-700 transition-colors">
-                            {r.label}
+                    {RESOURCES.map(r => {
+                      const isActive = activeHref === r.href;
+                      return (
+                        <button
+                          key={r.href}
+                          onClick={() => navigate(r.href)}
+                          className="w-full text-left flex items-start gap-3 p-3 rounded-xl transition-all select-none"
+                          style={{
+                            background: isActive
+                              ? "rgba(8,145,178,0.08)"
+                              : undefined,
+                          }}
+                          onMouseDown={e =>
+                            (e.currentTarget.style.background =
+                              "rgba(8,145,178,0.08)")
+                          }
+                          onMouseUp={e =>
+                            (e.currentTarget.style.background = isActive
+                              ? "rgba(8,145,178,0.08)"
+                              : "")
+                          }
+                          onMouseLeave={e =>
+                            (e.currentTarget.style.background = isActive
+                              ? "rgba(8,145,178,0.08)"
+                              : "")
+                          }
+                          onTouchStart={e =>
+                            (e.currentTarget.style.background =
+                              "rgba(8,145,178,0.08)")
+                          }
+                          onTouchEnd={e =>
+                            (e.currentTarget.style.background = isActive
+                              ? "rgba(8,145,178,0.08)"
+                              : "")
+                          }
+                        >
+                          <div className="text-2xl shrink-0">{r.emoji}</div>
+                          <div className="min-w-0">
+                            <div
+                              className={`text-sm font-bold transition-colors ${
+                                isActive
+                                  ? "text-cyan-700"
+                                  : "text-slate-900 group-hover:text-cyan-700"
+                              }`}
+                            >
+                              {r.label}
+                            </div>
+                            <div className="text-xs text-slate-500 leading-relaxed">
+                              {r.description}
+                            </div>
                           </div>
-                          <div className="text-xs text-slate-500 leading-relaxed">
-                            {r.description}
-                          </div>
-                        </div>
-                      </button>
-                    ))}
+                        </button>
+                      );
+                    })}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -257,11 +356,14 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-slate-500 hover:text-slate-800 transition"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-slate-500 hover:text-slate-800 transition select-none"
               style={{
                 background: "rgba(15,23,42,0.04)",
                 border: "1px solid rgba(15,23,42,0.06)",
               }}
+              onMouseDown={e => (e.currentTarget.style.opacity = "0.6")}
+              onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
               title="Search the hub (Ctrl+K)"
               aria-label="Search the hub"
             >
@@ -275,7 +377,7 @@ export default function Navbar() {
               href={SITE.mainApp}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 select-none"
               style={{
                 background: "linear-gradient(135deg, #0891B2, #7C3AED)",
                 color: "#ffffff",
@@ -291,24 +393,48 @@ export default function Navbar() {
                   "0 8px 24px -6px rgba(8,145,178,0.4)";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
+              onMouseDown={e => (e.currentTarget.style.opacity = "0.75")}
+              onMouseUp={e => (e.currentTarget.style.opacity = "1")}
             >
               Launch App <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
 
-          {/* Mobile: Search + burger */}
+          {/* Mobile: Search + burger
+           *
+           * IMPORTANT: This button must work even before React fully hydrates.
+           * It IS a native <button> so it works natively — but we add
+           * onMouseDown/onTouchStart for immediate visual feedback (opacity drop)
+           * so the user knows their tap registered even if there's a brief
+           * JS-execution delay.
+           *
+           * The `touchAction: "manipulation"` CSS removes the 300ms tap delay
+           * on iOS Safari / Android Chrome that was making the button feel laggy.
+           */}
           <div className="md:hidden flex items-center gap-1">
             <button
               onClick={() => setSearchOpen(true)}
-              className="text-slate-700 p-3 -m-1"
+              className="text-slate-700 p-3 -m-1 select-none"
               aria-label="Search the hub"
+              style={{ touchAction: "manipulation" }}
+              onMouseDown={e => (e.currentTarget.style.opacity = "0.5")}
+              onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              onTouchStart={e => (e.currentTarget.style.opacity = "0.5")}
+              onTouchEnd={e => (e.currentTarget.style.opacity = "1")}
             >
               <Search className="w-5 h-5" />
             </button>
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="text-slate-700 p-3 -m-1"
+              onClick={() => setMobileOpen(prev => !prev)}
+              className="text-slate-700 p-3 -m-1 select-none"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              style={{ touchAction: "manipulation" }}
+              onMouseDown={e => (e.currentTarget.style.opacity = "0.5")}
+              onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              onTouchStart={e => (e.currentTarget.style.opacity = "0.5")}
+              onTouchEnd={e => (e.currentTarget.style.opacity = "1")}
             >
               {mobileOpen ? (
                 <X className="w-6 h-6" />
@@ -340,20 +466,42 @@ export default function Navbar() {
             <div className="flex flex-col items-center justify-start min-h-full pt-20 pb-12 gap-3">
               <button
                 onClick={() => setMobileOpen(false)}
-                className="absolute top-5 right-5 text-slate-400 p-2"
+                className="absolute top-5 right-5 text-slate-400 p-2 select-none"
+                style={{ touchAction: "manipulation" }}
+                onTouchStart={e => (e.currentTarget.style.opacity = "0.5")}
+                onTouchEnd={e => (e.currentTarget.style.opacity = "1")}
               >
                 <X className="w-7 h-7" />
               </button>
-              {NAV_LINKS.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => navigate(link.href)}
-                  className="text-2xl font-bold text-slate-800 tracking-wide"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {link.label}
-                </button>
-              ))}
+              {NAV_LINKS.map(link => {
+                const isActive = activeHref === link.href;
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => navigate(link.href)}
+                    className="text-2xl font-bold tracking-wide transition-all duration-100 select-none"
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      color: isActive ? "#0891B2" : "#1e293b",
+                      opacity: isActive ? 1 : undefined,
+                      touchAction: "manipulation",
+                    }}
+                    onTouchStart={e => {
+                      e.currentTarget.style.color = "#0891B2";
+                      e.currentTarget.style.opacity = "0.7";
+                    }}
+                    onTouchEnd={e => {
+                      // Keep cyan if it's the active route, else reset
+                      e.currentTarget.style.opacity = "1";
+                    }}
+                    onMouseDown={e => (e.currentTarget.style.opacity = "0.6")}
+                    onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+                    onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
               <div
                 className="w-full max-w-xs mt-4 pt-6 flex flex-col gap-2"
                 style={{ borderTop: "1px solid rgba(15,23,42,0.06)" }}
@@ -361,28 +509,69 @@ export default function Navbar() {
                 <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-slate-400 text-center mb-2">
                   Resources
                 </div>
-                {RESOURCES.map(r => (
-                  <button
-                    key={r.href}
-                    onClick={() => navigate(r.href)}
-                    className="w-full text-left flex items-center gap-3 p-3 rounded-xl bg-slate-50/50"
-                  >
-                    <div className="text-xl">{r.emoji}</div>
-                    <div className="text-sm font-semibold text-slate-700">
-                      {r.label}
-                    </div>
-                  </button>
-                ))}
+                {RESOURCES.map(r => {
+                  const isActive = activeHref === r.href;
+                  return (
+                    <button
+                      key={r.href}
+                      onClick={() => navigate(r.href)}
+                      className="w-full text-left flex items-center gap-3 p-3 rounded-xl transition-all select-none"
+                      style={{
+                        background: isActive
+                          ? "rgba(8,145,178,0.1)"
+                          : "rgba(248,250,252,0.5)",
+                        touchAction: "manipulation",
+                      }}
+                      onTouchStart={e =>
+                        (e.currentTarget.style.background =
+                          "rgba(8,145,178,0.12)")
+                      }
+                      onTouchEnd={e =>
+                        (e.currentTarget.style.background = isActive
+                          ? "rgba(8,145,178,0.1)"
+                          : "rgba(248,250,252,0.5)")
+                      }
+                      onMouseDown={e =>
+                        (e.currentTarget.style.background =
+                          "rgba(8,145,178,0.12)")
+                      }
+                      onMouseUp={e =>
+                        (e.currentTarget.style.background = isActive
+                          ? "rgba(8,145,178,0.1)"
+                          : "rgba(248,250,252,0.5)")
+                      }
+                      onMouseLeave={e =>
+                        (e.currentTarget.style.background = isActive
+                          ? "rgba(8,145,178,0.1)"
+                          : "rgba(248,250,252,0.5)")
+                      }
+                    >
+                      <div className="text-xl">{r.emoji}</div>
+                      <div
+                        className="text-sm font-semibold transition-colors"
+                        style={{ color: isActive ? "#0891B2" : "#334155" }}
+                      >
+                        {r.label}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
               <a
                 href={SITE.mainApp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 px-8 py-3 rounded-xl font-bold text-lg"
+                className="mt-6 px-8 py-3 rounded-xl font-bold text-lg select-none"
                 style={{
                   background: "linear-gradient(135deg, #0891B2, #7C3AED)",
                   color: "#ffffff",
+                  touchAction: "manipulation",
                 }}
+                onTouchStart={e => (e.currentTarget.style.opacity = "0.75")}
+                onTouchEnd={e => (e.currentTarget.style.opacity = "1")}
+                onMouseDown={e => (e.currentTarget.style.opacity = "0.75")}
+                onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
               >
                 Launch App
               </a>

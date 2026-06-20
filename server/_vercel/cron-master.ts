@@ -42,6 +42,51 @@ import {
   todayUtcDate,
 } from "./_campaigns";
 
+// --- Manus API Milestone Banner Generator ---
+// Triggers a silent background task in Manus to generate the banner using the turboloop-imagegen skill,
+// upload it to R2, and post it to Telegram.
+async function triggerManusMilestoneTask(milestoneType: string, milestoneValue: number, caption: string, filename: string): Promise<void> {
+  if (!process.env.MANUS_API_KEY || !process.env.MANUS_PROJECT_ID) {
+    console.error("[cron-master] MANUS_API_KEY or MANUS_PROJECT_ID missing, cannot trigger Manus");
+    return;
+  }
+
+  const prompt = `A new milestone has been crossed: ${milestoneValue} ${milestoneType}!
+Please generate a cinematic milestone banner using the turboloop-imagegen skill rules.
+The banner must prominently feature the number "${milestoneValue}" and the text "${milestoneType}".
+Follow the DISTINCTNESS SYSTEM to ensure it looks unique.
+After generating, upload the PNG to R2 at brand/milestones/${filename} using boto3 with credentials from /home/ubuntu/.turboloop/secrets.env.
+Finally, post the banner to Telegram using the broadcastphoto action: POST https://api.turboloop.tech/api/cron/master?broadcastphoto=1 with JSON body {photoUrl: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}", caption: ${JSON.stringify(caption)}}.`;
+
+  try {
+    console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);
+    const res = await fetch("https://api.manus.ai/v2/task.create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-manus-api-key": process.env.MANUS_API_KEY,
+      },
+      body: JSON.stringify({
+        message: { content: prompt },
+        project_id: process.env.MANUS_PROJECT_ID,
+        hide_in_task_list: true,
+      }),
+      signal: AbortSignal.timeout(15000),
+    });
+
+    if (!res.ok) {
+      console.error("[cron-master] Manus API error:", await res.text());
+      return;
+    }
+
+    const data = await res.json();
+    console.log(`[cron-master] Manus task created successfully: ${data.task_id}`);
+  } catch (err) {
+    console.error("[cron-master] Failed to trigger Manus API:", err);
+  }
+}
+// --------------------------------------------------
+
 // Public-facing host. Used in Telegram message bodies and "Visit / Read /
 // Watch" buttons that point users to the live Next.js site.
 const SITE = "https://turboloop.tech";
@@ -809,24 +854,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           }
         } catch { /* Use fallback caption */ }
 
-        // Use milestone-specific banner if it exists, else generic
-        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextTimeMilestone}-days.png`;
-        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
-
-        // Check if specific banner exists
-        let _finalBannerUrl = _fallbackUrl;
-        try {
-          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5000) });
-          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
-        } catch { /* Use fallback */ }
-
-        // Post to Telegram
-        await tgBroadcastPhoto({
-          photoUrl: _finalBannerUrl,
-          caption: _timeCaption,
-          parseMode: "HTML",
-          buttons: [{ text: "🌐 Join TurboLoop", url: "https://www.turboloop.tech" }],
-        });
+        // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
+        await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, _timeCaption, `${_nextTimeMilestone}-days.png`);
 
         // Record the celebrated milestone so we don't post again
         await db
@@ -902,24 +931,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           }
         } catch { /* Use fallback caption */ }
 
-        // Use milestone-specific banner if it exists, else generic
-        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextDepMilestone}-depositors.png`;
-        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
-
-        // Check if specific banner exists
-        let _finalBannerUrl = _fallbackUrl;
-        try {
-          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5000) });
-          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
-        } catch { /* Use fallback */ }
-
-        // Post to Telegram
-        await tgBroadcastPhoto({
-          photoUrl: _finalBannerUrl,
-          caption: _depCaption,
-          parseMode: "HTML",
-          buttons: [{ text: "🌐 Join TurboLoop", url: "https://www.turboloop.tech" }],
-        });
+        // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
+        await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, _depCaption, `${_nextDepMilestone}-depositors.png`);
 
         // Record the celebrated milestone so we don't post again
         await db
@@ -1000,24 +1013,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           }
         } catch { /* Use fallback caption */ }
 
-        // Use milestone-specific banner if it exists, else generic
-        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextMilestone}-holders.png`;
-        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
-
-        // Check if specific banner exists
-        let _finalBannerUrl = _fallbackUrl;
-        try {
-          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5000) });
-          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
-        } catch { /* Use fallback */ }
-
-        // Post to Telegram
-        await tgBroadcastPhoto({
-          photoUrl: _finalBannerUrl,
-          caption: _milestoneCaption,
-          parseMode: "HTML",
-          buttons: [{ text: "🌐 Join TurboLoop", url: "https://www.turboloop.tech" }],
-        });
+        // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
+        await triggerManusMilestoneTask("Token Holders", _nextMilestone, _milestoneCaption, `${_nextMilestone}-holders.png`);
 
         // Record the celebrated milestone so we don't post again
         await db

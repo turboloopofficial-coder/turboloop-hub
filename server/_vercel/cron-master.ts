@@ -45,10 +45,10 @@ import {
 // --- Manus API Milestone Banner Generator ---
 // Triggers a silent background task in Manus to generate the banner using the turboloop-imagegen skill,
 // upload it to R2, and post it to Telegram.
-async function triggerManusMilestoneTask(milestoneType: string, milestoneValue: number, caption: string, filename: string): Promise<void> {
+async function triggerManusMilestoneTask(milestoneType: string, milestoneValue: number, filename: string): Promise<string | null> {
   if (!process.env.MANUS_API_KEY || !process.env.MANUS_PROJECT_ID) {
     console.error("[cron-master] MANUS_API_KEY or MANUS_PROJECT_ID missing, cannot trigger Manus");
-    return;
+    return null;
   }
 
   const prompt = `A new milestone has been crossed: ${milestoneValue} ${milestoneType}!
@@ -61,7 +61,7 @@ You MUST pass this exact reference file to the generate_image tool:
 references: ["/home/ubuntu/skills/turboloop-imagegen/templates/turboloop_logo_official.png"]
 
 PROMPT TEMPLATE TO USE FOR THE IMAGE:
-"""
+\"\"\"
 Ultra-premium DeFi milestone celebration banner 16:9.
 DESIGN SYSTEM: Style=CINEMATIC, Palette=NAVY-GOLD, Layout=HERO-CENTER.
 The TurboLoop logo (exact spiral swirl icon in teal/cyan/purple gradient + 'Turbo' in white bold + 'Loop' in cyan bold) placed small and clean in the TOP-LEFT corner, directly on the dark background — NO box, NO panel, NO rectangle behind it.
@@ -70,7 +70,7 @@ A massive, glowing, cinematic 3D rendering of the number "${milestoneValue}" in 
 Below the number, bold glowing text: "${milestoneType}".
 This banner must be visually DISTINCT from all others — unique style, unique palette, unique composition.
 Ultra premium, cinematic quality.
-"""
+\"\"\"
 
 STEP 1: Generate the image using the generate_image tool as described above.
 
@@ -79,21 +79,7 @@ STEP 2: Upload the generated PNG to R2.
 - Upload to key: brand/milestones/${filename}
 - The public URL will be: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}
 
-STEP 3: Post to Telegram — THIS STEP IS MANDATORY, DO NOT SKIP.
-Make this exact HTTP POST request:
-  URL: https://api.turboloop.tech/api/cron/master?broadcastphoto=1
-  Method: POST
-  Headers: Content-Type: application/json
-  Body (exact JSON):
-  {
-    "photoUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}",
-    "caption": ${JSON.stringify(caption)}
-  }
-
-The caption text to use is:
-${caption}
-
-Do NOT skip Step 3. The Telegram post MUST include the caption text above.`;
+That is all. Do NOT post to Telegram.`;
 
   try {
     console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);
@@ -113,14 +99,39 @@ Do NOT skip Step 3. The Telegram post MUST include the caption text above.`;
 
     if (!res.ok) {
       console.error("[cron-master] Manus API error:", await res.text());
-      return;
+      return null;
     }
 
     const data = await res.json();
     console.log(`[cron-master] Manus task created successfully: ${data.task_id}`);
+    return data.task_id;
   } catch (err) {
     console.error("[cron-master] Failed to trigger Manus API:", err);
+    return null;
   }
+}
+
+// Helper to poll R2 until the image is ready, then post to Telegram
+async function pollAndPostMilestone(filename: string, caption: string): Promise<void> {
+  const url = `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}`;
+  console.log(`[cron-master] Polling R2 for ${filename}...`);
+  
+  // Poll every 10 seconds for up to 3 minutes (18 attempts)
+  for (let i = 0; i < 18; i++) {
+    await new Promise(r => setTimeout(r, 10000));
+    try {
+      const res = await fetch(url, { method: "HEAD" });
+      if (res.ok) {
+        console.log(`[cron-master] Image found on R2! Posting to Telegram...`);
+        await tgBroadcastPhoto({ photoUrl: url, caption, parseMode: "HTML" });
+        console.log(`[cron-master] Telegram post successful.`);
+        return;
+      }
+    } catch (e) {
+      // ignore fetch errors during polling
+    }
+  }
+  console.error(`[cron-master] Timed out waiting for ${filename} on R2. Telegram post aborted.`);
 }
 // --------------------------------------------------
 
@@ -892,7 +903,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         } catch { /* Use fallback caption */ }
 
         // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
-        await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, _timeCaption, `${_nextTimeMilestone}-days.png`);
+        const taskId = await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, `${_nextTimeMilestone}-days.png`);
+        if (taskId) {
+          // Do not await polling so cron can finish
+          pollAndPostMilestone(`${_nextTimeMilestone}-days.png`, _timeCaption).catch(console.error);
+        }
 
         // Record the celebrated milestone so we don't post again
         await db
@@ -969,7 +984,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         } catch { /* Use fallback caption */ }
 
         // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
-        await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, _depCaption, `${_nextDepMilestone}-depositors.png`);
+        const taskId = await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, `${_nextDepMilestone}-depositors.png`);
+        if (taskId) {
+          pollAndPostMilestone(`${_nextDepMilestone}-depositors.png`, _depCaption).catch(console.error);
+        }
 
         // Record the celebrated milestone so we don't post again
         await db
@@ -1051,7 +1069,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         } catch { /* Use fallback caption */ }
 
         // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
-        await triggerManusMilestoneTask("Token Holders", _nextMilestone, _milestoneCaption, `${_nextMilestone}-holders.png`);
+        const taskId = await triggerManusMilestoneTask("Token Holders", _nextMilestone, `${_nextMilestone}-holders.png`);
+        if (taskId) {
+          pollAndPostMilestone(`${_nextMilestone}-holders.png`, _milestoneCaption).catch(console.error);
+        }
 
         // Record the celebrated milestone so we don't post again
         await db

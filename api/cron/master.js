@@ -78067,10 +78067,10 @@ function todaysGermanPost() {
 }
 
 // server/_vercel/cron-master.ts
-async function triggerManusMilestoneTask(milestoneType, milestoneValue, caption, filename) {
+async function triggerManusMilestoneTask(milestoneType, milestoneValue, filename) {
   if (!process.env.MANUS_API_KEY || !process.env.MANUS_PROJECT_ID) {
     console.error("[cron-master] MANUS_API_KEY or MANUS_PROJECT_ID missing, cannot trigger Manus");
-    return;
+    return null;
   }
   const prompt = `A new milestone has been crossed: ${milestoneValue} ${milestoneType}!
 
@@ -78100,21 +78100,7 @@ STEP 2: Upload the generated PNG to R2.
 - Upload to key: brand/milestones/${filename}
 - The public URL will be: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}
 
-STEP 3: Post to Telegram \u2014 THIS STEP IS MANDATORY, DO NOT SKIP.
-Make this exact HTTP POST request:
-  URL: https://api.turboloop.tech/api/cron/master?broadcastphoto=1
-  Method: POST
-  Headers: Content-Type: application/json
-  Body (exact JSON):
-  {
-    "photoUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}",
-    "caption": ${JSON.stringify(caption)}
-  }
-
-The caption text to use is:
-${caption}
-
-Do NOT skip Step 3. The Telegram post MUST include the caption text above.`;
+That is all. Do NOT post to Telegram.`;
   try {
     console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);
     const res = await fetch("https://api.manus.ai/v2/task.create", {
@@ -78132,13 +78118,33 @@ Do NOT skip Step 3. The Telegram post MUST include the caption text above.`;
     });
     if (!res.ok) {
       console.error("[cron-master] Manus API error:", await res.text());
-      return;
+      return null;
     }
     const data = await res.json();
     console.log(`[cron-master] Manus task created successfully: ${data.task_id}`);
+    return data.task_id;
   } catch (err) {
     console.error("[cron-master] Failed to trigger Manus API:", err);
+    return null;
   }
+}
+async function pollAndPostMilestone(filename, caption) {
+  const url = `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}`;
+  console.log(`[cron-master] Polling R2 for ${filename}...`);
+  for (let i5 = 0; i5 < 18; i5++) {
+    await new Promise((r5) => setTimeout(r5, 1e4));
+    try {
+      const res = await fetch(url, { method: "HEAD" });
+      if (res.ok) {
+        console.log(`[cron-master] Image found on R2! Posting to Telegram...`);
+        await tgBroadcastPhoto({ photoUrl: url, caption, parseMode: "HTML" });
+        console.log(`[cron-master] Telegram post successful.`);
+        return;
+      }
+    } catch (e5) {
+    }
+  }
+  console.error(`[cron-master] Timed out waiting for ${filename} on R2. Telegram post aborted.`);
 }
 var SITE = "https://turboloop.tech";
 var BANNER_HOST = "https://www.turboloop.tech";
@@ -78654,7 +78660,10 @@ It's been ${_nextTimeMilestone} days since the smart contract was deployed. Than
           }
         } catch {
         }
-        await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, _timeCaption, `${_nextTimeMilestone}-days.png`);
+        const taskId = await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, `${_nextTimeMilestone}-days.png`);
+        if (taskId) {
+          pollAndPostMilestone(`${_nextTimeMilestone}-days.png`, _timeCaption).catch(console.error);
+        }
         await db.insert(siteSettings).values({ settingKey: "milestone:last_time_celebrated", settingValue: String(_nextTimeMilestone) }).onConflictDoUpdate({
           target: siteSettings.settingKey,
           set: { settingValue: String(_nextTimeMilestone), updatedAt: /* @__PURE__ */ new Date() }
@@ -78701,7 +78710,10 @@ Our protocol just crossed ${_nextDepMilestone.toLocaleString("en-US")} unique wa
           }
         } catch {
         }
-        await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, _depCaption, `${_nextDepMilestone}-depositors.png`);
+        const taskId = await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, `${_nextDepMilestone}-depositors.png`);
+        if (taskId) {
+          pollAndPostMilestone(`${_nextDepMilestone}-depositors.png`, _depCaption).catch(console.error);
+        }
         await db.insert(siteSettings).values({ settingKey: "milestone:last_depositor_celebrated", settingValue: String(_nextDepMilestone) }).onConflictDoUpdate({
           target: siteSettings.settingKey,
           set: { settingValue: String(_nextDepMilestone), updatedAt: /* @__PURE__ */ new Date() }
@@ -78748,7 +78760,10 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
           }
         } catch {
         }
-        await triggerManusMilestoneTask("Token Holders", _nextMilestone, _milestoneCaption, `${_nextMilestone}-holders.png`);
+        const taskId = await triggerManusMilestoneTask("Token Holders", _nextMilestone, `${_nextMilestone}-holders.png`);
+        if (taskId) {
+          pollAndPostMilestone(`${_nextMilestone}-holders.png`, _milestoneCaption).catch(console.error);
+        }
         await db.insert(siteSettings).values({ settingKey: "milestone:last_celebrated", settingValue: String(_nextMilestone) }).onConflictDoUpdate({
           target: siteSettings.settingKey,
           set: { settingValue: String(_nextMilestone), updatedAt: /* @__PURE__ */ new Date() }

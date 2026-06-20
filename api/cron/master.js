@@ -78067,7 +78067,7 @@ function todaysGermanPost() {
 }
 
 // server/_vercel/cron-master.ts
-async function triggerManusMilestoneTask(milestoneType, milestoneValue, filename) {
+async function triggerManusMilestoneTask(milestoneType, milestoneValue, filename, caption = "") {
   if (!process.env.MANUS_API_KEY || !process.env.MANUS_PROJECT_ID) {
     console.error("[cron-master] MANUS_API_KEY or MANUS_PROJECT_ID missing, cannot trigger Manus");
     return null;
@@ -78100,7 +78100,24 @@ STEP 2: Upload the generated PNG to R2.
 - Upload to key: brand/milestones/${filename}
 - The public URL will be: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}
 
-That is all. Do NOT post to Telegram.`;
+STEP 3: Post to Telegram by calling the milestone callback endpoint.
+Make this exact HTTP POST request using Python requests or urllib:
+  URL: https://api.turboloop.tech/api/cron/master?milestonecallback=1
+  Method: POST
+  Headers:
+    Content-Type: application/json
+    x-manus-callback-token: ${process.env.MANUS_CALLBACK_TOKEN}
+  Body (JSON):
+    {
+      "photoUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}",
+      "caption": "CAPTION_PLACEHOLDER"
+    }
+
+The caption to use is exactly:
+CAPTION_PLACEHOLDER
+
+Do NOT skip Step 3. This is how the banner gets posted to Telegram with the caption.`;
+  const promptWithCaption = prompt.replace(/CAPTION_PLACEHOLDER/g, caption);
   try {
     console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);
     const res = await fetch("https://api.manus.ai/v2/task.create", {
@@ -78110,7 +78127,7 @@ That is all. Do NOT post to Telegram.`;
         "x-manus-api-key": process.env.MANUS_API_KEY
       },
       body: JSON.stringify({
-        message: { content: prompt },
+        message: { content: promptWithCaption },
         project_id: process.env.MANUS_PROJECT_ID,
         hide_in_task_list: true
       }),
@@ -78537,6 +78554,42 @@ async function handler(req, res) {
       }
       return;
     }
+    if (reqUrlDebug.searchParams.get("milestonecallback") === "1") {
+      const callbackToken = process.env.MANUS_CALLBACK_TOKEN;
+      const providedToken = req.headers["x-manus-callback-token"] || "";
+      if (!callbackToken || providedToken !== callbackToken) {
+        res.statusCode = 401;
+        res.end(JSON.stringify({ ok: false, error: "Unauthorized" }));
+        return;
+      }
+      let body = "";
+      await new Promise((resolve) => {
+        req.on("data", (chunk) => {
+          body += chunk.toString();
+        });
+        req.on("end", resolve);
+      });
+      let cbPhotoUrl = "";
+      let cbCaption = "";
+      try {
+        const parsed = JSON.parse(body);
+        cbPhotoUrl = parsed.photoUrl || "";
+        cbCaption = parsed.caption || "";
+      } catch {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Invalid JSON body" }));
+        return;
+      }
+      if (!cbPhotoUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Missing photoUrl" }));
+        return;
+      }
+      const cbResults = await tgBroadcastPhoto({ photoUrl: cbPhotoUrl, caption: cbCaption, parseMode: "HTML" });
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, results: cbResults }));
+      return;
+    }
     if (reqUrlDebug.searchParams.get("broadcastphoto") === "1") {
       const photoUrl = reqUrlDebug.searchParams.get("photoUrl") || "";
       const caption = reqUrlDebug.searchParams.get("caption") || "";
@@ -78660,7 +78713,7 @@ It's been ${_nextTimeMilestone} days since the smart contract was deployed. Than
           }
         } catch {
         }
-        const taskId = await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, `${_nextTimeMilestone}-days.png`);
+        const taskId = await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, `${_nextTimeMilestone}-days.png`, _timeCaption);
         if (taskId) {
           pollAndPostMilestone(`${_nextTimeMilestone}-days.png`, _timeCaption).catch(console.error);
         }
@@ -78710,7 +78763,7 @@ Our protocol just crossed ${_nextDepMilestone.toLocaleString("en-US")} unique wa
           }
         } catch {
         }
-        const taskId = await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, `${_nextDepMilestone}-depositors.png`);
+        const taskId = await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, `${_nextDepMilestone}-depositors.png`, _depCaption);
         if (taskId) {
           pollAndPostMilestone(`${_nextDepMilestone}-depositors.png`, _depCaption).catch(console.error);
         }
@@ -78760,7 +78813,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
           }
         } catch {
         }
-        const taskId = await triggerManusMilestoneTask("Token Holders", _nextMilestone, `${_nextMilestone}-holders.png`);
+        const taskId = await triggerManusMilestoneTask("Token Holders", _nextMilestone, `${_nextMilestone}-holders.png`, _milestoneCaption);
         if (taskId) {
           pollAndPostMilestone(`${_nextMilestone}-holders.png`, _milestoneCaption).catch(console.error);
         }

@@ -45,7 +45,7 @@ import {
 // --- Manus API Milestone Banner Generator ---
 // Triggers a silent background task in Manus to generate the banner using the turboloop-imagegen skill,
 // upload it to R2, and post it to Telegram.
-async function triggerManusMilestoneTask(milestoneType: string, milestoneValue: number, filename: string): Promise<string | null> {
+async function triggerManusMilestoneTask(milestoneType: string, milestoneValue: number, filename: string, caption: string = ""): Promise<string | null> {
   if (!process.env.MANUS_API_KEY || !process.env.MANUS_PROJECT_ID) {
     console.error("[cron-master] MANUS_API_KEY or MANUS_PROJECT_ID missing, cannot trigger Manus");
     return null;
@@ -79,7 +79,26 @@ STEP 2: Upload the generated PNG to R2.
 - Upload to key: brand/milestones/${filename}
 - The public URL will be: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}
 
-That is all. Do NOT post to Telegram.`;
+STEP 3: Post to Telegram by calling the milestone callback endpoint.
+Make this exact HTTP POST request using Python requests or urllib:
+  URL: https://api.turboloop.tech/api/cron/master?milestonecallback=1
+  Method: POST
+  Headers:
+    Content-Type: application/json
+    x-manus-callback-token: ${process.env.MANUS_CALLBACK_TOKEN}
+  Body (JSON):
+    {
+      "photoUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}",
+      "caption": "CAPTION_PLACEHOLDER"
+    }
+
+The caption to use is exactly:
+CAPTION_PLACEHOLDER
+
+Do NOT skip Step 3. This is how the banner gets posted to Telegram with the caption.`;
+
+  // Embed the actual caption value into the prompt (not as a JS expression)
+  const promptWithCaption = prompt.replace(/CAPTION_PLACEHOLDER/g, caption);
 
   try {
     console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);
@@ -90,7 +109,7 @@ That is all. Do NOT post to Telegram.`;
         "x-manus-api-key": process.env.MANUS_API_KEY,
       },
       body: JSON.stringify({
-        message: { content: prompt },
+        message: { content: promptWithCaption },
         project_id: process.env.MANUS_PROJECT_ID,
         hide_in_task_list: true,
       }),
@@ -730,6 +749,45 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return;
     }
 
+    // ─── Manus milestone callback: ?milestonecallback=1 ────────────────────────
+    // Called by Manus background tasks after uploading a milestone banner to R2.
+    // Authenticated by MANUS_CALLBACK_TOKEN header (not CRON_SECRET).
+    // Body: { photoUrl: string, caption: string }
+    if (reqUrlDebug.searchParams.get("milestonecallback") === "1") {
+      const callbackToken = process.env.MANUS_CALLBACK_TOKEN;
+      const providedToken = (req.headers["x-manus-callback-token"] as string) || "";
+      if (!callbackToken || providedToken !== callbackToken) {
+        res.statusCode = 401;
+        res.end(JSON.stringify({ ok: false, error: "Unauthorized" }));
+        return;
+      }
+      let body = "";
+      await new Promise<void>((resolve) => {
+        req.on("data", (chunk: Buffer) => { body += chunk.toString(); });
+        req.on("end", resolve);
+      });
+      let cbPhotoUrl = "";
+      let cbCaption = "";
+      try {
+        const parsed = JSON.parse(body);
+        cbPhotoUrl = parsed.photoUrl || "";
+        cbCaption = parsed.caption || "";
+      } catch {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Invalid JSON body" }));
+        return;
+      }
+      if (!cbPhotoUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Missing photoUrl" }));
+        return;
+      }
+      const cbResults = await tgBroadcastPhoto({ photoUrl: cbPhotoUrl, caption: cbCaption, parseMode: "HTML" });
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, results: cbResults }));
+      return;
+    }
+
     // ─── Manual broadcast: ?broadcastphoto=1&photoUrl=...&caption=... ────────────
     // Immediately sends a photo to TELEGRAM_CHANNEL with the given caption.
     // Usage: ?broadcastphoto=1&photoUrl=https://...&caption=Your+caption+here
@@ -903,7 +961,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         } catch { /* Use fallback caption */ }
 
         // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
-        const taskId = await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, `${_nextTimeMilestone}-days.png`);
+        const taskId = await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, `${_nextTimeMilestone}-days.png`, _timeCaption);
         if (taskId) {
           // Do not await polling so cron can finish
           pollAndPostMilestone(`${_nextTimeMilestone}-days.png`, _timeCaption).catch(console.error);
@@ -984,7 +1042,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         } catch { /* Use fallback caption */ }
 
         // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
-        const taskId = await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, `${_nextDepMilestone}-depositors.png`);
+        const taskId = await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, `${_nextDepMilestone}-depositors.png`, _depCaption);
         if (taskId) {
           pollAndPostMilestone(`${_nextDepMilestone}-depositors.png`, _depCaption).catch(console.error);
         }
@@ -1069,7 +1127,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         } catch { /* Use fallback caption */ }
 
         // Trigger Manus to generate banner via turboloop-imagegen skill, upload to R2, and post to Telegram
-        const taskId = await triggerManusMilestoneTask("Token Holders", _nextMilestone, `${_nextMilestone}-holders.png`);
+        const taskId = await triggerManusMilestoneTask("Token Holders", _nextMilestone, `${_nextMilestone}-holders.png`, _milestoneCaption);
         if (taskId) {
           pollAndPostMilestone(`${_nextMilestone}-holders.png`, _milestoneCaption).catch(console.error);
         }

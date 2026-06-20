@@ -78067,6 +78067,59 @@ function todaysGermanPost() {
 }
 
 // server/_vercel/cron-master.ts
+async function triggerManusMilestoneTask(milestoneType, milestoneValue, caption, filename) {
+  if (!process.env.MANUS_API_KEY || !process.env.MANUS_PROJECT_ID) {
+    console.error("[cron-master] MANUS_API_KEY or MANUS_PROJECT_ID missing, cannot trigger Manus");
+    return;
+  }
+  const prompt = `A new milestone has been crossed: ${milestoneValue} ${milestoneType}!
+
+Please generate a cinematic milestone banner using the exact turboloop-imagegen skill rules.
+You MUST use the generate_image tool with the gpt-image-2 model.
+
+CRITICAL LOGO RULE:
+You MUST pass this exact reference file to the generate_image tool:
+references: ["/home/ubuntu/skills/turboloop-imagegen/templates/turboloop_logo_official.png"]
+
+PROMPT TEMPLATE TO USE FOR THE IMAGE:
+"""
+Ultra-premium DeFi milestone celebration banner 16:9.
+DESIGN SYSTEM: Style=CINEMATIC, Palette=NAVY-GOLD, Layout=HERO-CENTER.
+The TurboLoop logo (exact spiral swirl icon in teal/cyan/purple gradient + 'Turbo' in white bold + 'Loop' in cyan bold) placed small and clean in the TOP-LEFT corner, directly on the dark background \u2014 NO box, NO panel, NO rectangle behind it.
+BOTTOM-RIGHT: small text 'turboloop.io' in white.
+A massive, glowing, cinematic 3D rendering of the number "${milestoneValue}" in the center, surrounded by gold and cyan energy particles.
+Below the number, bold glowing text: "${milestoneType}".
+This banner must be visually DISTINCT from all others \u2014 unique style, unique palette, unique composition.
+Ultra premium, cinematic quality.
+"""
+
+After generating the image, upload the PNG to R2 at brand/milestones/${filename} using boto3 with credentials from /home/ubuntu/.turboloop/secrets.env.
+Finally, post the banner to Telegram using the broadcastphoto action: POST https://api.turboloop.tech/api/cron/master?broadcastphoto=1 with JSON body {photoUrl: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}", caption: ${JSON.stringify(caption)}}.`;
+  try {
+    console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);
+    const res = await fetch("https://api.manus.ai/v2/task.create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-manus-api-key": process.env.MANUS_API_KEY
+      },
+      body: JSON.stringify({
+        message: { content: prompt },
+        project_id: process.env.MANUS_PROJECT_ID,
+        hide_in_task_list: true
+      }),
+      signal: AbortSignal.timeout(15e3)
+    });
+    if (!res.ok) {
+      console.error("[cron-master] Manus API error:", await res.text());
+      return;
+    }
+    const data = await res.json();
+    console.log(`[cron-master] Manus task created successfully: ${data.task_id}`);
+  } catch (err) {
+    console.error("[cron-master] Failed to trigger Manus API:", err);
+  }
+}
 var SITE = "https://turboloop.tech";
 var BANNER_HOST = "https://www.turboloop.tech";
 var LAUNCH_FIRE_AT_UTC = "2026-04-29T12:00:00.000Z";
@@ -78491,6 +78544,154 @@ async function handler(req, res) {
     } catch (_priceErr) {
     }
     try {
+      const TURBO_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
+      const USER_AGENTS = [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"
+      ];
+      const _uaIdx = (/* @__PURE__ */ new Date()).getMinutes() % USER_AGENTS.length;
+      const _bscHeaders = {
+        "User-Agent": USER_AGENTS[_uaIdx],
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+        "Referer": "https://www.google.com/"
+      };
+      let _bscHtml = "";
+      const _bscRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
+        headers: _bscHeaders,
+        signal: AbortSignal.timeout(2e4)
+      });
+      if (_bscRes.status === 403) {
+        const _retryHeaders = { ..._bscHeaders, "User-Agent": USER_AGENTS[(_uaIdx + 2) % USER_AGENTS.length], "Referer": "https://etherscan.io/" };
+        const _retryRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
+          headers: _retryHeaders,
+          signal: AbortSignal.timeout(2e4)
+        });
+        if (_retryRes.ok) _bscHtml = await _retryRes.text();
+      } else if (_bscRes.ok) {
+        _bscHtml = await _bscRes.text();
+      }
+      if (_bscHtml) {
+        const _holdersMatch = _bscHtml.match(/Holders[:\s]*([\d,]+)/i) || _bscHtml.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/);
+        if (_holdersMatch) {
+          const _holdersNum = parseInt(_holdersMatch[1].replace(/,/g, ""), 10);
+          if (_holdersNum > 0) {
+            const _holdersValue = JSON.stringify({
+              holders: _holdersNum.toLocaleString("en-US"),
+              holdersNum: _holdersNum,
+              fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
+              fresh: true,
+              source: "bscscan-scrape"
+            });
+            await db.insert(siteSettings).values({ settingKey: "cache:token_holders", settingValue: _holdersValue }).onConflictDoUpdate({
+              target: siteSettings.settingKey,
+              set: { settingValue: _holdersValue, updatedAt: /* @__PURE__ */ new Date() }
+            });
+            console.log(`[cron-master] holder count refreshed: ${_holdersNum.toLocaleString("en-US")}`);
+          }
+        }
+      }
+    } catch (_holderErr) {
+      console.error("[cron-master] holder count refresh error:", _holderErr);
+    }
+    try {
+      const DEPLOY_DATE = /* @__PURE__ */ new Date("2026-03-10T00:00:00Z");
+      const daysSinceLaunch2 = Math.floor((Date.now() - DEPLOY_DATE.getTime()) / 864e5);
+      const TIME_MILESTONES = [100, 150, 180, 200, 250, 300, 365, 500, 730, 1e3];
+      const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+      const _lastTimeRows = await db.select({ settingValue: siteSettings.settingValue }).from(siteSettings).where(eq(siteSettings.settingKey, "milestone:last_time_celebrated")).limit(1);
+      const _lastTimeCelebrated = _lastTimeRows[0] ? parseInt(_lastTimeRows[0].settingValue, 10) || 0 : 0;
+      const _nextTimeMilestone = TIME_MILESTONES.filter((m4) => m4 > _lastTimeCelebrated && daysSinceLaunch2 >= m4).pop();
+      if (_nextTimeMilestone) {
+        let _timeCaption = `\u{1F389} <b>${_nextTimeMilestone} Days of TurboLoop!</b>
+
+It's been ${_nextTimeMilestone} days since the smart contract was deployed. Thank you to everyone building the future of DeFi with us! \u{1F680}
+
+<b>Join the revolution:</b> https://www.turboloop.tech`;
+        try {
+          const _claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+              "anthropic-version": "2023-06-01"
+            },
+            body: JSON.stringify({
+              model: "claude-haiku-4-5",
+              max_tokens: 300,
+              system: "You write short, exciting Telegram celebration posts for TurboLoop, a DeFi yield protocol on BSC. Use Telegram HTML formatting (<b>bold</b>, <i>italic</i>). Always include the website link https://www.turboloop.tech. Keep it under 250 characters. No hashtags. End with a rocket or fire emoji.",
+              messages: [{ role: "user", content: `Write a celebration post for reaching ${_nextTimeMilestone} days since the TurboLoop smart contract was deployed. Current days: ${daysSinceLaunch2}.` }]
+            }),
+            signal: AbortSignal.timeout(15e3)
+          });
+          if (_claudeRes.ok) {
+            const _claudeData = await _claudeRes.json();
+            const _claudeText = _claudeData?.content?.[0]?.text ?? "";
+            if (_claudeText) _timeCaption = _claudeText;
+          }
+        } catch {
+        }
+        await triggerManusMilestoneTask("Days Since Launch", _nextTimeMilestone, _timeCaption, `${_nextTimeMilestone}-days.png`);
+        await db.insert(siteSettings).values({ settingKey: "milestone:last_time_celebrated", settingValue: String(_nextTimeMilestone) }).onConflictDoUpdate({
+          target: siteSettings.settingKey,
+          set: { settingValue: String(_nextTimeMilestone), updatedAt: /* @__PURE__ */ new Date() }
+        });
+        console.log(`[cron-master] \u{1F389} Time Milestone celebrated: ${_nextTimeMilestone} days (current: ${daysSinceLaunch2})`);
+      }
+    } catch (_timeMilestoneErr) {
+      console.error("[cron-master] time milestone detection error:", _timeMilestoneErr);
+    }
+    try {
+      const DEPOSITOR_MILESTONES = [500, 1e3, 1500, 2e3, 2500, 3e3, 5e3, 1e4];
+      const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+      const _depRows = await db.select({ settingValue: siteSettings.settingValue }).from(siteSettings).where(eq(siteSettings.settingKey, "cache:unique_depositors")).limit(1);
+      const _currentDepositors = _depRows[0] ? parseInt(_depRows[0].settingValue, 10) || 0 : 0;
+      const _lastDepRows = await db.select({ settingValue: siteSettings.settingValue }).from(siteSettings).where(eq(siteSettings.settingKey, "milestone:last_depositor_celebrated")).limit(1);
+      const _lastDepCelebrated = _lastDepRows[0] ? parseInt(_lastDepRows[0].settingValue, 10) || 0 : 0;
+      const _nextDepMilestone = DEPOSITOR_MILESTONES.filter((m4) => m4 > _lastDepCelebrated && _currentDepositors >= m4).pop();
+      if (_nextDepMilestone && _currentDepositors > 0) {
+        let _depCaption = `\u{1F389} <b>${_nextDepMilestone.toLocaleString("en-US")} Unique Depositors!</b>
+
+Our protocol just crossed ${_nextDepMilestone.toLocaleString("en-US")} unique wallets actively earning yield. The network effect is real. \u{1F680}
+
+<b>Start earning today:</b> https://www.turboloop.tech`;
+        try {
+          const _claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": process.env.ANTHROPIC_API_KEY || "",
+              "anthropic-version": "2023-06-01"
+            },
+            body: JSON.stringify({
+              model: "claude-haiku-4-5",
+              max_tokens: 300,
+              system: "You write short, exciting Telegram celebration posts for TurboLoop, a DeFi yield protocol on BSC. Use Telegram HTML formatting (<b>bold</b>, <i>italic</i>). Always include the website link https://www.turboloop.tech. Keep it under 250 characters. No hashtags. End with a rocket or fire emoji.",
+              messages: [{ role: "user", content: `Write a celebration post for reaching ${_nextDepMilestone.toLocaleString("en-US")} unique depositors (wallets actively earning yield). Current count: ${_currentDepositors.toLocaleString("en-US")}.` }]
+            }),
+            signal: AbortSignal.timeout(15e3)
+          });
+          if (_claudeRes.ok) {
+            const _claudeData = await _claudeRes.json();
+            const _claudeText = _claudeData?.content?.[0]?.text ?? "";
+            if (_claudeText) _depCaption = _claudeText;
+          }
+        } catch {
+        }
+        await triggerManusMilestoneTask("Unique Depositors", _nextDepMilestone, _depCaption, `${_nextDepMilestone}-depositors.png`);
+        await db.insert(siteSettings).values({ settingKey: "milestone:last_depositor_celebrated", settingValue: String(_nextDepMilestone) }).onConflictDoUpdate({
+          target: siteSettings.settingKey,
+          set: { settingValue: String(_nextDepMilestone), updatedAt: /* @__PURE__ */ new Date() }
+        });
+        console.log(`[cron-master] \u{1F389} Depositor Milestone celebrated: ${_nextDepMilestone} depositors (current: ${_currentDepositors})`);
+      }
+    } catch (_depMilestoneErr) {
+      console.error("[cron-master] depositor milestone detection error:", _depMilestoneErr);
+    }
+    try {
       const MILESTONES = [1100, 1200, 1500, 2e3, 2500, 3e3, 5e3, 1e4];
       const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
       const _holderRows = await db.select({ settingValue: siteSettings.settingValue }).from(siteSettings).where(eq(siteSettings.settingKey, "cache:token_holders")).limit(1);
@@ -78527,20 +78728,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
           }
         } catch {
         }
-        const _bannerUrl = `${R2_BASE}/brand/milestones/${_nextMilestone}-holders.png`;
-        const _fallbackUrl = `${R2_BASE}/brand/milestones/generic-milestone.png`;
-        let _finalBannerUrl = _fallbackUrl;
-        try {
-          const _bannerCheck = await fetch(_bannerUrl, { method: "HEAD", signal: AbortSignal.timeout(5e3) });
-          if (_bannerCheck.ok) _finalBannerUrl = _bannerUrl;
-        } catch {
-        }
-        await tgBroadcastPhoto({
-          photoUrl: _finalBannerUrl,
-          caption: _milestoneCaption,
-          parseMode: "HTML",
-          buttons: [{ text: "\u{1F310} Join TurboLoop", url: "https://www.turboloop.tech" }]
-        });
+        await triggerManusMilestoneTask("Token Holders", _nextMilestone, _milestoneCaption, `${_nextMilestone}-holders.png`);
         await db.insert(siteSettings).values({ settingKey: "milestone:last_celebrated", settingValue: String(_nextMilestone) }).onConflictDoUpdate({
           target: siteSettings.settingKey,
           set: { settingValue: String(_nextMilestone), updatedAt: /* @__PURE__ */ new Date() }

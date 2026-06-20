@@ -52,10 +52,27 @@ async function triggerManusMilestoneTask(milestoneType: string, milestoneValue: 
   }
 
   const prompt = `A new milestone has been crossed: ${milestoneValue} ${milestoneType}!
-Please generate a cinematic milestone banner using the turboloop-imagegen skill rules.
-The banner must prominently feature the number "${milestoneValue}" and the text "${milestoneType}".
-Follow the DISTINCTNESS SYSTEM to ensure it looks unique.
-After generating, upload the PNG to R2 at brand/milestones/${filename} using boto3 with credentials from /home/ubuntu/.turboloop/secrets.env.
+
+Please generate a cinematic milestone banner using the exact turboloop-imagegen skill rules.
+You MUST use the generate_image tool with the gpt-image-2 model.
+
+CRITICAL LOGO RULE:
+You MUST pass this exact reference file to the generate_image tool:
+references: ["/home/ubuntu/skills/turboloop-imagegen/templates/turboloop_logo_official.png"]
+
+PROMPT TEMPLATE TO USE FOR THE IMAGE:
+"""
+Ultra-premium DeFi milestone celebration banner 16:9.
+DESIGN SYSTEM: Style=CINEMATIC, Palette=NAVY-GOLD, Layout=HERO-CENTER.
+The TurboLoop logo (exact spiral swirl icon in teal/cyan/purple gradient + 'Turbo' in white bold + 'Loop' in cyan bold) placed small and clean in the TOP-LEFT corner, directly on the dark background — NO box, NO panel, NO rectangle behind it.
+BOTTOM-RIGHT: small text 'turboloop.io' in white.
+A massive, glowing, cinematic 3D rendering of the number "${milestoneValue}" in the center, surrounded by gold and cyan energy particles.
+Below the number, bold glowing text: "${milestoneType}".
+This banner must be visually DISTINCT from all others — unique style, unique palette, unique composition.
+Ultra premium, cinematic quality.
+"""
+
+After generating the image, upload the PNG to R2 at brand/milestones/${filename} using boto3 with credentials from /home/ubuntu/.turboloop/secrets.env.
 Finally, post the banner to Telegram using the broadcastphoto action: POST https://api.turboloop.tech/api/cron/master?broadcastphoto=1 with JSON body {photoUrl: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}", caption: ${JSON.stringify(caption)}}.`;
 
   try {

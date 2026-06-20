@@ -72,8 +72,28 @@ This banner must be visually DISTINCT from all others — unique style, unique p
 Ultra premium, cinematic quality.
 """
 
-After generating the image, upload the PNG to R2 at brand/milestones/${filename} using boto3 with credentials from /home/ubuntu/.turboloop/secrets.env.
-Finally, post the banner to Telegram using the broadcastphoto action: POST https://api.turboloop.tech/api/cron/master?broadcastphoto=1 with JSON body {photoUrl: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}", caption: ${JSON.stringify(caption)}}.`;
+STEP 1: Generate the image using the generate_image tool as described above.
+
+STEP 2: Upload the generated PNG to R2.
+- Use boto3 with credentials from /home/ubuntu/.turboloop/secrets.env
+- Upload to key: brand/milestones/${filename}
+- The public URL will be: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}
+
+STEP 3: Post to Telegram — THIS STEP IS MANDATORY, DO NOT SKIP.
+Make this exact HTTP POST request:
+  URL: https://api.turboloop.tech/api/cron/master?broadcastphoto=1
+  Method: POST
+  Headers: Content-Type: application/json
+  Body (exact JSON):
+  {
+    "photoUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/brand/milestones/${filename}",
+    "caption": ${JSON.stringify(caption)}
+  }
+
+The caption text to use is:
+${caption}
+
+Do NOT skip Step 3. The Telegram post MUST include the caption text above.`;
 
   try {
     console.log(`[cron-master] Triggering Manus API for ${milestoneValue} ${milestoneType}...`);

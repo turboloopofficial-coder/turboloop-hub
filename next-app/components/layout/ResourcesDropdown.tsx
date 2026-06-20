@@ -5,13 +5,16 @@
 // `ResourcesDropdown` is preserved as an alias of `EarnDropdown` so any
 // legacy import still resolves.
 //
-// Critical fix from the v1 dropdown: imports the pillar arrays from the
-// nav-links leaf module, NOT from Navbar. The previous circular import
-// (Navbar → ResourcesDropdown → Navbar) left constants undefined at
-// first client render and silently nuked the panel.
+// UX fixes (Jun 2026):
+//   - onMouseDown opacity flash on trigger buttons for instant press feedback
+//   - "navstart" CustomEvent dispatched on every link click so NavProgressBar
+//     starts the top progress bar on the same frame as the click
+//   - activeHref state highlights the clicked item immediately (cyan bg)
+//     before the dropdown closes and the route changes
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
 import {
@@ -46,7 +49,14 @@ export function NavDropdown({
   panelId,
 }: NavDropdownProps) {
   const [open, setOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  // Clear active highlight when route settles
+  useEffect(() => {
+    setActiveHref(null);
+  }, [pathname]);
 
   // Close on outside click + Escape — standard menu behaviour.
   useEffect(() => {
@@ -65,6 +75,12 @@ export function NavDropdown({
     };
   }, [open]);
 
+  const handleNavigate = (href: string) => {
+    setActiveHref(href);
+    window.dispatchEvent(new CustomEvent("navstart"));
+    setOpen(false);
+  };
+
   return (
     <div ref={ref} className="relative">
       <button
@@ -73,7 +89,10 @@ export function NavDropdown({
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={panelId}
-        className="inline-flex items-center gap-1 px-3 min-h-[44px] rounded-[var(--r-md)] text-sm font-semibold text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition-colors"
+        className="inline-flex items-center gap-1 px-3 min-h-[44px] rounded-[var(--r-md)] text-sm font-semibold text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition-colors select-none"
+        onMouseDown={(e) => (e.currentTarget.style.opacity = "0.6")}
+        onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
       >
         {label}
         <ChevronDown
@@ -91,15 +110,17 @@ export function NavDropdown({
           }`}
           style={{
             width: panelWidth,
-            // Glass: surface tint at 85 % per spec. The solid var fallback
-            // (#ffffff) covers the first-paint window before the variable
-            // resolves.
             background:
               "color-mix(in oklab, var(--c-surface, #ffffff) 85%, transparent)",
           }}
         >
           {links.map((link) => (
-            <NavDropdownLink key={link.href} link={link} onNavigate={() => setOpen(false)} />
+            <NavDropdownLink
+              key={link.href}
+              link={link}
+              isActive={activeHref === link.href}
+              onNavigate={() => handleNavigate(link.href)}
+            />
           ))}
         </div>
       )}
@@ -111,9 +132,11 @@ export function NavDropdown({
 
 function NavDropdownLink({
   link,
+  isActive,
   onNavigate,
 }: {
   link: NavLinkItem;
+  isActive: boolean;
   onNavigate: () => void;
 }) {
   return (
@@ -121,9 +144,26 @@ function NavDropdownLink({
       href={link.href}
       onClick={onNavigate}
       role="menuitem"
-      className={`flex items-start gap-3 p-3 min-h-[52px] rounded-[var(--r-md)] hover:bg-[rgba(15,23,42,0.04)] dark:hover:bg-[rgba(255,255,255,0.04)] transition group ${
+      className={`flex items-start gap-3 p-3 min-h-[52px] rounded-[var(--r-md)] transition group select-none ${
         link.highlight ? "border border-[var(--c-brand-cyan)]" : ""
       }`}
+      style={{
+        background: isActive
+          ? "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)"
+          : undefined,
+      }}
+      onMouseDown={(e) => {
+        e.currentTarget.style.background =
+          "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)";
+      }}
+      onMouseUp={(e) => {
+        if (!isActive)
+          e.currentTarget.style.background = "";
+      }}
+      onMouseLeave={(e) => {
+        if (!isActive)
+          e.currentTarget.style.background = "";
+      }}
     >
       <div
         className="text-xl flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-xl"
@@ -136,7 +176,14 @@ function NavDropdownLink({
         {link.emoji}
       </div>
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-bold text-[var(--c-text)] group-hover:text-[var(--c-brand-cyan)] transition-colors">
+        <div
+          className="text-sm font-bold transition-colors"
+          style={{
+            color: isActive
+              ? "var(--c-brand-cyan, #0891b2)"
+              : "var(--c-text, #0f172a)",
+          }}
+        >
           {link.label}
         </div>
         {link.description && (

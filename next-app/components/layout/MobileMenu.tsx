@@ -9,16 +9,15 @@
 // Drawer body — 4 pillar accordion sections, each with a 2-col grid of
 // link cards. Every card is min-h-[56px] / touch target ≥48px.
 //
-// Critical fixes preserved from the v1 mount-failure bug:
-//   - Pillar arrays imported from nav-links (leaf module), not Navbar —
-//     eliminates the circular import that left props undefined at first
-//     client render and caused .map() to crash silently.
-//   - createPortal to document.body — drawer is a top-level DOM node,
-//     guaranteed not to be hidden by any sticky/transformed ancestor.
-//   - Explicit fallback colors via CSS-var-with-default so the drawer
-//     renders opaque even if theme vars haven't applied yet.
-//   - Inline SVG icons (no lucide dep) so glyphs render on every mobile
-//     browser regardless of font/icon-font load timing.
+// UX fixes (Jun 2026):
+//   - touchAction:"manipulation" on hamburger + all link cards removes the
+//     300ms tap delay on iOS Safari / Android Chrome.
+//   - onTouchStart opacity flash gives sub-frame visual feedback — the user
+//     sees the button respond the instant their finger touches it.
+//   - "navstart" CustomEvent dispatched on every link click so NavProgressBar
+//     starts the top progress bar on the same frame as the tap.
+//   - activeHref state highlights the tapped card immediately (cyan border +
+//     background) before the drawer closes and the route changes.
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -104,11 +103,14 @@ export function MobileMenu() {
   // Track whether we've mounted on the client so createPortal doesn't
   // attempt to use document during SSR.
   const [mounted, setMounted] = useState(false);
+  // Track the href that was just tapped for immediate visual feedback
+  const [activeHref, setActiveHref] = useState<string | null>(null);
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!open) {
       setEntered(false);
+      setActiveHref(null);
       return;
     }
     const prev = document.body.style.overflow;
@@ -125,6 +127,18 @@ export function MobileMenu() {
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  /**
+   * handleNavigate — called on every link click inside the drawer.
+   * 1. Highlights the tapped card immediately (activeHref → cyan)
+   * 2. Fires "navstart" so NavProgressBar starts on the same frame
+   * 3. Closes the drawer
+   */
+  const handleNavigate = (href: string) => {
+    setActiveHref(href);
+    window.dispatchEvent(new CustomEvent("navstart"));
+    setOpen(false);
+  };
 
   const drawer =
     mounted && open
@@ -162,7 +176,7 @@ export function MobileMenu() {
             >
               <Link
                 href="/"
-                onClick={() => setOpen(false)}
+                onClick={() => handleNavigate("/")}
                 className="flex items-center gap-2 font-bold text-lg tracking-tight"
               >
                 <Brand size={28} />
@@ -175,14 +189,20 @@ export function MobileMenu() {
               </Link>
               <button
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center w-12 h-12 min-w-[48px] min-h-[48px] rounded-[var(--r-md)] active:scale-95 transition"
+                className="inline-flex items-center justify-center w-12 h-12 min-w-[48px] min-h-[48px] rounded-[var(--r-md)] transition select-none"
                 style={{
                   background: "var(--c-surface, #f7f8fc)",
                   color: "var(--c-text, #0f172a)",
                   border: "1px solid var(--c-border, rgba(15,23,42,0.08))",
+                  touchAction: "manipulation",
                 }}
                 aria-label="Close menu"
                 type="button"
+                onTouchStart={(e) => (e.currentTarget.style.opacity = "0.5")}
+                onTouchEnd={(e) => (e.currentTarget.style.opacity = "1")}
+                onMouseDown={(e) => (e.currentTarget.style.opacity = "0.5")}
+                onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
               >
                 <CloseIcon />
               </button>
@@ -198,7 +218,8 @@ export function MobileMenu() {
                   key={pillar.label}
                   label={pillar.label}
                   links={pillar.links}
-                  onNavigate={() => setOpen(false)}
+                  activeHref={activeHref}
+                  onNavigate={handleNavigate}
                 />
               ))}
 
@@ -208,8 +229,16 @@ export function MobileMenu() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="mt-8 inline-flex items-center justify-center gap-2 w-full px-5 h-[52px] min-h-[48px] rounded-[var(--r-lg)] text-base font-bold text-white shadow-[var(--s-brand)] active:scale-[0.985] transition"
-                style={{ background: "var(--c-brand-gradient)" }}
+                className="mt-8 inline-flex items-center justify-center gap-2 w-full px-5 h-[52px] min-h-[48px] rounded-[var(--r-lg)] text-base font-bold text-white transition select-none"
+                style={{
+                  background: "var(--c-brand-gradient)",
+                  touchAction: "manipulation",
+                }}
+                onTouchStart={(e) => (e.currentTarget.style.opacity = "0.75")}
+                onTouchEnd={(e) => (e.currentTarget.style.opacity = "1")}
+                onMouseDown={(e) => (e.currentTarget.style.opacity = "0.75")}
+                onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
               >
                 <RocketIcon />
                 Launch App
@@ -222,17 +251,37 @@ export function MobileMenu() {
 
   return (
     <>
+      {/*
+       * HAMBURGER BUTTON — must respond before React fully hydrates.
+       *
+       * This IS a native <button> so it works natively. The key UX fixes:
+       *   1. touchAction:"manipulation" — removes the 300ms iOS/Android tap
+       *      delay that made the button feel unresponsive.
+       *   2. onTouchStart opacity drop — fires the instant the finger touches
+       *      the screen, giving visual feedback before onClick even runs.
+       *   3. The button is always rendered (not inside Suspense or lazy) so
+       *      it exists in the DOM as soon as the navbar renders.
+       */}
       <button
         onClick={(e) => {
           e.stopPropagation();
           setOpen(true);
         }}
-        className="md:hidden inline-flex items-center gap-2 px-3 min-h-[48px] h-11 rounded-[var(--r-lg)] text-white shadow-[var(--s-brand)] active:scale-95 transition"
-        style={{ background: "var(--c-brand-gradient)" }}
+        className="md:hidden inline-flex items-center gap-2 px-3 min-h-[48px] h-11 rounded-[var(--r-lg)] text-white transition select-none"
+        style={{
+          background: "var(--c-brand-gradient)",
+          boxShadow: "var(--s-brand)",
+          touchAction: "manipulation",
+        }}
         aria-label="Open menu"
         aria-expanded={open}
         aria-controls={DRAWER_ID}
         type="button"
+        onTouchStart={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onTouchEnd={(e) => (e.currentTarget.style.opacity = "1")}
+        onMouseDown={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
       >
         <HamburgerIcon />
         <span className="text-xs font-bold tracking-wider uppercase">Menu</span>
@@ -247,11 +296,13 @@ export function MobileMenu() {
 function PillarSection({
   label,
   links,
+  activeHref,
   onNavigate,
 }: {
   label: string;
   links: ReadonlyArray<NavLinkItem>;
-  onNavigate: () => void;
+  activeHref: string | null;
+  onNavigate: (href: string) => void;
 }) {
   return (
     <section className="mb-2">
@@ -262,55 +313,90 @@ function PillarSection({
         {label}
       </div>
       <div className="grid grid-cols-2 gap-2">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            onClick={onNavigate}
-            className="flex items-start gap-2.5 p-3 min-h-[56px] rounded-[var(--r-md)] active:scale-[0.97] transition"
-            style={{
-              background: "var(--c-surface, #f7f8fc)",
-              border: link.highlight
-                ? "1px solid var(--c-brand-cyan, #0891b2)"
-                : "1px solid var(--c-border, rgba(15,23,42,0.08))",
-            }}
-          >
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+        {links.map((link) => {
+          const isActive = activeHref === link.href;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => onNavigate(link.href)}
+              className="flex items-start gap-2.5 p-3 min-h-[56px] rounded-[var(--r-md)] transition select-none"
               style={{
-                background:
-                  "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
+                background: isActive
+                  ? "color-mix(in oklab, var(--c-brand-cyan) 12%, transparent)"
+                  : "var(--c-surface, #f7f8fc)",
+                border:
+                  isActive || link.highlight
+                    ? "1px solid var(--c-brand-cyan, #0891b2)"
+                    : "1px solid var(--c-border, rgba(15,23,42,0.08))",
+                touchAction: "manipulation",
               }}
-              aria-hidden
+              onTouchStart={(e) => {
+                e.currentTarget.style.background =
+                  "color-mix(in oklab, var(--c-brand-cyan) 12%, transparent)";
+                e.currentTarget.style.borderColor =
+                  "var(--c-brand-cyan, #0891b2)";
+              }}
+              onTouchEnd={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.background =
+                    "var(--c-surface, #f7f8fc)";
+                  e.currentTarget.style.borderColor = link.highlight
+                    ? "var(--c-brand-cyan, #0891b2)"
+                    : "var(--c-border, rgba(15,23,42,0.08))";
+                }
+              }}
+              onMouseDown={(e) => {
+                e.currentTarget.style.opacity = "0.75";
+              }}
+              onMouseUp={(e) => {
+                e.currentTarget.style.opacity = "1";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = "1";
+              }}
             >
-              {link.emoji}
-            </div>
-            <div className="min-w-0 flex-1">
               <div
-                className="text-[0.8125rem] font-bold leading-tight"
-                style={{ color: "var(--c-text, #0f172a)" }}
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+                style={{
+                  background:
+                    "color-mix(in oklab, var(--c-brand-cyan) 10%, transparent)",
+                }}
+                aria-hidden
               >
-                {link.label}
+                {link.emoji}
               </div>
-              {link.description && (
+              <div className="min-w-0 flex-1">
                 <div
-                  className="text-[0.6875rem] leading-tight mt-0.5"
-                  style={{ color: "var(--c-text-muted, #64748B)" }}
+                  className="text-[0.8125rem] font-bold leading-tight transition-colors"
+                  style={{
+                    color: isActive
+                      ? "var(--c-brand-cyan, #0891b2)"
+                      : "var(--c-text, #0f172a)",
+                  }}
                 >
-                  {link.description}
+                  {link.label}
                 </div>
-              )}
-              {link.highlight && (
-                <div
-                  className="mt-1 inline-flex items-center gap-1 text-[0.625rem] font-bold tracking-[0.15em] uppercase"
-                  style={{ color: "var(--c-brand-cyan, #0891b2)" }}
-                >
-                  ⚡ Bonus
-                </div>
-              )}
-            </div>
-          </Link>
-        ))}
+                {link.description && (
+                  <div
+                    className="text-[0.6875rem] leading-tight mt-0.5"
+                    style={{ color: "var(--c-text-muted, #64748B)" }}
+                  >
+                    {link.description}
+                  </div>
+                )}
+                {link.highlight && (
+                  <div
+                    className="mt-1 inline-flex items-center gap-1 text-[0.625rem] font-bold tracking-[0.15em] uppercase"
+                    style={{ color: "var(--c-brand-cyan, #0891b2)" }}
+                  >
+                    ⚡ Bonus
+                  </div>
+                )}
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

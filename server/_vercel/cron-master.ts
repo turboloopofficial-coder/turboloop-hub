@@ -2562,8 +2562,19 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return { delivered, channels: results.length, failed };
     };
 
+    // ── Paused categories — add category IDs here to pause their TG posts ──
+    // Remove a category from this set to re-enable its posts.
+    const PAUSED_CATEGORIES = new Set<string>([
+      "token",  // paused — token campaign posts temporarily disabled
+    ]);
+
     for (const slot of CAMPAIGN_SLOTS) {
       const forceSlot = campaignForceSet.has(slot.taskId);
+      // Skip paused categories (force flag overrides the pause)
+      if (!forceSlot && PAUSED_CATEGORIES.has(slot.category)) {
+        log.push(`⏸ ${slot.taskId} PAUSED (category: ${slot.category})`);
+        continue;
+      }
       try {
         const shouldFire =
           forceSlot ||

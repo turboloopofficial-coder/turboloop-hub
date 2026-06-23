@@ -13,6 +13,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
 import { Sparkles, X, ExternalLink } from "lucide-react";
 
 const SESSION_KEY = "turboloop_welcome_seen";
@@ -24,19 +25,25 @@ const MESSAGE = [
 ];
 
 export function WelcomePopup() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Suppress the popup on the creatives hub — users there are already
+    // engaged with the banner library and don't need an intro modal.
+    if (pathname?.startsWith("/creatives")) return;
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | null = null;
     try {
       if (sessionStorage.getItem(SESSION_KEY)) return;
     } catch {}
+    // Increased from 800ms → 2000ms so users can start interacting before
+    // the popup appears.
     timer = setTimeout(() => {
       if (!cancelled) setOpen(true);
-    }, 800);
+    }, 2000);
     return () => {
       cancelled = true;
       if (timer) clearTimeout(timer);

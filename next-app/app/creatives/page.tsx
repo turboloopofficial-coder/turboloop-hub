@@ -132,6 +132,7 @@ export default function CreativesPage() {
           initialItems={INITIAL_ITEMS}
           initialTotal={TOTAL_CREATIVES}
           categories={UNIFIED_CATEGORIES}
+          categoryNavMode={true}
         />
 
         {/* ── SEO footer ──────────────────────────────────────────────────── */}

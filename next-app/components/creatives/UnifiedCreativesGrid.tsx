@@ -13,8 +13,10 @@
 // Mobile-first: sticky filter bar, 2-col mobile → 3-col tablet → 4-col desktop.
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Search, X, Filter, Loader2 } from "lucide-react";
 import { UnifiedBannerCard } from "./UnifiedBannerCard";
+import { DownloadKitButton } from "./DownloadKitButton";
 import type { UnifiedCreative, UnifiedCategoryDef, CreativeLanguage } from "@lib/unifiedCreativesData";
 import { UNIFIED_LANGUAGES } from "@lib/unifiedCreativesData";
 
@@ -36,6 +38,8 @@ interface Props {
   categories: UnifiedCategoryDef[];
   // Optional pre-selected category (for /creatives/[category] sub-pages)
   initialCategory?: string;
+  // When true, clicking a category tab navigates to /creatives/[id] instead of filtering in-place.
+  categoryNavMode?: boolean;
 }
 
 export function UnifiedCreativesGrid({
@@ -43,7 +47,9 @@ export function UnifiedCreativesGrid({
   initialTotal,
   categories,
   initialCategory,
+  categoryNavMode = false,
 }: Props) {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory ?? "all");
   const [activeLang, setActiveLang] = useState<CreativeLanguage | "all">("all");
   const [search, setSearch] = useState("");
@@ -222,7 +228,11 @@ export function UnifiedCreativesGrid({
                 emoji={cat.emoji}
                 count={cat.count}
                 active={activeCategory === cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() =>
+                  categoryNavMode
+                    ? router.push(`/creatives/${cat.id}`)
+                    : setActiveCategory(cat.id)
+                }
                 accent={cat.accent.from}
               />
             ))}
@@ -254,7 +264,7 @@ export function UnifiedCreativesGrid({
       </div>
 
       {/* ── Results count ─────────────────────────────────────────────── */}
-      <div className="px-4 md:px-6 pt-4 pb-2 flex items-center justify-between">
+      <div className="px-4 md:px-6 pt-4 pb-2 flex items-center justify-between gap-3">
         <p className="text-xs text-[var(--c-text-subtle)]">
           {loading ? (
             <span className="flex items-center gap-1.5">
@@ -266,14 +276,26 @@ export function UnifiedCreativesGrid({
             `${total.toLocaleString()} of ${initialTotal.toLocaleString()} banners`
           )}
         </p>
-        {isFiltered && activeCategory !== "all" && (
-          <p
-            className="text-xs font-semibold"
-            style={{ color: categories.find(c => c.id === activeCategory)?.accent.from }}
-          >
-            {categories.find(c => c.id === activeCategory)?.label}
-          </p>
-        )}
+        <div className="flex items-center gap-2">
+          {isFiltered && activeCategory !== "all" && (
+            <p
+              className="text-xs font-semibold"
+              style={{ color: categories.find(c => c.id === activeCategory)?.accent.from }}
+            >
+              {categories.find(c => c.id === activeCategory)?.label}
+            </p>
+          )}
+          {activeCategory !== "all" && (() => {
+            const cat = categories.find(c => c.id === activeCategory);
+            return cat ? (
+              <DownloadKitButton
+                categoryId={activeCategory}
+                categoryLabel={cat.label}
+                accentColor={cat.accent.from}
+              />
+            ) : null;
+          })()}
+        </div>
       </div>
 
       {/* ── Grid ──────────────────────────────────────────────────────── */}

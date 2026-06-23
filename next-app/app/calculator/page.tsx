@@ -50,6 +50,7 @@ import {
   isTokenEligiblePlan,
 } from "@lib/tokenFacts";
 import { LOOP_PLANS, type LoopPlan } from "@lib/loopPlans";
+import { CompoundingChart } from "@components/calculator/CompoundingChart";
 import { trackEvent } from "@lib/analytics";
 
 // Plan data (id / label / days / roi / blurb) is canonical in
@@ -514,6 +515,9 @@ export default function CalculatorPage() {
             </Card>
           </div>
         </div>
+
+        {/* ─── COMPOUNDING PROJECTION CHART ─── */}
+        <CompoundingChart plan={plan} deposit={deposit} />
 
         {/* ─── $TURBO TOKEN REWARDS ─── */}
         {/* Token rewards only apply to Power (30d) and Ultimate (60d).

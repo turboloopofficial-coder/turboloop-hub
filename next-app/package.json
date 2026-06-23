@@ -25,6 +25,7 @@
     "ai": "^6.0.184",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.44.5",
+    "fflate": "^0.8.3",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.453.0",
     "marked": "^18.0.3",

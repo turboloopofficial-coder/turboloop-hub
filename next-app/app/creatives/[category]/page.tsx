@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { UnifiedCreativesGrid } from "@components/creatives/UnifiedCreativesGrid";
+import { DownloadKitButton } from "@components/creatives/DownloadKitButton";
 import {
   ALL_UNIFIED_CREATIVES,
   UNIFIED_CATEGORIES,
@@ -163,12 +164,19 @@ export default async function CategoryPage({
                 <p className="text-sm text-[var(--c-text-subtle)] mt-1.5 max-w-2xl leading-relaxed">
                   {cat.description}
                 </p>
-                <p
-                  className="text-xs font-bold mt-2"
-                  style={{ color: cat.accent.from }}
-                >
-                  {items.length} free banners · Download &amp; share · No attribution required
-                </p>
+                <div className="flex items-center gap-3 mt-2 flex-wrap">
+                  <p
+                    className="text-xs font-bold"
+                    style={{ color: cat.accent.from }}
+                  >
+                    {items.length} free banners · No attribution required
+                  </p>
+                  <DownloadKitButton
+                    categoryId={category}
+                    categoryLabel={cat.label}
+                    accentColor={cat.accent.from}
+                  />
+                </div>
               </div>
             </div>
           </Container>

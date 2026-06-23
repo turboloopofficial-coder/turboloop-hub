@@ -11,6 +11,7 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ZOOM_EN, ZOOM_HI, type ZoomSession } from "@shared/zoomEvents";
 import { ZoomCountdown } from "./ZoomLiveCountdown";
+import { LocalZoomTime } from "./LocalZoomTime";
 
 export function ZoomLiveSection() {
   return (
@@ -86,6 +87,11 @@ function ZoomCard({
         <span className={multiTimezone ? "" : "font-mono"}>
           {session.timeLabel}
         </span>
+      </div>
+
+      {/* Local time pill — client-only, renders after hydration */}
+      <div className="mb-3">
+        <LocalZoomTime startUtcMin={session.startUtcMin} />
       </div>
 
       {/* Countdown */}

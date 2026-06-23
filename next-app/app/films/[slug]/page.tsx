@@ -44,7 +44,7 @@ import {
   type DbFilm,
   type FilmLang,
 } from "@lib/filmsApi";
-import { SEASONS } from "@lib/cinematicUniverse";
+import { SEASONS, FILMS as S1_FILMS } from "@lib/cinematicUniverse";
 
 export const revalidate = 300;
 export const dynamicParams = true;
@@ -63,8 +63,38 @@ function isLang(v: string | undefined): v is FilmLang {
 }
 
 export async function generateStaticParams() {
-  const slugs = await fetchAllFilmSlugs();
-  return slugs.map(slug => ({ slug }));
+  // Fetch DB slugs (S2 Sovereign Series + any S1 films already migrated)
+  const dbSlugs = await fetchAllFilmSlugs();
+  // Also include all S1 Cinematic Universe slugs from the static array
+  // so legacy film pages are pre-rendered at build time and never hit
+  // the slow ISR cold-start path.
+  const s1Slugs = S1_FILMS.map(f => f.slug);
+  const allSlugs = Array.from(new Set([...dbSlugs, ...s1Slugs]));
+  return allSlugs.map(slug => ({ slug }));
+}
+
+/** Convert a static S1 Film to the DbFilm shape so the detail page
+ *  can render legacy Cinematic Universe films without a DB row. */
+function s1FilmToDbFilm(f: (typeof S1_FILMS)[number]): DbFilm {
+  return {
+    id: -(f.season * 100 + f.episode), // negative ID = static, never clashes with DB
+    canonicalSlug: f.slug,
+    slug: f.slug,
+    language: "English",
+    languageFlag: "🇬🇧",
+    title: f.title,
+    description: f.description,
+    headline: f.headline,
+    tagline: f.tagline,
+    directUrl: f.url,
+    posterUrl: f.posterUrl,
+    season: f.season,
+    episode: f.episode,
+    sortOrder: (f.season - 1) * 5 + f.episode,
+    pinnedAt: null,
+    pinnedNewUntil: null,
+    createdAt: "2026-01-01T00:00:00Z",
+  };
 }
 
 async function getFilmOr404(
@@ -74,6 +104,15 @@ async function getFilmOr404(
   let film = await fetchFilmBySlug(slug, lang);
   if (!film && lang !== "en") {
     film = await fetchFilmBySlug(slug, "en");
+  }
+  // Fallback: check the static S1 Cinematic Universe array for legacy slugs
+  // that haven't been migrated to the DB yet.
+  if (!film) {
+    const s1 = S1_FILMS.find(f => f.slug === slug);
+    if (s1) {
+      const dbFilm = s1FilmToDbFilm(s1);
+      return { film: dbFilm, allLangs: [dbFilm] };
+    }
   }
   if (!film) notFound();
   const allLangs = await fetchFilmTranslations(slug);

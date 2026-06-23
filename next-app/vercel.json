@@ -4,5 +4,10 @@
   "buildCommand": "next build",
   "outputDirectory": ".next",
   "installCommand": "npm install --legacy-peer-deps",
-  "devCommand": "next dev -p 3001"
+  "devCommand": "next dev -p 3001",
+  "functions": {
+    "app/api/creatives/download-kit/route.ts": {
+      "maxDuration": 60
+    }
+  }
 }

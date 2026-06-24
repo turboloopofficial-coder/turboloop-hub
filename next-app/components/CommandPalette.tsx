@@ -9,6 +9,7 @@
 // the dependency cost.
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Search, ArrowUpRight, Command } from "lucide-react";
@@ -122,15 +123,13 @@ export function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, filtered, activeIdx, router]);
 
-  // Focus input on open + lock body scroll.
+  // Counter-based scroll lock — safe alongside WelcomePopup / MobileMenu.
+  useScrollLock(open);
+
+  // Focus input on open.
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     setTimeout(() => inputRef.current?.focus(), 30);
-    return () => {
-      document.body.style.overflow = prev;
-    };
   }, [open]);
 
   // Reset active index when filter changes.

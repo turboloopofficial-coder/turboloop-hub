@@ -20,6 +20,7 @@
 //     background) before the drawer closes and the route changes.
 
 import { useEffect, useState } from "react";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Brand } from "@components/Brand";
@@ -107,14 +108,16 @@ export function MobileMenu() {
   const [activeHref, setActiveHref] = useState<string | null>(null);
   useEffect(() => setMounted(true), []);
 
+  // Counter-based scroll lock — safe when WelcomePopup or other modals
+  // are also open at the same time.
+  useScrollLock(open);
+
   useEffect(() => {
     if (!open) {
       setEntered(false);
       setActiveHref(null);
       return;
     }
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     const raf1 = requestAnimationFrame(() =>
       requestAnimationFrame(() => setEntered(true))
     );
@@ -123,7 +126,6 @@ export function MobileMenu() {
     window.addEventListener("keydown", onKey);
     return () => {
       cancelAnimationFrame(raf1);
-      document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);

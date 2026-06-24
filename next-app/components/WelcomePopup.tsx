@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Sparkles, X, ExternalLink } from "lucide-react";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 const SESSION_KEY = "turboloop_welcome_seen";
 const TITLE = "Welcome to TurboLoop";
@@ -50,17 +51,18 @@ export function WelcomePopup() {
     };
   }, []);
 
-  // Lock body scroll while open.
+  // Lock body scroll while open — uses counter-based hook so multiple
+  // concurrent modals can't fight each other and leave scroll locked.
+  useScrollLock(open);
+
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && handleClose();
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const handleClose = () => {

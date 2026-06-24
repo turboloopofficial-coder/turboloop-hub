@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, CAMPAIGN_INDONESIAN_CAPTIONS, CAMPAIGN_CHINESE_CAPTIONS, CAMPAIGN_ITALIAN_CAPTIONS, CAMPAIGN_ARABIC_CAPTIONS, CAMPAIGN_URDU_CAPTIONS, CAMPAIGN_GERMAN_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_PLAN_CAPTIONS, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, CAMPAIGN_INDONESIAN_CAPTIONS, CAMPAIGN_CHINESE_CAPTIONS, CAMPAIGN_ITALIAN_CAPTIONS, CAMPAIGN_ARABIC_CAPTIONS, CAMPAIGN_URDU_CAPTIONS, CAMPAIGN_GERMAN_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -2406,7 +2406,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const CAMPAIGN_SLOTS: CampaignSlot[] = [
       // ── 00:xx ──
       { hour:  0, minute:  0, taskId: "campaign:c01", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS,  slotOffset: 0 },
-      { hour:  0, minute: 30, taskId: "campaign:c02", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS,       slotOffset: 0 },
+      { hour:  0, minute: 30, taskId: "campaign:c02", category: "plan",              captions: CAMPAIGN_PLAN_CAPTIONS,        slotOffset: 0 },
       // ── 01:xx ──
       { hour:  1, minute:  0, taskId: "campaign:c03", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 0 },
       { hour:  1, minute: 30, taskId: "campaign:c04", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 0 },
@@ -2424,7 +2424,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour:  5, minute: 30, taskId: "campaign:c12", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS,   slotOffset: 0 },
       // ── 06:xx ──
       { hour:  6, minute:  0, taskId: "campaign:c13", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS,  slotOffset: 1 },
-      { hour:  6, minute: 30, taskId: "campaign:c14", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS,       slotOffset: 1 },
+      { hour:  6, minute: 30, taskId: "campaign:c14", category: "plan",              captions: CAMPAIGN_PLAN_CAPTIONS,        slotOffset: 1 },
       // ── 07:xx ──
       { hour:  7, minute:  0, taskId: "campaign:c15", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 1 },
       { hour:  7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 1 },
@@ -2440,7 +2440,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour: 11, minute: 30, taskId: "campaign:c24", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS,   slotOffset: 1 },
       // ── 12:xx ──
       { hour: 12, minute:  0, taskId: "campaign:c25", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS,  slotOffset: 2 },
-      { hour: 12, minute: 30, taskId: "campaign:c26", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS,       slotOffset: 2 },
+      { hour: 12, minute: 30, taskId: "campaign:c26", category: "plan",              captions: CAMPAIGN_PLAN_CAPTIONS,        slotOffset: 2 },
       // ── 13:xx ──
       { hour: 13, minute:  0, taskId: "campaign:c27", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 2 },
       { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 2 },
@@ -2460,7 +2460,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       { hour: 18, minute: 15, taskId: "campaign:c36", category: "community",         captions: CAMPAIGN_COMMUNITY_CAPTIONS,   slotOffset: 2 },
       // ── 18:xx (c37/c38 shifted to avoid collision with c35/c36) ──
       { hour: 18, minute: 30, taskId: "campaign:c37", category: "lifestyle",         captions: CAMPAIGN_LIFESTYLE_CAPTIONS,  slotOffset: 3 },
-      { hour: 18, minute: 45, taskId: "campaign:c38", category: "token",             captions: CAMPAIGN_TOKEN_CAPTIONS,       slotOffset: 3 },
+      { hour: 18, minute: 45, taskId: "campaign:c38", category: "plan",              captions: CAMPAIGN_PLAN_CAPTIONS,        slotOffset: 3 },
       // ── 19:xx ──
       { hour: 19, minute:  0, taskId: "campaign:c39", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS,    slotOffset: 3 },
       { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS,   slotOffset: 3 },
@@ -2497,7 +2497,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Also support legacy named forces (e.g. ?force=campaign:lifestyle fires c01,c13,c25,c37)
     const legacyCategoryForce: Record<string, string[]> = {
       "campaign:lifestyle":  ["campaign:c01","campaign:c13","campaign:c25","campaign:c37"],
-      "campaign:token":      ["campaign:c02","campaign:c14","campaign:c26","campaign:c38"],
+      "campaign:token":      ["campaign:c02","campaign:c14","campaign:c26","campaign:c38"],  // legacy key (slots now use "plan")
+      "campaign:plan":       ["campaign:c02","campaign:c14","campaign:c26","campaign:c38"],
       "campaign:referral":   ["campaign:c03","campaign:c15","campaign:c27","campaign:c39"],
       "campaign:objection":  ["campaign:c04","campaign:c16","campaign:c28","campaign:c40"],
       "campaign:hindi":      ["campaign:c05","campaign:c17","campaign:c29","campaign:c41"],
@@ -2565,7 +2566,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // ── Paused categories — add category IDs here to pause their TG posts ──
     // Remove a category from this set to re-enable its posts.
     const PAUSED_CATEGORIES = new Set<string>([
-      "token",  // paused — token campaign posts temporarily disabled
+      // "token" was paused here — slots c02/c14/c26/c38 now use "plan" category instead
     ]);
 
     for (const slot of CAMPAIGN_SLOTS) {

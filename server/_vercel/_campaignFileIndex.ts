@@ -2,6 +2,12 @@
 // Re-run: node scripts/generate-campaigns-manifest.mjs
 
 export const CAMPAIGN_FILE_INDEX: Record<string, string[]> = {
+  "plan": [
+    "01_Plan_Sprint_7Day_3pct.png",
+    "02_Plan_Boost_14Day_10pct.png",
+    "03_Plan_Power_30Day_24pct.png",
+    "04_Plan_Ultimate_60Day_54pct.png",
+  ],
   "lifestyle": [
     "01_Lifestyle_Morning_Coffee_Earnings.png",
     "02_Lifestyle_Beach_Laptop.png",

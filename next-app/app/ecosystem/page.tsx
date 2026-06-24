@@ -10,6 +10,34 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const ecosystemJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/ecosystem#webpage",
+      "url": "https://www.turboloop.tech/ecosystem",
+      "name": "Ecosystem — Six Pillars, One Self-Sustaining Engine",
+      "description": "TurboLoop is six DeFi primitives working as one: Turbo Buy, Turbo Swap, Yield Farming, Referral Network, Leadership Program, Smart Contract Security.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+    },
+    {
+      "@type": "ItemList",
+      "name": "TurboLoop Ecosystem Pillars",
+      "description": "Six DeFi primitives that form the TurboLoop self-sustaining flywheel.",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Turbo Buy", "url": "https://www.turboloop.tech/ecosystem/turbo-buy" },
+        { "@type": "ListItem", "position": 2, "name": "Turbo Swap", "url": "https://www.turboloop.tech/ecosystem/turbo-swap" },
+        { "@type": "ListItem", "position": 3, "name": "Yield Farming", "url": "https://www.turboloop.tech/ecosystem/yield-farming" },
+        { "@type": "ListItem", "position": 4, "name": "Referral Network", "url": "https://www.turboloop.tech/ecosystem/referral" },
+        { "@type": "ListItem", "position": 5, "name": "Leadership Program", "url": "https://www.turboloop.tech/ecosystem/leadership" },
+        { "@type": "ListItem", "position": 6, "name": "Smart Contract Security", "url": "https://www.turboloop.tech/security" },
+      ],
+    },
+  ],
+};
+
 const ECO_OG_TITLE = "The Ecosystem — TurboLoop";
 const ECO_OG_DESC =
   "Six pillars, one engine. Turbo Buy, Swap, Yield, Referral, Leadership, Security.";
@@ -44,6 +72,10 @@ export const metadata: Metadata = {
 export default function EcosystemIndexPage() {
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ecosystemJsonLd) }}
+      />
       <PageHero
         eyebrow="The Ecosystem"
         title="Six pillars. One engine."

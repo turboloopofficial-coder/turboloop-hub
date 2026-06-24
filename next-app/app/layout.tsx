@@ -49,16 +49,27 @@ export const metadata: Metadata = {
   category: "Finance",
   authors: [{ name: "Turbo Loop" }],
   keywords: [
+    // Brand terms
     "TurboLoop",
     "TurboLoop DeFi",
     "TurboLoop Protocol",
+    // Problem-aware discovery terms
+    "best stablecoin yield BSC 2025",
+    "earn passive income crypto",
+    "highest yield DeFi protocol",
+    "USDT yield farming",
+    "USDC yield farming BSC",
+    "fixed ROI DeFi",
     "DeFi yield farming",
     "BSC yield",
-    "Binance Smart Chain",
-    "stablecoin yield",
-    "audited smart contract",
-    "renounced ownership",
+    "Binance Smart Chain yield",
+    "stablecoin yield farming",
+    "audited smart contract DeFi",
+    "renounced ownership DeFi",
     "non-custodial DeFi",
+    "crypto passive income 2025",
+    "how to earn yield on USDT",
+    "LP yield farming BSC",
   ],
   openGraph: {
     type: "website",
@@ -108,6 +119,20 @@ export const metadata: Metadata = {
   // `<link rel>` tags + sizes.
   alternates: {
     canonical: "https://www.turboloop.tech/",
+    // hreflang signals for key markets — tells Google which language/region
+    // this page targets and prevents duplicate-content penalties across
+    // the multilingual blog posts.
+    languages: {
+      "en": "https://www.turboloop.tech/",
+      "hi": "https://www.turboloop.tech/?lang=hi",
+      "de": "https://www.turboloop.tech/?lang=de",
+      "id": "https://www.turboloop.tech/?lang=id",
+      "ar": "https://www.turboloop.tech/?lang=ar",
+      "es": "https://www.turboloop.tech/?lang=es",
+      "pt": "https://www.turboloop.tech/?lang=pt",
+      "tr": "https://www.turboloop.tech/?lang=tr",
+      "x-default": "https://www.turboloop.tech/",
+    },
     // RSS auto-discovery. Browsers + feedreaders read these to surface
     // a "Subscribe" affordance. Four feeds: the unqualified /feed.xml
     // stays English (back-compat with existing subscribers);

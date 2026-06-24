@@ -37,6 +37,31 @@ import { FilmCard, FilmCardSkeleton } from "@components/films/FilmCard";
 
 export const revalidate = 300; // 5 min ISR
 
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const filmsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/films#webpage",
+      "url": "https://www.turboloop.tech/films",
+      "name": "Cinematic Universe — TurboLoop",
+      "description": "All TurboLoop films in one place — Sovereign Series S2 + the original 4-season Cinematic Universe. English, German, Hindi, Bahasa Indonesia. Free to watch.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+      "inLanguage": ["en", "de", "hi", "id"],
+    },
+    {
+      "@type": "VideoGallery",
+      "name": "TurboLoop Cinematic Universe",
+      "description": "A collection of DeFi education films by TurboLoop. Covers yield farming, financial freedom, smart contracts, and the TurboLoop protocol.",
+      "provider": { "@id": "https://www.turboloop.tech/#organization" },
+      "url": "https://www.turboloop.tech/films",
+      "inLanguage": ["en", "de", "hi", "id"],
+      "isAccessibleForFree": true,
+    },
+  ],
+};
+
 const TITLE = "Cinematic Universe — TurboLoop";
 const DESC =
   "All TurboLoop films in one place — Sovereign Series S2 + the original 4-season Cinematic Universe. English, German, Hindi, Bahasa Indonesia. Free to watch.";
@@ -110,6 +135,10 @@ export default async function FilmsPage({
 
   return (
     <main className="dark relative pb-12 md:pb-20 bg-[var(--c-bg)] text-[var(--c-text)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(filmsJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative pt-12 pb-8 md:pt-20 md:pb-12">
         <Container width="default">

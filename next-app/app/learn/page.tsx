@@ -12,16 +12,58 @@ import { LESSONS } from "@lib/defi101";
 // what-is-defi, smart contracts, stablecoins, yield farming, BscScan
 // verification, etc. All currently English; SEO claims of "12+
 // languages" in earlier drafts of this plan didn't match the data.
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const learnJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/learn#webpage",
+      "url": "https://www.turboloop.tech/learn",
+      "name": "Learn DeFi with TurboLoop — Guides, Tutorials & Education",
+      "description": "Step-by-step guides on DeFi yield farming, smart contracts, stablecoins, and the TurboLoop ecosystem. Beginner-friendly, jargon-free.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+    },
+    {
+      "@type": "Course",
+      "name": "DeFi 101 by TurboLoop",
+      "description": "A beginner-friendly course covering DeFi fundamentals: what is DeFi, smart contracts, stablecoins, yield farming, and how to verify contracts on BscScan.",
+      "provider": { "@id": "https://www.turboloop.tech/#organization" },
+      "url": "https://www.turboloop.tech/learn",
+      "educationalLevel": "Beginner",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+      },
+    },
+  ],
+};
+
 const LEARN_OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-learn.png";
 const LEARN_OG_TITLE =
-  "Learn DeFi with TurboLoop — Guides, Tutorials & Education";
+  "What is DeFi Yield Farming? Free Beginner Guides | TurboLoop";
 const LEARN_OG_DESC =
-  "Step-by-step guides on DeFi yield farming, smart contracts, stablecoins, and the TurboLoop ecosystem. Beginner-friendly, jargon-free.";
+  "New to DeFi? Learn what yield farming is, how smart contracts work, what stablecoins are, and how to earn passive income on BSC — in plain English. Free guides, no jargon.";
 
 export const metadata: Metadata = {
   title: LEARN_OG_TITLE,
   description: LEARN_OG_DESC,
+  keywords: [
+    "what is DeFi yield farming",
+    "how to earn passive income crypto",
+    "DeFi for beginners",
+    "what is a smart contract",
+    "what are stablecoins",
+    "how to earn on USDT",
+    "BSC DeFi guide",
+    "yield farming explained",
+    "crypto passive income beginner",
+    "TurboLoop learn",
+  ],
   alternates: { canonical: "https://www.turboloop.tech/learn" },
   openGraph: {
     type: "website",
@@ -48,6 +90,10 @@ export default function LearnIndexPage() {
 
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(learnJsonLd) }}
+      />
       <PageHero
         eyebrow="DeFi 101"
         title="Learn DeFi from zero."

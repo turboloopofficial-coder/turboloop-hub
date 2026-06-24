@@ -46,6 +46,33 @@ import {
   MEETUP_KIT,
 } from "@lib/eventsData";
 
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const eventsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/events#webpage",
+      "url": "https://www.turboloop.tech/events",
+      "name": "Global Meetups & Events — TurboLoop",
+      "description": "Join physical TurboLoop meetups in 14+ countries, or get funded to host your own. The Local Presenter Program pays you to grow the ecosystem.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+    },
+    {
+      "@type": "EventSeries",
+      "name": "TurboLoop Global Meetups",
+      "description": "Physical DeFi meetups hosted by the TurboLoop community across 14+ countries on 6 continents.",
+      "organizer": { "@id": "https://www.turboloop.tech/#organization" },
+      "url": "https://www.turboloop.tech/events",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "VirtualLocation",
+        "name": "Worldwide",
+      },
+    },
+  ],
+};
+
 const EVENTS_OG_TITLE = "Global Meetups & Events — TurboLoop";
 const EVENTS_OG_DESC =
   "Join physical TurboLoop meetups in 14+ countries, or get funded to host your own.";
@@ -97,6 +124,10 @@ export default function EventsPage() {
     <main
       className="dark relative pb-12 md:pb-20 bg-[var(--c-bg)] text-[var(--c-text)]"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsJsonLd) }}
+      />
       <PageHero
         eyebrow="Global Events"
         title="Real meetups. Real people. Real funding."

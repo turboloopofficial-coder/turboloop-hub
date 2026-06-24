@@ -17,14 +17,68 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { SECURITY } from "@lib/constants";
 
-const SEC_OG_TITLE = "Security Architecture — TurboLoop";
-const SEC_OG_DESC = "Audited. Renounced. 100% LP Locked. $100K Bounty.";
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const securityJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/security#webpage",
+      "url": "https://www.turboloop.tech/security",
+      "name": "Security Architecture — TurboLoop",
+      "description": "Audited by Haze Crypto and SolidityScan. Ownership renounced on-chain. 100% LP locked. $100K bug bounty open.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.turboloop.tech/security#contract",
+      "name": "TurboLoop Smart Contract",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Binance Smart Chain",
+      "url": "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code",
+      "description": "Immutable, audited DeFi yield farming smart contract on BSC. Ownership permanently renounced. 100% LP locked. Dual-audited by Haze Crypto and SolidityScan.",
+      "offers": {
+        "@type": "Offer",
+        "price": "1",
+        "priceCurrency": "USDT",
+        "description": "Minimum deposit 1 USDT",
+      },
+    },
+    {
+      "@type": "ItemList",
+      "name": "TurboLoop Security Pillars",
+      "description": "Five on-chain verifiable security guarantees of the TurboLoop protocol.",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Independently Audited", "description": "Audited by Haze Crypto at launch and SolidityScan ongoing. Both reports are public." },
+        { "@type": "ListItem", "position": 2, "name": "100% Liquidity Locked", "description": "Every LP token is permanently locked on-chain. The team cannot remove liquidity." },
+        { "@type": "ListItem", "position": 3, "name": "Ownership Renounced", "description": "Contract ownership permanently renounced. No admin keys exist." },
+        { "@type": "ListItem", "position": 4, "name": "Source Code Verified", "description": "Full source code published and verified on BscScan. Readable by anyone." },
+        { "@type": "ListItem", "position": 5, "name": "$100K Bug Bounty", "description": "Open bounty for anyone who finds a centralization vector in the contract." },
+      ],
+    },
+  ],
+};
+
+const SEC_OG_TITLE = "Is TurboLoop Safe? Smart Contract Audit & Security Proof";
+const SEC_OG_DESC = "Audited by 2 independent firms. Ownership renounced on-chain. 100% LP locked. $100K bug bounty. Verify every claim yourself on BscScan.";
 const SEC_OG_IMAGE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-security.png";
 
 export const metadata: Metadata = {
-  title: "Security — Audited, Renounced, LP-Locked",
+  title: "Is TurboLoop Safe? Smart Contract Audit & Security Proof",
   description:
-    "Audited by Haze Crypto (at launch) and SolidityScan (current). Ownership renounced on-chain. 100% LP locked. $100K bounty open to anyone who can find centralization.",
+    "TurboLoop is audited by Haze Crypto and SolidityScan. Ownership permanently renounced on-chain. 100% LP locked. $100K bug bounty open. Verify every security claim yourself on BscScan.",
+  keywords: [
+    "is TurboLoop safe",
+    "TurboLoop audit",
+    "DeFi smart contract audit",
+    "audited DeFi protocol BSC",
+    "renounced ownership DeFi",
+    "LP locked DeFi",
+    "safe yield farming BSC",
+    "DeFi rug pull protection",
+    "TurboLoop security",
+    "BscScan verified contract",
+  ],
   alternates: { canonical: "https://www.turboloop.tech/security" },
   openGraph: {
     type: "website",
@@ -108,6 +162,10 @@ const PILLARS: Pillar[] = [
 export default function SecurityPage() {
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(securityJsonLd) }}
+      />
       <PageHero
         eyebrow="Trustless by Design"
         title="Five reasons to trust nobody."

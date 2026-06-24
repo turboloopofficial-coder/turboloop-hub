@@ -14,6 +14,36 @@ import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
 
 export const revalidate = 600;
 
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const communityJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/community#webpage",
+      "url": "https://www.turboloop.tech/community",
+      "name": "Global Community — TurboLoop",
+      "description": "Voices from the TurboLoop community across 14+ countries on 6 continents. Daily Zoom sessions in 12+ languages.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.turboloop.tech/#community",
+      "name": "TurboLoop Community",
+      "description": "A global DeFi community spanning 14+ countries across 6 continents with daily Zoom calls in 12+ languages.",
+      "url": "https://www.turboloop.tech/community",
+      "sameAs": [
+        "https://t.me/TurboLoopOfficial",
+        "https://twitter.com/TurboLoopDeFi",
+      ],
+      "memberOf": {
+        "@type": "Organization",
+        "@id": "https://www.turboloop.tech/#organization",
+      },
+    },
+  ],
+};
+
 const COMMUNITY_OG_TITLE = "Global Community — TurboLoop";
 const COMMUNITY_OG_DESC = "Voices from 14+ countries across 6 continents.";
 
@@ -50,6 +80,10 @@ export default function CommunityPage() {
 
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(communityJsonLd) }}
+      />
       <PageHero
         eyebrow="The Community"
         title="Voices from everywhere."

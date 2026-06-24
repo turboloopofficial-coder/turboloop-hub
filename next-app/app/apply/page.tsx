@@ -25,6 +25,49 @@ import { haptic } from "@lib/haptic";
 
 type Program = Extract<SubmissionType, "creator_apply" | "presenter_apply">;
 
+// ─── JSON-LD structured data ────────────────────────────────────────────────
+const applyJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.turboloop.tech/apply#webpage",
+      "url": "https://www.turboloop.tech/apply",
+      "name": "Apply to TurboLoop Programs — Creator Star & Local Presenter",
+      "description": "Apply to earn with TurboLoop. Creator Star pays $10\u2013$100 per video. Local Presenter pays $100/month to host weekly Zoom sessions.",
+      "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
+    },
+    {
+      "@type": "JobPosting",
+      "title": "Creator Star",
+      "description": "Create content about TurboLoop DeFi protocol. Earn $10\u2013$100 per video that performs. Reels, explainer videos, livestreams accepted.",
+      "hiringOrganization": { "@id": "https://www.turboloop.tech/#organization" },
+      "employmentType": "CONTRACTOR",
+      "jobLocationType": "TELECOMMUTE",
+      "applicantLocationRequirements": { "@type": "Country", "name": "Worldwide" },
+      "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": { "@type": "QuantitativeValue", "minValue": 10, "maxValue": 100, "unitText": "per video" },
+      },
+    },
+    {
+      "@type": "JobPosting",
+      "title": "Local Presenter",
+      "description": "Host weekly Zoom sessions for the TurboLoop community in your language. Earn $100/month. We provide the deck, schedule, and support.",
+      "hiringOrganization": { "@id": "https://www.turboloop.tech/#organization" },
+      "employmentType": "CONTRACTOR",
+      "jobLocationType": "TELECOMMUTE",
+      "applicantLocationRequirements": { "@type": "Country", "name": "Worldwide" },
+      "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": { "@type": "QuantitativeValue", "value": 100, "unitText": "MONTH" },
+      },
+    },
+  ],
+};
+
 const PROGRAMS: Array<{
   id: Program;
   label: string;
@@ -136,6 +179,10 @@ export default function ApplyPage() {
 
   return (
     <main className="relative pb-12 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(applyJsonLd) }}
+      />
       <PageHero
         eyebrow="Apply to Earn"
         title="Apply to TurboLoop Programs."

@@ -11,14 +11,25 @@
 import type { Metadata, Viewport } from "next";
 
 const TITLE =
-  "Yield Calculator — TurboLoop Returns | Up to 54% ROI";
+  "DeFi Yield Calculator — How Much Can You Earn on USDT? | TurboLoop";
 const DESCRIPTION =
-  "Calculate your earnings on TurboLoop's 4 yield plans. From 3% in 7 days to 54% in 60 days. Real yield from PancakeSwap V3 trading fees, not new deposits.";
+  "Calculate exactly how much you can earn on USDT or USDC with TurboLoop's audited BSC yield plans. 3% in 7 days up to 54% in 60 days. Real yield from LP fees, not new deposits. Try the free calculator.";
 const OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=calculator";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  keywords: [
+    "USDT yield calculator",
+    "USDC yield calculator",
+    "DeFi yield calculator BSC",
+    "how much can I earn on USDT",
+    "stablecoin yield calculator",
+    "crypto passive income calculator",
+    "TurboLoop calculator",
+    "yield farming returns",
+    "BSC yield farming calculator",
+  ],
   alternates: { canonical: "https://www.turboloop.tech/calculator" },
   openGraph: {
     type: "website",

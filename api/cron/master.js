@@ -60580,6 +60580,12 @@ function tgEscape(s) {
 
 // server/_vercel/_campaignFileIndex.ts
 var CAMPAIGN_FILE_INDEX = {
+  "plan": [
+    "01_Plan_Sprint_7Day_3pct.png",
+    "02_Plan_Boost_14Day_10pct.png",
+    "03_Plan_Power_30Day_24pct.png",
+    "04_Plan_Ultimate_60Day_54pct.png"
+  ],
   "lifestyle": [
     "01_Lifestyle_Morning_Coffee_Earnings.png",
     "02_Lifestyle_Beach_Laptop.png",
@@ -63700,6 +63706,85 @@ function pickHubPromoByPages(pages) {
 function hubPromoBannerUrl(promo) {
   return `${R2_BASE_HUB_PROMO}/hub-promo/${promo.banner}`;
 }
+var CAMPAIGN_PLAN_CAPTIONS = [
+  `7 days. 3% fixed yield. Capital returned at end of term.
+
+The Sprint Plan is TurboLoop's entry point \u2014 one week to feel the mechanism, no long commitment required.
+
+Deposit USDT. Wait 7 days. Receive capital + 3%. That's it.
+
+\u{1F449} Start your Sprint: https://turboloop.tech/calculator?plan=sprint
+
+#TurboLoop #SprintPlan #DeFiYield #FixedYield #BSC`,
+  `Two weeks. 10% fixed yield. Double-digit return.
+
+The Boost Plan is where serious DeFi participants start. 14 days, 10% total yield \u2014 capital + return paid at end of term.
+
+No daily watching. No trading. Just deposit and wait.
+
+\u{1F449} Calculate your Boost return: https://turboloop.tech/calculator?plan=boost
+
+#TurboLoop #BoostPlan #DeFiYield #DoubleDigit #BSC`,
+  `30 days. 24% fixed yield. Plus $TURBO bonus.
+
+The Power Plan is one month of serious yield \u2014 24% total return on your USDT, paid at end of term. Power and Ultimate depositors also earn $TURBO tokens automatically.
+
+One commitment. Two income streams.
+
+\u{1F449} Start your Power Plan: https://turboloop.tech/calculator?plan=power
+
+#TurboLoop #PowerPlan #DeFiYield #TURBOBonus #BSC`,
+  `60 days. 54% fixed yield. Patient capital wins.
+
+The Ultimate Plan is TurboLoop's highest-yield option \u2014 54% total return on deposited USDT, paid at end of term. Plus automatic $TURBO token rewards on every deposit.
+
+Two months. Two income streams. One decision.
+
+\u{1F449} Calculate your Ultimate return: https://turboloop.tech/calculator?plan=ultimate
+
+#TurboLoop #UltimatePlan #DeFiYield #54Percent #BSC`,
+  `Not sure which plan to start with? Here's the simple breakdown:
+
+\u26A1 Sprint \u2014 7 days, 3% yield
+\u{1F680} Boost \u2014 14 days, 10% yield
+\u26A1 Power \u2014 30 days, 24% yield + $TURBO bonus
+\u{1F3C6} Ultimate \u2014 60 days, 54% yield + $TURBO bonus
+
+All plans: fixed yield, capital returned at end of term, no compounding tricks.
+
+\u{1F449} Pick your plan: https://turboloop.tech/calculator
+
+#TurboLoop #LoopPlans #DeFiYield #FixedYield #BSC`,
+  `The math is simple. The returns are fixed.
+
+Deposit $1,000 on the Power Plan:
+\u2192 30 days later: $1,240 returned
+\u2192 Plus automatic $TURBO token bonus
+
+No trading. No volatility risk. Just on-chain yield, paid at end of term.
+
+\u{1F449} Run your numbers: https://turboloop.tech/calculator
+
+#TurboLoop #PowerPlan #DeFiMath #FixedYield #BSC`,
+  `The Ultimate Plan was designed for one type of person: patient capital.
+
+54% fixed yield over 60 days. Capital + return paid at end of term. Automatic $TURBO token bonus on deposit.
+
+If you can wait 60 days, TurboLoop rewards you for it.
+
+\u{1F449} https://turboloop.tech/calculator?plan=ultimate
+
+#TurboLoop #UltimatePlan #PatientCapital #DeFiYield #BSC`,
+  `Start small. Prove the mechanism. Scale up.
+
+The Sprint Plan (7 days, 3%) exists so you can verify TurboLoop works before committing to longer plans. Every return is on-chain. Every transaction is verifiable.
+
+Trust the code, not the team.
+
+\u{1F449} Start with Sprint: https://turboloop.tech/calculator?plan=sprint
+
+#TurboLoop #SprintPlan #DYOR #DeFiYield #BSC`
+];
 var CAMPAIGN_LIFESTYLE_CAPTIONS = [
   `Your coffee gets cold. Your TurboLoop earnings don't.
 
@@ -63797,96 +63882,6 @@ TurboLoop's daily yield gets you there \u2014 one compounding day at a time.
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #FinancialFreedom #DeFiYield #PassiveIncome #WealthBuilding`
-];
-var CAMPAIGN_TOKEN_CAPTIONS = [
-  `$TURBO isn't just a token. It's proof the protocol works.
-
-No team allocation. No admin key. Reward-based minting. Every $TURBO in existence was earned by a participant \u2014 not printed by a team.
-
-\u{1F449} Verify on-chain: https://turboloop.tech/token
-
-#TURBO #DeFiToken #BSC #Tokenomics #OnChain`,
-  `The rarest tokens are the ones that get burned every single day.
-
-$TURBO has a daily burn mechanism \u2014 10% of all admin fees go to the Burn Contract at 2PM UTC, permanently removing $TURBO from circulation. No team allocation. No insider reserve.
-
-Scarcity is earned, not declared.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #DailyBurn #Deflationary #BSC #DeFiToken`,
-  `$TURBO price update: check turboloop.tech/token for the latest.
-
-Every day, the protocol buys back $TURBO from the open market and burns it. Less supply. Same demand. You do the math.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #BuybackBurn #Deflationary #DeFiToken #BSC`,
-  `A token backed by real protocol activity \u2014 not hype.
-
-$TURBO's value comes from daily buybacks funded by protocol fees. No team allocation. No VC dump. Just on-chain mechanics.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #RealYield #DeFiToken #BSC #Tokenomics`,
-  `The $TURBO token was launched on June 1, 2026. No presale. No whitelist. Fair launch.
-
-Every holder got in on the same terms. The protocol runs the buyback. The community holds the supply.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #FairLaunch #DeFiToken #BSC #OnChain`,
-  `Locked liquidity means no one can pull the rug \u2014 not even the team.
-
-$TURBO's liquidity is locked on-chain. The LP tokens are in a contract, not a wallet. Verifiable. Permanent.
-
-\u{1F449} Verify: https://turboloop.tech/token
-
-#TURBO #LockedLiquidity #NoRugPull #DeFiToken #BSC`,
-  `$TURBO tokenomics in one line: reward-based minting, daily buyback, locked liquidity, no team allocation.
-
-That's it. No complex vesting schedules. No insider cliff. Just clean, transparent mechanics \u2014 verifiable on-chain.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #Tokenomics #DeFi #BSC #DailyBurn`,
-  `Every protocol fee goes back to $TURBO holders through the buyback mechanism.
-
-When the protocol earns, $TURBO gets bought and burned. When more people deposit, more $TURBO gets removed from supply.
-
-Growth = scarcity.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #Deflationary #RealYield #DeFiToken #BSC`,
-  `You can earn USDT yield AND hold $TURBO for price appreciation. Two income streams. One protocol.
-
-Deposit USDT \u2192 earn 0.9% daily. Hold $TURBO \u2192 benefit from daily buybacks.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #DualIncome #DeFiYield #BSC #PassiveIncome`,
-  `$TURBO is listed on DexScreener. Every trade, every buyback, every burn \u2014 all public.
-
-No private transactions. No hidden wallets. Just on-chain data anyone can verify in real time.
-
-\u{1F449} https://dexscreener.com/bsc/0x5bede66bb27184001960e769efab95304f0e1759
-
-#TURBO #DexScreener #OnChain #Transparency #BSC`,
-  `The smart contract holds the liquidity. The smart contract runs the buyback. The smart contract is the team.
-
-$TURBO is governed by code, not promises.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #SmartContract #DeFi #CodeIsLaw #BSC`,
-  `Most tokens go to zero because the team sells. $TURBO has zero team allocation \u2014 there's nothing to dump.
-
-Reward-minted supply. Daily buyback. Locked liquidity. This is what a clean token looks like.
-
-\u{1F449} https://turboloop.tech/token
-
-#TURBO #NoTeamAllocation #DailyBurn #DeFiToken #BSC`
 ];
 var CAMPAIGN_REFERRAL_CAPTIONS = [
   `You earn. Your team earns. Their team earns. And you earn from all of it.
@@ -78643,15 +78638,22 @@ async function handler(req, res) {
         headers: _bscHeaders,
         signal: AbortSignal.timeout(2e4)
       });
-      if (_bscRes.status === 403) {
+      if (_bscRes.status === 403 || _bscRes.ok) {
+        const _body = await _bscRes.text();
+        if (_body.length > 200) {
+          _bscHtml = _body;
+        }
+      }
+      if (!_bscHtml) {
         const _retryHeaders = { ..._bscHeaders, "User-Agent": USER_AGENTS[(_uaIdx + 2) % USER_AGENTS.length], "Referer": "https://etherscan.io/" };
         const _retryRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
           headers: _retryHeaders,
           signal: AbortSignal.timeout(2e4)
         });
-        if (_retryRes.ok) _bscHtml = await _retryRes.text();
-      } else if (_bscRes.ok) {
-        _bscHtml = await _bscRes.text();
+        if (_retryRes.status === 403 || _retryRes.ok) {
+          const _retryBody = await _retryRes.text();
+          if (_retryBody.length > 200) _bscHtml = _retryBody;
+        }
       }
       if (_bscHtml) {
         const _holdersMatch = _bscHtml.match(/Holders[:\s]*([\d,]+)/i) || _bscHtml.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/);
@@ -80092,7 +80094,7 @@ The marketing toolkit your uplines never told you existed.
     const CAMPAIGN_SLOTS = [
       // ── 00:xx ──
       { hour: 0, minute: 0, taskId: "campaign:c01", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 0 },
-      { hour: 0, minute: 30, taskId: "campaign:c02", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 0 },
+      { hour: 0, minute: 30, taskId: "campaign:c02", category: "plan", captions: CAMPAIGN_PLAN_CAPTIONS, slotOffset: 0 },
       // ── 01:xx ──
       { hour: 1, minute: 0, taskId: "campaign:c03", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 0 },
       { hour: 1, minute: 30, taskId: "campaign:c04", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 0 },
@@ -80110,7 +80112,7 @@ The marketing toolkit your uplines never told you existed.
       { hour: 5, minute: 30, taskId: "campaign:c12", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 0 },
       // ── 06:xx ──
       { hour: 6, minute: 0, taskId: "campaign:c13", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 1 },
-      { hour: 6, minute: 30, taskId: "campaign:c14", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 1 },
+      { hour: 6, minute: 30, taskId: "campaign:c14", category: "plan", captions: CAMPAIGN_PLAN_CAPTIONS, slotOffset: 1 },
       // ── 07:xx ──
       { hour: 7, minute: 0, taskId: "campaign:c15", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 1 },
       { hour: 7, minute: 30, taskId: "campaign:c16", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 1 },
@@ -80127,7 +80129,7 @@ The marketing toolkit your uplines never told you existed.
       { hour: 11, minute: 30, taskId: "campaign:c24", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 1 },
       // ── 12:xx ──
       { hour: 12, minute: 0, taskId: "campaign:c25", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 2 },
-      { hour: 12, minute: 30, taskId: "campaign:c26", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 2 },
+      { hour: 12, minute: 30, taskId: "campaign:c26", category: "plan", captions: CAMPAIGN_PLAN_CAPTIONS, slotOffset: 2 },
       // ── 13:xx ──
       { hour: 13, minute: 0, taskId: "campaign:c27", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 2 },
       { hour: 13, minute: 30, taskId: "campaign:c28", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 2 },
@@ -80148,7 +80150,7 @@ The marketing toolkit your uplines never told you existed.
       { hour: 18, minute: 15, taskId: "campaign:c36", category: "community", captions: CAMPAIGN_COMMUNITY_CAPTIONS, slotOffset: 2 },
       // ── 18:xx (c37/c38 shifted to avoid collision with c35/c36) ──
       { hour: 18, minute: 30, taskId: "campaign:c37", category: "lifestyle", captions: CAMPAIGN_LIFESTYLE_CAPTIONS, slotOffset: 3 },
-      { hour: 18, minute: 45, taskId: "campaign:c38", category: "token", captions: CAMPAIGN_TOKEN_CAPTIONS, slotOffset: 3 },
+      { hour: 18, minute: 45, taskId: "campaign:c38", category: "plan", captions: CAMPAIGN_PLAN_CAPTIONS, slotOffset: 3 },
       // ── 19:xx ──
       { hour: 19, minute: 0, taskId: "campaign:c39", category: "referral", captions: CAMPAIGN_REFERRAL_CAPTIONS, slotOffset: 3 },
       { hour: 19, minute: 30, taskId: "campaign:c40", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS, slotOffset: 3 },
@@ -80188,6 +80190,8 @@ The marketing toolkit your uplines never told you existed.
     const legacyCategoryForce = {
       "campaign:lifestyle": ["campaign:c01", "campaign:c13", "campaign:c25", "campaign:c37"],
       "campaign:token": ["campaign:c02", "campaign:c14", "campaign:c26", "campaign:c38"],
+      // legacy key (slots now use "plan")
+      "campaign:plan": ["campaign:c02", "campaign:c14", "campaign:c26", "campaign:c38"],
       "campaign:referral": ["campaign:c03", "campaign:c15", "campaign:c27", "campaign:c39"],
       "campaign:objection": ["campaign:c04", "campaign:c16", "campaign:c28", "campaign:c40"],
       "campaign:hindi": ["campaign:c05", "campaign:c17", "campaign:c29", "campaign:c41"],
@@ -80229,8 +80233,15 @@ The marketing toolkit your uplines never told you existed.
       }
       return { delivered, channels: results.length, failed };
     };
+    const PAUSED_CATEGORIES = /* @__PURE__ */ new Set([
+      // "token" was paused here — slots c02/c14/c26/c38 now use "plan" category instead
+    ]);
     for (const slot of CAMPAIGN_SLOTS) {
       const forceSlot = campaignForceSet.has(slot.taskId);
+      if (!forceSlot && PAUSED_CATEGORIES.has(slot.category)) {
+        log.push(`\u23F8 ${slot.taskId} PAUSED (category: ${slot.category})`);
+        continue;
+      }
       try {
         const shouldFire = forceSlot || isInWindow(slot.hour, slot.minute) || isMissedToday(slot.hour, slot.minute, 90);
         if (!shouldFire || !forceSlot && await hasFiredToday(db, slot.taskId)) {

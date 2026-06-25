@@ -70,10 +70,12 @@ async function fetchFromDB(): Promise<TokenHoldersData> {
       .limit(1);
     if (!rows.length || !rows[0].settingValue) return emptyResponse();
     const parsed = JSON.parse(rows[0].settingValue) as TokenHoldersData;
-    // Always trust the DB cache — the Manus scheduled task keeps it fresh
-    // (runs every 30 min). Even a stale count is better than null.
     if (parsed.holdersNum && parsed.holdersNum > 0) {
-      return { ...parsed, fresh: true };
+      // Mark as stale if older than 2 hours so the direct-fetch fallback
+      // is triggered and the DB gets refreshed on the next cron tick.
+      const ageMs = Date.now() - new Date(parsed.fetchedAt as unknown as string).getTime();
+      const isStale = ageMs > 2 * 60 * 60_000; // 2 hours
+      return { ...parsed, fresh: !isStale };
     }
     return emptyResponse();
   } catch {
@@ -89,9 +91,11 @@ async function fetchDirect(): Promise<TokenHoldersData> {
         headers: BROWSER_HEADERS,
         cache: "no-store",
       });
-      if (!res.ok) continue;
+      // Read body even on 403 — Cloudflare challenge pages still embed
+      // the holder count in the meta description tag.
+      if (!res.ok && res.status !== 403) continue;
       const html = await res.text();
-      if (html.length < 500) continue;
+      if (html.length < 200) continue;
       const holders = parseHolders(html);
       if (holders) {
         const holdersNum = parseInt(holders, 10);

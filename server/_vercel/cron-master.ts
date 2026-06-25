@@ -867,16 +867,26 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         headers: _bscHeaders,
         signal: AbortSignal.timeout(20000),
       });
-      if (_bscRes.status === 403) {
-        // Retry once with a different user agent
+      // Read body even on 403 — Cloudflare challenge pages still contain
+      // the holder count in the <meta name="description"> tag:
+      // "Token Rep: Unknown | Holders: 1,299 | As at Jun-25-2026 ..."
+      if (_bscRes.status === 403 || _bscRes.ok) {
+        const _body = await _bscRes.text();
+        if (_body.length > 200) {
+          _bscHtml = _body;
+        }
+      }
+      // If first attempt failed to get usable HTML, retry with different UA
+      if (!_bscHtml) {
         const _retryHeaders = { ..._bscHeaders, "User-Agent": USER_AGENTS[(_uaIdx + 2) % USER_AGENTS.length], "Referer": "https://etherscan.io/" };
         const _retryRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
           headers: _retryHeaders,
           signal: AbortSignal.timeout(20000),
         });
-        if (_retryRes.ok) _bscHtml = await _retryRes.text();
-      } else if (_bscRes.ok) {
-        _bscHtml = await _bscRes.text();
+        if (_retryRes.status === 403 || _retryRes.ok) {
+          const _retryBody = await _retryRes.text();
+          if (_retryBody.length > 200) _bscHtml = _retryBody;
+        }
       }
       if (_bscHtml) {
         // Primary pattern: "Holders: 1,234" or "Holders 1,234"

@@ -78688,7 +78688,7 @@ async function handler(req, res) {
       var _snapHexToTokens = _snapHexToTokens2, _snapBalanceOf = _snapBalanceOf2;
       const _SNAP_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
       const _SNAP_DEAD = "0x000000000000000000000000000000000000dead";
-      const _SNAP_RPC = "https://bsc-dataseed.binance.org/";
+      const _SNAP_RPC = "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3";
       async function _snapEthCall(data) {
         const _r2 = await fetch(_SNAP_RPC, {
           method: "POST",

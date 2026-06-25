@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { TrendingDown, Flame } from "lucide-react";
+import { TrendingDown, Flame, Lock } from "lucide-react";
 import type { SupplyHistoryData, SupplySnapshot } from "@/app/api/token-supply-history/route";
 
 // ── Skeleton ─────────────────────────────────────────────────────────────────
@@ -34,8 +34,9 @@ function CustomTooltip({
 }) {
   if (!active || !payload?.length) return null;
   const snap = payload[0].payload;
-  const circ = snap.circulating.toLocaleString("en-US");
+  const circ   = snap.circulating.toLocaleString("en-US");
   const burned = snap.burned.toLocaleString("en-US");
+  const locked = snap.locked.toLocaleString("en-US");
 
   return (
     <div className="rounded-xl border border-white/10 bg-[#0d0d1a]/95 backdrop-blur-sm px-4 py-3 shadow-xl text-sm">
@@ -44,7 +45,10 @@ function CustomTooltip({
         {circ} <span className="text-white/40 font-normal">circulating</span>
       </p>
       <p className="text-orange-400 text-xs mt-1">
-        {burned} <span className="text-white/40">burned total</span>
+        🔥 {burned} <span className="text-white/40">burned</span>
+      </p>
+      <p className="text-purple-400 text-xs mt-0.5">
+        🔒 {locked} <span className="text-white/40">locked</span>
       </p>
       {snap.source === "estimated" && (
         <p className="text-white/25 text-xs mt-1 italic">estimated</p>
@@ -118,9 +122,9 @@ export default function CirculatingSupplyChart() {
   // Stats
   const first = snapshots[0];
   const last = snapshots[snapshots.length - 1];
-  const totalDrop = data?.totalDrop ?? 0;
   const dropPct = data?.dropPct ?? null;
   const totalBurned = data?.totalBurned ?? 0;
+  const totalLocked = data?.totalLocked ?? 0;
 
   // Y-axis domain: pad 1% above first point, 1% below last
   const yMin = last ? Math.floor(last.circulating * 0.998 / 1000) * 1000 : 960_000;
@@ -204,18 +208,18 @@ export default function CirculatingSupplyChart() {
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-3">
         <StatBadge
-          icon={<TrendingDown className="w-4 h-4 text-cyan-400" />}
-          label="Supply Removed"
-          value={loading ? "—" : `${totalDrop.toLocaleString("en-US")}`}
-          sub="TURBO since launch"
-          color="bg-cyan-500/15"
-        />
-        <StatBadge
           icon={<Flame className="w-4 h-4 text-orange-400" />}
-          label="Total Burned"
+          label="Supply Burned"
           value={loading ? "—" : `${Math.round(totalBurned).toLocaleString("en-US")}`}
           sub="TURBO permanently destroyed"
           color="bg-orange-500/15"
+        />
+        <StatBadge
+          icon={<Lock className="w-4 h-4 text-purple-400" />}
+          label="Supply Locked"
+          value={loading ? "—" : `${Math.round(totalLocked).toLocaleString("en-US")}`}
+          sub="TURBO in vesting contracts"
+          color="bg-purple-500/15"
         />
       </div>
     </section>

@@ -39,6 +39,8 @@ export interface SupplyHistoryData {
   snapshots: SupplySnapshot[];
   /** Total tokens burned since launch */
   totalBurned: number;
+  /** Total tokens locked / vesting (latest snapshot) */
+  totalLocked: number;
   /** Circulating supply drop since day 1 */
   totalDrop: number;
   /** Percentage drop from initial circulating */
@@ -54,6 +56,7 @@ function emptyResponse(): SupplyHistoryData {
   return {
     snapshots: [],
     totalBurned: 0,
+    totalLocked: 0,
     totalDrop: 0,
     dropPct: null,
     fetchedAt: Date.now(),
@@ -103,6 +106,7 @@ async function fetchFromDB(): Promise<SupplyHistoryData> {
     return {
       snapshots,
       totalBurned: last.burned,
+      totalLocked: last.locked,
       totalDrop: Math.round(totalDrop),
       dropPct,
       fetchedAt: Date.now(),

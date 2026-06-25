@@ -78679,6 +78679,62 @@ async function handler(req, res) {
       console.error("[cron-master] holder count refresh error:", _holderErr);
     }
     try {
+      let _snapHexToTokens2 = function(hex) {
+        const raw = BigInt(hex === "0x" ? "0x0" : hex);
+        return Number(raw) / 1e18;
+      }, _snapBalanceOf2 = function(addr) {
+        return "0x70a08231" + addr.slice(2).toLowerCase().padStart(64, "0");
+      };
+      var _snapHexToTokens = _snapHexToTokens2, _snapBalanceOf = _snapBalanceOf2;
+      const _SNAP_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
+      const _SNAP_DEAD = "0x000000000000000000000000000000000000dead";
+      const _SNAP_RPC = "https://bsc-dataseed.binance.org/";
+      async function _snapEthCall(data) {
+        const _r2 = await fetch(_SNAP_RPC, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", method: "eth_call", params: [{ to: _SNAP_CONTRACT, data }, "latest"], id: 1 }),
+          signal: AbortSignal.timeout(8e3)
+        });
+        const _j = await _r2.json();
+        return _j.result ?? "0x0";
+      }
+      const [_snapTotalHex, _snapLockedHex, _snapBurnedHex] = await Promise.all([
+        _snapEthCall("0x18160ddd"),
+        _snapEthCall(_snapBalanceOf2(_SNAP_CONTRACT)),
+        _snapEthCall(_snapBalanceOf2(_SNAP_DEAD))
+      ]);
+      const _snapTotal = _snapHexToTokens2(_snapTotalHex);
+      const _snapLocked = _snapHexToTokens2(_snapLockedHex);
+      const _snapBurned = _snapHexToTokens2(_snapBurnedHex);
+      const _snapCirc = Math.max(0, _snapTotal - _snapLocked - _snapBurned);
+      if (_snapTotal > 0 && _snapCirc > 0) {
+        const _snapDate = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+        const _snapLp = parseFloat((_snapLocked / _snapTotal * 100).toFixed(2));
+        const _snapBp = parseFloat((_snapBurned / _snapTotal * 100).toFixed(2));
+        const _snapCp = parseFloat((_snapCirc / _snapTotal * 100).toFixed(2));
+        await db.execute(
+          `INSERT INTO supply_snapshots
+             (snapshot_date, total_supply, locked_vested, burned, circulating,
+              locked_pct, burned_pct, circulating_pct, source)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'onchain')
+           ON CONFLICT (snapshot_date) DO UPDATE SET
+             total_supply=EXCLUDED.total_supply,
+             locked_vested=EXCLUDED.locked_vested,
+             burned=EXCLUDED.burned,
+             circulating=EXCLUDED.circulating,
+             locked_pct=EXCLUDED.locked_pct,
+             burned_pct=EXCLUDED.burned_pct,
+             circulating_pct=EXCLUDED.circulating_pct,
+             source=EXCLUDED.source`,
+          [_snapDate, _snapTotal, _snapLocked, _snapBurned, _snapCirc, _snapLp, _snapBp, _snapCp]
+        );
+        console.log(`[cron-master] supply snapshot: ${_snapDate} circ=${Math.round(_snapCirc).toLocaleString("en-US")}`);
+      }
+    } catch (_snapErr) {
+      console.error("[cron-master] supply snapshot error:", _snapErr);
+    }
+    try {
       const DEPLOY_DATE = /* @__PURE__ */ new Date("2026-03-10T00:00:00Z");
       const daysSinceLaunch2 = Math.floor((Date.now() - DEPLOY_DATE.getTime()) / 864e5);
       const TIME_MILESTONES = [100, 150, 180, 200, 250, 300, 365, 500, 730, 1e3];

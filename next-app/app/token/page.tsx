@@ -39,6 +39,7 @@ import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
 import { TokenSupplyWidget } from "@components/token/TokenSupplyWidget";
 import { DexScreenerChart } from "@components/token/DexScreenerChart";
 import { BurnEventsFeed } from "@components/token/BurnEventsFeed";
+import CirculatingSupplyChart from "@components/token/CirculatingSupplyChart";
 import { CopyAddressButton } from "@components/token/CopyAddressButton";
 import { TrackedLink } from "@components/token/TrackedLink";
 import {
@@ -332,7 +333,11 @@ export default async function TokenPage({ searchParams }: PageProps) {
         <TokenPriceWidget variant="full" className="mb-5 md:mb-6" />
         {/* Live supply trio: true circulating / total / vested+locked.
             Reads on-chain via /api/token-vested, polls every 5 min. */}
-        <TokenSupplyWidget className="mb-10 md:mb-14" />
+        <TokenSupplyWidget className="mb-6 md:mb-8" />
+        {/* Circulating supply time-series chart — daily decline from burns */}
+        <div className="mb-10 md:mb-14">
+          <CirculatingSupplyChart />
+        </div>
       </Container>
 
       {/* ── B2. LIVE CHART (DexScreener iframe) ─────────────────── */}

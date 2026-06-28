@@ -101,9 +101,12 @@ function StatBadge({
 // ── Main Component ────────────────────────────────────────────────────────────
 export default function CirculatingSupplyChart() {
   const [data, setData] = useState<SupplyHistoryData | null>(null);
+  const [liveLockedNum, setLiveLockedNum] = useState<number | null>(null);
+  const [liveBurnedNum, setLiveBurnedNum] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch chart history
     fetch("/api/token-supply-history")
       .then((r) => r.json())
       .then((d: SupplyHistoryData) => {
@@ -111,6 +114,15 @@ export default function CirculatingSupplyChart() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+
+    // Fetch live locked + burned from token-vested (always up-to-date)
+    fetch("/api/token-vested")
+      .then((r) => r.json())
+      .then((d: { lockedVestedNum?: number; burnedNum?: number }) => {
+        if (d.lockedVestedNum) setLiveLockedNum(Math.round(d.lockedVestedNum));
+        if (d.burnedNum) setLiveBurnedNum(Math.round(d.burnedNum));
+      })
+      .catch(() => {});
   }, []);
 
   const snapshots = data?.snapshots ?? [];
@@ -134,8 +146,9 @@ export default function CirculatingSupplyChart() {
   const first = snapshots[0];
   const last  = snapshots[snapshots.length - 1];
   const dropPct    = data?.dropPct    ?? null;
-  const totalBurned = data?.totalBurned ?? 0;
-  const totalLocked = data?.totalLocked ?? 0;
+  // Use live on-chain values for the stat badges (always current)
+  const totalBurned = liveBurnedNum ?? data?.totalBurned ?? 0;
+  const totalLocked = liveLockedNum ?? data?.totalLocked ?? 0;
 
   const yMin = last  ? Math.floor(last.circulating  * 0.998 / 1000) * 1000 : 960_000;
   const yMax = first ? Math.ceil(first.circulating  * 1.002 / 1000) * 1000 : 1_010_000;

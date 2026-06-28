@@ -20,7 +20,7 @@ function CustomTooltip({
   label,
 }: {
   active?: boolean;
-  payload?: Array<{ value: number; payload: SupplySnapshot }>;
+  payload?: Array<{ value: number; payload: SupplySnapshot & { label: string; source: string } }>;
   label?: string;
 }) {
   if (!active || !payload?.length) return null;
@@ -38,7 +38,9 @@ function CustomTooltip({
         color: "var(--c-text)",
       }}
     >
-      <p className="text-xs mb-1.5" style={{ color: "var(--c-text-muted)" }}>{label}</p>
+      <p className="text-xs mb-1.5" style={{ color: "var(--c-text-muted)" }}>
+        {label}{snap.source === "live" ? " · live" : snap.source === "estimated" ? " · est." : ""}
+      </p>
       <p className="font-semibold" style={{ color: "var(--c-brand-cyan)" }}>
         {circ} <span style={{ color: "var(--c-text-muted)", fontWeight: 400 }}>circulating</span>
       </p>
@@ -48,9 +50,6 @@ function CustomTooltip({
       <p className="text-xs mt-0.5 text-purple-500">
         🔒 {locked} <span style={{ color: "var(--c-text-muted)" }}>locked</span>
       </p>
-      {snap.source === "estimated" && (
-        <p className="text-xs mt-1 italic" style={{ color: "var(--c-text-subtle)" }}>estimated</p>
-      )}
     </div>
   );
 }
@@ -103,10 +102,11 @@ export default function CirculatingSupplyChart() {
   const [data, setData] = useState<SupplyHistoryData | null>(null);
   const [liveLockedNum, setLiveLockedNum] = useState<number | null>(null);
   const [liveBurnedNum, setLiveBurnedNum] = useState<number | null>(null);
+  const [liveCirculatingNum, setLiveCirculatingNum] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch chart history
+    // Fetch chart history snapshots
     fetch("/api/token-supply-history")
       .then((r) => r.json())
       .then((d: SupplyHistoryData) => {
@@ -115,17 +115,16 @@ export default function CirculatingSupplyChart() {
       })
       .catch(() => setLoading(false));
 
-    // Fetch live locked + burned from token-vested (always up-to-date)
+    // Fetch live on-chain values (always current — no cache staleness)
     fetch("/api/token-vested")
       .then((r) => r.json())
-      .then((d: { lockedVestedNum?: number; burnedNum?: number }) => {
-        if (d.lockedVestedNum) setLiveLockedNum(Math.round(d.lockedVestedNum));
-        if (d.burnedNum) setLiveBurnedNum(Math.round(d.burnedNum));
+      .then((d: { lockedVestedNum?: number; burnedNum?: number; trueCirculatingNum?: number }) => {
+        if (d.lockedVestedNum)      setLiveLockedNum(Math.round(d.lockedVestedNum));
+        if (d.burnedNum)            setLiveBurnedNum(Math.round(d.burnedNum));
+        if (d.trueCirculatingNum)   setLiveCirculatingNum(Math.round(d.trueCirculatingNum));
       })
       .catch(() => {});
   }, []);
-
-  const snapshots = data?.snapshots ?? [];
 
   function fmtDate(d: string) {
     const dt = new Date(d + "T00:00:00Z");
@@ -138,20 +137,56 @@ export default function CirculatingSupplyChart() {
     return String(v);
   }
 
-  const chartData = snapshots.map((s) => ({
-    ...s,
-    label: fmtDate(s.date),
-  }));
-
+  const snapshots = data?.snapshots ?? [];
   const first = snapshots[0];
   const last  = snapshots[snapshots.length - 1];
-  const dropPct    = data?.dropPct    ?? null;
-  // Use live on-chain values for the stat badges (always current)
+
+  // Determine if today's snapshot is missing from the DB
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const lastDate = last?.date ?? "";
+  const needsTodayPoint = liveCirculatingNum !== null && lastDate < todayStr;
+
+  // Build chart data — append a live "today" point if the daily snapshot hasn't run yet
+  const chartData = [
+    ...snapshots.map((s) => ({
+      ...s,
+      label: fmtDate(s.date),
+    })),
+    ...(needsTodayPoint
+      ? [{
+          date: todayStr,
+          label: fmtDate(todayStr),
+          circulating: liveCirculatingNum!,
+          burned: liveBurnedNum ?? last?.burned ?? 0,
+          locked: liveLockedNum ?? last?.locked ?? 0,
+          total: last?.total ?? 0,
+          circulatingPct: null,
+          source: "live",
+        }]
+      : []),
+  ];
+
+  // Effective latest circulating — live value if today's snapshot is missing
+  const effectiveLastCirculating =
+    needsTodayPoint ? liveCirculatingNum! : (last?.circulating ?? liveCirculatingNum ?? 0);
+
+  // Drop % — always calculated against live circulating so it's never stale
+  const firstCirculating = first?.circulating ?? 0;
+  const dropPct =
+    firstCirculating > 0 && effectiveLastCirculating > 0
+      ? parseFloat((((firstCirculating - effectiveLastCirculating) / firstCirculating) * 100).toFixed(2))
+      : (data?.dropPct ?? null);
+
+  // Stat badge values — always live on-chain
   const totalBurned = liveBurnedNum ?? data?.totalBurned ?? 0;
   const totalLocked = liveLockedNum ?? data?.totalLocked ?? 0;
 
-  const yMin = last  ? Math.floor(last.circulating  * 0.998 / 1000) * 1000 : 960_000;
-  const yMax = first ? Math.ceil(first.circulating  * 1.002 / 1000) * 1000 : 1_010_000;
+  const yMin = effectiveLastCirculating > 0
+    ? Math.floor(effectiveLastCirculating * 0.998 / 1000) * 1000
+    : 960_000;
+  const yMax = first
+    ? Math.ceil(first.circulating * 1.002 / 1000) * 1000
+    : 1_010_000;
 
   return (
     <section
@@ -190,7 +225,7 @@ export default function CirculatingSupplyChart() {
             className="h-full w-full rounded-xl animate-pulse"
             style={{ background: "var(--c-border)" }}
           />
-        ) : snapshots.length === 0 ? (
+        ) : chartData.length === 0 ? (
           <div
             className="h-full flex items-center justify-center text-sm"
             style={{ color: "var(--c-text-muted)" }}

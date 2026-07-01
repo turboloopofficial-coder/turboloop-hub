@@ -17,7 +17,7 @@ export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 const GECKO_OHLCV_URL =
-  `https://api.geckoterminal.com/api/v2/networks/bsc/pools/${TOKEN.pair}/ohlcv/day?limit=30&currency=usd`;
+  `https://api.geckoterminal.com/api/v2/networks/bsc/pools/${TOKEN.pair}/ohlcv/day?limit=31&currency=usd`;
 
 // Token launch — UTC midnight on 2026-06-01.
 const LAUNCH_DATE_MS = new Date("2026-06-01T00:00:00Z").getTime();

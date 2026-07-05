@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -104,6 +104,20 @@ export default function CirculatingSupplyChart() {
   const [liveBurnedNum, setLiveBurnedNum] = useState<number | null>(null);
   const [liveCirculatingNum, setLiveCirculatingNum] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(600);
+
+  useEffect(() => {
+    const el = chartContainerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0]?.contentRect.width;
+      if (w) setContainerWidth(w);
+    });
+    ro.observe(el);
+    setContainerWidth(el.getBoundingClientRect().width || 600);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     // Fetch chart history snapshots
@@ -219,7 +233,7 @@ export default function CirculatingSupplyChart() {
       </div>
 
       {/* Chart */}
-      <div className="h-52 sm:h-64 w-full">
+      <div ref={chartContainerRef} className="h-52 sm:h-64 w-full">
         {loading ? (
           <div
             className="h-full w-full rounded-xl animate-pulse"
@@ -254,7 +268,15 @@ export default function CirculatingSupplyChart() {
                 tick={{ fill: "var(--c-text-muted)", fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
-                interval={Math.max(1, Math.floor(chartData.length / 6) - 1)}
+                interval={(() => {
+                  // Each label is ~52px wide; leave 8px gap between ticks.
+                  // containerWidth minus the YAxis width (46px) gives usable space.
+                  const usable = Math.max(containerWidth - 46, 100);
+                  const tickSlot = 60; // px per tick slot
+                  const maxTicks = Math.max(1, Math.floor(usable / tickSlot));
+                  if (chartData.length <= maxTicks) return 0; // show every tick
+                  return Math.ceil(chartData.length / maxTicks) - 1;
+                })()}
               />
               <YAxis
                 tickFormatter={fmtY}

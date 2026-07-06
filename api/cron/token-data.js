@@ -12722,6 +12722,7 @@ var CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
 var DEAD_ADDR = "0x000000000000000000000000000000000000dead";
 var DEXSCREENER_PAIR = "0x5bede66bb27184001960e769efab95304f0e1759";
 var BSC_RPC = "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3";
+var BSC_DATASEED = "https://bsc-dataseed.binance.org/";
 function hexToTokens(hex) {
   const raw = BigInt(hex === "0x" || !hex ? "0x0" : hex);
   return Number(raw) / 1e18;
@@ -12729,8 +12730,8 @@ function hexToTokens(hex) {
 function balanceOfData(addr) {
   return "0x70a08231" + addr.slice(2).toLowerCase().padStart(64, "0");
 }
-async function ethCall(data, to2 = CONTRACT) {
-  const r = await fetch(BSC_RPC, {
+async function ethCall(data, to2 = CONTRACT, rpcUrl = BSC_RPC) {
+  const r = await fetch(rpcUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ jsonrpc: "2.0", method: "eth_call", params: [{ to: to2, data }, "latest"], id: 1 }),
@@ -12810,9 +12811,9 @@ async function refreshHolderCount(db) {
 }
 async function refreshSupplySnapshot(db) {
   const [totalHex, lockedHex, burnedHex] = await Promise.all([
-    ethCall("0x18160ddd"),
-    ethCall(balanceOfData(CONTRACT)),
-    ethCall(balanceOfData(DEAD_ADDR))
+    ethCall("0x18160ddd", CONTRACT, BSC_DATASEED),
+    ethCall(balanceOfData(CONTRACT), CONTRACT, BSC_DATASEED),
+    ethCall(balanceOfData(DEAD_ADDR), CONTRACT, BSC_DATASEED)
   ]);
   const total = hexToTokens(totalHex);
   const locked = hexToTokens(lockedHex);

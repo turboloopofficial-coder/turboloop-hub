@@ -51,6 +51,27 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       published.push(post.slug);
     }
 
+    // Revalidate the Next.js ISR cache for the blog index and each new post
+    // so visitors see the new content immediately without waiting for the
+    // 5-minute ISR window. Best-effort: if this fails the post is still
+    // published and ISR will pick it up within 5 minutes anyway.
+    if (published.length > 0) {
+      try {
+        const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
+        const NEXT_HOST = "https://www.turboloop.tech";
+        if (REVALIDATE_SECRET) {
+          // Revalidate the blog index
+          await fetch(`${NEXT_HOST}/api/revalidate-blog?secret=${encodeURIComponent(REVALIDATE_SECRET)}`);
+          // Revalidate each individual post page
+          for (const slug of published) {
+            await fetch(`${NEXT_HOST}/api/revalidate-blog?secret=${encodeURIComponent(REVALIDATE_SECRET)}&slug=${encodeURIComponent(slug)}`);
+          }
+        }
+      } catch (revalErr) {
+        console.warn("[cron publish-blog] revalidation ping failed (non-fatal):", revalErr);
+      }
+    }
+
     // IndexNow ping — push the new URLs to Bing / Yandex / Naver
     // immediately on publish, rather than waiting for the 30-min
     // /api/cron/indexnow tick. Inline (not via a shared module)

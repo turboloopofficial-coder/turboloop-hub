@@ -1,17 +1,21 @@
 // /api/token-holders — serves the TURBO token holder count.
 //
 // Primary source: `cache:token_holders` row in site_settings DB.
-// The cron-master (turboloop-hub project) fetches from BscScan every
-// 5 minutes and writes this row. BscScan blocks Cloudflare Worker and
-// Vercel datacenter IPs, but the cron-master runs on a different IP
-// pool that is NOT blocked.
+// The cron-token-data handler (turboloop-hub project) fetches from
+// BscScan every 5 minutes and writes this row.
 //
-// Fallback: try BscScan directly (may work from some Vercel regions),
-// then the Cloudflare Worker proxy.
+// Fallback chain:
+//   1. DB cache (fresh < 2h) → return immediately
+//   2. Direct BscScan fetch (may work from some Vercel regions)
+//   3. Cloudflare Worker proxy
+//   4. Stale DB cache (any age) — ALWAYS prefer stale data over null
 //
-// Cache: 30-min in-memory TTL. On failure we serve stale cache if
-// available; if nothing is cached we return { holders: null, fresh: false }
-// and the widget renders "—" without breaking the rest of the supply panel.
+// Fix (Jul 2026): Previously the API returned { holders: null } when
+// all live fetches failed AND the DB cache was stale. This caused the
+// token page to show "—" even though we had a perfectly valid (if
+// slightly old) holder count in the DB. Now we always return the stale
+// DB value as a last resort. A 2-day-old count is infinitely better
+// than null.
 
 import { NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
@@ -57,10 +61,17 @@ function parseHolders(html: string): string | null {
   return null;
 }
 
-async function fetchFromDB(): Promise<TokenHoldersData> {
+interface DBResult {
+  fresh: TokenHoldersData;
+  stale: TokenHoldersData | null;
+}
+
+/** Reads the DB cache and returns both a fresh-or-empty result AND the raw
+ *  stale value so we can use it as a last-resort fallback. */
+async function fetchFromDB(): Promise<DBResult> {
   try {
     const dbUrl = process.env.DATABASE_URL;
-    if (!dbUrl) return emptyResponse();
+    if (!dbUrl) return { fresh: emptyResponse(), stale: null };
     const sql = neon(dbUrl);
     const db = drizzle(sql);
     const rows = await db
@@ -68,18 +79,24 @@ async function fetchFromDB(): Promise<TokenHoldersData> {
       .from(siteSettings)
       .where(eq(siteSettings.settingKey, "cache:token_holders"))
       .limit(1);
-    if (!rows.length || !rows[0].settingValue) return emptyResponse();
+    if (!rows.length || !rows[0].settingValue) return { fresh: emptyResponse(), stale: null };
     const parsed = JSON.parse(rows[0].settingValue) as TokenHoldersData;
-    if (parsed.holdersNum && parsed.holdersNum > 0) {
-      // Mark as stale if older than 2 hours so the direct-fetch fallback
-      // is triggered and the DB gets refreshed on the next cron tick.
-      const ageMs = Date.now() - new Date(parsed.fetchedAt as unknown as string).getTime();
-      const isStale = ageMs > 2 * 60 * 60_000; // 2 hours
-      return { ...parsed, fresh: !isStale };
+    if (!parsed.holdersNum || parsed.holdersNum <= 0) return { fresh: emptyResponse(), stale: null };
+
+    const ageMs = Date.now() - new Date(parsed.fetchedAt as unknown as string).getTime();
+    const isStale = ageMs > 2 * 60 * 60_000; // 2 hours
+
+    const result: TokenHoldersData = { ...parsed, fresh: !isStale };
+
+    if (!isStale) {
+      // Fresh — use directly, no need for stale fallback
+      return { fresh: result, stale: null };
     }
-    return emptyResponse();
+    // Stale — return empty as "fresh" result (triggers live fetch attempts)
+    // but keep the stale value so we can fall back to it if live fetches fail.
+    return { fresh: emptyResponse(), stale: result };
   } catch {
-    return emptyResponse();
+    return { fresh: emptyResponse(), stale: null };
   }
 }
 
@@ -137,14 +154,16 @@ async function fetchFromWorker(): Promise<TokenHoldersData> {
 export async function GET() {
   const now = Date.now();
 
+  // Serve in-memory cache if still valid
   if (cached && cached.expiresAt > now) {
     return NextResponse.json(cached.data, {
       headers: { "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600" },
     });
   }
 
-  // 1. Try DB cache (populated by cron-master every 5 min)
-  let data = await fetchFromDB();
+  // 1. Try DB cache (populated by cron-token-data every 5 min)
+  const { fresh: dbFresh, stale: dbStale } = await fetchFromDB();
+  let data = dbFresh;
 
   // 2. Try direct BscScan fetch (may work from some Vercel regions)
   if (!data.fresh) {
@@ -156,9 +175,17 @@ export async function GET() {
     data = await fetchFromWorker();
   }
 
-  if (data.fresh) {
+  // 4. Last resort: serve stale DB value rather than returning null.
+  //    A slightly old holder count is always better than showing "—".
+  if (!data.fresh && dbStale) {
+    data = dbStale;
+  }
+
+  if (data.fresh || (data.holdersNum && data.holdersNum > 0)) {
+    // Cache in-memory for 30 min if we got any real value
     cached = { data, expiresAt: now + CACHE_TTL_MS };
   } else if (cached) {
+    // Still have an old in-memory cache — return it
     return NextResponse.json(cached.data, {
       headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" },
     });
@@ -166,9 +193,10 @@ export async function GET() {
 
   return NextResponse.json(data, {
     headers: {
-      "Cache-Control": data.fresh
-        ? "public, s-maxage=1800, stale-while-revalidate=3600"
-        : "public, s-maxage=30, stale-while-revalidate=120",
+      "Cache-Control":
+        data.fresh
+          ? "public, s-maxage=1800, stale-while-revalidate=3600"
+          : "public, s-maxage=30, stale-while-revalidate=120",
     },
   });
 }

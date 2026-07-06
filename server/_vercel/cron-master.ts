@@ -2514,6 +2514,27 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
     }
 
+    // ─── Weekly DB cleanup ───────────────────────────────────────────────
+    // Runs once per week (Sunday 00:00 UTC) to delete stale dedup markers.
+    // lastFired:* entries accumulate at ~300/day; only the current UTC day
+    // is ever checked, so anything older than 7 days is safe to purge.
+    try {
+      const now = new Date();
+      if (now.getUTCDay() === 0 && now.getUTCHours() === 0) {
+        await db.execute(
+          `DELETE FROM site_settings WHERE setting_key LIKE 'lastFired:%' AND updated_at < NOW() - INTERVAL '7 days'`
+        );
+        await db.execute(
+          `DELETE FROM site_settings WHERE setting_key LIKE 'tgDelivery:%' AND updated_at < NOW() - INTERVAL '60 days'`
+        );
+        await db.execute(
+          `DELETE FROM site_settings WHERE setting_key LIKE 'cronError:%' AND updated_at < NOW() - INTERVAL '30 days'`
+        );
+        log.push("🧹 DB cleanup: stale lastFired / tgDelivery / cronError entries purged");
+      }
+    } catch (_cleanErr) {
+      // Non-fatal — cleanup failure must never break the main cron response
+    }
     res.statusCode = 200;
     res.end(JSON.stringify({ ok: true, ranAt: new Date().toISOString(), fired: log }));
   } catch (err: any) {

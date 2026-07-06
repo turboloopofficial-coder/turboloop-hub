@@ -80191,6 +80191,22 @@ The marketing toolkit your uplines never told you existed.
         );
       }
     }
+    try {
+      const now = /* @__PURE__ */ new Date();
+      if (now.getUTCDay() === 0 && now.getUTCHours() === 0) {
+        await db.execute(
+          `DELETE FROM site_settings WHERE setting_key LIKE 'lastFired:%' AND updated_at < NOW() - INTERVAL '7 days'`
+        );
+        await db.execute(
+          `DELETE FROM site_settings WHERE setting_key LIKE 'tgDelivery:%' AND updated_at < NOW() - INTERVAL '60 days'`
+        );
+        await db.execute(
+          `DELETE FROM site_settings WHERE setting_key LIKE 'cronError:%' AND updated_at < NOW() - INTERVAL '30 days'`
+        );
+        log.push("\u{1F9F9} DB cleanup: stale lastFired / tgDelivery / cronError entries purged");
+      }
+    } catch (_cleanErr) {
+    }
     res.statusCode = 200;
     res.end(JSON.stringify({ ok: true, ranAt: (/* @__PURE__ */ new Date()).toISOString(), fired: log }));
   } catch (err) {

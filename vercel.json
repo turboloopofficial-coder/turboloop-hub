@@ -15,6 +15,10 @@
       "memory": 512,
       "maxDuration": 30
     },
+    "api/cron/token-data.js": {
+      "memory": 512,
+      "maxDuration": 30
+    },
     "api/og.js": {
       "memory": 512,
       "maxDuration": 10
@@ -52,6 +56,10 @@
     {
       "path": "/api/cron/publish-blog",
       "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/token-data",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

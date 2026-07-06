@@ -63567,7 +63567,7 @@ No ID. No credit check. No waiting period. Connect your BSC wallet, choose a pla
 
 1. Connect wallet. 2. Choose plan. 3. Deposit USDT.
 
-That's it. The 0.9% daily ROI clock starts on the next block.
+That's it. Your yield clock starts on the next block (up to 0.9% daily on Ultimate Plan).
 
 #TurboLoop #Deposit #Simple #DeFi #USDT #Instant`,
     buttonText: "\u23F1\uFE0F Start in 30 seconds",
@@ -63788,7 +63788,7 @@ Trust the code, not the team.
 var CAMPAIGN_LIFESTYLE_CAPTIONS = [
   `Your coffee gets cold. Your TurboLoop earnings don't.
 
-While most people trade time for money, TurboLoop members earn 0.9% daily on deposited USDT \u2014 automatically, on-chain, every 24 hours.
+While most people trade time for money, TurboLoop members earn up to 0.9% daily on deposited USDT \u2014 automatically, on-chain, every 24 hours.
 
 No trading. No watching charts. No waiting for a salary.
 
@@ -63797,7 +63797,7 @@ No trading. No watching charts. No waiting for a salary.
 #TurboLoop #PassiveIncome #DeFiYield #FinancialFreedom #OnChain`,
   `The beach doesn't care what time it is. Neither does your TurboLoop wallet.
 
-Every 24 hours, your USDT earns 0.9% \u2014 whether you're working, sleeping, or on a plane.
+Every 24 hours, your USDT earns up to 0.9% \u2014 whether you're working, sleeping, or on a plane.
 
 This is what financial freedom actually looks like.
 
@@ -63806,7 +63806,7 @@ This is what financial freedom actually looks like.
 #TurboLoop #BeachLife #PassiveIncome #DeFi #FreedomLifestyle`,
   `Most people work for money. TurboLoop members make money work for them.
 
-0.9% daily yield. Full capital back after 60 days. No lock-up. No volatility risk.
+Up to 0.9% daily yield. Full capital back at end of term. No volatility risk.
 
 The math is simple. The lifestyle change is real.
 
@@ -63815,14 +63815,14 @@ The math is simple. The lifestyle change is real.
 #TurboLoop #MoneyMindset #DeFiYield #PassiveIncome #FinancialFreedom`,
   `Imagine waking up and your balance is already higher than when you went to sleep.
 
-That's not a dream. That's TurboLoop \u2014 0.9% daily yield, on-chain, transparent, and running 24/7.
+That's not a dream. That's TurboLoop \u2014 up to 0.9% daily yield, on-chain, transparent, and running 24/7.
 
 \u{1F449} Join today: https://turboloop.tech
 
 #TurboLoop #WakeUpRicher #PassiveIncome #DeFi #OnChain`,
   `Your 9-to-5 pays once. TurboLoop pays every single day.
 
-Deposit USDT. Earn 0.9% daily. Withdraw anytime. Get your full capital back after 60 days.
+Deposit USDT. Earn up to 0.9% daily. Capital + yield returned at end of term.
 
 One decision. Daily rewards.
 
@@ -63831,21 +63831,21 @@ One decision. Daily rewards.
 #TurboLoop #9to5Escape #DeFiYield #DailyRewards #FinancialFreedom`,
   `Luxury isn't about spending more. It's about worrying less.
 
-When your money earns 0.9% daily on TurboLoop, the question stops being "can I afford this?" and starts being "what do I want to do today?"
+When your money earns up to 0.9% daily on TurboLoop, the question stops being "can I afford this?" and starts being "what do I want to do today?"
 
 \u{1F449} Start building: https://turboloop.tech
 
 #TurboLoop #LuxuryMindset #PassiveIncome #DeFi #WealthBuilding`,
   `Family time is priceless. TurboLoop makes sure you have more of it.
 
-Earn 0.9% daily on your USDT without sitting at a desk. The protocol runs itself \u2014 you just live your life.
+Earn up to 0.9% daily on your USDT without sitting at a desk. The protocol runs itself \u2014 you just live your life.
 
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #FamilyFirst #PassiveIncome #DeFiYield #TimeIsWealth`,
   `The difference between people who travel freely and those who can't? Passive income.
 
-TurboLoop members earn 0.9% daily on deposited USDT \u2014 from anywhere in the world, on any device.
+TurboLoop members earn up to 0.9% daily on deposited USDT \u2014 from anywhere in the world, on any device.
 
 \u{1F449} Start earning: https://turboloop.tech
 
@@ -63854,7 +63854,7 @@ TurboLoop members earn 0.9% daily on deposited USDT \u2014 from anywhere in the 
 
 When your passive income covers your expenses, you're retired \u2014 regardless of how old you are. TurboLoop helps you get there faster.
 
-0.9% daily. On-chain. Transparent.
+Up to 0.9% daily. On-chain. Transparent.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -63870,7 +63870,7 @@ Your money. Your rules. Your earnings.
 #TurboLoop #SmartMoney #DeFi #PassiveIncome #OnChain`,
   `Some people spend their whole lives working for the weekend. TurboLoop members make every day feel like the weekend.
 
-0.9% daily yield. Withdraw anytime. Full capital back at 60 days.
+Up to 0.9% daily yield. Capital + yield returned at end of term.
 
 \u{1F449} Join the movement: https://turboloop.tech
 
@@ -63979,7 +63979,7 @@ Every dollar in TurboLoop is governed by an immutable smart contract on BNB Smar
 #TurboLoop #NotAScam #SmartContract #DeFiTransparency #DYOR`,
   `"Too good to be true?" \u2014 Check the on-chain data.
 
-0.9% daily yield sounds extraordinary until you understand DeFi liquidity provision. The protocol earns from real trading activity. The yield is real. The math is public.
+Up to 0.9% daily yield sounds extraordinary until you understand DeFi liquidity provision. The protocol earns from real trading activity. The yield is real. The math is public.
 
 \u{1F449} Verify everything: https://turboloop.tech/token
 
@@ -64007,7 +64007,7 @@ TurboLoop has no lock-up period. You can withdraw your earnings at any time. You
 #TurboLoop #WithdrawAnytime #DeFi #NoLockup #Transparency`,
   `"What about impermanent loss?" \u2014 There is none.
 
-TurboLoop's yield structure is fixed at 0.9% daily on your deposited USDT. You're not exposed to token price volatility in your principal. USDT in, USDT out.
+TurboLoop's yield structure offers up to 0.9% daily on your deposited USDT (Ultimate Plan, 60 days). You're not exposed to token price volatility in your principal. USDT in, USDT out.
 
 \u{1F449} https://turboloop.tech
 
@@ -64058,7 +64058,7 @@ TurboLoop was built specifically to remove the risks that burned you: no team co
 var CAMPAIGN_HINDI_CAPTIONS = [
   `\u{1F1EE}\u{1F1F3} India ka DeFi revolution shuru ho gaya hai.
 
-TurboLoop pe daily 0.9% yield earn karo apne USDT pe \u2014 bina kisi bank ke, bina kisi middleman ke.
+TurboLoop pe up to 0.9% daily yield earn karo apne USDT pe \u2014 bina kisi bank ke, bina kisi middleman ke.
 
 Smart contract pe sab kuch transparent hai. Verify karo khud.
 
@@ -64067,7 +64067,7 @@ Smart contract pe sab kuch transparent hai. Verify karo khud.
 #TurboLoop #IndiaKaDeFi #PassiveIncome #DeFiIndia #USDT`,
   `Ghar baithe kamao \u2014 yeh sirf ek sapna nahi, TurboLoop ki reality hai.
 
-0.9% daily yield. 60 din mein pura capital wapas. Kabhi bhi withdraw karo.
+Up to 0.9% daily yield. 60 din mein pura capital + 54% ROI wapas.
 
 BNB Smart Chain pe immutable smart contract \u2014 koi bhi control nahi kar sakta.
 
@@ -64076,14 +64076,14 @@ BNB Smart Chain pe immutable smart contract \u2014 koi bhi control nahi kar sakt
 #TurboLoop #GharBaitheKamao #PassiveIncome #DeFi #India`,
   `Agar aapka paisa aapke liye kaam nahi kar raha, toh aap paisa ke liye kaam kar rahe ho.
 
-TurboLoop mein USDT deposit karo. Har 24 ghante mein 0.9% earn karo. Apni zindagi jiyo.
+TurboLoop mein USDT deposit karo. Har 24 ghante mein up to 0.9% earn karo. Apni zindagi jiyo.
 
 \u{1F449} https://turboloop.tech/calculator
 
 #TurboLoop #PaisaKaamKare #PassiveIncome #DeFiIndia #FinancialFreedom`,
   `Inflation beat karo DeFi se.
 
-Bank FD deta hai 6-7% per year. TurboLoop deta hai 0.9% per DAY \u2014 on-chain, transparent, aur verifiable.
+Bank FD deta hai 6-7% per year. TurboLoop deta hai up to 0.9% per DAY \u2014 on-chain, transparent, aur verifiable.
 
 Fark samjho. Faisla karo.
 
@@ -64122,7 +64122,7 @@ Jab aapki TurboLoop income aapki salary se zyada ho jaye, tab decide karna. Tab 
 #TurboLoop #NaukriChhodo #PassiveIncome #DeFiIndia #FinancialFreedom`,
   `Aapka paisa 24/7 kaam karta hai \u2014 aap soye ho ya jaag rahe ho.
 
-TurboLoop ka smart contract kabhi band nahi hota. Har 24 ghante mein 0.9% yield \u2014 automatically.
+TurboLoop ka smart contract kabhi band nahi hota. Har 24 ghante mein up to 0.9% yield \u2014 automatically.
 
 \u{1F449} https://turboloop.tech
 
@@ -64152,14 +64152,14 @@ Jitna jaldi TurboLoop mein shuru karo, utna zyada compounding ka faida milega. K
 var CAMPAIGN_NIGERIAN_CAPTIONS = [
   `\u{1F1F3}\u{1F1EC} Naija, the DeFi revolution don reach our side.
 
-TurboLoop dey pay 0.9% daily yield on your USDT \u2014 no bank, no wahala, no middleman. Just smart contract.
+TurboLoop dey pay up to 0.9% daily yield on your USDT \u2014 no bank, no wahala, no middleman. Just smart contract.
 
 \u{1F449} Start today: https://turboloop.tech
 
 #TurboLoop #NaijaDeFi #PassiveIncome #MakeMoneyOnline #Nigeria`,
   `Sapa no go catch you if your money dey work for you.
 
-Deposit USDT. Earn 0.9% every day. Withdraw anytime. Full capital back after 60 days.
+Deposit USDT. Earn up to 0.9% every day. Capital + yield returned at end of term.
 
 This na real deal \u2014 verify am on BscScan.
 
@@ -64182,7 +64182,7 @@ TurboLoop code dey public on BscScan. No team wallet. No admin key. The contract
 #TurboLoop #NoBeScam #SmartContract #DeFiTrust #Nigeria`,
   `Naija inflation dey chop your savings. DeFi yield dey beat am.
 
-Bank dey give 10% per year. TurboLoop dey give 0.9% per DAY \u2014 on-chain, transparent, verifiable.
+Bank dey give 10% per year. TurboLoop dey give up to 0.9% per DAY \u2014 on-chain, transparent, verifiable.
 
 Do the math.
 
@@ -64205,7 +64205,7 @@ If you fit send WhatsApp message, you fit use TurboLoop. Deposit USDT. Watch am 
 #TurboLoop #EasyDeFi #NaijaDeFi #CryptoForAll #PassiveIncome`,
   `Abuja mansion, Lagos lifestyle \u2014 passive income dey make am possible.
 
-TurboLoop members dey earn 0.9% daily on their USDT. No trading. No stress. Just yield.
+TurboLoop members dey earn up to 0.9% daily on their USDT. No trading. No stress. Just yield.
 
 \u{1F449} https://turboloop.tech
 
@@ -64249,7 +64249,7 @@ The moment you see USDT land in your wallet from TurboLoop \u2014 that's when it
 #TurboLoop #FirstWithdrawal #DeFiYield #PassiveIncome #RealResults`,
   `60 days in. Full capital back. Plus 54% earned on top.
 
-That's what TurboLoop's 0.9% daily yield looks like after a full cycle. The math was always right \u2014 the experience confirms it.
+That's what TurboLoop's Ultimate Plan (0.9% daily) looks like after a full cycle. The math was always right \u2014 the experience confirms it.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64270,14 +64270,14 @@ TurboLoop members who build their network don't just earn yield \u2014 they earn
 #TurboLoop #RankUp #NetworkIncome #DeFi #SuccessStory`,
   `The best investment advice I ever got: let the smart contract work.
 
-Stop timing the market. Stop chasing 100x tokens. Deposit USDT. Earn 0.9% daily. Compound. Repeat.
+Stop timing the market. Stop chasing 100x tokens. Deposit USDT. Earn up to 0.9% daily. Compound. Repeat.
 
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #SmartInvestment #DeFiYield #PassiveIncome #SuccessStory`,
   `She started with $100. 60 days later, she had $154 \u2014 and her $100 back.
 
-That's TurboLoop's 0.9% daily yield in action. Small start. Real results. Compounding magic.
+That's TurboLoop's Ultimate Plan (0.9% daily) in action. Small start. Real results. Compounding magic.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64312,7 +64312,7 @@ Building a TurboLoop downline took 3 months. Now the commissions come in daily \
 #TurboLoop #NetworkIncome #FamilyLife #DeFi #SuccessStory`,
   `I compounded for 6 months. The results were unbelievable.
 
-Reinvesting TurboLoop earnings instead of withdrawing them creates exponential growth. 6 months of compounding at 0.9% daily is transformative.
+Reinvesting TurboLoop earnings instead of withdrawing them creates exponential growth. 6 months of compounding at up to 0.9% daily is transformative.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64342,7 +64342,7 @@ A smart contract is code that executes automatically when conditions are met. No
 #SmartContract #DeFiEducation #TurboLoop #Blockchain #Web3`,
   `What is a stablecoin? \u2014 Crypto without the volatility.
 
-USDT is a stablecoin pegged to the US dollar. $1 of USDT is always worth $1. TurboLoop pays 0.9% daily on USDT \u2014 so your principal never loses value to crypto volatility.
+USDT is a stablecoin pegged to the US dollar. $1 of USDT is always worth $1. TurboLoop pays up to 0.9% daily on USDT \u2014 so your principal never loses value to crypto volatility.
 
 \u{1F449} https://turboloop.tech/learn
 
@@ -64391,7 +64391,7 @@ CeFi (Centralized Finance) = banks, exchanges, custodians. They hold your money.
 #DeFiVsCeFi #DeFiEducation #TurboLoop #Blockchain #FinancialFreedom`,
   `What is ROI? \u2014 Return on Investment, explained for DeFi.
 
-ROI = (Earnings / Investment) \xD7 100. At 0.9% daily for 60 days, TurboLoop's ROI is 54% per cycle \u2014 plus your full capital back. Compare that to any bank.
+ROI = (Earnings / Investment) \xD7 100. At 0.9% daily for 60 days (Ultimate Plan), TurboLoop's ROI is 54% per cycle \u2014 plus your full capital back. Compare that to any bank.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64412,7 +64412,7 @@ Immutable means unchangeable. Once TurboLoop's smart contract was deployed, its 
 #Immutability #DeFiEducation #TurboLoop #SmartContract #Trustless`
 ];
 var CAMPAIGN_URGENCY_CAPTIONS = [
-  `Every day you wait is a day you didn't earn 0.9%.
+  `Every day you wait is a day you didn't earn up to 0.9%.
 
 That's not pressure \u2014 that's math. Compound interest rewards the early. The protocol doesn't wait for you.
 
@@ -64426,14 +64426,14 @@ Every TurboLoop member who waited a month to join wishes they hadn't. The compou
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #StartNow #DeFiYield #PassiveIncome #NoMoreWaiting`,
-  `Your savings account earned $0.08 today. TurboLoop would have earned 0.9%.
+  `Your savings account earned $0.08 today. TurboLoop would have earned up to 0.9%.
 
 The gap between what your bank pays and what DeFi pays is not a rounding error. It's a different financial system.
 
 \u{1F449} https://turboloop.tech/calculator
 
 #TurboLoop #BankVsDeFi #PassiveIncome #DeFiYield #StartToday`,
-  `Inflation is running at 5-8% per year. TurboLoop pays 0.9% per day.
+  `Inflation is running at 5-8% per year. TurboLoop pays up to 0.9% per day.
 
 Every day you keep your savings in a bank account, inflation is winning. DeFi is the answer.
 
@@ -64447,14 +64447,14 @@ Stop researching. Start earning. You can always add more later \u2014 but you ca
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #StopWaiting #DeFiYield #PassiveIncome #StartNow`,
-  `Tonight, while you sleep, TurboLoop members will earn 0.9% on their USDT.
+  `Tonight, while you sleep, TurboLoop members will earn up to 0.9% on their USDT.
 
 Will you be one of them?
 
 \u{1F449} Deposit before midnight: https://turboloop.tech
 
 #TurboLoop #EarnWhileYouSleep #DeFiYield #PassiveIncome #Tonight`,
-  `The protocol doesn't care about market conditions. It pays 0.9% daily regardless.
+  `The protocol doesn't care about market conditions. It pays up to 0.9% daily regardless.
 
 Bull market, bear market, sideways market \u2014 TurboLoop's yield is fixed. Your USDT earns the same every day.
 
@@ -64479,7 +64479,7 @@ TurboLoop's community is growing daily. The early movers are already on their se
 #TurboLoop #DontWait #Compounding #DeFiYield #PassiveIncome`,
   `You don't need to understand everything to start. You just need to start.
 
-Deposit $10. Watch it earn 0.9% tomorrow. Then decide if you want to add more. The protocol will still be here.
+Deposit $10. Watch it earn up to 0.9% tomorrow. Then decide if you want to add more. The protocol will still be here.
 
 \u{1F449} https://turboloop.tech
 
@@ -64587,7 +64587,7 @@ Reward-based minting. Daily buyback. Permanent burn. No team allocation. This is
 ];
 var CAMPAIGN_COMPARISON_CAPTIONS = [
   `Bank savings account: 0.5% per year.
-TurboLoop: 0.9% per day.
+TurboLoop: up to 0.9% per day (Ultimate Plan).
 
 That's not a typo. That's DeFi.
 
@@ -64595,7 +64595,7 @@ That's not a typo. That's DeFi.
 
 #TurboLoop #BankVsDeFi #DeFiYield #PassiveIncome #FinancialFreedom`,
   `Stocks: average 10% per year (if you're lucky).
-TurboLoop: 0.9% per day, every day, regardless of market conditions.
+TurboLoop: up to 0.9% per day, every day, regardless of market conditions.
 
 Different asset class. Different rules.
 
@@ -64603,7 +64603,7 @@ Different asset class. Different rules.
 
 #TurboLoop #StocksVsDeFi #DeFiYield #PassiveIncome #FixedYield`,
   `Crypto trading: high risk, high stress, unpredictable returns.
-TurboLoop: fixed 0.9% daily, USDT principal, no volatility exposure.
+TurboLoop: up to 0.9% daily, USDT principal, no volatility exposure.
 
 Same ecosystem. Completely different risk profile.
 
@@ -64635,7 +64635,7 @@ DeFi democratizes finance.
 
 #TurboLoop #HedgeFundVsDeFi #DeFiForAll #PassiveIncome #FinancialInclusion`,
   `Meme coins: 100x potential, 99% chance of going to zero.
-TurboLoop: 0.9% daily, fixed, on USDT principal.
+TurboLoop: up to 0.9% daily, fixed, on USDT principal.
 
 One is gambling. The other is yield.
 
@@ -64651,7 +64651,7 @@ Custody matters.
 
 #TurboLoop #CeFiVsDeFi #SmartContract #DeFiYield #NoCounterpartyRisk`,
   `Savings challenge: save $X per month, earn nothing on it.
-TurboLoop: deposit USDT, earn 0.9% daily while it sits there.
+TurboLoop: deposit USDT, earn up to 0.9% daily while it sits there.
 
 Same discipline. Completely different outcome.
 
@@ -64659,7 +64659,7 @@ Same discipline. Completely different outcome.
 
 #TurboLoop #SavingsVsDeFi #DeFiYield #PassiveIncome #MoneyHabits`,
   `Pension fund: wait 30-40 years, get back less than inflation took.
-TurboLoop: earn 0.9% daily, compound for years, retire early.
+TurboLoop: earn up to 0.9% daily, compound for years, retire early.
 
 DeFi is the pension fund the system never gave you.
 
@@ -64667,7 +64667,7 @@ DeFi is the pension fund the system never gave you.
 
 #TurboLoop #PensionVsDeFi #EarlyRetirement #DeFiYield #FinancialFreedom`,
   `Bonds: 3-5% per year, locked, government-dependent.
-TurboLoop: 0.9% per day, no lock-up, code-dependent.
+TurboLoop: up to 0.9% per day, no lock-up, code-dependent.
 
 Trust the math, not the government.
 
@@ -64865,7 +64865,7 @@ function campaignBannerUrl(category, index) {
 var CAMPAIGN_INDONESIAN_CAPTIONS = [
   `\u{1F1EE}\u{1F1E9}\u{1F680} Wujudkan kebebasan finansial dengan TurboLoop!
 
-Dapatkan hasil DeFi di BSC: 7 hari (3%), 14 hari (7%), 30 hari (18%), 60 hari (40%). Modal + keuntungan dikembalikan di akhir periode.
+Dapatkan hasil DeFi di BSC: 7 hari (3%), 14 hari (10%), 30 hari (24%), 60 hari (54%). Modal + keuntungan dikembalikan di akhir periode.
 
 \u{1F449} https://turboloop.tech
 
@@ -64886,7 +64886,7 @@ Bangun jaringan 20 level dan dapatkan komisi harian langsung ke wallet kamu.
 #TurboLoop #Referral #PenghasilanPasif #DeFi`,
   `\u{1F4CA} Plan 30 hari: titik optimal keuntungan.
 
-Tunggu sebulan. Dapatkan modal + 18% ROI di akhir periode. Tanpa trading, tanpa stres.
+Tunggu sebulan. Dapatkan modal + 24% ROI di akhir periode. Tanpa trading, tanpa stres.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64902,7 +64902,7 @@ Semua bisa diverifikasi di BSCScan. Uangmu, aturanmu.
 var CAMPAIGN_CHINESE_CAPTIONS = [
   `\u{1F1E8}\u{1F1F3}\u{1F680} \u8D22\u5BCC\u81EA\u7531\u4ECETurboLoop\u5F00\u59CB\uFF01
 
-BSC\u94FE\u4E0ADeFi\u6536\u76CA\uFF1A7\u59293%\u300114\u59297%\u300130\u592918%\u300160\u592940% ROI\u3002\u671F\u672B\u8FD4\u8FD8\u672C\u91D1+\u6536\u76CA\u3002
+BSC\u94FE\u4E0ADeFi\u6536\u76CA\uFF1A7\u59293%\u300114\u592910%\u300130\u592924%\u300160\u592954% ROI\u3002\u671F\u672B\u8FD4\u8FD8\u672C\u91D1+\u6536\u76CA\u3002
 
 \u{1F449} https://turboloop.tech
 
@@ -64923,7 +64923,7 @@ TurboLoop\u662FBSC\u4E0A\u7ECF\u8FC7\u5BA1\u8BA1\u7684DeFi\u5E73\u53F0\u2014\u20
 #TurboLoop #\u63A8\u8350\u5956\u52B1 #\u88AB\u52A8\u6536\u5165 #DeFi`,
   `\u{1F4CA} 30\u5929\u8BA1\u5212\uFF1A\u6536\u76CA\u6700\u4F18\u9009\u62E9\u3002
 
-\u7B49\u5F85\u4E00\u4E2A\u6708\uFF0C\u83B7\u5F97\u672C\u91D1+18% ROI\u3002\u65E0\u9700\u4EA4\u6613\uFF0C\u65E0\u538B\u529B\u3002
+\u7B49\u5F85\u4E00\u4E2A\u6708\uFF0C\u83B7\u5F97\u672C\u91D1+24% ROI\u3002\u65E0\u9700\u4EA4\u6613\uFF0C\u65E0\u538B\u529B\u3002
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64939,7 +64939,7 @@ TurboLoop\u662FBSC\u4E0A\u7ECF\u8FC7\u5BA1\u8BA1\u7684DeFi\u5E73\u53F0\u2014\u20
 var CAMPAIGN_ITALIAN_CAPTIONS = [
   `\u{1F1EE}\u{1F1F9}\u{1F680} La libert\xE0 finanziaria inizia con TurboLoop!
 
-Rendimenti DeFi su BSC: 7 giorni (3%), 14 giorni (7%), 30 giorni (18%), 60 giorni (40%). Capitale + guadagni restituiti a fine periodo.
+Rendimenti DeFi su BSC: 7 giorni (3%), 14 giorni (10%), 30 giorni (24%), 60 giorni (54%). Capitale + guadagni restituiti a fine periodo.
 
 \u{1F449} https://turboloop.tech
 
@@ -64960,7 +64960,7 @@ Costruisci una rete a 20 livelli e guadagna commissioni giornaliere direttamente
 #TurboLoop #Referral #RedditoPassivo #DeFi`,
   `\u{1F4CA} Piano da 30 giorni: il punto ottimale di rendimento.
 
-Aspetta un mese. Ricevi capitale + 18% ROI a fine periodo. Senza trading, senza stress.
+Aspetta un mese. Ricevi capitale + 24% ROI a fine periodo. Senza trading, senza stress.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64976,7 +64976,7 @@ Tutto verificabile su BSCScan. I tuoi soldi, le tue regole.
 var CAMPAIGN_ARABIC_CAPTIONS = [
   `\u{1F1F8}\u{1F1E6}\u{1F680} \u0627\u0644\u062D\u0631\u064A\u0629 \u0627\u0644\u0645\u0627\u0644\u064A\u0629 \u062A\u0628\u062F\u0623 \u0645\u0639 TurboLoop!
 
-\u0639\u0648\u0627\u0626\u062F DeFi \u0639\u0644\u0649 BSC: 7 \u0623\u064A\u0627\u0645 (3%)\u060C 14 \u064A\u0648\u0645 (7%)\u060C 30 \u064A\u0648\u0645 (18%)\u060C 60 \u064A\u0648\u0645 (40%). \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 + \u0627\u0644\u0623\u0631\u0628\u0627\u062D \u062A\u064F\u0639\u0627\u062F \u0641\u064A \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0641\u062A\u0631\u0629.
+\u0639\u0648\u0627\u0626\u062F DeFi \u0639\u0644\u0649 BSC: 7 \u0623\u064A\u0627\u0645 (3%)\u060C 14 \u064A\u0648\u0645 (10%)\u060C 30 \u064A\u0648\u0645 (24%)\u060C 60 \u064A\u0648\u0645 (54%). \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 + \u0627\u0644\u0623\u0631\u0628\u0627\u062D \u062A\u064F\u0639\u0627\u062F \u0641\u064A \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0641\u062A\u0631\u0629.
 
 \u{1F449} https://turboloop.tech
 
@@ -64997,7 +64997,7 @@ TurboLoop \u0645\u0646\u0635\u0629 DeFi \u0645\u062F\u0642\u0642\u0629 \u0639\u0
 #TurboLoop #\u0625\u062D\u0627\u0644\u0629 #\u062F\u062E\u0644_\u0633\u0644\u0628\u064A #DeFi`,
   `\u{1F4CA} \u062E\u0637\u0629 30 \u064A\u0648\u0645\u0627\u064B: \u0623\u0641\u0636\u0644 \u0646\u0642\u0637\u0629 \u0644\u0644\u0639\u0627\u0626\u062F.
 
-\u0627\u0646\u062A\u0638\u0631 \u0634\u0647\u0631\u0627\u064B. \u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 + 18% ROI \u0641\u064A \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0641\u062A\u0631\u0629. \u0628\u062F\u0648\u0646 \u062A\u062F\u0627\u0648\u0644\u060C \u0628\u062F\u0648\u0646 \u0636\u063A\u0637.
+\u0627\u0646\u062A\u0638\u0631 \u0634\u0647\u0631\u0627\u064B. \u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 + 24% ROI \u0641\u064A \u0646\u0647\u0627\u064A\u0629 \u0627\u0644\u0641\u062A\u0631\u0629. \u0628\u062F\u0648\u0646 \u062A\u062F\u0627\u0648\u0644\u060C \u0628\u062F\u0648\u0646 \u0636\u063A\u0637.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -65013,7 +65013,7 @@ TurboLoop \u0645\u0646\u0635\u0629 DeFi \u0645\u062F\u0642\u0642\u0629 \u0639\u0
 var CAMPAIGN_URDU_CAPTIONS = [
   `\u{1F1F5}\u{1F1F0}\u{1F680} \u0645\u0627\u0644\u06CC \u0622\u0632\u0627\u062F\u06CC TurboLoop \u0633\u06D2 \u0634\u0631\u0648\u0639 \u06C1\u0648\u062A\u06CC \u06C1\u06D2!
 
-BSC \u067E\u0631 DeFi \u0645\u0646\u0627\u0641\u0639: 7 \u062F\u0646 (3%)\u060C 14 \u062F\u0646 (7%)\u060C 30 \u062F\u0646 (18%)\u060C 60 \u062F\u0646 (40%)\u06D4 \u0645\u062F\u062A \u06A9\u06D2 \u0622\u062E\u0631 \u0645\u06CC\u06BA \u0627\u0635\u0644 \u0631\u0642\u0645 + \u0645\u0646\u0627\u0641\u0639 \u0648\u0627\u067E\u0633\u06D4
+BSC \u067E\u0631 DeFi \u0645\u0646\u0627\u0641\u0639: 7 \u062F\u0646 (3%)\u060C 14 \u062F\u0646 (10%)\u060C 30 \u062F\u0646 (24%)\u060C 60 \u062F\u0646 (54%)\u06D4 \u0645\u062F\u062A \u06A9\u06D2 \u0622\u062E\u0631 \u0645\u06CC\u06BA \u0627\u0635\u0644 \u0631\u0642\u0645 + \u0645\u0646\u0627\u0641\u0639 \u0648\u0627\u067E\u0633\u06D4
 
 \u{1F449} https://turboloop.tech
 
@@ -65034,7 +65034,7 @@ TurboLoop BSC \u067E\u0631 \u0627\u06CC\u06A9 \u0622\u0688\u0679 \u0634\u062F\u0
 #TurboLoop #\u0631\u06CC\u0641\u0631\u0644 #\u063A\u06CC\u0631\u0641\u0639\u0627\u0644_\u0622\u0645\u062F\u0646\u06CC #DeFi`,
   `\u{1F4CA} 30 \u062F\u0646 \u06A9\u0627 \u067E\u0644\u0627\u0646: \u0645\u0646\u0627\u0641\u0639 \u06A9\u0627 \u0628\u06C1\u062A\u0631\u06CC\u0646 \u0646\u0642\u0637\u06C1\u06D4
 
-\u0627\u06CC\u06A9 \u0645\u0627\u06C1 \u0627\u0646\u062A\u0638\u0627\u0631 \u06A9\u0631\u06CC\u06BA\u06D4 \u0645\u062F\u062A \u06A9\u06D2 \u0622\u062E\u0631 \u0645\u06CC\u06BA \u0627\u0635\u0644 \u0631\u0642\u0645 + 18% ROI \u062D\u0627\u0635\u0644 \u06A9\u0631\u06CC\u06BA\u06D4 \u0628\u063A\u06CC\u0631 \u0679\u0631\u06CC\u0688\u0646\u06AF\u060C \u0628\u063A\u06CC\u0631 \u062A\u0646\u0627\u0624\u06D4
+\u0627\u06CC\u06A9 \u0645\u0627\u06C1 \u0627\u0646\u062A\u0638\u0627\u0631 \u06A9\u0631\u06CC\u06BA\u06D4 \u0645\u062F\u062A \u06A9\u06D2 \u0622\u062E\u0631 \u0645\u06CC\u06BA \u0627\u0635\u0644 \u0631\u0642\u0645 + 24% ROI \u062D\u0627\u0635\u0644 \u06A9\u0631\u06CC\u06BA\u06D4 \u0628\u063A\u06CC\u0631 \u0679\u0631\u06CC\u0688\u0646\u06AF\u060C \u0628\u063A\u06CC\u0631 \u062A\u0646\u0627\u0624\u06D4
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -65050,7 +65050,7 @@ TurboLoop BSC \u067E\u0631 \u0627\u06CC\u06A9 \u0622\u0688\u0679 \u0634\u062F\u0
 var CAMPAIGN_GERMAN_CAPTIONS = [
   `\u{1F1E9}\u{1F1EA}\u{1F680} Finanzielle Freiheit beginnt mit TurboLoop!
 
-DeFi-Renditen auf BSC: 7 Tage (3%), 14 Tage (7%), 30 Tage (18%), 60 Tage (40%). Kapital + Gewinne werden am Ende der Laufzeit zur\xFCckgegeben.
+DeFi-Renditen auf BSC: 7 Tage (3%), 14 Tage (10%), 30 Tage (24%), 60 Tage (54%). Kapital + Gewinne werden am Ende der Laufzeit zur\xFCckgegeben.
 
 \u{1F449} https://turboloop.tech
 
@@ -65071,7 +65071,7 @@ Baue ein 20-stufiges Netzwerk auf und erhalte t\xE4glich Provisionen direkt in d
 #TurboLoop #Referral #PassivesEinkommen #DeFi`,
   `\u{1F4CA} 30-Tage-Plan: Der optimale Rendite-Punkt.
 
-Einen Monat warten. Kapital + 18% ROI am Ende der Laufzeit erhalten. Kein Trading, kein Stress.
+Einen Monat warten. Kapital + 24% ROI am Ende der Laufzeit erhalten. Kein Trading, kein Stress.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -78602,137 +78602,6 @@ async function handler(req, res) {
       res.statusCode = 200;
       res.end(JSON.stringify({ ok: true, results }));
       return;
-    }
-    try {
-      const priceRes = await fetch("https://www.turboloop.tech/api/token-price", {
-        signal: AbortSignal.timeout(8e3)
-      });
-      if (priceRes.ok) {
-        const priceData = await priceRes.json();
-        const value = JSON.stringify(priceData);
-        await db.insert(siteSettings).values({ settingKey: "cache:token_price", settingValue: value }).onConflictDoUpdate({
-          target: siteSettings.settingKey,
-          set: { settingValue: value, updatedAt: /* @__PURE__ */ new Date() }
-        });
-      }
-    } catch (_priceErr) {
-    }
-    try {
-      const TURBO_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
-      const USER_AGENTS = [
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"
-      ];
-      const _uaIdx = (/* @__PURE__ */ new Date()).getMinutes() % USER_AGENTS.length;
-      const _bscHeaders = {
-        "User-Agent": USER_AGENTS[_uaIdx],
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Cache-Control": "no-cache",
-        "Referer": "https://www.google.com/"
-      };
-      let _bscHtml = "";
-      const _bscRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
-        headers: _bscHeaders,
-        signal: AbortSignal.timeout(2e4)
-      });
-      if (_bscRes.status === 403 || _bscRes.ok) {
-        const _body = await _bscRes.text();
-        if (_body.length > 200) {
-          _bscHtml = _body;
-        }
-      }
-      if (!_bscHtml) {
-        const _retryHeaders = { ..._bscHeaders, "User-Agent": USER_AGENTS[(_uaIdx + 2) % USER_AGENTS.length], "Referer": "https://etherscan.io/" };
-        const _retryRes = await fetch(`https://bscscan.com/token/${TURBO_CONTRACT}`, {
-          headers: _retryHeaders,
-          signal: AbortSignal.timeout(2e4)
-        });
-        if (_retryRes.status === 403 || _retryRes.ok) {
-          const _retryBody = await _retryRes.text();
-          if (_retryBody.length > 200) _bscHtml = _retryBody;
-        }
-      }
-      if (_bscHtml) {
-        const _holdersMatch = _bscHtml.match(/Holders[:\s]*([\d,]+)/i) || _bscHtml.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/);
-        if (_holdersMatch) {
-          const _holdersNum = parseInt(_holdersMatch[1].replace(/,/g, ""), 10);
-          if (_holdersNum > 0) {
-            const _holdersValue = JSON.stringify({
-              holders: _holdersNum.toLocaleString("en-US"),
-              holdersNum: _holdersNum,
-              fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
-              fresh: true,
-              source: "bscscan-scrape"
-            });
-            await db.insert(siteSettings).values({ settingKey: "cache:token_holders", settingValue: _holdersValue }).onConflictDoUpdate({
-              target: siteSettings.settingKey,
-              set: { settingValue: _holdersValue, updatedAt: /* @__PURE__ */ new Date() }
-            });
-            console.log(`[cron-master] holder count refreshed: ${_holdersNum.toLocaleString("en-US")}`);
-          }
-        }
-      }
-    } catch (_holderErr) {
-      console.error("[cron-master] holder count refresh error:", _holderErr);
-    }
-    try {
-      let _snapHexToTokens2 = function(hex) {
-        const raw = BigInt(hex === "0x" ? "0x0" : hex);
-        return Number(raw) / 1e18;
-      }, _snapBalanceOf2 = function(addr) {
-        return "0x70a08231" + addr.slice(2).toLowerCase().padStart(64, "0");
-      };
-      var _snapHexToTokens = _snapHexToTokens2, _snapBalanceOf = _snapBalanceOf2;
-      const _SNAP_CONTRACT = "0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3";
-      const _SNAP_DEAD = "0x000000000000000000000000000000000000dead";
-      const _SNAP_RPC = "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3";
-      async function _snapEthCall(data) {
-        const _r2 = await fetch(_SNAP_RPC, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ jsonrpc: "2.0", method: "eth_call", params: [{ to: _SNAP_CONTRACT, data }, "latest"], id: 1 }),
-          signal: AbortSignal.timeout(8e3)
-        });
-        const _j = await _r2.json();
-        return _j.result ?? "0x0";
-      }
-      const [_snapTotalHex, _snapLockedHex, _snapBurnedHex] = await Promise.all([
-        _snapEthCall("0x18160ddd"),
-        _snapEthCall(_snapBalanceOf2(_SNAP_CONTRACT)),
-        _snapEthCall(_snapBalanceOf2(_SNAP_DEAD))
-      ]);
-      const _snapTotal = _snapHexToTokens2(_snapTotalHex);
-      const _snapLocked = _snapHexToTokens2(_snapLockedHex);
-      const _snapBurned = _snapHexToTokens2(_snapBurnedHex);
-      const _snapCirc = Math.max(0, _snapTotal - _snapLocked - _snapBurned);
-      if (_snapTotal > 0 && _snapCirc > 0) {
-        const _snapDate = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
-        const _snapLp = parseFloat((_snapLocked / _snapTotal * 100).toFixed(2));
-        const _snapBp = parseFloat((_snapBurned / _snapTotal * 100).toFixed(2));
-        const _snapCp = parseFloat((_snapCirc / _snapTotal * 100).toFixed(2));
-        await db.execute(
-          `INSERT INTO supply_snapshots
-             (snapshot_date, total_supply, locked_vested, burned, circulating,
-              locked_pct, burned_pct, circulating_pct, source)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'onchain')
-           ON CONFLICT (snapshot_date) DO UPDATE SET
-             total_supply=EXCLUDED.total_supply,
-             locked_vested=EXCLUDED.locked_vested,
-             burned=EXCLUDED.burned,
-             circulating=EXCLUDED.circulating,
-             locked_pct=EXCLUDED.locked_pct,
-             burned_pct=EXCLUDED.burned_pct,
-             circulating_pct=EXCLUDED.circulating_pct,
-             source=EXCLUDED.source`,
-          [_snapDate, _snapTotal, _snapLocked, _snapBurned, _snapCirc, _snapLp, _snapBp, _snapCp]
-        );
-        console.log(`[cron-master] supply snapshot: ${_snapDate} circ=${Math.round(_snapCirc).toLocaleString("en-US")}`);
-      }
-    } catch (_snapErr) {
-      console.error("[cron-master] supply snapshot error:", _snapErr);
     }
     try {
       const DEPLOY_DATE = /* @__PURE__ */ new Date("2026-03-10T00:00:00Z");

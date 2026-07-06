@@ -22,6 +22,11 @@ const bundles = [
     label: "Cron: master scheduler (every 5 min)",
   },
   {
+    src: path.join(projectRoot, "server/_vercel/cron-token-data.ts"),
+    out: path.join(projectRoot, "api/cron/token-data.js"),
+    label: "Cron: token data (price + holders + supply snapshot)",
+  },
+  {
     src: path.join(projectRoot, "server/_vercel/og-zoom.ts"),
     out: path.join(projectRoot, "api/og-zoom.js"),
     label: "Zoom banner generator",

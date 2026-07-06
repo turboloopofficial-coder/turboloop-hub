@@ -1,9 +1,10 @@
 /**
  * POST /api/broadcast
  * Secure endpoint to broadcast a photo + caption to Telegram channels.
- * Protected by REVALIDATE_SECRET (same secret used for ISR revalidation).
+ * Protected by REVALIDATE_SECRET.
  *
- * Body: { secret: string, photoUrl: string, caption: string, parseMode?: string }
+ * Body: { secret, photoUrl, caption, parseMode?, chatIds? }
+ * chatIds: optional array of chat IDs/usernames to override env vars
  */
 import { NextRequest, NextResponse } from "next/server";
 
@@ -48,7 +49,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { secret: reqSecret, photoUrl, caption, parseMode = "HTML" } = body;
+  const { secret: reqSecret, photoUrl, caption, parseMode = "HTML", chatIds } = body;
 
   if (reqSecret !== secret) {
     return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
@@ -63,12 +64,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "TELEGRAM_BOT_TOKEN not set" }, { status: 500 });
   }
 
-  const channel = process.env.TELEGRAM_CHANNEL;
-  const chat = process.env.TELEGRAM_CHAT;
-  const destinations = [channel, chat].filter(Boolean) as string[];
+  // Use provided chatIds or fall back to env vars
+  let destinations: string[] = [];
+  if (Array.isArray(chatIds) && chatIds.length > 0) {
+    destinations = chatIds.filter(Boolean);
+  } else {
+    const channel = process.env.TELEGRAM_CHANNEL;
+    const chat = process.env.TELEGRAM_CHAT;
+    destinations = [channel, chat].filter(Boolean) as string[];
+  }
 
   if (destinations.length === 0) {
-    return NextResponse.json({ ok: false, error: "No TELEGRAM_CHANNEL or TELEGRAM_CHAT configured" }, { status: 500 });
+    return NextResponse.json({ ok: false, error: "No chat destinations configured" }, { status: 500 });
   }
 
   const results = await Promise.all(

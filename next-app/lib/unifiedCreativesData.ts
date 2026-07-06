@@ -14,7 +14,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -100,6 +100,7 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   arabic:              { label: "Arabic Market", emoji: "🇸🇦", description: "Arabic-language banners for the Arab DeFi community." },
   urdu:                { label: "Urdu Market", emoji: "🇵🇰", description: "Urdu-language banners for the Pakistani DeFi community." },
   german:              { label: "German Market", emoji: "🇩🇪", description: "German-language banners for the DACH DeFi community." },
+  thai:                { label: "Thai Market", emoji: "🇹🇭", description: "Thai-language banners for the Thai DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -129,6 +130,7 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   arabic:              { label: "ابدأ الآن", url: "https://turboloop.tech/apply" },
   urdu:                { label: "ابھی شروع کریں", url: "https://turboloop.tech/apply" },
   german:              { label: "Jetzt Starten", url: "https://turboloop.tech/apply" },
+  thai:                { label: "เริ่มต้นวันนี้", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -240,7 +242,8 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "italian" ? "it" :
     b.category === "arabic" ? "ar" :
     b.category === "urdu" ? "ur" :
-    b.category === "german" ? "de" : "en";
+    b.category === "german" ? "de" :
+    b.category === "thai" ? "th" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,

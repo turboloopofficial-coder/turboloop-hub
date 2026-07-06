@@ -103,6 +103,40 @@ export async function listBlogPosts(publishedOnly = true) {
   return db.select().from(blogPosts).orderBy(desc(blogPosts.createdAt));
 }
 
+// Listing-safe query: returns every column EXCEPT `content`.
+// The full blogPosts response is ~3.5 MB (261 posts × ~13 KB avg) which
+// exceeds Next.js's 2 MB data-cache limit and causes the blog index to
+// silently render 0 posts. The listing page never needs the body text —
+// only the individual /blog/[slug] page does — so we omit it here.
+export async function listBlogPostsSummary(publishedOnly = true) {
+  const db = getDb();
+  // Drizzle partial-select: explicitly name every column except `content`.
+  const cols = {
+    id: blogPosts.id,
+    title: blogPosts.title,
+    slug: blogPosts.slug,
+    excerpt: blogPosts.excerpt,
+    coverImage: blogPosts.coverImage,
+    published: blogPosts.published,
+    language: blogPosts.language,
+    translationOf: blogPosts.translationOf,
+    tags: blogPosts.tags,
+    authorName: blogPosts.authorName,
+    authorUrl: blogPosts.authorUrl,
+    seoTitle: blogPosts.seoTitle,
+    seoDescription: blogPosts.seoDescription,
+    readingTimeMin: blogPosts.readingTimeMin,
+    scheduledPublishAt: blogPosts.scheduledPublishAt,
+    createdAt: blogPosts.createdAt,
+    updatedAt: blogPosts.updatedAt,
+  } as const;
+  if (publishedOnly) {
+    publishOverdueBlogs().catch((e) => console.error("[publishOverdueBlogs]", e));
+    return db.select(cols).from(blogPosts).where(eq(blogPosts.published, true)).orderBy(desc(blogPosts.createdAt));
+  }
+  return db.select(cols).from(blogPosts).orderBy(desc(blogPosts.createdAt));
+}
+
 export async function getBlogPostBySlug(slug: string) {
   const db = getDb();
   const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);

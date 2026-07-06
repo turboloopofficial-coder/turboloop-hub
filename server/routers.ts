@@ -4,7 +4,7 @@ import * as jose from "jose";
 import { parse as parseCookieHeader } from "cookie";
 import {
   verifyAdminPassword, upsertAdmin, getAdminByEmail,
-  listBlogPosts, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
+  listBlogPosts, listBlogPostsSummary, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
   listAutomationLog,
   listVideos, createVideo, updateVideo, deleteVideo,
   listEvents, createEvent, updateEvent, deleteEvent,
@@ -100,6 +100,10 @@ export const appRouter = router({
 
   content: router({
     blogPosts: publicProcedure.query(() => listBlogPosts(true)),
+    // Listing-safe endpoint: omits the `content` field so the response
+    // stays well under Next.js's 2 MB data-cache limit (full payload is
+    // ~3.5 MB which silently breaks ISR and renders 0 posts on /blog).
+    blogPostsList: publicProcedure.query(() => listBlogPostsSummary(true)),
     blogPost: publicProcedure.input(z.object({ slug: z.string() })).query(({ input }) => getBlogPostBySlug(input.slug)),
     videos: publicProcedure.query(() => listVideos(true)),
     events: publicProcedure.query(() => listEvents(true)),

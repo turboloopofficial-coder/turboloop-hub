@@ -12,7 +12,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
-import { api, blogCoverUrl, blogDisplayDate } from "@lib/api";
+import { api, blogCoverUrl, blogDisplayDate, type BlogPostSummary } from "@lib/api";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -23,9 +23,9 @@ function formatDate(iso: string) {
 }
 
 export async function HomeBlogSection() {
-  let posts: Awaited<ReturnType<typeof api.blogPosts>> = [];
+  let posts: BlogPostSummary[] = [];
   try {
-    const all = await api.blogPosts();
+    const all = await api.blogPostsList();
     // Homepage carries the English editorial flow only — non-EN posts
     // surface on /blog?lang=<code>. Keeps the homepage narrative
     // consistent for the global English-default audience.

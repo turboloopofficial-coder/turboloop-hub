@@ -18,6 +18,7 @@ import {
   blogDisplayDate,
   BLOG_LANGUAGES,
   type BlogLanguage,
+  type BlogPostSummary,
 } from "@lib/api";
 import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
@@ -84,10 +85,13 @@ export default async function BlogIndex({
 
   // Wrap in try/catch so a transient API failure renders an empty blog
   // rather than crashing the page and causing Next.js to inject noindex.
-  let allPublished: Awaited<ReturnType<typeof api.blogPosts>> = [];
+  // Use the listing-safe endpoint (no `content` field) to stay under
+  // Next.js's 2 MB data-cache limit. The full blogPosts() response is
+  // ~3.5 MB and silently breaks ISR, causing the page to show 0 posts.
+  let allPublished: BlogPostSummary[] = [];
   try {
     allPublished = await api
-      .blogPosts()
+      .blogPostsList()
       .then(p => p.filter(post => post.published));
   } catch {
     // API unavailable — render empty state, do NOT crash.

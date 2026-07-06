@@ -182,10 +182,17 @@ export function blogCoverUrl(post: {
   return post.coverImage ?? blogOgBannerUrl(post);
 }
 
+/** Listing-safe subset of BlogPost — identical shape but without the
+ *  `content` field. Used by the /blog index page to stay under Next.js's
+ *  2 MB data-cache limit (full BlogPost[] is ~3.5 MB for 261 posts).
+ *  Individual post pages still use the full BlogPost type via blogPost().
+ */
+export type BlogPostSummary = Omit<BlogPost, "content">;
+
 /** Best-effort "this article was published on" date for UI display.
  *  Returns null when nothing trustworthy is available — callers hide the
  *  date strip rather than show a misleading bulk-insert createdAt. */
-export function blogDisplayDate(post: BlogPost): string | null {
+export function blogDisplayDate(post: BlogPost | BlogPostSummary): string | null {
   if (post.scheduledPublishAt) {
     const t = new Date(post.scheduledPublishAt).getTime();
     if (Number.isFinite(t) && t <= Date.now()) return post.scheduledPublishAt;
@@ -277,6 +284,10 @@ export interface JobVacancy {
 
 export const api = {
   blogPosts: () => fetchTRPC<BlogPost[]>("content.blogPosts"),
+  /** Listing-safe endpoint: omits `content` so the payload stays under
+   *  Next.js's 2 MB data-cache limit. Use this on the /blog index page.
+   *  Individual post pages should use blogPost(slug) instead. */
+  blogPostsList: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsList"),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
   videos: () => fetchTRPC<Video[]>("content.videos"),

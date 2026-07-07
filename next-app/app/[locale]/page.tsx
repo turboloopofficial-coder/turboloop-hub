@@ -8,7 +8,6 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, LOCALE_LABELS, type Locale } from "@lib/i18n/routing";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Rocket, ShieldCheck, Lock, UserX, ExternalLink } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
@@ -21,22 +20,8 @@ import { TestimonialSection } from "@components/sections/TestimonialSection";
 import { HomeGlobalReelsSection } from "@components/sections/HomeGlobalReelsSection";
 import { ZoomLiveSection } from "@components/sections/ZoomLiveSection";
 import { NewsletterSection } from "@components/sections/NewsletterSection";
-
-const HomeBlogSection = dynamic(
-  () =>
-    import("@components/sections/HomeBlogSection").then((m) => ({
-      default: m.HomeBlogSection,
-    })),
-  { ssr: true }
-);
-
-const CreativeExplorerSection = dynamic(
-  () =>
-    import("@components/sections/CreativeExplorerSection").then((m) => ({
-      default: m.CreativeExplorerSection,
-    })),
-  { ssr: false }
-);
+import { HomeBlogSection } from "@components/sections/HomeBlogSection";
+import { CreativeExplorerSection } from "@components/sections/CreativeExplorerSection";
 
 type Props = {
   params: Promise<{ locale: string }>;

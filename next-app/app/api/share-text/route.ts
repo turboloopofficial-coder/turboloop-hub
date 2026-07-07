@@ -229,7 +229,7 @@ Return ONLY a JSON object in this exact format, no other text:
       model: anthropic("claude-haiku-4-5"),
       system: systemPrompt,
       prompt: userPrompt,
-      maxTokens: 600,
+      maxOutputTokens: 600,
       temperature: 0.85,
     });
 

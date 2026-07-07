@@ -1,19 +1,30 @@
 "use client";
 
 // LanguagePicker — locale switcher in the navbar.
-// Mobile: full-screen bottom sheet (easy thumb reach, no clipping issues).
-// Desktop (md+): compact dropdown anchored to the button.
+//
+// The Navbar uses backdrop-blur which creates a CSS stacking context.
+// Any position:fixed child is trapped inside that context and cannot
+// cover the full page. Fix: render the mobile sheet via ReactDOM.createPortal
+// directly onto document.body, which sits outside all stacking contexts.
+//
+// Mobile (<md): full-screen portal bottom sheet.
+// Desktop (md+): compact dropdown anchored to the button (no portal needed).
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
 import { Globe, X, Check } from "lucide-react";
 import { LOCALES, LOCALE_LABELS, type Locale } from "@lib/i18n/routing";
 
 export function LanguagePicker() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
+
+  // Ensure we're client-side before using portals
+  useEffect(() => { setMounted(true); }, []);
 
   // Detect current locale from the pathname
   const pathParts = pathname.split("/").filter(Boolean);
@@ -30,31 +41,23 @@ export function LanguagePicker() {
         setOpen(false);
       }
     }
-    if (open) {
-      document.addEventListener("mousedown", handleClick);
-    }
+    if (open) document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
-  // Prevent body scroll when mobile sheet is open
+  // Lock body scroll when mobile sheet is open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
   const switchLocale = useCallback((locale: Locale) => {
     setOpen(false);
     let newPath = pathname;
-    // Remove existing locale prefix if present
     const localePrefix = `/${currentLocale}`;
     if (currentLocale !== "en" && newPath.startsWith(localePrefix)) {
       newPath = newPath.slice(localePrefix.length) || "/";
     }
-    // Add new locale prefix (English has no prefix)
     if (locale !== "en") {
       newPath = `/${locale}${newPath === "/" ? "" : newPath}`;
     }
@@ -72,25 +75,35 @@ export function LanguagePicker() {
             role="option"
             aria-selected={isActive}
             onClick={() => switchLocale(locale)}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-[var(--r-lg)] text-sm transition text-left ${
-              isActive
-                ? "bg-[var(--c-brand-cyan)]/10 text-[var(--c-brand-cyan)] font-semibold"
-                : "text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[var(--c-surface)] active:bg-[var(--c-surface)]"
-            }`}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              padding: "12px 16px",
+              borderRadius: "12px",
+              fontSize: "14px",
+              textAlign: "left",
+              background: isActive ? "rgba(0,200,200,0.1)" : "transparent",
+              color: isActive ? "var(--c-brand-cyan, #00c8c8)" : "var(--c-text, #111)",
+              fontWeight: isActive ? 600 : 400,
+              border: "none",
+              cursor: "pointer",
+            }}
           >
-            <span className="text-xl leading-none w-8 text-center flex-shrink-0">
+            <span style={{ fontSize: "22px", width: "32px", textAlign: "center", flexShrink: 0 }}>
               {info.flag}
             </span>
-            <span className="flex-1 min-w-0">
-              <span className="block font-medium text-[var(--c-text)] truncate">
+            <span style={{ flex: 1, minWidth: 0 }}>
+              <span style={{ display: "block", fontWeight: 500, color: "var(--c-text, #111)" }}>
                 {info.native}
               </span>
-              <span className="block text-xs text-[var(--c-text-subtle)] truncate">
+              <span style={{ display: "block", fontSize: "12px", color: "var(--c-text-muted, #666)" }}>
                 {info.label}
               </span>
             </span>
             {isActive && (
-              <Check className="w-4 h-4 text-[var(--c-brand-cyan)] flex-shrink-0" aria-hidden="true" />
+              <Check style={{ width: 16, height: 16, color: "var(--c-brand-cyan, #00c8c8)", flexShrink: 0 }} />
             )}
           </button>
         );
@@ -98,10 +111,80 @@ export function LanguagePicker() {
     </div>
   );
 
+  // Mobile sheet rendered via portal to escape stacking contexts
+  const mobileSheet = mounted && open ? createPortal(
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 99999,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+      }}
+    >
+      {/* Backdrop */}
+      <div
+        onClick={() => setOpen(false)}
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.6)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Sheet panel */}
+      <div
+        role="listbox"
+        aria-label="Select language"
+        style={{
+          position: "relative",
+          background: "var(--c-bg, #fff)",
+          borderRadius: "20px 20px 0 0",
+          borderTop: "1px solid var(--c-border, #e5e7eb)",
+          maxHeight: "85vh",
+          overflowY: "auto",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {/* Drag handle */}
+        <div style={{
+          width: 40, height: 4, borderRadius: 2,
+          background: "var(--c-border, #e5e7eb)",
+          margin: "12px auto 4px",
+        }} />
+        {/* Header */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "8px 20px 8px",
+        }}>
+          <span style={{ fontSize: 16, fontWeight: 600, color: "var(--c-text, #111)" }}>
+            Select Language
+          </span>
+          <button
+            onClick={() => setOpen(false)}
+            style={{
+              padding: 8, borderRadius: "50%", border: "none",
+              background: "transparent", cursor: "pointer",
+              color: "var(--c-text-muted, #666)",
+            }}
+            aria-label="Close"
+          >
+            <X style={{ width: 20, height: 20 }} />
+          </button>
+        </div>
+        {localeList}
+        {/* iOS safe area */}
+        <div style={{ height: 32 }} />
+      </div>
+    </div>,
+    document.body
+  ) : null;
+
   return (
     <>
-      {/* Trigger button — always visible */}
-      <div ref={dropdownRef} className="relative">
+      {/* Trigger button + desktop dropdown */}
+      <div ref={dropdownRef} style={{ position: "relative" }}>
         <button
           onClick={() => setOpen((o) => !o)}
           className="flex items-center gap-1.5 px-2.5 min-h-[40px] h-10 rounded-[var(--r-md)] text-sm font-medium text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[var(--c-surface)] border border-transparent hover:border-[var(--c-border)] transition"
@@ -119,8 +202,9 @@ export function LanguagePicker() {
           <div
             role="listbox"
             aria-label="Select language"
-            className="hidden md:block absolute right-0 top-full mt-2 w-56 rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-xl)] overflow-hidden z-[200]"
+            className="hidden md:block absolute right-0 top-full mt-2 w-56 rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-xl)] overflow-hidden"
             style={{
+              zIndex: 200,
               background: "color-mix(in oklab, var(--c-surface) 97%, transparent)",
               backdropFilter: "blur(16px)",
             }}
@@ -130,43 +214,8 @@ export function LanguagePicker() {
         )}
       </div>
 
-      {/* Mobile bottom sheet — slides up from bottom, full-width */}
-      {open && (
-        <div className="md:hidden fixed inset-0 z-[9999] flex flex-col justify-end">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60"
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          />
-          {/* Sheet panel */}
-          <div
-            role="listbox"
-            aria-label="Select language"
-            className="relative rounded-t-[20px] border-t border-[var(--c-border)] max-h-[85vh] overflow-y-auto"
-            style={{ background: "var(--c-bg)" }}
-          >
-            {/* Drag handle */}
-            <div className="w-10 h-1 rounded-full bg-[var(--c-border)] mx-auto mt-3 mb-1" />
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3">
-              <span className="text-base font-semibold text-[var(--c-text)]">
-                Select Language
-              </span>
-              <button
-                onClick={() => setOpen(false)}
-                className="p-2 -mr-1 rounded-full hover:bg-[var(--c-surface)] text-[var(--c-text-muted)] transition"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            {localeList}
-            {/* iOS safe area bottom padding */}
-            <div className="h-8" />
-          </div>
-        </div>
-      )}
+      {/* Mobile portal sheet — rendered outside all stacking contexts */}
+      {mobileSheet}
     </>
   );
 }

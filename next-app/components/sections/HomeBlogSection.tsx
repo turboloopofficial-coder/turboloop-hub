@@ -1,125 +1,41 @@
-// "Editorial" — 3 most recent blog posts on the homepage.
-// Build-time fetch; ISR-revalidates every 5 min.
-//
-// Cover images fall back to the og-banner PNG (real branded preview) — no
-// more cheap purple-blue gradients. Display date prefers scheduledPublishAt
-// over the bulk-seed createdAt; if neither is meaningful the date strip
-// is hidden entirely rather than shown wrong.
+// "Editorial" — blog section on the homepage with interactive language tabs.
+// Server component fetches all published posts at build time (ISR 5 min);
+// passes them to the HomeBlogLanguagePicker client island which filters
+// and displays the 3 most-recent posts for the selected language.
+// Zero extra API calls on tab switch — all data is already in the bundle.
 
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { Container } from "@components/ui/Container";
-import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
-import { api, blogCoverUrl, blogDisplayDate, type BlogPostSummary } from "@lib/api";
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
+import { api } from "@lib/api";
+import { HomeBlogLanguagePicker } from "./HomeBlogLanguagePicker";
 
 export async function HomeBlogSection() {
-  let posts: BlogPostSummary[] = [];
+  let allPosts = [];
   try {
     const all = await api.blogPostsList();
-    // Homepage carries the English editorial flow only — non-EN posts
-    // surface on /blog?lang=<code>. Keeps the homepage narrative
-    // consistent for the global English-default audience.
-    posts = all
-      .filter(p => p.published && p.language === "en")
-      .sort((a, b) => {
-        // Sort by intended publish date when set; createdAt as a tie-breaker
-        // for posts without a schedule.
-        const aT = new Date(a.scheduledPublishAt ?? a.createdAt).getTime();
-        const bT = new Date(b.scheduledPublishAt ?? b.createdAt).getTime();
-        return bT - aT;
-      })
-      .slice(0, 3);
+    allPosts = all.filter(p => p.published);
   } catch {
     return null;
   }
 
-  if (posts.length === 0) return null;
+  if (allPosts.length === 0) return null;
 
   return (
     <section className="py-12 md:py-20">
       <Container width="default">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-10 gap-4">
-          <div>
-            <Heading
-              tier="eyebrow"
-              className="text-[var(--c-brand-cyan)] mb-3 inline-block"
-            >
-              Editorial
-            </Heading>
-            <Heading tier="h1" as="h2">
-              Read <span className="text-brand-wide">deeper.</span>
-            </Heading>
-          </div>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
+        <div className="mb-8 md:mb-10">
+          <Heading
+            tier="eyebrow"
+            className="text-[var(--c-brand-cyan)] mb-3 inline-block"
           >
-            All articles
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            Editorial
+          </Heading>
+          <Heading tier="h1" as="h2">
+            Read <span className="text-brand-wide">deeper.</span>
+          </Heading>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {posts.map(post => {
-            const displayDate = blogDisplayDate(post);
-            return (
-              <Link
-                key={post.id}
-                href={`/blog/${post.slug}`}
-                className="group block"
-              >
-                <Card
-                  elevation="raised"
-                  padding="none"
-                  interactive
-                  className="h-full overflow-hidden flex flex-col"
-                >
-                  <div
-                    className="relative w-full bg-[var(--c-bg)]"
-                    style={{ aspectRatio: "16 / 10" }}
-                  >
-                    <Image
-                      src={blogCoverUrl(post)}
-                      alt={post.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      unoptimized={!post.coverImage}
-                    />
-                  </div>
-                  <div className="p-5 flex-1 flex flex-col">
-                    {(displayDate || post.readingTime) && (
-                      <div className="text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-2">
-                        {displayDate ? formatDate(displayDate) : null}
-                        {displayDate && post.readingTime ? " · " : ""}
-                        {post.readingTime ? `${post.readingTime} min read` : ""}
-                      </div>
-                    )}
-                    <h3 className="text-base font-bold text-[var(--c-text)] leading-snug mb-2 line-clamp-2">
-                      {post.title}
-                    </h3>
-                    {post.excerpt && (
-                      <p className="text-sm text-[var(--c-text-muted)] leading-relaxed line-clamp-3 flex-1">
-                        {post.excerpt}
-                      </p>
-                    )}
-                  </div>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
+        <HomeBlogLanguagePicker allPosts={allPosts} />
       </Container>
     </section>
   );

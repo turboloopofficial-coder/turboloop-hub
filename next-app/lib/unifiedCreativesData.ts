@@ -14,7 +14,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */

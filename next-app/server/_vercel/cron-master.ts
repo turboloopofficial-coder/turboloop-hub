@@ -2226,7 +2226,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         throw new Error(`TG delivery failed on all channels — ${errMsg}`);
       }
 
-      return { delivered, channels: results.length, failed };
+      return { delivered: delivered > 0, channels: results.length, failed };
     }
 
     for (const slot of CAMPAIGN_SLOTS) {

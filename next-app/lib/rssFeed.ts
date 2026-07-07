@@ -24,6 +24,9 @@ const RSS_LANG: Record<BlogLanguage, string> = {
   de: "de-de",
   hi: "hi-in",
   id: "id-id",
+  th: "th-th",
+  ko: "ko-kr",
+  lo: "lo-la",
 };
 
 // Per-language feed metadata. Keeps the channel <title> + <description>
@@ -51,6 +54,21 @@ const CHANNEL_META: Record<
     title: "Turbo Loop — Editorial",
     description:
       "Artikel mendalam tentang DeFi, yield, keamanan, dan matematika di balik TurboLoop.",
+  },
+  th: {
+    title: "Turbo Loop — บทบรรณาธิการ",
+    description:
+      "บทความเชิงลึกเกี่ยวกับ DeFi, ผลตอบแทน, ความปลอดภัย และคณิตศาสตร์เบื้องหลัง TurboLoop.",
+  },
+  ko: {
+    title: "Turbo Loop — 에디토리얼",
+    description:
+      "DeFi, 수익, 보안 및 TurboLoop의 수학에 관한 심층 기사.",
+  },
+  lo: {
+    title: "Turbo Loop — ບົດບັນນາທິການ",
+    description:
+      "ບົດຄວາມລະອຽດກ່ຽວກັບ DeFi, ຜົນຕອບແທນ, ຄວາມປອດໄພ ແລະ ຄະນິດສາດທີ່ຢູ່ເບື້ອງຼັງ TurboLoop.",
   },
 };
 

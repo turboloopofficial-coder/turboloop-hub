@@ -2,13 +2,14 @@
 
 // LanguagePicker — locale switcher in the navbar.
 //
-// Uses <a href> anchor tags for locale navigation (not onClick + window.location)
-// so navigation is guaranteed native browser behavior, not interceptable by React/Next.js.
-//
-// MOBILE: full-screen portal bottom sheet (escapes navbar stacking context).
-// DESKTOP: compact dropdown anchored to the button.
+// KEY DESIGN DECISIONS:
+// 1. Uses <a href> anchor tags — native browser navigation, not interceptable by React.
+// 2. Desktop: outside-click closes dropdown. Anchor clicks navigate WITHOUT closing state first.
+// 3. Mobile: portal bottom sheet (escapes navbar stacking context). stopPropagation on panel
+//    so backdrop click only closes when backdrop itself is tapped, not when anchor is tapped.
+// 4. No onClick on anchor tags — state change before navigation would cancel the href.
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Globe, X, Check } from "lucide-react";
@@ -52,8 +53,22 @@ export function LanguagePicker() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { setMounted(true); }, []);
+
+  // Close desktop dropdown on outside click
+  useEffect(() => {
+    if (!open) return;
+    function handleOutsideClick(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    // Use capture phase so we catch clicks before they bubble
+    document.addEventListener("mousedown", handleOutsideClick, true);
+    return () => document.removeEventListener("mousedown", handleOutsideClick, true);
+  }, [open]);
 
   // Detect current locale from the pathname
   const pathParts = pathname.split("/").filter(Boolean);
@@ -70,6 +85,7 @@ export function LanguagePicker() {
   }, [open]);
 
   // Build locale option list using <a> tags for guaranteed native navigation
+  // IMPORTANT: No onClick on these anchors — any state change before navigation cancels the href
   const localeList = (
     <div style={{ padding: "8px" }}>
       {LOCALES.map((locale) => {
@@ -129,7 +145,7 @@ export function LanguagePicker() {
     </div>
   );
 
-  // Mobile portal sheet
+  // Mobile portal sheet — rendered outside navbar stacking context
   const mobileSheet = mounted && open ? createPortal(
     <div
       style={{
@@ -141,9 +157,10 @@ export function LanguagePicker() {
         justifyContent: "flex-end",
       }}
     >
-      {/* Backdrop */}
+      {/* Backdrop — only closes when backdrop itself is tapped */}
       <div
-        onClick={() => setOpen(false)}
+        onMouseDown={() => setOpen(false)}
+        onTouchStart={() => setOpen(false)}
         style={{
           position: "absolute",
           inset: 0,
@@ -151,10 +168,12 @@ export function LanguagePicker() {
         }}
         aria-hidden="true"
       />
-      {/* Sheet panel */}
+      {/* Sheet panel — stopPropagation prevents backdrop from firing when panel is tapped */}
       <div
         role="listbox"
         aria-label="Select language"
+        onMouseDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
         style={{
           position: "relative",
           background: "var(--c-bg, #fff)",
@@ -163,6 +182,7 @@ export function LanguagePicker() {
           maxHeight: "85vh",
           overflowY: "auto",
           WebkitOverflowScrolling: "touch",
+          paddingBottom: "env(safe-area-inset-bottom, 16px)",
         }}
       >
         <div style={{ width: 40, height: 4, borderRadius: 2, background: "var(--c-border, #e5e7eb)", margin: "12px auto 4px" }} />
@@ -188,9 +208,14 @@ export function LanguagePicker() {
   return (
     <>
       {/* Trigger button */}
-      <div style={{ position: "relative" }}>
+      <div ref={containerRef} style={{ position: "relative" }}>
         <button
-          onClick={() => setOpen((o) => !o)}
+          onMouseDown={(e) => {
+            // Use mousedown so the dropdown opens before any blur events fire
+            e.preventDefault();
+            setOpen((o) => !o);
+          }}
+          onClick={(e) => e.preventDefault()}
           className="flex items-center gap-1.5 px-2.5 min-h-[40px] h-10 rounded-[var(--r-md)] text-sm font-medium text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[var(--c-surface)] border border-transparent hover:border-[var(--c-border)] transition"
           aria-label={`Language: ${current.native}. Tap to change.`}
           aria-expanded={open}
@@ -201,7 +226,7 @@ export function LanguagePicker() {
           <span className="hidden lg:inline text-xs ml-0.5">{current.native}</span>
         </button>
 
-        {/* Desktop dropdown */}
+        {/* Desktop dropdown — only visible on md+ screens */}
         {open && (
           <div
             role="listbox"

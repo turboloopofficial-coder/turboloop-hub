@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "Buka Aplikasi",
+    "protocol": "Protocol",
+    "watchLearn": "Tonton & Pelajari",
+    "community": "Komunitas",
+    "earnBuild": "Dapatkan & Bangun",
+    "languagePicker": "Bahasa",
+    "links": {
+      "yieldFarming": "Yield Farming",
+      "referralNetwork": "Jaringan Referral",
+      "leadershipProgram": "Program Kepemimpinan",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "Keamanan",
+      "films": "Film",
+      "reels": "Reels",
+      "library": "Perpustakaan",
+      "blog": "Blog",
+      "learnDeFi": "Pelajari DeFi",
+      "communityLink": "Komunitas",
+      "socialWall": "Dinding Sosial",
+      "leaderboard": "Papan Peringkat",
+      "events": "Acara & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "Promosi",
+      "applyToEarn": "Ajukan untuk Mendapatkan Penghasilan",
+      "careers": "Karir",
+      "creatives": "Materi Kreatif",
+      "faq": "FAQ",
+      "roadmap": "Roadmap",
+      "calculator": "Kalkulator"
+    }
+  },
+  "home": {
+    "liveStatus": "Aktif di Binance Smart Chain",
+    "heroTagline": "Hasil berkelanjutan. Transparan berdasarkan desain. Terbuka untuk semua.",
+    "heroTaglinePart1": "Hasil berkelanjutan.",
+    "heroTaglinePart2": "Transparan berdasarkan desain.",
+    "heroTaglinePart3": "Terbuka untuk semua.",
+    "launchApp": "Buka Aplikasi",
+    "watchFilms": "Tonton filmnya",
+    "shareStory": "Atau bagikan cerita Anda →",
+    "scroll": "Gulir",
+    "trust": {
+      "audited": "Independently Audited",
+      "lpLocked": "100% LP Locked",
+      "renounced": "Ownership Renounced",
+      "bscscan": "BscScan Verified"
+    },
+    "newsletter": {
+      "title": "Tetap terdepan dalam yield.",
+      "subtitle": "Weekly protocol updates, new content, and community highlights — straight to your inbox.",
+      "placeholder": "Alamat email Anda",
+      "subscribe": "Berlangganan",
+      "privacy": "Tanpa spam. Berhenti berlanggan kapan saja."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Yield + Token Calculator",
+    "title": "Hitung angkanya.",
+    "subtitle": "Pilih plan, masukkan deposit, dan lihat pengembalian Anda secara tepat — tanpa compounding, tanpa biaya tersembunyi.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% in 7 days",
+      "boost": "10% in 14 days",
+      "power": "24% in 30 days",
+      "ultimate": "54% in 60 days"
+    },
+    "deposit": "Jumlah Deposit",
+    "depositPlaceholder": "Masukkan jumlah dalam USDT",
+    "minimum": "Minimum: 1 USDT",
+    "yourReturn": "Pengembalian Anda",
+    "earnings": "Pendapatan",
+    "totalAtMaturity": "Total pada Jatuh Tempo",
+    "planDuration": "Durasi Plan",
+    "days": "hari",
+    "startPlan": "Mulai Plan Ini",
+    "presets": "Jumlah cepat",
+    "rewardTier": "Tingkat Reward",
+    "tokenBonus": "$TURBO Token Bonus",
+    "vestingRank": "Vesting rank",
+    "projection": "Proyeksi"
+  },
+  "faq": {
+    "eyebrow": "Pertanyaan yang Sering Diajukan",
+    "title": "Semua yang perlu Anda ketahui.",
+    "subtitle": "Tidak menemukan jawaban? Tanyakan di komunitas Telegram kami.",
+    "askCommunity": "Tanyakan ke Komunitas"
+  },
+  "apply": {
+    "eyebrow": "Ajukan untuk Mendapatkan Penghasilan",
+    "title": "Bergabung dengan jaringan kreator TurboLoop.",
+    "subtitle": "Dapatkan komisi dengan membagikan TurboLoop kepada audiens Anda. Dua jalur: Creator Star dan Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "Ajukan Sekarang",
+    "requirements": "Persyaratan",
+    "benefits": "Manfaat",
+    "howItWorks": "Cara Kerjanya"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "Lapisan bonus deflasi.",
+    "subtitle": "Penyetor pada plan Power dan Ultimate menerima token $TURBO sebagai bonus di atas yield USDT mereka.",
+    "buyback": "Daily Buyback & Burn",
+    "supply": "Total Supply",
+    "burned": "Burned",
+    "circulatingSupply": "Circulating Supply",
+    "viewOnBscScan": "Lihat di BscScan",
+    "buyTurbo": "Buy $TURBO",
+    "tokenomics": "Tokenomics",
+    "vestingSchedule": "Vesting Schedule"
+  },
+  "common": {
+    "learnMore": "Pelajari Lebih Lanjut",
+    "viewAll": "Lihat Semua",
+    "getStarted": "Mulai",
+    "joinNow": "Gabung Sekarang",
+    "readMore": "Baca Selengkapnya",
+    "download": "Unduh",
+    "share": "Bagikan",
+    "close": "Tutup",
+    "back": "Kembali",
+    "next": "Berikutnya",
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan. Silakan coba lagi.",
+    "copyLink": "Salin Tautan",
+    "copied": "Disalin!",
+    "days": "hari",
+    "hours": "jam",
+    "minutes": "menit",
+    "seconds": "detik"
+  },
+  "footer": {
+    "tagline": "Yield farming terdesentralisasi di Binance Smart Chain.",
+    "protocol": "Protocol",
+    "content": "Konten",
+    "community": "Komunitas",
+    "legal": "Legal",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat Layanan",
+    "security": "Keamanan",
+    "allRightsReserved": "Hak cipta dilindungi.",
+    "auditedBy": "Diaudit oleh"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming di BSC",
+      "description": "Dapatkan hingga 54% ROI dalam 60 hari dari liquidity pool USDC/USDT nyata. Audited, LP-locked, ownership renounced. Minimum: 1 USDT."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "Hitung pengembalian USDT Anda secara tepat dan bonus token $TURBO untuk plan Sprint, Boost, Power, dan Ultimate."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "Jawaban untuk pertanyaan yang paling umum tentang TurboLoop DeFi yield farming."
+    },
+    "apply": {
+      "title": "Ajukan untuk Menghasilkan — TurboLoop",
+      "description": "Bergabung dengan jaringan kreator TurboLoop. Dapatkan komisi sebagai Creator Star atau Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "Pelajari tentang token deflasi $TURBO — daily buyback and burn, vesting schedule, dan tokenomics."
+    }
+  }
+}

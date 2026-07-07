@@ -22,6 +22,7 @@ import {
 import { Brand } from "@components/Brand";
 import { Magnetic } from "@components/ui/Magnetic";
 import { PRIMARY_LINKS, RESOURCE_LINKS } from "./nav-links";
+import { LanguagePicker } from "./LanguagePicker";
 
 // Re-export for any existing import paths.
 export { PRIMARY_LINKS, RESOURCE_LINKS };
@@ -75,6 +76,7 @@ export function Navbar() {
               The ⌘K kbd hint has been removed — the palette still listens
               globally, the hint just isn't surfaced in the nav. */}
           <div className="flex items-center gap-1 md:gap-2">
+            <LanguagePicker />
             <ThemeToggle />
             <Magnetic className="hidden md:inline-flex">
               <a

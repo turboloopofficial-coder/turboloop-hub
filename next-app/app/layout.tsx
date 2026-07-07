@@ -123,14 +123,16 @@ export const metadata: Metadata = {
     // this page targets and prevents duplicate-content penalties across
     // the multilingual blog posts.
     languages: {
-      "en": "https://www.turboloop.tech/",
-      "hi": "https://www.turboloop.tech/?lang=hi",
-      "de": "https://www.turboloop.tech/?lang=de",
-      "id": "https://www.turboloop.tech/?lang=id",
-      "ar": "https://www.turboloop.tech/?lang=ar",
-      "es": "https://www.turboloop.tech/?lang=es",
-      "pt": "https://www.turboloop.tech/?lang=pt",
-      "tr": "https://www.turboloop.tech/?lang=tr",
+      // URL-based locale hreflang — proper SEO signals for all 8 languages.
+      // English has no prefix (canonical root). All others get /locale/ prefix.
+      "en":        "https://www.turboloop.tech/",
+      "th":        "https://www.turboloop.tech/th/",
+      "ko":        "https://www.turboloop.tech/ko/",
+      "lo":        "https://www.turboloop.tech/lo/",
+      "hi":        "https://www.turboloop.tech/hi/",
+      "de":        "https://www.turboloop.tech/de/",
+      "id":        "https://www.turboloop.tech/id/",
+      "ta":        "https://www.turboloop.tech/ta/",
       "x-default": "https://www.turboloop.tech/",
     },
     // RSS auto-discovery. Browsers + feedreaders read these to surface

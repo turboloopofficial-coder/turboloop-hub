@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "ஆப் தொடங்கு",
+    "protocol": "Protocol",
+    "watchLearn": "பாருங்கள் மற்றும் கற்றுக்கொள்ளுங்கள்",
+    "community": "சமூகம்",
+    "earnBuild": "சம்பாதி மற்றும் உருவாக்கு",
+    "languagePicker": "மொழி",
+    "links": {
+      "yieldFarming": "Yield Farming",
+      "referralNetwork": "பரிந்துரை வலைப்பின்னல்",
+      "leadershipProgram": "தலைமைத்துவ திட்டம்",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "பாதுகாப்பு",
+      "films": "பிலிம்கள்",
+      "reels": "ரீல்ஸ்",
+      "library": "நூலகம்",
+      "blog": "பிளாக்",
+      "learnDeFi": "DeFi பற்றி கற்று கொள்ளுங்கள்",
+      "communityLink": "Community",
+      "socialWall": "சமூக சுவர்",
+      "leaderboard": "Leaderboard",
+      "events": "நிகழ்வுகள் & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "புரோமோஷன்கள்",
+      "applyToEarn": "Apply to Earn",
+      "careers": "வேலைவாய்ப்புகள்",
+      "creatives": "கிரியேட்டிவ்ஸ்",
+      "faq": "FAQ",
+      "roadmap": "Roadmap",
+      "calculator": "Calculator"
+    }
+  },
+  "home": {
+    "liveStatus": "Binance Smart Chain-இல் செயலில் உள்ளது",
+    "heroTagline": "நிலைத்திருக்கும் வருமானம். வடிவமைப்பில் வெளிப்படையானது. அனைவருக்கும் திறந்தது.",
+    "heroTaglinePart1": "நிலைத்திருக்கும் வருமானம்.",
+    "heroTaglinePart2": "வடிவமைப்பில் வெளிப்படையானது.",
+    "heroTaglinePart3": "எல்லாருக்கும் திறந்தது.",
+    "launchApp": "ஆப் தொடங்கு",
+    "watchFilms": "பிலிம்களைப் பார்க்கவும்",
+    "shareStory": "அல்லது உங்கள் கதை பகிரவும் →",
+    "scroll": "ஸ்க்ரோல்",
+    "trust": {
+      "audited": "சுயாதீன ஆய்வு செய்யப்பட்டவை",
+      "lpLocked": "100% LP பூட்டப்பட்டது",
+      "renounced": "உரிமை கைவிடப்பட்டது",
+      "bscscan": "BscScan மூலம் சரிபார்க்கப்பட்டது"
+    },
+    "newsletter": {
+      "title": "வருமானத்தில் முன்னிலையில் இருங்கள்.",
+      "subtitle": "வாராந்திர Protocol அப்டேட்கள், புதிய உள்ளடக்கம் மற்றும் சமூகம் சார்ந்த முக்கியச் செய்திகள் — நேரடியாக உங்கள் மின்னஞ்சலுக்கு.",
+      "placeholder": "உங்கள் மின்னஞ்சல் முகவரி",
+      "subscribe": "சப்ஸ்க்ரைப்",
+      "privacy": "ஸ்பாம் இல்லை. எப்போது வேண்டுமானாலும் பதிவு ரத்து செய்யலாம்."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Yield + Token கணக்கீடு",
+    "title": "எண்களை கணக்கிடுங்கள்.",
+    "subtitle": "ஒரு திட்டத்தை தேர்ந்தெடுத்து, உங்கள் வைப்பு அளவை உள்ளிடுங்கள் — துல்லியமான வருமானம் காண்பிக்கப்படும். மீண்டும் முதலீடு செய்யப்படாது, மறைவு கட்டணங்கள் இல்லை.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "7 நாளில் 3%",
+      "boost": "14 நாளில் 10%",
+      "power": "30 நாளில் 24%",
+      "ultimate": "60 நாளில் 54%"
+    },
+    "deposit": "வைப்பு தொகை",
+    "depositPlaceholder": "USDT-இல் தொகையைக் உள்ளிடவும்",
+    "minimum": "குறைந்தபட்சம்: 1 USDT",
+    "yourReturn": "உங்கள் வருமானம்",
+    "earnings": "வருமானம்",
+    "totalAtMaturity": "முதல்நிறைவில் மொத்தம்",
+    "planDuration": "திட்ட காலம்",
+    "days": "நாட்கள்",
+    "startPlan": "இந்த திட்டத்தைத் தொடங்கு",
+    "presets": "விரைவான தொகைகள்",
+    "rewardTier": "பரிசு நிலை",
+    "tokenBonus": "$TURBO Token Bonus",
+    "vestingRank": "Vesting நிலை",
+    "projection": "முன்னறிவு"
+  },
+  "faq": {
+    "eyebrow": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
+    "title": "உங்களுக்கு தேவையான எல்லாம் தகவல்.",
+    "subtitle": "பதில் கிடைக்கவில்லையா? எமது Telegram சமூகம்-ல் கேளுங்கள்.",
+    "askCommunity": "சமூகத்திடம் கேளுங்கள்"
+  },
+  "apply": {
+    "eyebrow": "சம்பாதிக்க விண்ணப்பிக்கவும்",
+    "title": "TurboLoop உருவாக்குநர் நெட்வொர்க்கில் இணையுங்கள்.",
+    "subtitle": "உங்கள் பார்வையாளர்களிடம் TurboLoop பகிர்ந்து கோமிஷன்கள் சம்பாதிக்கவும். இரண்டு வழிகள்: Creator Star மற்றும் Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "இப்போது விண்ணப்பிக்கவும்",
+    "requirements": "தேவைகள்",
+    "benefits": "நன்மைகள்",
+    "howItWorks": "எப்படி வேலை செய்கிறது"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "மதிப்பைக் குறைக்கும் பரிசு அடுக்கு.",
+    "subtitle": "Power மற்றும் Ultimate திட்டங்களில் வைப்பு செய்தவர்கள், அவர்கள் USDT yield-க்கும் மேல் $TURBO tokens-ஐ பரிசாக பெறுவர்.",
+    "buyback": "Daily Buyback & Burn",
+    "supply": "மொத்த வழங்கல்",
+    "burned": "எரிக்கப்பட்டது",
+    "circulatingSupply": "சுழற்சியில் உள்ள வழங்கல்",
+    "viewOnBscScan": "BscScan-ல் காணுதல்",
+    "buyTurbo": "$TURBO வாங்குக",
+    "tokenomics": "Tokenomics",
+    "vestingSchedule": "Vesting Schedule"
+  },
+  "common": {
+    "learnMore": "மேலும் தெரிந்து கொள்ளுங்கள்",
+    "viewAll": "எல்லாவற்றையும் பார்க்கவும்",
+    "getStarted": "தொடங்குங்கள்",
+    "joinNow": "இப்போது சேருங்கள்",
+    "readMore": "மேலும் வாசிக்க",
+    "download": "பதிவிறக்கம்",
+    "share": "பகிர்",
+    "close": "மூடு",
+    "back": "பின்",
+    "next": "அடுத்து",
+    "loading": "ஏற்றுகிறது...",
+    "error": "ஏதோ பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.",
+    "copyLink": "இணைப்பை நகலெடு",
+    "copied": "நகலெடுக்கப்பட்டது!",
+    "days": "நாட்கள்",
+    "hours": "மணிகள்",
+    "minutes": "நிமிடங்கள்",
+    "seconds": "வினாடிகள்"
+  },
+  "footer": {
+    "tagline": "Binance Smart Chain-இல் மையமில்லா Yield Farming.",
+    "protocol": "Protocol",
+    "content": "உள்ளடக்கம்",
+    "community": "சமூகம்",
+    "legal": "Legal",
+    "privacy": "தனியுரிமை கொள்கை",
+    "terms": "சேவை நிபந்தனைகள்",
+    "security": "பாதுகாப்பு",
+    "allRightsReserved": "எல்லா உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன.",
+    "auditedBy": "ஆய்வு செய்தவர்"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming BSC-இல்",
+      "description": "உண்மையான USDC/USDT liquidity pool-இனிலிருந்து 60 நாட்களில் அதிகபட்சம் 54% ROI பெறுங்கள். Audited, LP-locked, ownership renounced. குறைந்தபட்சம் 1 USDT."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "Sprint, Boost, Power, மற்றும் Ultimate திட்டங்களுக்கு உங்கள் துல்லியமான USDT வருமானம் மற்றும் $TURBO token பரிசை கணக்கிடுங்கள்."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "TurboLoop DeFi yield farming பற்றி அடிக்கடி கேட்கப்படும் கேள்விகளுக்கு பதில்கள்."
+    },
+    "apply": {
+      "title": "Apply to Earn — TurboLoop",
+      "description": "TurboLoop உருவாக்குநர் நெட்வொர்க்கில் சேருங்கள். Creator Star அல்லது Local Presenter ஆகக் கோமிஷன்கள் சம்பாதிக்கவும்."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "$TURBO என்ற deflationary token பற்றி அறியவும் — தினசரி buyback மற்றும் burn, vesting அட்டவணை மற்றும் tokenomics."
+    }
+  }
+}

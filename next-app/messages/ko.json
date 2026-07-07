@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "앱 실행",
+    "protocol": "프로토콜",
+    "watchLearn": "시청 및 학습",
+    "community": "커뮤니티",
+    "earnBuild": "수익 창출 및 구축",
+    "languagePicker": "언어",
+    "links": {
+      "yieldFarming": "수익 파밍",
+      "referralNetwork": "추천 네트워크",
+      "leadershipProgram": "리더십 프로그램",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "보안",
+      "films": "영상",
+      "reels": "릴스",
+      "library": "라이브러리",
+      "blog": "블로그",
+      "learnDeFi": "DeFi 학습",
+      "communityLink": "커뮤니티",
+      "socialWall": "소셜 월",
+      "leaderboard": "리더보드",
+      "events": "이벤트 및 Zoom",
+      "turboToken": "$TURBO 토큰",
+      "promotions": "프로모션",
+      "applyToEarn": "참여 신청",
+      "careers": "채용",
+      "creatives": "크리에이티브",
+      "faq": "자주 묻는 질문",
+      "roadmap": "로드맵",
+      "calculator": "계산기"
+    }
+  },
+  "home": {
+    "liveStatus": "Binance Smart Chain에서 운영 중",
+    "heroTagline": "지속 가능한 수익. 설계부터 투명함. 누구나 이용할 수 있습니다.",
+    "heroTaglinePart1": "지속 가능한 수익.",
+    "heroTaglinePart2": "설계부터 투명함.",
+    "heroTaglinePart3": "모두에게 개방됨.",
+    "launchApp": "앱 실행",
+    "watchFilms": "영상을 시청하세요",
+    "shareStory": "또는 당신의 이야기를 공유하세요 →",
+    "scroll": "스크롤",
+    "trust": {
+      "audited": "독립 감사 완료",
+      "lpLocked": "LP 100% 잠금",
+      "renounced": "소유권 포기",
+      "bscscan": "BscScan에서 검증됨"
+    },
+    "newsletter": {
+      "title": "수익을 앞서가세요.",
+      "subtitle": "주간 프로토콜 업데이트, 신규 콘텐츠 및 커뮤니티 하이라이트를 이메일로 바로 받아보세요.",
+      "placeholder": "이메일 주소",
+      "subscribe": "구독하기",
+      "privacy": "스팸 없음. 언제든지 구독 취소 가능."
+    }
+  },
+  "calculator": {
+    "eyebrow": "수익 + 토큰 계산기",
+    "title": "숫자를 계산해 보세요.",
+    "subtitle": "플랜을 선택하고 예치금을 입력하면 정확한 수익을 확인할 수 있습니다 — 복리 없음, 숨겨진 수수료 없음.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "7일 동안 3%",
+      "boost": "14일 동안 10%",
+      "power": "30일 동안 24%",
+      "ultimate": "60일 동안 54%"
+    },
+    "deposit": "예치 금액",
+    "depositPlaceholder": "USDT로 금액 입력",
+    "minimum": "최소: 1 USDT",
+    "yourReturn": "예상 수익",
+    "earnings": "수익",
+    "totalAtMaturity": "만기 시 총액",
+    "planDuration": "플랜 기간",
+    "days": "일",
+    "startPlan": "이 플랜 시작",
+    "presets": "빠른 금액",
+    "rewardTier": "보상 등급",
+    "tokenBonus": "$TURBO 토큰 보너스",
+    "vestingRank": "베스팅 등급",
+    "projection": "예측"
+  },
+  "faq": {
+    "eyebrow": "자주 묻는 질문",
+    "title": "필요한 모든 정보.",
+    "subtitle": "답을 찾지 못하셨나요? Telegram 커뮤니티에서 문의하세요.",
+    "askCommunity": "커뮤니티에 질문하기"
+  },
+  "apply": {
+    "eyebrow": "수익 참여 신청",
+    "title": "TurboLoop 크리에이터 네트워크에 참여하세요.",
+    "subtitle": "청중과 TurboLoop를 공유하여 커미션을 획득하세요. 트랙은 Creator Star와 Local Presenter 두 가지입니다.",
+    "creatorStar": "크리에이터 스타",
+    "localPresenter": "현지 발표자",
+    "applyNow": "지금 신청",
+    "requirements": "요구 사항",
+    "benefits": "혜택",
+    "howItWorks": "작동 방식"
+  },
+  "token": {
+    "eyebrow": "$TURBO 토큰",
+    "title": "디플레이션 기반 보너스 계층.",
+    "subtitle": "Power 및 Ultimate 플랜 예치자는 USDT 수익 외에 $TURBO 토큰을 보너스로 받습니다.",
+    "buyback": "일일 바이백 및 소각",
+    "supply": "총 발행량",
+    "burned": "소각됨",
+    "circulatingSupply": "유통량",
+    "viewOnBscScan": "BscScan에서 보기",
+    "buyTurbo": "$TURBO 구매",
+    "tokenomics": "토크노믹스",
+    "vestingSchedule": "베스팅 스케줄"
+  },
+  "common": {
+    "learnMore": "자세히 보기",
+    "viewAll": "전체 보기",
+    "getStarted": "시작하기",
+    "joinNow": "지금 참여",
+    "readMore": "더 읽기",
+    "download": "다운로드",
+    "share": "공유",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "loading": "로딩 중...",
+    "error": "문제가 발생했습니다. 다시 시도해 주세요.",
+    "copyLink": "링크 복사",
+    "copied": "복사 완료!",
+    "days": "일",
+    "hours": "시간",
+    "minutes": "분",
+    "seconds": "초"
+  },
+  "footer": {
+    "tagline": "Binance Smart Chain 상의 탈중앙화 수익 농사.",
+    "protocol": "프로토콜",
+    "content": "콘텐츠",
+    "community": "커뮤니티",
+    "legal": "법적 고지",
+    "privacy": "개인정보 처리방침",
+    "terms": "서비스 약관",
+    "security": "보안",
+    "allRightsReserved": "판권 소유.",
+    "auditedBy": "감사 기관"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — BSC에서의 DeFi 수익 농사",
+      "description": "실제 USDC/USDT 유동성 풀에서 60일 이내 최대 54% ROI를 획득하세요. 감사 완료, LP 잠금, 소유권 포기. 최소 1 USDT."
+    },
+    "calculator": {
+      "title": "수익 계산기 — TurboLoop",
+      "description": "Sprint, Boost, Power, Ultimate 플랜에 대한 정확한 USDT 수익과 $TURBO 토큰 보너스를 계산하세요."
+    },
+    "faq": {
+      "title": "자주 묻는 질문 — TurboLoop",
+      "description": "TurboLoop DeFi 수익 농사에 관한 자주 묻는 질문에 대한 답변입니다."
+    },
+    "apply": {
+      "title": "수익 참여 신청 — TurboLoop",
+      "description": "TurboLoop 크리에이터 네트워크에 참여하세요. 크리에이터 스타 또는 현지 발표자로서 커미션을 획득할 수 있습니다."
+    },
+    "token": {
+      "title": "$TURBO 토큰 — TurboLoop",
+      "description": "$TURBO의 디플레이션 토큰에 대해 알아보세요 — 일일 바이백 및 소각, 베스팅 스케줄, 토크노믹스."
+    }
+  }
+}

@@ -22,6 +22,13 @@ import {
   HREFLANG_BY_LANG,
   type BlogPost,
 } from "@lib/api";
+import { LOCALES } from "@lib/i18n/routing";
+
+// Non-English locales that have locale-prefixed pages
+const NON_EN_LOCALES = LOCALES.filter(l => l !== "en");
+
+// Pages that have locale-specific versions
+const LOCALIZED_PAGES = ["", "/calculator", "/faq", "/apply", "/token"];
 
 const BASE = "https://www.turboloop.tech";
 
@@ -193,5 +200,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...top, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels, ...campaignPages];
+  // Locale-specific pages — /th/, /ko/, /lo/, /hi/, /de/, /id/, /ta/ versions
+  // of the 5 key pages with proper hreflang alternates
+  const localizedPages: MetadataRoute.Sitemap = [];
+  for (const path of LOCALIZED_PAGES) {
+    const languages: Record<string, string> = {
+      "x-default": `${BASE}${path || "/"}`,
+      "en": `${BASE}${path || "/"}`,
+    };
+    for (const locale of NON_EN_LOCALES) {
+      languages[locale] = `${BASE}/${locale}${path || "/"}`;
+    }
+    // Add the English canonical
+    localizedPages.push({
+      url: `${BASE}${path || "/"}`,
+      lastModified: now,
+      changeFrequency: path === "" ? "daily" : "monthly",
+      priority: path === "" ? 1.0 : 0.8,
+      alternates: { languages },
+    });
+    // Add each locale version
+    for (const locale of NON_EN_LOCALES) {
+      localizedPages.push({
+        url: `${BASE}/${locale}${path || "/"}`,
+        lastModified: now,
+        changeFrequency: path === "" ? "daily" : "monthly",
+        priority: path === "" ? 0.9 : 0.75,
+        alternates: { languages },
+      });
+    }
+  }
+
+  // Merge: localized pages replace the top-level entries for the same paths
+  const localizedPaths = new Set(LOCALIZED_PAGES.map(p => `${BASE}${p || "/"}`));
+  const topFiltered = top.filter(entry => !localizedPaths.has(entry.url));
+
+  return [...localizedPages, ...topFiltered, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels, ...campaignPages];
 }

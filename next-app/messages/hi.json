@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "ऐप लॉन्च करें",
+    "protocol": "प्रोटोकॉल",
+    "watchLearn": "देखें और सीखें",
+    "community": "कम्युनिटी",
+    "earnBuild": "कमाएं और बनाएं",
+    "languagePicker": "भाषा",
+    "links": {
+      "yieldFarming": "Yield Farming",
+      "referralNetwork": "Referral Network",
+      "leadershipProgram": "लीडरशिप प्रोग्राम",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "सुरक्षा",
+      "films": "फिल्में",
+      "reels": "रील्स",
+      "library": "लाइब्रेरी",
+      "blog": "ब्लॉग",
+      "learnDeFi": "DeFi सीखें",
+      "communityLink": "कम्युनिटी",
+      "socialWall": "सोशल वॉल",
+      "leaderboard": "लीडरबोर्ड",
+      "events": "इवेंट्स & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "प्रमोशंस",
+      "applyToEarn": "कमाने के लिए आवेदन करें",
+      "careers": "करियर",
+      "creatives": "क्रीएटिव्स",
+      "faq": "FAQ",
+      "roadmap": "रोडमैप",
+      "calculator": "कैलकुलेटर"
+    }
+  },
+  "home": {
+    "liveStatus": "Binance Smart Chain पर लाइव",
+    "heroTagline": "सस्टेनेबल रिटर्न। डिजाइन के अनुसार पारदर्शी। सभी के लिए खुला।",
+    "heroTaglinePart1": "सस्टेनेबल रिटर्न.",
+    "heroTaglinePart2": "डिजाइन के अनुसार पारदर्शी.",
+    "heroTaglinePart3": "सभी के लिए खुला.",
+    "launchApp": "ऐप लॉन्च करें",
+    "watchFilms": "फिल्में देखें",
+    "shareStory": "या अपनी कहानी साझा करें →",
+    "scroll": "स्क्रॉल करें",
+    "trust": {
+      "audited": "स्वतंत्र रूप से ऑडिटेड",
+      "lpLocked": "100% LP Locked",
+      "renounced": "स्वामित्व छोड़ा गया",
+      "bscscan": "BscScan Verified"
+    },
+    "newsletter": {
+      "title": "यील्ड में आगे रहें.",
+      "subtitle": "साप्ताहिक प्रोटोकॉल अपडेट्स, नया कंटेंट और कम्युनिटी हाइलाइट्स — सीधे आपके इनबॉक्स में.",
+      "placeholder": "आपका ईमेल पता",
+      "subscribe": "सब्सक्राइब करें",
+      "privacy": "कोई स्पैम नहीं। किसी भी समय अनसब्सक्राइब कर सकते हैं।"
+    }
+  },
+  "calculator": {
+    "eyebrow": "Yield + Token कैलकुलेटर",
+    "title": "नंबर निकालें.",
+    "subtitle": "एक प्लान चुनें, अपना डिपॉज़िट दर्ज करें, और अपना सटीक रिटर्न देखें — कोई कंपाउंडिंग नहीं, कोई छिपा शुल्क नहीं.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% — 7 दिनों में",
+      "boost": "10% — 14 दिनों में",
+      "power": "24% — 30 दिनों में",
+      "ultimate": "54% — 60 दिनों में"
+    },
+    "deposit": "डिपॉज़िट राशि",
+    "depositPlaceholder": "USDT में राशि दर्ज करें",
+    "minimum": "न्यूनतम: 1 USDT",
+    "yourReturn": "आपका रिटर्न",
+    "earnings": "कमाई",
+    "totalAtMaturity": "परिपक्वता पर कुल",
+    "planDuration": "प्लान अवधि",
+    "days": "दिन",
+    "startPlan": "इस प्लान को शुरू करें",
+    "presets": "त्वरित राशियाँ",
+    "rewardTier": "रिवार्ड टियर",
+    "tokenBonus": "$TURBO Token बोनस",
+    "vestingRank": "वेस्टिंग रैंक",
+    "projection": "अनुमान"
+  },
+  "faq": {
+    "eyebrow": "अक्सर पूछे जाने वाले प्रश्न",
+    "title": "जो कुछ भी आपको जानना चाहिए.",
+    "subtitle": "उत्तर नहीं मिल रहा? हमारे Telegram कम्युनिटी में पूछें.",
+    "askCommunity": "कम्युनिटी से पूछें"
+  },
+  "apply": {
+    "eyebrow": "कमाने के लिए आवेदन करें",
+    "title": "TurboLoop क्रिएटर नेटवर्क में शामिल हों.",
+    "subtitle": "अपने ऑडियंस के साथ TurboLoop शेयर करके कमीशन कमाएं। दो ट्रैक्स: Creator Star और Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "अब आवेदन करें",
+    "requirements": "शर्तें",
+    "benefits": "लाभ",
+    "howItWorks": "यह कैसे काम करता है"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "डिफ्लेशनरी बोनस लेयर.",
+    "subtitle": "Power और Ultimate प्लान के डिपॉज़िटर अपने USDT यील्ड के ऊपर बोनस के रूप में $TURBO टोकन पाते हैं.",
+    "buyback": "डेली बायबैक और बर्न",
+    "supply": "कुल सप्लाई",
+    "burned": "बर्न हुआ",
+    "circulatingSupply": "सर्कुलेटिंग सप्लाई",
+    "viewOnBscScan": "BscScan पर देखें",
+    "buyTurbo": "खरीदें $TURBO",
+    "tokenomics": "टोकनॉमिक्स",
+    "vestingSchedule": "वेस्टिंग शेड्यूल"
+  },
+  "common": {
+    "learnMore": "और जानें",
+    "viewAll": "सभी देखें",
+    "getStarted": "शुरू करें",
+    "joinNow": "अब जुड़ें",
+    "readMore": "और पढ़ें",
+    "download": "डाउनलोड",
+    "share": "शेयर करें",
+    "close": "बंद करें",
+    "back": "वापस",
+    "next": "आगे",
+    "loading": "लोड हो रहा है...",
+    "error": "कुछ गलत हो गया। कृपया पुन: प्रयास करें.",
+    "copyLink": "लिंक कॉपी करें",
+    "copied": "कॉपी हो गया!",
+    "days": "दिन",
+    "hours": "घंटे",
+    "minutes": "मिनट",
+    "seconds": "सेकंड"
+  },
+  "footer": {
+    "tagline": "Binance Smart Chain पर विकेंद्रीकृत यील्ड फ़ार्मिंग.",
+    "protocol": "प्रोटोकॉल",
+    "content": "सामग्री",
+    "community": "कम्युनिटी",
+    "legal": "कानूनी",
+    "privacy": "प्राइवेसी पॉलिसी",
+    "terms": "सेवा की शर्तें",
+    "security": "सुरक्षा",
+    "allRightsReserved": "सभी अधिकार सुरक्षित.",
+    "auditedBy": "द्वारा ऑडिटेड"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — BSC पर DeFi Yield Farming",
+      "description": "एक वास्तविक USDC/USDT लिक्विडिटी पूल से 60 दिनों में 54% तक ROI कमाएं। ऑडिटेड, LP-locked, स्वामित्व छोड़ा गया। न्यूनतम 1 USDT."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "Sprint, Boost, Power, और Ultimate प्लान्स के लिए अपना सटीक USDT रिटर्न और $TURBO टोकन बोनस कैलकुलेट करें."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "TurboLoop DeFi yield farming के बारे में सबसे सामान्य प्रश्नों के उत्तर."
+    },
+    "apply": {
+      "title": "कमाने के लिए आवेदन करें — TurboLoop",
+      "description": "TurboLoop क्रिएटर नेटवर्क में शामिल हों। Creator Star या Local Presenter के रूप में कमीशन कमाएं."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "$TURBO डिफ्लेशनरी टोकन के बारे में जानें — डेली बायबैक और बर्न, वेस्टिंग शेड्यूल, और टोकनॉमिक्स."
+    }
+  }
+}

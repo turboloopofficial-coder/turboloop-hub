@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "ເລີ່ມໃຊ້ແອັບ",
+    "protocol": "Protocol",
+    "watchLearn": "ຊົມແລະຮຽນຮູ້",
+    "community": "ຊຸມຊົນ",
+    "earnBuild": "ຮັບລາຍໄດ້ ແລະ ສ້າງ",
+    "languagePicker": "ພາສາ",
+    "links": {
+      "yieldFarming": "Yield Farming",
+      "referralNetwork": "ເຄືອກເນັດແນວແນະນໍາ",
+      "leadershipProgram": "ໂຄງການຜູ້ນໍາ",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "ຄວາມປອດໄພ",
+      "films": "ຮ້ອງເອກະສານ",
+      "reels": "Reels",
+      "library": "ຫ້ອງສະໝຸດ",
+      "blog": "ບລ໋ອກ",
+      "learnDeFi": "Learn DeFi",
+      "communityLink": "Community",
+      "socialWall": "Social Wall",
+      "leaderboard": "Leaderboard",
+      "events": "Events & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "ການສົ່ງເສີມ",
+      "applyToEarn": "Apply to Earn",
+      "careers": "ເສັ້ນທາງອາຊີບ",
+      "creatives": "Creatives",
+      "faq": "FAQ",
+      "roadmap": "Roadmap",
+      "calculator": "Calculator"
+    }
+  },
+  "home": {
+    "liveStatus": "ອອນໄລນ໌ເປີດໃຊ້ຢູ່ຢູ່ໃນ BSC",
+    "heroTagline": "ຜົນຜະລິດທີ່ຍືນຢູ່. ກ່ອງແຈ້ງໂດຍການອອກແບບ. ສົດໃຫ້ທຸກຄົນ.",
+    "heroTaglinePart1": "ຜົນຜະລິດທີ່ຍືນຢູ່.",
+    "heroTaglinePart2": "ກ່ອງແຈ້ງໂດຍການອອກແບບ.",
+    "heroTaglinePart3": "ສົດໃຫ້ທຸກຄົນ.",
+    "launchApp": "ເລີ່ມໃຊ້ແອັບ",
+    "watchFilms": "ຊົມເອກະສານ",
+    "shareStory": "ຫຼື ແບ່ງປັນເລື່ອງຂອງທ່ານ →",
+    "scroll": "ເລື່ອນ",
+    "trust": {
+      "audited": "ຜ່ານການກວດຈົບແບບອິນແດບເພດເອກະລັກ",
+      "lpLocked": "100% LP Locked",
+      "renounced": "Ownership Renounced",
+      "bscscan": "BscScan Verified"
+    },
+    "newsletter": {
+      "title": "ຮັບຂ່າວສານຄວ່າງຫນ້າກ່ອນ",
+      "subtitle": "ຂ່າວອັບເດດໂປໂຣໂຕຄອນປະຈຳອາທິດ, ສ່ວນຮ່າງໃໝ່, ແລະໂຄງການນໍາເອົາຂອງຊຸມຊົນ — ສົ່ງຕົ້ນເຖິງອີເມວຂອງທ່ານ.",
+      "placeholder": "ທີ່ຢູ່ອີເມວຂອງທ່ານ",
+      "subscribe": "ສະມັກຮັບຂ່າວ",
+      "privacy": "ບໍ່ມີສະຫລຸບ. ຍົກເລີກໄດ້ເມື່ອຕ້ອງການ."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Yield + Token Calculator",
+    "title": "ຄຳນວນໂຕເລກ",
+    "subtitle": "ເລືອກແຜນ, ປ້ອນຈຳນວນຝາກ, ແລະເບິ່ງຜົນກັບທີ່ແນ່ນອນ — ບໍ່ມີການທົດຊ້ຳຊອບ, ບໍ່ມີຄ່າທີ່ເຊິ່ງລຸ້ມ.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% in 7 days",
+      "boost": "10% in 14 days",
+      "power": "24% in 30 days",
+      "ultimate": "54% in 60 days"
+    },
+    "deposit": "ຈຳນວນຝາກ",
+    "depositPlaceholder": "Enter amount in USDT",
+    "minimum": "Minimum: 1 USDT",
+    "yourReturn": "ຜົນທີ່ທ່ານຈະໄດ້",
+    "earnings": "ລາຍໄດ້",
+    "totalAtMaturity": "ລວມເມື່ອໝົດການເຊື່ອມ",
+    "planDuration": "ໄລຍະແຜນ",
+    "days": "days",
+    "startPlan": "ເລີ່ມແຜນນີ້",
+    "presets": "ຈຳນວນດ່ວນ",
+    "rewardTier": "ຊັ້ນລາງວັນ",
+    "tokenBonus": "$TURBO Token Bonus",
+    "vestingRank": "Vesting rank",
+    "projection": "ການຄາດຄະເນ"
+  },
+  "faq": {
+    "eyebrow": "ຄໍາຖາມທີ່ພົບຢ່າງບ່ຽວບໍ່",
+    "title": "ທຸກສິ່ງທີ່ທ່ານຕ້ອງຮູ້",
+    "subtitle": "ບໍ່ພົບຄໍາຕອບ? ສອບຖາມໃນຊຸມຊົນ Telegram ຂອງພວກເຮົາ.",
+    "askCommunity": "ຖາມຊຸມຊົນ"
+  },
+  "apply": {
+    "eyebrow": "Apply to Earn",
+    "title": "ເຂົ້າຮ່ວມເຄື່ອງຂ່າຍເຈີ TurboLoop",
+    "subtitle": "ຮັບຄອມມິຊັນໂດຍແບ່ງປັນ TurboLoop ກັບຜູ້ຕິດຕາມຂອງທ່ານ. ມີສອງແນວ: Creator Star ແລະ Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "ສະໝັກດຽວນີ້",
+    "requirements": "ຂໍ້ຕ້ອງການ",
+    "benefits": "ຜົນປະໂຫຍດ",
+    "howItWorks": "ວິທີການເຮັດວຽກ"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "ຊັ້ນລາງວັນທີ່ລົບລົງຈຳນວນ",
+    "subtitle": "ຜູ້ຝາກໃນແຜນ Power ແລະ Ultimate ຈະໄດ້ຮັບ $TURBO tokens ເປັນລາງວັນນອກຈາກຜົນກໍລະນີ USDT ຂອງພວກເຂົາ.",
+    "buyback": "Daily Buyback & Burn",
+    "supply": "ຈຳນວນສັງກົດ",
+    "burned": "ຖືກເຜາ",
+    "circulatingSupply": "ຈຳນວນທີ່ເຄື່ອນໄຫວ",
+    "viewOnBscScan": "View on BscScan",
+    "buyTurbo": "Buy $TURBO",
+    "tokenomics": "Tokenomics",
+    "vestingSchedule": "Vesting Schedule"
+  },
+  "common": {
+    "learnMore": "ຮຽນຮູ້ເພີ່ມເຕີມ",
+    "viewAll": "ເບິ່ງທັງໝົດ",
+    "getStarted": "ເລີ່ມຕົ້ນ",
+    "joinNow": "ເຂົ້າຮ່ວມດຽວນີ້",
+    "readMore": "ອ່ານເພີ່ມເຕີມ",
+    "download": "ດາວໂຫລດ",
+    "share": "ແບ່ງປັນ",
+    "close": "ປິດ",
+    "back": "ກັບຄືນ",
+    "next": "ຕໍ່ໄປ",
+    "loading": "ກຳລັງໂຫລດ...",
+    "error": "ເກີດບາງຢ່າງຜິດພາດ. ກະລຸນາລອງໃໝ່.",
+    "copyLink": "ຄັດລອກລິ້ງ",
+    "copied": "ຄັດລອກແລ້ວ!",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "footer": {
+    "tagline": "Decentralized yield farming on Binance Smart Chain.",
+    "protocol": "Protocol",
+    "content": "ເນື້ອຫາ",
+    "community": "Community",
+    "legal": "ດ້ານກົດໝາຍ",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "security": "Security",
+    "allRightsReserved": "ສິດທຸກຢ່າງຖືກຮັບຮັກສາ.",
+    "auditedBy": "Audited by"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming on BSC",
+      "description": "Earn up to 54% ROI in 60 days from a real USDC/USDT liquidity pool. Audited, LP-locked, ownership renounced. 1 USDT minimum."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "Calculate your exact USDT return and $TURBO token bonus for Sprint, Boost, Power, and Ultimate plans."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "Answers to the most common questions about TurboLoop DeFi yield farming."
+    },
+    "apply": {
+      "title": "Apply to Earn — TurboLoop",
+      "description": "Join the TurboLoop creator network. Earn commissions as a Creator Star or Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "Learn about the $TURBO deflationary token — daily buyback and burn, vesting schedule, and tokenomics."
+    }
+  }
+}

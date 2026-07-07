@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "Launch App",
+    "protocol": "Protocol",
+    "watchLearn": "Watch & Learn",
+    "community": "Community",
+    "earnBuild": "Earn & Build",
+    "languagePicker": "Language",
+    "links": {
+      "yieldFarming": "Yield Farming",
+      "referralNetwork": "Referral Network",
+      "leadershipProgram": "Leadership Program",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "Security",
+      "films": "Films",
+      "reels": "Reels",
+      "library": "Library",
+      "blog": "Blog",
+      "learnDeFi": "Learn DeFi",
+      "communityLink": "Community",
+      "socialWall": "Social Wall",
+      "leaderboard": "Leaderboard",
+      "events": "Events & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "Promotions",
+      "applyToEarn": "Apply to Earn",
+      "careers": "Careers",
+      "creatives": "Creatives",
+      "faq": "FAQ",
+      "roadmap": "Roadmap",
+      "calculator": "Calculator"
+    }
+  },
+  "home": {
+    "liveStatus": "Live on Binance Smart Chain",
+    "heroTagline": "Sustainable yield. Transparent by design. Open to everyone.",
+    "heroTaglinePart1": "Sustainable yield.",
+    "heroTaglinePart2": "Transparent by design.",
+    "heroTaglinePart3": "Open to everyone.",
+    "launchApp": "Launch App",
+    "watchFilms": "Watch the films",
+    "shareStory": "Or share your story →",
+    "scroll": "Scroll",
+    "trust": {
+      "audited": "Independently Audited",
+      "lpLocked": "100% LP Locked",
+      "renounced": "Ownership Renounced",
+      "bscscan": "BscScan Verified"
+    },
+    "newsletter": {
+      "title": "Stay ahead of the yield.",
+      "subtitle": "Weekly protocol updates, new content, and community highlights — straight to your inbox.",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe",
+      "privacy": "No spam. Unsubscribe any time."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Yield + Token Calculator",
+    "title": "Run the numbers.",
+    "subtitle": "Pick a plan, enter your deposit, and see your exact return — no compounding, no hidden fees.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% in 7 days",
+      "boost": "10% in 14 days",
+      "power": "24% in 30 days",
+      "ultimate": "54% in 60 days"
+    },
+    "deposit": "Deposit Amount",
+    "depositPlaceholder": "Enter amount in USDT",
+    "minimum": "Minimum: 1 USDT",
+    "yourReturn": "Your Return",
+    "earnings": "Earnings",
+    "totalAtMaturity": "Total at Maturity",
+    "planDuration": "Plan Duration",
+    "days": "days",
+    "startPlan": "Start This Plan",
+    "presets": "Quick amounts",
+    "rewardTier": "Reward tier",
+    "tokenBonus": "$TURBO Token Bonus",
+    "vestingRank": "Vesting rank",
+    "projection": "Projection"
+  },
+  "faq": {
+    "eyebrow": "Frequently Asked Questions",
+    "title": "Everything you need to know.",
+    "subtitle": "Can't find an answer? Ask in our Telegram community.",
+    "askCommunity": "Ask the Community"
+  },
+  "apply": {
+    "eyebrow": "Apply to Earn",
+    "title": "Join the TurboLoop creator network.",
+    "subtitle": "Earn commissions by sharing TurboLoop with your audience. Two tracks: Creator Star and Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "Apply Now",
+    "requirements": "Requirements",
+    "benefits": "Benefits",
+    "howItWorks": "How It Works"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "The deflationary bonus layer.",
+    "subtitle": "Power and Ultimate plan depositors receive $TURBO tokens as a bonus reward on top of their USDT yield.",
+    "buyback": "Daily Buyback & Burn",
+    "supply": "Total Supply",
+    "burned": "Burned",
+    "circulatingSupply": "Circulating Supply",
+    "viewOnBscScan": "View on BscScan",
+    "buyTurbo": "Buy $TURBO",
+    "tokenomics": "Tokenomics",
+    "vestingSchedule": "Vesting Schedule"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "getStarted": "Get Started",
+    "joinNow": "Join Now",
+    "readMore": "Read More",
+    "download": "Download",
+    "share": "Share",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "footer": {
+    "tagline": "Decentralized yield farming on Binance Smart Chain.",
+    "protocol": "Protocol",
+    "content": "Content",
+    "community": "Community",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "security": "Security",
+    "allRightsReserved": "All rights reserved.",
+    "auditedBy": "Audited by"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming on BSC",
+      "description": "Earn up to 54% ROI in 60 days from a real USDC/USDT liquidity pool. Audited, LP-locked, ownership renounced. 1 USDT minimum."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "Calculate your exact USDT return and $TURBO token bonus for Sprint, Boost, Power, and Ultimate plans."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "Answers to the most common questions about TurboLoop DeFi yield farming."
+    },
+    "apply": {
+      "title": "Apply to Earn — TurboLoop",
+      "description": "Join the TurboLoop creator network. Earn commissions as a Creator Star or Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "Learn about the $TURBO deflationary token — daily buyback and burn, vesting schedule, and tokenomics."
+    }
+  }
+}

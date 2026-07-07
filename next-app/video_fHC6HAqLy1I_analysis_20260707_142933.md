@@ -1,0 +1,1 @@
+The title of the video is TurboLoop, the language is Thai, and the main topic is checking a smart contract on BscScan. Yes, it is a TurboLoop video.

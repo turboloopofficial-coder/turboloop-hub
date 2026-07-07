@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "เปิดแอป",
+    "protocol": "โปรโตคอล",
+    "watchLearn": "ชม & เรียนรู้",
+    "community": "ชุมชน",
+    "earnBuild": "รับรายได้ & สร้าง",
+    "languagePicker": "ภาษา",
+    "links": {
+      "yieldFarming": "Yield Farming",
+      "referralNetwork": "เครือข่ายแนะนำ",
+      "leadershipProgram": "โปรแกรมผู้นำ",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "ความปลอดภัย",
+      "films": "ฟิล์ม",
+      "reels": "Reels",
+      "library": "ห้องสมุด",
+      "blog": "บล็อก",
+      "learnDeFi": "เรียนรู้ DeFi",
+      "communityLink": "ชุมชน",
+      "socialWall": "Social Wall",
+      "leaderboard": "กระดานผู้นำ",
+      "events": "กิจกรรม & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "โปรโมชั่น",
+      "applyToEarn": "สมัครเพื่อรับรายได้",
+      "careers": "ร่วมงานกับเรา",
+      "creatives": "ครีเอทีฟ",
+      "faq": "คำถามที่พบบ่อย",
+      "roadmap": "Roadmap",
+      "calculator": "เครื่องคิดเลข"
+    }
+  },
+  "home": {
+    "liveStatus": "เปิดให้บริการบน Binance Smart Chain",
+    "heroTagline": "ผลตอบแทนที่ยั่งยืน โปร่งใสตามการออกแบบ เปิดให้ทุกคนเข้าถึง",
+    "heroTaglinePart1": "ผลตอบแทนที่ยั่งยืน.",
+    "heroTaglinePart2": "โปร่งใสตามการออกแบบ.",
+    "heroTaglinePart3": "เปิดให้ทุกคนเข้าถึง.",
+    "launchApp": "เปิดแอป",
+    "watchFilms": "ชมฟิล์ม",
+    "shareStory": "หรือแบ่งปันเรื่องราวของคุณ →",
+    "scroll": "เลื่อน",
+    "trust": {
+      "audited": "ผ่านการตรวจสอบอิสระ",
+      "lpLocked": "ล็อก LP 100%",
+      "renounced": "สละสิทธิ์ความเป็นเจ้าของ",
+      "bscscan": "ยืนยันโดย BscScan"
+    },
+    "newsletter": {
+      "title": "นำหน้าด้านผลตอบแทน",
+      "subtitle": "อัปเดตโปรโตคอลรายสัปดาห์ เนื้อหาใหม่ และไฮไลท์ชุมชน — ส่งตรงถึงอีเมลของคุณ",
+      "placeholder": "อีเมลของคุณ",
+      "subscribe": "สมัครรับข่าวสาร",
+      "privacy": "ไม่มีสแปม ยกเลิกสมัครได้ตลอดเวลา."
+    }
+  },
+  "calculator": {
+    "eyebrow": "เครื่องคำนวณผลตอบแทน + โทเค็น",
+    "title": "คำนวณตัวเลข.",
+    "subtitle": "เลือกแผน ใส่ยอดฝาก แล้วดูผลตอบแทนที่แน่นอน — ไม่มีการทบต้น ไม่มีค่าธรรมเนียมซ่อนเร้น.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% ใน 7 วัน",
+      "boost": "10% ใน 14 วัน",
+      "power": "24% ใน 30 วัน",
+      "ultimate": "54% ใน 60 วัน"
+    },
+    "deposit": "จำนวนเงินฝาก",
+    "depositPlaceholder": "กรอกจำนวนเป็น USDT",
+    "minimum": "ขั้นต่ำ: 1 USDT",
+    "yourReturn": "ผลตอบแทนของคุณ",
+    "earnings": "รายได้",
+    "totalAtMaturity": "รวมเมื่อครบกำหนด",
+    "planDuration": "ระยะเวลาแผน",
+    "days": "วัน",
+    "startPlan": "เริ่มแผนนี้",
+    "presets": "จำนวนด่วน",
+    "rewardTier": "ระดับรางวัล",
+    "tokenBonus": "$TURBO โบนัสโทเค็น",
+    "vestingRank": "ระดับการปลดล็อก",
+    "projection": "การคาดการณ์"
+  },
+  "faq": {
+    "eyebrow": "คำถามที่พบบ่อย",
+    "title": "ทุกสิ่งที่คุณจำเป็นต้องรู้.",
+    "subtitle": "หาคำตอบไม่เจอ? ถามได้ในชุมชน Telegram ของเรา.",
+    "askCommunity": "ถามชุมชน"
+  },
+  "apply": {
+    "eyebrow": "สมัครเพื่อรับรายได้",
+    "title": "เข้าร่วมเครือข่ายครีเอเตอร์ของ TurboLoop.",
+    "subtitle": "รับค่าคอมมิชชั่นโดยแชร์ TurboLoop กับผู้ชมของคุณ มีสองเส้นทาง: Creator Star และ Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "สมัครตอนนี้",
+    "requirements": "ข้อกำหนด",
+    "benefits": "สิทธิประโยชน์",
+    "howItWorks": "วิธีการทำงาน"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "ชั้นโบนัสแบบลดจำนวน",
+    "subtitle": "ผู้ฝากในแผน Power และ Ultimate จะได้รับโทเค็น $TURBO เป็นโบนัสเพิ่มเติมนอกเหนือจากผลตอบแทนเป็น USDT.",
+    "buyback": "ซื้อคืน & เผาทุกวัน",
+    "supply": "จำนวนรวมทั้งหมด",
+    "burned": "จำนวนที่ถูกเผา",
+    "circulatingSupply": "จำนวนหมุนเวียน",
+    "viewOnBscScan": "ดูบน BscScan",
+    "buyTurbo": "ซื้อ $TURBO",
+    "tokenomics": "โทเคโนมิกส์",
+    "vestingSchedule": "ตารางการปลดล็อก"
+  },
+  "common": {
+    "learnMore": "เรียนรู้เพิ่มเติม",
+    "viewAll": "ดูทั้งหมด",
+    "getStarted": "เริ่มต้น",
+    "joinNow": "เข้าร่วมตอนนี้",
+    "readMore": "อ่านเพิ่มเติม",
+    "download": "ดาวน์โหลด",
+    "share": "แชร์",
+    "close": "ปิด",
+    "back": "ย้อนกลับ",
+    "next": "ถัดไป",
+    "loading": "กำลังโหลด...",
+    "error": "เกิดข้อผิดพลาด กรุณาลองใหม่.",
+    "copyLink": "คัดลอกลิงก์",
+    "copied": "คัดลอกแล้ว!",
+    "days": "วัน",
+    "hours": "ชั่วโมง",
+    "minutes": "นาที",
+    "seconds": "วินาที"
+  },
+  "footer": {
+    "tagline": "ฟาร์มผลตอบแทนแบบกระจายศูนย์บน Binance Smart Chain.",
+    "protocol": "โปรโตคอล",
+    "content": "เนื้อหา",
+    "community": "ชุมชน",
+    "legal": "ข้อกฎหมาย",
+    "privacy": "นโยบายความเป็นส่วนตัว",
+    "terms": "ข้อกำหนดในการให้บริการ",
+    "security": "ความปลอดภัย",
+    "allRightsReserved": "สงวนลิขสิทธิ์ทุกประการ.",
+    "auditedBy": "ตรวจสอบโดย"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming on BSC",
+      "description": "รับผลตอบแทนสูงสุด 54% ใน 60 วัน จากพูลสภาพคล่อง USDC/USDT ที่แท้จริง. ผ่านการตรวจสอบ, LP-locked, สละสิทธิ์ความเป็นเจ้าของ. ขั้นต่ำ 1 USDT."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "คำนวณผลตอบแทน USDT ที่แน่นอนและโบนัสโทเค็น $TURBO สำหรับแผน Sprint, Boost, Power, และ Ultimate."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "คำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับการฟาร์มผลตอบแทน DeFi ของ TurboLoop."
+    },
+    "apply": {
+      "title": "Apply to Earn — TurboLoop",
+      "description": "เข้าร่วมเครือข่ายครีเอเตอร์ของ TurboLoop. รับค่าคอมมิชชั่นในฐานะ Creator Star หรือ Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "เรียนรู้เกี่ยวกับโทเค็น $TURBO แบบลดจำนวน — ซื้อคืน & เผาทุกวัน, ตารางการปลดล็อก, และโทเคโนมิกส์."
+    }
+  }
+}

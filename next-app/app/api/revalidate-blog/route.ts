@@ -54,7 +54,8 @@ function handle(req: Request): NextResponse {
   }
 
   revalidatePath("/blog");
-  return NextResponse.json({ ok: true, revalidated: ["/blog"] });
+  revalidatePath("/"); // homepage blog section too
+  return NextResponse.json({ ok: true, revalidated: ["/blog", "/"] });
 }
 
 export function GET(req: Request) {

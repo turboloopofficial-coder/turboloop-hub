@@ -335,6 +335,8 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "ur", label: "اردو", flag: "🇵🇰" },
   { code: "pcm", label: "Naija", flag: "🇳🇬" },
   { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
+  { code: "ko", label: "한국어", flag: "🇰🇷" },
+  { code: "lo", label: "ພາສາລາວ", flag: "🇱🇦" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

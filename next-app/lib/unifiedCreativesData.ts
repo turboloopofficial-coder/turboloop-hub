@@ -78,6 +78,8 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   arabic:             { from: "#8B5CF6", to: "#F59E0B" },
   urdu:               { from: "#06B6D4", to: "#8B5CF6" },
   german:             { from: "#3B82F6", to: "#1D4ED8" },
+  ko:                 { from: "#EF4444", to: "#1D4ED8" },
+  la:                 { from: "#CE1126", to: "#002868" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -101,6 +103,8 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   urdu:                { label: "Urdu Market", emoji: "🇵🇰", description: "Urdu-language banners for the Pakistani DeFi community." },
   german:              { label: "German Market", emoji: "🇩🇪", description: "German-language banners for the DACH DeFi community." },
   thai:                { label: "Thai Market", emoji: "🇹🇭", description: "Thai-language banners for the Thai DeFi community." },
+  ko:                  { label: "Korean Market", emoji: "🇰🇷", description: "Korean-language banners for the Korean DeFi community." },
+  la:                  { label: "Lao Market", emoji: "🇱🇦", description: "Lao-language banners for the Lao DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -131,6 +135,8 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   urdu:                { label: "ابھی شروع کریں", url: "https://turboloop.tech/apply" },
   german:              { label: "Jetzt Starten", url: "https://turboloop.tech/apply" },
   thai:                { label: "เริ่มต้นวันนี้", url: "https://turboloop.tech/apply" },
+  ko:                  { label: "지금 시작하기", url: "https://turboloop.tech/apply" },
+  la:                  { label: "ເລີ່ມຕົ້ນວັນນີ້", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -243,7 +249,9 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "arabic" ? "ar" :
     b.category === "urdu" ? "ur" :
     b.category === "german" ? "de" :
-    b.category === "thai" ? "th" : "en";
+    b.category === "thai" ? "th" :
+    b.category === "ko" ? "ko" :
+    b.category === "la" ? "lo" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,

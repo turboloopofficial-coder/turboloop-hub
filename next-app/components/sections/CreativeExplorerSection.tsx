@@ -1,6 +1,6 @@
 "use client";
 // ── Creative Explorer Section ─────────────────────────────────────────────
-// Interactive homepage section that lets visitors browse 1,400+ banners
+// Interactive homepage section that lets visitors browse 2,000+ banners
 // by Language or by Category. Zero external fetches — data is embedded
 // at build time from the static manifest.
 //
@@ -52,6 +52,9 @@ const LANGUAGE_GROUPS: Array<{
   { id: "arabic",     label: "Arabic",           flag: "🇸🇦", categories: ["arabic"],      href: "/creatives/arabic" },
   { id: "urdu",       label: "Urdu",             flag: "🇵🇰", categories: ["urdu"],        href: "/creatives/urdu" },
   { id: "german",     label: "German",           flag: "🇩🇪", categories: ["german"],      href: "/creatives/german" },
+  { id: "thai",       label: "Thai",             flag: "🇹🇭", categories: ["thai"],        href: "/creatives/thai" },
+  { id: "korean",     label: "Korean",           flag: "🇰🇷", categories: ["ko"],          href: "/creatives/ko" },
+  { id: "lao",        label: "Lao",              flag: "🇱🇦", categories: ["la"],          href: "/creatives/la" },
 ];
 
 // ── Data: Category tabs ───────────────────────────────────────────────────
@@ -352,7 +355,7 @@ export function CreativeExplorerSection() {
               className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4"
               style={{ color: "var(--c-heading, #f1f5f9)" }}
             >
-              1,400+ Banners.{" "}
+              2,000+ Banners.{" "}
               <span
                 style={{
                   background: "var(--c-brand-gradient)",
@@ -360,7 +363,7 @@ export function CreativeExplorerSection() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                11 Languages.
+                13 Languages.
               </span>{" "}
               All Free.
             </h2>

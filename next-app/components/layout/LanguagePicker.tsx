@@ -2,28 +2,66 @@
 
 // LanguagePicker — locale switcher in the navbar.
 //
-// The Navbar uses backdrop-blur which creates a CSS stacking context.
-// Any position:fixed child is trapped inside that context and cannot
-// cover the full page. Fix: render the mobile sheet via ReactDOM.createPortal
-// directly onto document.body, which sits outside all stacking contexts.
+// NAVIGATION LOGIC:
+// Only 5 pages have locale versions: / /calculator /faq /apply /token
+// All other pages (/creatives, /blog, /films, etc.) have no locale version.
 //
-// Mobile (<md): full-screen portal bottom sheet.
-// Desktop (md+): compact dropdown anchored to the button (no portal needed).
+// Rules:
+// - If current page has a locale version → navigate to /{locale}/{page}
+// - If current page has NO locale version → navigate to /{locale} (locale homepage)
+// - English (default) has no prefix → navigate to /{page} or /
+// - Uses window.location.href for hard navigation to guarantee full page reload
+//   and correct layout/provider initialization for the new locale.
+//
+// MOBILE: full-screen portal bottom sheet (escapes navbar stacking context).
+// DESKTOP: compact dropdown anchored to the button.
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Globe, X, Check } from "lucide-react";
 import { LOCALES, LOCALE_LABELS, type Locale } from "@lib/i18n/routing";
+
+// Pages that have locale-specific versions under app/[locale]/
+const LOCALIZED_PAGES = new Set(["", "calculator", "faq", "apply", "token"]);
+
+function getLocalePath(locale: Locale, currentPathname: string): string {
+  // Strip any existing locale prefix from the pathname
+  let pagePath = currentPathname;
+  for (const l of LOCALES) {
+    if (l === "en") continue;
+    if (pagePath === `/${l}` || pagePath.startsWith(`/${l}/`)) {
+      pagePath = pagePath.slice(l.length + 1) || "/";
+      break;
+    }
+  }
+
+  // Get the page segment (e.g. "calculator" from "/calculator")
+  const pageSegment = pagePath.split("/").filter(Boolean)[0] ?? "";
+
+  // Determine the target page path
+  let targetPage: string;
+  if (LOCALIZED_PAGES.has(pageSegment)) {
+    // This page has a locale version
+    targetPage = pagePath === "/" ? "" : pagePath;
+  } else {
+    // This page has no locale version → go to locale homepage
+    targetPage = "";
+  }
+
+  // Build the final URL
+  if (locale === "en") {
+    return targetPage || "/";
+  } else {
+    return `/${locale}${targetPage}`;
+  }
+}
 
 export function LanguagePicker() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const router = useRouter();
 
-  // Ensure we're client-side before using portals
   useEffect(() => { setMounted(true); }, []);
 
   // Detect current locale from the pathname
@@ -34,17 +72,6 @@ export function LanguagePicker() {
       : "en";
   const current = LOCALE_LABELS[currentLocale];
 
-  // Close desktop dropdown on outside click
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    if (open) document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [open]);
-
   // Lock body scroll when mobile sheet is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -52,20 +79,19 @@ export function LanguagePicker() {
   }, [open]);
 
   const switchLocale = useCallback((locale: Locale) => {
+    if (locale === currentLocale) {
+      setOpen(false);
+      return;
+    }
     setOpen(false);
-    let newPath = pathname;
-    const localePrefix = `/${currentLocale}`;
-    if (currentLocale !== "en" && newPath.startsWith(localePrefix)) {
-      newPath = newPath.slice(localePrefix.length) || "/";
-    }
-    if (locale !== "en") {
-      newPath = `/${locale}${newPath === "/" ? "" : newPath}`;
-    }
-    router.push(newPath);
-  }, [pathname, currentLocale, router]);
+    const targetPath = getLocalePath(locale, pathname);
+    // Hard navigation: ensures the correct [locale] layout and
+    // NextIntlClientProvider are initialized for the new locale.
+    window.location.href = targetPath;
+  }, [pathname, currentLocale]);
 
   const localeList = (
-    <div className="p-2">
+    <div style={{ padding: "8px" }}>
       {LOCALES.map((locale) => {
         const info = LOCALE_LABELS[locale];
         const isActive = locale === currentLocale;
@@ -84,21 +110,30 @@ export function LanguagePicker() {
               borderRadius: "12px",
               fontSize: "14px",
               textAlign: "left",
-              background: isActive ? "rgba(0,200,200,0.1)" : "transparent",
-              color: isActive ? "var(--c-brand-cyan, #00c8c8)" : "var(--c-text, #111)",
-              fontWeight: isActive ? 600 : 400,
+              background: isActive ? "rgba(0,200,200,0.12)" : "transparent",
               border: "none",
               cursor: "pointer",
+              transition: "background 0.15s",
             }}
           >
             <span style={{ fontSize: "22px", width: "32px", textAlign: "center", flexShrink: 0 }}>
               {info.flag}
             </span>
             <span style={{ flex: 1, minWidth: 0 }}>
-              <span style={{ display: "block", fontWeight: 500, color: "var(--c-text, #111)" }}>
+              <span style={{
+                display: "block",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: isActive ? "var(--c-brand-cyan, #00c8c8)" : "var(--c-text, #111)",
+              }}>
                 {info.native}
               </span>
-              <span style={{ display: "block", fontSize: "12px", color: "var(--c-text-muted, #666)" }}>
+              <span style={{
+                display: "block",
+                fontSize: "12px",
+                color: "var(--c-text-muted, #666)",
+                marginTop: "1px",
+              }}>
                 {info.label}
               </span>
             </span>
@@ -111,7 +146,7 @@ export function LanguagePicker() {
     </div>
   );
 
-  // Mobile sheet rendered via portal to escape stacking contexts
+  // Mobile portal sheet
   const mobileSheet = mounted && open ? createPortal(
     <div
       style={{
@@ -147,34 +182,20 @@ export function LanguagePicker() {
           WebkitOverflowScrolling: "touch",
         }}
       >
-        {/* Drag handle */}
-        <div style={{
-          width: 40, height: 4, borderRadius: 2,
-          background: "var(--c-border, #e5e7eb)",
-          margin: "12px auto 4px",
-        }} />
-        {/* Header */}
-        <div style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "8px 20px 8px",
-        }}>
-          <span style={{ fontSize: 16, fontWeight: 600, color: "var(--c-text, #111)" }}>
+        <div style={{ width: 40, height: 4, borderRadius: 2, background: "var(--c-border, #e5e7eb)", margin: "12px auto 4px" }} />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 20px 4px" }}>
+          <span style={{ fontSize: 16, fontWeight: 700, color: "var(--c-text, #111)" }}>
             Select Language
           </span>
           <button
             onClick={() => setOpen(false)}
-            style={{
-              padding: 8, borderRadius: "50%", border: "none",
-              background: "transparent", cursor: "pointer",
-              color: "var(--c-text-muted, #666)",
-            }}
+            style={{ padding: 8, borderRadius: "50%", border: "none", background: "transparent", cursor: "pointer", color: "var(--c-text-muted, #666)" }}
             aria-label="Close"
           >
             <X style={{ width: 20, height: 20 }} />
           </button>
         </div>
         {localeList}
-        {/* iOS safe area */}
         <div style={{ height: 32 }} />
       </div>
     </div>,
@@ -183,8 +204,8 @@ export function LanguagePicker() {
 
   return (
     <>
-      {/* Trigger button + desktop dropdown */}
-      <div ref={dropdownRef} style={{ position: "relative" }}>
+      {/* Trigger button */}
+      <div style={{ position: "relative" }}>
         <button
           onClick={() => setOpen((o) => !o)}
           className="flex items-center gap-1.5 px-2.5 min-h-[40px] h-10 rounded-[var(--r-md)] text-sm font-medium text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[var(--c-surface)] border border-transparent hover:border-[var(--c-border)] transition"
@@ -197,7 +218,7 @@ export function LanguagePicker() {
           <span className="hidden lg:inline text-xs ml-0.5">{current.native}</span>
         </button>
 
-        {/* Desktop dropdown — only on md+ screens */}
+        {/* Desktop dropdown */}
         {open && (
           <div
             role="listbox"
@@ -214,7 +235,7 @@ export function LanguagePicker() {
         )}
       </div>
 
-      {/* Mobile portal sheet — rendered outside all stacking contexts */}
+      {/* Mobile portal sheet */}
       {mobileSheet}
     </>
   );

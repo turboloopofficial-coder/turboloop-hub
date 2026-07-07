@@ -66,7 +66,7 @@ async function fetchTRPC<T>(
 // can't be tree-shaken from the client bundle. Types are small; risk
 // of drift is low (the schema rarely changes).
 
-export type BlogLanguage = "en" | "de" | "hi" | "id";
+export type BlogLanguage = "en" | "de" | "hi" | "id" | "th";
 
 /** BCP-47 mapping for hreflang. We use 2-letter ISO 639-1 codes in the
  *  DB column (`en`, `de`, `hi`, `id`) and resolve them to a hreflang
@@ -77,6 +77,7 @@ export const HREFLANG_BY_LANG: Record<BlogLanguage, string> = {
   de: "de",
   hi: "hi",
   id: "id",
+  th: "th",
 };
 
 export interface BlogPost {
@@ -126,6 +127,7 @@ export const BLOG_LANGUAGES: ReadonlyArray<{
   { code: "de", label: "Deutsch", flag: "🇩🇪" },
   { code: "hi", label: "हिंदी", flag: "🇮🇳" },
   { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
 ];
 
 /** Find all sibling translations of a post within an already-fetched
@@ -148,7 +150,7 @@ export function blogTranslationGroup(
   // `post.translationOf`. If `post` is the original (translationOf is
   // null), root is `post.id`.
   const rootId = post.translationOf ?? post.id;
-  const langOrder: BlogLanguage[] = ["en", "de", "hi", "id"];
+  const langOrder: BlogLanguage[] = ["en", "de", "hi", "id", "th"];
   const group = all.filter(p => p.id === rootId || p.translationOf === rootId);
   // Sort by deterministic language order so the rendered hreflang tags
   // don't shuffle between deploys.

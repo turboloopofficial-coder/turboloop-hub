@@ -82,7 +82,6 @@ export function LanguagePicker() {
             href={href}
             role="option"
             aria-selected={isActive}
-            onClick={() => setOpen(false)}
             style={{
               width: "100%",
               display: "flex",

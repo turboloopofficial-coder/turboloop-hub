@@ -150,14 +150,14 @@ export default async function LocaleHomePage({ params }: Props) {
                 <Rocket className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
-                href={`/${locale}/films`}
+                href="/films"
                 className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
               >
                 {t("watchFilms")}
               </a>
             </div>
             <a
-              href={`/${locale}/submit`}
+              href="/submit"
               className="inline-block text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
             >
               {t("shareStory")}

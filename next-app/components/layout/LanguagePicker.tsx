@@ -2,21 +2,13 @@
 
 // LanguagePicker — locale switcher in the navbar.
 //
-// NAVIGATION LOGIC:
-// Only 5 pages have locale versions: / /calculator /faq /apply /token
-// All other pages (/creatives, /blog, /films, etc.) have no locale version.
-//
-// Rules:
-// - If current page has a locale version → navigate to /{locale}/{page}
-// - If current page has NO locale version → navigate to /{locale} (locale homepage)
-// - English (default) has no prefix → navigate to /{page} or /
-// - Uses window.location.href for hard navigation to guarantee full page reload
-//   and correct layout/provider initialization for the new locale.
+// Uses <a href> anchor tags for locale navigation (not onClick + window.location)
+// so navigation is guaranteed native browser behavior, not interceptable by React/Next.js.
 //
 // MOBILE: full-screen portal bottom sheet (escapes navbar stacking context).
 // DESKTOP: compact dropdown anchored to the button.
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Globe, X, Check } from "lucide-react";
@@ -42,7 +34,6 @@ function getLocalePath(locale: Locale, currentPathname: string): string {
   // Determine the target page path
   let targetPage: string;
   if (LOCALIZED_PAGES.has(pageSegment)) {
-    // This page has a locale version
     targetPage = pagePath === "/" ? "" : pagePath;
   } else {
     // This page has no locale version → go to locale homepage
@@ -78,29 +69,20 @@ export function LanguagePicker() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const switchLocale = useCallback((locale: Locale) => {
-    if (locale === currentLocale) {
-      setOpen(false);
-      return;
-    }
-    setOpen(false);
-    const targetPath = getLocalePath(locale, pathname);
-    // Hard navigation: ensures the correct [locale] layout and
-    // NextIntlClientProvider are initialized for the new locale.
-    window.location.href = targetPath;
-  }, [pathname, currentLocale]);
-
+  // Build locale option list using <a> tags for guaranteed native navigation
   const localeList = (
     <div style={{ padding: "8px" }}>
       {LOCALES.map((locale) => {
         const info = LOCALE_LABELS[locale];
         const isActive = locale === currentLocale;
+        const href = getLocalePath(locale, pathname);
         return (
-          <button
+          <a
             key={locale}
+            href={href}
             role="option"
             aria-selected={isActive}
-            onClick={() => switchLocale(locale)}
+            onClick={() => setOpen(false)}
             style={{
               width: "100%",
               display: "flex",
@@ -114,6 +96,8 @@ export function LanguagePicker() {
               border: "none",
               cursor: "pointer",
               transition: "background 0.15s",
+              textDecoration: "none",
+              color: "inherit",
             }}
           >
             <span style={{ fontSize: "22px", width: "32px", textAlign: "center", flexShrink: 0 }}>
@@ -140,7 +124,7 @@ export function LanguagePicker() {
             {isActive && (
               <Check style={{ width: 16, height: 16, color: "var(--c-brand-cyan, #00c8c8)", flexShrink: 0 }} />
             )}
-          </button>
+          </a>
         );
       })}
     </div>

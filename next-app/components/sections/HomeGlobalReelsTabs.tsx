@@ -1,8 +1,8 @@
 "use client";
 // HomeGlobalReelsTabs — language-tab state island for the homepage Global Reels section.
 //
-// Layout:
-//   Desktop (lg+):  2×2 grid — balanced, premium look for 4 videos
+// Layout (redesigned for 4 videos):
+//   Desktop (lg+):  4-column horizontal row — all 4 videos visible at once, compact & premium
 //   Tablet (sm-lg): 2×2 grid
 //   Mobile:         horizontal scroll snap carousel — 1 card visible, peek at next
 //
@@ -85,7 +85,7 @@ export function HomeGlobalReelsTabs({
         </div>
       </div>
 
-      {/* ── Cards: mobile carousel + tablet/desktop 2×2 grid ─────────── */}
+      {/* ── Cards grid ─────────────────────────────────────────────────── */}
       <div
         key={active}
         role="tabpanel"
@@ -106,10 +106,17 @@ export function HomeGlobalReelsTabs({
           </div>
         </div>
 
-        {/* Tablet + desktop: 2×2 grid, max-width constrained for readability */}
-        <div className="hidden sm:grid sm:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
+        {/* Tablet (sm–lg): 2×2 grid */}
+        <div className="hidden sm:grid lg:hidden sm:grid-cols-2 gap-4 md:gap-5 max-w-3xl mx-auto">
           {visible.map(reel => (
-            <ReelGalleryCard key={`${active}-${reel.id}`} reel={reel} />
+            <ReelGalleryCard key={`${active}-${reel.id}-tablet`} reel={reel} />
+          ))}
+        </div>
+
+        {/* Desktop (lg+): 4-column horizontal row — all 4 at once */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-4 xl:gap-5">
+          {visible.map(reel => (
+            <ReelGalleryCard key={`${active}-${reel.id}-desk`} reel={reel} />
           ))}
         </div>
       </div>

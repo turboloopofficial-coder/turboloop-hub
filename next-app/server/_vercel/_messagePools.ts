@@ -514,13 +514,34 @@ const POOLS: Record<ZoomLang, Record<ZoomTier, string[]>> = {
   hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE },
 };
 
+// ── 4-Month Celebration overlay (July 8 2026 only) ──────────────────────────
+// Prepended to every zoom reminder today to announce the celebration + $100 USDT giveaway.
+const CELEBRATION_OVERLAY_EN = `🎉 <b>4TH MONTH CELEBRATION — TODAY'S CALL IS SPECIAL!</b>
+
+🏆 We are celebrating <b>4 months of TurboLoop</b> — 4 months of growth, trust, and on-chain returns!
+
+💰 <b>$100 USDT GIVEAWAY</b> happening LIVE on today's call — join and win!`;
+
+const CELEBRATION_OVERLAY_HI = `🎉 <b>4 महीने की सफलता — आज का ZOOM SPECIAL है!</b>
+
+🏆 TurboLoop के <b>4 महीने पूरे</b> हो गए!
+
+💰 <b>$100 USDT इनाम</b> आज LIVE Zoom में — आएं और जीतें!`;
+
 export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meetingLink: string; passcode: string; timeLabel: string }): string {
   const body = pickByDay(POOLS[opts.lang][opts.tier]);
+
+  // Inject 4-month celebration overlay for July 8 2026 only
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const celebrationOverlay = todayStr === "2026-07-08"
+    ? (opts.lang === "hi" ? CELEBRATION_OVERLAY_HI : CELEBRATION_OVERLAY_EN) + "\n\n"
+    : "";
+
   // For LIVE posts, drop the passcode/time footer — they're already in the room
   if (opts.tier === "LIVE") {
-    return `${body}\n\n🔗 ${tgEscape(opts.meetingLink)}`;
+    return `${celebrationOverlay}${body}\n\n🔗 ${tgEscape(opts.meetingLink)}`;
   }
-  return `${body}\n\n🔗 ${tgEscape(opts.meetingLink)}\n🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>\n⏰ ${tgEscape(opts.timeLabel)}`;
+  return `${celebrationOverlay}${body}\n\n🔗 ${tgEscape(opts.meetingLink)}\n🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>\n⏰ ${tgEscape(opts.timeLabel)}`;
 }
 
 // =========================================================

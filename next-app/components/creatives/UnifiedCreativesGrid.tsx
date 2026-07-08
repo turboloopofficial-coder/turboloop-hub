@@ -51,6 +51,16 @@ export function UnifiedCreativesGrid({
 }: Props) {
   const router = useRouter();
   const [exploreMode, setExploreMode] = useState<"category" | "language">("language");
+
+  // When switching explore modes, reset the other filter to avoid cross-contamination
+  const switchToCategory = () => {
+    setExploreMode("category");
+    setActiveLang("all"); // clear language filter when switching to category mode
+  };
+  const switchToLanguage = () => {
+    setExploreMode("language");
+    setActiveCategory(initialCategory ?? "all"); // clear category filter when switching to language mode
+  };
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory ?? "all");
   const [activeLang, setActiveLang] = useState<CreativeLanguage | "all">("all");
   const [search, setSearch] = useState("");
@@ -173,7 +183,7 @@ export function UnifiedCreativesGrid({
             style={{ background: "var(--c-surface)", border: "1px solid var(--c-border)" }}
           >
             <button
-              onClick={() => setExploreMode("category")}
+              onClick={switchToCategory}
               className="px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap"
               style={
                 exploreMode === "category"
@@ -184,7 +194,7 @@ export function UnifiedCreativesGrid({
               🗂️ By Category
             </button>
             <button
-              onClick={() => setExploreMode("language")}
+              onClick={switchToLanguage}
               className="px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap"
               style={
                 exploreMode === "language"
@@ -239,7 +249,7 @@ export function UnifiedCreativesGrid({
                 active={activeCategory === "all"}
                 onClick={() => setActiveCategory("all")}
               />
-              {categories.filter(cat => !cat.isLanguageCategory).map(cat => (
+              {categories.filter(cat => !cat.isLanguageCategory && cat.source !== "lang-kit").map(cat => (
                 <CategoryTab
                   key={cat.id}
                   id={cat.id}

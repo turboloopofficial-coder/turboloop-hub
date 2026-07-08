@@ -12,8 +12,8 @@
 //   EN: T-60 @ isInWindow(16,0)  | T-30 @ isInWindow(16,30) | T-15 @ isInWindow(16,45) | LIVE @ isInWindow(17,0)
 
 export interface ZoomSession {
-  /** "en" | "hi" — used for banner palette + cron de-dup keys */
-  lang: "en" | "hi";
+  /** "en" | "hi" | "th" — used for banner palette + cron de-dup keys */
+  lang: "en" | "hi" | "th";
   /** Marketing title for the countdown card */
   title: string;
   /** One-line tease shown under the title */
@@ -75,7 +75,21 @@ export const ZOOM_HI: ZoomSession = {
   durationMin: 120,
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI];
+export const ZOOM_TH: ZoomSession = {
+  lang: "th",
+  title: "ประชุม Google Meet รายวัน",
+  description:
+    "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
+  link: "https://meet.google.com/nmh-hhkr-uzd",
+  passcode: "",
+  // 13:00 UTC = 20:00 Thailand time (UTC+7)
+  timeLabel:
+    "🇹🇭 20:00 น. (ทุกวัน) · 🕐 13:00 UTC",
+  startUtcMin: 13 * 60, // 13:00 UTC = 20:00 Thailand time (UTC+7)
+  durationMin: 60,
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_TH];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side

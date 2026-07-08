@@ -4,7 +4,7 @@ import { Globe2, MessageCircle, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
-import { ZOOM_EN, ZOOM_HI, type ZoomSession } from "@shared/zoomEvents";
+import { ZOOM_EN, ZOOM_HI, ZOOM_TH, type ZoomSession } from "@shared/zoomEvents";
 import { ZoomCountdown } from "./ZoomLiveCountdown";
 import { LocalZoomTime } from "./LocalZoomTime";
 
@@ -26,7 +26,7 @@ export async function ZoomLiveSection() {
             {t("subtitle")}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
           <ZoomCard
             session={ZOOM_EN}
             accentLabel={t("labelEnglish")}
@@ -38,6 +38,14 @@ export async function ZoomLiveSection() {
           <ZoomCard
             session={ZOOM_HI}
             accentLabel={t("labelHindi")}
+            dailyFree={t("dailyFree")}
+            when={t("when")}
+            nextCallIn={t("nextCallIn")}
+            joinNow={t("joinNow")}
+          />
+          <ZoomCard
+            session={ZOOM_TH}
+            accentLabel={t("labelThai")}
             dailyFree={t("dailyFree")}
             when={t("when")}
             nextCallIn={t("nextCallIn")}

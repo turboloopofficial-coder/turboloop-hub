@@ -1751,7 +1751,7 @@ export const CAMPAIGN_FILE_INDEX: Record<string, string[]> = {
     "J19_Fest_MidAutumn_3DRender_CosmicViolet_SplitScreen.png",
     "J20_Fest_Gratitude_Minimalist_TealWhite_HeroCenter.png",
   ],
-  "ko": [
+  "korean": [
     "turboloop-ko-A-boost-11-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
     "turboloop-ko-A-boost-12-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
     "turboloop-ko-A-boost-13-3D-RENDER-PURPLE-PINK-CENTERED-CARD.png",
@@ -1913,7 +1913,7 @@ export const CAMPAIGN_FILE_INDEX: Record<string, string[]> = {
     "turboloop-ko-G-token-19-FLAT-DESIGN-TEAL-WHITE.png",
     "turboloop-ko-G-token-20-COMIC-BOLD-PURPLE-PINK.png",
   ],
-  "la": [
+  "lao": [
     "turboloop-la-A-boost-11-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
     "turboloop-la-A-boost-12-NEON-GLOW-TEAL-WHITE-SPLIT.png",
     "turboloop-la-A-boost-13-3D-RENDER-PURPLE-PINK-CENTERED.png",

@@ -1939,7 +1939,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(3, 30) || forceKoreanDaily) && (forceKoreanDaily || !(await hasFiredToday(db, "korean:daily")))) {
         const dayIndex = Math.floor(Date.now() / 86_400_000);
-        const photoUrl = campaignBannerUrl("ko", dayIndex);
+        const photoUrl = campaignBannerUrl("korean", dayIndex);
         const caption = pickByDay(CAMPAIGN_KOREAN_DAILY_CAPTIONS);
         await tgBroadcastPhoto({
           photoUrl,
@@ -1960,7 +1960,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     try {
       if ((isInWindow(5, 30) || forceLaoDaily) && (forceLaoDaily || !(await hasFiredToday(db, "lao:daily")))) {
         const dayIndex = Math.floor(Date.now() / 86_400_000);
-        const photoUrl = campaignBannerUrl("la", dayIndex);
+        const photoUrl = campaignBannerUrl("lao", dayIndex);
         const caption = pickByDay(CAMPAIGN_LAO_DAILY_CAPTIONS);
         await tgBroadcastPhoto({
           photoUrl,

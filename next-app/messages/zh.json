@@ -267,13 +267,14 @@
     "joinNow": "立即加入"
   },
   "reels": {
-    "eyebrow": "运动，遍布全球",
-    "title": "用你的语言学习。",
-    "subtitle": "逐步演示 TurboLoop 的每个操作——如何存款、提现、查看你的收益，以及验证 LP 锁。提供 15 种语言版本。",
+    "eyebrow": "多语呈现",
+    "title": "这场运动，",
+    "subtitle": "移动优先的操作演示：如何存入、如何提取、收益如何计算，以及如何自行验证 LP 锁——已翻译并配音成 15 种语言。",
     "v1Title": "如何提现",
     "v2Title": "收益如何运作",
     "v3Title": "如何检查 LP 锁定",
-    "v4Title": "如何通过智能合约存款"
+    "v4Title": "如何通过智能合约存款",
+    "titleHighlight": "遍及全球。"
   },
   "creatives": {
     "eyebrow": "营销中心",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "随时掌握动态",
+    "title": "一封邮件，真实更新，无废话。",
+    "subtitle": "当重要进展发布时——新影片、新项目、安全里程碑——你将第一时间知晓。绝不发送垃圾邮件。一键退订。",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "订阅",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "或跳过收件箱 · 直接关注"
+  },
+  "manifesto": {
+    "eyebrow": "宣言",
+    "title": "你的资产。你的力量。你的未来。",
+    "episodeLabel": "S4 · E5 — 这场运动"
   }
 }

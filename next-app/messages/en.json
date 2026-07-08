@@ -267,13 +267,14 @@
     "joinNow": "Join now"
   },
   "reels": {
-    "eyebrow": "The Movement, Worldwide",
-    "title": "Learn in your language.",
-    "subtitle": "Step-by-step walkthroughs of every TurboLoop action — how to deposit, withdraw, check your returns, and verify the LP lock. Available in 15 languages.",
+    "eyebrow": "In Every Language",
+    "title": "The Movement,",
+    "subtitle": "Mobile-first walkthroughs of how to deposit, how to withdraw, how your returns work, and how to verify the LP lock yourself — translated and dubbed in 15 languages.",
     "v1Title": "How to Withdraw",
     "v2Title": "How Returns Work",
     "v3Title": "How to Check LP Lock",
-    "v4Title": "How to Deposit via Smart Contract"
+    "v4Title": "How to Deposit via Smart Contract",
+    "titleHighlight": "Worldwide."
   },
   "creatives": {
     "eyebrow": "Marketing Hub",
@@ -298,8 +299,8 @@
   },
   "newsletter": {
     "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "title": "One email. Real updates. No filler.",
+    "subtitle": "When something real ships — a new film, a new program, a security milestone — you'll be the first to know. No spam, ever. Unsubscribe in one click.",
     "placeholder": "your@email.com",
     "subscribe": "Subscribe",
     "successTitle": "You're in!",
@@ -307,6 +308,12 @@
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "Or skip the inbox · Follow on"
+  },
+  "manifesto": {
+    "eyebrow": "The Manifesto",
+    "title": "Your money. Your power. Your future.",
+    "episodeLabel": "S4 · E5 — The Movement"
   }
 }

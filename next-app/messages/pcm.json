@@ -267,13 +267,14 @@
     "joinNow": "Join us now"
   },
   "reels": {
-    "eyebrow": "Di Movement, Worldwide",
-    "title": "Learn for your language.",
-    "subtitle": "Step-by-step walkthroughs for every TurboLoop action — how to deposit, withdraw, check your returns, and verify the LP lock. Available in 15 languages.",
+    "eyebrow": "For All Di Languages",
+    "title": "Di Movement,",
+    "subtitle": "Mobile-first guide dem wey dey show how to deposit, how to withdraw, how your returns dey work, and how you fit verify di LP lock by yourself — dem don translate and dub am for 15 languages.",
     "v1Title": "How to Withdraw",
     "v2Title": "How Returns Dey Work",
     "v3Title": "How to Check LP Lock",
-    "v4Title": "How to Deposit via Smart Contract"
+    "v4Title": "How to Deposit via Smart Contract",
+    "titleHighlight": "All Ova Di World."
   },
   "creatives": {
     "eyebrow": "Marketing Hub",
@@ -297,9 +298,9 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "Dey in Di Loop",
+    "title": "One email. Real updates. No wahala.",
+    "subtitle": "When anything real drop — new film, new program, security milestone — you go be the first wey go know. No spam, ever. You fit unsubscribe with one click.",
     "placeholder": "your@email.com",
     "subscribe": "Subscribe",
     "successTitle": "You're in!",
@@ -307,6 +308,12 @@
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "Or skip di inbox · Follow on"
+  },
+  "manifesto": {
+    "eyebrow": "Di Manifesto",
+    "title": "Your money. Your power. Your future.",
+    "episodeLabel": "S4 · E5 — Di Movement"
   }
 }

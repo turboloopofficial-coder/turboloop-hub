@@ -5,12 +5,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Play } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { getFilm } from "@lib/cinematicUniverse";
 
-export function ManifestoSection() {
+export async function ManifestoSection() {
   const film = getFilm("manifesto");
+  const t = await getTranslations("manifesto");
   if (!film) return null;
 
   return (
@@ -21,9 +23,9 @@ export function ManifestoSection() {
             tier="eyebrow"
             className="text-[var(--c-brand-cyan)] mb-3 inline-block"
           >
-            The Manifesto
+            {t("eyebrow")}
           </Heading>
-          <Heading tier="h1" as="h2">Your money. Your power. Your future.</Heading>
+          <Heading tier="h1" as="h2">{t("title")}</Heading>
         </div>
 
         <Link
@@ -56,7 +58,7 @@ export function ManifestoSection() {
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 text-left text-white">
             <div className="text-xs md:text-sm font-bold tracking-wide opacity-95 mb-1">
-              S4 · E5 — The Movement
+              {t("episodeLabel")}
             </div>
             <h3 className="text-xl md:text-3xl font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
               {film.title}

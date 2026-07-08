@@ -267,13 +267,14 @@
     "joinNow": "இப்போதே சேருங்கள்"
   },
   "reels": {
-    "eyebrow": "உலகளாவிய இயக்கம்",
-    "title": "உங்கள் மொழியில் கற்றுகொள்ளவும்.",
-    "subtitle": "TurboLoop ஒவ்வொரு நடவடிக்கையின் படி-படி வழிகாட்டிகள் — எப்படி deposit செய்வது, எப்படி withdraw செய்வது, உங்கள் வருமானங்களை எவ்வாறு பார்க்க, மற்றும் LP பூட்டை எவ்வாறு சரிபார்க்குவது. 15 மொழிகளில் கிடைக்கிறது.",
+    "eyebrow": "ஒவ்வொரு மொழியிலும்",
+    "title": "இயக்கம்,",
+    "subtitle": "மொபைல்-முதலான படி படி நடைமுறை வழிகாட்டிகள் — எவ்வாறு வைப்பு செய்வது, எவ்வாறு திரும்பப் பெறுவது, உங்கள் வருமானங்கள் எவ்வாறு செயல்படுகின்றன மற்றும் LP லாக்-ஐ நீங்கள் நேரடியாக எப்படி சரிபார்க்கலாம் என்பதை விளக்கும் — 15 மொழிகளில் மொழிபெயர்க்கப்பட்டும் டப்பிங் செய்யப்பட்டும்.",
     "v1Title": "Withdraw எப்படி செய்வது",
     "v2Title": "வருமானம் எப்படி இயங்குகிறது",
     "v3Title": "LP பூட்டை எவ்வாறு பார்க்க வேண்டும்",
-    "v4Title": "ஸ்மார்ட் கான்ட்ராக்டின் மூலம் டெபாசிட் செய்வது எப்படி"
+    "v4Title": "ஸ்மார்ட் கான்ட்ராக்டின் மூலம் டெபாசிட் செய்வது எப்படி",
+    "titleHighlight": "உலகமெங்கும்."
   },
   "creatives": {
     "eyebrow": "விளம்பர மையம்",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "செய்திகளில் இணைந்திருங்கள்",
+    "title": "ஒரு மின்னஞ்சல். நிஜமான புதுப்பிப்புகள். தேவையற்ற உள்ளடக்கம் இல்லை.",
+    "subtitle": "ஒரு புதிய படம், புதிய திட்டம் அல்லது பாதுகாப்பு மைல்கல் போன்ற உண்மையான ஒன்று வெளியிடப்பட்டால் — அதைக் குறித்த தகவலை முதலில் நீங்கள் பெறுவீர்கள். எப்போதும் ஸ்பாம் இல்லை. ஒரு கிளிக்கில் சந்தாவிலிருந்து விலகலாம்.",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "சந்தா பெறுங்கள்",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "அல்லது இன்பாக்ஸை தவிர்க்க · பின்தொடர"
+  },
+  "manifesto": {
+    "eyebrow": "மனிபெஸ்டோ",
+    "title": "உங்கள் பணம். உங்கள் சக்தி. உங்கள் எதிர்காலம்.",
+    "episodeLabel": "S4 · E5 — இயக்கம்"
   }
 }

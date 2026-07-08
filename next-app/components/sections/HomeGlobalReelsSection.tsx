@@ -10,6 +10,7 @@
 // that one carousels the DB-backed English reels and stays untouched.
 // This section is the new "in every language" companion.
 
+import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import {
@@ -19,7 +20,8 @@ import {
 } from "@lib/reelsData";
 import { HomeGlobalReelsTabs } from "./HomeGlobalReelsTabs";
 
-export function HomeGlobalReelsSection({ defaultLang }: { defaultLang?: ReelLang }) {
+export async function HomeGlobalReelsSection({ defaultLang }: { defaultLang?: ReelLang }) {
+  const t = await getTranslations("reels");
   return (
     <section className="relative py-16 md:py-24 overflow-hidden">
       {/* Aurora wash — same drift keyframe as the homepage hero, but
@@ -42,16 +44,14 @@ export function HomeGlobalReelsSection({ defaultLang }: { defaultLang?: ReelLang
             tier="eyebrow"
             className="text-[var(--c-brand-purple)] mb-3 inline-block"
           >
-            In Every Language
+            {t("eyebrow")}
           </Heading>
           <Heading tier="h1" as="h2">
-            The Movement,{" "}
-            <span className="text-brand-wide">Worldwide.</span>
+            {t("title")}{" "}
+            <span className="text-brand-wide">{t("titleHighlight")}</span>
           </Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-xl mx-auto leading-relaxed">
-            Mobile-first walkthroughs of how to deposit, how to withdraw,
-            how your returns work, and how to verify the LP lock yourself —
-            translated and dubbed in 15 languages — select your language above.
+            {t("subtitle")}
           </p>
         </div>
 

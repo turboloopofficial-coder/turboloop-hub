@@ -267,13 +267,14 @@
     "joinNow": "Join now"
   },
   "reels": {
-    "eyebrow": "The Movement, Worldwide",
-    "title": "Learn in your language.",
-    "subtitle": "Step-by-step walkthroughs of every TurboLoop action — how to deposit, withdraw, check your returns, and verify the LP lock. Available in 15 languages.",
+    "eyebrow": "ໃນທຸກພາສາ",
+    "title": "ຄວາມເຄື່ອນໄຫວ,",
+    "subtitle": "ຄຳແນະນໍາເປັນສຳລັບມືຖື: ສອນວິທີຝາກ, ວິທີຖອນ, ວິທີທີ່ຜົນຕອບແທນຂອງທ່ານແລະ ວິທີຢືນຢັນການລັອກ LP ດ້ວຍຕົນເອງ — ແປແລະອັດລັງສຽງໃນ 15 ພາສາ.",
     "v1Title": "How to Withdraw",
     "v2Title": "How Returns Work",
     "v3Title": "How to Check LP Lock",
-    "v4Title": "How to Deposit via Smart Contract"
+    "v4Title": "How to Deposit via Smart Contract",
+    "titleHighlight": "ທົ່ວໂລກ."
   },
   "creatives": {
     "eyebrow": "Marketing Hub",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "ຕິດຕາມຂ່າວສານ",
+    "title": "ອີເມວໜຶ່ງ. ຂໍ້ມູນອັບເດດແທ້. ບໍ່ມີຂໍ້ມູນທີ່ບໍ່ຈໍາເປັນ.",
+    "subtitle": "ເມື່ອມີສິ່ງແທ້ຈິງອອກ — ຟີມໃໝ່, ໂຄງການໃໝ່ ຫຼື ຈຸດສຳຄັນດ້ານຄວາມປອດໄພ — ທ່ານຈະເປັນຄົນທຳອິດທີ່ຮັບຂ່າວ. ບໍ່ມີສະແປມ. ຍົກຍ່າງການຮັບໄດ້ໃນຄລິກດຽວ.",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "ສະມັກ",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "ຫຼືບໍ່ຕ້ອງໄປກ່ອງຂ່າວ · ຕິດຕາມຢູ່"
+  },
+  "manifesto": {
+    "eyebrow": "ປະກາດ",
+    "title": "ເງິນຂອງທ່ານ. ອຳນາດຂອງທ່ານ. ອນາຄົດຂອງທ່ານ.",
+    "episodeLabel": "S4 · E5 — ຄວາມເຄື່ອນໄຫວ"
   }
 }

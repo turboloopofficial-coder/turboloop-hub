@@ -267,13 +267,14 @@
     "joinNow": "اب شامل ہوں"
   },
   "reels": {
-    "eyebrow": "تحریک، دنیا بھر میں",
-    "title": "اپنی زبان میں سیکھیں۔",
-    "subtitle": "TurboLoop کے ہر عمل کے مرحلہ وار رہنما — جمع کیسے کریں، نکالیں، اپنی واپسی چیک کریں، اور LP لاک کی تصدیق کریں۔ 15 زبانوں میں دستیاب۔",
+    "eyebrow": "ہر زبان میں",
+    "title": "تحریک،",
+    "subtitle": "موبائل-فرسٹ قدم بہ قدم رہنمائی: کیسے ڈپازٹ کریں، کیسے نکالیں، آپ کے ریٹرنز کیسے کام کرتے ہیں، اور خود LP لاک کی تصدیق کیسے کریں — 15 زبانوں میں ترجمہ اور ڈب کیا گیا۔",
     "v1Title": "نکالنے کا طریقہ",
     "v2Title": "واپسی کیسے کام کرتی ہے",
     "v3Title": "LP لاک کیسے چیک کریں",
-    "v4Title": "سمارٹ کنٹریکٹ کے ذریعے کیسے جمع کریں"
+    "v4Title": "سمارٹ کنٹریکٹ کے ذریعے کیسے جمع کریں",
+    "titleHighlight": "دنیا بھر میں۔"
   },
   "creatives": {
     "eyebrow": "مارکیٹنگ ہب",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "اپ ڈیٹ رہیں",
+    "title": "ایک ای میل۔ حقیقی اپ ڈیٹس۔ کوئی فضول مواد نہیں۔",
+    "subtitle": "جب کوئی حقیقی اپ ڈیٹ جاری ہو — نئی فلم، نیا پروگرام، یا سیکیورٹی کا سنگِ میل — آپ سب سے پہلے مطلع کیے جائیں گے۔ کبھی اسپیم نہیں۔ ایک کلک میں سبسکرائب ختم کریں۔",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "سبسکرائب کریں",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "یا ان باکس چھوڑ دیں · فالو کریں"
+  },
+  "manifesto": {
+    "eyebrow": "منشور",
+    "title": "آپ کا پیسہ۔ آپ کی طاقت۔ آپ کا مستقبل۔",
+    "episodeLabel": "S4 · E5 — تحریک"
   }
 }

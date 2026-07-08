@@ -6,10 +6,12 @@
 // signup. This avoids partially-broken state during migration.
 
 import { ArrowRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 
-export function NewsletterCTASection() {
+export async function NewsletterCTASection() {
+  const t = await getTranslations("newsletter");
   return (
     <section className="py-16 md:py-24">
       <Container width="default">
@@ -33,27 +35,25 @@ export function NewsletterCTASection() {
               tier="eyebrow"
               className="text-white/85 mb-3 inline-block"
             >
-              Stay in the loop
+              {t("eyebrow")}
             </Heading>
             <Heading tier="h1" as="h2" className="text-white mb-4">
-              One email. Real updates. No filler.
+              {t("title")}
             </Heading>
             <p className="text-white/85 max-w-lg mx-auto leading-relaxed mb-8">
-              When something real ships — a new film, a new program, a
-              security milestone — you&rsquo;ll be the first to know. No
-              spam, ever. Unsubscribe in one click.
+              {t("subtitle")}
             </p>
 
             <a
               href="https://www.turboloop.tech/#newsletter"
               className="inline-flex items-center justify-center gap-2 px-7 h-[52px] rounded-[var(--r-lg)] text-base font-bold bg-white text-[var(--c-text)] hover:bg-white/95 shadow-[var(--s-lg)] transition active:scale-[0.985]"
             >
-              Subscribe
+              {t("subscribe")}
               <ArrowRight className="w-4 h-4" />
             </a>
 
             <div className="mt-5 text-xs text-white/70">
-              Or skip the inbox · Follow on{" "}
+              {t("followOn")}{" "}
               <a
                 href="https://t.me/TurboLoop_Official"
                 target="_blank"

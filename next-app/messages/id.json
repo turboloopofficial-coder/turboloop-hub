@@ -267,13 +267,14 @@
     "joinNow": "Bergabung sekarang"
   },
   "reels": {
-    "eyebrow": "Gerakan, Seluruh Dunia",
-    "title": "Belajar dalam bahasa Anda.",
-    "subtitle": "Panduan langkah demi langkah untuk setiap tindakan TurboLoop — cara deposit, menarik, memeriksa pengembalian Anda, dan memverifikasi kunci LP. Tersedia dalam 15 bahasa.",
+    "eyebrow": "Dalam Setiap Bahasa",
+    "title": "Gerakan,",
+    "subtitle": "Panduan berorientasi mobile tentang cara menyetor, cara menarik, cara kerja imbal hasil Anda, dan cara memverifikasi penguncian LP sendiri — diterjemahkan dan disulihsuarakan dalam 15 bahasa.",
     "v1Title": "Cara Menarik",
     "v2Title": "Cara Kerja Pengembalian",
     "v3Title": "Cara Memeriksa Kunci LP",
-    "v4Title": "Cara Deposit melalui Kontrak Pintar"
+    "v4Title": "Cara Deposit melalui Kontrak Pintar",
+    "titleHighlight": "Di Seluruh Dunia."
   },
   "creatives": {
     "eyebrow": "Pusat Pemasaran",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "Tetap Terinformasi",
+    "title": "Satu email. Pembaruan nyata. Tanpa basa-basi.",
+    "subtitle": "Saat ada sesuatu yang nyata — film baru, program baru, atau pencapaian keamanan — Anda akan menjadi yang pertama tahu. Tanpa spam, selamanya. Berhenti berlangganan cukup dengan satu klik.",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "Berlangganan",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "Atau lewati kotak masuk · Ikuti di"
+  },
+  "manifesto": {
+    "eyebrow": "Manifesto",
+    "title": "Uang Anda. Kekuatan Anda. Masa depan Anda.",
+    "episodeLabel": "S4 · E5 — Gerakan"
   }
 }

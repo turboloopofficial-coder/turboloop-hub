@@ -267,13 +267,14 @@
     "joinNow": "انضم الآن"
   },
   "reels": {
-    "eyebrow": "الحركة، في كل أنحاء العالم",
-    "title": "تعلّم بلغتك.",
-    "subtitle": "دروس خطوة بخطوة لكل إجراء في TurboLoop — كيفية الإيداع، السحب، التحقق من عوائدك، والتحقق من قفل LP. متوفر بـ15 لغة.",
+    "eyebrow": "بجميع اللغات",
+    "title": "الحركة،",
+    "subtitle": "دروس إرشادية مهيأة للهواتف تشرح كيفية الإيداع والسحب وكيف تعمل عوائدك وكيفية التحقق بنفسك من قفل LP — مترجمة ومدبلجة إلى 15 لغة.",
     "v1Title": "كيفية السحب",
     "v2Title": "كيف تعمل العوائد",
     "v3Title": "كيفية التحقق من قفل LP",
-    "v4Title": "كيفية الإيداع عبر العقد الذكي"
+    "v4Title": "كيفية الإيداع عبر العقد الذكي",
+    "titleHighlight": "عالمياً."
   },
   "creatives": {
     "eyebrow": "مركز التسويق",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "ابقَ على اطلاع",
+    "title": "رسالة واحدة. تحديثات حقيقية. لا حشو.",
+    "subtitle": "عندما يصدر شيء مهم — فيلم جديد، برنامج جديد، إنجاز أمني — ستكون أول من يعرف. لا رسائل مزعجة أبداً. إلغاء الاشتراك بنقرة واحدة.",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "اشترك",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "أو تجاهل صندوق الوارد · تابعنا على"
+  },
+  "manifesto": {
+    "eyebrow": "البيان",
+    "title": "أموالك. قوتك. مستقبلك.",
+    "episodeLabel": "الموسم 4 · الحلقة 5 — الحركة"
   }
 }

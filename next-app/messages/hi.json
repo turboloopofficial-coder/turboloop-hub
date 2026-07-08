@@ -267,13 +267,14 @@
     "joinNow": "अब शामिल हों"
   },
   "reels": {
-    "eyebrow": "आंदोलन, वैश्विक",
-    "title": "अपनी भाषा में सीखें।",
-    "subtitle": "हर TurboLoop क्रिया के स्टेप-बाय-स्टेप वाकथ्रू — जमा कैसे करें, निकासी कैसे करें, अपने रिटर्न कैसे जाँचें, और LP लॉक कैसे सत्यापित करें। 15 भाषाओं में उपलब्ध।",
+    "eyebrow": "हर भाषा में",
+    "title": "आंदोलन,",
+    "subtitle": "मोबाइल-फर्स्ट वॉकथ्रू: डिपॉज़िट कैसे करें, निकासी कैसे करें, रिटर्न कैसे काम करते हैं और LP लॉक स्वयं कैसे सत्यापित करें — 15 भाषाओं में अनूदित और डब किया गया।",
     "v1Title": "निकासी कैसे करें",
     "v2Title": "लाभ कैसे काम करते हैं",
     "v3Title": "LP लॉक कैसे जाँचें",
-    "v4Title": "स्मार्ट कॉन्ट्रैक्ट के जरिए जमा कैसे करें"
+    "v4Title": "स्मार्ट कॉन्ट्रैक्ट के जरिए जमा कैसे करें",
+    "titleHighlight": "विश्वव्यापी."
   },
   "creatives": {
     "eyebrow": "मार्केटिंग हब",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "अपडेट में रहें",
+    "title": "एक ईमेल। असली अपडेट। कोई फालतू नहीं।",
+    "subtitle": "जब कुछ वास्तविक लॉन्च होता है — एक नई फिल्म, नया प्रोग्राम, सुरक्षा का कोई माइलस्टोन — आपको सबसे पहले पता चलेगा। कभी भी स्पैम नहीं। एक क्लिक में अनसब्सक्राइब करें।",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "सब्सक्राइब करें",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "या इनबॉक्स छोड़ें · फॉलो करें"
+  },
+  "manifesto": {
+    "eyebrow": "घोषणापत्र",
+    "title": "आपका पैसा। आपकी शक्ति। आपका भविष्य.",
+    "episodeLabel": "S4 · E5 — आंदोलन"
   }
 }

@@ -267,13 +267,14 @@
     "joinNow": "Rejoindre maintenant"
   },
   "reels": {
-    "eyebrow": "Le mouvement, dans le monde entier",
-    "title": "Apprenez dans votre langue.",
-    "subtitle": "Guides étape par étape pour chaque action TurboLoop — comment déposer, retirer, vérifier vos rendements et vérifier le verrouillage LP. Disponible en 15 langues.",
+    "eyebrow": "Dans toutes les langues",
+    "title": "Le Mouvement,",
+    "subtitle": "Tutoriels conçus pour mobile expliquant comment déposer, comment retirer, comment fonctionnent vos rendements et comment vérifier vous-même le verrouillage du LP — traduits et doublés en 15 langues.",
     "v1Title": "Comment retirer",
     "v2Title": "Comment fonctionnent les rendements",
     "v3Title": "Comment vérifier le verrouillage LP",
-    "v4Title": "Comment déposer via smart contract"
+    "v4Title": "Comment déposer via smart contract",
+    "titleHighlight": "Partout dans le monde."
   },
   "creatives": {
     "eyebrow": "Centre marketing",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "Restez informé",
+    "title": "Un e-mail. Des mises à jour concrètes. Rien de superflu.",
+    "subtitle": "Quand du concret arrive — un nouveau film, un nouveau programme, un jalon de sécurité — vous serez le premier informé. Jamais de spam. Désinscription en un clic.",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "S'abonner",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "Ou évitez la boîte de réception · Suivez-nous sur"
+  },
+  "manifesto": {
+    "eyebrow": "Le Manifeste",
+    "title": "Votre argent. Votre pouvoir. Votre avenir.",
+    "episodeLabel": "S4 · E5 — Le Mouvement"
   }
 }

@@ -267,13 +267,14 @@
     "joinNow": "เข้าร่วมเดี๋ยวนี้"
   },
   "reels": {
-    "eyebrow": "การเคลื่อนไหว ทั่วโลก",
-    "title": "เรียนรู้ในภาษาของคุณ",
-    "subtitle": "คำแนะนำทีละขั้นตอนสำหรับการทำงานของ TurboLoop ทุกขั้นตอน — วิธีฝากเงิน ถอนเงิน ตรวจสอบผลตอบแทน และยืนยันการล็อก LP มีให้เลือก 15 ภาษา.",
+    "eyebrow": "ในทุกภาษา",
+    "title": "การเคลื่อนไหว,",
+    "subtitle": "ไกด์แบบเน้นมือถืออธิบายวิธีฝาก วิธีถอน วิธีการทำงานของผลตอบแทน และวิธีตรวจสอบการล็อก LP ด้วยตัวคุณเอง — แปลและพากย์เสียงเป็น 15 ภาษา.",
     "v1Title": "วิธีถอนเงิน",
     "v2Title": "วิธีการทำงานของผลตอบแทน",
     "v3Title": "ตรวจสอบการล็อก LP อย่างไร",
-    "v4Title": "ฝากผ่าน Smart Contract อย่างไร"
+    "v4Title": "ฝากผ่าน Smart Contract อย่างไร",
+    "titleHighlight": "ทั่วโลก."
   },
   "creatives": {
     "eyebrow": "ศูนย์การตลาด",
@@ -297,16 +298,22 @@
     "readMore": "Read more stories"
   },
   "newsletter": {
-    "eyebrow": "Stay in the Loop",
-    "title": "Get updates before anyone else.",
-    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "eyebrow": "รับข่าวสาร",
+    "title": "อีเมลฉบับเดียว. อัปเดตที่แท้จริง. ไม่มีเนื้อหาไร้สาระ.",
+    "subtitle": "เมื่อมีของจริงออกมา — หนังใหม่ โครงการใหม่ หรือก้าวสำคัญด้านความปลอดภัย — คุณจะเป็นคนแรกที่ได้รับข่าว ไม่มีสแปมแน่นอน ยกเลิกการสมัครเพียงคลิกเดียว.",
     "placeholder": "your@email.com",
-    "subscribe": "Subscribe",
+    "subscribe": "สมัครรับข่าวสาร",
     "successTitle": "You're in!",
     "successBody": "Watch your inbox for the first update.",
     "errorInvalidEmail": "Please enter a valid email address.",
     "errorGeneric": "Couldn't sign up — try again in a moment.",
     "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address."
+    "inlineError": "That doesn't look like a valid email address.",
+    "followOn": "หรือข้ามกล่องจดหมาย · ติดตามได้ที่"
+  },
+  "manifesto": {
+    "eyebrow": "ปณิธาน",
+    "title": "เงินของคุณ. อำนาจของคุณ. อนาคตของคุณ.",
+    "episodeLabel": "S4 · E5 — การเคลื่อนไหว"
   }
 }

@@ -315,5 +315,32 @@
     "eyebrow": "Di Manifesto",
     "title": "Your money. Your power. Your future.",
     "episodeLabel": "S4 · E5 — Di Movement"
+  },
+  "events": {
+    "eyebrow": "Live — Every day",
+    "title": "Daily Zoom Session",
+    "titleHighlight": "Pass 12 languages.",
+    "subtitle": "Our community dey run free Zoom sessions every day. Just waka enter, ask anything, we go help you start. No pitch, no pressure, real gist for your language.",
+    "sessionType1Label": "Community calls every day",
+    "sessionType1Detail": "Open Zoom for pass 12 languages — English, Hindi, Indonesian, Portuguese, Russian, Turkish, Spanish + more. You fit join anytime.",
+    "sessionType2Label": "Presenters wey be local",
+    "sessionType2Detail": "Native speakers dey run the calls for your language. We dey pay dem $100/month — apply at /apply.",
+    "sessionType3Label": "Onboarding sessions",
+    "sessionType3Detail": "You new to DeFi? Small group calls go waka you through wallet setup, your first deposit, and how the numbers dey work.",
+    "liveNow": "Live Now · You fit join anytime",
+    "daily": "Daily · Every day",
+    "joinLiveCall": "Join Live Call",
+    "joinTodaysCall": "Join Today's Call",
+    "endsIn": "Ends in",
+    "startsIn": "Starts in",
+    "hours": "Hours",
+    "min": "Min",
+    "sec": "Sec",
+    "english": "English",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Find the call wey fit you.",
+    "findYourCallDetail": "Live links dey go up every day for our official Telegram. Pick your language, jump in.",
+    "openTelegram": "Open Telegram",
+    "becomePresenter": "Become presenter"
   }
 }

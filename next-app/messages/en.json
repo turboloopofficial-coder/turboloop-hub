@@ -315,5 +315,32 @@
     "eyebrow": "The Manifesto",
     "title": "Your money. Your power. Your future.",
     "episodeLabel": "S4 · E5 — The Movement"
+  },
+  "events": {
+    "eyebrow": "Live & Daily",
+    "title": "Daily Zoom in",
+    "titleHighlight": "12+ languages.",
+    "subtitle": "The community runs free Zoom sessions every single day. Drop in, ask anything, get onboarded. No pitch, no pressure, real conversations in your language.",
+    "sessionType1Label": "Daily community calls",
+    "sessionType1Detail": "Open Zoom in 12+ languages — English, Hindi, Indonesian, Portuguese, Russian, Turkish, Spanish + more. Drop in any time.",
+    "sessionType2Label": "Local presenters",
+    "sessionType2Detail": "Native speakers run the calls in your language. We pay them $100/month — apply at /apply.",
+    "sessionType3Label": "Onboarding sessions",
+    "sessionType3Detail": "Brand-new to DeFi? Smaller group calls walk you through wallet setup, your first deposit, and the math.",
+    "liveNow": "Live Now · Join Anytime",
+    "daily": "Daily · Every Day",
+    "joinLiveCall": "Join Live Call",
+    "joinTodaysCall": "Join Today's Call",
+    "endsIn": "Ends in",
+    "startsIn": "Starts in",
+    "hours": "Hours",
+    "min": "Min",
+    "sec": "Sec",
+    "english": "English",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Find your call.",
+    "findYourCallDetail": "Live links go up daily in our official Telegram. Pick your language, hop in.",
+    "openTelegram": "Open Telegram",
+    "becomePresenter": "Become a presenter"
   }
 }

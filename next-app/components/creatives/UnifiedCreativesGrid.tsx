@@ -15,6 +15,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { UnifiedBannerCard } from "./UnifiedBannerCard";
 import { DownloadKitButton } from "./DownloadKitButton";
 import type { UnifiedCreative, UnifiedCategoryDef, CreativeLanguage } from "@lib/unifiedCreativesData";
@@ -50,6 +51,7 @@ export function UnifiedCreativesGrid({
   categoryNavMode = false,
 }: Props) {
   const router = useRouter();
+  const t = useTranslations("creatives");
   const [exploreMode, setExploreMode] = useState<"category" | "language">("language");
 
   // When switching explore modes, reset the other filter to avoid cross-contamination
@@ -191,7 +193,7 @@ export function UnifiedCreativesGrid({
                   : { color: "var(--c-text-subtle)" }
               }
             >
-              🗂️ By Category
+              🗂️ {t("byCategory")}
             </button>
             <button
               onClick={switchToLanguage}
@@ -202,7 +204,7 @@ export function UnifiedCreativesGrid({
                   : { color: "var(--c-text-subtle)" }
               }
             >
-              🌍 By Language
+              🌍 {t("byLanguage")}
             </button>
           </div>
 
@@ -214,7 +216,7 @@ export function UnifiedCreativesGrid({
               type="search"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search banners…"
+              placeholder={t("searchPlaceholder")}
               className="w-full h-9 pl-9 pr-4 rounded-xl bg-[var(--c-surface)] border border-[var(--c-border)] text-sm text-[var(--c-text)] placeholder:text-[var(--c-text-subtle)] focus:outline-none focus:border-[var(--c-brand-cyan)] transition"
             />
             {search && (
@@ -275,7 +277,7 @@ export function UnifiedCreativesGrid({
             <div className="flex items-center gap-2 w-max pb-0.5">
               <LangChip
                 code="all"
-                label="All Languages"
+                label={t("allLanguages")}
                 flag="🌍"
                 active={activeLang === "all"}
                 onClick={() => setActiveLang("all")}

@@ -315,5 +315,32 @@
     "eyebrow": "El Manifiesto",
     "title": "Tu dinero. Tu poder. Tu futuro.",
     "episodeLabel": "S4 · E5 — El Movimiento"
+  },
+  "events": {
+    "eyebrow": "En vivo y diario",
+    "title": "Zoom diario",
+    "titleHighlight": "12+ idiomas.",
+    "subtitle": "La comunidad organiza sesiones gratuitas en Zoom todos los días. Entra cuando quieras, pregunta lo que quieras y recibe ayuda para empezar. Sin ventas, sin presión, conversaciones reales en tu idioma.",
+    "sessionType1Label": "Llamadas comunitarias diarias",
+    "sessionType1Detail": "Zoom abierto en más de 12 idiomas: inglés, hindi, indonesio, portugués, ruso, turco, español y más. Entra en cualquier momento.",
+    "sessionType2Label": "Presentadores locales",
+    "sessionType2Detail": "Hablantes nativos conducen las llamadas en tu idioma. Les pagamos $100/mes — postúlate en /apply.",
+    "sessionType3Label": "Sesiones de incorporación",
+    "sessionType3Detail": "¿Eres nuevo en DeFi? Llamadas en grupos pequeños te guían en la configuración de la billetera, tu primer depósito y los cálculos.",
+    "liveNow": "En vivo ahora · Únete cuando quieras",
+    "daily": "Diario · Todos los días",
+    "joinLiveCall": "Unirse a la llamada en vivo",
+    "joinTodaysCall": "Únete a la llamada de hoy",
+    "endsIn": "Termina en",
+    "startsIn": "Comienza en",
+    "hours": "Horas",
+    "min": "Min",
+    "sec": "Seg",
+    "english": "Inglés",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Encuentra tu llamada.",
+    "findYourCallDetail": "Los enlaces en vivo se publican diariamente en nuestro Telegram oficial. Elige tu idioma y únete.",
+    "openTelegram": "Abrir Telegram",
+    "becomePresenter": "Conviértete en presentador"
   }
 }

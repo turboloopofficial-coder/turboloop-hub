@@ -19,6 +19,7 @@
 // shows a stale link.
 
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -66,29 +67,7 @@ function mergeZoomOverrides(
   });
 }
 
-const SESSION_TYPES = [
-  {
-    icon: Calendar,
-    label: "Daily community calls",
-    detail:
-      "Open Zoom in 12+ languages — English, Hindi, Indonesian, Portuguese, Russian, Turkish, Spanish + more. Drop in any time.",
-    color: "#0891B2",
-  },
-  {
-    icon: Mic,
-    label: "Local presenters",
-    detail:
-      "Native speakers run the calls in your language. We pay them $100/month — apply at /apply.",
-    color: "#7C3AED",
-  },
-  {
-    icon: Users,
-    label: "Onboarding sessions",
-    detail:
-      "Brand-new to DeFi? Smaller group calls walk you through wallet setup, your first deposit, and the math.",
-    color: "#10B981",
-  },
-];
+// SESSION_TYPES built inside component to use translations
 
 /* ─── Countdown digit tile ──────────────────────────────────────────── */
 
@@ -136,7 +115,7 @@ function DigitTile({
 
 /* ─── ZoomCountdown card ────────────────────────────────────────────── */
 
-function ZoomCountdown({ session }: { session: ZoomSession }) {
+function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typeof useTranslations<"events">> }) {
   // Compute the next event time once on mount; the seconds-tick will catch
   // when the call ends and we need to flip to tomorrow's start.
   const [now, setNow] = useState<Date | null>(null);
@@ -246,7 +225,7 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
                 className="text-[10px] font-bold tracking-[0.25em] uppercase"
                 style={{ color: accent }}
               >
-                {isLive ? "Live Now · Join Anytime" : "Daily · Every Day"}
+                {isLive ? t("liveNow") : t("daily")}
               </span>
               {isLive && (
                 <Radio className="w-3 h-3" style={{ color: accent }} />
@@ -277,7 +256,7 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
                 <div className="flex flex-wrap gap-x-5 gap-y-2">
                   <span className="inline-flex items-center gap-2">
                     <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                    {session.lang === "en" ? "English" : "Hindi / Urdu"}
+                    {session.lang === "en" ? t("english") : t("hindiUrdu")}
                   </span>
                   <span className="inline-flex items-center gap-2">
                     <Users className="w-3.5 h-3.5 text-emerald-400" />
@@ -296,7 +275,7 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                  {session.lang === "en" ? "English" : "Hindi / Urdu"}
+                  {session.lang === "en" ? t("english") : t("hindiUrdu")}
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Users className="w-3.5 h-3.5 text-emerald-400" />
@@ -324,7 +303,7 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
               }}
             >
               <Video className="w-4 h-4" />
-              {isLive ? "Join Live Call" : "Join Today's Call"}
+              {isLive ? t("joinLiveCall") : t("joinTodaysCall")}
               <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </motion.a>
           </div>
@@ -332,14 +311,14 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
           <div className="md:col-span-5">
             <div className="text-center">
               <div className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/50 mb-3">
-                {isLive ? "Ends in" : "Starts in"}
+                {isLive ? t("endsIn") : t("startsIn")}
               </div>
               <div className="flex items-start justify-center gap-2 md:gap-3">
                 {isLive ? (
                   <>
                     <DigitTile
                       value={liveMins}
-                      label="Min"
+                      label={t("min")}
                       accent={accent}
                     />
                     <div className="text-3xl md:text-4xl font-bold text-white/30 pt-3 md:pt-4">
@@ -347,21 +326,21 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
                     </div>
                     <DigitTile
                       value={liveSecs}
-                      label="Sec"
+                      label={t("sec")}
                       accent={accent}
                     />
                   </>
                 ) : (
                   <>
-                    <DigitTile value={hours} label="Hours" accent={accent} />
+                    <DigitTile value={hours} label={t("hours")} accent={accent} />
                     <div className="text-3xl md:text-4xl font-bold text-white/30 pt-3 md:pt-4">
                       :
                     </div>
-                    <DigitTile value={mins} label="Min" accent={accent} />
+                    <DigitTile value={mins} label={t("min")} accent={accent} />
                     <div className="text-3xl md:text-4xl font-bold text-white/30 pt-3 md:pt-4">
                       :
                     </div>
-                    <DigitTile value={secs} label="Sec" accent={accent} />
+                    <DigitTile value={secs} label={t("sec")} accent={accent} />
                   </>
                 )}
               </div>
@@ -381,6 +360,27 @@ function ZoomCountdown({ session }: { session: ZoomSession }) {
 /* ─── EventsSection (default export) ────────────────────────────────── */
 
 export function EventsSection() {
+  const t = useTranslations("events");
+  const SESSION_TYPES = [
+    {
+      icon: Calendar,
+      label: t("sessionType1Label"),
+      detail: t("sessionType1Detail"),
+      color: "#0891B2",
+    },
+    {
+      icon: Mic,
+      label: t("sessionType2Label"),
+      detail: t("sessionType2Detail"),
+      color: "#7C3AED",
+    },
+    {
+      icon: Users,
+      label: t("sessionType3Label"),
+      detail: t("sessionType3Detail"),
+      color: "#10B981",
+    },
+  ];
   // Live Zoom sessions = hardcoded defaults + admin overrides for
   // link/passcode (from /api/zoom-config). Initial render uses the
   // pure defaults so SSR HTML is stable + the page never flashes a
@@ -420,22 +420,20 @@ export function EventsSection() {
             tier="eyebrow"
             className="text-[var(--c-brand-cyan)] mb-3 inline-block"
           >
-            Live & Daily
+            {t("eyebrow")}
           </Heading>
           <Heading tier="h1" as="h2">
-            Daily Zoom in{" "}
-            <span className="text-brand-wide">12+ languages.</span>
+            {t("title")}{" "}
+            <span className="text-brand-wide">{t("titleHighlight")}</span>
           </Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-2xl mx-auto leading-relaxed">
-            The community runs free Zoom sessions every single day. Drop in,
-            ask anything, get onboarded. No pitch, no pressure, real
-            conversations in your language.
+            {t("subtitle")}
           </p>
         </div>
 
         <div className="space-y-6 md:space-y-8 mb-10 md:mb-14 max-w-5xl mx-auto">
           {sessions.map(session => (
-            <ZoomCountdown key={session.lang} session={session} />
+            <ZoomCountdown key={session.lang} session={session} t={t} />
           ))}
         </div>
 
@@ -477,11 +475,10 @@ export function EventsSection() {
           <div className="md:flex-1">
             <Heading tier="h2" className="mb-2">
               <Globe2 className="inline-block w-6 h-6 mr-2 text-[var(--c-brand-cyan)]" />
-              Find your call.
+              {t("findYourCall")}
             </Heading>
             <p className="text-[var(--c-text-muted)] leading-relaxed">
-              Live links go up daily in our official Telegram. Pick your
-              language, hop in.
+              {t("findYourCallDetail")}
             </p>
           </div>
           <div className="flex flex-wrap gap-2 mt-4 md:mt-0 flex-shrink-0">
@@ -492,7 +489,7 @@ export function EventsSection() {
               className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] transition active:scale-[0.985]"
             >
               <MessageCircle className="w-4 h-4" />
-              Open Telegram
+              {t("openTelegram")}
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
             <a
@@ -500,7 +497,7 @@ export function EventsSection() {
               className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] transition active:scale-[0.985]"
             >
               <Mic className="w-4 h-4" />
-              Become a presenter
+              {t("becomePresenter")}
             </a>
           </div>
         </Card>

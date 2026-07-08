@@ -315,5 +315,32 @@
     "eyebrow": "Il Manifesto",
     "title": "I tuoi soldi. Il tuo potere. Il tuo futuro.",
     "episodeLabel": "S4 · E5 — Il Movimento"
+  },
+  "events": {
+    "eyebrow": "Live giornalieri",
+    "title": "Zoom quotidiano",
+    "titleHighlight": "12+ lingue.",
+    "subtitle": "La community organizza sessioni Zoom gratuite ogni giorno. Entra quando vuoi, fai tutte le domande che vuoi e ricevi supporto per iniziare. Niente pitch, nessuna pressione, conversazioni reali nella tua lingua.",
+    "sessionType1Label": "Call comunitarie giornaliere",
+    "sessionType1Detail": "Zoom aperti in 12+ lingue — Inglese, Hindi, Indonesiano, Portoghese, Russo, Turco, Spagnolo e altre. Entra quando vuoi.",
+    "sessionType2Label": "Presentatori locali",
+    "sessionType2Detail": "Madrelingua conducono le call nella tua lingua. Li paghiamo $100/mese — candidati su /apply.",
+    "sessionType3Label": "Sessioni di onboarding",
+    "sessionType3Detail": "Nuovo nel mondo DeFi? Call in piccoli gruppi ti guidano nella configurazione del portafoglio, nel tuo primo deposito e nella comprensione dei calcoli.",
+    "liveNow": "In diretta ora · Entra quando vuoi",
+    "daily": "Quotidiano · Ogni giorno",
+    "joinLiveCall": "Partecipa alla call in diretta",
+    "joinTodaysCall": "Partecipa alla call di oggi",
+    "endsIn": "Termina tra",
+    "startsIn": "Inizia tra",
+    "hours": "Ore",
+    "min": "Min",
+    "sec": "Sec",
+    "english": "Inglese",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Trova la tua call.",
+    "findYourCallDetail": "I link in diretta vengono pubblicati ogni giorno nel nostro Telegram ufficiale. Scegli la tua lingua e entra.",
+    "openTelegram": "Apri Telegram",
+    "becomePresenter": "Diventa presentatore"
   }
 }

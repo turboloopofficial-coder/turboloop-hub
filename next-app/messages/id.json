@@ -315,5 +315,32 @@
     "eyebrow": "Manifesto",
     "title": "Uang Anda. Kekuatan Anda. Masa depan Anda.",
     "episodeLabel": "S4 · E5 — Gerakan"
+  },
+  "events": {
+    "eyebrow": "Langsung & Harian",
+    "title": "Sesi Zoom Harian",
+    "titleHighlight": "12+ bahasa.",
+    "subtitle": "Komunitas mengadakan sesi Zoom gratis setiap hari. Masuk kapan saja, tanya apa pun, dapatkan panduan untuk memulai. Tanpa promosi, tanpa tekanan, percakapan nyata dalam bahasa Anda.",
+    "sessionType1Label": "Sesi komunitas harian",
+    "sessionType1Detail": "Sesi Zoom terbuka dalam 12+ bahasa — English, Hindi, Indonesian, Portuguese, Russian, Turkish, Spanish + lainnya. Masuk kapan saja.",
+    "sessionType2Label": "Pembicara lokal",
+    "sessionType2Detail": "Penutur asli memandu sesi dalam bahasa Anda. Kami membayar mereka $100/bulan — daftar di /apply.",
+    "sessionType3Label": "Sesi onboarding",
+    "sessionType3Detail": "Baru di dunia DeFi? Sesi kelompok kecil akan membimbing Anda melalui pengaturan dompet, setoran pertama, dan perhitungannya.",
+    "liveNow": "Sedang Live · Gabung Kapan Saja",
+    "daily": "Harian · Setiap Hari",
+    "joinLiveCall": "Gabung Sesi Live",
+    "joinTodaysCall": "Gabung Sesi Hari Ini",
+    "endsIn": "Berakhir dalam",
+    "startsIn": "Mulai dalam",
+    "hours": "Jam",
+    "min": "Menit",
+    "sec": "Detik",
+    "english": "Bahasa Inggris",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Temukan sesi Anda.",
+    "findYourCallDetail": "Link sesi live diposting setiap hari di Telegram resmi kami. Pilih bahasa Anda, langsung masuk.",
+    "openTelegram": "Buka Telegram",
+    "becomePresenter": "Jadi pembicara"
   }
 }

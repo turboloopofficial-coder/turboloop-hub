@@ -315,5 +315,32 @@
     "eyebrow": "Das Manifest",
     "title": "Dein Geld. Deine Macht. Deine Zukunft.",
     "episodeLabel": "S4 · E5 — Die Bewegung"
+  },
+  "events": {
+    "eyebrow": "Live & täglich",
+    "title": "Tägliche Zoom-Session",
+    "titleHighlight": "12+ Sprachen.",
+    "subtitle": "Die Community veranstaltet jeden Tag kostenlose Zoom-Sessions. Schau einfach rein, stell alle Fragen, wir helfen dir beim Einstieg. Keine Verkaufsmasche, kein Druck — echte Gespräche in deiner Sprache.",
+    "sessionType1Label": "Tägliche Community-Calls",
+    "sessionType1Detail": "Offene Zoom-Sessions in 12+ Sprachen — Englisch, Hindi, Indonesisch, Portugiesisch, Russisch, Türkisch, Spanisch und mehr. Komm jederzeit vorbei.",
+    "sessionType2Label": "Lokale Gastgeber",
+    "sessionType2Detail": "Muttersprachliche Hosts leiten die Calls in deiner Sprache. Wir zahlen $100/Monat — bewirb dich unter /apply.",
+    "sessionType3Label": "Onboarding-Sessions",
+    "sessionType3Detail": "Ganz neu in DeFi? In kleineren Gruppen erklären wir dir die Wallet-Einrichtung, die erste Einzahlung und die Rechenbeispiele.",
+    "liveNow": "Jetzt live · Jederzeit beitreten",
+    "daily": "Täglich · Jeden Tag",
+    "joinLiveCall": "Live-Call beitreten",
+    "joinTodaysCall": "Dem heutigen Call beitreten",
+    "endsIn": "Endet in",
+    "startsIn": "Beginnt in",
+    "hours": "Stunden",
+    "min": "Min",
+    "sec": "Sek",
+    "english": "Englisch",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Finde deinen Call.",
+    "findYourCallDetail": "Die Live-Links erscheinen täglich in unserem offiziellen Telegram. Wähle deine Sprache und steig rein.",
+    "openTelegram": "Telegram öffnen",
+    "becomePresenter": "Werde Moderator"
   }
 }

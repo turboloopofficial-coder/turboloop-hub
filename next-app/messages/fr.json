@@ -315,5 +315,32 @@
     "eyebrow": "Le Manifeste",
     "title": "Votre argent. Votre pouvoir. Votre avenir.",
     "episodeLabel": "S4 · E5 — Le Mouvement"
+  },
+  "events": {
+    "eyebrow": "En direct · Tous les jours",
+    "title": "Session Zoom quotidienne",
+    "titleHighlight": "Plus de 12 langues.",
+    "subtitle": "La communauté organise des sessions Zoom gratuites chaque jour. Rejoignez-nous, posez toutes vos questions et démarrez en toute confiance. Pas de pitch, pas de pression — de vraies conversations dans votre langue.",
+    "sessionType1Label": "Appels communautaires quotidiens",
+    "sessionType1Detail": "Sessions Zoom ouvertes en plus de 12 langues — anglais, hindi, indonésien, portugais, russe, turc, espagnol et plus encore. Rejoignez à tout moment.",
+    "sessionType2Label": "Présentateurs locaux",
+    "sessionType2Detail": "Des locuteurs natifs animent les sessions dans votre langue. Nous les rémunérons 100 $/mois — postulez sur /apply.",
+    "sessionType3Label": "Sessions d'initiation",
+    "sessionType3Detail": "Nouveau dans la DeFi ? Des appels en petits groupes vous guident pour configurer votre portefeuille, effectuer votre premier dépôt et comprendre les calculs.",
+    "liveNow": "En direct maintenant · Rejoignez quand vous voulez",
+    "daily": "Quotidien · Tous les jours",
+    "joinLiveCall": "Rejoindre l'appel en direct",
+    "joinTodaysCall": "Rejoindre l'appel d'aujourd'hui",
+    "endsIn": "Se termine dans",
+    "startsIn": "Commence dans",
+    "hours": "Heures",
+    "min": "min",
+    "sec": "sec",
+    "english": "Anglais",
+    "hindiUrdu": "Hindi / Ourdou",
+    "findYourCall": "Trouvez votre session.",
+    "findYourCallDetail": "Les liens en direct sont publiés chaque jour dans notre Telegram officiel. Choisissez votre langue et rejoignez.",
+    "openTelegram": "Ouvrir Telegram",
+    "becomePresenter": "Devenez présentateur"
   }
 }

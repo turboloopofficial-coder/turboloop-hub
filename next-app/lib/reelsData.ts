@@ -248,7 +248,7 @@ export interface ReelTrack {
   thumbUrl: string;
 }
 
-const R2 = "https://assets.turboloop.tech";
+const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
 export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: string }> = {
   en:  { label: "English",            flag: "🇬🇧", dir: "en" },

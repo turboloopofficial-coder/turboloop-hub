@@ -7,8 +7,9 @@
 // startUtcMin is "minutes since 00:00 UTC" — easier to compute the next
 // occurrence than parsing 12-hour strings with timezones at runtime.
 // Keep ZOOM_EN.startUtcMin == 17:00 UTC and ZOOM_HI.startUtcMin == 15:30 UTC
-// in sync with the cron T-30 windows (`isInWindow(16, 30)` and
-// `isInWindow(15, 0)`).
+// in sync with the cron reminder windows:
+//   HI: T-60 @ isInWindow(14,30) | T-30 @ isInWindow(15,0) | T-15 @ isInWindow(15,15) | LIVE @ isInWindow(15,30)
+//   EN: T-60 @ isInWindow(16,0)  | T-30 @ isInWindow(16,30) | T-15 @ isInWindow(16,45) | LIVE @ isInWindow(17,0)
 
 export interface ZoomSession {
   /** "en" | "hi" — used for banner palette + cron de-dup keys */

@@ -17,10 +17,12 @@ import {
 // ── Static params ──────────────────────────────────────────────────────────
 
 export function generateStaticParams() {
-  // Exclude language-specific categories — they are accessed via the language filter,
-  // not via /creatives/[category] URL routes.
+  // Only generate routes for categories that:
+  // 1. Are not language-specific (those use the language filter tab)
+  // 2. Have at least one creative item (empty categories would fail prerender)
   return UNIFIED_CATEGORIES
     .filter(cat => !cat.isLanguageCategory)
+    .filter(cat => ALL_UNIFIED_CREATIVES.some(item => item.categoryId === cat.id))
     .map(cat => ({ category: cat.id }));
 }
 

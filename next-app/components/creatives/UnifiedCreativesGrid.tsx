@@ -15,7 +15,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { UnifiedBannerCard } from "./UnifiedBannerCard";
 import { DownloadKitButton } from "./DownloadKitButton";
 import type { UnifiedCreative, UnifiedCategoryDef, CreativeLanguage } from "@lib/unifiedCreativesData";
@@ -51,7 +50,15 @@ export function UnifiedCreativesGrid({
   categoryNavMode = false,
 }: Props) {
   const router = useRouter();
-  const t = useTranslations("creatives");
+  // Hardcoded strings — /creatives is not inside the [locale] segment so
+  // next-intl's useTranslations is not available here. These labels are
+  // English-only; the page itself is not locale-routed.
+  const t = (key: string) => ({
+    byCategory: "By Category",
+    byLanguage: "By Language",
+    searchPlaceholder: "Search banners...",
+    allLanguages: "All Languages",
+  }[key] ?? key);
   const [exploreMode, setExploreMode] = useState<"category" | "language">("language");
 
   // When switching explore modes, reset the other filter to avoid cross-contamination
@@ -193,7 +200,7 @@ export function UnifiedCreativesGrid({
                   : { color: "var(--c-text-subtle)" }
               }
             >
-              🗂️ {t("byCategory")}
+              🗂️ By Category
             </button>
             <button
               onClick={switchToLanguage}
@@ -204,7 +211,7 @@ export function UnifiedCreativesGrid({
                   : { color: "var(--c-text-subtle)" }
               }
             >
-              🌍 {t("byLanguage")}
+              🌍 By Language
             </button>
           </div>
 
@@ -216,7 +223,7 @@ export function UnifiedCreativesGrid({
               type="search"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder={t("searchPlaceholder")}
+              placeholder="Search banners..."
               className="w-full h-9 pl-9 pr-4 rounded-xl bg-[var(--c-surface)] border border-[var(--c-border)] text-sm text-[var(--c-text)] placeholder:text-[var(--c-text-subtle)] focus:outline-none focus:border-[var(--c-brand-cyan)] transition"
             />
             {search && (
@@ -277,7 +284,7 @@ export function UnifiedCreativesGrid({
             <div className="flex items-center gap-2 w-max pb-0.5">
               <LangChip
                 code="all"
-                label={t("allLanguages")}
+                label="All Languages"
                 flag="🌍"
                 active={activeLang === "all"}
                 onClick={() => setActiveLang("all")}

@@ -265,7 +265,9 @@
     "when": "متى",
     "nextCallIn": "المكالمة التالية بعد",
     "joinNow": "انضم الآن",
-    "labelThai": "التايلاندية"
+    "labelThai": "التايلاندية",
+    "labelThaiMorning": "تايلاندي (صباح)",
+    "labelThaiEvening": "تايلاندي (مساء)"
   },
   "reels": {
     "eyebrow": "بجميع اللغات",

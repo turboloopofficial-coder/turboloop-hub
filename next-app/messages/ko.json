@@ -265,7 +265,9 @@
     "when": "언제",
     "nextCallIn": "다음 호출까지",
     "joinNow": "지금 참여하기",
-    "labelThai": "태국어"
+    "labelThai": "태국어",
+    "labelThaiMorning": "태국어 (오전)",
+    "labelThaiEvening": "태국어 (저녁)"
   },
   "reels": {
     "eyebrow": "모든 언어로",

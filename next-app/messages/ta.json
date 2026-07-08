@@ -265,7 +265,9 @@
     "when": "எப்போது",
     "nextCallIn": "அடுத்த அழைப்பு நேரம்",
     "joinNow": "இப்போதே சேருங்கள்",
-    "labelThai": "தாய்"
+    "labelThai": "தாய்",
+    "labelThaiMorning": "தாய் (காலை)",
+    "labelThaiEvening": "தாய் (மாலை)"
   },
   "reels": {
     "eyebrow": "ஒவ்வொரு மொழியிலும்",

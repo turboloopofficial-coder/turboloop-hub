@@ -265,7 +265,9 @@
     "when": "Cuándo",
     "nextCallIn": "Próxima llamada en",
     "joinNow": "Únete ahora",
-    "labelThai": "Tailandés"
+    "labelThai": "Tailandés",
+    "labelThaiMorning": "Tailandés (Mañana)",
+    "labelThaiEvening": "Tailandés (Tarde)"
   },
   "reels": {
     "eyebrow": "En todos los idiomas",

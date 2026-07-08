@@ -265,7 +265,9 @@
     "when": "کب",
     "nextCallIn": "اگلی کال شروع ہونے میں",
     "joinNow": "اب شامل ہوں",
-    "labelThai": "تھائی"
+    "labelThai": "تھائی",
+    "labelThaiMorning": "تھائی (صبح)",
+    "labelThaiEvening": "تھائی (شام)"
   },
   "reels": {
     "eyebrow": "ہر زبان میں",

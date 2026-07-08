@@ -265,7 +265,9 @@
     "when": "Kapan",
     "nextCallIn": "Panggilan berikutnya dalam",
     "joinNow": "Bergabung sekarang",
-    "labelThai": "Thailand"
+    "labelThai": "Thailand",
+    "labelThaiMorning": "Thailand (Pagi)",
+    "labelThaiEvening": "Thailand (Malam)"
   },
   "reels": {
     "eyebrow": "Dalam Setiap Bahasa",

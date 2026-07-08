@@ -75,9 +75,10 @@ export const ZOOM_HI: ZoomSession = {
   durationMin: 120,
 };
 
+// Thai Evening session: 20:00 Thailand (13:00 UTC)
 export const ZOOM_TH: ZoomSession = {
   lang: "th",
-  title: "ประชุม Google Meet รายวัน",
+  title: "ประชุม Google Meet ตอนเย็น",
   description:
     "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
   link: "https://meet.google.com/nmh-hhkr-uzd",
@@ -89,7 +90,22 @@ export const ZOOM_TH: ZoomSession = {
   durationMin: 60,
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_TH];
+// Thai Morning session: 09:00 Thailand (02:00 UTC)
+export const ZOOM_TH_AM: ZoomSession = {
+  lang: "th",
+  title: "ประชุม Google Meet ตอนเช้า",
+  description:
+    "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
+  link: "https://meet.google.com/nmh-hhkr-uzd",
+  passcode: "",
+  // 02:00 UTC = 09:00 Thailand time (UTC+7)
+  timeLabel:
+    "🇹🇭 09:00 น. (ทุกวัน) · 🕐 02:00 UTC",
+  startUtcMin: 2 * 60, // 02:00 UTC = 09:00 Thailand time (UTC+7)
+  durationMin: 60,
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_TH, ZOOM_TH_AM];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side

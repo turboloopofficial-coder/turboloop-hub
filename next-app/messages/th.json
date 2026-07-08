@@ -265,7 +265,9 @@
     "when": "เมื่อไหร่",
     "nextCallIn": "รอบถัดไปใน",
     "joinNow": "เข้าร่วมเดี๋ยวนี้",
-    "labelThai": "ไทย"
+    "labelThai": "ไทย",
+    "labelThaiMorning": "ไทย (เช้า)",
+    "labelThaiEvening": "ไทย (เย็น)"
   },
   "reels": {
     "eyebrow": "ในทุกภาษา",

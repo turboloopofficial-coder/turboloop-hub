@@ -265,7 +265,9 @@
     "when": "When",
     "nextCallIn": "Next call in",
     "joinNow": "Join now",
-    "labelThai": "ໄທ"
+    "labelThai": "ໄທ",
+    "labelThaiMorning": "ໄທ (ເຊົ້າ)",
+    "labelThaiEvening": "ໄທ (ແລງ)"
   },
   "reels": {
     "eyebrow": "ໃນທຸກພາສາ",

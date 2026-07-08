@@ -4,7 +4,7 @@ import { Globe2, MessageCircle, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
-import { ZOOM_EN, ZOOM_HI, ZOOM_TH, type ZoomSession } from "@shared/zoomEvents";
+import { ZOOM_EN, ZOOM_HI, ZOOM_TH, ZOOM_TH_AM, type ZoomSession } from "@shared/zoomEvents";
 import { ZoomCountdown } from "./ZoomLiveCountdown";
 import { LocalZoomTime } from "./LocalZoomTime";
 
@@ -26,7 +26,8 @@ export async function ZoomLiveSection() {
             {t("subtitle")}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
+        {/* Row 1: English + Hindi */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto mb-4 md:mb-5">
           <ZoomCard
             session={ZOOM_EN}
             accentLabel={t("labelEnglish")}
@@ -43,9 +44,20 @@ export async function ZoomLiveSection() {
             nextCallIn={t("nextCallIn")}
             joinNow={t("joinNow")}
           />
+        </div>
+        {/* Row 2: Thai Morning + Thai Evening */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto">
+          <ZoomCard
+            session={ZOOM_TH_AM}
+            accentLabel={t("labelThaiMorning")}
+            dailyFree={t("dailyFree")}
+            when={t("when")}
+            nextCallIn={t("nextCallIn")}
+            joinNow={t("joinNow")}
+          />
           <ZoomCard
             session={ZOOM_TH}
-            accentLabel={t("labelThai")}
+            accentLabel={t("labelThaiEvening")}
             dailyFree={t("dailyFree")}
             when={t("when")}
             nextCallIn={t("nextCallIn")}

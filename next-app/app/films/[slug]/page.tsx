@@ -56,10 +56,24 @@ const LANG_TAB_LABELS: Record<FilmLang, { label: string; flag: string }> = {
   de: { label: "Deutsch", flag: "🇩🇪" },
   hi: { label: "हिंदी", flag: "🇮🇳" },
   id: { label: "Bahasa", flag: "🇮🇩" },
+  th: { label: "ภาษาไทย", flag: "🇹🇭" },
+  ko: { label: "한국어", flag: "🇰🇷" },
+  ar: { label: "العربية", flag: "🇸🇦" },
+  zh: { label: "中文", flag: "🇨🇳" },
+  ta: { label: "தமிழ்", flag: "🇮🇳" },
+  it: { label: "Italiano", flag: "🇮🇹" },
+  ur: { label: "اردو", flag: "🇵🇰" },
+  fr: { label: "Français", flag: "🇫🇷" },
+  es: { label: "Español", flag: "🇪🇸" },
+  lo: { label: "ລາວ", flag: "🇱🇦" },
+  pcm: { label: "Pidgin", flag: "🇳🇬" },
 };
 
 function isLang(v: string | undefined): v is FilmLang {
-  return v === "en" || v === "de" || v === "hi" || v === "id";
+  return [
+    "en", "de", "hi", "id", "th", "ko", "ar", "zh",
+    "ta", "it", "ur", "fr", "es", "lo", "pcm"
+  ].includes(v ?? "");
 }
 
 export async function generateStaticParams() {

@@ -42,18 +42,40 @@ export interface DbFilm {
 /** Map "English" → "en", "German" → "de", etc. — needed because the
  *  videos table stores full language labels while the frontend uses
  *  ISO codes in URLs and tabs. */
-export const LANG_LABEL_TO_CODE: Record<string, "en" | "de" | "hi" | "id"> = {
+export const LANG_LABEL_TO_CODE: Record<string, "en" | "de" | "hi" | "id" | "th" | "ko" | "ar" | "zh" | "ta" | "it" | "ur" | "fr" | "es" | "lo" | "pcm"> = {
   English: "en",
   German: "de",
   Hindi: "hi",
   Indonesian: "id",
+  Thai: "th",
+  Korean: "ko",
+  Arabic: "ar",
+  Chinese: "zh",
+  Tamil: "ta",
+  Italian: "it",
+  Urdu: "ur",
+  French: "fr",
+  Spanish: "es",
+  Lao: "lo",
+  "Nigerian Pidgin": "pcm",
 };
 
-export const LANG_CODE_TO_LABEL: Record<"en" | "de" | "hi" | "id", string> = {
+export const LANG_CODE_TO_LABEL: Record<"en" | "de" | "hi" | "id" | "th" | "ko" | "ar" | "zh" | "ta" | "it" | "ur" | "fr" | "es" | "lo" | "pcm", string> = {
   en: "English",
   de: "German",
   hi: "Hindi",
   id: "Indonesian",
+  th: "Thai",
+  ko: "Korean",
+  ar: "Arabic",
+  zh: "Chinese",
+  ta: "Tamil",
+  it: "Italian",
+  ur: "Urdu",
+  fr: "French",
+  es: "Spanish",
+  lo: "Lao",
+  pcm: "Nigerian Pidgin",
 };
 
 export type FilmLang = keyof typeof LANG_CODE_TO_LABEL;

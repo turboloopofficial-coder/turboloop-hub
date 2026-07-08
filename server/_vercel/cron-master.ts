@@ -191,6 +191,13 @@ function bannerUrlBlog(slug: string, title: string): string {
 // Generated with cairosvg locally and uploaded to R2 for reliable Telegram delivery.
 const R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
 function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T15"|"LIVE"|"T0" = "T30"): string {
+  // Thai Zoom uses the dedicated portrait banner (rotates between portrait and landscape by day)
+  if (lang === "th") {
+    const v = (Math.floor(Date.now() / 86_400_000) % 2) + 1; // alternate 1/2 daily
+    return v === 1
+      ? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/thai/thai_zoom_portrait.png"
+      : "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/thai/thai_zoom_landscape.png";
+  }
   // 4-month celebration: use special banners for July 8 2026 only
   const todayStr = new Date().toISOString().slice(0, 10);
   if (todayStr === "2026-07-08") {
@@ -1150,6 +1157,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceZoomEnT0  = forceSet.has("zoom:en:T0");
     const forceZoomHiT30 = forceSet.has("zoom:hi:T30");
     const forceZoomEnT30 = forceSet.has("zoom:en:T30");
+    const forceZoomThT60 = forceSet.has("zoom:th:T60");
+    const forceZoomThT30 = forceSet.has("zoom:th:T30");
+    const forceZoomThT15 = forceSet.has("zoom:th:T15");
+    const forceZoomThT0  = forceSet.has("zoom:th:T0");
     const forceCampaignLifestyle   = forceSet.has("campaign:lifestyle");
     const forceCampaignToken        = forceSet.has("campaign:token");
     const forceCampaignReferral     = forceSet.has("campaign:referral");
@@ -1455,6 +1466,78 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
     }
 
+    // ============ 4b. THAI ZOOM — 4-tier reminder sequence ============
+    // Thai Google Meet call — every day:
+    //   Evening sessions (Sun/Mon/Tue/Thu): 20:00 TH = 13:00 UTC
+    //   Morning session (Sat):              09:00 TH = 02:00 UTC
+    //   Off days (Wed/Fri): no reminders
+    // Reminder tiers:
+    //   T-60 @ 12:00 UTC (evening) / 01:00 UTC (morning Sat)
+    //   T-30 @ 12:30 UTC (evening) / 01:30 UTC (morning Sat)
+    //   T-15 @ 12:45 UTC (evening) / 01:45 UTC (morning Sat)
+    //   LIVE @ 13:00 UTC (evening) / 02:00 UTC (morning Sat)
+    {
+      const now = new Date();
+      const dow = now.getUTCDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+      const isSatMorning = dow === 6; // Saturday → 09:00 TH = 02:00 UTC
+      const isOffDay = dow === 3 || dow === 5; // Wed or Fri → no Thai Zoom
+      if (!isOffDay) {
+        // Times vary by day type
+        const [h60, m60] = isSatMorning ? [1,  0] : [12,  0];
+        const [h30, m30] = isSatMorning ? [1, 30] : [12, 30];
+        const [h15, m15] = isSatMorning ? [1, 45] : [12, 45];
+        const [h0,  m0 ] = isSatMorning ? [2,  0] : [13,  0];
+        const TH_MEET_LINK = "https://meet.google.com/nmh-hhkr-uzd";
+        const TH_PASSCODE  = "";
+        const TH_TIME_LABEL = isSatMorning
+          ? "🇹🇭 09:00 น. (วันเสาร์)"
+          : "🇹🇭 20:00 น. | Google Meet";
+        // TH T-60
+        try {
+          if ((isInWindow(h60, m60) || isMissedToday(h60, m60) || forceZoomThT60) && (forceZoomThT60 || !(await hasFiredToday(db, "zoom:th:T60")))) {
+            await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, TH_TIME_LABEL);
+            await markFired(db, "zoom:th:T60");
+            log.push(`🇹🇭 TH Zoom T-60`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T60", err).catch(() => {});
+          log.push(`❌ zoom:th:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        // TH T-30
+        try {
+          if ((isInWindow(h30, m30) || isMissedToday(h30, m30) || forceZoomThT30) && (forceZoomThT30 || !(await hasFiredToday(db, "zoom:th:T30")))) {
+            await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, TH_TIME_LABEL);
+            await markFired(db, "zoom:th:T30");
+            log.push(`🇹🇭 TH Zoom T-30`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T30", err).catch(() => {});
+          log.push(`❌ zoom:th:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        // TH T-15
+        try {
+          if ((isInWindow(h15, m15) || isMissedToday(h15, m15) || forceZoomThT15) && (forceZoomThT15 || !(await hasFiredToday(db, "zoom:th:T15")))) {
+            await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, TH_TIME_LABEL);
+            await markFired(db, "zoom:th:T15");
+            log.push(`🇹🇭 TH Zoom T-15`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T15", err).catch(() => {});
+          log.push(`❌ zoom:th:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        // TH T-0 LIVE
+        try {
+          if ((isInWindow(h0, m0) || isMissedToday(h0, m0) || forceZoomThT0) && (forceZoomThT0 || !(await hasFiredToday(db, "zoom:th:T0")))) {
+            await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, TH_TIME_LABEL);
+            await markFired(db, "zoom:th:T0");
+            log.push(`🇹🇭 TH Zoom T-0 LIVE`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T0", err).catch(() => {});
+          log.push(`❌ zoom:th:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+      }
+    }
     // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
     try {
       if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {

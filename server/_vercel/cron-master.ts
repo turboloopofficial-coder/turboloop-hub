@@ -191,6 +191,13 @@ function bannerUrlBlog(slug: string, title: string): string {
 // Generated with cairosvg locally and uploaded to R2 for reliable Telegram delivery.
 const R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
 function bannerUrlZoom(lang: ZoomLang, tier: "T60"|"T30"|"T15"|"LIVE"|"T0" = "T30"): string {
+  // 4-month celebration: use special banners for July 8 2026 only
+  const todayStr = new Date().toISOString().slice(0, 10);
+  if (todayStr === "2026-07-08") {
+    return lang === "hi"
+      ? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/4month-hindi-celebration.png"
+      : "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/4month-global-celebration.png";
+  }
   const t = tier === "T0" ? "live" : tier.toLowerCase(); // normalise T0→live
   const v = (Math.floor(Date.now() / 86_400_000) % 3) + 1; // 1-3 daily rotation
   return `${R2_ZOOM}/hub-promo-zoom-${lang}-${t}-v${v}.png`;

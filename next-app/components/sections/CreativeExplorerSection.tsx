@@ -53,8 +53,8 @@ const LANGUAGE_GROUPS: Array<{
   { id: "urdu",       label: "Urdu",             flag: "🇵🇰", categories: ["urdu"],        href: "/creatives/urdu" },
   { id: "german",     label: "German",           flag: "🇩🇪", categories: ["german"],      href: "/creatives/german" },
   { id: "thai",       label: "Thai",             flag: "🇹🇭", categories: ["thai"],        href: "/creatives/thai" },
-  { id: "korean",     label: "Korean",           flag: "🇰🇷", categories: ["korean"],      href: "/creatives/korean" },
-  { id: "lao",        label: "Lao",              flag: "🇱🇦", categories: ["lao"],         href: "/creatives/lao" },
+  { id: "korean",     label: "Korean",           flag: "🇰🇷", categories: ["ko"],          href: "/creatives/ko" },
+  { id: "lao",        label: "Lao",              flag: "🇱🇦", categories: ["la"],          href: "/creatives/la" },
   { id: "tamil",      label: "Tamil",            flag: "🇮🇳", categories: ["tamil"],       href: "/creatives/tamil" },
 ];
 

@@ -82,6 +82,7 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   german:             { from: "#3B82F6", to: "#1D4ED8" },
   ko:                 { from: "#EF4444", to: "#1D4ED8" },
   la:                 { from: "#CE1126", to: "#002868" },
+  tamil:              { from: "#F97316", to: "#7C3AED" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -107,6 +108,7 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   thai:                { label: "Thai Market", emoji: "🇹🇭", description: "Thai-language banners for the Thai DeFi community." },
   ko:                  { label: "Korean Market", emoji: "🇰🇷", description: "Korean-language banners for the Korean DeFi community." },
   la:                  { label: "Lao Market", emoji: "🇱🇦", description: "Lao-language banners for the Lao DeFi community." },
+  tamil:               { label: "Tamil Market", emoji: "🇱🇰", description: "Tamil-language banners for the Tamil-speaking DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -139,6 +141,7 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   thai:                { label: "เริ่มต้นวันนี้", url: "https://turboloop.tech/apply" },
   ko:                  { label: "지금 시작하기", url: "https://turboloop.tech/apply" },
   la:                  { label: "ເລີ່ມຕົ້ນວັນນີ້", url: "https://turboloop.tech/apply" },
+  tamil:               { label: "இன்றே தொடங்குங்கள்", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },

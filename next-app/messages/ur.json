@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "ایپ لانچ کریں",
+    "protocol": "پروٹوکول",
+    "watchLearn": "دیکھیں اور سیکھیں",
+    "community": "کمیونٹی",
+    "earnBuild": "کمائیں اور بنائیں",
+    "languagePicker": "زبان",
+    "links": {
+      "yieldFarming": "ییلڈ فارمنگ",
+      "referralNetwork": "ریفرل نیٹ ورک",
+      "leadershipProgram": "لیڈرشپ پروگرام",
+      "turboBuy": "Turbo خریدیں",
+      "turboSwap": "Turbo سوآپ",
+      "security": "سیکیورٹی",
+      "films": "فلمز",
+      "reels": "ریلز",
+      "library": "لائبریری",
+      "blog": "بلاگ",
+      "learnDeFi": "DeFi سیکھیں",
+      "communityLink": "کمیونٹی",
+      "socialWall": "سوشل وال",
+      "leaderboard": "لیڈر بورڈ",
+      "events": "ایونٹس اور زوم",
+      "turboToken": "$TURBO ٹوکن",
+      "promotions": "پروموشنز",
+      "applyToEarn": "کمانے کے لیے درخواست دیں",
+      "careers": "کیریئر",
+      "creatives": "کریئیٹو مواد",
+      "faq": "عمومی سوالات",
+      "roadmap": "روڈ میپ",
+      "calculator": "کیلکولیٹر"
+    }
+  },
+  "home": {
+    "liveStatus": "Binance Smart Chain پر لائیو",
+    "heroTagline": "پائیدار منافع۔ ڈیزائن کے اعتبار سے شفاف۔ سب کے لیے کھلا۔",
+    "heroTaglinePart1": "پائیدار منافع.",
+    "heroTaglinePart2": "ڈیزائن کے اعتبار سے شفاف.",
+    "heroTaglinePart3": "سب کے لیے کھلا.",
+    "launchApp": "ایپ لانچ کریں",
+    "watchFilms": "فلمیں دیکھیں",
+    "shareStory": "یا اپنی کہانی شیئر کریں →",
+    "scroll": "اسکرول کریں",
+    "trust": {
+      "audited": "آزادانہ آڈٹ شدہ",
+      "lpLocked": "100% LP لاکڈ",
+      "renounced": "مالکیت ترک کر دی گئی",
+      "bscscan": "BscScan پر تصدیق شدہ"
+    },
+    "newsletter": {
+      "title": "منافع میں آگے رہیں۔",
+      "subtitle": "ہفتہ وار پروٹوکول اپڈیٹس، نیا مواد، اور کمیونٹی کی جھلکیاں — سیدھا آپ کے ان باکس میں۔",
+      "placeholder": "آپ کا ای میل پتہ",
+      "subscribe": "سبسکرائب کریں",
+      "privacy": "کوئی اسپیم نہیں۔ آپ کسی بھی وقت رکنیت ختم کر سکتے ہیں۔"
+    }
+  },
+  "calculator": {
+    "eyebrow": "منافع + ٹوکن کیلکولیٹر",
+    "title": "اعداد و شمار کا حساب کریں۔",
+    "subtitle": "ایک پلان منتخب کریں، اپنی جمع رقم درج کریں، اور اپنا بالکل درست منافع دیکھیں — کوئی کمپاؤنڈنگ نہیں، کوئی چھپی فیس نہیں۔",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "7 دن میں 3%",
+      "boost": "14 دن میں 10%",
+      "power": "30 دن میں 24%",
+      "ultimate": "60 دن میں 54%"
+    },
+    "deposit": "جمع رقم",
+    "depositPlaceholder": "رقم USDT میں درج کریں",
+    "minimum": "کم از کم: 1 USDT",
+    "yourReturn": "آپ کی واپسی",
+    "earnings": "کمائی",
+    "totalAtMaturity": "میچوریٹی پر کل رقم",
+    "planDuration": "پلان کی مدت",
+    "days": "دن",
+    "startPlan": "اس پلان کو شروع کریں",
+    "presets": "فوری مقداریں",
+    "rewardTier": "انعام کی سطح",
+    "tokenBonus": "$TURBO ٹوکن بونس",
+    "vestingRank": "وسٹنگ درجہ",
+    "projection": "تخمینہ"
+  },
+  "faq": {
+    "eyebrow": "اکثر پوچھے گئے سوالات",
+    "title": "وہ سب کچھ جو آپ کو جاننا چاہیے۔",
+    "subtitle": "جواب نہیں مل رہا؟ ہماری Telegram کمیونٹی میں پوچھیں۔",
+    "askCommunity": "کمیونٹی سے پوچھیں"
+  },
+  "apply": {
+    "eyebrow": "کمائیں کے لیے درخواست دیں",
+    "title": "TurboLoop کریئیٹر نیٹ ورک میں شامل ہوں۔",
+    "subtitle": "اپنے سامعین کے ساتھ TurboLoop شیئر کر کے کمیشن حاصل کریں۔ دو راستے: Creator Star اور Local Presenter۔",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "ابھی درخواست دیں",
+    "requirements": "درکار شرائط",
+    "benefits": "فائدے",
+    "howItWorks": "یہ کیسے کام کرتا ہے"
+  },
+  "token": {
+    "eyebrow": "$TURBO ٹوکن",
+    "title": "ڈیفلیشنری بونس لیئر۔",
+    "subtitle": "Power اور Ultimate پلان کے جمع کنندگان کو ان کے USDT منافع کے اوپر بونس کے طور پر $TURBO ٹوکن ملتے ہیں۔",
+    "buyback": "روزانہ Buyback اور Burn",
+    "supply": "کل سپلائی",
+    "burned": "جلائے گئے",
+    "circulatingSupply": "گردش میں موجود رسد",
+    "viewOnBscScan": "BscScan پر دیکھیں",
+    "buyTurbo": "$TURBO خریدیں",
+    "tokenomics": "ٹوکنومکس",
+    "vestingSchedule": "وسٹنگ شیڈول"
+  },
+  "common": {
+    "learnMore": "مزید جانیں",
+    "viewAll": "سب دیکھیں",
+    "getStarted": "شروع کریں",
+    "joinNow": "ابھی شامل ہوں",
+    "readMore": "مزید پڑھیں",
+    "download": "ڈاؤن لوڈ",
+    "share": "شیئر کریں",
+    "close": "بند کریں",
+    "back": "واپس",
+    "next": "اگلا",
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "کچھ غلط ہو گیا۔ براہ کرم دوبارہ کوشش کریں۔",
+    "copyLink": "لنک کاپی کریں",
+    "copied": "کاپی ہوگیا!",
+    "days": "دن",
+    "hours": "گھنٹے",
+    "minutes": "منٹ",
+    "seconds": "سیکنڈ"
+  },
+  "footer": {
+    "tagline": "Binance Smart Chain پر غیر مرکزی ییلڈ فارمنگ۔",
+    "protocol": "پروٹوکول",
+    "content": "مواد",
+    "community": "کمیونٹی",
+    "legal": "قانونی",
+    "privacy": "پرائیویسی پالیسی",
+    "terms": "سروس کی شرائط",
+    "security": "سیکیورٹی",
+    "allRightsReserved": "تمام حقوق محفوظ ہیں۔",
+    "auditedBy": "آڈٹ شدہ"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — BSC پر DeFi ییلڈ فارمنگ",
+      "description": "ایک حقیقی USDC/USDT لیکوئڈیٹی پول سے 60 دن میں زیادہ سے زیادہ 54% ROI حاصل کریں۔ آڈٹ شدہ، LP لاکڈ، ملکیت ترک شدہ۔ کم از کم 1 USDT۔"
+    },
+    "calculator": {
+      "title": "ییلڈ کیلکولیٹر — TurboLoop",
+      "description": "Sprint، Boost، Power، اور Ultimate پلانز کے لیے اپنا درست USDT منافع اور $TURBO ٹوکن بونس حساب کریں۔"
+    },
+    "faq": {
+      "title": "عمومی سوالات — TurboLoop",
+      "description": "TurboLoop DeFi ییلڈ فارمنگ کے بارے میں سب سے عام سوالات کے جواب۔"
+    },
+    "apply": {
+      "title": "کمائیں کے لیے درخواست — TurboLoop",
+      "description": "TurboLoop کریئیٹر نیٹ ورک میں شامل ہوں۔ Creator Star یا Local Presenter کے طور پر کمیشن حاصل کریں۔"
+    },
+    "token": {
+      "title": "$TURBO ٹوکن — TurboLoop",
+      "description": "ڈیفلیشنری $TURBO ٹوکن کے بارے میں جانیں — روزانہ buyback اور burn، وسٹنگ شیڈول، اور ٹوکنومکس۔"
+    }
+  }
+}

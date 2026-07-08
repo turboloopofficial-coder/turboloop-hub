@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "Lancer l'application",
+    "protocol": "Protocole",
+    "watchLearn": "Regarder & Apprendre",
+    "community": "Communauté",
+    "earnBuild": "Gagner & Construire",
+    "languagePicker": "Langue",
+    "links": {
+      "yieldFarming": "Farming de rendement",
+      "referralNetwork": "Réseau de parrainage",
+      "leadershipProgram": "Programme de leadership",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "Sécurité",
+      "films": "Films",
+      "reels": "Reels",
+      "library": "Bibliothèque",
+      "blog": "Blog",
+      "learnDeFi": "Apprendre la DeFi",
+      "communityLink": "Communauté",
+      "socialWall": "Mur social",
+      "leaderboard": "Classement",
+      "events": "Événements & Zoom",
+      "turboToken": "$TURBO Token",
+      "promotions": "Promotions",
+      "applyToEarn": "Postuler pour gagner",
+      "careers": "Carrières",
+      "creatives": "Créatifs",
+      "faq": "FAQ",
+      "roadmap": "Feuille de route",
+      "calculator": "Calculatrice"
+    }
+  },
+  "home": {
+    "liveStatus": "En ligne sur Binance Smart Chain",
+    "heroTagline": "Rendements durables. Conçu pour la transparence. Ouvert à tous.",
+    "heroTaglinePart1": "Rendements durables.",
+    "heroTaglinePart2": "Conçu pour la transparence.",
+    "heroTaglinePart3": "Ouvert à tous.",
+    "launchApp": "Lancer l'application",
+    "watchFilms": "Regarder les films",
+    "shareStory": "Ou partagez votre histoire →",
+    "scroll": "Faites défiler",
+    "trust": {
+      "audited": "Audit indépendant",
+      "lpLocked": "100% LP verrouillé",
+      "renounced": "Propriété renoncée",
+      "bscscan": "Vérifié sur BscScan"
+    },
+    "newsletter": {
+      "title": "Prenez de l'avance sur les rendements.",
+      "subtitle": "Mises à jour hebdomadaires du protocole, nouveau contenu et temps forts de la communauté — directement dans votre boîte mail.",
+      "placeholder": "Votre adresse e-mail",
+      "subscribe": "S'abonner",
+      "privacy": "Pas de spam. Désabonnement possible à tout moment."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Calculateur de rendement + token",
+    "title": "Faites les calculs.",
+    "subtitle": "Choisissez un plan, saisissez votre dépôt et voyez votre rendement exact — sans capitalisation, sans frais cachés.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% en 7 jours",
+      "boost": "10% en 14 jours",
+      "power": "24% en 30 jours",
+      "ultimate": "54% en 60 jours"
+    },
+    "deposit": "Montant du dépôt",
+    "depositPlaceholder": "Saisissez le montant en USDT",
+    "minimum": "Minimum: 1 USDT",
+    "yourReturn": "Votre rendement",
+    "earnings": "Gains",
+    "totalAtMaturity": "Total à l'échéance",
+    "planDuration": "Durée du plan",
+    "days": "jours",
+    "startPlan": "Démarrer ce plan",
+    "presets": "Montants rapides",
+    "rewardTier": "Palier de récompense",
+    "tokenBonus": "Bonus en $TURBO",
+    "vestingRank": "Rang de vesting",
+    "projection": "Projection"
+  },
+  "faq": {
+    "eyebrow": "Questions fréquemment posées",
+    "title": "Tout ce que vous devez savoir.",
+    "subtitle": "Vous ne trouvez pas de réponse ? Demandez dans notre communauté Telegram.",
+    "askCommunity": "Demander à la communauté"
+  },
+  "apply": {
+    "eyebrow": "Postuler pour gagner",
+    "title": "Rejoignez le réseau de créateurs TurboLoop.",
+    "subtitle": "Gagnez des commissions en partageant TurboLoop avec votre audience. Deux parcours : Creator Star et Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "Postuler maintenant",
+    "requirements": "Exigences",
+    "benefits": "Avantages",
+    "howItWorks": "Comment ça marche"
+  },
+  "token": {
+    "eyebrow": "$TURBO Token",
+    "title": "La couche bonus déflationniste.",
+    "subtitle": "Les déposants des plans Power et Ultimate reçoivent des tokens $TURBO en bonus en plus de leur rendement en USDT.",
+    "buyback": "Rachat et burn quotidien",
+    "supply": "Offre totale",
+    "burned": "Brûlés",
+    "circulatingSupply": "Offre en circulation",
+    "viewOnBscScan": "Voir sur BscScan",
+    "buyTurbo": "Acheter $TURBO",
+    "tokenomics": "Tokenomics",
+    "vestingSchedule": "Calendrier de vesting"
+  },
+  "common": {
+    "learnMore": "En savoir plus",
+    "viewAll": "Voir tout",
+    "getStarted": "Commencer",
+    "joinNow": "Rejoindre maintenant",
+    "readMore": "En savoir plus",
+    "download": "Télécharger",
+    "share": "Partager",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "copyLink": "Copier le lien",
+    "copied": "Copié !",
+    "days": "jours",
+    "hours": "heures",
+    "minutes": "minutes",
+    "seconds": "secondes"
+  },
+  "footer": {
+    "tagline": "Yield farming décentralisé sur Binance Smart Chain.",
+    "protocol": "Protocole",
+    "content": "Contenu",
+    "community": "Communauté",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "security": "Sécurité",
+    "allRightsReserved": "Tous droits réservés.",
+    "auditedBy": "Audité par"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming on BSC",
+      "description": "Gagnez jusqu'à 54% de ROI en 60 jours depuis un pool de liquidité USDC/USDT. Audité, LP verrouillé, propriété renoncée. Minimum 1 USDT."
+    },
+    "calculator": {
+      "title": "Calculateur de rendement — TurboLoop",
+      "description": "Calculez votre retour exact en USDT et le bonus en $TURBO pour les plans Sprint, Boost, Power et Ultimate."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "Réponses aux questions les plus fréquentes sur le yield farming DeFi de TurboLoop."
+    },
+    "apply": {
+      "title": "Postuler pour gagner — TurboLoop",
+      "description": "Rejoignez le réseau de créateurs TurboLoop. Gagnez des commissions en tant que Creator Star ou Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "En savoir plus sur le token déflationniste $TURBO — rachat et burn quotidiens, calendrier de vesting et tokenomics."
+    }
+  }
+}

@@ -50,7 +50,7 @@ export function UnifiedCreativesGrid({
   categoryNavMode = false,
 }: Props) {
   const router = useRouter();
-  const [exploreMode, setExploreMode] = useState<"category" | "language">("category");
+  const [exploreMode, setExploreMode] = useState<"category" | "language">("language");
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory ?? "all");
   const [activeLang, setActiveLang] = useState<CreativeLanguage | "all">("all");
   const [search, setSearch] = useState("");

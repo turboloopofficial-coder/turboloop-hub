@@ -14,7 +14,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -251,6 +251,7 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "german" ? "de" :
     b.category === "thai" ? "th" :
     b.category === "ko" ? "ko" :
+    b.category === "tamil" ? "ta" :
     b.category === "la" ? "lo" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
@@ -345,6 +346,7 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
   { code: "ko", label: "한국어", flag: "🇰🇷" },
   { code: "lo", label: "ພາສາລາວ", flag: "🇱🇦" },
+  { code: "ta", label: "தமிழ்", flag: "🇮🇳" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

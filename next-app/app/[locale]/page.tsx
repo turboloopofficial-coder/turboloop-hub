@@ -217,10 +217,10 @@ export default async function LocaleHomePage({ params }: Props) {
         <TestimonialSection />
       </Reveal>
       <Reveal>
-        <HomeGlobalReelsSection />
+        <HomeGlobalReelsSection defaultLang={locale as import("@lib/reelsData").ReelLang} />
       </Reveal>
       <SectionDivider />
-      <CreativeExplorerSection />
+      <CreativeExplorerSection defaultLocale={locale} />
       <SectionDivider />
       <Reveal>
         <ZoomLiveSection />

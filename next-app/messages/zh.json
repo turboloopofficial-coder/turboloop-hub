@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "启动应用",
+    "protocol": "协议",
+    "watchLearn": "观看并学习",
+    "community": "社区",
+    "earnBuild": "赚取并构建",
+    "languagePicker": "语言",
+    "links": {
+      "yieldFarming": "流动性挖矿",
+      "referralNetwork": "推荐网络",
+      "leadershipProgram": "领袖计划",
+      "turboBuy": "Turbo 购买",
+      "turboSwap": "Turbo 兑换",
+      "security": "安全",
+      "films": "影片",
+      "reels": "短视频",
+      "library": "资料库",
+      "blog": "博客",
+      "learnDeFi": "学习 DeFi",
+      "communityLink": "社区",
+      "socialWall": "社交墙",
+      "leaderboard": "排行榜",
+      "events": "活动与 Zoom",
+      "turboToken": "$TURBO 代币",
+      "promotions": "活动",
+      "applyToEarn": "申请赚取",
+      "careers": "招聘",
+      "creatives": "创意素材",
+      "faq": "常见问题",
+      "roadmap": "路线图",
+      "calculator": "计算器"
+    }
+  },
+  "home": {
+    "liveStatus": "已在 Binance 智能链上线",
+    "heroTagline": "可持续的收益。设计上透明。向所有人开放。",
+    "heroTaglinePart1": "可持续的收益。",
+    "heroTaglinePart2": "设计上透明。",
+    "heroTaglinePart3": "人人可参与。",
+    "launchApp": "启动应用",
+    "watchFilms": "观看影片",
+    "shareStory": "或分享你的故事 →",
+    "scroll": "滚动",
+    "trust": {
+      "audited": "独立审计",
+      "lpLocked": "100% LP 已锁定",
+      "renounced": "所有权已放弃",
+      "bscscan": "BscScan 验证"
+    },
+    "newsletter": {
+      "title": "领先掌握收益信息。",
+      "subtitle": "每周协议更新、新内容和社区亮点，直达你的邮箱。",
+      "placeholder": "你的电子邮箱",
+      "subscribe": "订阅",
+      "privacy": "无垃圾邮件。随时可退订。"
+    }
+  },
+  "calculator": {
+    "eyebrow": "收益与代币计算器",
+    "title": "计算收益。",
+    "subtitle": "选择方案、输入存款，即可查看精确回报 — 无复利、无隐藏费用。",
+    "plans": {
+      "sprint": "冲刺",
+      "boost": "加速",
+      "power": "强力",
+      "ultimate": "终极"
+    },
+    "planDetails": {
+      "sprint": "7 天内 3%",
+      "boost": "14 天内 10%",
+      "power": "30 天内 24%",
+      "ultimate": "60 天内 54%"
+    },
+    "deposit": "存款金额",
+    "depositPlaceholder": "输入 USDT 金额",
+    "minimum": "最低：1 USDT",
+    "yourReturn": "你的回报",
+    "earnings": "收益",
+    "totalAtMaturity": "到期总额",
+    "planDuration": "方案期限",
+    "days": "天",
+    "startPlan": "开始此方案",
+    "presets": "快捷金额",
+    "rewardTier": "奖励等级",
+    "tokenBonus": "$TURBO 代币奖励",
+    "vestingRank": "归属等级",
+    "projection": "预测"
+  },
+  "faq": {
+    "eyebrow": "常见问题",
+    "title": "你需要知道的一切。",
+    "subtitle": "找不到答案？在我们的 Telegram 社区提问。",
+    "askCommunity": "向社区提问"
+  },
+  "apply": {
+    "eyebrow": "申请赚取",
+    "title": "加入 TurboLoop 创作者网络。",
+    "subtitle": "通过向你的受众分享 TurboLoop 获取佣金。两条路径：Creator Star 和 Local Presenter。",
+    "creatorStar": "创作者之星",
+    "localPresenter": "本地主持",
+    "applyNow": "立即申请",
+    "requirements": "要求",
+    "benefits": "福利",
+    "howItWorks": "运作方式"
+  },
+  "token": {
+    "eyebrow": "$TURBO 代币",
+    "title": "通缩型的奖励层。",
+    "subtitle": "选择 Power 和 Ultimate 方案的存款者将额外获得 $TURBO 代币作为奖励，叠加其 USDT 收益。",
+    "buyback": "每日回购与销毁",
+    "supply": "总供应量",
+    "burned": "已销毁",
+    "circulatingSupply": "流通量",
+    "viewOnBscScan": "在 BscScan 查看",
+    "buyTurbo": "购买 $TURBO",
+    "tokenomics": "代币经济学",
+    "vestingSchedule": "归属时间表"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "viewAll": "查看全部",
+    "getStarted": "开始",
+    "joinNow": "立即加入",
+    "readMore": "阅读更多",
+    "download": "下载",
+    "share": "分享",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "loading": "加载中...",
+    "error": "出现错误。请重试。",
+    "copyLink": "复制链接",
+    "copied": "已复制！",
+    "days": "天",
+    "hours": "小时",
+    "minutes": "分钟",
+    "seconds": "秒"
+  },
+  "footer": {
+    "tagline": "在 Binance 智能链上的去中心化收益耕作。",
+    "protocol": "协议",
+    "content": "内容",
+    "community": "社区",
+    "legal": "法律",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "security": "安全",
+    "allRightsReserved": "版权所有。",
+    "auditedBy": "审计方"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — BSC 上的 DeFi 收益耕作",
+      "description": "从真实 USDC/USDT 流动性池 60 天内获得最高 54% 回报。已审计、LP 锁定、所有权放弃。最低 1 USDT。"
+    },
+    "calculator": {
+      "title": "收益计算器 — TurboLoop",
+      "description": "计算 Sprint、Boost、Power 和 Ultimate 方案的精确 USDT 回报及 $TURBO 代币奖励。"
+    },
+    "faq": {
+      "title": "常见问题 — TurboLoop",
+      "description": "关于 TurboLoop DeFi 收益耕作的常见问题解答。"
+    },
+    "apply": {
+      "title": "申请赚取 — TurboLoop",
+      "description": "加入 TurboLoop 创作者网络。作为 Creator Star 或 Local Presenter 获取佣金。"
+    },
+    "token": {
+      "title": "$TURBO 代币 — TurboLoop",
+      "description": "了解 $TURBO 通缩代币：每日回购与销毁、归属时间表与代币经济学。"
+    }
+  }
+}

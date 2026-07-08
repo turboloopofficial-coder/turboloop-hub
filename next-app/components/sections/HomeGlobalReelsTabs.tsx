@@ -15,13 +15,15 @@ import type { ReelTrack, ReelLang } from "@lib/reelsData";
 export interface HomeGlobalReelsTabsProps {
   reelsByLang: Record<ReelLang, ReelTrack[]>;
   languages: Array<{ code: ReelLang; label: string; flag: string }>;
+  defaultLang?: ReelLang;
 }
 
 export function HomeGlobalReelsTabs({
   reelsByLang,
   languages,
+  defaultLang,
 }: HomeGlobalReelsTabsProps) {
-  const [active, setActive] = useState<ReelLang>("en");
+  const [active, setActive] = useState<ReelLang>(defaultLang ?? "en");
   const visible = reelsByLang[active] ?? [];
 
   return (

@@ -53,8 +53,9 @@ const LANGUAGE_GROUPS: Array<{
   { id: "urdu",       label: "Urdu",             flag: "🇵🇰", categories: ["urdu"],        href: "/creatives/urdu" },
   { id: "german",     label: "German",           flag: "🇩🇪", categories: ["german"],      href: "/creatives/german" },
   { id: "thai",       label: "Thai",             flag: "🇹🇭", categories: ["thai"],        href: "/creatives/thai" },
-  { id: "korean",     label: "Korean",           flag: "🇰🇷", categories: ["ko"],          href: "/creatives/ko" },
-  { id: "lao",        label: "Lao",              flag: "🇱🇦", categories: ["la"],          href: "/creatives/la" },
+  { id: "korean",     label: "Korean",           flag: "🇰🇷", categories: ["korean"],      href: "/creatives/korean" },
+  { id: "lao",        label: "Lao",              flag: "🇱🇦", categories: ["lao"],         href: "/creatives/lao" },
+  { id: "tamil",      label: "Tamil",            flag: "🇮🇳", categories: ["tamil"],       href: "/creatives/tamil" },
 ];
 
 // ── Data: Category tabs ───────────────────────────────────────────────────
@@ -295,11 +296,19 @@ function TabPill({
 
 // ── Main Client Component ─────────────────────────────────────────────────
 
-export function CreativeExplorerSection() {
+// Map from next-intl locale codes to LANGUAGE_GROUPS IDs
+const LOCALE_TO_LANG_ID: Record<string, string> = {
+  en: "english", th: "thai", ko: "korean", lo: "lao", hi: "hindi",
+  ta: "tamil", ar: "arabic", zh: "chinese", it: "italian", ur: "urdu",
+  fr: "french", es: "spanish", pcm: "nigerian", de: "german", id: "indonesian",
+};
+
+export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
+  const defaultLangId = (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale]) ?? "english";
   const [mode, setMode]         = useState<"language" | "category">("language");
   const [langTabs]              = useState<TabDef[]>(() => buildLangTabs());
   const [catTabs]               = useState<TabDef[]>(() => buildCatTabs());
-  const [activeLang, setActiveLang] = useState("english");
+  const [activeLang, setActiveLang] = useState(defaultLangId);
   const [activeCat,  setActiveCat]  = useState("lifestyle");
   const pillsRef = useRef<HTMLDivElement>(null);
 

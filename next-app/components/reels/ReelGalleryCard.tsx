@@ -19,14 +19,14 @@ import type { ReelTrack } from "@lib/reelsData";
 import { dispatchNudgeEvent } from "@components/notifications/SmartNotifications";
 
 const LANG_LABEL: Record<ReelTrack["lang"], string> = {
-  en: "EN",
-  de: "DE",
-  id: "ID",
+  en: "EN", th: "TH", ko: "KO", lo: "LO", hi: "HI", ta: "TA",
+  ar: "AR", zh: "ZH", it: "IT", ur: "UR", fr: "FR", es: "ES",
+  pcm: "PCM", de: "DE", id: "ID",
 };
 const LANG_FLAG: Record<ReelTrack["lang"], string> = {
-  en: "🇬🇧",
-  de: "🇩🇪",
-  id: "🇮🇩",
+  en: "🇬🇧", th: "🇹🇭", ko: "🇰🇷", lo: "🇱🇦", hi: "🇮🇳", ta: "🇮🇳",
+  ar: "🇸🇦", zh: "🇨🇳", it: "🇮🇹", ur: "🇵🇰", fr: "🇫🇷", es: "🇪🇸",
+  pcm: "🇳🇬", de: "🇩🇪", id: "🇮🇩",
 };
 
 function filenameFromUrl(url: string): string {

@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "launchApp": "فتح التطبيق",
+    "protocol": "البروتوكول",
+    "watchLearn": "شاهد وتعلم",
+    "community": "المجتمع",
+    "earnBuild": "اكسب وابنِ",
+    "languagePicker": "اللغة",
+    "links": {
+      "yieldFarming": "زراعة العوائد",
+      "referralNetwork": "شبكة الإحالة",
+      "leadershipProgram": "برنامج القيادة",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "الأمان",
+      "films": "الأفلام",
+      "reels": "ريلز",
+      "library": "المكتبة",
+      "blog": "المدونة",
+      "learnDeFi": "تعلم التمويل اللامركزي",
+      "communityLink": "المجتمع",
+      "socialWall": "الجدار الاجتماعي",
+      "leaderboard": "لوحة المتصدرين",
+      "events": "الفعاليات وZoom",
+      "turboToken": "رمز $TURBO",
+      "promotions": "العروض",
+      "applyToEarn": "قدّم لتكسب",
+      "careers": "الوظائف",
+      "creatives": "المبدعون",
+      "faq": "الأسئلة الشائعة",
+      "roadmap": "خريطة الطريق",
+      "calculator": "الآلة الحاسبة"
+    }
+  },
+  "home": {
+    "liveStatus": "مباشر على BSC",
+    "heroTagline": "عوائد مستدامة. شفافية في التصميم. متاحة للجميع.",
+    "heroTaglinePart1": "عوائد مستدامة.",
+    "heroTaglinePart2": "شفافية في التصميم.",
+    "heroTaglinePart3": "متاحة للجميع.",
+    "launchApp": "فتح التطبيق",
+    "watchFilms": "شاهد الأفلام",
+    "shareStory": "أو شارك قصتك →",
+    "scroll": "مرر",
+    "trust": {
+      "audited": "مدقق بشكل مستقل",
+      "lpLocked": "قفل LP بنسبة 100%",
+      "renounced": "تنازل عن الملكية",
+      "bscscan": "تم التحقق عبر BscScan"
+    },
+    "newsletter": {
+      "title": "ابق في صدارة العوائد.",
+      "subtitle": "تحديثات البروتوكول الأسبوعية، ومحتوى جديد، وأبرز ما في المجتمع — مباشرة إلى بريدك.",
+      "placeholder": "عنوان بريدك الإلكتروني",
+      "subscribe": "اشترك",
+      "privacy": "لا رسائل مزعجة. يمكنك إلغاء الاشتراك في أي وقت."
+    }
+  },
+  "calculator": {
+    "eyebrow": "حاسبة العوائد والتوكن",
+    "title": "احسب الأرقام.",
+    "subtitle": "اختر خطة، أدخل وديعتك، وشاهد عائدك الدقيق — بدون فوائد مركبة، وبدون رسوم خفية.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% في 7 أيام",
+      "boost": "10% في 14 يومًا",
+      "power": "24% في 30 يومًا",
+      "ultimate": "54% في 60 يومًا"
+    },
+    "deposit": "مبلغ الوديعة",
+    "depositPlaceholder": "أدخل المبلغ بـ USDT",
+    "minimum": "الحد الأدنى: 1 USDT",
+    "yourReturn": "عائدك",
+    "earnings": "الأرباح",
+    "totalAtMaturity": "الإجمالي عند الاستحقاق",
+    "planDuration": "مدة الخطة",
+    "days": "أيام",
+    "startPlan": "ابدأ هذه الخطة",
+    "presets": "مبالغ سريعة",
+    "rewardTier": "درجة المكافأة",
+    "tokenBonus": "مكافأة توكن $TURBO",
+    "vestingRank": "مرتبة الاستحقاق",
+    "projection": "التوقع"
+  },
+  "faq": {
+    "eyebrow": "الأسئلة الشائعة",
+    "title": "كل ما تحتاج إلى معرفته.",
+    "subtitle": "لا تجد إجابة؟ اسأل في مجتمعنا على Telegram.",
+    "askCommunity": "اطرح سؤالًا في المجتمع"
+  },
+  "apply": {
+    "eyebrow": "قدّم لتكسب",
+    "title": "انضم إلى شبكة منشئي TurboLoop.",
+    "subtitle": "اكسب عمولات عبر مشاركة TurboLoop مع جمهورك. مساران: Creator Star وLocal Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "قدّم الآن",
+    "requirements": "متطلبات",
+    "benefits": "الفوائد",
+    "howItWorks": "كيف يعمل"
+  },
+  "token": {
+    "eyebrow": "توكن $TURBO",
+    "title": "طبقة المكافأة الانكماشية.",
+    "subtitle": "المودعون في خطتي Power وUltimate يتلقون توكنات $TURBO كمكافأة إضافية فوق عائد USDT الخاص بهم.",
+    "buyback": "إعادة شراء وحرق يومية",
+    "supply": "إجمالي المعروض",
+    "burned": "محروقة",
+    "circulatingSupply": "المعروض المتداول",
+    "viewOnBscScan": "عرض على BscScan",
+    "buyTurbo": "شراء $TURBO",
+    "tokenomics": "اقتصاد التوكن",
+    "vestingSchedule": "جدول الاستحقاق"
+  },
+  "common": {
+    "learnMore": "تعرف على المزيد",
+    "viewAll": "عرض الكل",
+    "getStarted": "ابدأ الآن",
+    "joinNow": "انضم الآن",
+    "readMore": "اقرأ المزيد",
+    "download": "تحميل",
+    "share": "مشاركة",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "loading": "جارٍ التحميل...",
+    "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "copyLink": "نسخ الرابط",
+    "copied": "تم النسخ!",
+    "days": "أيام",
+    "hours": "ساعات",
+    "minutes": "دقائق",
+    "seconds": "ثوانٍ"
+  },
+  "footer": {
+    "tagline": "زراعة عوائد لامركزية على BSC.",
+    "protocol": "البروتوكول",
+    "content": "المحتوى",
+    "community": "المجتمع",
+    "legal": "الشؤون القانونية",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الخدمة",
+    "security": "الأمان",
+    "allRightsReserved": "جميع الحقوق محفوظة.",
+    "auditedBy": "تدقيق بواسطة"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — زراعة عوائد DeFi على BSC",
+      "description": "اكسب حتى 54% خلال 60 يومًا من تجمع سيولة USDC/USDT. مدقق، LP مقفل، تم التنازل عن الملكية. الحد الأدنى 1 USDT."
+    },
+    "calculator": {
+      "title": "حاسبة العوائد — TurboLoop",
+      "description": "احسب عائدك الدقيق بـ USDT ومكافأة $TURBO لخطط Sprint وBoost وPower وUltimate."
+    },
+    "faq": {
+      "title": "الأسئلة الشائعة — TurboLoop",
+      "description": "إجابات على أكثر الأسئلة شيوعاً حول زراعة العوائد في TurboLoop."
+    },
+    "apply": {
+      "title": "قدّم لتكسب — TurboLoop",
+      "description": "انضم لشبكة منشئي TurboLoop واكسب عمولات كـ Creator Star أو Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "تعرف على توكن $TURBO الانكماشي — إعادة شراء وحرق يوميين، جدول استحقاق، واقتصاد التوكن."
+    }
+  }
+}

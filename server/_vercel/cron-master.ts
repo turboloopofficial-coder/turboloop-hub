@@ -1963,12 +1963,13 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // ── TAMIL DAILY ──
     // Tamil banners are not yet on R2 (campaigns/tamil/ not uploaded).
-    // The campaignBannerUrl call returns "" for unknown categories — we guard
-    // against that and skip gracefully rather than posting a broken URL.
+    // We wrap the campaignBannerUrl call in a try/catch because it throws
+    // when the category is not in the file index. Skip gracefully.
     try {
       if ((isInWindow(7, 30) || forceTamilDaily) && (forceTamilDaily || !(await hasFiredToday(db, "tamil:daily")))) {
         const dayIndex = Math.floor(Date.now() / 86_400_000);
-        const photoUrl = campaignBannerUrl("tamil", dayIndex);
+        let photoUrl = "";
+        try { photoUrl = campaignBannerUrl("tamil", dayIndex); } catch { /* not yet indexed */ }
         if (photoUrl) {
           const caption = pickByDay(CAMPAIGN_TAMIL_DAILY_CAPTIONS);
           await tgBroadcastPhoto({

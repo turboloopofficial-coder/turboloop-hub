@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "Pelajari tentang token deflasi $TURBO — daily buyback and burn, vesting schedule, dan tokenomics."
     }
+  },
+  "protocol": {
+    "eyebrow": "Protokol",
+    "title": "Setiap bagian.",
+    "titleHighlight": "Sekilas.",
+    "subtitle": "Empat rencana yield. Sebuah grafik rujukan 20 level. Tujuh peringkat kepemimpinan. Kode diaudit. Satu protokol — dibuat untuk diperiksa, bukan untuk dipercaya.",
+    "plans": {
+      "eyebrow": "4 Rencana Loop",
+      "title": "Pilih durasi. Dapatkan yield tetap.",
+      "subtitle": "Modal dan yield dikembalikan di akhir rencana — tanpa trik penggabungan, tanpa manipulasi annualisasi.",
+      "calculateReturn": "Hitung pengembalian Anda",
+      "turboBonusLabel": "Bonus $TURBO"
+    },
+    "referral": {
+      "title": "20 Tingkat",
+      "subtitle": "51% dari biaya protokol didistribusikan ke komunitas.",
+      "fact1": "Tanpa persyaratan volume",
+      "fact2": "Persentase tetap",
+      "fact3": "Paling dalam di DeFi",
+      "cta": "Jelajahi grafik"
+    },
+    "leadership": {
+      "title": "Mitra → Legenda",
+      "subtitle": "7 peringkat. Dapatkan dari 100 tingkat jaringan Anda.",
+      "cta": "Lihat tangga peringkat",
+      "ranks": {
+        "partner": "Mitra",
+        "builder": "Pembangun",
+        "accelerator": "Akselerator",
+        "director": "Direktur",
+        "executive": "Eksekutif",
+        "ambassador": "Duta",
+        "legend": "Legenda"
+      }
+    },
+    "security": {
+      "title": "Tidak ditemukan kerentanan.",
+      "chip1": "Diaudit",
+      "chip2": "Kepemilikan dilepas",
+      "chip3": "LP Terkunci",
+      "bounty": "$100K hadiah",
+      "bountyUnclaimed": "belum diklaim.",
+      "cta": "Lihat buktinya"
+    },
+    "films": {
+      "title": "Apa itu TurboLoop?",
+      "caption": "Baru di sini? Mulai dari ini.",
+      "cta": "Tonton filmnya"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Dalam Angka",
+    "title": "Sebuah gerakan, bukan sekadar momen.",
+    "subtitle": "Jangkauan nyata di seluruh dunia. Diterjemahkan, diceritakan, dan dijalani dalam puluhan bahasa setiap hari.",
+    "stat1Label": "Bahasa",
+    "stat1Help": "Didukung dalam konten",
+    "stat2Label": "Film",
+    "stat2Help": "Semesta sinematik lengkap",
+    "stat3Label": "Benua",
+    "stat3Help": "Kehadiran komunitas aktif",
+    "stat4Label": "Hadiah",
+    "stat4Help": "Untuk bukti sentralisasi"
+  },
+  "security": {
+    "eyebrow": "Dirancang tanpa kepercayaan",
+    "title": "Lima alasan untuk tidak mempercayai siapa pun.",
+    "subtitle": "Kami menghapus setiap cara yang bisa merugikan Anda. Yang tersisa adalah kode, dipublikasikan, dikunci, dan diverifikasi oleh orang-orang yang tidak bekerja untuk kami.",
+    "pillar1Title": "Diaudit secara independen",
+    "pillar1Body": "Audit smart-contract penuh di SolidityScan (QuickScan). Laporan publik, baris demi baris.",
+    "pillar1Proof": "Baca audit",
+    "pillar2Title": "100% LP terkunci",
+    "pillar2Body": "Likuiditas terkunci di on-chain — diverifikasi di BscScan.",
+    "pillar2Proof": "Verifikasi di BscScan",
+    "pillar3Title": "Kepemilikan dilepaskan",
+    "pillar3Body": "Kepemilikan kontrak secara permanen dihapus di on-chain. Tidak ada yang bisa mengubah kode.",
+    "pillar3Proof": "Lihat transaksi",
+    "pillar4Title": "Sumber diverifikasi",
+    "pillar4Body": "Kode sumber dipublikasikan dan diverifikasi di BscScan. Baca setiap baris.",
+    "pillar4Proof": "Baca kode",
+    "pillar5Title": "$100K hadiah",
+    "pillar5Body": "Temukan sentralisasi dalam kontrak, klaim hadiahnya. Terbuka untuk siapa saja, tanpa NDA.",
+    "pillar5Proof": "Lihat ketentuan",
+    "fullBreakdown": "Lihat rincian keamanan lengkap"
+  },
+  "zoom": {
+    "eyebrow": "Siaran Langsung Sekarang",
+    "title": "Komunitas sedang",
+    "titleHighlight": "siaran langsung sekarang.",
+    "subtitle": "Orang nyata, jawaban nyata. Setiap hari.",
+    "labelEnglish": "Inggris",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Harian · Gratis",
+    "when": "Kapan",
+    "nextCallIn": "Panggilan berikutnya dalam",
+    "joinNow": "Bergabung sekarang"
+  },
+  "reels": {
+    "eyebrow": "Gerakan, Seluruh Dunia",
+    "title": "Belajar dalam bahasa Anda.",
+    "subtitle": "Panduan langkah demi langkah untuk setiap tindakan TurboLoop — cara deposit, menarik, memeriksa pengembalian Anda, dan memverifikasi kunci LP. Tersedia dalam 15 bahasa.",
+    "v1Title": "Cara Menarik",
+    "v2Title": "Cara Kerja Pengembalian",
+    "v3Title": "Cara Memeriksa Kunci LP",
+    "v4Title": "Cara Deposit melalui Kontrak Pintar"
+  },
+  "creatives": {
+    "eyebrow": "Pusat Pemasaran",
+    "title": "Telusuri, unduh, dan bagikan.",
+    "subtitle": "Banner premium dalam bahasa Anda — siap diposting di Telegram, WhatsApp, atau platform apa pun.",
+    "byLanguage": "Menurut Bahasa",
+    "byCategory": "Menurut Kategori",
+    "searchPlaceholder": "Cari banner...",
+    "clearFilters": "Bersihkan",
+    "downloadFree": "Unduh Gratis",
+    "allLanguages": "Semua Bahasa",
+    "allCategories": "Semua Kategori"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

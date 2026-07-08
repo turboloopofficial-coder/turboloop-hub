@@ -170,5 +170,143 @@
       "title": "$TURBO 代币 — TurboLoop",
       "description": "了解 $TURBO 通缩代币：每日回购与销毁、归属时间表与代币经济学。"
     }
+  },
+  "protocol": {
+    "eyebrow": "协议",
+    "title": "每一环。",
+    "titleHighlight": "一目了然。",
+    "subtitle": "四种收益计划。一个20级的推荐图谱。七个等级的领导体系。经审计的代码。一个协议 —— 可被审查，而非被信任。",
+    "plans": {
+      "eyebrow": "4 种 Loop 计划",
+      "title": "选择期限。获得固定收益。",
+      "subtitle": "本金和收益在计划结束时返还 — 无复利伎俩，无年化换算花样。",
+      "calculateReturn": "计算你的回报",
+      "turboBonusLabel": "$TURBO 奖励"
+    },
+    "referral": {
+      "title": "深达20级",
+      "subtitle": "51% 的协议费用分配给社区。",
+      "fact1": "无需交易量要求",
+      "fact2": "固定百分比",
+      "fact3": "在 DeFi 中最深",
+      "cta": "查看推荐图谱"
+    },
+    "leadership": {
+      "title": "合伙人 → 传奇",
+      "subtitle": "7 个等级。可从你网络的 100 级获取收益。",
+      "cta": "查看等级阶梯",
+      "ranks": {
+        "partner": "合伙人",
+        "builder": "缔造者",
+        "accelerator": "加速者",
+        "director": "总监",
+        "executive": "高管",
+        "ambassador": "大使",
+        "legend": "传奇"
+      }
+    },
+    "security": {
+      "title": "未发现任何漏洞。",
+      "chip1": "已审计",
+      "chip2": "已放弃所有权",
+      "chip3": "LP 已锁定",
+      "bounty": "$100K 悬赏",
+      "bountyUnclaimed": "尚未领取。",
+      "cta": "查看证明"
+    },
+    "films": {
+      "title": "What is TurboLoop?",
+      "caption": "新来的吗？从这个开始。",
+      "cta": "观看视频"
+    }
+  },
+  "numbers": {
+    "eyebrow": "按数字看",
+    "title": "一场运动，而非一时热度。",
+    "subtitle": "真实的全球影响。每天以数十种语言被翻译、讲述和实践。",
+    "stat1Label": "语言数量",
+    "stat1Help": "覆盖到内容中",
+    "stat2Label": "视频",
+    "stat2Help": "电影宇宙已完整",
+    "stat3Label": "洲",
+    "stat3Help": "活跃的社区存在",
+    "stat4Label": "悬赏",
+    "stat4Help": "用于证明去中心化"
+  },
+  "security": {
+    "eyebrow": "去信任化的设计",
+    "title": "五个让你不必信任任何人的理由。",
+    "subtitle": "我们移除了所有可能伤害你的方式。剩下的就是代码，公开、上链并由不为我们工作的人验证。",
+    "pillar1Title": "独立审计",
+    "pillar1Body": "在 SolidityScan (QuickScan) 上进行完整的智能合约审计。公开报告，逐行展示。",
+    "pillar1Proof": "阅读审计报告",
+    "pillar2Title": "100% LP 已锁定",
+    "pillar2Body": "流动性已在链上锁定 — 可在 BscScan 验证。",
+    "pillar2Proof": "在 BscScan 验证",
+    "pillar3Title": "已放弃所有权",
+    "pillar3Body": "合约所有权在链上永久销毁，任何人都无法更改代码。",
+    "pillar3Proof": "查看交易",
+    "pillar4Title": "源码已验证",
+    "pillar4Body": "源码已发布并在 BscScan 上验证。逐行查看。",
+    "pillar4Proof": "阅读源码",
+    "pillar5Title": "$100K 悬赏",
+    "pillar5Body": "在合约中发现集中化问题即可领取奖金。对所有人开放，无需签署 NDA。",
+    "pillar5Proof": "查看条款",
+    "fullBreakdown": "查看完整的安全细节"
+  },
+  "zoom": {
+    "eyebrow": "正在直播",
+    "title": "社区正在",
+    "titleHighlight": "实时直播中。",
+    "subtitle": "真实的人，真实的答案。每天都有。",
+    "labelEnglish": "英语",
+    "labelHindi": "印地语 / 乌尔都语",
+    "dailyFree": "每日 · 免费",
+    "when": "时间",
+    "nextCallIn": "下一场还有",
+    "joinNow": "立即加入"
+  },
+  "reels": {
+    "eyebrow": "运动，遍布全球",
+    "title": "用你的语言学习。",
+    "subtitle": "逐步演示 TurboLoop 的每个操作——如何存款、提现、查看你的收益，以及验证 LP 锁。提供 15 种语言版本。",
+    "v1Title": "如何提现",
+    "v2Title": "收益如何运作",
+    "v3Title": "如何检查 LP 锁定",
+    "v4Title": "如何通过智能合约存款"
+  },
+  "creatives": {
+    "eyebrow": "营销中心",
+    "title": "浏览、下载并分享。",
+    "subtitle": "你的语言的优质横幅 —— 可直接发布到 Telegram、WhatsApp 或任意平台。",
+    "byLanguage": "按语言",
+    "byCategory": "按类别",
+    "searchPlaceholder": "搜索横幅...",
+    "clearFilters": "清除",
+    "downloadFree": "免费下载",
+    "allLanguages": "所有语言",
+    "allCategories": "所有类别"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

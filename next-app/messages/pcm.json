@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "Learn about the $TURBO deflationary token — daily buyback and burn, vesting schedule, and tokenomics."
     }
+  },
+  "protocol": {
+    "eyebrow": "Di Protocol",
+    "title": "Every piece.",
+    "titleHighlight": "One glance.",
+    "subtitle": "Four yield plans. A 20-level referral graph. Seven leadership ranks. Audited code. One protocol — build make people inspect am, no make dem trust am.",
+    "plans": {
+      "eyebrow": "Di 4 Loop Plans",
+      "title": "Choose how long. You go get fixed yield.",
+      "subtitle": "Capital and yield go return for end of the plan — no compounding tricks, no annualization gymnastics.",
+      "calculateReturn": "Calculate how much you go get",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 Levels Deep",
+      "subtitle": "51% of protocol fees dey go the community.",
+      "fact1": "No volume requirements",
+      "fact2": "Fixed percentages",
+      "fact3": "Deep pass for DeFi",
+      "cta": "Check di graph"
+    },
+    "leadership": {
+      "title": "Partner → Legend",
+      "subtitle": "7 ranks. You fit earn from 100 levels for your network.",
+      "cta": "See di rank ladder",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Builder",
+        "accelerator": "Accelerator",
+        "director": "Director",
+        "executive": "Executive",
+        "ambassador": "Ambassador",
+        "legend": "Legend"
+      }
+    },
+    "security": {
+      "title": "No vulnerability dem find.",
+      "chip1": "Audited",
+      "chip2": "Renounced",
+      "chip3": "LP Locked",
+      "bounty": "$100K bounty",
+      "bountyUnclaimed": "no one don claim am.",
+      "cta": "See di proof"
+    },
+    "films": {
+      "title": "Wetin be TurboLoop?",
+      "caption": "You new? Start with dis.",
+      "cta": "Watch di film"
+    }
+  },
+  "numbers": {
+    "eyebrow": "By di Numbers",
+    "title": "Na movement, no be moment.",
+    "subtitle": "E reach many kontri for di world. Dem dey translate am, dem dey tell am, dem dey live am for many languages every day.",
+    "stat1Label": "Languages",
+    "stat1Help": "Dem dey support am across content",
+    "stat2Label": "Films",
+    "stat2Help": "Cinematic universe don complete",
+    "stat3Label": "Continents",
+    "stat3Help": "Community dey active for different places",
+    "stat4Label": "Bounty",
+    "stat4Help": "To prove any centralization"
+  },
+  "security": {
+    "eyebrow": "No need trust — na so dem design am",
+    "title": "Five reasons make you no trust anybody.",
+    "subtitle": "We comot every way we fit use take harm you. Wetin remain na code wey dem publish, lock, and people wey no dey work for us don verify.",
+    "pillar1Title": "Independent audit don happen",
+    "pillar1Body": "Full smart-contract audit on SolidityScan (QuickScan). Public report, line-by-line.",
+    "pillar1Proof": "Read di audit",
+    "pillar2Title": "100% LP locked",
+    "pillar2Body": "Liquidity don lock on-chain — you fit verify on BscScan.",
+    "pillar2Proof": "Verify on BscScan",
+    "pillar3Title": "Ownership renounced",
+    "pillar3Body": "Contract ownership dem don destroy for chain. Nobody fit change the code.",
+    "pillar3Proof": "View transaction",
+    "pillar4Title": "Source verified",
+    "pillar4Body": "Source code don publish and verify on BscScan. Read every line.",
+    "pillar4Proof": "Read code",
+    "pillar5Title": "$100K bounty",
+    "pillar5Body": "Find any centralization for di contract, claim di prize. Open to anybody, no NDA.",
+    "pillar5Proof": "See terms",
+    "fullBreakdown": "See full security breakdown"
+  },
+  "zoom": {
+    "eyebrow": "Dem dey live now",
+    "title": "Community dey",
+    "titleHighlight": "dey live now.",
+    "subtitle": "Na real people, real answers. Every day.",
+    "labelEnglish": "English",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Daily · Free",
+    "when": "When",
+    "nextCallIn": "Next call in",
+    "joinNow": "Join us now"
+  },
+  "reels": {
+    "eyebrow": "Di Movement, Worldwide",
+    "title": "Learn for your language.",
+    "subtitle": "Step-by-step walkthroughs for every TurboLoop action — how to deposit, withdraw, check your returns, and verify the LP lock. Available in 15 languages.",
+    "v1Title": "How to Withdraw",
+    "v2Title": "How Returns Dey Work",
+    "v3Title": "How to Check LP Lock",
+    "v4Title": "How to Deposit via Smart Contract"
+  },
+  "creatives": {
+    "eyebrow": "Marketing Hub",
+    "title": "Browse, download, and share.",
+    "subtitle": "Premium banners for your language — ready to post on Telegram, WhatsApp, or any platform.",
+    "byLanguage": "By Language",
+    "byCategory": "By Category",
+    "searchPlaceholder": "Search banners...",
+    "clearFilters": "Clear",
+    "downloadFree": "Download Free",
+    "allLanguages": "All Languages",
+    "allCategories": "All Categories"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

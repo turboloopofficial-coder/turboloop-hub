@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "تعرف على توكن $TURBO الانكماشي — إعادة شراء وحرق يوميين، جدول استحقاق، واقتصاد التوكن."
     }
+  },
+  "protocol": {
+    "eyebrow": "البروتوكول",
+    "title": "كل جزء.",
+    "titleHighlight": "نظرة واحدة.",
+    "subtitle": "أربعة خطط للعائد. مخطط إحالات مكوّن من 20 مستوى. سبع رتب قيادية. كود مُدقّق. بروتوكول واحد — بُنِي ليُفحَص، لا ليُوثَق.",
+    "plans": {
+      "eyebrow": "الـ4 خطط Loop",
+      "title": "اختر مدة. اربح عائداً ثابتاً.",
+      "subtitle": "يُعاد رأس المال والعائد في نهاية الخطة — لا حيل تراكمية، لا تلاعبات بالتحويل إلى سنوي.",
+      "calculateReturn": "احسب عائدك",
+      "turboBonusLabel": "مكافأة $TURBO"
+    },
+    "referral": {
+      "title": "عمق يصل إلى 20 مستوى",
+      "subtitle": "يُوزَّع 51% من رسوم البروتوكول على المجتمع.",
+      "fact1": "لا توجد متطلبات حجم",
+      "fact2": "نِسَب ثابتة",
+      "fact3": "الأعمق في DeFi",
+      "cta": "استكشف المخطط"
+    },
+    "leadership": {
+      "title": "شريك → أسطورة",
+      "subtitle": "7 رتب. اكسب من 100 مستوى ضمن شبكتك.",
+      "cta": "شاهد سلم الرتب",
+      "ranks": {
+        "partner": "شريك",
+        "builder": "منشئ",
+        "accelerator": "مُسرِّع",
+        "director": "مدير",
+        "executive": "تنفيذي",
+        "ambassador": "سفير",
+        "legend": "أسطورة"
+      }
+    },
+    "security": {
+      "title": "لم تُكتشف ثغرات.",
+      "chip1": "مُدقّق",
+      "chip2": "متنازل عنه",
+      "chip3": "قفل LP",
+      "bounty": "مكافأة $100K",
+      "bountyUnclaimed": "غير مُطالَب بها.",
+      "cta": "شاهد الدليل"
+    },
+    "films": {
+      "title": "ما هو TurboLoop؟",
+      "caption": "جديد هنا؟ ابدأ بهذا.",
+      "cta": "شاهد الفيلم"
+    }
+  },
+  "numbers": {
+    "eyebrow": "بالأرقام",
+    "title": "حركة مستمرة، ليست لحظة عابرة.",
+    "subtitle": "انتشار حقيقي عبر العالم. تُترجم وتُروى وتُعاش بالعشرات من اللغات يوميًا.",
+    "stat1Label": "اللغات",
+    "stat1Help": "مدعومة عبر المحتوى",
+    "stat2Label": "أفلام",
+    "stat2Help": "عالم سينمائي مكتمل",
+    "stat3Label": "القارات",
+    "stat3Help": "وجود مجتمع نشِط",
+    "stat4Label": "مكافأة",
+    "stat4Help": "من أجل إثبات المركزية"
+  },
+  "security": {
+    "eyebrow": "مصمم ليكون بلا اعتماد على الثقة",
+    "title": "خمسة أسباب لعدم الوثوق بأحد.",
+    "subtitle": "أزلنا كل طريقة قد تُضرّك. ما تبقى هو الكود، منشور، مُقفل، ومُتحقَّق منه بواسطة أشخاص لا يعملون لدينا.",
+    "pillar1Title": "تم تدقيقه بشكل مستقل",
+    "pillar1Body": "تدقيق كامل للعقود الذكية على SolidityScan (QuickScan). تقرير عام، سطرًا بسطر.",
+    "pillar1Proof": "اقرأ تقرير التدقيق",
+    "pillar2Title": "100% من LP مقفلة",
+    "pillar2Body": "السيولة مُقفلة على السلسلة — تم التحقق عليها على BscScan.",
+    "pillar2Proof": "تحقق على BscScan",
+    "pillar3Title": "التنازل عن الملكية",
+    "pillar3Body": "تم إلغاء ملكية العقد نهائيًا على السلسلة. لا أحد قادر على تغيير الكود.",
+    "pillar3Proof": "عرض المعاملة",
+    "pillar4Title": "المصدر مُتحقق منه",
+    "pillar4Body": "تم نشر كود المصدر والتحقق منه على BscScan. اقرأ كل سطر.",
+    "pillar4Proof": "اقرأ الكود",
+    "pillar5Title": "مكافأة $100K",
+    "pillar5Body": "اعثر على مركزية في العقد واطلب الجائزة. مفتوحة لأي شخص، بدون اتفاقية عدم إفشاء.",
+    "pillar5Proof": "شاهد الشروط",
+    "fullBreakdown": "اطلع على التحليل الأمني الكامل"
+  },
+  "zoom": {
+    "eyebrow": "مباشر الآن",
+    "title": "المجتمع",
+    "titleHighlight": "مباشر الآن.",
+    "subtitle": "أشخاص حقيقيون، إجابات حقيقية. يوميًا.",
+    "labelEnglish": "الإنجليزية",
+    "labelHindi": "الهندية / الأردو",
+    "dailyFree": "يومي · مجاني",
+    "when": "متى",
+    "nextCallIn": "المكالمة التالية بعد",
+    "joinNow": "انضم الآن"
+  },
+  "reels": {
+    "eyebrow": "الحركة، في كل أنحاء العالم",
+    "title": "تعلّم بلغتك.",
+    "subtitle": "دروس خطوة بخطوة لكل إجراء في TurboLoop — كيفية الإيداع، السحب، التحقق من عوائدك، والتحقق من قفل LP. متوفر بـ15 لغة.",
+    "v1Title": "كيفية السحب",
+    "v2Title": "كيف تعمل العوائد",
+    "v3Title": "كيفية التحقق من قفل LP",
+    "v4Title": "كيفية الإيداع عبر العقد الذكي"
+  },
+  "creatives": {
+    "eyebrow": "مركز التسويق",
+    "title": "تصفّح، حمّل، وشارك.",
+    "subtitle": "لافتات مميزة بلغتك — جاهزة للنشر على Telegram أو WhatsApp أو أي منصة.",
+    "byLanguage": "حسب اللغة",
+    "byCategory": "حسب الفئة",
+    "searchPlaceholder": "ابحث عن لافتات...",
+    "clearFilters": "مسح",
+    "downloadFree": "تحميل مجاني",
+    "allLanguages": "كل اللغات",
+    "allCategories": "كل الفئات"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

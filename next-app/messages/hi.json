@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "$TURBO डिफ्लेशनरी टोकन के बारे में जानें — डेली बायबैक और बर्न, वेस्टिंग शेड्यूल, और टोकनॉमिक्स."
     }
+  },
+  "protocol": {
+    "eyebrow": "प्रोटोकॉल",
+    "title": "हर हिस्सा.",
+    "titleHighlight": "एक नजर.",
+    "subtitle": "चार उपज योजनाएं. 20-स्तरीय रेफरल ग्राफ. सात नेतृत्व रैंक. ऑडिटेड कोड. एक प्रोटोकॉल - निरीक्षण के लिए बनाया गया है, भरोसा करने के लिए नहीं.",
+    "plans": {
+      "eyebrow": "चार लूप प्लान",
+      "title": "एक अवधि चुनें। एक निर्धारित उपज कमाएं।",
+      "subtitle": "योजना के अंत में पूंजी और उपज वापस मिलती है - कोई कंपाउंडिंग चालें नहीं, कोई वार्षिकी-गायन नहीं।",
+      "calculateReturn": "अपना लाभ कैलकुलेट करें",
+      "turboBonusLabel": "$TURBO बोनस"
+    },
+    "referral": {
+      "title": "20 स्तर गहराई तक",
+      "subtitle": "प्रोटोकॉल शुल्क का 51% समुदाय में वितरित किया जाता है।",
+      "fact1": "कोई वॉल्यूम आवश्यकताएं नहीं।",
+      "fact2": "स्थिर प्रतिशत।",
+      "fact3": "DeFi में सबसे गहरा।",
+      "cta": "ग्राफ देखें"
+    },
+    "leadership": {
+      "title": "साझेदार → दिग्गज",
+      "subtitle": "7 रैंक। अपने नेटवर्क के 100 स्तरों से कमाएं।",
+      "cta": "रैंक की सीढ़ी देखें",
+      "ranks": {
+        "partner": "साझेदार",
+        "builder": "निर्माता",
+        "accelerator": "त्वरक",
+        "director": "निदेशक",
+        "executive": "कार्यकारी",
+        "ambassador": "राजदूत",
+        "legend": "दिग्गज"
+      }
+    },
+    "security": {
+      "title": "शून्य कमजोरियाँ पाई गईं।",
+      "chip1": "ऑडिट किया गया",
+      "chip2": "त्याग दिया गया",
+      "chip3": "LP लॉक किया गया",
+      "bounty": "$100K इनाम",
+      "bountyUnclaimed": "दावा नहीं किया गया।",
+      "cta": "सबूत देखें"
+    },
+    "films": {
+      "title": "TurboLoop क्या है?",
+      "caption": "यहाँ नया है? इसके साथ शुरू करें।",
+      "cta": "फिल्म देखें"
+    }
+  },
+  "numbers": {
+    "eyebrow": "संख्याओं के अनुसार",
+    "title": "एक आंदोलन, एक पल नहीं।",
+    "subtitle": "पूरे विश्व में वास्तविक पहुँच। हर दिन दर्जनों भाषाओं में अनुवादित, बताई गई, और जी गई।",
+    "stat1Label": "भाषाएं",
+    "stat1Help": "कंटेंट में समर्थित",
+    "stat2Label": "फिल्में",
+    "stat2Help": "सिनेमैटिक ब्रह्मांड पूर्ण।",
+    "stat3Label": "महाद्वीप",
+    "stat3Help": "सक्रिय समुदाय की उपस्थिति",
+    "stat4Label": "इनाम",
+    "stat4Help": "केन्द्रीयकरण के प्रमाण के लिए"
+  },
+  "security": {
+    "eyebrow": "डिज़ाइन के अनुसार भरोसेमुक्त",
+    "title": "किसी पर भरोसा क्यों न करें—पांच कारण.",
+    "subtitle": "हमने हर वह रास्ता हटा दिया जो आपको नुकसान पहुँचा सकता था। जो शेष है वह कोड है, प्रकाशित, लॉक किया गया, और उन लोगों द्वारा सत्यापित किया गया है जो हमारे लिए काम नहीं करते।",
+    "pillar1Title": "स्वतंत्र रूप से ऑडिटेड",
+    "pillar1Body": "SolidityScan (QuickScan) पर पूर्ण स्मार्ट-कॉन्ट्रैक्ट ऑडिट। सार्वजनिक रिपोर्ट, पंक्ति-दर-पंक्ति।",
+    "pillar1Proof": "ऑडिट पढ़ें",
+    "pillar2Title": "100% LP लॉक किया गया",
+    "pillar2Body": "चेन पर तरलता लॉक — BscScan पर सत्यापित।",
+    "pillar2Proof": "BscScan पर सत्यापित करें",
+    "pillar3Title": "स्वामित्व त्याग दिया गया",
+    "pillar3Body": "कॉन्ट्रैक्ट स्वामित्व ऑन-चेन स्थायी रूप से नष्ट कर दिया गया है। कोई भी कोड नहीं बदल सकता।",
+    "pillar3Proof": "लेनदेन देखें",
+    "pillar4Title": "सोर्स सत्यापित",
+    "pillar4Body": "सोर्स कोड BscScan पर प्रकाशित और सत्यापित किया गया। हर पंक्ति पढ़ें।",
+    "pillar4Proof": "कोड पढ़ें",
+    "pillar5Title": "$100K इनाम",
+    "pillar5Body": "कॉन्ट्रैक्ट में केंद्रीयकरण खोजें, पुरस्कार दावा करें। किसी के लिए खुला, कोई NDA नहीं।",
+    "pillar5Proof": "शर्तें देखें",
+    "fullBreakdown": "पूर्ण सुरक्षा विवरण देखें"
+  },
+  "zoom": {
+    "eyebrow": "अभी लाइव",
+    "title": "समुदाय है",
+    "titleHighlight": "अभी लाइव है।",
+    "subtitle": "वास्तविक लोग, वास्तविक उत्तर। हर दिन।",
+    "labelEnglish": "अंग्रेज़ी",
+    "labelHindi": "हिंदी / उर्दू",
+    "dailyFree": "दैनिक · मुफ्त",
+    "when": "कब",
+    "nextCallIn": "अगला कॉल इन",
+    "joinNow": "अब शामिल हों"
+  },
+  "reels": {
+    "eyebrow": "आंदोलन, वैश्विक",
+    "title": "अपनी भाषा में सीखें।",
+    "subtitle": "हर TurboLoop क्रिया के स्टेप-बाय-स्टेप वाकथ्रू — जमा कैसे करें, निकासी कैसे करें, अपने रिटर्न कैसे जाँचें, और LP लॉक कैसे सत्यापित करें। 15 भाषाओं में उपलब्ध।",
+    "v1Title": "निकासी कैसे करें",
+    "v2Title": "लाभ कैसे काम करते हैं",
+    "v3Title": "LP लॉक कैसे जाँचें",
+    "v4Title": "स्मार्ट कॉन्ट्रैक्ट के जरिए जमा कैसे करें"
+  },
+  "creatives": {
+    "eyebrow": "मार्केटिंग हब",
+    "title": "ब्राउज़ करें, डाउनलोड करें, और साझा करें।",
+    "subtitle": "आपकी भाषा में प्रीमियम बैनर — Telegram, WhatsApp, या किसी भी प्लेटफ़ॉर्म पर पोस्ट के लिए तैयार।",
+    "byLanguage": "भाषा के अनुसार",
+    "byCategory": "श्रेणी के अनुसार",
+    "searchPlaceholder": "बैनर खोजें...",
+    "clearFilters": "साफ़ करें",
+    "downloadFree": "नि:शुल्क डाउनलोड करें",
+    "allLanguages": "सभी भाषाएं",
+    "allCategories": "सभी श्रेणियाँ"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

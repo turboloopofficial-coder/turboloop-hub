@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "เรียนรู้เกี่ยวกับโทเค็น $TURBO แบบลดจำนวน — ซื้อคืน & เผาทุกวัน, ตารางการปลดล็อก, และโทเคโนมิกส์."
     }
+  },
+  "protocol": {
+    "eyebrow": "โปรโตคอล",
+    "title": "ทุกชิ้นส่วน.",
+    "titleHighlight": "แค่มองครั้งเดียว.",
+    "subtitle": "แผนผลตอบแทนสี่แบบ. กราฟการแนะนำ 20 ระดับ. เจ็ดอันดับผู้นำ. โค้ดที่ตรวจสอบแล้ว. โปรโตคอลหนึ่งรายการ — สร้างขึ้นเพื่อให้ตรวจสอบได้ ไม่ใช่เพื่อความไว้ใจ.",
+    "plans": {
+      "eyebrow": "แผน Loop ทั้ง 4",
+      "title": "เลือกระยะเวลา. รับผลตอบแทนคงที่.",
+      "subtitle": "ทุนและผลตอบแทนคืนเมื่อสิ้นสุดแผน — ไม่มีเทคนิคทบต้น, ไม่มีการแปลงเป็นรายปี.",
+      "calculateReturn": "คำนวณผลตอบแทนของคุณ",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 ระดับลึก",
+      "subtitle": "51% ของค่าธรรมเนียมโปรโตคอลแจกจ่ายให้ชุมชน.",
+      "fact1": "ไม่มีกำหนดปริมาณ",
+      "fact2": "เปอร์เซ็นต์คงที่",
+      "fact3": "ลึกที่สุดใน DeFi",
+      "cta": "สำรวจกราฟ"
+    },
+    "leadership": {
+      "title": "พันธมิตร → ตำนาน",
+      "subtitle": "7 ระดับ. สร้างรายได้จาก 100 ระดับของเครือข่ายคุณ.",
+      "cta": "ดูบันไดอันดับ",
+      "ranks": {
+        "partner": "พันธมิตร",
+        "builder": "ผู้สร้าง",
+        "accelerator": "ผู้เร่งรัด",
+        "director": "ผู้อำนวยการ",
+        "executive": "ผู้บริหาร",
+        "ambassador": "ทูต",
+        "legend": "ตำนาน"
+      }
+    },
+    "security": {
+      "title": "ไม่พบช่องโหว่ใดๆ.",
+      "chip1": "ตรวจสอบ",
+      "chip2": "สละ",
+      "chip3": "LP ถูกล็อก",
+      "bounty": "$100K bounty",
+      "bountyUnclaimed": "ยังไม่ได้เคลม",
+      "cta": "ดูหลักฐาน"
+    },
+    "films": {
+      "title": "TurboLoop คืออะไร?",
+      "caption": "ใหม่ที่นี่? เริ่มต้นด้วยสิ่งนี้.",
+      "cta": "ดูภาพยนตร์"
+    }
+  },
+  "numbers": {
+    "eyebrow": "ตัวเลขสำคัญ",
+    "title": "การเคลื่อนไหว ไม่ใช่ช่วงเวลา",
+    "subtitle": "การเข้าถึงจริงทั่วโลก แปล ถ่ายทอด และใช้งานในหลายภาษาทุกวัน.",
+    "stat1Label": "ภาษา",
+    "stat1Help": "รองรับทั่วทั้งเนื้อหา",
+    "stat2Label": "ภาพยนตร์",
+    "stat2Help": "จักรวาลภาพยนตร์ครบถ้วน",
+    "stat3Label": "ทวีป",
+    "stat3Help": "ชุมชนที่ใช้งานอยู่",
+    "stat4Label": "รางวัล",
+    "stat4Help": "เพื่อพิสูจน์การรวมศูนย์"
+  },
+  "security": {
+    "eyebrow": "ไร้ความไว้วางใจด้วยการออกแบบ",
+    "title": "ห้าสาเหตุที่ไม่ไว้วางใจใครเลย.",
+    "subtitle": "เราได้กำจัดทุกทางที่เราอาจทำให้คุณเสียหาย สิ่งที่เหลือคือโค้ดที่เผยแพร่ ถูกล็อก และได้รับการยืนยันโดยผู้ที่ไม่ได้ทำงานให้เรา.",
+    "pillar1Title": "ตรวจสอบโดยอิสระ",
+    "pillar1Body": "การตรวจสอบสัญญาอัจฉริยะทั้งหมดบน SolidityScan (QuickScan) รายงานสาธารณะ ทีละบรรทัด.",
+    "pillar1Proof": "อ่านการตรวจสอบ",
+    "pillar2Title": "LP ถูกล็อก 100%",
+    "pillar2Body": "สภาพคล่องถูกล็อกบนเชน — ตรวจสอบบน BscScan.",
+    "pillar2Proof": "ตรวจสอบบน BscScan",
+    "pillar3Title": "ความเป็นเจ้าของถูกสละ",
+    "pillar3Body": "ความเป็นเจ้าของสัญญาถูกทำลายถาวรบนเชน ไม่มีใครสามารถแก้ไขโค้ดได้",
+    "pillar3Proof": "ดูธุรกรรม",
+    "pillar4Title": "แหล่งที่มาถูกยืนยัน",
+    "pillar4Body": "ซอร์สโค้ดถูกเผยแพร่และยืนยันบน BscScan อ่านทุกบรรทัด",
+    "pillar4Proof": "อ่านโค้ด",
+    "pillar5Title": "$100K bounty",
+    "pillar5Body": "พบการรวมศูนย์ในสัญญา รับรางวัล เปิดให้ทุกคน ไม่มี NDA.",
+    "pillar5Proof": "ดูข้อตกลง",
+    "fullBreakdown": "ดูรายละเอียดด้านความมั่นคงทั้งหมด"
+  },
+  "zoom": {
+    "eyebrow": "ถ่ายทอดสดอยู่ขณะนี้",
+    "title": "ชุมชนคือ",
+    "titleHighlight": "สดอยู่ตอนนี้.",
+    "subtitle": "ผู้คนจริง คำตอบจริง ทุกวัน.",
+    "labelEnglish": "อังกฤษ",
+    "labelHindi": "ฮินดี / อูรดู",
+    "dailyFree": "รายวัน · ฟรี",
+    "when": "เมื่อไหร่",
+    "nextCallIn": "รอบถัดไปใน",
+    "joinNow": "เข้าร่วมเดี๋ยวนี้"
+  },
+  "reels": {
+    "eyebrow": "การเคลื่อนไหว ทั่วโลก",
+    "title": "เรียนรู้ในภาษาของคุณ",
+    "subtitle": "คำแนะนำทีละขั้นตอนสำหรับการทำงานของ TurboLoop ทุกขั้นตอน — วิธีฝากเงิน ถอนเงิน ตรวจสอบผลตอบแทน และยืนยันการล็อก LP มีให้เลือก 15 ภาษา.",
+    "v1Title": "วิธีถอนเงิน",
+    "v2Title": "วิธีการทำงานของผลตอบแทน",
+    "v3Title": "ตรวจสอบการล็อก LP อย่างไร",
+    "v4Title": "ฝากผ่าน Smart Contract อย่างไร"
+  },
+  "creatives": {
+    "eyebrow": "ศูนย์การตลาด",
+    "title": "เรียกดู ดาวน์โหลด และแชร์.",
+    "subtitle": "แบนเนอร์พรีเมียมในภาษา ของคุณ — พร้อมโพสต์บน Telegram, WhatsApp หรือแพลตฟอร์มใดๆ.",
+    "byLanguage": "ตามภาษา",
+    "byCategory": "ตามหมวดหมู่",
+    "searchPlaceholder": "ค้นหาแบนเนอร์...",
+    "clearFilters": "ล้าง",
+    "downloadFree": "ดาวน์โหลดฟรี",
+    "allLanguages": "ทุกภาษา",
+    "allCategories": "ทุกหมวดหมู่"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

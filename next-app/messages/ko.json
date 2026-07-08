@@ -170,5 +170,143 @@
       "title": "$TURBO 토큰 — TurboLoop",
       "description": "$TURBO의 디플레이션 토큰에 대해 알아보세요 — 일일 바이백 및 소각, 베스팅 스케줄, 토크노믹스."
     }
+  },
+  "protocol": {
+    "eyebrow": "프로토콜",
+    "title": "모든 조각.",
+    "titleHighlight": "한 눈에.",
+    "subtitle": "네 가지 수익 계획. 20단계의 추천 그래프. 일곱 가지 리더십 랭크. 감사된 코드. 하나의 프로토콜 — 점검될 수 있도록 설계되었고, 신뢰받도록 만들어진 것이 아니다.",
+    "plans": {
+      "eyebrow": "4가지 루프 계획",
+      "title": "기간을 선택하세요. 고정 수익을 얻으세요.",
+      "subtitle": "계획 종료 시 자본과 수익이 반환됩니다 — 복리 트릭이나 연환산 기교는 없습니다.",
+      "calculateReturn": "수익 계산",
+      "turboBonusLabel": "$TURBO 보너스"
+    },
+    "referral": {
+      "title": "20단계 깊이",
+      "subtitle": "프로토콜 수수료의 51%가 커뮤니티에 분배됩니다.",
+      "fact1": "거래량 요건 없음",
+      "fact2": "고정 비율",
+      "fact3": "DeFi에서 가장 심층적",
+      "cta": "그래프 탐색"
+    },
+    "leadership": {
+      "title": "파트너 → 전설",
+      "subtitle": "7단계. 네트워크의 100레벨에서 수익을 얻으세요.",
+      "cta": "랭크 계단 보기",
+      "ranks": {
+        "partner": "파트너",
+        "builder": "빌더",
+        "accelerator": "액셀러레이터",
+        "director": "이사",
+        "executive": "임원",
+        "ambassador": "앰배서더",
+        "legend": "전설"
+      }
+    },
+    "security": {
+      "title": "제로 취약점 발견.",
+      "chip1": "감사됨",
+      "chip2": "포기된 권한",
+      "chip3": "LP 잠김",
+      "bounty": "$100K 현상금",
+      "bountyUnclaimed": "미청구.",
+      "cta": "근거 보기"
+    },
+    "films": {
+      "title": "TurboLoop 이란?",
+      "caption": "처음이신가요? 이걸로 시작하세요.",
+      "cta": "영화 보기"
+    }
+  },
+  "numbers": {
+    "eyebrow": "숫자로 본",
+    "title": "하나의 순간이 아니라 움직임.",
+    "subtitle": "전 세계에 걸친 실제 도달. 매일 수십 개의 언어로 번역되고, 전달되며, 살아갑니다.",
+    "stat1Label": "언어",
+    "stat1Help": "콘텐츠 전반에 걸쳐 지원",
+    "stat2Label": "영화",
+    "stat2Help": "시네마틱 우주 완성",
+    "stat3Label": "대륙",
+    "stat3Help": "활발한 커뮤니티 존재감",
+    "stat4Label": "현상금",
+    "stat4Help": "중앙집중화의 증거로"
+  },
+  "security": {
+    "eyebrow": "설계상 신뢰 필요 없음",
+    "title": "아무도 신뢰하지 말아야 하는 다섯 가지 이유.",
+    "subtitle": "우리가 해를 줄 수 있는 모든 경로를 제거했습니다. 남은 것은 공개된 코드이며, 잠겨 있고, 우리를 위해 일하지 않는 사람들이 검증했습니다.",
+    "pillar1Title": "독립적으로 감사됨",
+    "pillar1Body": "SolidityScan(QuickScan)에서의 스마트 컨트랙트 전체 감사. 공개 보고서, 한 줄씩.",
+    "pillar1Proof": "감사 읽기",
+    "pillar2Title": "100% LP 잠김",
+    "pillar2Body": "온체인에 잠긴 유동성 — BscScan에서 검증됨.",
+    "pillar2Proof": "BscScan에서 확인",
+    "pillar3Title": "소유권 포기",
+    "pillar3Body": "계약 소유권이 온체인에서 영구적으로 파괴되었습니다. 누구도 코드를 변경할 수 없습니다.",
+    "pillar3Proof": "거래 보기",
+    "pillar4Title": "소스 검증",
+    "pillar4Body": "소스 코드가 BscScan에 게시되고 검증되었습니다. 모든 행을 읽어보세요.",
+    "pillar4Proof": "코드 읽기",
+    "pillar5Title": "$100K 현상금",
+    "pillar5Body": "계약의 중앙집중화를 찾아 상금을 청구하세요. 누구나 열람 가능, NDA 불필요.",
+    "pillar5Proof": "약관 보기",
+    "fullBreakdown": "전체 보안 분석 보기"
+  },
+  "zoom": {
+    "eyebrow": "지금 생방송",
+    "title": "커뮤니티는",
+    "titleHighlight": "지금 라이브로.",
+    "subtitle": "실제 사람들, 실제 답변. 매일.",
+    "labelEnglish": "영어",
+    "labelHindi": "힌디어 / 우르두어",
+    "dailyFree": "일일 · 무료",
+    "when": "언제",
+    "nextCallIn": "다음 호출까지",
+    "joinNow": "지금 참여하기"
+  },
+  "reels": {
+    "eyebrow": "전 세계로 확산되는 움직임",
+    "title": "당신의 언어로 배우세요.",
+    "subtitle": "TurboLoop의 모든 동작을 단계별로 설명 — 예금 방법, 인출, 수익 확인, LP 잠금 확인 방법. 15개 언어로 제공.",
+    "v1Title": "인출 방법",
+    "v2Title": "수익 작동 원리",
+    "v3Title": "LP 잠금 확인 방법",
+    "v4Title": "스마트 컨트랙트를 통한 예금 방법"
+  },
+  "creatives": {
+    "eyebrow": "마케팅 허브",
+    "title": "탐색, 다운로드 및 공유.",
+    "subtitle": "언어별 프리미엄 배너 — Telegram, WhatsApp 또는 어떤 플랫폼에서도 게시할 준비가 되어 있습니다.",
+    "byLanguage": "언어별",
+    "byCategory": "카테고리별",
+    "searchPlaceholder": "배너 검색...",
+    "clearFilters": "지우기",
+    "downloadFree": "무료 다운로드",
+    "allLanguages": "모든 언어",
+    "allCategories": "모든 카테고리"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "$TURBO என்ற deflationary token பற்றி அறியவும் — தினசரி buyback மற்றும் burn, vesting அட்டவணை மற்றும் tokenomics."
     }
+  },
+  "protocol": {
+    "eyebrow": "வழிமுறைகள்",
+    "title": "ஒவ்வொரு துண்டும்.",
+    "titleHighlight": "ஒரு பார்வை.",
+    "subtitle": "நான்கு வருமானத் திட்டங்கள். 20 நிலை பரிந்துரை வரைபாடு. ஏழு தலைமை நிலைகள். ஆடிட் செய்யப்பட்ட குறியீடு. ஒரு வழிமுறை — பரிசோதிக்க உருவாக்கப்பட்டது, நம்ப வேண்டாதது.",
+    "plans": {
+      "eyebrow": "நான்கு Loop திட்டங்கள்",
+      "title": "ஒரு காலம் தேர்வு செய்யவும். நிர்ணயமான வருமானம் பெறுக.",
+      "subtitle": "திட்டத்தின் முடிவில் முதலீடும் வருமானமும் மீட்கப்படும் — கூட்டச்சேர்க்கை உத்திகள் இல்லை, ஆண்டுவைத்தல் உத்திகள் இல்லை.",
+      "calculateReturn": "உங்கள் வருமானத்தை கணக்கிடுக",
+      "turboBonusLabel": "$TURBO போனஸ்"
+    },
+    "referral": {
+      "title": "20 நிலைகள் ஆழமான",
+      "subtitle": "வழிமுறை கட்டணங்களில் 51% சமூகத்திற்கு பரிமாற்றப்படுகிறது.",
+      "fact1": "வால்யூம் தேவைகள் இல்லை",
+      "fact2": "நிர்ணயமான சதவீதங்கள்",
+      "fact3": "DeFi-யில் மிகவும் ஆழமானது",
+      "cta": "வரைபடத்தை ஆராயவும்"
+    },
+    "leadership": {
+      "title": "பங்காளி → பரசித்தி",
+      "subtitle": "7 நிலைகள். உங்கள் நெட்வொர்க்கின் 100 நிலைகளிலிருந்து சம்பாதிக்கவும்.",
+      "cta": "நிலை பட்டையைப் பார்க்கவும்",
+      "ranks": {
+        "partner": "பங்காளி",
+        "builder": "உருவாக்கி",
+        "accelerator": "விரைவு வழங்குநர்",
+        "director": "இயக்குனர்",
+        "executive": "நிர்வாகி",
+        "ambassador": "தூதுவர்",
+        "legend": "பிரசித்தி"
+      }
+    },
+    "security": {
+      "title": "எந்த குறைபாடும் இல்லை.",
+      "chip1": "ஆடிட் செய்யப்பட்ட",
+      "chip2": "விடுகப்புக்கடை",
+      "chip3": "LP பூட்டு",
+      "bounty": "$100K பவுண்டி",
+      "bountyUnclaimed": "பெறப்படவில்லை.",
+      "cta": "ஆவணத்தை பார்க்கவும்"
+    },
+    "films": {
+      "title": "TurboLoop என்ன?",
+      "caption": "இங்கே புதியவரா? இதுடன் தொடங்கு.",
+      "cta": "திரையை பார்க்கவும்"
+    }
+  },
+  "numbers": {
+    "eyebrow": "எண்களால்",
+    "title": "ஒரு இயக்கம், ஒரு கணம் அல்ல.",
+    "subtitle": "உலகம் முழுவதும் உண்மையான பரவல். தினமும் பல மொழிகளில் மொழிபெயர்க்கப்பட்டு, கூறப்பட்டு, வாழ்கிறது.",
+    "stat1Label": "மொழிகள்",
+    "stat1Help": "உட்படங்களில் ஆதரிக்கப்படுகிறது",
+    "stat2Label": "திரைப்படங்கள்",
+    "stat2Help": "சினிமா பிரபஞ்சம் முழுமையாக முடிந்தது",
+    "stat3Label": "உலகக் கண்டங்கள்",
+    "stat3Help": "செயல்படும் சமூக முன்னிலை",
+    "stat4Label": "பவுண்டி",
+    "stat4Help": "மையாக்கத்தை நிரூபிக்க"
+  },
+  "security": {
+    "eyebrow": "நம்பிக்கையற்ற வடிவமைப்பு",
+    "title": "யாருக்கும் நம்ப வேண்டாம் என்று ஐந்து காரணங்கள்.",
+    "subtitle": "நீங்கள் பாதிக்கக் கூடிய எந்தவொரு வழியும் நாம் நீக்கியுள்ளோம். மீதி குறியீடு வெளியிடப்பட்டு பூட்டு செய்யப்பட்டு, எங்களுக்கு வேலை செய்யாத மக்கள் மூலம் பரிசோதிக்கப்பட்டுள்ளது.",
+    "pillar1Title": "சுயாதீனமாக ஆடிட் செய்யப்பட்ட",
+    "pillar1Body": "SolidityScan (QuickScan)-ல் முழுமையான ஸ்மார்ட்-கான்ட்ராக்ட் ஆய்வு. பொது அறிக்கை, வரி-வாரியாக.",
+    "pillar1Proof": "ஆடிட் படிக்கவும்",
+    "pillar2Title": "100% LP பூட்டு",
+    "pillar2Body": "On-chain-ல் பூட்டு — BscScan-ல் உறுதிப்படுத்தப்பட்டுள்ளது.",
+    "pillar2Proof": "BscScan-ல் சரிபார்க்கவும்",
+    "pillar3Title": "உரிமை நிராகரிக்கப்பட்டது",
+    "pillar3Body": "ஒப்பந்த உரிமை on-chain-ல் நிரந்தரமாக அழிக்கப்பட்டுள்ளது. யாரும் குறியீட்டை மாற்ற முடியாது.",
+    "pillar3Proof": "பரிவர்த்தனை பார்க்கவும்",
+    "pillar4Title": "மூலம் அங்கீகரிக்கப்பட்டது",
+    "pillar4Body": "BscScan-ல் வெளியிடப்பட்டு அங்கீகரிக்கப்பட்ட மூல குறியீடு. ஒவ்வொரு வரியையும் படிக்கவும்.",
+    "pillar4Proof": "குறியீட்டை படிக்கவும்",
+    "pillar5Title": "$100K பவுண்ட்",
+    "pillar5Body": "ஒப்பந்தத்தில் மையாக்கத்தை கண்டுபிடித்து பரிசை பெற்றுக்கொள்ளுங்கள். யாருக்கும் திறந்துள்ளது, NDA இல்லை.",
+    "pillar5Proof": "நிபந்தனைகளைப் பார்க்கவும்",
+    "fullBreakdown": "முழுப் பாதுகாப்பு விளக்கத்தை பார்க்கவும்"
+  },
+  "zoom": {
+    "eyebrow": "இப்போது நேரடி",
+    "title": "சமூகம் உள்ளது",
+    "titleHighlight": "இப்போதே நேரடி",
+    "subtitle": "உண்மையான மக்கள், உண்மையான பதில்கள். தினமும்.",
+    "labelEnglish": "ஆங்கிலம்",
+    "labelHindi": "ஹிந்தி / உருது",
+    "dailyFree": "தினந்தோரும் · இலவசம்",
+    "when": "எப்போது",
+    "nextCallIn": "அடுத்த அழைப்பு நேரம்",
+    "joinNow": "இப்போதே சேருங்கள்"
+  },
+  "reels": {
+    "eyebrow": "உலகளாவிய இயக்கம்",
+    "title": "உங்கள் மொழியில் கற்றுகொள்ளவும்.",
+    "subtitle": "TurboLoop ஒவ்வொரு நடவடிக்கையின் படி-படி வழிகாட்டிகள் — எப்படி deposit செய்வது, எப்படி withdraw செய்வது, உங்கள் வருமானங்களை எவ்வாறு பார்க்க, மற்றும் LP பூட்டை எவ்வாறு சரிபார்க்குவது. 15 மொழிகளில் கிடைக்கிறது.",
+    "v1Title": "Withdraw எப்படி செய்வது",
+    "v2Title": "வருமானம் எப்படி இயங்குகிறது",
+    "v3Title": "LP பூட்டை எவ்வாறு பார்க்க வேண்டும்",
+    "v4Title": "ஸ்மார்ட் கான்ட்ராக்டின் மூலம் டெபாசிட் செய்வது எப்படி"
+  },
+  "creatives": {
+    "eyebrow": "விளம்பர மையம்",
+    "title": "பார்க்கவும், பதிவிறக்கம் செய்யவும், பகிரவும்.",
+    "subtitle": "உங்கள் மொழியில் மேம்பட்ட பேனர் — Telegram, WhatsApp, அல்லது எந்தவொரு தளத்துக்கும் பதிக்க தயாராக உள்ளது.",
+    "byLanguage": "மொழியின்படி",
+    "byCategory": "வகைப்படி",
+    "searchPlaceholder": "பெனர்கள் தேடு...",
+    "clearFilters": "நீக்கு",
+    "downloadFree": "இலவசமாக பதிவிறக்கம்",
+    "allLanguages": "எல்லா மொழிகள்",
+    "allCategories": "எல்லா வகைகள்"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

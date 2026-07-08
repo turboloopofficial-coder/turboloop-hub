@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "Conoce el token deflacionario $TURBO — recompra y quema diaria, calendario de vesting y tokenomics."
     }
+  },
+  "protocol": {
+    "eyebrow": "El Protocolo",
+    "title": "Cada pieza.",
+    "titleHighlight": "De un vistazo.",
+    "subtitle": "Cuatro planes de rendimiento. Un grafo de referidos de 20 niveles. Siete rangos de liderazgo. Código auditado. Un protocolo — diseñado para ser inspeccionado, no para confiar en él.",
+    "plans": {
+      "eyebrow": "Los 4 planes Loop",
+      "title": "Elige una duración. Obtén un rendimiento fijo.",
+      "subtitle": "El capital y el rendimiento se devuelven al final del plan — sin trucos de capitalización, sin malabarismos de anualización.",
+      "calculateReturn": "Calcula tu retorno",
+      "turboBonusLabel": "Bono $TURBO"
+    },
+    "referral": {
+      "title": "20 niveles de profundidad",
+      "subtitle": "El 51% de las comisiones del protocolo se distribuye a la comunidad.",
+      "fact1": "Sin requisitos de volumen",
+      "fact2": "Porcentajes fijos",
+      "fact3": "El más profundo en DeFi",
+      "cta": "Explora el grafo"
+    },
+    "leadership": {
+      "title": "Socio → Leyenda",
+      "subtitle": "7 rangos. Gana de 100 niveles de tu red.",
+      "cta": "Ver la escalera de rangos",
+      "ranks": {
+        "partner": "Socio",
+        "builder": "Creador",
+        "accelerator": "Acelerador",
+        "director": "Director",
+        "executive": "Ejecutivo",
+        "ambassador": "Embajador",
+        "legend": "Leyenda"
+      }
+    },
+    "security": {
+      "title": "Cero vulnerabilidades encontradas.",
+      "chip1": "Auditado",
+      "chip2": "Renunciado",
+      "chip3": "LP bloqueado",
+      "bounty": "Recompensa de $100K",
+      "bountyUnclaimed": "sin reclamar.",
+      "cta": "Ver la prueba"
+    },
+    "films": {
+      "title": "¿Qué es TurboLoop?",
+      "caption": "¿Nuevo aquí? Empieza con esto.",
+      "cta": "Ver el vídeo"
+    }
+  },
+  "numbers": {
+    "eyebrow": "En cifras",
+    "title": "Un movimiento, no un momento.",
+    "subtitle": "Alcance real por todo el mundo. Traducido, contado y vivido en docenas de idiomas cada día.",
+    "stat1Label": "Idiomas",
+    "stat1Help": "Disponible en todos los contenidos",
+    "stat2Label": "Vídeos",
+    "stat2Help": "Universo cinematográfico completo",
+    "stat3Label": "Continentes",
+    "stat3Help": "Presencia activa de la comunidad",
+    "stat4Label": "Recompensa",
+    "stat4Help": "Para pruebas de centralización"
+  },
+  "security": {
+    "eyebrow": "Sin confianza por diseño",
+    "title": "Cinco razones para no confiar en nadie.",
+    "subtitle": "Eliminamos todas las vías con las que podríamos perjudicarte. Lo que queda es código, publicado, bloqueado y verificado por personas que no trabajan para nosotros.",
+    "pillar1Title": "Auditado de forma independiente",
+    "pillar1Body": "Auditoría completa de los contratos inteligentes en SolidityScan (QuickScan). Informe público, línea por línea.",
+    "pillar1Proof": "Leer auditoría",
+    "pillar2Title": "100% LP bloqueado",
+    "pillar2Body": "Liquidez bloqueada en cadena — verificada en BscScan.",
+    "pillar2Proof": "Verificar en BscScan",
+    "pillar3Title": "Propiedad renunciada",
+    "pillar3Body": "La propiedad del contrato fue destruida permanentemente en cadena. Nadie puede cambiar el código.",
+    "pillar3Proof": "Ver transacción",
+    "pillar4Title": "Código fuente verificado",
+    "pillar4Body": "Código fuente publicado y verificado en BscScan. Lee cada línea.",
+    "pillar4Proof": "Leer código",
+    "pillar5Title": "Recompensa de $100K",
+    "pillar5Body": "Encuentra centralización en el contrato y reclama el premio. Abierto a cualquiera, sin NDA.",
+    "pillar5Proof": "Ver términos",
+    "fullBreakdown": "Ver el desglose completo de seguridad"
+  },
+  "zoom": {
+    "eyebrow": "En directo ahora",
+    "title": "La comunidad está",
+    "titleHighlight": "en directo ahora.",
+    "subtitle": "Personas reales, respuestas reales. Cada día.",
+    "labelEnglish": "Inglés",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Diario · Gratis",
+    "when": "Cuándo",
+    "nextCallIn": "Próxima llamada en",
+    "joinNow": "Únete ahora"
+  },
+  "reels": {
+    "eyebrow": "El movimiento, en todo el mundo",
+    "title": "Aprende en tu idioma.",
+    "subtitle": "Guías paso a paso de cada acción de TurboLoop — cómo depositar, retirar, comprobar tus retornos y verificar el bloqueo de LP. Disponible en 15 idiomas.",
+    "v1Title": "Cómo retirar",
+    "v2Title": "Cómo funcionan los retornos",
+    "v3Title": "Cómo verificar el bloqueo de LP",
+    "v4Title": "Cómo depositar a través de un contrato inteligente"
+  },
+  "creatives": {
+    "eyebrow": "Centro de marketing",
+    "title": "Navega, descarga y comparte.",
+    "subtitle": "Banners premium en tu idioma — listos para publicar en Telegram, WhatsApp o cualquier plataforma.",
+    "byLanguage": "Por idioma",
+    "byCategory": "Por categoría",
+    "searchPlaceholder": "Buscar banners...",
+    "clearFilters": "Borrar filtros",
+    "downloadFree": "Descargar gratis",
+    "allLanguages": "Todos los idiomas",
+    "allCategories": "Todas las categorías"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

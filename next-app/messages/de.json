@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "Erfahren Sie mehr über den deflationären $TURBO‑Token — täglicher Rückkauf & Burn, Vesting‑Plan und Tokenomics."
     }
+  },
+  "protocol": {
+    "eyebrow": "Das Protokoll",
+    "title": "Jedes Detail.",
+    "titleHighlight": "Auf einen Blick.",
+    "subtitle": "Vier Renditepläne. Ein Empfehlungsnetz mit 20 Ebenen. Sieben Führungsränge. Geprüfter Code. Ein Protokoll — gebaut, um geprüft zu werden, nicht um Vertrauen zu erzwingen.",
+    "plans": {
+      "eyebrow": "Die 4 Loop-Pläne",
+      "title": "Wähle eine Laufzeit. Erhalte eine feste Rendite.",
+      "subtitle": "Kapital und Rendite werden am Ende des Plans zurückgezahlt — keine Zinseszins-Tricks, keine jährlichen Hochrechnungen.",
+      "calculateReturn": "Berechne deine Rendite",
+      "turboBonusLabel": "$TURBO-Bonus"
+    },
+    "referral": {
+      "title": "20 Ebenen tief",
+      "subtitle": "51% der Protokollgebühren werden an die Community verteilt.",
+      "fact1": "Keine Volumenanforderungen",
+      "fact2": "Feste Prozentsätze",
+      "fact3": "Tiefste Struktur im DeFi-Bereich",
+      "cta": "Graph erkunden"
+    },
+    "leadership": {
+      "title": "Partner → Legende",
+      "subtitle": "7 Ränge. Verdiene aus 100 Ebenen deines Netzwerks.",
+      "cta": "Sieh die Rangleiter",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Aufbauer",
+        "accelerator": "Beschleuniger",
+        "director": "Direktor",
+        "executive": "Führungskraft",
+        "ambassador": "Botschafter",
+        "legend": "Legende"
+      }
+    },
+    "security": {
+      "title": "Keine Schwachstellen gefunden.",
+      "chip1": "Geprüft",
+      "chip2": "Eigentum aufgegeben",
+      "chip3": "LP gesperrt",
+      "bounty": "$100K-Prämie",
+      "bountyUnclaimed": "nicht beansprucht.",
+      "cta": "Nachweis ansehen"
+    },
+    "films": {
+      "title": "Was ist TurboLoop?",
+      "caption": "Neu hier? Fang hiermit an.",
+      "cta": "Film ansehen"
+    }
+  },
+  "numbers": {
+    "eyebrow": "In Zahlen",
+    "title": "Eine Bewegung, kein Moment.",
+    "subtitle": "Echte Reichweite weltweit. Übersetzt, erzählt und täglich in Dutzenden von Sprachen gelebt.",
+    "stat1Label": "Sprachen",
+    "stat1Help": "Unterstützt in den Inhalten",
+    "stat2Label": "Filme",
+    "stat2Help": "Filmisches Universum komplett",
+    "stat3Label": "Kontinente",
+    "stat3Help": "Aktive Community-Präsenz",
+    "stat4Label": "Belohnung",
+    "stat4Help": "Für den Nachweis von Zentralisierung"
+  },
+  "security": {
+    "eyebrow": "Vertrauenslos durch Design",
+    "title": "Fünf Gründe, niemandem zu vertrauen.",
+    "subtitle": "Wir haben jeden Weg entfernt, mit dem wir Ihnen schaden könnten. Was bleibt, ist Code – veröffentlicht, gesperrt und von Personen verifiziert, die nicht für uns arbeiten.",
+    "pillar1Title": "Unabhängig geprüft",
+    "pillar1Body": "Umfassendes Smart-Contract-Audit auf SolidityScan (QuickScan). Öffentlicher Bericht, Zeile für Zeile.",
+    "pillar1Proof": "Audit lesen",
+    "pillar2Title": "100% LP gesperrt",
+    "pillar2Body": "Liquidität on-chain gesperrt — verifiziert auf BscScan.",
+    "pillar2Proof": "Auf BscScan verifizieren",
+    "pillar3Title": "Eigentum aufgegeben",
+    "pillar3Body": "Der Vertragsbesitz wurde dauerhaft on-chain aufgegeben. Niemand kann den Code ändern.",
+    "pillar3Proof": "Transaktion ansehen",
+    "pillar4Title": "Quellcode verifiziert",
+    "pillar4Body": "Quellcode veröffentlicht und auf BscScan verifiziert. Lesen Sie jede Zeile.",
+    "pillar4Proof": "Code lesen",
+    "pillar5Title": "$100K-Prämie",
+    "pillar5Body": "Finden Sie Zentralisierung im Vertrag, beanspruchen Sie die Prämie. Offen für alle, keine NDA.",
+    "pillar5Proof": "Bedingungen ansehen",
+    "fullBreakdown": "Die vollständige Sicherheitsaufstellung ansehen"
+  },
+  "zoom": {
+    "eyebrow": "Jetzt live",
+    "title": "Die Community ist",
+    "titleHighlight": "jetzt live.",
+    "subtitle": "Echte Menschen, echte Antworten. Jeden Tag.",
+    "labelEnglish": "Englisch",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Täglich · Kostenlos",
+    "when": "Wann",
+    "nextCallIn": "Nächster Anruf in",
+    "joinNow": "Jetzt beitreten"
+  },
+  "reels": {
+    "eyebrow": "Die Bewegung, weltweit",
+    "title": "Lerne in deiner Sprache.",
+    "subtitle": "Schritt-für-Schritt-Anleitungen für jede TurboLoop-Aktion — wie einzahlen, abheben, Renditen prüfen und die LP-Sperre verifizieren. Verfügbar in 15 Sprachen.",
+    "v1Title": "Wie man abhebt",
+    "v2Title": "Wie Renditen funktionieren",
+    "v3Title": "Wie man die LP-Sperre prüft",
+    "v4Title": "Wie man über den Smart Contract einzahlt"
+  },
+  "creatives": {
+    "eyebrow": "Marketing-Hub",
+    "title": "Durchsuchen, herunterladen und teilen.",
+    "subtitle": "Premium-Banner in deiner Sprache — bereit zum Posten auf Telegram, WhatsApp oder jeder Plattform.",
+    "byLanguage": "Nach Sprache",
+    "byCategory": "Nach Kategorie",
+    "searchPlaceholder": "Banner suchen...",
+    "clearFilters": "Filter löschen",
+    "downloadFree": "Kostenlos herunterladen",
+    "allLanguages": "Alle Sprachen",
+    "allCategories": "Alle Kategorien"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

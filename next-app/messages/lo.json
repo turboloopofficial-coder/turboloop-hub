@@ -170,5 +170,143 @@
       "title": "$TURBO Token — TurboLoop",
       "description": "Learn about the $TURBO deflationary token — daily buyback and burn, vesting schedule, and tokenomics."
     }
+  },
+  "protocol": {
+    "eyebrow": "ລະບົບ",
+    "title": "ທຸກຊັ່ນ.",
+    "titleHighlight": "ເບີ່ງໜ້າຜູ້ອາທະມິດ.",
+    "subtitle": "ແຜນຜະນິດຜົນ 4 ແຜນ. ກວະແຜນການແນະນຳ 20 ລະດັບ. ກຳນົດສາຂາ 7. ໂຄສະນາກຽດການກວດແລ່. ເປັນ protocol ຜູ້ທ່ານກົງກວດໄວ້.",
+    "plans": {
+      "eyebrow": "The 4 Loop Plans",
+      "title": "ເລືອກສອງເວັນທີ່ຢູ່. ຮັບຜົນທີ່ຕົກລົງ.",
+      "subtitle": "ທຶນທືນແລະຜົນກັບຄືນຈົນທ່ານ ທອງບໍ່ມີການຄືນກັບທີ່ສ່ວນ, ບໍ່ມີການຄອ຤ສົນໄວ່.",
+      "calculateReturn": "ຄຳນວນຜົນກັບ",
+      "turboBonusLabel": "$TURBO Bonus"
+    },
+    "referral": {
+      "title": "20 ລະດັບ ລີແຣກໃນລຶກ",
+      "subtitle": "51% ຂອງຄ່າທຳນອນ protocol ຈັບສະຫນອງຜູ້ຊົມຊົນ.",
+      "fact1": "ບໍ່ມີຄວາມຕ້ອງກຳນົດຈາກລຳ",
+      "fact2": "ສ່ວອບລະອົບລູກຮອບ",
+      "fact3": "ລຶກກັນແລະຢູ່ໃນ DeFi",
+      "cta": "ສືກສາກຸລະບຢ"
+    },
+    "leadership": {
+      "title": "Partner → Legend",
+      "subtitle": "7 ລະຫັດ. ຮັບຜົນຈາກ 100 ລະດັບໃນເຄື່ອງຂອງທ່ານ.",
+      "cta": "ເບິນສິບທະນະນູ",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Builder",
+        "accelerator": "Accelerator",
+        "director": "Director",
+        "executive": "Executive",
+        "ambassador": "Ambassador",
+        "legend": "Legend"
+      }
+    },
+    "security": {
+      "title": "Zero vulnerabilities found.",
+      "chip1": "Audited",
+      "chip2": "Renounced",
+      "chip3": "LP Locked",
+      "bounty": "$100K bounty",
+      "bountyUnclaimed": "unclaimed.",
+      "cta": "See the proof"
+    },
+    "films": {
+      "title": "What is TurboLoop?",
+      "caption": "ທ່ານເປັນຜູ້ຈະທຳ? ກ່າວນີ້ເລ້ວ.",
+      "cta": "Watch the film"
+    }
+  },
+  "numbers": {
+    "eyebrow": "By the Numbers",
+    "title": "A movement, not a moment.",
+    "subtitle": "Real reach across the world. Translated, told, and lived in dozens of languages every day.",
+    "stat1Label": "Languages",
+    "stat1Help": "Supported across content",
+    "stat2Label": "Films",
+    "stat2Help": "Cinematic universe complete",
+    "stat3Label": "Continents",
+    "stat3Help": "Active community presence",
+    "stat4Label": "Bounty",
+    "stat4Help": "For proof of centralization"
+  },
+  "security": {
+    "eyebrow": "Trustless by Design",
+    "title": "Five reasons to trust nobody.",
+    "subtitle": "We removed every way we could harm you. What remains is code, published, locked, and verified by people who don't work for us.",
+    "pillar1Title": "Independently audited",
+    "pillar1Body": "Full smart-contract audit on SolidityScan (QuickScan). Public report, line-by-line.",
+    "pillar1Proof": "Read audit",
+    "pillar2Title": "100% LP locked",
+    "pillar2Body": "Liquidity locked on-chain — verified on BscScan.",
+    "pillar2Proof": "Verify on BscScan",
+    "pillar3Title": "Ownership renounced",
+    "pillar3Body": "Contract ownership permanently destroyed on-chain. Nobody can change the code.",
+    "pillar3Proof": "View transaction",
+    "pillar4Title": "Source verified",
+    "pillar4Body": "Source code published and verified on BscScan. Read every line.",
+    "pillar4Proof": "Read code",
+    "pillar5Title": "$100K bounty",
+    "pillar5Body": "Find centralization in the contract, claim the prize. Open to anyone, no NDA.",
+    "pillar5Proof": "See terms",
+    "fullBreakdown": "See the full security breakdown"
+  },
+  "zoom": {
+    "eyebrow": "Live Right Now",
+    "title": "The community is",
+    "titleHighlight": "live right now.",
+    "subtitle": "Real people, real answers. Every day.",
+    "labelEnglish": "English",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Daily · Free",
+    "when": "When",
+    "nextCallIn": "Next call in",
+    "joinNow": "Join now"
+  },
+  "reels": {
+    "eyebrow": "The Movement, Worldwide",
+    "title": "Learn in your language.",
+    "subtitle": "Step-by-step walkthroughs of every TurboLoop action — how to deposit, withdraw, check your returns, and verify the LP lock. Available in 15 languages.",
+    "v1Title": "How to Withdraw",
+    "v2Title": "How Returns Work",
+    "v3Title": "How to Check LP Lock",
+    "v4Title": "How to Deposit via Smart Contract"
+  },
+  "creatives": {
+    "eyebrow": "Marketing Hub",
+    "title": "Browse, download, and share.",
+    "subtitle": "Premium banners in your language — ready to post on Telegram, WhatsApp, or any platform.",
+    "byLanguage": "By Language",
+    "byCategory": "By Category",
+    "searchPlaceholder": "Search banners...",
+    "clearFilters": "Clear",
+    "downloadFree": "Download Free",
+    "allLanguages": "All Languages",
+    "allCategories": "All Categories"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

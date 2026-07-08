@@ -170,5 +170,143 @@
       "title": "$TURBO ٹوکن — TurboLoop",
       "description": "ڈیفلیشنری $TURBO ٹوکن کے بارے میں جانیں — روزانہ buyback اور burn، وسٹنگ شیڈول، اور ٹوکنومکس۔"
     }
+  },
+  "protocol": {
+    "eyebrow": "پروٹوکول",
+    "title": "ہر حصہ۔",
+    "titleHighlight": "ایک نظر۔",
+    "subtitle": "چار منافع کے منصوبے۔ 20 سطحی ریفرل گراف۔ سات لیڈرشپ رینکس۔ آڈٹ شدہ کوڈ۔ ایک پروٹوکول — جانچ کے لیے بنایا گیا، اعتماد کے لیے نہیں۔",
+    "plans": {
+      "eyebrow": "4 لوپ منصوبے",
+      "title": "مدت منتخب کریں۔ مقررہ منافع حاصل کریں۔",
+      "subtitle": "سرمایہ اور منافع منصوبے کے اختتام پر واپس کیے جاتے ہیں — کوئی کمپاؤنڈنگ چالیں نہیں، کوئی سالانہ کاری کا جھنجھٹ نہیں۔",
+      "calculateReturn": "اپنی واپسی کا حساب کریں",
+      "turboBonusLabel": "$TURBO بونس"
+    },
+    "referral": {
+      "title": "20 سطحوں تک",
+      "subtitle": "پروٹوکول فیس کا 51% کمیونٹی میں تقسیم کیا جاتا ہے.",
+      "fact1": "والیوم کی کوئی شرط نہیں",
+      "fact2": "مقررہ فیصد",
+      "fact3": "DeFi میں سب سے گہرا",
+      "cta": "گراف دیکھیں"
+    },
+    "leadership": {
+      "title": "پارٹنر → لیجنڈ",
+      "subtitle": "7 رتبے۔ اپنی نیٹ ورک کے 100 سطحوں سے کمائیں۔",
+      "cta": "رتبے کی سیڑھی دیکھیں",
+      "ranks": {
+        "partner": "پارٹنر",
+        "builder": "بلڈر",
+        "accelerator": "ایکسلیریٹر",
+        "director": "ڈائریکٹر",
+        "executive": "ایگزیکٹو",
+        "ambassador": "سفیر",
+        "legend": "لیجنڈ"
+      }
+    },
+    "security": {
+      "title": "کوئی کمزوریاں نہیں ملیں۔",
+      "chip1": "آڈٹ شدہ",
+      "chip2": "ملکیت ترک کی گئی",
+      "chip3": "LP مقفل",
+      "bounty": "$100K باؤنٹی",
+      "bountyUnclaimed": "مطالبہ نہیں کیا گیا۔",
+      "cta": "ثبوت دیکھیں"
+    },
+    "films": {
+      "title": "TurboLoop کیا ہے؟",
+      "caption": "یہاں نئے ہیں؟ اسی سے شروع کریں۔",
+      "cta": "فلم دیکھیں"
+    }
+  },
+  "numbers": {
+    "eyebrow": "اعداد و شمار",
+    "title": "یہ ایک تحریک ہے، محض ایک لمحہ نہیں۔",
+    "subtitle": "دنیا بھر میں حقیقی رسائی۔ روزانہ درجنوں زبانوں میں اس کا ترجمہ، بیان اور تجربہ کیا جاتا ہے۔",
+    "stat1Label": "زبانیں",
+    "stat1Help": "مختلف مواد میں دستیاب",
+    "stat2Label": "فلمیں",
+    "stat2Help": "سینیمیاتی کائنات مکمل",
+    "stat3Label": "براعظم",
+    "stat3Help": "فعال کمیونٹی کی موجودگی",
+    "stat4Label": "انعام",
+    "stat4Help": "مرکزی کنٹرول کے ثبوت کے لیے"
+  },
+  "security": {
+    "eyebrow": "اعتماد کے بغیر ڈیزائن",
+    "title": "کس پر بھی بھروسہ نہ کرنے کی پانچ وجوہات۔",
+    "subtitle": "ہم نے ہر وہ راستہ ختم کیا جس سے آپ کو نقصان پہنچ سکتا تھا۔ جو کچھ باقی رہ گیا ہے وہ کوڈ ہے — شائع شدہ، لاک شدہ، اور ایسے لوگوں کی طرف سے تصدیق شدہ جو ہمارے لیے کام نہیں کرتے۔",
+    "pillar1Title": "آزادانہ طور پر آڈٹ شدہ",
+    "pillar1Body": "SolidityScan (QuickScan) پر مکمل سمارٹ کنٹریکٹ آڈٹ۔ عوامی رپورٹ، لائن بہ لائن۔",
+    "pillar1Proof": "آڈٹ پڑھیں",
+    "pillar2Title": "100% LP مقفل",
+    "pillar2Body": "لیکویڈیٹی آن-چین مقفل — BscScan پر تصدیق شدہ۔",
+    "pillar2Proof": "BscScan پر تصدیق کریں",
+    "pillar3Title": "مالکیت ترک کی گئی",
+    "pillar3Body": "کنٹریکٹ کی ملکیت آن-چین مستقل طور پر ختم کر دی گئی۔ کوئی بھی کوڈ تبدیل نہیں کر سکتا۔",
+    "pillar3Proof": "ٹرانزیکشن دیکھیں",
+    "pillar4Title": "سورس تصدیق شدہ",
+    "pillar4Body": "سورس کوڈ شائع اور BscScan پر تصدیق شدہ۔ ہر لائن پڑھیں۔",
+    "pillar4Proof": "کوڈ پڑھیں",
+    "pillar5Title": "$100K باؤنٹی",
+    "pillar5Body": "کنٹریکٹ میں مرکزیت تلاش کریں، انعام کا دعویٰ کریں۔ کسی کے لیے بھی کھلا، کوئی NDA نہیں۔",
+    "pillar5Proof": "شرائط دیکھیں",
+    "fullBreakdown": "سیکیورٹی کا مکمل تجزیہ دیکھیں"
+  },
+  "zoom": {
+    "eyebrow": "ابھی لائیو",
+    "title": "کمیونٹی",
+    "titleHighlight": "ابھی لائیو ہے۔",
+    "subtitle": "حقیقی لوگ، حقیقی جوابات۔ ہر روز۔",
+    "labelEnglish": "انگریزی",
+    "labelHindi": "ہندی / اردو",
+    "dailyFree": "روزانہ · مفت",
+    "when": "کب",
+    "nextCallIn": "اگلی کال شروع ہونے میں",
+    "joinNow": "اب شامل ہوں"
+  },
+  "reels": {
+    "eyebrow": "تحریک، دنیا بھر میں",
+    "title": "اپنی زبان میں سیکھیں۔",
+    "subtitle": "TurboLoop کے ہر عمل کے مرحلہ وار رہنما — جمع کیسے کریں، نکالیں، اپنی واپسی چیک کریں، اور LP لاک کی تصدیق کریں۔ 15 زبانوں میں دستیاب۔",
+    "v1Title": "نکالنے کا طریقہ",
+    "v2Title": "واپسی کیسے کام کرتی ہے",
+    "v3Title": "LP لاک کیسے چیک کریں",
+    "v4Title": "سمارٹ کنٹریکٹ کے ذریعے کیسے جمع کریں"
+  },
+  "creatives": {
+    "eyebrow": "مارکیٹنگ ہب",
+    "title": "براؤز کریں، ڈاؤن لوڈ کریں، اور شیئر کریں۔",
+    "subtitle": "آپ کی زبان میں پریمیم بینرز — Telegram، WhatsApp، یا کسی بھی پلیٹ فارم پر پوسٹ کرنے کے لیے تیار۔",
+    "byLanguage": "زبان کے لحاظ سے",
+    "byCategory": "زمرہ کے لحاظ سے",
+    "searchPlaceholder": "بینرز تلاش کریں...",
+    "clearFilters": "فلٹرز صاف کریں",
+    "downloadFree": "مفت ڈاؤن لوڈ کریں",
+    "allLanguages": "تمام زبانیں",
+    "allCategories": "تمام زمرہ جات"
+  },
+  "testimonial": {
+    "eyebrow": "Voices from the Community",
+    "title": "In their own words.",
+    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "author": "Adesina O.",
+    "role": "Community Lead",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Read more stories"
+  },
+  "newsletter": {
+    "eyebrow": "Stay in the Loop",
+    "title": "Get updates before anyone else.",
+    "subtitle": "Protocol updates, new plans, and community milestones — delivered to your inbox. No spam. Unsubscribe any time.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "successTitle": "You're in!",
+    "successBody": "Watch your inbox for the first update.",
+    "errorInvalidEmail": "Please enter a valid email address.",
+    "errorGeneric": "Couldn't sign up — try again in a moment.",
+    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
+    "inlineError": "That doesn't look like a valid email address."
   }
 }

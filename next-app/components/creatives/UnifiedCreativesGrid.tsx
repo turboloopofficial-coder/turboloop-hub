@@ -14,7 +14,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X, Filter, Loader2 } from "lucide-react";
+import { Search, X, Loader2 } from "lucide-react";
 import { UnifiedBannerCard } from "./UnifiedBannerCard";
 import { DownloadKitButton } from "./DownloadKitButton";
 import type { UnifiedCreative, UnifiedCategoryDef, CreativeLanguage } from "@lib/unifiedCreativesData";
@@ -50,10 +50,10 @@ export function UnifiedCreativesGrid({
   categoryNavMode = false,
 }: Props) {
   const router = useRouter();
+  const [exploreMode, setExploreMode] = useState<"category" | "language">("category");
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory ?? "all");
   const [activeLang, setActiveLang] = useState<CreativeLanguage | "all">("all");
   const [search, setSearch] = useState("");
-  const [filterOpen, setFilterOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   // ── Paginated items state ──────────────────────────────────────────
@@ -164,8 +164,39 @@ export function UnifiedCreativesGrid({
     <div className="flex flex-col gap-0">
       {/* ── Sticky filter bar ──────────────────────────────────────────── */}
       <div className="sticky top-0 z-30 bg-[var(--c-bg)]/95 backdrop-blur-md border-b border-[var(--c-border)] py-3 px-4 md:px-6">
-        {/* Search + filter toggle row */}
+
+        {/* ── Explore mode toggle + search row ──────────────────────── */}
         <div className="flex items-center gap-2 mb-3">
+          {/* Mode toggle pill */}
+          <div
+            className="inline-flex rounded-full p-0.5 gap-0.5 shrink-0"
+            style={{ background: "var(--c-surface)", border: "1px solid var(--c-border)" }}
+          >
+            <button
+              onClick={() => setExploreMode("category")}
+              className="px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap"
+              style={
+                exploreMode === "category"
+                  ? { background: "var(--c-brand-gradient, linear-gradient(135deg,#06b6d4,#7c3aed))", color: "white" }
+                  : { color: "var(--c-text-subtle)" }
+              }
+            >
+              🗂️ By Category
+            </button>
+            <button
+              onClick={() => setExploreMode("language")}
+              className="px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap"
+              style={
+                exploreMode === "language"
+                  ? { background: "var(--c-brand-gradient, linear-gradient(135deg,#06b6d4,#7c3aed))", color: "white" }
+                  : { color: "var(--c-text-subtle)" }
+              }
+            >
+              🌍 By Language
+            </button>
+          </div>
+
+          {/* Search */}
           <div className="relative flex-1">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--c-text-subtle)]" />
             <input
@@ -174,7 +205,7 @@ export function UnifiedCreativesGrid({
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search banners…"
-              className="w-full h-10 pl-9 pr-4 rounded-xl bg-[var(--c-surface)] border border-[var(--c-border)] text-sm text-[var(--c-text)] placeholder:text-[var(--c-text-subtle)] focus:outline-none focus:border-[var(--c-brand-cyan)] transition"
+              className="w-full h-9 pl-9 pr-4 rounded-xl bg-[var(--c-surface)] border border-[var(--c-border)] text-sm text-[var(--c-text)] placeholder:text-[var(--c-text-subtle)] focus:outline-none focus:border-[var(--c-brand-cyan)] transition"
             />
             {search && (
               <button
@@ -185,80 +216,71 @@ export function UnifiedCreativesGrid({
               </button>
             )}
           </div>
-          <button
-            onClick={() => setFilterOpen(o => !o)}
-            className={`flex items-center gap-1.5 h-10 px-3.5 rounded-xl border text-sm font-semibold transition-all ${
-              filterOpen
-                ? "bg-[var(--c-brand-cyan)] text-black border-[var(--c-brand-cyan)]"
-                : "bg-[var(--c-surface)] border-[var(--c-border)] text-[var(--c-text)]"
-            }`}
-          >
-            <Filter size={13} />
-            <span className="hidden sm:inline">Filter</span>
-            {isFiltered && (
-              <span className="w-2 h-2 rounded-full bg-[var(--c-brand-cyan)] ml-0.5" />
-            )}
-          </button>
+
           {isFiltered && (
             <button
               onClick={clearFilters}
-              className="flex items-center gap-1 h-10 px-3 rounded-xl text-xs font-semibold text-[var(--c-text-subtle)] hover:text-[var(--c-text)] border border-[var(--c-border)] bg-[var(--c-surface)] transition"
+              className="flex items-center gap-1 h-9 px-3 rounded-xl text-xs font-semibold text-[var(--c-text-subtle)] hover:text-[var(--c-text)] border border-[var(--c-border)] bg-[var(--c-surface)] transition shrink-0"
             >
               <X size={12} /> Clear
             </button>
           )}
         </div>
 
-        {/* Category tabs — horizontal scroll */}
-        <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 md:-mx-6 md:px-6">
-          <div className="flex items-center gap-2 w-max pb-0.5">
-            <CategoryTab
-              id="all"
-              label="All"
-              emoji="✨"
-              count={initialTotal}
-              active={activeCategory === "all"}
-              onClick={() => setActiveCategory("all")}
-            />
-            {categories.map(cat => (
+        {/* ── Category tabs — shown when mode = category ─────────────── */}
+        {exploreMode === "category" && (
+          <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 md:-mx-6 md:px-6">
+            <div className="flex items-center gap-2 w-max pb-0.5">
               <CategoryTab
-                key={cat.id}
-                id={cat.id}
-                label={cat.label}
-                emoji={cat.emoji}
-                count={cat.count}
-                active={activeCategory === cat.id}
-                onClick={() =>
-                  categoryNavMode
-                    ? router.push(`/creatives/${cat.id}`)
-                    : setActiveCategory(cat.id)
-                }
-                accent={cat.accent.from}
+                id="all"
+                label="All"
+                emoji="✨"
+                count={initialTotal}
+                active={activeCategory === "all"}
+                onClick={() => setActiveCategory("all")}
               />
-            ))}
+              {categories.map(cat => (
+                <CategoryTab
+                  key={cat.id}
+                  id={cat.id}
+                  label={cat.label}
+                  emoji={cat.emoji}
+                  count={cat.count}
+                  active={activeCategory === cat.id}
+                  onClick={() =>
+                    categoryNavMode
+                      ? router.push(`/creatives/${cat.id}`)
+                      : setActiveCategory(cat.id)
+                  }
+                  accent={cat.accent.from}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Language filter — only shown when filter panel is open */}
-        {filterOpen && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            <LangChip
-              code="all"
-              label="All languages"
-              flag="🌍"
-              active={activeLang === "all"}
-              onClick={() => setActiveLang("all")}
-            />
-            {UNIFIED_LANGUAGES.map(l => (
+        {/* ── Language tabs — shown when mode = language ─────────────── */}
+        {exploreMode === "language" && (
+          <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 md:-mx-6 md:px-6">
+            <div className="flex items-center gap-2 w-max pb-0.5">
               <LangChip
-                key={l.code}
-                code={l.code}
-                label={l.label}
-                flag={l.flag}
-                active={activeLang === l.code}
-                onClick={() => setActiveLang(l.code as CreativeLanguage)}
+                code="all"
+                label="All Languages"
+                flag="🌍"
+                active={activeLang === "all"}
+                onClick={() => setActiveLang("all")}
               />
-            ))}
+              {UNIFIED_LANGUAGES.map(l => (
+                <LangChip
+                  key={l.code}
+                  code={l.code}
+                  label={l.label}
+                  flag={l.flag}
+                  active={activeLang === l.code}
+                  onClick={() => setActiveLang(l.code as CreativeLanguage)}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>

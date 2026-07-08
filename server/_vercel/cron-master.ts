@@ -665,6 +665,22 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return;
     }
 
+    // ─── Debug: ?checktg=1 verifies bot token and channel are set ──────────
+    if (reqUrlDebug.searchParams.get("checktg") === "1") {
+      const botToken = process.env.TELEGRAM_BOT_TOKEN;
+      const channel = process.env.TELEGRAM_CHANNEL;
+      const chat = process.env.TELEGRAM_CHAT;
+      res.statusCode = 200;
+      res.end(JSON.stringify({
+        ok: true,
+        botTokenSet: !!botToken,
+        botTokenPrefix: botToken ? botToken.slice(0, 10) + "..." : null,
+        channel: channel || null,
+        chat: chat || null,
+      }));
+      return;
+    }
+
     // ─── Debug: ?setcommands=1 registers all bot commands with Telegram ──────
     if (reqUrlDebug.searchParams.get("setcommands") === "1") {
       const botToken = process.env.TELEGRAM_BOT_TOKEN;

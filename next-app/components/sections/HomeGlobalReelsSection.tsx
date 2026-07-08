@@ -48,8 +48,8 @@ export function HomeGlobalReelsSection() {
             <span className="text-brand-wide">Worldwide.</span>
           </Heading>
           <p className="mt-4 text-[var(--c-text-muted)] max-w-xl mx-auto leading-relaxed">
-            Mobile-first walkthroughs of how to withdraw, how your
-            returns work, and how to verify the LP lock yourself —
+            Mobile-first walkthroughs of how to deposit, how to withdraw,
+            how your returns work, and how to verify the LP lock yourself —
             translated and re-shot in English, Deutsch, and Bahasa
             Indonesia.
           </p>

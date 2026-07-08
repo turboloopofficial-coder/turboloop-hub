@@ -1,8 +1,8 @@
 // Multi-language "Shorts / Reels" data — driven by curated
 // translations + captions from the TurboLoop_Complete content bundle.
-// Three logical reels × three languages = 9 total, each pointing at
+// Four logical reels × three languages = up to 12 total, each pointing at
 // its own R2-hosted MP4 + PNG thumbnail and carrying language-native
-// title + tease.
+// title + tease. v4-deposit is English-only for now (DE/ID pending).
 //
 // Lives separately from scripts/reels-manifest.json (the existing
 // homepage carousel data, all-English) so the multi-lingual reels can
@@ -76,6 +76,25 @@ const REEL_DEFS: ReelDef[] = [
       en: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
       de: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
       id: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
+    },
+  },
+  // v4 — English only for now; DE/ID versions to be added when recorded
+  {
+    id: "v4-deposit",
+    titles: {
+      en: "How to Deposit via Smart Contract on BSC",
+      de: "How to Deposit via Smart Contract on BSC",
+      id: "How to Deposit via Smart Contract on BSC",
+    },
+    descriptions: {
+      en: "Step-by-step: connect your wallet, choose your plan, and deposit USDT directly into the TurboLoop smart contract on BSC — no middleman, no trust required.",
+      de: "Step-by-step: connect your wallet, choose your plan, and deposit USDT directly into the TurboLoop smart contract on BSC — no middleman, no trust required.",
+      id: "Step-by-step: connect your wallet, choose your plan, and deposit USDT directly into the TurboLoop smart contract on BSC — no middleman, no trust required.",
+    },
+    hashtags: {
+      en: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
+      de: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
+      id: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
     },
   },
 ];

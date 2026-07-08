@@ -17,7 +17,11 @@ import {
 // ── Static params ──────────────────────────────────────────────────────────
 
 export function generateStaticParams() {
-  return UNIFIED_CATEGORIES.map(cat => ({ category: cat.id }));
+  // Exclude language-specific categories — they are accessed via the language filter,
+  // not via /creatives/[category] URL routes.
+  return UNIFIED_CATEGORIES
+    .filter(cat => !cat.isLanguageCategory)
+    .map(cat => ({ category: cat.id }));
 }
 
 // ── Metadata ───────────────────────────────────────────────────────────────

@@ -250,6 +250,78 @@ export interface ReelTrack {
 
 const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
+/**
+ * Exact set of dubbed reels available in R2 as of July 8 2026.
+ * Any lang/slug combo NOT in this set falls back to the English original.
+ * Format: "{lang}/{slug}"
+ */
+const DUBBED_REELS = new Set([
+  "hi/001-vs-54-percent",
+  "hi/3-streams-of-income",
+  "hi/80-countries-cant-be-wrong",
+  "hi/90-day-math",
+  "hi/bank-called-miss-money",
+  "hi/blockchain-never-lies",
+  "hi/code-doesnt-take-holidays",
+  "hi/day1-vs-day365",
+  "hi/global-momentum",
+  "hi/laughed-at-bitcoin-2010",
+  "hi/leadership-journey",
+  "hi/rug-pull-proof",
+  "hi/safest-number-in-defi",
+  "hi/smartest-people-are-quiet",
+  "hi/turbolooptech-everything-free",
+  "hi/what-50-becomes-3-years",
+  "hi/wifi-makes-money-sleep",
+  "ko/001-vs-54-percent",
+  "ko/3-streams-of-income",
+  "ko/80-countries-cant-be-wrong",
+  "ko/90-day-math",
+  "ko/bank-called-miss-money",
+  "ko/blockchain-never-lies",
+  "ko/code-doesnt-take-holidays",
+  "ko/day1-vs-day365",
+  "ko/global-momentum",
+  "ko/laughed-at-bitcoin-2010",
+  "ko/leadership-journey",
+  "ko/rug-pull-proof",
+  "ko/safest-number-in-defi",
+  "ko/smartest-people-are-quiet",
+  "ko/turbolooptech-everything-free",
+  "ko/what-50-becomes-3-years",
+  "ko/wifi-makes-money-sleep",
+  "ta/001-vs-54-percent",
+  "ta/3-streams-of-income",
+  "ta/80-countries-cant-be-wrong",
+  "ta/90-day-math",
+  "ta/bank-called-miss-money",
+  "ta/blockchain-never-lies",
+  "ta/code-doesnt-take-holidays",
+  "ta/day1-vs-day365",
+  "ta/global-momentum",
+  "ta/laughed-at-bitcoin-2010",
+  "ta/leadership-journey",
+  "ta/rug-pull-proof",
+  "ta/safest-number-in-defi",
+  "th/001-vs-54-percent",
+  "th/3-streams-of-income",
+  "th/80-countries-cant-be-wrong",
+  "th/90-day-math",
+  "th/bank-called-miss-money",
+  "th/blockchain-never-lies",
+  "th/code-doesnt-take-holidays",
+  "th/day1-vs-day365",
+  "th/global-momentum",
+  "th/laughed-at-bitcoin-2010",
+  "th/leadership-journey",
+  "th/rug-pull-proof",
+  "th/safest-number-in-defi",
+  "th/smartest-people-are-quiet",
+  "th/turbolooptech-everything-free",
+  "th/what-50-becomes-3-years",
+  "th/wifi-makes-money-sleep",
+]);
+
 export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: string }> = {
   en:  { label: "English",            flag: "🇬🇧", dir: "en" },
   th:  { label: "ภาษาไทย",            flag: "🇹🇭", dir: "th" },
@@ -269,16 +341,21 @@ export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: str
 };
 
 function buildLangReels(lang: ReelLang): ReelTrack[] {
-  return REEL_DEFS.map(def => ({
-    id: def.id,
-    lang,
-    title: def.titles[lang] ?? def.titles["en"] ?? "",
-    description: def.descriptions[lang] ?? def.descriptions["en"] ?? "",
-    hashtags: def.hashtags[lang] ?? def.hashtags["en"] ?? "",
-    videoUrl: `${R2}/reels/${LANG_META[lang].dir}/${def.id}.mp4`,
-    // Language-specific thumbnails: all 15 languages × 4 videos = 60 unique thumbnails
-    thumbUrl: `${R2}/reel-thumbs/${lang}/${def.id}.png`,
-  }));
+  return REEL_DEFS.map(def => {
+    // Use dubbed version if available, otherwise fall back to English original
+    const hasDub = lang === "en" || DUBBED_REELS.has(`${lang}/${def.id}`);
+    const videoLang = hasDub ? lang : "en";
+    return {
+      id: def.id,
+      lang,
+      title: def.titles[lang] ?? def.titles["en"] ?? "",
+      description: def.descriptions[lang] ?? def.descriptions["en"] ?? "",
+      hashtags: def.hashtags[lang] ?? def.hashtags["en"] ?? "",
+      videoUrl: `${R2}/reels/${LANG_META[videoLang].dir}/${def.id}.mp4`,
+      // Language-specific thumbnails: all 15 languages × 4 videos = 60 unique thumbnails
+      thumbUrl: `${R2}/reel-thumbs/${lang}/${def.id}.png`,
+    };
+  });
 }
 
 export const ALL_REEL_LANGS: ReelLang[] = [

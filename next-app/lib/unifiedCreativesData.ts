@@ -55,6 +55,8 @@ export type UnifiedCategoryDef = {
   accent: { from: string; to: string };
   count: number;
   source: "legacy" | "lang-kit" | "campaign" | "mixed";
+  /** True for language-specific categories — hidden from the category tab row */
+  isLanguageCategory?: boolean;
 };
 
 // Campaign category accent map
@@ -286,6 +288,11 @@ function buildCategories(): UnifiedCategoryDef[] {
     counts[c.categoryId] = (counts[c.categoryId] ?? 0) + 1;
   }
 
+  // Language-specific category IDs — these are shown in the language filter, not the category filter
+  const LANGUAGE_CATEGORY_IDS = new Set([
+    "hindi-new", "nigerian", "spanish", "indonesian", "chinese", "italian",
+    "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "lang-kit",
+  ]);
   // Campaign categories
   const campaignCats: UnifiedCategoryDef[] = Object.entries(CAMPAIGN_LABELS).map(([id, meta]) => ({
     id,
@@ -295,6 +302,7 @@ function buildCategories(): UnifiedCategoryDef[] {
     accent: CAMPAIGN_ACCENTS[id] ?? { from: "#06B6D4", to: "#7C3AED" },
     count: counts[id] ?? 0,
     source: "campaign" as const,
+    isLanguageCategory: LANGUAGE_CATEGORY_IDS.has(id),
   }));
 
   // Legacy categories (derive from manifest)
@@ -322,6 +330,7 @@ function buildCategories(): UnifiedCategoryDef[] {
     accent: { from: "#0891B2", to: "#7C3AED" },
     count: counts["lang-kit"] ?? 0,
     source: "lang-kit" as const,
+    isLanguageCategory: true,
   };
 
   return [...campaignCats, ...Object.values(legacyCatMap), langKitCat].filter(c => c.count > 0);

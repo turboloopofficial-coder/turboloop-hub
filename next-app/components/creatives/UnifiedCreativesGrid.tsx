@@ -239,7 +239,7 @@ export function UnifiedCreativesGrid({
                 active={activeCategory === "all"}
                 onClick={() => setActiveCategory("all")}
               />
-              {categories.map(cat => (
+              {categories.filter(cat => !cat.isLanguageCategory).map(cat => (
                 <CategoryTab
                   key={cat.id}
                   id={cat.id}

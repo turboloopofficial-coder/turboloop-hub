@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_PLAN_CAPTIONS, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, CAMPAIGN_INDONESIAN_CAPTIONS, CAMPAIGN_CHINESE_CAPTIONS, CAMPAIGN_ITALIAN_CAPTIONS, CAMPAIGN_ARABIC_CAPTIONS, CAMPAIGN_URDU_CAPTIONS, CAMPAIGN_GERMAN_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_PLAN_CAPTIONS, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, CAMPAIGN_SPANISH_CAPTIONS, CAMPAIGN_INDONESIAN_CAPTIONS, CAMPAIGN_CHINESE_CAPTIONS, CAMPAIGN_ITALIAN_CAPTIONS, CAMPAIGN_ARABIC_CAPTIONS, CAMPAIGN_URDU_CAPTIONS, CAMPAIGN_GERMAN_CAPTIONS, CAMPAIGN_THAI_DAILY_CAPTIONS, CAMPAIGN_KOREAN_DAILY_CAPTIONS, CAMPAIGN_LAO_DAILY_CAPTIONS, CAMPAIGN_TAMIL_DAILY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -1124,6 +1124,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceCampaignCommunity   = forceSet.has("campaign:community");
     const forceCreativesPromoA      = forceSet.has("creatives:promo:A");
     const forceCreativesPromoB      = forceSet.has("creatives:promo:B");
+    const forceThaiDaily            = forceSet.has("thai:daily");
+    const forceKoreanDaily          = forceSet.has("korean:daily");
+    const forceLaoDaily             = forceSet.has("lao:daily");
+    const forceTamilDaily           = forceSet.has("tamil:daily");
 
     // ============ 0. ONE-SHOT: SITE LAUNCH ANNOUNCEMENT ============
     // Fires once when current time >= LAUNCH_FIRE_AT_UTC and within grace window,
@@ -1883,6 +1887,107 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       await markError(db, "nightly:education", err).catch(() => {});
       console.error("[cron-master] task nightly:education failed", err);
       log.push(`❌ nightly:education failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ============ LANGUAGE COMMUNITY DAILY POSTS (EN channel, EN captions) ============
+    // One post per day per language — Thai, Korean, Lao, Tamil.
+    // Each picks a banner from its R2 category and posts to the main EN channel.
+    // Slots chosen to avoid the 15:00–17:00 UTC Zoom window.
+    //   thai:daily   — 01:00 UTC (06:30 IST)
+    //   korean:daily — 03:30 UTC (09:00 IST)
+    //   lao:daily    — 05:30 UTC (11:00 IST)
+    //   tamil:daily  — 07:30 UTC (13:00 IST)
+
+    // ── THAI DAILY ──
+    try {
+      if ((isInWindow(1, 0) || forceThaiDaily) && (forceThaiDaily || !(await hasFiredToday(db, "thai:daily")))) {
+        const dayIndex = Math.floor(Date.now() / 86_400_000);
+        const photoUrl = campaignBannerUrl("thai", dayIndex);
+        const caption = pickByDay(CAMPAIGN_THAI_DAILY_CAPTIONS);
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "🇹🇭 Browse Thai Banners", url: "https://turboloop.tech/creatives" }],
+        });
+        await markFired(db, "thai:daily");
+        log.push(`🇹🇭 Thai daily — ${photoUrl}`);
+      }
+    } catch (err) {
+      await markError(db, "thai:daily", err).catch(() => {});
+      console.error("[cron-master] task thai:daily failed", err);
+      log.push(`❌ thai:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ── KOREAN DAILY ──
+    try {
+      if ((isInWindow(3, 30) || forceKoreanDaily) && (forceKoreanDaily || !(await hasFiredToday(db, "korean:daily")))) {
+        const dayIndex = Math.floor(Date.now() / 86_400_000);
+        const photoUrl = campaignBannerUrl("ko", dayIndex);
+        const caption = pickByDay(CAMPAIGN_KOREAN_DAILY_CAPTIONS);
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "🇰🇷 Browse Korean Banners", url: "https://turboloop.tech/creatives" }],
+        });
+        await markFired(db, "korean:daily");
+        log.push(`🇰🇷 Korean daily — ${photoUrl}`);
+      }
+    } catch (err) {
+      await markError(db, "korean:daily", err).catch(() => {});
+      console.error("[cron-master] task korean:daily failed", err);
+      log.push(`❌ korean:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ── LAO DAILY ──
+    try {
+      if ((isInWindow(5, 30) || forceLaoDaily) && (forceLaoDaily || !(await hasFiredToday(db, "lao:daily")))) {
+        const dayIndex = Math.floor(Date.now() / 86_400_000);
+        const photoUrl = campaignBannerUrl("la", dayIndex);
+        const caption = pickByDay(CAMPAIGN_LAO_DAILY_CAPTIONS);
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "🇱🇦 Browse Lao Banners", url: "https://turboloop.tech/creatives" }],
+        });
+        await markFired(db, "lao:daily");
+        log.push(`🇱🇦 Lao daily — ${photoUrl}`);
+      }
+    } catch (err) {
+      await markError(db, "lao:daily", err).catch(() => {});
+      console.error("[cron-master] task lao:daily failed", err);
+      log.push(`❌ lao:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+
+    // ── TAMIL DAILY ──
+    // Tamil banners are not yet on R2 (campaigns/tamil/ not uploaded).
+    // The campaignBannerUrl call returns "" for unknown categories — we guard
+    // against that and skip gracefully rather than posting a broken URL.
+    try {
+      if ((isInWindow(7, 30) || forceTamilDaily) && (forceTamilDaily || !(await hasFiredToday(db, "tamil:daily")))) {
+        const dayIndex = Math.floor(Date.now() / 86_400_000);
+        const photoUrl = campaignBannerUrl("tamil", dayIndex);
+        if (photoUrl) {
+          const caption = pickByDay(CAMPAIGN_TAMIL_DAILY_CAPTIONS);
+          await tgBroadcastPhoto({
+            photoUrl,
+            caption,
+            parseMode: "HTML",
+            buttons: [{ text: "🇮🇳 Browse Tamil Banners", url: "https://turboloop.tech/creatives" }],
+          });
+          await markFired(db, "tamil:daily");
+          log.push(`🇮🇳 Tamil daily — ${photoUrl}`);
+        } else {
+          log.push(`🇮🇳 Tamil daily — skipped (campaigns/tamil/ not yet on R2)`);
+          await markFired(db, "tamil:daily"); // mark fired so we don't retry every 5 min
+        }
+      }
+    } catch (err) {
+      await markError(db, "tamil:daily", err).catch(() => {});
+      console.error("[cron-master] task tamil:daily failed", err);
+      log.push(`❌ tamil:daily failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ J. BOT COMMANDS GUIDE: 11:30 UTC = 5:00 PM IST ============

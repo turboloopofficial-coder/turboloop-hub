@@ -683,6 +683,21 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return;
     }
 
+    // ─── Manual post: ?sendpost=1&photo=URL&caption=TEXT sends a photo to channel ──
+    if (reqUrlDebug.searchParams.get("sendpost") === "1") {
+      const photoUrl = reqUrlDebug.searchParams.get("photo") || "";
+      const caption = reqUrlDebug.searchParams.get("caption") || "";
+      if (!photoUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "photo param required" }));
+        return;
+      }
+      const result = await tgBroadcastPhoto({ photoUrl, caption, parseMode: "HTML" });
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, result }));
+      return;
+    }
+
     // ─── Debug: ?setcommands=1 registers all bot commands with Telegram ──────
     if (reqUrlDebug.searchParams.get("setcommands") === "1") {
       const botToken = process.env.TELEGRAM_BOT_TOKEN;

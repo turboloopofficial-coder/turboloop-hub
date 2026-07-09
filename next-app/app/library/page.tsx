@@ -1,4 +1,4 @@
-// /library — videos + presentation decks in 48 languages.
+// /library — videos + presentation decks in 49 languages.
 // Build-time fetch from the legacy tRPC endpoint; revalidates every 10 min.
 
 import type { Metadata } from "next";
@@ -22,9 +22,9 @@ import { FILMS } from "@lib/cinematicUniverse";
 export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "Content Library — Videos and Decks in 48 Languages",
+  title: "Content Library — Videos and Decks in 49 Languages",
   description:
-    "Watch, learn, download. Cinematic films, video reels, and downloadable presentations in 48 languages.",
+    "Watch, learn, download. Cinematic films, video reels, and downloadable presentations in 49 languages.",
   alternates: { canonical: "https://www.turboloop.tech/library" },
 };
 

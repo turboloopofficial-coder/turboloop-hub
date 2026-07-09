@@ -342,7 +342,7 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
             <h2
               id="ce-heading"
               className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4"
-              style={{ color: "var(--c-heading, #f1f5f9)" }}
+              style={{ color: "var(--c-text, #0f172a)" }}
             >
               2,800+ Banners.{" "}
               <span style={{ background: "var(--c-brand-gradient)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>

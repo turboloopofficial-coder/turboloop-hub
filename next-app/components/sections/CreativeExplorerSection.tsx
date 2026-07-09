@@ -304,20 +304,17 @@ const LOCALE_TO_LANG_ID: Record<string, string> = {
 };
 
 export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
-  // NOTE: useState initial value only runs once on mount — if defaultLocale changes
-  // (e.g. navigating between locale pages) the state would be stale.
-  // We derive the initial lang from the prop but allow the user to freely override it
-  // by tracking whether they have manually selected a language.
   const defaultLangId = (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale]) ?? "english";
   const [mode, setMode]         = useState<"language" | "category">("language");
   const [langTabs]              = useState<TabDef[]>(() => buildLangTabs());
   const [catTabs]               = useState<TabDef[]>(() => buildCatTabs());
-  const [userSelectedLang, setUserSelectedLang] = useState<string | null>(null);
+  // activeLang is fully controlled by user clicks.
+  // We initialise from defaultLangId but NEVER reset it automatically —
+  // once the user picks a language (including English) it stays until
+  // they pick another. The component should be remounted (via key prop
+  // on the parent) when the locale route changes.
+  const [activeLang, setActiveLang] = useState<string>(defaultLangId);
   const [activeCat,  setActiveCat]  = useState("lifestyle");
-
-  // Active language: user's explicit choice takes priority over the locale default
-  const activeLang = userSelectedLang ?? defaultLangId;
-  const setActiveLang = (id: string) => setUserSelectedLang(id);
   const pillsRef = useRef<HTMLDivElement>(null);
 
   // Share modal state

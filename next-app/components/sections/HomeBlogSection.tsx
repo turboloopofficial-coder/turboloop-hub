@@ -3,13 +3,22 @@
 // passes them to the HomeBlogLanguagePicker client island which filters
 // and displays the 3 most-recent posts for the selected language.
 // Zero extra API calls on tab switch — all data is already in the bundle.
+//
+// locale: the next-intl locale code from the current route. Passed through
+// to HomeBlogLanguagePicker so the correct language tab is pre-selected.
+// The picker is keyed by locale so it remounts cleanly on locale change.
 
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { api } from "@lib/api";
 import { HomeBlogLanguagePicker } from "./HomeBlogLanguagePicker";
 
-export async function HomeBlogSection() {
+interface Props {
+  /** next-intl locale code, e.g. "th", "ko", "en". Defaults to "en". */
+  locale?: string;
+}
+
+export async function HomeBlogSection({ locale }: Props = {}) {
   let allPosts = [];
   try {
     const all = await api.blogPostsList();
@@ -35,7 +44,12 @@ export async function HomeBlogSection() {
           </Heading>
         </div>
 
-        <HomeBlogLanguagePicker allPosts={allPosts} />
+        {/* key={locale} forces remount on locale change so initialLang resets */}
+        <HomeBlogLanguagePicker
+          key={locale ?? "en"}
+          allPosts={allPosts}
+          initialLocale={locale}
+        />
       </Container>
     </section>
   );

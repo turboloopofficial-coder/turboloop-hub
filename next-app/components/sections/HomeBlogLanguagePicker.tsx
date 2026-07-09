@@ -3,6 +3,10 @@
 // Interactive language picker for the homepage blog section.
 // Receives all posts pre-fetched by the server component (HomeBlogSection)
 // and filters them client-side — zero extra API calls, instant tab switching.
+//
+// initialLocale: the next-intl locale code from the current route (e.g. "th",
+// "ko"). Used to pre-select the matching blog language tab on first render.
+// Once the user clicks a tab, their choice is fully in control.
 
 import { useState } from "react";
 import Link from "next/link";
@@ -25,13 +29,40 @@ function formatDate(iso: string) {
   });
 }
 
+// Map from next-intl locale codes → BlogLanguage codes.
+// Only locales that have a matching blog language are listed;
+// everything else falls back to "en".
+const LOCALE_TO_BLOG_LANG: Record<string, BlogLanguage> = {
+  en: "en",
+  th: "th",
+  ko: "ko",
+  lo: "lo",
+  hi: "hi",
+  de: "de",
+  id: "id",
+};
+
 interface Props {
   /** All published posts across all languages — pre-fetched by the server. */
   allPosts: BlogPostSummary[];
+  /**
+   * Locale from the current route (e.g. "th", "ko", "en").
+   * Used to pre-select the matching language tab on first render.
+   * The component should be remounted (via key prop on the parent)
+   * when the locale route changes so the initial selection resets.
+   */
+  initialLocale?: string;
 }
 
-export function HomeBlogLanguagePicker({ allPosts }: Props) {
-  const [activeLang, setActiveLang] = useState<BlogLanguage>("en");
+export function HomeBlogLanguagePicker({ allPosts, initialLocale }: Props) {
+  // Derive the initial language from the locale, falling back to "en".
+  // Using the value directly in useState (not via useEffect) means it is
+  // only evaluated once at mount — which is exactly what we want.
+  // The parent passes key={locale} so the component remounts on locale change.
+  const initialLang: BlogLanguage =
+    (initialLocale ? LOCALE_TO_BLOG_LANG[initialLocale] : undefined) ?? "en";
+
+  const [activeLang, setActiveLang] = useState<BlogLanguage>(initialLang);
 
   // Count per language for the tab chips
   const counts: Partial<Record<BlogLanguage, number>> = {};
@@ -62,6 +93,7 @@ export function HomeBlogLanguagePicker({ allPosts }: Props) {
           return (
             <button
               key={lang.code}
+              type="button"
               onClick={() => setActiveLang(lang.code)}
               aria-pressed={isActive}
               className={`inline-flex items-center gap-2 px-4 min-h-[40px] min-w-max flex-shrink-0 rounded-full text-sm font-bold transition active:scale-[0.985] cursor-pointer ${

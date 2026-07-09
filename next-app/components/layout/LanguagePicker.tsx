@@ -2,13 +2,14 @@
 
 // LanguagePicker — locale switcher in the navbar.
 //
-// DESKTOP: CSS-only hover dropdown. The <a> links are ALWAYS in the DOM (just hidden via CSS).
-//   No JavaScript state change happens before navigation — clicking an <a> fires natively.
-//   The dropdown appears on :hover of the container div (group/peer Tailwind pattern).
+// DESKTOP: useState-driven hover dropdown.
+//   - onMouseEnter on the WRAPPER div (trigger + dropdown together) → open
+//   - onMouseLeave on the WRAPPER div → close
+//   - The wrapper has paddingTop on the dropdown so there is NO gap between
+//     the trigger and the dropdown panel. Mouse never leaves the wrapper.
+//   - No ref callbacks, no duplicate listeners, no relatedTarget checks.
 //
-// MOBILE: Click-triggered portal bottom sheet. The sheet is rendered via createPortal to
-//   document.body, escaping the navbar's backdrop-filter stacking context.
-//   stopPropagation on the sheet panel prevents backdrop-tap from firing when an option is tapped.
+// MOBILE: Click-triggered portal bottom sheet.
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -39,6 +40,7 @@ function getLocalePath(locale: Locale, currentPathname: string): string {
 }
 
 export function LanguagePicker() {
+  const [desktopOpen, setDesktopOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -67,46 +69,49 @@ export function LanguagePicker() {
         href={href}
         role="option"
         aria-selected={isActive}
+        onClick={() => { setDesktopOpen(false); setMobileOpen(false); }}
         style={{
           display: "flex",
           alignItems: "center",
           gap: "12px",
-          padding: "12px 16px",
-          borderRadius: "12px",
+          padding: "10px 12px",
+          borderRadius: "10px",
           textDecoration: "none",
           color: "inherit",
           background: isActive ? "rgba(0,200,200,0.12)" : "transparent",
-          transition: "background 0.15s",
+          transition: "background 0.12s",
+          cursor: "pointer",
         }}
         onMouseEnter={(e) => {
-          if (!isActive) (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.04)";
+          if (!isActive) (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.05)";
         }}
         onMouseLeave={(e) => {
           if (!isActive) (e.currentTarget as HTMLElement).style.background = "transparent";
         }}
       >
-        <span style={{ fontSize: "22px", width: "32px", textAlign: "center", flexShrink: 0 }}>
+        <span style={{ fontSize: "20px", width: "28px", textAlign: "center", flexShrink: 0 }}>
           {info.flag}
         </span>
         <span style={{ flex: 1, minWidth: 0 }}>
           <span style={{
             display: "block",
             fontWeight: 600,
-            fontSize: "14px",
+            fontSize: "13px",
             color: isActive ? "var(--c-brand-cyan, #00c8c8)" : "var(--c-text, #111)",
+            lineHeight: 1.3,
           }}>
             {info.native}
           </span>
           <span style={{
             display: "block",
-            fontSize: "12px",
+            fontSize: "11px",
             color: "var(--c-text-muted, #666)",
             marginTop: "1px",
           }}>
             {info.label}
           </span>
         </span>
-        {isActive && <Check style={{ width: 16, height: 16, color: "var(--c-brand-cyan, #00c8c8)", flexShrink: 0 }} />}
+        {isActive && <Check style={{ width: 14, height: 14, color: "var(--c-brand-cyan, #00c8c8)", flexShrink: 0 }} />}
       </a>
     );
   });
@@ -158,19 +163,25 @@ export function LanguagePicker() {
 
   return (
     <>
-      {/* ── DESKTOP: CSS hover dropdown (no JS state, links always in DOM) ── */}
+      {/* ── DESKTOP: wrapper-hover dropdown — no gap, no duplicate listeners ── */}
       <div
         className="hidden md:block"
         style={{ position: "relative" }}
-        // The dropdown is shown via CSS :hover on this container
+        onMouseEnter={() => setDesktopOpen(true)}
+        onMouseLeave={() => setDesktopOpen(false)}
       >
-        {/* Trigger */}
+        {/* Trigger button */}
         <button
-          className="flex items-center gap-1.5 px-2.5 min-h-[40px] h-10 rounded-[var(--r-md)] text-sm font-medium text-[var(--c-text-muted)] hover:text-[var(--c-text)] hover:bg-[var(--c-surface)] border border-transparent hover:border-[var(--c-border)] transition"
+          className="flex items-center gap-1.5 px-2.5 min-h-[40px] h-10 rounded-[var(--r-md)] text-sm font-medium transition"
+          style={{
+            color: desktopOpen ? "var(--c-text)" : "var(--c-text-muted)",
+            background: desktopOpen ? "var(--c-surface)" : "transparent",
+            border: desktopOpen ? "1px solid var(--c-border)" : "1px solid transparent",
+          }}
           aria-label={`Language: ${current.native}. Hover to change.`}
           aria-haspopup="listbox"
-          // No onClick — the hover CSS handles showing the dropdown
-          // Prevent button from stealing focus which would close hover
+          aria-expanded={desktopOpen}
+          // Prevent button focus-steal which can interfere with hover
           onMouseDown={(e) => e.preventDefault()}
         >
           <Globe className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
@@ -178,7 +189,7 @@ export function LanguagePicker() {
           <span className="hidden lg:inline text-xs ml-0.5">{current.native}</span>
         </button>
 
-        {/* Dropdown — always rendered, shown on hover via CSS */}
+        {/* Dropdown — no gap: uses paddingTop so it's flush with the trigger */}
         <div
           role="listbox"
           aria-label="Select language"
@@ -186,67 +197,30 @@ export function LanguagePicker() {
             position: "absolute",
             right: 0,
             top: "100%",
-            marginTop: "8px",
-            width: "224px",
-            borderRadius: "16px",
-            border: "1px solid var(--c-border, #e5e7eb)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-            overflow: "hidden",
-            background: "color-mix(in oklab, var(--c-surface, #f9fafb) 97%, transparent)",
-            backdropFilter: "blur(16px)",
-            // Hidden by default, shown on hover of parent
-            opacity: 0,
-            pointerEvents: "none",
-            transform: "translateY(-4px)",
-            transition: "opacity 0.15s, transform 0.15s",
+            // paddingTop creates a seamless invisible bridge — mouse never leaves the wrapper
+            paddingTop: "6px",
+            width: "220px",
             zIndex: 200,
-          }}
-          className="peer-hover:opacity-100 group-hover:opacity-100"
-          // We use inline JS to handle hover since CSS :has() isn't universally supported
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLElement;
-            el.style.opacity = "1";
-            el.style.pointerEvents = "auto";
-            el.style.transform = "translateY(0)";
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLElement;
-            el.style.opacity = "0";
-            el.style.pointerEvents = "none";
-            el.style.transform = "translateY(-4px)";
-          }}
-          ref={(el) => {
-            // Show dropdown when trigger button is hovered
-            if (!el) return;
-            const parent = el.parentElement;
-            if (!parent) return;
-            const trigger = parent.querySelector("button");
-            if (!trigger) return;
-            const show = () => {
-              el.style.opacity = "1";
-              el.style.pointerEvents = "auto";
-              el.style.transform = "translateY(0)";
-            };
-            const hide = () => {
-              el.style.opacity = "0";
-              el.style.pointerEvents = "none";
-              el.style.transform = "translateY(-4px)";
-            };
-            trigger.addEventListener("mouseenter", show);
-            trigger.addEventListener("mouseleave", (e2) => {
-              // Don't hide if moving to dropdown
-              const related = (e2 as MouseEvent).relatedTarget as Node;
-              if (el.contains(related)) return;
-              hide();
-            });
-            el.addEventListener("mouseleave", (e2) => {
-              const related = (e2 as MouseEvent).relatedTarget as Node;
-              if (trigger.contains(related)) return;
-              hide();
-            });
+            // Visibility controlled by state — smooth fade
+            opacity: desktopOpen ? 1 : 0,
+            pointerEvents: desktopOpen ? "auto" : "none",
+            transform: desktopOpen ? "translateY(0)" : "translateY(-6px)",
+            transition: "opacity 0.15s ease, transform 0.15s ease",
           }}
         >
-          <div style={{ padding: "8px" }}>{localeLinks}</div>
+          <div
+            style={{
+              borderRadius: "14px",
+              border: "1px solid var(--c-border, #e5e7eb)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+              overflow: "hidden",
+              background: "color-mix(in oklab, var(--c-surface, #f9fafb) 97%, transparent)",
+              backdropFilter: "blur(16px)",
+              padding: "6px",
+            }}
+          >
+            {localeLinks}
+          </div>
         </div>
       </div>
 

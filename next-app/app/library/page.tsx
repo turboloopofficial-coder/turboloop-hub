@@ -19,7 +19,7 @@ import { api } from "@lib/api";
 import { LANGUAGE_FLAGS, getFlagUrl } from "@lib/constants";
 import { FILMS } from "@lib/cinematicUniverse";
 
-export const revalidate = 600;
+export const revalidate = 60; // 1 minute — so new presentations appear quickly
 
 export const metadata: Metadata = {
   title: "Content Library — Videos and Decks in 49 Languages",

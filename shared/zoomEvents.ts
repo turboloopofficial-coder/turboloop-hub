@@ -75,32 +75,32 @@ export const ZOOM_HI: ZoomSession = {
   durationMin: 120,
 };
 
-// Thai Evening session: 20:00 Thailand (13:00 UTC)
+// Thai Evening session: Sun/Tue/Thu at 20:00 Thailand (13:00 UTC)
 export const ZOOM_TH: ZoomSession = {
   lang: "th",
   title: "ประชุม Google Meet ตอนเย็น",
   description:
-    "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
+    "อาทิตย์ อังคาร พฤหัสบดี. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  // 13:00 UTC = 20:00 Thailand time (UTC+7)
+  // 13:00 UTC = 20:00 Thailand time (UTC+7) — Sun/Tue/Thu only
   timeLabel:
-    "🇹🇭 20:00 น. (ทุกวัน) · 🕐 13:00 UTC",
+    "🇹🇭 20:00 น. · อาทิตย์ / อังคาร / พฤหัสบดี · 13:00 UTC",
   startUtcMin: 13 * 60, // 13:00 UTC = 20:00 Thailand time (UTC+7)
   durationMin: 60,
 };
 
-// Thai Morning session: 09:00 Thailand (02:00 UTC)
+// Thai Morning session: Saturday at 09:00 Thailand (02:00 UTC)
 export const ZOOM_TH_AM: ZoomSession = {
   lang: "th",
   title: "ประชุม Google Meet ตอนเช้า",
   description:
-    "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
+    "วันเสาร์. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  // 02:00 UTC = 09:00 Thailand time (UTC+7)
+  // 02:00 UTC = 09:00 Thailand time (UTC+7) — Saturday only
   timeLabel:
-    "🇹🇭 09:00 น. (ทุกวัน) · 🕐 02:00 UTC",
+    "🇹🇭 09:00 น. · วันเสาร์ · 02:00 UTC",
   startUtcMin: 2 * 60, // 02:00 UTC = 09:00 Thailand time (UTC+7)
   durationMin: 60,
 };

@@ -1468,100 +1468,108 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // ============ 4b. THAI ZOOM — 4-tier reminder sequence ============
     // Thai Google Meet call — every day:
-    //   Evening sessions (Sun/Mon/Tue/Thu): 20:00 TH = 13:00 UTC
-    //   Morning session (Sat):              09:00 TH = 02:00 UTC
-    //   Off days (Wed/Fri): no reminders
+    //   Evening sessions (Sun/Tue/Thu): 20:00 TH = 13:00 UTC
+    //   Morning session (Sat only):       09:00 TH = 02:00 UTC
+    //   Off days (Mon/Wed/Fri): no Thai reminders
     // Reminder tiers:
     //   T-60 @ 12:00 UTC (evening) / 01:00 UTC (morning Sat)
     //   T-30 @ 12:30 UTC (evening) / 01:30 UTC (morning Sat)
     //   T-15 @ 12:45 UTC (evening) / 01:45 UTC (morning Sat)
     //   LIVE @ 13:00 UTC (evening) / 02:00 UTC (morning Sat)
     {
+      const now = new Date();
+      const dow = now.getUTCDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+      const isSaturdayMorning = dow === 6;                    // Saturday → 09:00 TH
+      const isEveningDay = dow === 0 || dow === 2 || dow === 4; // Sun/Tue/Thu → 20:00 TH
       const TH_MEET_LINK = "https://meet.google.com/nmh-hhkr-uzd";
       const TH_PASSCODE  = "";
 
-      // ── Thai MORNING session: 09:00 TH = 02:00 UTC (every day) ────────────
-      try {
-        if ((isInWindow(1, 0) || isMissedToday(1, 0) || forceZoomThT60) && (forceZoomThT60 || !(await hasFiredToday(db, "zoom:th:am:T60")))) {
-          await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. | Google Meet");
-          await markFired(db, "zoom:th:am:T60");
-          log.push(`🇹🇭 TH Morning Zoom T-60`);
+      // ── Thai MORNING session: 09:00 TH = 02:00 UTC (Saturday only) ────────
+      if (isSaturdayMorning) {
+        try {
+          if ((isInWindow(1, 0) || isMissedToday(1, 0) || forceZoomThT60) && (forceZoomThT60 || !(await hasFiredToday(db, "zoom:th:am:T60")))) {
+            await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. · วันเสาร์ | Google Meet");
+            await markFired(db, "zoom:th:am:T60");
+            log.push(`🇹🇭 TH Morning Zoom T-60 (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T60", err).catch(() => {});
+          log.push(`❌ zoom:th:am:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:am:T60", err).catch(() => {});
-        log.push(`❌ zoom:th:am:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      try {
-        if ((isInWindow(1, 30) || isMissedToday(1, 30) || forceZoomThT30) && (forceZoomThT30 || !(await hasFiredToday(db, "zoom:th:am:T30")))) {
-          await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. | Google Meet");
-          await markFired(db, "zoom:th:am:T30");
-          log.push(`🇹🇭 TH Morning Zoom T-30`);
+        try {
+          if ((isInWindow(1, 30) || isMissedToday(1, 30) || forceZoomThT30) && (forceZoomThT30 || !(await hasFiredToday(db, "zoom:th:am:T30")))) {
+            await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. · วันเสาร์ | Google Meet");
+            await markFired(db, "zoom:th:am:T30");
+            log.push(`🇹🇭 TH Morning Zoom T-30 (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T30", err).catch(() => {});
+          log.push(`❌ zoom:th:am:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:am:T30", err).catch(() => {});
-        log.push(`❌ zoom:th:am:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      try {
-        if ((isInWindow(1, 45) || isMissedToday(1, 45) || forceZoomThT15) && (forceZoomThT15 || !(await hasFiredToday(db, "zoom:th:am:T15")))) {
-          await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. | Google Meet");
-          await markFired(db, "zoom:th:am:T15");
-          log.push(`🇹🇭 TH Morning Zoom T-15`);
+        try {
+          if ((isInWindow(1, 45) || isMissedToday(1, 45) || forceZoomThT15) && (forceZoomThT15 || !(await hasFiredToday(db, "zoom:th:am:T15")))) {
+            await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. · วันเสาร์ | Google Meet");
+            await markFired(db, "zoom:th:am:T15");
+            log.push(`🇹🇭 TH Morning Zoom T-15 (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T15", err).catch(() => {});
+          log.push(`❌ zoom:th:am:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:am:T15", err).catch(() => {});
-        log.push(`❌ zoom:th:am:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      try {
-        if ((isInWindow(2, 0) || isMissedToday(2, 0) || forceZoomThT0) && (forceZoomThT0 || !(await hasFiredToday(db, "zoom:th:am:T0")))) {
-          await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. | Google Meet");
-          await markFired(db, "zoom:th:am:T0");
-          log.push(`🇹🇭 TH Morning Zoom LIVE`);
+        try {
+          if ((isInWindow(2, 0) || isMissedToday(2, 0) || forceZoomThT0) && (forceZoomThT0 || !(await hasFiredToday(db, "zoom:th:am:T0")))) {
+            await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 09:00 น. · วันเสาร์ | Google Meet");
+            await markFired(db, "zoom:th:am:T0");
+            log.push(`🇹🇭 TH Morning Zoom LIVE (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T0", err).catch(() => {});
+          log.push(`❌ zoom:th:am:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:am:T0", err).catch(() => {});
-        log.push(`❌ zoom:th:am:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
 
-      // ── Thai EVENING session: 20:00 TH = 13:00 UTC (every day) ────────────
-      try {
-        if ((isInWindow(12, 0) || isMissedToday(12, 0) || forceZoomThT60) && (forceZoomThT60 || !(await hasFiredToday(db, "zoom:th:T60")))) {
-          await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
-          await markFired(db, "zoom:th:T60");
-          log.push(`🇹🇭 TH Evening Zoom T-60`);
+      // ── Thai EVENING session: 20:00 TH = 13:00 UTC (Sun/Tue/Thu only) ────────
+      if (isEveningDay) {
+        try {
+          if ((isInWindow(12, 0) || isMissedToday(12, 0) || forceZoomThT60) && (forceZoomThT60 || !(await hasFiredToday(db, "zoom:th:T60")))) {
+            await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
+            await markFired(db, "zoom:th:T60");
+            log.push(`🇹🇭 TH Evening Zoom T-60`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T60", err).catch(() => {});
+          log.push(`❌ zoom:th:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:T60", err).catch(() => {});
-        log.push(`❌ zoom:th:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      try {
-        if ((isInWindow(12, 30) || isMissedToday(12, 30) || forceZoomThT30) && (forceZoomThT30 || !(await hasFiredToday(db, "zoom:th:T30")))) {
-          await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
-          await markFired(db, "zoom:th:T30");
-          log.push(`🇹🇭 TH Evening Zoom T-30`);
+        try {
+          if ((isInWindow(12, 30) || isMissedToday(12, 30) || forceZoomThT30) && (forceZoomThT30 || !(await hasFiredToday(db, "zoom:th:T30")))) {
+            await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
+            await markFired(db, "zoom:th:T30");
+            log.push(`🇹🇭 TH Evening Zoom T-30`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T30", err).catch(() => {});
+          log.push(`❌ zoom:th:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:T30", err).catch(() => {});
-        log.push(`❌ zoom:th:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      try {
-        if ((isInWindow(12, 45) || isMissedToday(12, 45) || forceZoomThT15) && (forceZoomThT15 || !(await hasFiredToday(db, "zoom:th:T15")))) {
-          await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
-          await markFired(db, "zoom:th:T15");
-          log.push(`🇹🇭 TH Evening Zoom T-15`);
+        try {
+          if ((isInWindow(12, 45) || isMissedToday(12, 45) || forceZoomThT15) && (forceZoomThT15 || !(await hasFiredToday(db, "zoom:th:T15")))) {
+            await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
+            await markFired(db, "zoom:th:T15");
+            log.push(`🇹🇭 TH Evening Zoom T-15`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T15", err).catch(() => {});
+          log.push(`❌ zoom:th:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:T15", err).catch(() => {});
-        log.push(`❌ zoom:th:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      try {
-        if ((isInWindow(13, 0) || isMissedToday(13, 0) || forceZoomThT0) && (forceZoomThT0 || !(await hasFiredToday(db, "zoom:th:T0")))) {
-          await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
-          await markFired(db, "zoom:th:T0");
-          log.push(`🇹🇭 TH Evening Zoom LIVE`);
+        try {
+          if ((isInWindow(13, 0) || isMissedToday(13, 0) || forceZoomThT0) && (forceZoomThT0 || !(await hasFiredToday(db, "zoom:th:T0")))) {
+            await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, "🇹🇭 20:00 น. | Google Meet");
+            await markFired(db, "zoom:th:T0");
+            log.push(`🇹🇭 TH Evening Zoom LIVE`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T0", err).catch(() => {});
+          log.push(`❌ zoom:th:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:th:T0", err).catch(() => {});
-        log.push(`❌ zoom:th:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
     // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============

@@ -1,14 +1,22 @@
 "use client";
 // ── Creative Explorer Section ─────────────────────────────────────────────
 // Interactive homepage section that lets visitors browse 2,000+ banners
-// by Language or by Category. Zero external fetches — data is embedded
-// at build time from the static manifest.
+// by Language or by Category.
 //
-// Each banner card now has a single "Share" button that opens the
-// BannerShareModal — an advanced share sheet with AI captions, referral
-// username field, platform sharing, copy text, and download.
+// STATE DESIGN — URL search params as single source of truth:
+//   ?lang=thai   → language tab active, "thai" selected
+//   ?cat=token   → category tab active, "token" selected
+//   (no params)  → language tab, defaultLocale language selected
+//
+// This means:
+//   • Back/forward navigation restores the correct selection
+//   • Switching to English always works (explicit URL param)
+//   • No hydration mismatch — URL is read identically on server + client
+//   • No key-based remount hacks needed
+//   • Smooth: router.replace() does a shallow URL update, no full reload
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useCallback, useMemo, useRef, useEffect, useState, Suspense } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Share2, ChevronRight, X } from "lucide-react";
@@ -83,6 +91,16 @@ const CATEGORY_GROUPS: Array<{
 type ManifestEntry = { url: string; alt: string; title: string; category: string };
 const ALL: ManifestEntry[] = manifest as ManifestEntry[];
 
+// Map from next-intl locale codes → LANGUAGE_GROUPS IDs
+const LOCALE_TO_LANG_ID: Record<string, string> = {
+  en: "english", th: "thai", ko: "korean", lo: "lao", hi: "hindi",
+  ta: "tamil", ar: "arabic", zh: "chinese", it: "italian", ur: "urdu",
+  fr: "french", es: "spanish", pcm: "nigerian", de: "german", id: "indonesian",
+};
+
+const VALID_LANG_IDS  = new Set(LANGUAGE_GROUPS.map(g => g.id));
+const VALID_CAT_IDS   = new Set(CATEGORY_GROUPS.map(g => g.id));
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -92,33 +110,26 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+// Build tabs once per session (shuffled banners are stable within a session)
 function buildLangTabs(): TabDef[] {
   return LANGUAGE_GROUPS.map(g => {
     const pool = ALL.filter(x => g.categories.includes(x.category));
-    return {
-      id: g.id,
-      label: g.label,
-      flag: g.flag,
-      count: pool.length,
-      href: g.href,
-      banners: shuffle(pool).slice(0, 6),
-    };
+    return { id: g.id, label: g.label, flag: g.flag, count: pool.length, href: g.href, banners: shuffle(pool).slice(0, 6) };
   });
 }
 
 function buildCatTabs(): TabDef[] {
   return CATEGORY_GROUPS.map(g => {
     const pool = ALL.filter(x => x.category === g.id);
-    return {
-      id: g.id,
-      label: g.label,
-      flag: g.emoji,
-      count: pool.length,
-      href: g.href,
-      banners: shuffle(pool).slice(0, 6),
-    };
+    return { id: g.id, label: g.label, flag: g.emoji, count: pool.length, href: g.href, banners: shuffle(pool).slice(0, 6) };
   });
 }
+
+// Stable tab data — built once at module load time, never rebuilt.
+// This avoids re-shuffling on every render while keeping the data fresh
+// within a session (a full page reload gives new shuffles).
+const LANG_TABS: TabDef[] = buildLangTabs();
+const CAT_TABS:  TabDef[] = buildCatTabs();
 
 // ── Banner Card ───────────────────────────────────────────────────────────
 
@@ -136,16 +147,12 @@ function BannerCard({
   const [lightbox, setLightbox] = useState(false);
 
   const handleShare = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation();
-      onShare(item);
-    },
+    (e: React.MouseEvent) => { e.stopPropagation(); onShare(item); },
     [item, onShare]
   );
 
   return (
     <>
-      {/* Card */}
       <div
         className="group relative rounded-xl overflow-hidden cursor-pointer"
         style={{
@@ -156,7 +163,6 @@ function BannerCard({
         }}
         onClick={() => setLightbox(true)}
       >
-        {/* Image */}
         <div className="relative aspect-square overflow-hidden">
           <Image
             src={item.url}
@@ -166,7 +172,6 @@ function BannerCard({
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             unoptimized
           />
-          {/* Hover overlay — single Share button */}
           <div
             className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(2px)" }}
@@ -177,34 +182,25 @@ function BannerCard({
               style={{ background: "var(--c-brand-gradient)", boxShadow: "var(--s-brand)" }}
               aria-label={`Share ${item.title}`}
             >
-              <Share2 size={14} />
-              Share
+              <Share2 size={14} /> Share
             </button>
           </div>
         </div>
-
-        {/* Title strip + always-visible Share button (mobile) */}
         <div className="px-3 py-2 flex items-center justify-between gap-2">
-          <p
-            className="text-xs font-medium truncate flex-1"
-            style={{ color: "var(--c-text-muted, #94a3b8)" }}
-          >
+          <p className="text-xs font-medium truncate flex-1" style={{ color: "var(--c-text-muted, #94a3b8)" }}>
             {item.title || item.alt}
           </p>
-          {/* Visible on mobile (sm:hidden on desktop where hover works) */}
           <button
             onClick={handleShare}
             className="sm:hidden flex-shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold text-white transition-transform active:scale-95"
             style={{ background: "var(--c-brand-gradient)" }}
             aria-label={`Share ${item.title}`}
           >
-            <Share2 size={11} />
-            Share
+            <Share2 size={11} /> Share
           </button>
         </div>
       </div>
 
-      {/* Lightbox */}
       {lightbox && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -223,18 +219,8 @@ function BannerCard({
             className="relative max-w-2xl w-full rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={item.url}
-              alt={item.alt || item.title}
-              width={1080}
-              height={1080}
-              className="w-full h-auto"
-              unoptimized
-            />
-            <div
-              className="flex gap-3 p-4"
-              style={{ background: "rgba(15,23,42,0.9)" }}
-            >
+            <Image src={item.url} alt={item.alt || item.title} width={1080} height={1080} className="w-full h-auto" unoptimized />
+            <div className="flex gap-3 p-4" style={{ background: "rgba(15,23,42,0.9)" }}>
               <button
                 onClick={(e) => { e.stopPropagation(); onShare(item); setLightbox(false); }}
                 className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white"
@@ -252,41 +238,28 @@ function BannerCard({
 
 // ── Tab Pill ──────────────────────────────────────────────────────────────
 
-function TabPill({
-  id, label, flag, count, active, onClick,
-}: {
+function TabPill({ id, label, flag, count, active, onClick }: {
   id: string; label: string; flag: string; count: number; active: boolean; onClick: () => void;
 }) {
   return (
     <button
       type="button"
       role="tab"
+      data-tab-id={id}
       aria-selected={active}
       onClick={onClick}
       className="inline-flex items-center gap-1.5 px-3.5 h-10 rounded-full text-sm font-semibold transition-all active:scale-[0.97] whitespace-nowrap"
       style={
         active
-          ? {
-              color: "white",
-              background: "var(--c-brand-gradient)",
-              boxShadow: "var(--s-brand)",
-              border: "1px solid transparent",
-            }
-          : {
-              color: "var(--c-text, #e2e8f0)",
-              background: "color-mix(in oklab, var(--c-surface) 70%, transparent)",
-              border: "1px solid var(--c-border)",
-            }
+          ? { color: "white", background: "var(--c-brand-gradient)", boxShadow: "var(--s-brand)", border: "1px solid transparent" }
+          : { color: "var(--c-text, #e2e8f0)", background: "color-mix(in oklab, var(--c-surface) 70%, transparent)", border: "1px solid var(--c-border)" }
       }
     >
       <span className="text-base leading-none" aria-hidden="true">{flag}</span>
       <span className="hidden sm:inline">{label}</span>
       <span
         className="text-[0.625rem] font-bold tabular-nums px-1.5 py-0.5 rounded-full"
-        style={{
-          background: active ? "rgba(255,255,255,0.2)" : "var(--c-border)",
-          color: active ? "white" : "var(--c-text-muted, #94a3b8)",
-        }}
+        style={{ background: active ? "rgba(255,255,255,0.2)" : "var(--c-border)", color: active ? "white" : "var(--c-text-muted, #94a3b8)" }}
       >
         {count.toLocaleString()}
       </span>
@@ -296,48 +269,85 @@ function TabPill({
 
 // ── Main Client Component ─────────────────────────────────────────────────
 
-// Map from next-intl locale codes to LANGUAGE_GROUPS IDs
-const LOCALE_TO_LANG_ID: Record<string, string> = {
-  en: "english", th: "thai", ko: "korean", lo: "lao", hi: "hindi",
-  ta: "tamil", ar: "arabic", zh: "chinese", it: "italian", ur: "urdu",
-  fr: "french", es: "spanish", pcm: "nigerian", de: "german", id: "indonesian",
-};
-
-export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
-  const defaultLangId = (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale]) ?? "english";
-  const [mode, setMode]         = useState<"language" | "category">("language");
-  const [langTabs]              = useState<TabDef[]>(() => buildLangTabs());
-  const [catTabs]               = useState<TabDef[]>(() => buildCatTabs());
-  // activeLang is fully controlled by user clicks.
-  // We initialise from defaultLangId but NEVER reset it automatically —
-  // once the user picks a language (including English) it stays until
-  // they pick another. The component should be remounted (via key prop
-  // on the parent) when the locale route changes.
-  const [activeLang, setActiveLang] = useState<string>(defaultLangId);
-  const [activeCat,  setActiveCat]  = useState("lifestyle");
-  const pillsRef = useRef<HTMLDivElement>(null);
-
-  // Share modal state
+function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
+  const searchParams = useSearchParams();
+  const router       = useRouter();
+  const pathname     = usePathname();
+  const pillsRef     = useRef<HTMLDivElement>(null);
   const [shareTarget, setShareTarget] = useState<BannerItem | null>(null);
 
-  const tabs     = mode === "language" ? langTabs : catTabs;
+  // ── Derive mode + active IDs from URL params ─────────────────────────
+  // Priority: URL param > defaultLocale > "english"
+  // This is the ONLY place where active state is computed — no useState
+  // for the selection itself, so there is nothing to get out of sync.
+
+  const urlLang = searchParams.get("lang");
+  const urlCat  = searchParams.get("cat");
+
+  const mode: "language" | "category" = urlCat ? "category" : "language";
+
+  const defaultLangId = (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale]) ?? "english";
+
+  const activeLang = useMemo(() => {
+    if (urlLang && VALID_LANG_IDS.has(urlLang)) return urlLang;
+    return defaultLangId;
+  }, [urlLang, defaultLangId]);
+
+  const activeCat = useMemo(() => {
+    if (urlCat && VALID_CAT_IDS.has(urlCat)) return urlCat;
+    return "lifestyle";
+  }, [urlCat]);
+
+  const tabs     = mode === "language" ? LANG_TABS : CAT_TABS;
   const activeId = mode === "language" ? activeLang : activeCat;
-  const setActive = mode === "language" ? setActiveLang : setActiveCat;
   const activeTab = tabs.find(t => t.id === activeId) ?? tabs[0];
 
-  // Derive the language string to pass to BannerShareModal
-  const activeLanguage = mode === "language" ? activeLang : "english";
+  // ── URL updaters ──────────────────────────────────────────────────────
 
-  // Scroll active pill into view
+  function selectLang(id: string) {
+    const p = new URLSearchParams(searchParams.toString());
+    p.delete("cat");
+    if (id === defaultLangId) {
+      // If selecting the locale-default language, just clean the URL
+      p.delete("lang");
+    } else {
+      p.set("lang", id);
+    }
+    const qs = p.toString();
+    router.replace(pathname + (qs ? `?${qs}` : ""), { scroll: false });
+  }
+
+  function selectCat(id: string) {
+    const p = new URLSearchParams(searchParams.toString());
+    p.delete("lang");
+    p.set("cat", id);
+    router.replace(pathname + `?${p.toString()}`, { scroll: false });
+  }
+
+  function switchMode(m: "language" | "category") {
+    const p = new URLSearchParams(searchParams.toString());
+    if (m === "language") {
+      p.delete("cat");
+      // Keep lang param if set
+    } else {
+      p.delete("lang");
+      p.set("cat", activeCat);
+    }
+    const qs = p.toString();
+    router.replace(pathname + (qs ? `?${qs}` : ""), { scroll: false });
+  }
+
+  // ── Scroll active pill into view ──────────────────────────────────────
   useEffect(() => {
-    const el = pillsRef.current?.querySelector('[aria-selected="true"]') as HTMLElement | null;
-    el?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    const el = pillsRef.current?.querySelector(`[data-tab-id="${activeId}"]`) as HTMLElement | null;
+    if (el) {
+      el.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    }
   }, [activeId, mode]);
 
-  const handleShare = useCallback((item: BannerItem) => {
-    setShareTarget(item);
-  }, []);
+  const handleShare = useCallback((item: BannerItem) => setShareTarget(item), []);
 
+  // ── Render ────────────────────────────────────────────────────────────
   return (
     <>
       <section
@@ -358,10 +368,7 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
 
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">
-            <p
-              className="text-xs font-bold uppercase tracking-widest mb-3"
-              style={{ color: "var(--c-brand-cyan)" }}
-            >
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--c-brand-cyan)" }}>
               Free Creative Library
             </p>
             <h2
@@ -370,21 +377,12 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
               style={{ color: "var(--c-heading, #f1f5f9)" }}
             >
               2,000+ Banners.{" "}
-              <span
-                style={{
-                  background: "var(--c-brand-gradient)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
+              <span style={{ background: "var(--c-brand-gradient)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 13 Languages.
               </span>{" "}
               All Free.
             </h2>
-            <p
-              className="text-base md:text-lg max-w-2xl mx-auto"
-              style={{ color: "var(--c-text-muted, #94a3b8)" }}
-            >
+            <p className="text-base md:text-lg max-w-2xl mx-auto" style={{ color: "var(--c-text-muted, #94a3b8)" }}>
               Browse, download, and share — no attribution required. Pick your language or topic below.
             </p>
           </div>
@@ -398,7 +396,8 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
               {(["language", "category"] as const).map(m => (
                 <button
                   key={m}
-                  onClick={() => setMode(m)}
+                  type="button"
+                  onClick={() => switchMode(m)}
                   className="px-5 py-2 rounded-full text-sm font-bold transition-all"
                   style={
                     mode === m
@@ -420,19 +419,19 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
             aria-label={mode === "language" ? "Browse by language" : "Browse by category"}
             style={{ scrollbarWidth: "none" }}
           >
-          <div className="flex items-center gap-2 w-max min-w-full">
-            {tabs.map(tab => (
-              <TabPill
-                key={tab.id}
-                id={tab.id}
-                label={tab.label}
-                flag={tab.flag}
-                count={tab.count}
-                active={tab.id === activeId}
-                onClick={() => setActive(tab.id)}
-              />
-            ))}
-          </div>
+            <div className="flex items-center gap-2 w-max min-w-full">
+              {tabs.map(tab => (
+                <TabPill
+                  key={tab.id}
+                  id={tab.id}
+                  label={tab.label}
+                  flag={tab.flag}
+                  count={tab.count}
+                  active={tab.id === activeId}
+                  onClick={() => mode === "language" ? selectLang(tab.id) : selectCat(tab.id)}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Banner grid */}
@@ -479,14 +478,29 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
         `}</style>
       </section>
 
-      {/* Share Modal — rendered outside the section to avoid z-index issues */}
       {shareTarget && (
         <BannerShareModal
           banner={shareTarget}
-          language={activeLanguage}
+          language={mode === "language" ? activeLang : "english"}
           onClose={() => setShareTarget(null)}
         />
       )}
     </>
+  );
+}
+
+// ── Public export ─────────────────────────────────────────────────
+// Wraps the inner component in Suspense so useSearchParams() works
+// correctly in Next.js 15 without breaking static prerendering.
+
+export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
+  return (
+    <Suspense fallback={
+      <div className="py-16 md:py-24 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-[var(--c-brand-cyan)] border-t-transparent animate-spin" />
+      </div>
+    }>
+      <CreativeExplorerInner defaultLocale={defaultLocale} />
+    </Suspense>
   );
 }

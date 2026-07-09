@@ -320,23 +320,23 @@ const DUBBED_REELS = new Set([
   "th/turbolooptech-everything-free",
   "th/what-50-becomes-3-years",
   "th/wifi-makes-money-sleep",
-  // ── Tutorial videos (v1–v3) dubbed in all 14 non-English languages ──────
-  // v4-compound is English-only (no dubbed version uploaded to R2).
-  // Verified present in R2 on 2026-07-09.
-  "th/v1-withdrawal",  "th/v2-investment",  "th/v3-lp-check",
-  "ko/v1-withdrawal",  "ko/v2-investment",  "ko/v3-lp-check",
-  "hi/v1-withdrawal",  "hi/v2-investment",  "hi/v3-lp-check",
-  "lo/v1-withdrawal",  "lo/v2-investment",  "lo/v3-lp-check",
-  "ta/v1-withdrawal",  "ta/v2-investment",  "ta/v3-lp-check",
-  "ar/v1-withdrawal",  "ar/v2-investment",  "ar/v3-lp-check",
-  "zh/v1-withdrawal",  "zh/v2-investment",  "zh/v3-lp-check",
-  "it/v1-withdrawal",  "it/v2-investment",  "it/v3-lp-check",
-  "ur/v1-withdrawal",  "ur/v2-investment",  "ur/v3-lp-check",
-  "fr/v1-withdrawal",  "fr/v2-investment",  "fr/v3-lp-check",
-  "es/v1-withdrawal",  "es/v2-investment",  "es/v3-lp-check",
-  "pcm/v1-withdrawal", "pcm/v2-investment", "pcm/v3-lp-check",
-  "de/v1-withdrawal",  "de/v2-investment",  "de/v3-lp-check",
-  "id/v1-withdrawal",  "id/v2-investment",  "id/v3-lp-check",
+  // ── Tutorial videos (v1–v4) dubbed in all 14 non-English languages ──────
+  // v1-v3: all 14 languages verified in R2 on 2026-07-09.
+  // v4-deposit: 12 languages verified; de+id dubbed and uploaded 2026-07-09.
+  "th/v1-withdrawal",  "th/v2-investment",  "th/v3-lp-check",  "th/v4-deposit",
+  "ko/v1-withdrawal",  "ko/v2-investment",  "ko/v3-lp-check",  "ko/v4-deposit",
+  "hi/v1-withdrawal",  "hi/v2-investment",  "hi/v3-lp-check",  "hi/v4-deposit",
+  "lo/v1-withdrawal",  "lo/v2-investment",  "lo/v3-lp-check",  "lo/v4-deposit",
+  "ta/v1-withdrawal",  "ta/v2-investment",  "ta/v3-lp-check",  "ta/v4-deposit",
+  "ar/v1-withdrawal",  "ar/v2-investment",  "ar/v3-lp-check",  "ar/v4-deposit",
+  "zh/v1-withdrawal",  "zh/v2-investment",  "zh/v3-lp-check",  "zh/v4-deposit",
+  "it/v1-withdrawal",  "it/v2-investment",  "it/v3-lp-check",  "it/v4-deposit",
+  "ur/v1-withdrawal",  "ur/v2-investment",  "ur/v3-lp-check",  "ur/v4-deposit",
+  "fr/v1-withdrawal",  "fr/v2-investment",  "fr/v3-lp-check",  "fr/v4-deposit",
+  "es/v1-withdrawal",  "es/v2-investment",  "es/v3-lp-check",  "es/v4-deposit",
+  "pcm/v1-withdrawal", "pcm/v2-investment", "pcm/v3-lp-check", "pcm/v4-deposit",
+  "de/v1-withdrawal",  "de/v2-investment",  "de/v3-lp-check",  "de/v4-deposit",
+  "id/v1-withdrawal",  "id/v2-investment",  "id/v3-lp-check",  "id/v4-deposit",
 ]);
 
 export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: string }> = {

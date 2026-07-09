@@ -98,6 +98,25 @@ const LOCALE_TO_LANG_ID: Record<string, string> = {
   fr: "french", es: "spanish", pcm: "nigerian", de: "german", id: "indonesian",
 };
 
+// Map from LANGUAGE_GROUPS IDs → locale path (for cross-locale navigation)
+const LANG_ID_TO_LOCALE_PATH: Record<string, string> = {
+  english: "/",
+  thai: "/th",
+  korean: "/ko",
+  lao: "/lo",
+  hindi: "/hi",
+  tamil: "/ta",
+  arabic: "/ar",
+  chinese: "/zh",
+  italian: "/it",
+  urdu: "/ur",
+  french: "/fr",
+  spanish: "/es",
+  nigerian: "/pcm",
+  german: "/de",
+  indonesian: "/id",
+};
+
 const VALID_LANG_IDS  = new Set(LANGUAGE_GROUPS.map(g => g.id));
 const VALID_CAT_IDS   = new Set(CATEGORY_GROUPS.map(g => g.id));
 
@@ -305,16 +324,11 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
   // ── URL updaters ──────────────────────────────────────────────────────
 
   function selectLang(id: string) {
-    const p = new URLSearchParams(searchParams.toString());
-    p.delete("cat");
-    if (id === defaultLangId) {
-      // If selecting the locale-default language, just clean the URL
-      p.delete("lang");
-    } else {
-      p.set("lang", id);
-    }
-    const qs = p.toString();
-    router.replace(pathname + (qs ? `?${qs}` : ""), { scroll: false });
+    // Navigate to the correct locale page for the selected language.
+    // This ensures switching to English always goes to "/" (not "/hi?lang=english"),
+    // and switching to Hindi always goes to "/hi" (not "/" with a lang param).
+    const targetPath = LANG_ID_TO_LOCALE_PATH[id] ?? "/";
+    router.push(targetPath, { scroll: false });
   }
 
   function selectCat(id: string) {

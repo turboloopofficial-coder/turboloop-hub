@@ -1,22 +1,14 @@
 "use client";
 // ── Creative Explorer Section ─────────────────────────────────────────────
-// Interactive homepage section that lets visitors browse 2,000+ banners
-// by Language or by Category.
+// Interactive homepage section: browse 2,000+ banners by Language or Category.
 //
-// STATE DESIGN — URL search params as single source of truth:
-//   ?lang=thai   → language tab active, "thai" selected
-//   ?cat=token   → category tab active, "token" selected
-//   (no params)  → language tab, defaultLocale language selected
-//
-// This means:
-//   • Back/forward navigation restores the correct selection
-//   • Switching to English always works (explicit URL param)
-//   • No hydration mismatch — URL is read identically on server + client
-//   • No key-based remount hacks needed
-//   • Smooth: router.replace() does a shallow URL update, no full reload
+// STATE DESIGN — pure client-side useState, zero routing/URL changes:
+//   • Clicking a language tab instantly swaps banners with a smooth fade
+//   • No page navigation, no URL params, no hydration issues
+//   • defaultLocale prop sets the initial selection on first render only
+//   • Switching back to English always works — it's just setState("english")
 
-import { useCallback, useMemo, useRef, useEffect, useState, Suspense } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useCallback, useMemo, useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Share2, ChevronRight, X } from "lucide-react";
@@ -98,27 +90,8 @@ const LOCALE_TO_LANG_ID: Record<string, string> = {
   fr: "french", es: "spanish", pcm: "nigerian", de: "german", id: "indonesian",
 };
 
-// Map from LANGUAGE_GROUPS IDs → locale path (for cross-locale navigation)
-const LANG_ID_TO_LOCALE_PATH: Record<string, string> = {
-  english: "/",
-  thai: "/th",
-  korean: "/ko",
-  lao: "/lo",
-  hindi: "/hi",
-  tamil: "/ta",
-  arabic: "/ar",
-  chinese: "/zh",
-  italian: "/it",
-  urdu: "/ur",
-  french: "/fr",
-  spanish: "/es",
-  nigerian: "/pcm",
-  german: "/de",
-  indonesian: "/id",
-};
-
-const VALID_LANG_IDS  = new Set(LANGUAGE_GROUPS.map(g => g.id));
-const VALID_CAT_IDS   = new Set(CATEGORY_GROUPS.map(g => g.id));
+const VALID_LANG_IDS = new Set(LANGUAGE_GROUPS.map(g => g.id));
+const VALID_CAT_IDS  = new Set(CATEGORY_GROUPS.map(g => g.id));
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -129,7 +102,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-// Build tabs once per session (shuffled banners are stable within a session)
+// Build tabs once at module load — stable shuffles for the session
 function buildLangTabs(): TabDef[] {
   return LANGUAGE_GROUPS.map(g => {
     const pool = ALL.filter(x => g.categories.includes(x.category));
@@ -144,9 +117,6 @@ function buildCatTabs(): TabDef[] {
   });
 }
 
-// Stable tab data — built once at module load time, never rebuilt.
-// This avoids re-shuffling on every render while keeping the data fresh
-// within a session (a full page reload gives new shuffles).
 const LANG_TABS: TabDef[] = buildLangTabs();
 const CAT_TABS:  TabDef[] = buildCatTabs();
 
@@ -175,8 +145,8 @@ function BannerCard({
       <div
         className="group relative rounded-xl overflow-hidden cursor-pointer"
         style={{
-          animationDelay: `${index * 60}ms`,
-          animation: "ce-card-in 350ms cubic-bezier(0.16,1,0.3,1) both",
+          animationDelay: `${index * 50}ms`,
+          animation: "ce-card-in 300ms cubic-bezier(0.16,1,0.3,1) both",
           border: "1px solid var(--c-border)",
           background: "var(--c-surface)",
         }}
@@ -267,12 +237,17 @@ function TabPill({ id, label, flag, count, active, onClick }: {
       data-tab-id={id}
       aria-selected={active}
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 px-3.5 h-10 rounded-full text-sm font-semibold transition-all active:scale-[0.97] whitespace-nowrap"
-      style={
-        active
+      className="inline-flex items-center gap-1.5 px-3.5 h-10 rounded-full text-sm font-semibold whitespace-nowrap flex-shrink-0"
+      style={{
+        transition: "background 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 100ms ease",
+        ...(active
           ? { color: "white", background: "var(--c-brand-gradient)", boxShadow: "var(--s-brand)", border: "1px solid transparent" }
           : { color: "var(--c-text, #e2e8f0)", background: "color-mix(in oklab, var(--c-surface) 70%, transparent)", border: "1px solid var(--c-border)" }
-      }
+        ),
+      }}
+      onMouseDown={e => (e.currentTarget.style.transform = "scale(0.96)")}
+      onMouseUp={e => (e.currentTarget.style.transform = "scale(1)")}
+      onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
     >
       <span className="text-base leading-none" aria-hidden="true">{flag}</span>
       <span className="hidden sm:inline">{label}</span>
@@ -286,72 +261,32 @@ function TabPill({ id, label, flag, count, active, onClick }: {
   );
 }
 
-// ── Main Client Component ─────────────────────────────────────────────────
+// ── Main Component ────────────────────────────────────────────────────────
 
-function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
-  const searchParams = useSearchParams();
-  const router       = useRouter();
-  const pathname     = usePathname();
-  const pillsRef     = useRef<HTMLDivElement>(null);
+export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
+  const pillsRef = useRef<HTMLDivElement>(null);
   const [shareTarget, setShareTarget] = useState<BannerItem | null>(null);
 
-  // ── Derive mode + active IDs from URL params ─────────────────────────
-  // Priority: URL param > defaultLocale > "english"
-  // This is the ONLY place where active state is computed — no useState
-  // for the selection itself, so there is nothing to get out of sync.
+  // Derive the initial language from the locale prop (runs once at mount)
+  const initialLangId = useMemo(() => {
+    if (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale] && VALID_LANG_IDS.has(LOCALE_TO_LANG_ID[defaultLocale])) {
+      return LOCALE_TO_LANG_ID[defaultLocale];
+    }
+    return "english";
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — intentionally only on mount
 
-  const urlLang = searchParams.get("lang");
-  const urlCat  = searchParams.get("cat");
+  const [mode, setMode]         = useState<"language" | "category">("language");
+  const [activeLang, setActiveLang] = useState<string>(initialLangId);
+  const [activeCat,  setActiveCat]  = useState<string>("lifestyle");
 
-  const mode: "language" | "category" = urlCat ? "category" : "language";
-
-  const defaultLangId = (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale]) ?? "english";
-
-  const activeLang = useMemo(() => {
-    if (urlLang && VALID_LANG_IDS.has(urlLang)) return urlLang;
-    return defaultLangId;
-  }, [urlLang, defaultLangId]);
-
-  const activeCat = useMemo(() => {
-    if (urlCat && VALID_CAT_IDS.has(urlCat)) return urlCat;
-    return "lifestyle";
-  }, [urlCat]);
+  // Grid fade key — changes trigger the fade-in animation
+  const [gridKey, setGridKey] = useState(0);
 
   const tabs     = mode === "language" ? LANG_TABS : CAT_TABS;
   const activeId = mode === "language" ? activeLang : activeCat;
   const activeTab = tabs.find(t => t.id === activeId) ?? tabs[0];
 
-  // ── URL updaters ──────────────────────────────────────────────────────
-
-  function selectLang(id: string) {
-    // Navigate to the correct locale page for the selected language.
-    // This ensures switching to English always goes to "/" (not "/hi?lang=english"),
-    // and switching to Hindi always goes to "/hi" (not "/" with a lang param).
-    const targetPath = LANG_ID_TO_LOCALE_PATH[id] ?? "/";
-    router.push(targetPath, { scroll: false });
-  }
-
-  function selectCat(id: string) {
-    const p = new URLSearchParams(searchParams.toString());
-    p.delete("lang");
-    p.set("cat", id);
-    router.replace(pathname + `?${p.toString()}`, { scroll: false });
-  }
-
-  function switchMode(m: "language" | "category") {
-    const p = new URLSearchParams(searchParams.toString());
-    if (m === "language") {
-      p.delete("cat");
-      // Keep lang param if set
-    } else {
-      p.delete("lang");
-      p.set("cat", activeCat);
-    }
-    const qs = p.toString();
-    router.replace(pathname + (qs ? `?${qs}` : ""), { scroll: false });
-  }
-
-  // ── Scroll active pill into view ──────────────────────────────────────
+  // Scroll active pill into view whenever selection changes
   useEffect(() => {
     const el = pillsRef.current?.querySelector(`[data-tab-id="${activeId}"]`) as HTMLElement | null;
     if (el) {
@@ -359,9 +294,28 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
     }
   }, [activeId, mode]);
 
+  function selectLang(id: string) {
+    if (id === activeLang && mode === "language") return; // already selected
+    setActiveLang(id);
+    setMode("language");
+    setGridKey(k => k + 1);
+  }
+
+  function selectCat(id: string) {
+    if (id === activeCat && mode === "category") return; // already selected
+    setActiveCat(id);
+    setMode("category");
+    setGridKey(k => k + 1);
+  }
+
+  function switchMode(m: "language" | "category") {
+    if (m === mode) return;
+    setMode(m);
+    setGridKey(k => k + 1);
+  }
+
   const handleShare = useCallback((item: BannerItem) => setShareTarget(item), []);
 
-  // ── Render ────────────────────────────────────────────────────────────
   return (
     <>
       <section
@@ -412,12 +366,14 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
                   key={m}
                   type="button"
                   onClick={() => switchMode(m)}
-                  className="px-5 py-2 rounded-full text-sm font-bold transition-all"
-                  style={
-                    mode === m
+                  className="px-5 py-2 rounded-full text-sm font-bold"
+                  style={{
+                    transition: "background 200ms ease, color 200ms ease, box-shadow 200ms ease",
+                    ...(mode === m
                       ? { background: "var(--c-brand-gradient)", color: "white", boxShadow: "var(--s-brand)" }
                       : { color: "var(--c-text-muted, #94a3b8)" }
-                  }
+                    ),
+                  }}
                 >
                   {m === "language" ? "🌍 By Language" : "🗂️ By Category"}
                 </button>
@@ -425,15 +381,15 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
             </div>
           </div>
 
-          {/* Tab pills — horizontal scroll on all screen sizes */}
+          {/* Tab pills — horizontal scroll */}
           <div
             ref={pillsRef}
-            className="overflow-x-auto pb-2 mb-8 scrollbar-hide"
+            className="overflow-x-auto pb-3 mb-8"
             role="tablist"
             aria-label={mode === "language" ? "Browse by language" : "Browse by category"}
-            style={{ scrollbarWidth: "none" }}
+            style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
           >
-            <div className="flex items-center gap-2 w-max min-w-full">
+            <div className="flex items-center gap-2" style={{ width: "max-content", minWidth: "100%" }}>
               {tabs.map(tab => (
                 <TabPill
                   key={tab.id}
@@ -448,11 +404,12 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
             </div>
           </div>
 
-          {/* Banner grid */}
+          {/* Banner grid — fades in on tab change */}
           <div
-            key={`${mode}-${activeId}`}
+            key={gridKey}
             role="tabpanel"
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4"
+            style={{ animation: "ce-grid-fade 250ms ease both" }}
           >
             {activeTab?.banners.map((item, i) => (
               <BannerCard
@@ -482,13 +439,17 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
 
         </div>
 
-        {/* Card entrance animation */}
+        {/* Animations */}
         <style>{`
           @keyframes ce-card-in {
-            from { opacity: 0; transform: translateY(16px) scale(0.97); }
+            from { opacity: 0; transform: translateY(12px) scale(0.97); }
             to   { opacity: 1; transform: translateY(0)    scale(1); }
           }
-          .scrollbar-hide::-webkit-scrollbar { display: none; }
+          @keyframes ce-grid-fade {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          [role="tablist"]::-webkit-scrollbar { display: none; }
         `}</style>
       </section>
 
@@ -500,21 +461,5 @@ function CreativeExplorerInner({ defaultLocale }: { defaultLocale?: string }) {
         />
       )}
     </>
-  );
-}
-
-// ── Public export ─────────────────────────────────────────────────
-// Wraps the inner component in Suspense so useSearchParams() works
-// correctly in Next.js 15 without breaking static prerendering.
-
-export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
-  return (
-    <Suspense fallback={
-      <div className="py-16 md:py-24 flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[var(--c-brand-cyan)] border-t-transparent animate-spin" />
-      </div>
-    }>
-      <CreativeExplorerInner defaultLocale={defaultLocale} />
-    </Suspense>
   );
 }

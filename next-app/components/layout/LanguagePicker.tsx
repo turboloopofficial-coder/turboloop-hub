@@ -69,7 +69,13 @@ export function LanguagePicker() {
         href={href}
         role="option"
         aria-selected={isActive}
-        onClick={() => { setDesktopOpen(false); setMobileOpen(false); }}
+        onClick={() => {
+          // Set NEXT_LOCALE cookie so next-intl middleware doesn't redirect
+          // back to the old locale when navigating to the new URL.
+          document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; samesite=lax`;
+          setDesktopOpen(false);
+          setMobileOpen(false);
+        }}
         style={{
           display: "flex",
           alignItems: "center",

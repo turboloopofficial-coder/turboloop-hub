@@ -152,13 +152,13 @@ export const ECOSYSTEM_PILLARS: EcosystemPillar[] = [
     title: "Leadership Program",
     subtitle: "7 Ranks to Legend",
     emoji: "🏆",
-    tagline: "From Turbo Partner to Turbo Legend. 1% to 10% across 100 levels.",
+    tagline: "From Turbo Partner to Turbo Legend. 1% to 10% across 7 ranks.",
     icon: "award",
     palette: { from: "#F59E0B", via: "#FBBF24", to: "#EC4899" },
     sections: [
       {
         heading: "What it is",
-        body: "The Leadership Program is a separate income stream layered on top of the standard 20-level referral. As you build a network and your downline activity hits certain thresholds, you advance through seven ranks: Turbo Partner → Builder → Accelerator → Director → Executive → Ambassador → Turbo Legend. Each rank unlocks a higher percentage of leadership pool distribution, which extends across 100 levels of your network (vs 20 for the standard referral).",
+        body: "The Leadership Program is a separate income stream layered on top of the standard 20-level referral. As you build a network and your downline activity hits certain thresholds, you advance through seven ranks: Turbo Partner → Turbo Influencer → Turbo Leader → Turbo Manager → Turbo Ambassador → Turbo Champion → Turbo Legend. Each rank unlocks a higher percentage of leadership pool distribution, which extends across 100 levels of your network (vs 20 for the standard referral).",
       },
       {
         heading: "Why this matters",
@@ -170,7 +170,7 @@ export const ECOSYSTEM_PILLARS: EcosystemPillar[] = [
       },
     ],
     facts: [
-      "7 ranks: Partner → Builder → Accelerator → Director → Executive → Ambassador → Legend",
+      "7 ranks: Turbo Partner → Turbo Influencer → Turbo Leader → Turbo Manager → Turbo Ambassador → Turbo Champion → Turbo Legend",
       "Up to 10% pool share at the top rank",
       "100-level depth (vs 20 for standard referral)",
       "Permanent rank — no demotion",

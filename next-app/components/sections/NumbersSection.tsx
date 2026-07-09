@@ -10,8 +10,8 @@ export async function NumbersSection() {
   const t = await getTranslations("numbers");
 
   const STATS = [
-    { target: 48, prefix: "", suffix: "",  label: t("stat1Label"), help: t("stat1Help") },
-    { target: 20, prefix: "", suffix: "",  label: t("stat2Label"), help: t("stat2Help") },
+    { target: 15, prefix: "", suffix: "",  label: t("stat1Label"), help: t("stat1Help") },
+    { target: 40, prefix: "", suffix: "",  label: t("stat2Label"), help: t("stat2Help") },
     { target: 6,  prefix: "", suffix: "+", label: t("stat3Label"), help: t("stat3Help") },
     { target: 100, prefix: "$", suffix: "K", label: t("stat4Label"), help: t("stat4Help") },
   ];

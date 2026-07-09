@@ -344,9 +344,9 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
               className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4"
               style={{ color: "var(--c-heading, #f1f5f9)" }}
             >
-              2,000+ Banners.{" "}
+              2,800+ Banners.{" "}
               <span style={{ background: "var(--c-brand-gradient)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                13 Languages.
+                14 Languages.
               </span>{" "}
               All Free.
             </h2>

@@ -320,6 +320,23 @@ const DUBBED_REELS = new Set([
   "th/turbolooptech-everything-free",
   "th/what-50-becomes-3-years",
   "th/wifi-makes-money-sleep",
+  // ── Tutorial videos (v1–v3) dubbed in all 14 non-English languages ──────
+  // v4-compound is English-only (no dubbed version uploaded to R2).
+  // Verified present in R2 on 2026-07-09.
+  "th/v1-withdrawal",  "th/v2-investment",  "th/v3-lp-check",
+  "ko/v1-withdrawal",  "ko/v2-investment",  "ko/v3-lp-check",
+  "hi/v1-withdrawal",  "hi/v2-investment",  "hi/v3-lp-check",
+  "lo/v1-withdrawal",  "lo/v2-investment",  "lo/v3-lp-check",
+  "ta/v1-withdrawal",  "ta/v2-investment",  "ta/v3-lp-check",
+  "ar/v1-withdrawal",  "ar/v2-investment",  "ar/v3-lp-check",
+  "zh/v1-withdrawal",  "zh/v2-investment",  "zh/v3-lp-check",
+  "it/v1-withdrawal",  "it/v2-investment",  "it/v3-lp-check",
+  "ur/v1-withdrawal",  "ur/v2-investment",  "ur/v3-lp-check",
+  "fr/v1-withdrawal",  "fr/v2-investment",  "fr/v3-lp-check",
+  "es/v1-withdrawal",  "es/v2-investment",  "es/v3-lp-check",
+  "pcm/v1-withdrawal", "pcm/v2-investment", "pcm/v3-lp-check",
+  "de/v1-withdrawal",  "de/v2-investment",  "de/v3-lp-check",
+  "id/v1-withdrawal",  "id/v2-investment",  "id/v3-lp-check",
 ]);
 
 export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: string }> = {

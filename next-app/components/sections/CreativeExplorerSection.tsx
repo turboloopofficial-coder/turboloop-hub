@@ -304,12 +304,20 @@ const LOCALE_TO_LANG_ID: Record<string, string> = {
 };
 
 export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
+  // NOTE: useState initial value only runs once on mount — if defaultLocale changes
+  // (e.g. navigating between locale pages) the state would be stale.
+  // We derive the initial lang from the prop but allow the user to freely override it
+  // by tracking whether they have manually selected a language.
   const defaultLangId = (defaultLocale && LOCALE_TO_LANG_ID[defaultLocale]) ?? "english";
   const [mode, setMode]         = useState<"language" | "category">("language");
   const [langTabs]              = useState<TabDef[]>(() => buildLangTabs());
   const [catTabs]               = useState<TabDef[]>(() => buildCatTabs());
-  const [activeLang, setActiveLang] = useState(defaultLangId);
+  const [userSelectedLang, setUserSelectedLang] = useState<string | null>(null);
   const [activeCat,  setActiveCat]  = useState("lifestyle");
+
+  // Active language: user's explicit choice takes priority over the locale default
+  const activeLang = userSelectedLang ?? defaultLangId;
+  const setActiveLang = (id: string) => setUserSelectedLang(id);
   const pillsRef = useRef<HTMLDivElement>(null);
 
   // Share modal state
@@ -407,14 +415,15 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
             </div>
           </div>
 
-          {/* Tab pills — horizontal scroll on mobile */}
+          {/* Tab pills — horizontal scroll on all screen sizes */}
           <div
             ref={pillsRef}
-            className="flex items-center gap-2 overflow-x-auto pb-2 mb-8 scrollbar-hide"
+            className="overflow-x-auto pb-2 mb-8 scrollbar-hide"
             role="tablist"
             aria-label={mode === "language" ? "Browse by language" : "Browse by category"}
             style={{ scrollbarWidth: "none" }}
           >
+          <div className="flex items-center gap-2 w-max min-w-full">
             {tabs.map(tab => (
               <TabPill
                 key={tab.id}
@@ -426,6 +435,7 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
                 onClick={() => setActive(tab.id)}
               />
             ))}
+          </div>
           </div>
 
           {/* Banner grid */}

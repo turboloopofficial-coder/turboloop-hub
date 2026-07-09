@@ -123,6 +123,29 @@ export default async function BlogIndex({
 
   return (
     <main className="relative pb-12 md:pb-20">
+      {/* JSON-LD: CollectionPage structured data for Google */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: BLOG_OG_TITLE,
+            description: BLOG_OG_DESC,
+            url: "https://www.turboloop.tech/blog",
+            image: BLOG_OG_IMAGE,
+            publisher: {
+              "@type": "Organization",
+              name: "TurboLoop",
+              url: "https://www.turboloop.tech",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.turboloop.tech/icon.png",
+              },
+            },
+          }),
+        }}
+      />
       <section className="pt-12 pb-8 md:pt-20 md:pb-12">
         <Container width="default">
           <div className="text-center max-w-2xl mx-auto">

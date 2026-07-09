@@ -1776,7 +1776,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // 3 caption framings by day so the same wording isn't reused
     // back-to-back if a reader is paying close attention.
     try {
-      if ((isInWindow(2, 0) || forceGlobalReach) && (forceGlobalReach || !(await hasFiredToday(db, "global:reach")))) {
+      if ((isInWindow(2, 10) || forceGlobalReach) && (forceGlobalReach || !(await hasFiredToday(db, "global:reach")))) {
         const { neon } = await import("@neondatabase/serverless");
         const sql2 = neon(process.env.DATABASE_URL!);
         const leaderRows = await sql2`
@@ -2057,7 +2057,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // ── THAI DAILY ──
     try {
-      if ((isInWindow(1, 0) || forceThaiDaily) && (forceThaiDaily || !(await hasFiredToday(db, "thai:daily")))) {
+      if ((isInWindow(1, 15) || forceThaiDaily) && (forceThaiDaily || !(await hasFiredToday(db, "thai:daily")))) {
         const dayIndex = Math.floor(Date.now() / 86_400_000);
         const photoUrl = campaignBannerUrl("thai", dayIndex);
         const caption = pickByDay(CAMPAIGN_THAI_DAILY_CAPTIONS);
@@ -2192,7 +2192,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Hub promo — social-wall / submit (creator focus).
     try {
       const forceSocialWall = reqUrl.searchParams.get("force") === "social:wall";
-      if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !(await hasFiredToday(db, "social:wall")))) {
+      if ((isInWindow(13, 10) || forceSocialWall) && (forceSocialWall || !(await hasFiredToday(db, "social:wall")))) {
         const promo = pickHubPromoByPages(["social-wall", "submit"]);
         const photoUrl = hubPromoBannerUrl(promo);
         const tgResults = await tgBroadcastPhoto({
@@ -2520,7 +2520,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Slot A — 07:30 UTC (India 1:00 PM, Europe morning)
     try {
       if (
-        (forceCreativesPromoA || isInWindow(7, 30) || isMissedToday(7, 30, 90)) &&
+        (forceCreativesPromoA || isInWindow(7, 40) || isMissedToday(7, 40, 90)) &&
         (forceCreativesPromoA || !(await hasFiredToday(db, "creatives:promo:A")))
       ) {
         const bannerUrl = pickByDay(CREATIVES_PROMO_BANNERS, daysSinceLaunch);

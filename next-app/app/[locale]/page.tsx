@@ -79,17 +79,17 @@ export default async function LocaleHomePage({ params }: Props) {
     {
       icon: Lock,
       label: t("trust.lpLocked"),
-      href: "https://bscscan.com/token/0x...",
+      href: "https://bscscan.com/address/0x4f31Fa980a675570939B737Ebdde0471a4Be40Eb#tokentxns",
     },
     {
       icon: UserX,
       label: t("trust.renounced"),
-      href: "https://bscscan.com/address/0x...",
+      href: "https://bscscan.com/tx/0x848bc42ca79e20a2f0039407b5d077b8d89efcfd414e88a16f1161263746056e",
     },
     {
       icon: ExternalLink,
       label: t("trust.bscscan"),
-      href: "https://bscscan.com/address/0x...",
+      href: "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d",
     },
   ];
 

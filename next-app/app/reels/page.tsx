@@ -100,6 +100,25 @@ export default async function ReelsPage() {
 
   return (
     <main className="dark relative pb-12 md:pb-20 bg-[var(--c-bg)] text-[var(--c-text)]">
+      {/* JSON-LD: CollectionPage structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: TITLE,
+            description: DESC,
+            url: "https://www.turboloop.tech/reels",
+            image: OG_IMAGE,
+            publisher: {
+              "@type": "Organization",
+              name: "TurboLoop",
+              url: "https://www.turboloop.tech",
+            },
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="relative pt-12 pb-8 md:pt-20 md:pb-12">
         <Container width="default">

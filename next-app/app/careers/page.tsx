@@ -99,6 +99,29 @@ export default async function CareersPage() {
       : `${ROLES.length} open ${ROLES.length === 1 ? "seat" : "seats"} on the global presenter team`;
   return (
     <main className="relative pb-12 md:pb-20">
+      {/* JSON-LD: JobPosting structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "JobPosting",
+            title: "Zoom Presenter — TurboLoop Community",
+            description: OG_DESC,
+            hiringOrganization: {
+              "@type": "Organization",
+              name: "TurboLoop",
+              sameAs: "https://www.turboloop.tech",
+              logo: "https://www.turboloop.tech/icon.png",
+            },
+            jobLocationType: "TELECOMMUTE",
+            applicantLocationRequirements: { "@type": "Country", name: "Worldwide" },
+            employmentType: "PART_TIME",
+            url: "https://www.turboloop.tech/careers",
+            datePosted: new Date().toISOString().split("T")[0],
+          }),
+        }}
+      />
       <PageHero
         eyebrow="We're Hiring"
         title="Host the call. Get paid."

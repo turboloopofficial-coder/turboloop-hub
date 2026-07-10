@@ -223,10 +223,10 @@ export function ReelGalleryCard({ reel }: ReelGalleryCardProps) {
       {/* Caption + actions */}
       <div className="p-4 md:p-5 flex flex-col gap-3 flex-1">
         <div>
-          <h3 className="text-sm md:text-base font-bold text-[var(--c-text)] leading-snug mb-1.5 line-clamp-2">
+          <h3 className="text-sm md:text-base font-bold text-[var(--c-text)] leading-snug mb-1.5">
             {reel.title}
           </h3>
-          <p className="text-xs text-[var(--c-text-muted)] leading-relaxed line-clamp-3">
+          <p className="text-xs text-[var(--c-text-muted)] leading-relaxed line-clamp-4">
             {reel.description}
           </p>
         </div>

@@ -1,10 +1,11 @@
 "use client";
 // HomeGlobalReelsTabs — language-tab state island for the homepage Global Reels section.
 //
-// Layout (redesigned for 4 videos):
-//   Desktop (lg+):  4-column horizontal row — all 4 videos visible at once, compact & premium
-//   Tablet (sm-lg): 2×2 grid
-//   Mobile:         horizontal scroll snap carousel — 1 card visible, peek at next
+// Layout (redesigned for 5 videos):
+//   Desktop (xl+):  5-column horizontal row — all 5 videos visible at once
+//   Desktop (lg):   3-column grid, wraps to 2nd row for 5th card
+//   Tablet (sm-lg): 2-column grid
+//   Mobile:         horizontal scroll snap carousel — 85vw card, peek at next
 //
 // Language tabs: horizontal scroll strip with pill buttons (15 languages).
 // Transitions: CSS fade on key change so <video> elements unmount cleanly.
@@ -106,15 +107,22 @@ export function HomeGlobalReelsTabs({
           </div>
         </div>
 
-        {/* Tablet (sm–lg): 2×2 grid */}
-        <div className="hidden sm:grid lg:hidden sm:grid-cols-2 gap-4 md:gap-5 max-w-3xl mx-auto">
+        {/* Tablet (sm–lg): 2-column grid */}
+        <div className="hidden sm:grid lg:hidden sm:grid-cols-2 gap-4 md:gap-5">
           {visible.map(reel => (
             <ReelGalleryCard key={`${active}-${reel.id}-tablet`} reel={reel} />
           ))}
         </div>
 
-        {/* Desktop (lg+): 4-column horizontal row — all 4 at once */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-4 xl:gap-5">
+        {/* Desktop (lg–xl): 3-column grid */}
+        <div className="hidden lg:grid xl:hidden lg:grid-cols-3 gap-4">
+          {visible.map(reel => (
+            <ReelGalleryCard key={`${active}-${reel.id}-lg`} reel={reel} />
+          ))}
+        </div>
+
+        {/* Desktop (xl+): 5-column row — all 5 at once */}
+        <div className="hidden xl:grid xl:grid-cols-5 gap-4 xl:gap-5">
           {visible.map(reel => (
             <ReelGalleryCard key={`${active}-${reel.id}-desk`} reel={reel} />
           ))}

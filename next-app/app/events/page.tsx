@@ -105,7 +105,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EventsPage() {
+export default async function EventsPage() {
   // Top-of-page stats strip — computed from PAST_EVENTS so it always
   // matches what's rendered below.
   const totalEvents = PAST_EVENTS.length;

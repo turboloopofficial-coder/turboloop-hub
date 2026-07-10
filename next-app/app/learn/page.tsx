@@ -7,6 +7,8 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { LESSONS } from "@lib/defi101";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 // Numbers verified against lib/defi101.ts: 7 published lessons covering
 // what-is-defi, smart contracts, stablecoins, yield farming, BscScan
@@ -80,7 +82,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LearnIndexPage() {
+export default async function LearnIndexPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "learn" });
   // Sort by difficulty (beginner first), then by reading time.
   const sorted = LESSONS.slice().sort((a, b) =>
     a.difficulty !== b.difficulty
@@ -95,9 +99,9 @@ export default function LearnIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(learnJsonLd) }}
       />
       <PageHero
-        eyebrow="DeFi 101"
-        title="Learn DeFi from zero."
-        subtitle="Short explainers for people who've never touched crypto. No jargon, no fluff. Each one ends with how it connects to TurboLoop."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <Container width="default">

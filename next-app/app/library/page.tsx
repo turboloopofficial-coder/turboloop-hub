@@ -18,6 +18,8 @@ import { PageHero } from "@components/layout/PageHero";
 import { api } from "@lib/api";
 import { LANGUAGE_FLAGS, getFlagUrl } from "@lib/constants";
 import { FILMS } from "@lib/cinematicUniverse";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 60; // 1 minute — so new presentations appear quickly
 
@@ -51,6 +53,8 @@ function slugFromUrl(videoUrl: string): string | null {
 }
 
 export default async function LibraryPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "library" });
   const [presentations, videos] = await Promise.all([
     api.presentations(),
     api.videos(),
@@ -61,8 +65,8 @@ export default async function LibraryPage() {
   return (
     <main className="relative pb-12 md:pb-20">
       <PageHero
-        eyebrow="Watch & Learn"
-        title="Everything in one library."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
         subtitle={`${FILMS.length} cinematic films · ${reels.length} reels · ${presentations.length} presentations · ${totalLanguages || 15} languages.`}
       />
 

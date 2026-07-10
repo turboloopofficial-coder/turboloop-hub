@@ -118,7 +118,15 @@ export function middleware(request: NextRequest) {
         }
       }
 
-      const response = NextResponse.rewrite(url);
+      // Pass locale as a request header so server components can read it
+      // via headers() without needing a prop — Next.js page components
+      // cannot accept arbitrary props beyond params/searchParams.
+      const requestHeaders = new Headers(request.headers);
+      requestHeaders.set("x-locale", locale);
+
+      const response = NextResponse.rewrite(url, {
+        request: { headers: requestHeaders },
+      });
       // Set locale cookie so the page and its components know the active locale
       response.cookies.set("NEXT_LOCALE", locale, {
         path: "/",

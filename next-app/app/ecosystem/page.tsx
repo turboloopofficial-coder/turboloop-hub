@@ -9,6 +9,8 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 // ─── JSON-LD structured data ────────────────────────────────────────────────
 const ecosystemJsonLd = {
@@ -69,7 +71,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EcosystemIndexPage() {
+export default async function EcosystemIndexPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "ecosystem" });
   return (
     <main className="relative pb-12 md:pb-20">
       <script
@@ -77,9 +81,9 @@ export default function EcosystemIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ecosystemJsonLd) }}
       />
       <PageHero
-        eyebrow="The Ecosystem"
-        title="Six pillars. One engine."
-        subtitle="TurboLoop isn't a single product — it's six DeFi primitives working together as a self-sustaining flywheel. Each one feeds the others."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <Container width="default">

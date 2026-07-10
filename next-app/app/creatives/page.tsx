@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import { Container } from "@components/ui/Container";
 import { PageHero } from "@components/layout/PageHero";
 import { UnifiedCreativesGrid } from "@components/creatives/UnifiedCreativesGrid";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 import {
   ALL_UNIFIED_CREATIVES,
   UNIFIED_CATEGORIES,
@@ -86,7 +88,9 @@ const breadcrumbSchema = {
 
 // ── Page ───────────────────────────────────────────────────────────────────
 
-export default function CreativesPage() {
+export default async function CreativesPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "creatives" });
   return (
     <>
       <script
@@ -101,9 +105,9 @@ export default function CreativesPage() {
       <main className="relative min-h-screen">
         {/* ── Hero ────────────────────────────────────────────────────────── */}
         <PageHero
-          eyebrow="Marketing Hub"
+          eyebrow={t("eyebrow")}
           title={`${TOTAL_CREATIVES.toLocaleString()}+ free banners. Ready to share.`}
-          subtitle="Campaign suites, branded pillars, and a 14-language educational kit. Download, share on Telegram or WhatsApp — no attribution required."
+          subtitle={t("subtitle")}
         />
 
         {/* ── Stats bar ───────────────────────────────────────────────────── */}

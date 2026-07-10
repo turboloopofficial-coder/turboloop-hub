@@ -69,11 +69,7 @@ function isBlogLanguage(v: string | undefined): v is BlogLanguage {
   );
 }
 
-export default async function BlogIndex({
-  searchParams,
-}: {
-  searchParams: Promise<{ lang?: string | string[] }>;
-}) {
+export default async function BlogIndex({ searchParams }: { searchParams: Promise<{ lang?: string | string[] }> }) {
   const { lang } = await searchParams;
   const langParam = Array.isArray(lang) ? lang[0] : lang;
   // Default `/blog` to English. `?lang=all` is the explicit opt-in

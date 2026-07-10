@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { Check, Zap, Compass } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { PageHero } from "@components/layout/PageHero";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 const ROADMAP_OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-roadmap.png";
@@ -112,13 +114,15 @@ const STATUS_META: Record<Status, { label: string; bg: string; color: string; ic
     },
   };
 
-export default function RoadmapPage() {
+export default async function RoadmapPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "roadmap" });
   return (
     <main className="relative pb-12 md:pb-20">
       <PageHero
-        eyebrow="The Roadmap"
-        title="What's built. What's next."
-        subtitle="The smart contract is final and immutable — there's no feature creep on the protocol itself. The roadmap is about reach, education, and community."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <Container width="narrow">

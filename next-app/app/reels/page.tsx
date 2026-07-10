@@ -19,6 +19,8 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { NewBadge } from "@components/ui/NewBadge";
 import { fetchAllReels, shouldShowNewBadge } from "@lib/reelsApi";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 300;
 
@@ -80,6 +82,8 @@ const CATEGORY_SECTIONS: Array<{
 ];
 
 export default async function ReelsPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "reels" });
   const reels = await fetchAllReels();
   const total = reels.length;
 
@@ -127,16 +131,13 @@ export default async function ReelsPage() {
               tier="eyebrow"
               className="text-[var(--c-brand-cyan)] mb-3 inline-block"
             >
-              Short-form, every language
+              {t("eyebrow")}
             </Heading>
             <Heading tier="display" className="mb-4">
-              <span>Reels.</span>{" "}
-              <span className="text-brand-wide">Tutorials.</span>
+              {t("title")}
             </Heading>
             <p className="text-lg text-[var(--c-text-muted)] leading-relaxed">
-              Every TurboLoop reel in one place — featured shorts, how-to-join
-              walkthroughs in 10 languages, plus withdraw, compound, and
-              referral tutorials. Free to watch, ready to share.
+              {t("subtitle")}
             </p>
             {total > 0 && (
               <div className="mt-5 text-sm text-[var(--c-text-muted)]">

@@ -1,6 +1,6 @@
 // /films — the unified films catalogue.
 //
-// All films (S2 Sovereign Series + original Cinematic Universe) are now
+// All films (S2 Sovereign Series + original {t("eyebrow")}) are now
 // rendered from the videos table on a single page, sorted newest-first
 // by COALESCE(pinned_at, created_at). Language tabs (EN/DE/HI/ID)
 // filter the query.
@@ -9,7 +9,7 @@
 //   1. Sovereign Series — Season 2 (top, newest content): 20 films
 //      ordered V01..V20 within their 4 Blocks (The Proof is Live, The
 //      Mindset Shift, The Execution, The Vision).
-//   2. Cinematic Universe (below): the original 20 EN films grouped by
+//   2. {t("eyebrow")} (below): the original 20 EN films grouped by
 //      their existing 4 seasons (The Problem → The Movement).
 //
 // The page is forced into dark mode regardless of the user's selected
@@ -34,6 +34,8 @@ import { SEASONS } from "@lib/cinematicUniverse";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { FilmCard, FilmCardSkeleton } from "@components/films/FilmCard";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 300; // 5 min ISR
 
@@ -119,11 +121,9 @@ function isLang(v: string | undefined): v is FilmLang {
   return v === "en" || v === "de" || v === "hi" || v === "id";
 }
 
-export default async function FilmsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ lang?: string }>;
-}) {
+export default async function FilmsPage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "films" });
   const { lang } = await searchParams;
   const activeLang: FilmLang = isLang(lang) ? lang : "en";
 
@@ -147,16 +147,13 @@ export default async function FilmsPage({
               tier="eyebrow"
               className="text-[var(--c-brand-cyan)] mb-3 inline-block"
             >
-              Cinematic Universe
+              {t("eyebrow")}
             </Heading>
             <Heading tier="display" className="mb-4">
-              <span>The full story.</span>
-              <br />
-              <span className="text-brand-wide">In four languages.</span>
+              {t("title")}
             </Heading>
             <p className="text-lg text-[var(--c-text-muted)] leading-relaxed">
-              The Sovereign Series Season 2 + the original 4-season Cinematic
-              Universe. Free to watch. Free to share. Free to download.
+              {t("subtitle")}
             </p>
             {hasContent && (
               <div className="mt-5 text-sm text-[var(--c-text-muted)]">
@@ -242,7 +239,7 @@ export default async function FilmsPage({
                 20 new films. 4 blocks. The mindset shift.
               </Heading>
               <p className="text-[var(--c-text-muted)] max-w-2xl">
-                The Sovereign Series picks up where the Cinematic Universe
+                The Sovereign Series picks up where the {t("eyebrow")}
                 ended — from proof to mindset to execution to vision.
               </p>
             </div>

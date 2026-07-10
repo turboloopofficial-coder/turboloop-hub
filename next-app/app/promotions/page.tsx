@@ -6,6 +6,8 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 // Dedicated OG image added 2026-05-18 — /promotions had no openGraph
 // images entry, so social shares were falling back to the homepage's
@@ -58,13 +60,15 @@ const CREATOR_TIERS = [
   { views: "500K+", payout: "$100" },
 ];
 
-export default function PromotionsPage() {
+export default async function PromotionsPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "promotions" });
   return (
     <main className="relative pb-12 md:pb-20">
       <PageHero
-        eyebrow="Earn While You Build"
-        title="Three real ways to get paid."
-        subtitle="A six-figure bounty for security researchers, a per-view payout for creators, and a monthly stipend for community leaders. All paid in stablecoins."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <Container width="default">

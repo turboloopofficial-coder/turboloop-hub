@@ -18,6 +18,8 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { CareersApplicationForm } from "@components/careers/CareersApplicationForm";
 import { api, type JobVacancy } from "@lib/api";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 // ISR — admins can publish/close roles without redeploy. 5 min is the
 // same cadence as /blog and /films.
@@ -88,6 +90,8 @@ const FALLBACK_ROLES: Array<Pick<JobVacancy, "slug" | "flag" | "title" | "locati
 ];
 
 export default async function CareersPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "careers" });
   const dbRoles = await api.openCareers();
   // Normalize to a single render shape regardless of source. DB roles
   // already match JobVacancy; fallback roles are partial but share the
@@ -123,8 +127,8 @@ export default async function CareersPage() {
         }}
       />
       <PageHero
-        eyebrow="We're Hiring"
-        title="Host the call. Get paid."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
         subtitle={`${seatLabel}. Lead weekly community Zoom sessions and we'll cover your operating costs each month.`}
       />
 

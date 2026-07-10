@@ -11,6 +11,8 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { TESTIMONIALS } from "@lib/testimonialsData";
 import { COUNTRY_DATA, getFlagUrl } from "@lib/constants";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 600;
 
@@ -74,7 +76,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CommunityPage() {
+export default async function CommunityPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "community" });
   // Limit testimonials shown on the page to avoid an enormous list.
   const featured = TESTIMONIALS.slice(0, 12);
 
@@ -85,9 +89,9 @@ export default function CommunityPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(communityJsonLd) }}
       />
       <PageHero
-        eyebrow="The Community"
-        title="Voices from everywhere."
-        subtitle="14+ countries. 6 continents. 12+ languages. The TurboLoop community is global by design — geography no longer determines your financial destiny."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <Container width="default">

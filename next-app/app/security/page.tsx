@@ -16,6 +16,8 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { SECURITY } from "@lib/constants";
+import { getPageLocale } from "@lib/getPageLocale";
+import { getTranslations } from "next-intl/server";
 
 // ─── JSON-LD structured data ────────────────────────────────────────────────
 const securityJsonLd = {
@@ -159,7 +161,9 @@ const PILLARS: Pillar[] = [
   },
 ];
 
-export default function SecurityPage() {
+export default async function SecurityPage() {
+  const locale = await getPageLocale();
+  const t = await getTranslations({ locale, namespace: "security" });
   return (
     <main className="relative pb-12 md:pb-20">
       <script
@@ -167,9 +171,9 @@ export default function SecurityPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(securityJsonLd) }}
       />
       <PageHero
-        eyebrow="Trustless by Design"
-        title="Five reasons to trust nobody."
-        subtitle="We removed every way we could harm you. What remains is code, published, locked, and verified by people who don't work for us."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <Container width="default">

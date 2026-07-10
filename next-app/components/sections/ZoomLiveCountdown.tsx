@@ -14,28 +14,44 @@ interface ZoomCountdownProps {
   startUtcMin: number;
   /** Call duration in minutes — used to detect "Live now". */
   durationMin: number;
+  /** Optional days-of-week filter (0=Sun … 6=Sat). Undefined = every day. */
+  daysOfWeek?: number[];
 }
 
-/** Compute the next-occurrence Date for a daily UTC-scheduled call.
- *  Same logic as shared/zoomEvents.ts nextZoomOccurrence, inlined here
- *  so this island has zero shared-module dependencies (which would
- *  force a larger client bundle). */
-function nextOccurrence(startUtcMin: number, durationMin: number, now: Date): Date {
+/**
+ * Compute the next-occurrence Date for a UTC-scheduled call.
+ * Respects daysOfWeek — skips days when the session doesn't run.
+ * If the call is currently in progress, returns the current start time.
+ */
+function nextOccurrence(
+  startUtcMin: number,
+  durationMin: number,
+  now: Date,
+  daysOfWeek?: number[]
+): Date {
   const ms = now.getTime();
-  const todayStart = Date.UTC(
+  for (let offset = 0; offset <= 7; offset++) {
+    const dayStart = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() + offset
+    );
+    const dayOfWeek = new Date(dayStart).getUTCDay();
+    // Skip days not in the schedule
+    if (daysOfWeek && !daysOfWeek.includes(dayOfWeek)) continue;
+    const callStart = dayStart + startUtcMin * 60_000;
+    const callEnd = callStart + durationMin * 60_000;
+    // Skip today if the call has already ended
+    if (offset === 0 && ms >= callEnd) continue;
+    return new Date(callStart);
+  }
+  // Fallback: tomorrow at session time
+  const tomorrow = Date.UTC(
     now.getUTCFullYear(),
     now.getUTCMonth(),
-    now.getUTCDate()
+    now.getUTCDate() + 1
   );
-  const todayCallStart = todayStart + startUtcMin * 60_000;
-  const todayCallEnd = todayCallStart + durationMin * 60_000;
-  if (ms >= todayCallStart && ms < todayCallEnd) {
-    return new Date(todayCallStart);
-  }
-  if (ms >= todayCallEnd) {
-    return new Date(todayCallStart + 24 * 60 * 60_000);
-  }
-  return new Date(todayCallStart);
+  return new Date(tomorrow + startUtcMin * 60_000);
 }
 
 interface CountdownParts {

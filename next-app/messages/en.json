@@ -267,7 +267,9 @@
     "labelThaiMorning": "Thai Morning",
     "labelThaiEvening": "Thai Evening",
     "labelAfrican": "African",
-    "monWedSat": "Mon · Wed · Sat · Free"
+    "monWedSat": "Mon · Wed · Sat · Free",
+    "satOnly": "Saturday only · Free",
+    "sunTueThu": "Sun · Tue · Thu · Free"
   },
   "reels": {
     "eyebrow": "Short Films",

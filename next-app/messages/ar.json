@@ -267,7 +267,9 @@
     "labelThaiMorning": "تايلاندي (صباح)",
     "labelThaiEvening": "تايلاندي (مساء)",
     "labelAfrican": "أفريقي",
-    "monWedSat": "الاثنين · الأربعاء · السبت · مجاني"
+    "monWedSat": "الاثنين · الأربعاء · السبت · مجاني",
+    "satOnly": "السبت فقط · مجاني",
+    "sunTueThu": "أح · ث · خ · مجاني"
   },
   "reels": {
     "eyebrow": "أفلام قصيرة",

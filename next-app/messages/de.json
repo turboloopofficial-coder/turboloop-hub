@@ -267,7 +267,9 @@
     "labelThaiMorning": "Thai (Morgen)",
     "labelThaiEvening": "Thai (Abend)",
     "labelAfrican": "Afrikanisch",
-    "monWedSat": "Mo · Mi · Sa · Kostenlos"
+    "monWedSat": "Mo · Mi · Sa · Kostenlos",
+    "satOnly": "Nur Samstag · Kostenlos",
+    "sunTueThu": "So · Di · Do · Kostenlos"
   },
   "reels": {
     "eyebrow": "Kurzfilme",

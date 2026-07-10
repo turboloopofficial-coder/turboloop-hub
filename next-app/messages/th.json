@@ -267,7 +267,9 @@
     "labelThaiMorning": "ไทย (เช้า)",
     "labelThaiEvening": "ไทย (เย็น)",
     "labelAfrican": "แอฟริกัน",
-    "monWedSat": "จ. · พ. · ส. · ฟรี"
+    "monWedSat": "จ. · พ. · ส. · ฟรี",
+    "satOnly": "เฉพาะวันเสาร์ · ฟรี",
+    "sunTueThu": "อา · อ · พฤ · ฟรี"
   },
   "reels": {
     "eyebrow": "หนังสั้น",

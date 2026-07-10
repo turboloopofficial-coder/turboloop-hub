@@ -267,7 +267,9 @@
     "labelThaiMorning": "थाई (सुबह)",
     "labelThaiEvening": "थाई (शाम)",
     "labelAfrican": "अफ्रीकी",
-    "monWedSat": "सोम · बुध · शनि · मुफ्त"
+    "monWedSat": "सोम · बुध · शनि · मुफ्त",
+    "satOnly": "केवल शनिवार · मुफ़्त",
+    "sunTueThu": "रवि · मंगल · गुरु · मुफ़्त"
   },
   "reels": {
     "eyebrow": "शॉर्ट फिल्में",

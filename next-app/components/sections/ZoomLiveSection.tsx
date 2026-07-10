@@ -50,7 +50,7 @@ export async function ZoomLiveSection() {
           <ZoomCard
             session={ZOOM_TH_AM}
             accentLabel={t("labelThaiMorning")}
-            dailyFree={t("dailyFree")}
+            dailyFree={t("satOnly")}
             when={t("when")}
             nextCallIn={t("nextCallIn")}
             joinNow={t("joinNow")}
@@ -58,7 +58,7 @@ export async function ZoomLiveSection() {
           <ZoomCard
             session={ZOOM_TH}
             accentLabel={t("labelThaiEvening")}
-            dailyFree={t("dailyFree")}
+            dailyFree={t("sunTueThu")}
             when={t("when")}
             nextCallIn={t("nextCallIn")}
             joinNow={t("joinNow")}
@@ -126,7 +126,7 @@ function ZoomCard({
         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] block mb-1">
           {nextCallIn}
         </span>
-        <ZoomCountdown startUtcMin={session.startUtcMin} durationMin={session.durationMin} />
+        <ZoomCountdown startUtcMin={session.startUtcMin} durationMin={session.durationMin} daysOfWeek={session.daysOfWeek} />
       </div>
       <a
         href={session.link}

@@ -267,7 +267,9 @@
     "labelThaiMorning": "Thailand (Pagi)",
     "labelThaiEvening": "Thailand (Malam)",
     "labelAfrican": "Afrika",
-    "monWedSat": "Sen · Rab · Sab · Gratis"
+    "monWedSat": "Sen · Rab · Sab · Gratis",
+    "satOnly": "Sabtu saja · Gratis",
+    "sunTueThu": "Min · Sel · Kam · Gratis"
   },
   "reels": {
     "eyebrow": "Film Pendek",

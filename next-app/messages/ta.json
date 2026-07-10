@@ -267,7 +267,9 @@
     "labelThaiMorning": "தாய் (காலை)",
     "labelThaiEvening": "தாய் (மாலை)",
     "labelAfrican": "ஆப்பிரிக்கன்",
-    "monWedSat": "திங் · புத · சனி · இலவசம்"
+    "monWedSat": "திங் · புத · சனி · இலவசம்",
+    "satOnly": "சனி மட்டும் · இலவசம்",
+    "sunTueThu": "ஞா · செ · வியா · இலவசம்"
   },
   "reels": {
     "eyebrow": "குறும்படங்கள்",

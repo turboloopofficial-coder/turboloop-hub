@@ -267,7 +267,9 @@
     "labelThaiMorning": "태국어 (오전)",
     "labelThaiEvening": "태국어 (저녁)",
     "labelAfrican": "아프리카",
-    "monWedSat": "월 · 수 · 토 · 무료"
+    "monWedSat": "월 · 수 · 토 · 무료",
+    "satOnly": "토요일만 · 무료",
+    "sunTueThu": "일 · 화 · 목 · 무료"
   },
   "reels": {
     "eyebrow": "단편 영화",

@@ -267,7 +267,9 @@
     "labelThaiMorning": "تھائی (صبح)",
     "labelThaiEvening": "تھائی (شام)",
     "labelAfrican": "افریقی",
-    "monWedSat": "پیر · بدھ · ہفتہ · مفت"
+    "monWedSat": "پیر · بدھ · ہفتہ · مفت",
+    "satOnly": "صرف ہفتہ · مفت",
+    "sunTueThu": "اتوار · منگل · جمعرات · مفت"
   },
   "reels": {
     "eyebrow": "مختصر فلمیں",

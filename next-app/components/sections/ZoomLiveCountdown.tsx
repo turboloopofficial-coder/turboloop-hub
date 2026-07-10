@@ -50,9 +50,10 @@ interface CountdownParts {
 function computeParts(
   startUtcMin: number,
   durationMin: number,
-  now: Date
+  now: Date,
+  daysOfWeek?: number[]
 ): CountdownParts {
-  const next = nextOccurrence(startUtcMin, durationMin, now);
+  const next = nextOccurrence(startUtcMin, durationMin, now, daysOfWeek);
   const diffMs = next.getTime() - now.getTime();
   const live = diffMs <= 0;
   const positive = Math.max(0, diffMs);
@@ -62,7 +63,7 @@ function computeParts(
   return { live, h, m, s };
 }
 
-export function ZoomCountdown({ startUtcMin, durationMin }: ZoomCountdownProps) {
+export function ZoomCountdown({ startUtcMin, durationMin, daysOfWeek }: ZoomCountdownProps) {
   // We mount with `null` to defer first render — server HTML stays empty
   // until hydration so we never ship a stale countdown that flashes
   // wrong numbers before the client tick.
@@ -72,7 +73,7 @@ export function ZoomCountdown({ startUtcMin, durationMin }: ZoomCountdownProps) 
     let cancelled = false;
     const tick = () => {
       if (cancelled) return;
-      setParts(computeParts(startUtcMin, durationMin, new Date()));
+      setParts(computeParts(startUtcMin, durationMin, new Date(), daysOfWeek));
     };
     tick();
     const id = window.setInterval(tick, 1000);
@@ -80,7 +81,7 @@ export function ZoomCountdown({ startUtcMin, durationMin }: ZoomCountdownProps) 
       cancelled = true;
       window.clearInterval(id);
     };
-  }, [startUtcMin, durationMin]);
+  }, [startUtcMin, durationMin, daysOfWeek]);
 
   if (!parts) {
     return (

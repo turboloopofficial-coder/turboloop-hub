@@ -267,7 +267,9 @@
     "labelThaiMorning": "泰语 (早上)",
     "labelThaiEvening": "泰语 (晚上)",
     "labelAfrican": "非洲",
-    "monWedSat": "周一 · 周三 · 周六 · 免费"
+    "monWedSat": "周一 · 周三 · 周六 · 免费",
+    "satOnly": "仅周六 · 免费",
+    "sunTueThu": "周日 · 周二 · 周四 · 免费"
   },
   "reels": {
     "eyebrow": "短视频",

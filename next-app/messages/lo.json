@@ -267,7 +267,9 @@
     "labelThaiMorning": "ໄທ (ເຊົ້າ)",
     "labelThaiEvening": "ໄທ (ແລງ)",
     "labelAfrican": "ອາຟຣິກາ",
-    "monWedSat": "ຈ. · ພ. · ເສ. · ຟຣີ"
+    "monWedSat": "ຈ. · ພ. · ເສ. · ຟຣີ",
+    "satOnly": "ວັນເສົາເທົ່ານັ້ນ · ຟຣີ",
+    "sunTueThu": "ອາ · ອັງ · ພະ · ຟຣີ"
   },
   "reels": {
     "eyebrow": "ວິດີໂອສັ້ນ",

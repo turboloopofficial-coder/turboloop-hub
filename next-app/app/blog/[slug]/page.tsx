@@ -233,14 +233,22 @@ export default async function BlogPostPage({
   // Author defaults to the editorial org byline when not set. Authors
   // get their own Person entity if we have a URL to point at;
   // otherwise it's a plain string (still valid per schema.org).
-  const authorEntity = post.authorName
-    ? post.authorUrl
+  // SECURITY: Strip any HTML/script tags from author fields to prevent
+  // stored XSS via JSON-LD script tag breakout.
+  const safeAuthorName = post.authorName
+    ? post.authorName.replace(/<[^>]*>/g, "").replace(/[\x00-\x1f]/g, "").trim().slice(0, 100) || "Turbo Loop Editorial"
+    : null;
+  const safeAuthorUrl = post.authorUrl
+    ? (post.authorUrl.startsWith("https://") ? post.authorUrl : null)
+    : null;
+  const authorEntity = safeAuthorName
+    ? safeAuthorUrl
       ? {
           "@type": "Person",
-          name: post.authorName,
-          url: post.authorUrl,
+          name: safeAuthorName,
+          url: safeAuthorUrl,
         }
-      : { "@type": "Person", name: post.authorName }
+      : { "@type": "Person", name: safeAuthorName }
     : {
         "@type": "Organization",
         name: "Turbo Loop Editorial",

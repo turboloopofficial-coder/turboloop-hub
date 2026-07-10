@@ -749,12 +749,37 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
     // ─── Debug: ?uploadbanner=<name> fetches a public image and puts it into R2 ──
     // ─── Debug: ?uploadasset=<r2key>&src=<url>&ct=<content-type> ──────────────
-    // Generic asset upload: puts any file at an arbitrary R2 key.
+    // Asset upload: puts a file at a WHITELISTED R2 key prefix.
+    // SECURITY: Only allows uploads to known-safe prefixes and blocks
+    // dangerous file extensions (.js, .html, .htm, .php, .svg, .xml).
     // Usage: ?uploadasset=reels/en/v4-deposit.mp4&src=https://...&ct=video/mp4
+    const ALLOWED_UPLOAD_PREFIXES = ["reels/", "reel-thumbs/", "hub-promo/", "banners/", "og/", "uploads/images/"];
+    const BLOCKED_EXTENSIONS = [".js", ".mjs", ".cjs", ".ts", ".html", ".htm", ".php", ".svg", ".xml", ".xhtml", ".sh", ".bat", ".cmd", ".ps1"];
     const uploadAssetKey = reqUrlDebug.searchParams.get("uploadasset");
     if (uploadAssetKey) {
+      // SECURITY: Validate path prefix
+      const keyLower = uploadAssetKey.toLowerCase();
+      const isAllowedPrefix = ALLOWED_UPLOAD_PREFIXES.some(p => keyLower.startsWith(p));
+      if (!isAllowedPrefix) {
+        res.statusCode = 403;
+        res.end(JSON.stringify({ ok: false, error: `Forbidden: key must start with one of: ${ALLOWED_UPLOAD_PREFIXES.join(", ")}` }));
+        return;
+      }
+      // SECURITY: Block dangerous file extensions
+      const ext = keyLower.slice(keyLower.lastIndexOf("."));
+      if (BLOCKED_EXTENSIONS.includes(ext)) {
+        res.statusCode = 403;
+        res.end(JSON.stringify({ ok: false, error: `Forbidden: file extension '${ext}' is not allowed` }));
+        return;
+      }
       const srcUrl = reqUrlDebug.searchParams.get("src");
       const ct = reqUrlDebug.searchParams.get("ct") || "application/octet-stream";
+      // SECURITY: Block script content types
+      if (ct.includes("javascript") || ct.includes("ecmascript") || ct.includes("html")) {
+        res.statusCode = 403;
+        res.end(JSON.stringify({ ok: false, error: `Forbidden: content-type '${ct}' is not allowed` }));
+        return;
+      }
       if (!srcUrl) {
         res.statusCode = 400;
         res.end(JSON.stringify({ ok: false, error: "Missing ?src= param" }));

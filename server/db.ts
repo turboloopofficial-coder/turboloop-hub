@@ -145,13 +145,25 @@ export async function getBlogPostBySlug(slug: string) {
 
 export async function createBlogPost(post: InsertBlogPost) {
   const db = getDb();
-  const result = await db.insert(blogPosts).values(post).returning();
+  const result = await db.insert(blogPosts).values(sanitiseBlogFields(post)).returning();
   return result[0];
+}
+
+// SECURITY: Strip HTML tags from text fields to prevent stored XSS.
+function sanitiseBlogFields<T extends Record<string, unknown>>(data: T): T {
+  const out = { ...data };
+  const textFields = ["authorName", "authorUrl", "title", "excerpt", "seoTitle", "seoDescription"] as const;
+  for (const f of textFields) {
+    if (f in out && typeof out[f] === "string") {
+      (out as any)[f] = (out[f] as string).replace(/<[^>]*>/g, "").replace(/[\x00-\x1f]/g, "").trim().slice(0, 500);
+    }
+  }
+  return out;
 }
 
 export async function updateBlogPost(id: number, data: Partial<InsertBlogPost>) {
   const db = getDb();
-  await db.update(blogPosts).set(data).where(eq(blogPosts.id, id));
+  await db.update(blogPosts).set(sanitiseBlogFields(data)).where(eq(blogPosts.id, id));
 }
 
 export async function deleteBlogPost(id: number) {

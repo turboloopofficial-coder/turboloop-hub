@@ -32,7 +32,12 @@ import { storagePut } from "./storage";
 import { systemRouter } from "./_core/systemRouter";
 import { ENV } from "./_core/env";
 
-const ADMIN_JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "turboloop-admin-secret");
+// SECURITY: JWT_SECRET MUST be set in production. No fallback allowed.
+const _jwtSecretRaw = process.env.JWT_SECRET;
+if (!_jwtSecretRaw && process.env.NODE_ENV === "production") {
+  throw new Error("FATAL: JWT_SECRET environment variable is not set. Admin authentication is disabled until this is configured.");
+}
+const ADMIN_JWT_SECRET = new TextEncoder().encode(_jwtSecretRaw || `dev-only-insecure-${Date.now()}`);
 
 async function verifyAdminToken(token: string): Promise<{ email: string }> {
   try {

@@ -124,7 +124,17 @@ export async function GET(req: NextRequest) {
     // Non-English languages to translate into
     const targetLanguages = BLOG_LANGUAGES.filter(l => l.code !== "en");
 
+    // SECURITY: Sanitise author_name to prevent stored XSS propagation.
+    // Strip ALL HTML tags and limit to 100 chars of plain text.
+    function sanitiseAuthorName(raw: string | null): string | null {
+      if (!raw) return null;
+      const stripped = raw.replace(/<[^>]*>/g, "").replace(/[\x00-\x1f]/g, "").trim();
+      return stripped.slice(0, 100) || "TurboLoop Team";
+    }
+
     for (const post of untranslatedPosts) {
+      // Sanitise author fields before propagation
+      post.author_name = sanitiseAuthorName(post.author_name);
       log.push(`Translating: "${post.title}" (id=${post.id})`);
 
       for (const lang of targetLanguages) {

@@ -24,12 +24,16 @@ import { blogPosts } from "../../drizzle/schema";
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   res.setHeader("Content-Type", "application/json");
 
-  // Soft auth check — log mismatches but don't reject. The handler is idempotent.
+  // SECURITY: Strict auth check — reject on mismatch. Idempotency does
+  // not justify allowing unauthenticated database writes.
   const expected = process.env.CRON_SECRET;
   if (expected) {
     const auth = (req.headers["authorization"] || req.headers["Authorization"]) as string | undefined;
     if (!auth || auth !== `Bearer ${expected}`) {
-      console.log("[cron publish-blog] auth mismatch (proceeding anyway, handler is idempotent)");
+      console.error("[cron publish-blog] REJECTED: auth mismatch");
+      res.statusCode = 401;
+      res.end(JSON.stringify({ ok: false, error: "Unauthorized" }));
+      return;
     }
   }
 

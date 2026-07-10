@@ -3,24 +3,24 @@
     "launchApp": "Avvia App",
     "protocol": "Protocollo",
     "watchLearn": "Guarda & Impara",
-    "community": "Community",
+    "community": "Comunità",
     "earnBuild": "Guadagna & Costruisci",
     "languagePicker": "Lingua",
     "links": {
       "yieldFarming": "Yield Farming",
       "referralNetwork": "Rete di Referral",
       "leadershipProgram": "Programma di Leadership",
-      "turboBuy": "Turbo Buy",
-      "turboSwap": "Turbo Swap",
+      "turboBuy": "Turbo Acquisto",
+      "turboSwap": "Turbo Scambio",
       "security": "Sicurezza",
       "films": "Film",
-      "reels": "Reels",
+      "reels": "Reel",
       "library": "Libreria",
       "blog": "Blog",
       "learnDeFi": "Impara DeFi",
-      "communityLink": "Community",
-      "socialWall": "Social Wall",
-      "leaderboard": "Leaderboard",
+      "communityLink": "Comunità",
+      "socialWall": "Bacheca Social",
+      "leaderboard": "Classifica",
       "events": "Eventi & Zoom",
       "turboToken": "$TURBO Token",
       "promotions": "Promozioni",
@@ -28,7 +28,7 @@
       "careers": "Carriere",
       "creatives": "Creativi",
       "faq": "FAQ",
-      "roadmap": "Roadmap",
+      "roadmap": "Tabella di Marcia",
       "calculator": "Calcolatore"
     }
   },
@@ -62,9 +62,9 @@
     "subtitle": "Scegli un piano, inserisci il deposito e vedi il tuo rendimento esatto — senza capitalizzazione, senza costi nascosti.",
     "plans": {
       "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "boost": "Potenziamento",
+      "power": "Potenza",
+      "ultimate": "Definitivo"
     },
     "planDetails": {
       "sprint": "3% in 7 giorni",
@@ -97,8 +97,8 @@
     "eyebrow": "Candidati per Guadagnare",
     "title": "Unisciti alla rete di creator di TurboLoop.",
     "subtitle": "Guadagna commissioni condividendo TurboLoop con il tuo pubblico. Due percorsi: Creator Star e Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "Stella Creativa",
+    "localPresenter": "Presentatore Locale",
     "applyNow": "Candidati ora",
     "requirements": "Requisiti",
     "benefits": "Vantaggi",
@@ -141,7 +141,7 @@
     "tagline": "Yield farming decentralizzato su Binance Smart Chain.",
     "protocol": "Protocollo",
     "content": "Contenuti",
-    "community": "Community",
+    "community": "Comunità",
     "legal": "Legale",
     "privacy": "Informativa sulla privacy",
     "terms": "Termini di servizio",
@@ -288,7 +288,7 @@
     "metaDesc": "Guarda i reel TurboLoop: guide per iscriversi in 10 lingue, tutorial su prelievo e compounding, guide referral. Gratis da guardare."
   },
   "creatives": {
-    "eyebrow": "Marketing Hub",
+    "eyebrow": "Hub di Marketing",
     "title": "Banner gratuiti. Pronti da condividere.",
     "subtitle": "Suite di campagne, pilastri brandizzati e un kit educativo in 14 lingue. Scarica, condividi su Telegram o WhatsApp — nessuna attribuzione richiesta.",
     "statBanners": "Banner totali",
@@ -302,13 +302,13 @@
     "metaDesc": "Scarica oltre 2.800 banner marketing DeFi gratuiti. 14 lingue, suite di campagne, kit educativo brandizzato. Gratis per la community TurboLoop."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "Voci dalla Community",
+    "title": "Con le loro parole.",
+    "quote": "Sono nel DeFi da quattro anni. TurboLoop è il primo progetto di cui mi sono fidato abbastanza da consigliarlo alla mia stessa famiglia. L'audit, la rinuncia, il LP bloccato — hanno eliminato ogni scusa per non credere.",
     "author": "Adesina O.",
     "role": "Community Lead",
     "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "readMore": "Leggi altre storie"
   },
   "newsletter": {
     "eyebrow": "Rimani aggiornato",
@@ -316,12 +316,12 @@
     "subtitle": "Quando qualcosa di concreto viene rilasciato — un nuovo film, un nuovo programma, un traguardo di sicurezza — sarai il primo a saperlo. Mai spam. Disiscriviti con un clic.",
     "placeholder": "your@email.com",
     "subscribe": "Iscriviti",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "Ci sei!",
+    "successBody": "Tieni d'occhio la tua casella di posta per il primo aggiornamento.",
+    "errorInvalidEmail": "Inserisci un indirizzo email valido.",
+    "errorGeneric": "Iscrizione non riuscita — riprova tra un momento.",
+    "consentText": "Inviando la tua email accetti di ricevere aggiornamenti occasionali da Turbo Loop. Cancellati in qualsiasi momento.",
+    "inlineError": "Questo non sembra un indirizzo email valido.",
     "followOn": "Oppure salta la posta · Segui su"
   },
   "manifesto": {
@@ -349,7 +349,7 @@
     "hours": "Ore",
     "min": "Min",
     "sec": "Sec",
-    "english": "English",
+    "english": "Inglese",
     "hindiUrdu": "Hindi / Urdu",
     "findYourCall": "Trova la tua chiamata.",
     "findYourCallDetail": "I link live vengono pubblicati ogni giorno nel nostro Telegram ufficiale. Scegli la tua lingua, entra.",

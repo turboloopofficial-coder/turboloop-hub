@@ -61,10 +61,10 @@
     "title": "اعداد و شمار کا حساب کریں۔",
     "subtitle": "ایک پلان منتخب کریں، اپنی جمع رقم درج کریں، اور اپنا بالکل درست منافع دیکھیں — کوئی کمپاؤنڈنگ نہیں، کوئی چھپی فیس نہیں۔",
     "plans": {
-      "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "sprint": "اسپرنٹ",
+      "boost": "بوسٹ",
+      "power": "پاور",
+      "ultimate": "الٹیمیٹ"
     },
     "planDetails": {
       "sprint": "7 دن میں 3%",
@@ -97,8 +97,8 @@
     "eyebrow": "کمائیں کے لیے درخواست دیں",
     "title": "TurboLoop کریئیٹر نیٹ ورک میں شامل ہوں۔",
     "subtitle": "اپنے سامعین کے ساتھ TurboLoop شیئر کر کے کمیشن حاصل کریں۔ دو راستے: Creator Star اور Local Presenter۔",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "تخلیق کار ستارہ",
+    "localPresenter": "مقامی پیش کنندہ",
     "applyNow": "ابھی درخواست دیں",
     "requirements": "درکار شرائط",
     "benefits": "فائدے",
@@ -302,13 +302,13 @@
     "metaDesc": "2,800+ مفت DeFi مارکیٹنگ بینرز ڈاؤن لوڈ کریں۔ 14 زبانیں، مہم کے سوئٹس، برانڈڈ تعلیمی کٹ۔ TurboLoop کمیونٹی کے لیے مفت۔"
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "کمیونٹی کی آوازیں",
+    "title": "ان کے اپنے الفاظ میں۔",
+    "quote": "میں چار سال سے DeFi میں ہوں۔ TurboLoop پہلا پروجیکٹ ہے جس پر مجھے اتنا بھروسہ ہوا کہ میں نے اپنے خاندان کو بھی اس کی سفارش کی۔ آڈٹ، ملکیت کا ترک، لاک LP — انہوں نے یقین نہ کرنے کا ہر بہانہ ختم کر دیا۔",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "کمیونٹی لیڈ",
+    "country": "🇳🇬 نائجیریا",
+    "readMore": "مزید کہانیاں پڑھیں"
   },
   "newsletter": {
     "eyebrow": "اپ ڈیٹ رہیں",
@@ -316,12 +316,12 @@
     "subtitle": "جب کوئی حقیقی اپ ڈیٹ جاری ہو — نئی فلم، نیا پروگرام، یا سیکیورٹی کا سنگِ میل — آپ سب سے پہلے مطلع کیے جائیں گے۔ کبھی اسپیم نہیں۔ ایک کلک میں سبسکرائب ختم کریں۔",
     "placeholder": "your@email.com",
     "subscribe": "سبسکرائب کریں",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "آپ شامل ہو گئے!",
+    "successBody": "پہلی اپڈیٹ کے لیے اپنا ان باکس دیکھتے رہیں۔",
+    "errorInvalidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں۔",
+    "errorGeneric": "سائن اپ نہیں ہو سکا — تھوڑی دیر بعد دوبارہ کوشش کریں۔",
+    "consentText": "اپنی ای میل جمع کر کے آپ Turbo Loop سے کبھی کبھار اپڈیٹس موصول کرنے پر رضامند ہوتے ہیں۔ جب چاہیں ان سبسکرائب کریں۔",
+    "inlineError": "یہ ایک درست ای میل ایڈریس نہیں لگتا۔",
     "followOn": "یا ان باکس چھوڑ دیں · فالو کریں"
   },
   "manifesto": {
@@ -349,8 +349,8 @@
     "hours": "گھنٹے",
     "min": "منٹ",
     "sec": "سیکنڈ",
-    "english": "English",
-    "hindiUrdu": "Hindi / Urdu",
+    "english": "انگریزی",
+    "hindiUrdu": "ہندی / اردو",
     "findYourCall": "اپنی کال تلاش کریں۔",
     "findYourCallDetail": "لائیو لنکس روزانہ ہمارے آفیشل Telegram پر اپلوڈ ہوتے ہیں۔ اپنی زبان منتخب کریں، شامل ہوں۔",
     "openTelegram": "Telegram کھولیں",
@@ -490,7 +490,7 @@
     "title": "ادائیگی حاصل کرنے کے تین حقیقی طریقے۔",
     "subtitle": "سیکیورٹی محققین کے لیے چھ ہندسوں کا انعام، تخلیق کاروں کے لیے فی ویو ادائیگی، اور کمیونٹی لیڈرز کے لیے ماہانہ وظیفہ۔ تمام ادائیگیاں stablecoins میں۔",
     "bountyTitle": "سیکیورٹی باؤنٹی",
-    "bountySubtitle": "Up to $100,000 USDT",
+    "bountySubtitle": "$100,000 USDT تک",
     "bountyBody": "موجودہ سمارٹ کانٹریکٹ میں مرکزی کنٹرول کا خطرہ، کمزوری، یا رگ-پُل میکانزم تلاش کریں۔ اگر تصدیق ہو جائے تو $100,000 USDT میں 7 دن کے اندر ادا کیے جائیں گے۔",
     "bountyBadge": "سب کے لیے کھلا",
     "bountyBtn": "دریافت جمع کروائیں",

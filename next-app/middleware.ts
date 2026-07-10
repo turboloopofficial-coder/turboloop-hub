@@ -142,7 +142,15 @@ export function middleware(request: NextRequest) {
   }
 
   // If this is an existing root-level route (no locale prefix), skip locale routing.
+  // BUT: if user has a non-English locale cookie, redirect to the locale-prefixed URL
+  // so language persists across navigation (e.g. /blog → /ar/blog when locale is Arabic).
   if (EXISTING_ROUTES.has(firstSegment)) {
+    const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
+    if (localeCookie && localeCookie !== "en" && LOCALES.includes(localeCookie as Locale)) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${localeCookie}${pathname}`;
+      return NextResponse.redirect(url);
+    }
     return applyCacheClear(request, NextResponse.next());
   }
 

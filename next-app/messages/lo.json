@@ -1,35 +1,35 @@
 {
   "nav": {
     "launchApp": "ເລີ່ມໃຊ້ແອັບ",
-    "protocol": "Protocol",
+    "protocol": "ໂປຣໂຕຄໍ",
     "watchLearn": "ຊົມແລະຮຽນຮູ້",
     "community": "ຊຸມຊົນ",
     "earnBuild": "ຮັບລາຍໄດ້ ແລະ ສ້າງ",
     "languagePicker": "ພາສາ",
     "links": {
-      "yieldFarming": "Yield Farming",
+      "yieldFarming": "ການປູກຝັງຜົນຕອບແທນ",
       "referralNetwork": "ເຄືອກເນັດແນວແນະນໍາ",
       "leadershipProgram": "ໂຄງການຜູ້ນໍາ",
-      "turboBuy": "Turbo Buy",
+      "turboBuy": "ການຊື້ Turbo",
       "turboSwap": "Turbo Swap",
       "security": "ຄວາມປອດໄພ",
       "films": "ຮ້ອງເອກະສານ",
-      "reels": "Reels",
+      "reels": "ວິດີໂອສັ້ນ",
       "library": "ຫ້ອງສະໝຸດ",
       "blog": "ບລ໋ອກ",
-      "learnDeFi": "Learn DeFi",
-      "communityLink": "Community",
-      "socialWall": "Social Wall",
-      "leaderboard": "Leaderboard",
-      "events": "Events & Zoom",
+      "learnDeFi": "ຮຽນຮູ້ DeFi",
+      "communityLink": "ຊຸມຊົນ",
+      "socialWall": "ກຳແພງສັງຄົມ",
+      "leaderboard": "ກະດານອັນດັບ",
+      "events": "ກິດຈະກຳ & Zoom",
       "turboToken": "$TURBO Token",
       "promotions": "ການສົ່ງເສີມ",
-      "applyToEarn": "Apply to Earn",
+      "applyToEarn": "ສະໝັກເພື່ອຫາລາຍໄດ້",
       "careers": "ເສັ້ນທາງອາຊີບ",
-      "creatives": "Creatives",
+      "creatives": "ຜູ້ສ້າງສັນ",
       "faq": "FAQ",
-      "roadmap": "Roadmap",
-      "calculator": "Calculator"
+      "roadmap": "ແຜນທີ່ເສັ້ນທາງ",
+      "calculator": "ເຄື່ອງຄິດໄລ່"
     }
   },
   "home": {
@@ -44,9 +44,9 @@
     "scroll": "ເລື່ອນ",
     "trust": {
       "audited": "ຜ່ານການກວດຈົບແບບອິນແດບເພດເອກະລັກ",
-      "lpLocked": "100% LP Locked",
-      "renounced": "Ownership Renounced",
-      "bscscan": "BscScan Verified"
+      "lpLocked": "100% LP ລັອກແລ້ວ",
+      "renounced": "ສະຫຼະສິດທິ໌ຄວາມເປັນເຈົ້າຂອງແລ້ວ",
+      "bscscan": "ຢັ້ງຢືນໂດຍ BscScan"
     },
     "newsletter": {
       "title": "ຮັບຂ່າວສານຄວ່າງຫນ້າກ່ອນ",
@@ -57,34 +57,34 @@
     }
   },
   "calculator": {
-    "eyebrow": "Yield + Token Calculator",
+    "eyebrow": "ເຄື່ອງຄິດໄລ່ Yield + Token",
     "title": "ຄຳນວນໂຕເລກ",
     "subtitle": "ເລືອກແຜນ, ປ້ອນຈຳນວນຝາກ, ແລະເບິ່ງຜົນກັບທີ່ແນ່ນອນ — ບໍ່ມີການທົດຊ້ຳຊອບ, ບໍ່ມີຄ່າທີ່ເຊິ່ງລຸ້ມ.",
     "plans": {
-      "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "sprint": "ສະປຣິ້ນ",
+      "boost": "ບູສ",
+      "power": "ພາວເວີ",
+      "ultimate": "ອັນດັບສູງສຸດ"
     },
     "planDetails": {
-      "sprint": "3% in 7 days",
-      "boost": "10% in 14 days",
-      "power": "24% in 30 days",
-      "ultimate": "54% in 60 days"
+      "sprint": "3% ໃນ 7 ວັນ",
+      "boost": "10% ໃນ 14 ວັນ",
+      "power": "24% ໃນ 30 ວັນ",
+      "ultimate": "54% ໃນ 60 ວັນ"
     },
     "deposit": "ຈຳນວນຝາກ",
-    "depositPlaceholder": "Enter amount in USDT",
-    "minimum": "Minimum: 1 USDT",
+    "depositPlaceholder": "ໃສ່ຈຳນວນເງິນເປັນ USDT",
+    "minimum": "ຂັ້ນຕ່ຳ: 1 USDT",
     "yourReturn": "ຜົນທີ່ທ່ານຈະໄດ້",
     "earnings": "ລາຍໄດ້",
     "totalAtMaturity": "ລວມເມື່ອໝົດການເຊື່ອມ",
     "planDuration": "ໄລຍະແຜນ",
-    "days": "days",
+    "days": "ວັນ",
     "startPlan": "ເລີ່ມແຜນນີ້",
     "presets": "ຈຳນວນດ່ວນ",
     "rewardTier": "ຊັ້ນລາງວັນ",
-    "tokenBonus": "$TURBO Token Bonus",
-    "vestingRank": "Vesting rank",
+    "tokenBonus": "ໂບນັດ $TURBO Token",
+    "vestingRank": "ອັນດັບ Vesting",
     "projection": "ການຄາດຄະເນ"
   },
   "faq": {
@@ -94,11 +94,11 @@
     "askCommunity": "ຖາມຊຸມຊົນ"
   },
   "apply": {
-    "eyebrow": "Apply to Earn",
+    "eyebrow": "ສະໝັກເພື່ອຫາລາຍໄດ້",
     "title": "ເຂົ້າຮ່ວມເຄື່ອງຂ່າຍເຈີ TurboLoop",
     "subtitle": "ຮັບຄອມມິຊັນໂດຍແບ່ງປັນ TurboLoop ກັບຜູ້ຕິດຕາມຂອງທ່ານ. ມີສອງແນວ: Creator Star ແລະ Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "ດາວຜູ້ສ້າງ",
+    "localPresenter": "ຜູ້ນຳສະເໜີທ້ອງຖິ່ນ",
     "applyNow": "ສະໝັກດຽວນີ້",
     "requirements": "ຂໍ້ຕ້ອງການ",
     "benefits": "ຜົນປະໂຫຍດ",
@@ -108,14 +108,14 @@
     "eyebrow": "$TURBO Token",
     "title": "ຊັ້ນລາງວັນທີ່ລົບລົງຈຳນວນ",
     "subtitle": "ຜູ້ຝາກໃນແຜນ Power ແລະ Ultimate ຈະໄດ້ຮັບ $TURBO tokens ເປັນລາງວັນນອກຈາກຜົນກໍລະນີ USDT ຂອງພວກເຂົາ.",
-    "buyback": "Daily Buyback & Burn",
+    "buyback": "ຊື້ຄືນ & ເຜົາໄໝ້ປະຈຳວັນ",
     "supply": "ຈຳນວນສັງກົດ",
     "burned": "ຖືກເຜາ",
     "circulatingSupply": "ຈຳນວນທີ່ເຄື່ອນໄຫວ",
-    "viewOnBscScan": "View on BscScan",
-    "buyTurbo": "Buy $TURBO",
-    "tokenomics": "Tokenomics",
-    "vestingSchedule": "Vesting Schedule"
+    "viewOnBscScan": "ເບິ່ງໃນ BscScan",
+    "buyTurbo": "ຊື້ $TURBO",
+    "tokenomics": "ໂຕເຄັນໂນມິກ",
+    "vestingSchedule": "ຕາຕະລາງ Vesting"
   },
   "common": {
     "learnMore": "ຮຽນຮູ້ເພີ່ມເຕີມ",
@@ -132,22 +132,22 @@
     "error": "ເກີດບາງຢ່າງຜິດພາດ. ກະລຸນາລອງໃໝ່.",
     "copyLink": "ຄັດລອກລິ້ງ",
     "copied": "ຄັດລອກແລ້ວ!",
-    "days": "days",
-    "hours": "hours",
-    "minutes": "minutes",
-    "seconds": "seconds"
+    "days": "ວັນ",
+    "hours": "ຊົ່ວໂມງ",
+    "minutes": "ນາທີ",
+    "seconds": "ວິນາທີ"
   },
   "footer": {
-    "tagline": "Decentralized yield farming on Binance Smart Chain.",
-    "protocol": "Protocol",
+    "tagline": "Yield Farming ແບບກະຈາຍອຳນາດເທິງ Binance Smart Chain.",
+    "protocol": "ໂປຣໂຕຄໍ",
     "content": "ເນື້ອຫາ",
-    "community": "Community",
+    "community": "ຊຸມຊົນ",
     "legal": "ດ້ານກົດໝາຍ",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
-    "security": "Security",
+    "privacy": "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ",
+    "terms": "ເງື່ອນໄຂການໃຫ້ບໍລິການ",
+    "security": "ຄວາມປອດໄພ",
     "allRightsReserved": "ສິດທຸກຢ່າງຖືກຮັບຮັກສາ.",
-    "auditedBy": "Audited by"
+    "auditedBy": "ກວດສອບໂດຍ"
   },
   "meta": {
     "home": {
@@ -177,7 +177,7 @@
     "titleHighlight": "ເບີ່ງໜ້າຜູ້ອາທະມິດ.",
     "subtitle": "ແຜນຜະນິດຜົນ 4 ແຜນ. ກວະແຜນການແນະນຳ 20 ລະດັບ. ກຳນົດສາຂາ 7. ໂຄສະນາກຽດການກວດແລ່. ເປັນ protocol ຜູ້ທ່ານກົງກວດໄວ້.",
     "plans": {
-      "eyebrow": "The 4 Loop Plans",
+      "eyebrow": "4 ແຜນການ Loop",
       "title": "ເລືອກສອງເວັນທີ່ຢູ່. ຮັບຜົນທີ່ຕົກລົງ.",
       "subtitle": "ທຶນທືນແລະຜົນກັບຄືນຈົນທ່ານ ທອງບໍ່ມີການຄືນກັບທີ່ສ່ວນ, ບໍ່ມີການຄອ຤ສົນໄວ່.",
       "calculateReturn": "ຄຳນວນຜົນກັບ",
@@ -192,46 +192,46 @@
       "cta": "ສືກສາກຸລະບຢ"
     },
     "leadership": {
-      "title": "Partner → Legend",
+      "title": "ຄູ່ຮ່ວມງານ → ຕຳນານ",
       "subtitle": "7 ລະຫັດ. ຮັບຜົນຈາກ 100 ລະດັບໃນເຄື່ອງຂອງທ່ານ.",
       "cta": "ເບິນສິບທະນະນູ",
       "ranks": {
-        "partner": "Partner",
-        "builder": "Builder",
-        "accelerator": "Accelerator",
-        "director": "Director",
-        "executive": "Executive",
-        "ambassador": "Ambassador",
-        "legend": "Legend"
+        "partner": "ຄູ່ຮ່ວມງານ",
+        "builder": "ຜູ້ສ້າງ",
+        "accelerator": "ຕົວເລັ່ງ",
+        "director": "ຜູ້ອຳນວຍການ",
+        "executive": "ຜູ້ບໍລິຫານ",
+        "ambassador": "ທູດ",
+        "legend": "ຕຳນານ"
       }
     },
     "security": {
-      "title": "Zero vulnerabilities found.",
-      "chip1": "Audited",
-      "chip2": "Renounced",
-      "chip3": "LP Locked",
-      "bounty": "$100K bounty",
-      "bountyUnclaimed": "unclaimed.",
-      "cta": "See the proof"
+      "title": "ບໍ່ພົບຊ່ອງໂຫວ່ໃດໆ.",
+      "chip1": "ຜ່ານການກວດສອບ",
+      "chip2": "ສະຫຼະສິດທິ໌ແລ້ວ",
+      "chip3": "LP ຖືກລັອກ",
+      "bounty": "ລາງວັນ $100K",
+      "bountyUnclaimed": "ຍັງບໍ່ທັນມີຜູ້ຮັບ.",
+      "cta": "ເບິ່ງຫຼັກຖານ"
     },
     "films": {
-      "title": "What is TurboLoop?",
+      "title": "TurboLoop ແມ່ນຫຍັງ?",
       "caption": "ທ່ານເປັນຜູ້ຈະທຳ? ກ່າວນີ້ເລ້ວ.",
-      "cta": "Watch the film"
+      "cta": "ເບິ່ງຟິມ"
     }
   },
   "numbers": {
-    "eyebrow": "By the Numbers",
-    "title": "A movement, not a moment.",
-    "subtitle": "Real reach across the world. Translated, told, and lived in dozens of languages every day.",
-    "stat1Label": "Languages",
+    "eyebrow": "ຕົວເລກທີ່ໜ້າສົນໃຈ",
+    "title": "ການເຄື່ອນໄຫວ, ບໍ່ແມ່ນພຽງຊົ່ວຄາວ.",
+    "subtitle": "ການເຂົ້າເຖິງທີ່ແທ້ຈິງທົ່ວໂລກ. ແປ, ບອກເລົ່າ, ແລະ ດຳລົງຊີວິດໃນຫຼາຍສິບພາສາທຸກໆວັນ.",
+    "stat1Label": "ພາສາ",
     "stat1Help": "Supported across content",
-    "stat2Label": "Films",
+    "stat2Label": "ຮູບເງົາ",
     "stat2Help": "Cinematic universe complete",
-    "stat3Label": "Continents",
-    "stat3Help": "Active community presence",
-    "stat4Label": "Bounty",
-    "stat4Help": "For proof of centralization"
+    "stat3Label": "ທະວີບ",
+    "stat3Help": "ມີຊຸມຊົນທີ່ຫ້າວຫັນ",
+    "stat4Label": "ລາງວັນ",
+    "stat4Help": "ສຳລັບຫຼັກຖານການລວມສູນ"
   },
   "security": {
     "eyebrow": "ໄວ້ໃຈໄດ້ໂດຍບໍ່ຕ້ອງເຊື່ອມໂຍງ",
@@ -253,16 +253,16 @@
     "metaDesc": "ສັນຍາອັດຕະໂນມັດຂອງ TurboLoop ແມ່ນບໍ່ສາມາດປ່ຽນແປງ, ຖືກຍົກເລີກສິດທິ, ແລະເປີດແຫຼ່ງ. ບໍ່ມີກະແຈຜູ້ດູແລ, ບໍ່ມີຕົວແທນອັບເກຣດ. ລາງວັນ $100,000 USDT ສໍາລັບຈຸດອ່ອນທີ່ຖືກຢືນຢັນ."
   },
   "zoom": {
-    "eyebrow": "Live Right Now",
-    "title": "The community is",
-    "titleHighlight": "live right now.",
-    "subtitle": "Real people, real answers. Every day.",
-    "labelEnglish": "English",
-    "labelHindi": "Hindi / Urdu",
-    "dailyFree": "Daily · Free",
-    "when": "When",
-    "nextCallIn": "Next call in",
-    "joinNow": "Join now",
+    "eyebrow": "ສົດຢູ່ຕອນນີ້",
+    "title": "ຊຸມຊົນກຳລັງ",
+    "titleHighlight": "ສົດຢູ່ຕອນນີ້.",
+    "subtitle": "ຄົນຈິງ, ຄຳຕອບຈິງ. ທຸກໆວັນ.",
+    "labelEnglish": "ພາສາອັງກິດ",
+    "labelHindi": "ພາສາຮິນດີ / ອູດູ",
+    "dailyFree": "ທຸກວັນ · ຟຣີ",
+    "when": "ເວລາ",
+    "nextCallIn": "ການໂທຄັ້ງຕໍ່ໄປໃນ",
+    "joinNow": "ເຂົ້າຮ່ວມດຽວນີ້",
     "labelThai": "ໄທ",
     "labelThaiMorning": "ໄທ (ເຊົ້າ)",
     "labelThaiEvening": "ໄທ (ແລງ)",
@@ -302,13 +302,13 @@
     "metaDesc": "ດາວໂຫລດແບນເນີການຕະຫຼາດ DeFi ຟຣີ 2,800+. 14 ພາສາ, ຊຸດການຮ່ວມມື, ຊຸດການສຶກສາຍີ່ງຍັງ. ຟຣີສໍາລັບຊຸມຊົນ TurboLoop."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "ສຽງຈາກຊຸມຊົນ",
+    "title": "ໃນຄຳເວົ້າຂອງພວກເຂົາເອງ.",
+    "quote": "ຂ້ອຍຢູ່ໃນ DeFi ມາສີ່ປີແລ້ວ. TurboLoop ແມ່ນໂປຣເຈັກທຳອິດທີ່ຂ້ອຍໄວ້ວາງໃຈພໍທີ່ຈະແນະນຳໃຫ້ຄອບຄົວຂອງຕົນເອງ. ການກວດສອບ, ການສະລະສິດທິ໌, LP ທີ່ລັອກໄວ້ — ພວກເຂົາລຶບທຸກຂໍ້ແກ້ຕົວທີ່ຈະບໍ່ເຊື່ອອອກໄປ.",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "ຫົວໜ້າຊຸມຊົນ",
+    "country": "🇳🇬 ໄນຈີເລຍ",
+    "readMore": "ອ່ານເລື່ອງເພີ່ມເຕີມ"
   },
   "newsletter": {
     "eyebrow": "ຕິດຕາມຂ່າວສານ",
@@ -316,12 +316,12 @@
     "subtitle": "ເມື່ອມີສິ່ງແທ້ຈິງອອກ — ຟີມໃໝ່, ໂຄງການໃໝ່ ຫຼື ຈຸດສຳຄັນດ້ານຄວາມປອດໄພ — ທ່ານຈະເປັນຄົນທຳອິດທີ່ຮັບຂ່າວ. ບໍ່ມີສະແປມ. ຍົກຍ່າງການຮັບໄດ້ໃນຄລິກດຽວ.",
     "placeholder": "your@email.com",
     "subscribe": "ສະມັກ",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "ທ່ານເຂົ້າຮ່ວມແລ້ວ!",
+    "successBody": "ລໍຖ້າການອັບເດດຄັ້ງທຳອິດໃນກ່ອງຈົດໝາຍຂອງທ່ານ.",
+    "errorInvalidEmail": "ກະລຸນາໃສ່ທີ່ຢູ່ອີເມວທີ່ຖືກຕ້ອງ.",
+    "errorGeneric": "ລົງທະບຽນບໍ່ສຳເລັດ — ກະລຸນາລອງໃໝ່ອີກຄັ້ງ.",
+    "consentText": "ໂດຍການສົ່ງອີເມວຂອງທ່ານ ທ່ານຕົກລົງທີ່ຈະຮັບການອັບເດດເປັນຄັ້ງຄາວຈາກ Turbo Loop. ຍົກເລີກການສະໝັກໄດ້ທຸກເວລາ.",
+    "inlineError": "ນີ້ບໍ່ຄ້າຍຄືທີ່ຢູ່ອີເມວທີ່ຖືກຕ້ອງ.",
     "followOn": "ຫຼືບໍ່ຕ້ອງໄປກ່ອງຂ່າວ · ຕິດຕາມຢູ່"
   },
   "manifesto": {
@@ -330,31 +330,31 @@
     "episodeLabel": "S4 · E5 — ຄວາມເຄື່ອນໄຫວ"
   },
   "events": {
-    "eyebrow": "Live & Daily",
-    "title": "Daily Zoom in",
-    "titleHighlight": "12+ languages.",
-    "subtitle": "The community runs free Zoom sessions every single day. Drop in, ask anything, get onboarded. No pitch, no pressure, real conversations in your language.",
-    "sessionType1Label": "Daily community calls",
-    "sessionType1Detail": "Open Zoom in 12+ languages — English, Hindi, Indonesian, Portuguese, Russian, Turkish, Spanish + more. Drop in any time.",
-    "sessionType2Label": "Local presenters",
-    "sessionType2Detail": "Native speakers run the calls in your language. We pay them $100/month — apply at /apply.",
-    "sessionType3Label": "Onboarding sessions",
-    "sessionType3Detail": "Brand-new to DeFi? Smaller group calls walk you through wallet setup, your first deposit, and the math.",
-    "liveNow": "Live Now · Join Anytime",
-    "daily": "Daily · Every Day",
-    "joinLiveCall": "Join Live Call",
-    "joinTodaysCall": "Join Today's Call",
-    "endsIn": "Ends in",
-    "startsIn": "Starts in",
-    "hours": "Hours",
+    "eyebrow": "ສົດ & ທຸກວັນ",
+    "title": "Zoom ປະຈຳວັນໃນ",
+    "titleHighlight": "12+ ພາສາ.",
+    "subtitle": "ຊຸມຊົນຈັດກອງປະຊຸມ Zoom ຟຣີທຸກໆວັນ. ເຂົ້າຮ່ວມໄດ້ເລີຍ, ຖາມຫຍັງກໍໄດ້, ເລີ່ມຕົ້ນໃຊ້ງານໄດ້ທັນທີ. ບໍ່ມີການຂາຍ, ບໍ່ມີຄວາມກົດດັນ, ສົນທະນາຈິງໆໃນພາສາຂອງທ່ານ.",
+    "sessionType1Label": "ການໂທຫາຊຸມຊົນປະຈຳວັນ",
+    "sessionType1Detail": "Zoom ເປີດໃຫ້ໃນ 12+ ພາສາ — ອັງກິດ, ຮິນດີ, ອິນໂດເນເຊຍ, ໂປຕຸເກດ, ລັດເຊຍ, ຕຸລະກີ, ສະເປນ + ອື່ນໆ. ເຂົ້າຮ່ວມໄດ້ທຸກເວລາ.",
+    "sessionType2Label": "ຜູ້ນຳສະເໜີທ້ອງຖິ່ນ",
+    "sessionType2Detail": "ເຈົ້າຂອງພາສາດຳເນີນການໂທໃນພາສາຂອງທ່ານ. ພວກເຮົາຈ່າຍໃຫ້ເຂົາເຈົ້າ $100/ເດືອນ — ສະໝັກໄດ້ທີ່ /apply.",
+    "sessionType3Label": "ກອງປະຊຸມການເລີ່ມຕົ້ນໃຊ້ງານ",
+    "sessionType3Detail": "ໃໝ່ກັບ DeFi ສົມບູນ? ການໂທກຸ່ມນ້ອຍຈະພາທ່ານຜ່ານການຕັ້ງຄ່າກະເປົ໋າເງິນ, ການຝາກເງິນຄັ້ງທຳອິດ, ແລະ ຄະນິດສາດ.",
+    "liveNow": "ສົດຢູ່ດຽວນີ້ · ເຂົ້າຮ່ວມໄດ້ທຸກເວລາ",
+    "daily": "ປະຈຳວັນ · ທຸກໆວັນ",
+    "joinLiveCall": "ເຂົ້າຮ່ວມການໂທສົດ",
+    "joinTodaysCall": "ເຂົ້າຮ່ວມການໂທຂອງວັນນີ້",
+    "endsIn": "ສິ້ນສຸດໃນ",
+    "startsIn": "ເລີ່ມຕົ້ນໃນ",
+    "hours": "ຊົ່ວໂມງ",
     "min": "Min",
     "sec": "Sec",
-    "english": "English",
-    "hindiUrdu": "Hindi / Urdu",
-    "findYourCall": "Find your call.",
-    "findYourCallDetail": "Live links go up daily in our official Telegram. Pick your language, hop in.",
-    "openTelegram": "Open Telegram",
-    "becomePresenter": "Become a presenter"
+    "english": "ອັງກິດ",
+    "hindiUrdu": "ຮິນດີ / ອູດູ",
+    "findYourCall": "ຊອກຫາການໂທຂອງທ່ານ.",
+    "findYourCallDetail": "ລິ້ງສົດຈະຖືກໂພສທຸກວັນໃນ Telegram ທາງການຂອງພວກເຮົາ. ເລືອກພາສາຂອງທ່ານ, ເຂົ້າຮ່ວມໄດ້ເລີຍ.",
+    "openTelegram": "ເປີດ Telegram",
+    "becomePresenter": "ກາຍເປັນຜູ້ນຳສະເໜີ"
   },
   "social-wall": {
     "eyebrow": "ກຳໜົດສັງຄົມ",
@@ -451,7 +451,7 @@
     "title": "ທຸກຢ່າງໃນຫ້ອງສະໝຸດເທົ່ານັ້ນ.",
     "subtitle": "ພາບຍົນສະເລ່ຍ, reels, ແລະການນຳເສີຍ — ທຸກຢ່າງໃນສະຖານທີ່ເດັ່ນດຽວ. ຟຣີເພື່ອຮັບຊົມ, ພ້ອມແບ່ງປັນ.",
     "filmsTab": "ພາບຍົນ",
-    "reelsTab": "Reels",
+    "reelsTab": "ວິດີໂອສັ້ນ",
     "presentationsTab": "ການນຳເສີຍ",
     "watchNow": "ຮັບຊົມດຽວນີ້",
     "shareBtn": "ແບ່ງປັນ",

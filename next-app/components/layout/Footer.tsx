@@ -8,10 +8,13 @@
 // them by habit anyway.
 
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Container } from "@components/ui/Container";
 import { Brand } from "@components/Brand";
 import { SECURITY } from "@lib/constants";
 import { UTILITY_LINKS } from "./nav-links";
+import { localizeHref } from "@lib/i18n/useLocaleHref";
+import { LOCALES, type Locale } from "@lib/i18n/routing";
 
 // The six highest-intent destinations, rendered as a prominent
 // `<nav aria-label="Site sections">` rail at the top of the footer.
@@ -66,8 +69,11 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
   },
 ];
 
-export function Footer() {
+export async function Footer() {
   const year = new Date().getFullYear();
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get("NEXT_LOCALE")?.value || "en") as Locale;
+  const loc = (href: string) => localizeHref(href, locale);
   return (
     <footer
       className="relative bg-[var(--c-surface)] mt-16"
@@ -97,7 +103,7 @@ export function Footer() {
             {PRIMARY_SECTIONS.map(s => (
               <li key={s.href}>
                 <Link
-                  href={s.href}
+                  href={loc(s.href)}
                   className="text-sm font-bold text-[var(--c-text)] hover:text-[var(--c-brand-cyan)] transition-colors tracking-tight"
                 >
                   {s.label}
@@ -143,7 +149,7 @@ export function Footer() {
                       </a>
                     ) : (
                       <Link
-                        href={item.href}
+                        href={loc(item.href)}
                         className="text-sm text-[var(--c-text-muted)] hover:text-[var(--c-text)] transition-colors"
                       >
                         {item.label}
@@ -160,10 +166,10 @@ export function Footer() {
         <div className="border-t border-[var(--c-border)] py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-[var(--c-text-subtle)]">
           <span>© {year} TurboLoop. All on-chain, all the time.</span>
           <div className="flex gap-5">
-            <Link href="/privacy" className="hover:text-[var(--c-text)] transition-colors">
+            <Link href={loc("/privacy")} className="hover:text-[var(--c-text)] transition-colors">
               Privacy
             </Link>
-            <Link href="/terms" className="hover:text-[var(--c-text)] transition-colors">
+            <Link href={loc("/terms")} className="hover:text-[var(--c-text)] transition-colors">
               Terms
             </Link>
             <a

@@ -7,11 +7,11 @@
     "earnBuild": "कमाएं और बनाएं",
     "languagePicker": "भाषा",
     "links": {
-      "yieldFarming": "Yield Farming",
-      "referralNetwork": "Referral Network",
+      "yieldFarming": "यील्ड फार्मिंग",
+      "referralNetwork": "रेफरल नेटवर्क",
       "leadershipProgram": "लीडरशिप प्रोग्राम",
-      "turboBuy": "Turbo Buy",
-      "turboSwap": "Turbo Swap",
+      "turboBuy": "टर्बो खरीदें",
+      "turboSwap": "टर्बो स्वैप",
       "security": "सुरक्षा",
       "films": "फिल्में",
       "reels": "रील्स",
@@ -44,9 +44,9 @@
     "scroll": "स्क्रॉल करें",
     "trust": {
       "audited": "स्वतंत्र रूप से ऑडिटेड",
-      "lpLocked": "100% LP Locked",
+      "lpLocked": "100% LP लॉक्ड",
       "renounced": "स्वामित्व छोड़ा गया",
-      "bscscan": "BscScan Verified"
+      "bscscan": "BscScan सत्यापित"
     },
     "newsletter": {
       "title": "यील्ड में आगे रहें.",
@@ -61,10 +61,10 @@
     "title": "नंबर निकालें.",
     "subtitle": "एक प्लान चुनें, अपना डिपॉज़िट दर्ज करें, और अपना सटीक रिटर्न देखें — कोई कंपाउंडिंग नहीं, कोई छिपा शुल्क नहीं.",
     "plans": {
-      "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "sprint": "स्प्रिंट",
+      "boost": "बूस्ट",
+      "power": "पावर",
+      "ultimate": "अल्टीमेट"
     },
     "planDetails": {
       "sprint": "3% — 7 दिनों में",
@@ -97,8 +97,8 @@
     "eyebrow": "कमाने के लिए आवेदन करें",
     "title": "TurboLoop क्रिएटर नेटवर्क में शामिल हों.",
     "subtitle": "अपने ऑडियंस के साथ TurboLoop शेयर करके कमीशन कमाएं। दो ट्रैक्स: Creator Star और Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "क्रिएटर स्टार",
+    "localPresenter": "स्थानीय प्रस्तुतकर्ता",
     "applyNow": "अब आवेदन करें",
     "requirements": "शर्तें",
     "benefits": "लाभ",
@@ -302,13 +302,13 @@
     "metaDesc": "2,800+ मुफ्त DeFi मार्केटिंग बैनर डाउनलोड करें। 14 भाषाएँ, कैंपेन सूट, ब्रांडेड शैक्षिक किट। TurboLoop समुदाय के लिए मुफ्त।"
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "समुदाय की आवाज़ें",
+    "title": "उन्हीं के शब्दों में।",
+    "quote": "मैं चार साल से DeFi में हूँ। TurboLoop पहला ऐसा प्रोजेक्ट है जिस पर मुझे इतना भरोसा हुआ कि मैंने इसे अपने परिवार को रेफर किया। ऑडिट, रिनाउंसमेंट, लॉक्ड LP — इन्होंने न मानने का हर बहाना खत्म कर दिया।",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "कम्युनिटी लीड",
+    "country": "🇳🇬 नाइजीरिया",
+    "readMore": "और कहानियाँ पढ़ें"
   },
   "newsletter": {
     "eyebrow": "अपडेट में रहें",
@@ -316,12 +316,12 @@
     "subtitle": "जब कुछ वास्तविक लॉन्च होता है — एक नई फिल्म, नया प्रोग्राम, सुरक्षा का कोई माइलस्टोन — आपको सबसे पहले पता चलेगा। कभी भी स्पैम नहीं। एक क्लिक में अनसब्सक्राइब करें।",
     "placeholder": "your@email.com",
     "subscribe": "सब्सक्राइब करें",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "आप जुड़ गए!",
+    "successBody": "पहले अपडेट के लिए अपना इनबॉक्स देखते रहें।",
+    "errorInvalidEmail": "कृपया एक वैध ईमेल पता दर्ज करें।",
+    "errorGeneric": "साइन अप नहीं हो सका — थोड़ी देर बाद फिर कोशिश करें।",
+    "consentText": "अपना ईमेल सबमिट करके आप Turbo Loop से कभी-कभी अपडेट प्राप्त करने के लिए सहमत होते हैं। कभी भी अनसब्सक्राइब करें।",
+    "inlineError": "यह एक वैध ईमेल पते जैसा नहीं लगता।",
     "followOn": "या इनबॉक्स छोड़ें · फॉलो करें"
   },
   "manifesto": {
@@ -349,8 +349,8 @@
     "hours": "घंटे",
     "min": "मिनट",
     "sec": "सेकंड",
-    "english": "English",
-    "hindiUrdu": "Hindi / Urdu",
+    "english": "अंग्रेज़ी",
+    "hindiUrdu": "हिंदी / उर्दू",
     "findYourCall": "अपनी कॉल खोजें।",
     "findYourCallDetail": "लाइव लिंक रोज़ हमारे आधिकारिक Telegram पर अपलोड होते हैं। अपनी भाषा चुनें, जुड़ें।",
     "openTelegram": "Telegram खोलें",

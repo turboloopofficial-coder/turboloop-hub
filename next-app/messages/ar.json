@@ -10,8 +10,8 @@
       "yieldFarming": "زراعة العوائد",
       "referralNetwork": "شبكة الإحالة",
       "leadershipProgram": "برنامج القيادة",
-      "turboBuy": "Turbo Buy",
-      "turboSwap": "Turbo Swap",
+      "turboBuy": "شراء توربو",
+      "turboSwap": "تبادل توربو",
       "security": "الأمان",
       "films": "الأفلام",
       "reels": "ريلز",
@@ -61,10 +61,10 @@
     "title": "احسب الأرقام.",
     "subtitle": "اختر خطة، أدخل وديعتك، وشاهد عائدك الدقيق — بدون فوائد مركبة، وبدون رسوم خفية.",
     "plans": {
-      "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "sprint": "سبرينت",
+      "boost": "بوست",
+      "power": "باور",
+      "ultimate": "ألتيميت"
     },
     "planDetails": {
       "sprint": "3% في 7 أيام",
@@ -97,8 +97,8 @@
     "eyebrow": "قدّم لتكسب",
     "title": "انضم إلى شبكة منشئي TurboLoop.",
     "subtitle": "اكسب عمولات عبر مشاركة TurboLoop مع جمهورك. مساران: Creator Star وLocal Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "نجم المبدعين",
+    "localPresenter": "مقدم محلي",
     "applyNow": "قدّم الآن",
     "requirements": "متطلبات",
     "benefits": "الفوائد",
@@ -302,13 +302,13 @@
     "metaDesc": "قم بتنزيل أكثر من 2,800 لافتة تسويقية مجانية لـ DeFi. 14 لغة، مجموعات حملات، مجموعة تعليمية تحمل العلامة التجارية. مجاناً لمجتمع TurboLoop."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "أصوات من المجتمع",
+    "title": "بكلماتهم الخاصة.",
+    "quote": "أنا في DeFi منذ أربع سنوات. TurboLoop هو أول مشروع وثقت به بما يكفي لأنصح به عائلتي. المراجعة، والتنازل عن الصلاحيات، وقفل السيولة — كل ذلك أزال كل عذر لعدم التصديق.",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "قائد المجتمع",
+    "country": "🇳🇬 نيجيريا",
+    "readMore": "اقرأ المزيد من القصص"
   },
   "newsletter": {
     "eyebrow": "ابقَ على اطلاع",
@@ -316,12 +316,12 @@
     "subtitle": "عندما يصدر شيء مهم — فيلم جديد، برنامج جديد، إنجاز أمني — ستكون أول من يعرف. لا رسائل مزعجة أبداً. إلغاء الاشتراك بنقرة واحدة.",
     "placeholder": "your@email.com",
     "subscribe": "اشترك",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "أنت الآن ضمن القائمة!",
+    "successBody": "تابع بريدك الوارد لأول تحديث.",
+    "errorInvalidEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح.",
+    "errorGeneric": "تعذّر التسجيل — حاول مرة أخرى بعد لحظة.",
+    "consentText": "بتقديم بريدك الإلكتروني، فإنك توافق على تلقّي تحديثات دورية من Turbo Loop. يمكنك إلغاء الاشتراك في أي وقت.",
+    "inlineError": "هذا لا يبدو عنوان بريد إلكتروني صحيحاً.",
     "followOn": "أو تجاهل صندوق الوارد · تابعنا على"
   },
   "manifesto": {

@@ -7,19 +7,19 @@
     "earnBuild": "รับรายได้ & สร้าง",
     "languagePicker": "ภาษา",
     "links": {
-      "yieldFarming": "Yield Farming",
+      "yieldFarming": "การทำฟาร์มผลตอบแทน",
       "referralNetwork": "เครือข่ายแนะนำ",
       "leadershipProgram": "โปรแกรมผู้นำ",
       "turboBuy": "Turbo Buy",
       "turboSwap": "Turbo Swap",
       "security": "ความปลอดภัย",
       "films": "ฟิล์ม",
-      "reels": "Reels",
+      "reels": "วิดีโอสั้น",
       "library": "ห้องสมุด",
       "blog": "บล็อก",
       "learnDeFi": "เรียนรู้ DeFi",
       "communityLink": "ชุมชน",
-      "socialWall": "Social Wall",
+      "socialWall": "กำแพงโซเชียล",
       "leaderboard": "กระดานผู้นำ",
       "events": "กิจกรรม & Zoom",
       "turboToken": "$TURBO Token",
@@ -28,7 +28,7 @@
       "careers": "ร่วมงานกับเรา",
       "creatives": "ครีเอทีฟ",
       "faq": "คำถามที่พบบ่อย",
-      "roadmap": "Roadmap",
+      "roadmap": "แผนการดำเนินงาน",
       "calculator": "เครื่องคิดเลข"
     }
   },
@@ -61,10 +61,10 @@
     "title": "คำนวณตัวเลข.",
     "subtitle": "เลือกแผน ใส่ยอดฝาก แล้วดูผลตอบแทนที่แน่นอน — ไม่มีการทบต้น ไม่มีค่าธรรมเนียมซ่อนเร้น.",
     "plans": {
-      "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "sprint": "สปรินต์",
+      "boost": "บูสต์",
+      "power": "พาวเวอร์",
+      "ultimate": "อัลติเมท"
     },
     "planDetails": {
       "sprint": "3% ใน 7 วัน",
@@ -97,8 +97,8 @@
     "eyebrow": "สมัครเพื่อรับรายได้",
     "title": "เข้าร่วมเครือข่ายครีเอเตอร์ของ TurboLoop.",
     "subtitle": "รับค่าคอมมิชชั่นโดยแชร์ TurboLoop กับผู้ชมของคุณ มีสองเส้นทาง: Creator Star และ Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "ดาวครีเอเตอร์",
+    "localPresenter": "ผู้นำเสนอท้องถิ่น",
     "applyNow": "สมัครตอนนี้",
     "requirements": "ข้อกำหนด",
     "benefits": "สิทธิประโยชน์",
@@ -210,7 +210,7 @@
       "chip1": "ตรวจสอบ",
       "chip2": "สละ",
       "chip3": "LP ถูกล็อก",
-      "bounty": "$100K bounty",
+      "bounty": "รางวัล $100K",
       "bountyUnclaimed": "ยังไม่ได้เคลม",
       "cta": "ดูหลักฐาน"
     },
@@ -302,13 +302,13 @@
     "metaDesc": "ดาวน์โหลดแบนเนอร์การตลาด DeFi ฟรีกว่า 2,800 ชิ้น 14 ภาษา ชุดแคมเปญ ชุดการศึกษาที่มีแบรนด์ ฟรีสำหรับชุมชน TurboLoop"
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "เสียงจากชุมชน",
+    "title": "ในคำพูดของพวกเขาเอง",
+    "quote": "ฉันอยู่ใน DeFi มาสี่ปีแล้ว TurboLoop เป็นโปรเจกต์แรกที่ฉันไว้วางใจพอที่จะแนะนำให้กับครอบครัวของตัวเอง การตรวจสอบ การสละสิทธิ์ และ LP ที่ถูกล็อก — พวกเขาขจัดทุกข้ออ้างที่จะไม่เชื่อออกไป",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "หัวหน้าชุมชน",
+    "country": "🇳🇬 ไนจีเรีย",
+    "readMore": "อ่านเรื่องราวเพิ่มเติม"
   },
   "newsletter": {
     "eyebrow": "รับข่าวสาร",
@@ -316,12 +316,12 @@
     "subtitle": "เมื่อมีของจริงออกมา — หนังใหม่ โครงการใหม่ หรือก้าวสำคัญด้านความปลอดภัย — คุณจะเป็นคนแรกที่ได้รับข่าว ไม่มีสแปมแน่นอน ยกเลิกการสมัครเพียงคลิกเดียว.",
     "placeholder": "your@email.com",
     "subscribe": "สมัครรับข่าวสาร",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "คุณเข้าร่วมแล้ว!",
+    "successBody": "คอยติดตามกล่องจดหมายของคุณสำหรับอัปเดตแรก",
+    "errorInvalidEmail": "กรุณากรอกที่อยู่อีเมลที่ถูกต้อง",
+    "errorGeneric": "ไม่สามารถสมัครได้ — ลองอีกครั้งในอีกสักครู่",
+    "consentText": "การส่งอีเมลของคุณถือว่าคุณยินยอมรับการอัปเดตเป็นครั้งคราวจาก Turbo Loop สามารถยกเลิกการสมัครได้ทุกเมื่อ",
+    "inlineError": "ที่อยู่อีเมลนี้ดูไม่ถูกต้อง",
     "followOn": "หรือข้ามกล่องจดหมาย · ติดตามได้ที่"
   },
   "manifesto": {
@@ -349,8 +349,8 @@
     "hours": "ชั่วโมง",
     "min": "นาที",
     "sec": "วินาที",
-    "english": "English",
-    "hindiUrdu": "Hindi / Urdu",
+    "english": "ภาษาอังกฤษ",
+    "hindiUrdu": "ภาษาฮินดี / อูรดู",
     "findYourCall": "ค้นหาการโทรของคุณ",
     "findYourCallDetail": "ลิงก์ถ่ายทอดสดจะอัปเดตทุกวันใน Telegram อย่างเป็นทางการของเรา เลือกภาษาของคุณ แล้วเข้าร่วม",
     "openTelegram": "เปิด Telegram",

@@ -62,9 +62,9 @@
     "subtitle": "Elige un plan, ingresa tu depósito y ve tu retorno exacto — sin capitalización, sin tarifas ocultas.",
     "plans": {
       "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "boost": "Impulso",
+      "power": "Potencia",
+      "ultimate": "Máximo"
     },
     "planDetails": {
       "sprint": "3% en 7 días",
@@ -97,8 +97,8 @@
     "eyebrow": "Aplicar para Ganar",
     "title": "Únete a la red de creadores de TurboLoop.",
     "subtitle": "Gana comisiones compartiendo TurboLoop con tu audiencia. Dos vías: Creator Star y Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "Estrella Creadora",
+    "localPresenter": "Presentador Local",
     "applyNow": "Aplica Ahora",
     "requirements": "Requisitos",
     "benefits": "Beneficios",
@@ -302,13 +302,13 @@
     "metaDesc": "Descarga más de 2,800 banners de marketing DeFi gratuitos. 14 idiomas, conjuntos de campañas, kit educativo de marca. Gratis para la comunidad TurboLoop."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "Voces de la Comunidad",
+    "title": "En sus propias palabras.",
+    "quote": "Llevo cuatro años en DeFi. TurboLoop es el primer proyecto en el que he confiado lo suficiente como para recomendárselo a mi propia familia. La auditoría, la renuncia, el LP bloqueado — eliminaron todas las excusas para no creer.",
     "author": "Adesina O.",
-    "role": "Community Lead",
+    "role": "Líder de Comunidad",
     "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "readMore": "Leer más historias"
   },
   "newsletter": {
     "eyebrow": "Mantente al tanto",
@@ -316,12 +316,12 @@
     "subtitle": "Cuando lancemos algo real —una nueva película, un nuevo programa, un hito de seguridad— serás el primero en enterarte. Sin spam, nunca. Date de baja con un clic.",
     "placeholder": "your@email.com",
     "subscribe": "Suscribirse",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "¡Ya estás dentro!",
+    "successBody": "Revisa tu bandeja de entrada para la primera actualización.",
+    "errorInvalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
+    "errorGeneric": "No se pudo registrar — inténtalo de nuevo en un momento.",
+    "consentText": "Al enviar tu correo electrónico, aceptas recibir actualizaciones ocasionales de Turbo Loop. Cancela la suscripción en cualquier momento.",
+    "inlineError": "Eso no parece una dirección de correo electrónico válida.",
     "followOn": "O evita la bandeja de entrada · Síguenos en"
   },
   "manifesto": {
@@ -349,7 +349,7 @@
     "hours": "Horas",
     "min": "Min",
     "sec": "Seg",
-    "english": "English",
+    "english": "Inglés",
     "hindiUrdu": "Hindi / Urdu",
     "findYourCall": "Encuentra tu llamada.",
     "findYourCallDetail": "Los enlaces en vivo se publican diariamente en nuestro Telegram oficial. Elige tu idioma, únete.",

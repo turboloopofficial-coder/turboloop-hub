@@ -10,8 +10,8 @@
       "yieldFarming": "Farming de rendement",
       "referralNetwork": "Réseau de parrainage",
       "leadershipProgram": "Programme de leadership",
-      "turboBuy": "Turbo Buy",
-      "turboSwap": "Turbo Swap",
+      "turboBuy": "Turbo Achat",
+      "turboSwap": "Turbo Échange",
       "security": "Sécurité",
       "films": "Films",
       "reels": "Reels",
@@ -63,8 +63,8 @@
     "plans": {
       "sprint": "Sprint",
       "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "power": "Puissance",
+      "ultimate": "Ultime"
     },
     "planDetails": {
       "sprint": "3% en 7 jours",
@@ -74,7 +74,7 @@
     },
     "deposit": "Montant du dépôt",
     "depositPlaceholder": "Saisissez le montant en USDT",
-    "minimum": "Minimum: 1 USDT",
+    "minimum": "Minimum : 1 USDT",
     "yourReturn": "Votre rendement",
     "earnings": "Gains",
     "totalAtMaturity": "Total à l'échéance",
@@ -97,8 +97,8 @@
     "eyebrow": "Postuler pour gagner",
     "title": "Rejoignez le réseau de créateurs TurboLoop.",
     "subtitle": "Gagnez des commissions en partageant TurboLoop avec votre audience. Deux parcours : Creator Star et Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "Étoile Créateur",
+    "localPresenter": "Présentateur Local",
     "applyNow": "Postuler maintenant",
     "requirements": "Exigences",
     "benefits": "Avantages",
@@ -302,13 +302,13 @@
     "metaDesc": "Téléchargez plus de 2 800 bannières marketing DeFi gratuites. 14 langues, suites de campagne, kit éducatif de marque. Gratuit pour la communauté TurboLoop."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "Voix de la Communauté",
+    "title": "Dans leurs propres mots.",
+    "quote": "Je suis dans la DeFi depuis quatre ans. TurboLoop est le premier projet en lequel j'ai eu assez confiance pour le recommander à ma propre famille. L'audit, la renonciation, la LP verrouillée — ils ont supprimé toutes les excuses pour ne pas croire.",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "Responsable Communauté",
+    "country": "🇳🇬 Nigéria",
+    "readMore": "Lire d'autres témoignages"
   },
   "newsletter": {
     "eyebrow": "Restez informé",
@@ -316,12 +316,12 @@
     "subtitle": "Quand du concret arrive — un nouveau film, un nouveau programme, un jalon de sécurité — vous serez le premier informé. Jamais de spam. Désinscription en un clic.",
     "placeholder": "your@email.com",
     "subscribe": "S'abonner",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "Vous êtes inscrit !",
+    "successBody": "Surveillez votre boîte de réception pour la première mise à jour.",
+    "errorInvalidEmail": "Veuillez saisir une adresse e-mail valide.",
+    "errorGeneric": "Inscription impossible — réessayez dans un moment.",
+    "consentText": "En soumettant votre e-mail, vous acceptez de recevoir des mises à jour occasionnelles de Turbo Loop. Désinscription possible à tout moment.",
+    "inlineError": "Cette adresse e-mail ne semble pas valide.",
     "followOn": "Ou évitez la boîte de réception · Suivez-nous sur"
   },
   "manifesto": {
@@ -349,8 +349,8 @@
     "hours": "Heures",
     "min": "Min",
     "sec": "Sec",
-    "english": "English",
-    "hindiUrdu": "Hindi / Urdu",
+    "english": "Anglais",
+    "hindiUrdu": "Hindi / Ourdou",
     "findYourCall": "Trouvez votre appel.",
     "findYourCallDetail": "Les liens en direct sont publiés chaque jour sur notre Telegram officiel. Choisissez votre langue, entrez.",
     "openTelegram": "Ouvrir Telegram",

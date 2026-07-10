@@ -44,14 +44,14 @@
     "scroll": "Scroll",
     "trust": {
       "audited": "Independent audit don do",
-      "lpLocked": "100% LP Locked",
-      "renounced": "Ownership Renounced",
-      "bscscan": "BscScan Verified"
+      "lpLocked": "100% LP Don Lock",
+      "renounced": "Dem Don Renounce Ownership",
+      "bscscan": "BscScan Don Verify Am"
     },
     "newsletter": {
       "title": "Make you dey ahead for yield.",
       "subtitle": "Every week protocol gist, new content, and community highlights — direct go your email.",
-      "placeholder": "Your email address",
+      "placeholder": "Your email",
       "subscribe": "Subscribe",
       "privacy": "No spam. You fit unsubscribe anytime."
     }
@@ -67,25 +67,25 @@
       "ultimate": "Ultimate"
     },
     "planDetails": {
-      "sprint": "3% in 7 days",
-      "boost": "10% in 14 days",
-      "power": "24% in 30 days",
-      "ultimate": "54% in 60 days"
+      "sprint": "3% for 7 days",
+      "boost": "10% for 14 days",
+      "power": "24% for 30 days",
+      "ultimate": "54% for 60 days"
     },
-    "deposit": "Deposit Amount",
-    "depositPlaceholder": "Enter amount in USDT",
+    "deposit": "How Much You Wan Deposit",
+    "depositPlaceholder": "Enter amount for USDT",
     "minimum": "Minimum: 1 USDT",
     "yourReturn": "Wetin you go get",
-    "earnings": "Earnings",
+    "earnings": "Wetin you go earn",
     "totalAtMaturity": "Total when plan finish",
-    "planDuration": "Plan Duration",
+    "planDuration": "How long di plan go last",
     "days": "days",
     "startPlan": "Start dis plan",
     "presets": "Quick amounts",
     "rewardTier": "Reward tier",
     "tokenBonus": "$TURBO Token Bonus",
     "vestingRank": "Vesting rank",
-    "projection": "Projection"
+    "projection": "Wetin you go get"
   },
   "faq": {
     "eyebrow": "Questions wey people dey ask often",
@@ -95,7 +95,7 @@
   },
   "apply": {
     "eyebrow": "Apply to Earn",
-    "title": "Join the TurboLoop creator network.",
+    "title": "Join TurboLoop creator network.",
     "subtitle": "Make commissions by sharing TurboLoop with your people. Two tracks: Creator Star and Local Presenter.",
     "creatorStar": "Creator Star",
     "localPresenter": "Local Presenter",
@@ -106,21 +106,21 @@
   },
   "token": {
     "eyebrow": "$TURBO Token",
-    "title": "The deflationary bonus layer.",
+    "title": "Di deflationary bonus layer.",
     "subtitle": "People wey deposit for Power and Ultimate plans go get $TURBO tokens as extra bonus on top of their USDT yield.",
     "buyback": "Daily Buyback & Burn",
     "supply": "Total Supply",
-    "burned": "Burned",
+    "burned": "Dem don burn",
     "circulatingSupply": "Circulating Supply",
-    "viewOnBscScan": "View on BscScan",
+    "viewOnBscScan": "Check am for BscScan",
     "buyTurbo": "Buy $TURBO",
     "tokenomics": "Tokenomics",
     "vestingSchedule": "Vesting Schedule"
   },
   "common": {
     "learnMore": "Learn More",
-    "viewAll": "View All",
-    "getStarted": "Get Started",
+    "viewAll": "See All",
+    "getStarted": "Make we start",
     "joinNow": "Join Now",
     "readMore": "Read More",
     "download": "Download",
@@ -128,10 +128,10 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "loading": "Loading...",
+    "loading": "E dey load...",
     "error": "Something wrong. Try again.",
     "copyLink": "Copy Link",
-    "copied": "Copied!",
+    "copied": "E don copy!",
     "days": "days",
     "hours": "hours",
     "minutes": "minutes",
@@ -147,7 +147,7 @@
     "terms": "Terms of Service",
     "security": "Security",
     "allRightsReserved": "All rights reserved.",
-    "auditedBy": "Audited by"
+    "auditedBy": "Dem audit am by"
   },
   "meta": {
     "home": {
@@ -174,7 +174,7 @@
   "protocol": {
     "eyebrow": "Di Protocol",
     "title": "Every piece.",
-    "titleHighlight": "One glance.",
+    "titleHighlight": "One look.",
     "subtitle": "Four yield plans. A 20-level referral graph. Seven leadership ranks. Audited code. One protocol — build make people inspect am, no make dem trust am.",
     "plans": {
       "eyebrow": "Di 4 Loop Plans",
@@ -186,7 +186,7 @@
     "referral": {
       "title": "20 Levels Deep",
       "subtitle": "51% of protocol fees dey go the community.",
-      "fact1": "No volume requirements",
+      "fact1": "No volume wahala",
       "fact2": "Fixed percentages",
       "fact3": "Deep pass for DeFi",
       "cta": "Check di graph"
@@ -235,9 +235,9 @@
   },
   "security": {
     "eyebrow": "Trustless by Design",
-    "title": "Five reasons to trust nobody.",
+    "title": "Five reasons why you no go trust anybody.",
     "subtitle": "We remove every way we fit harm you. Wetin remain na code, we publish am, lock am, and people wey no work for us don verify am.",
-    "reason1Title": "Immutable Smart Contract",
+    "reason1Title": "Smart Contract wey nobody fit change",
     "reason1Body": "The contract don deploy and dem don renounce am. No admin keys, no upgrade proxy, no pause function. Even the founders no fit change am.",
     "reason2Title": "Decentralized Liquidity",
     "reason2Body": "Yield dey come from protocol-owned liquidity pools — no be from new deposits. The math still dey work even if no new members join.",
@@ -248,8 +248,8 @@
     "reason5Title": "$100K Security Bounty",
     "reason5Body": "We put $100,000 USDT for table for anybody wey find real vulnerability. Open to all, no NDA, payment go happen within 7 days after verification.",
     "viewContract": "View on BscScan",
-    "submitBounty": "Submit a finding",
-    "metaTitle": "TurboLoop Security — Immutable Smart Contract & $100K Bounty",
+    "submitBounty": "Submit wetin you find",
+    "metaTitle": "TurboLoop Security — Smart Contract wey nobody fit change & $100K Bounty",
     "metaDesc": "TurboLoop smart contract immutable, renounced, and open source. No admin keys, no upgrade proxy. $100,000 USDT bounty dey for verified vulnerabilities."
   },
   "zoom": {
@@ -259,9 +259,9 @@
     "subtitle": "Na real people, real answers. Every day.",
     "labelEnglish": "English",
     "labelHindi": "Hindi / Urdu",
-    "dailyFree": "Daily · Free",
+    "dailyFree": "Every day · Free",
     "when": "When",
-    "nextCallIn": "Next call in",
+    "nextCallIn": "Next call go start for",
     "joinNow": "Join us now",
     "labelThai": "Thai",
     "labelThaiMorning": "Thai (Morning)",
@@ -273,16 +273,16 @@
   },
   "reels": {
     "eyebrow": "Short Films",
-    "title": "Every reel. One place.",
+    "title": "All di reels. One place.",
     "titleHighlight": "All 15 languages.",
     "subtitle": "Short-form videos, how-to-join walkthroughs for 15 languages, withdraw + compound + referral tutorials. Free to watch, ready to share.",
     "categoryPresentation": "Featured reels",
-    "categoryPresentationDesc": "Sovereign Series shorts + multi-language project intros.",
-    "categoryHowToJoin": "How to join — by language",
+    "categoryPresentationDesc": "Sovereign Series shorts + project intros for different languages.",
+    "categoryHowToJoin": "How to join — for your language",
     "categoryHowToJoinDesc": "Step-by-step walkthroughs for 15 languages: install wallet → buy USDT → pick one Loop Plan.",
-    "categoryWithdraw": "Withdraw, compound & refer",
+    "categoryWithdraw": "Withdraw, compound & refer people",
     "categoryWithdrawDesc": "How to claim daily earnings, re-deposit to compound, and use referral system.",
-    "watchNow": "Watch now",
+    "watchNow": "Watch am now",
     "shareBtn": "Share",
     "metaTitle": "TurboLoop Reels — Short DeFi Videos for 15 Languages",
     "metaDesc": "Watch TurboLoop reels: how-to-join walkthroughs for 15 languages, withdraw and compound tutorials, referral guides. Free to watch."
@@ -290,21 +290,21 @@
   "creatives": {
     "eyebrow": "Marketing Hub",
     "title": "Free banners. Ready to share.",
-    "subtitle": "Campaign suites, branded pillars, and a 14-language educational kit. Download, share on Telegram or WhatsApp — no attribution required.",
+    "subtitle": "Campaign suites, branded pillars, and 14-language educational kit. Download am, share for Telegram or WhatsApp — no need to give credit.",
     "statBanners": "Total banners",
     "statCategories": "Categories",
     "statLanguages": "Languages",
     "statFree": "Free to share",
     "downloadBtn": "Download",
     "shareBtn": "Share",
-    "viewAll": "View all",
-    "metaTitle": "TurboLoop Marketing Hub — 2,800+ Free DeFi Banners in 14 Languages",
-    "metaDesc": "Download 2,800+ free DeFi marketing banners. 14 languages, campaign suites, branded educational kit. Free for the TurboLoop community."
+    "viewAll": "See all",
+    "metaTitle": "TurboLoop Marketing Hub — 2,800+ Free DeFi Banners for 14 Languages",
+    "metaDesc": "Download 2,800+ free DeFi marketing banners. 14 languages, campaign suites, branded educational kit. E free for TurboLoop community."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "Wetin People for Community Dey Talk",
+    "title": "Na dem own words.",
+    "quote": "I don dey DeFi for four years. TurboLoop na the first project wey I trust well-well reach to tell my own family. The audit, the renouncement, the locked LP — dem remove every excuse wey person fit use say dem no believe.",
     "author": "Adesina O.",
     "role": "Community Lead",
     "country": "🇳🇬 Nigeria",
@@ -316,12 +316,12 @@
     "subtitle": "When anything real drop — new film, new program, security milestone — you go be the first wey go know. No spam, ever. You fit unsubscribe with one click.",
     "placeholder": "your@email.com",
     "subscribe": "Subscribe",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "You don enter!",
+    "successBody": "Dey check your inbox for the first update.",
+    "errorInvalidEmail": "Abeg enter correct email address.",
+    "errorGeneric": "E no fit sign you up — try again small time.",
+    "consentText": "If you submit your email, you don agree to receive updates from Turbo Loop sometimes. You fit unsubscribe anytime.",
+    "inlineError": "This one no look like correct email address.",
     "followOn": "Or skip di inbox · Follow on"
   },
   "manifesto": {
@@ -340,12 +340,12 @@
     "sessionType2Detail": "Native speakers dey run di calls for your language. We dey pay dem $100/month — apply for /apply.",
     "sessionType3Label": "Onboarding sessions",
     "sessionType3Detail": "New for DeFi? Small group calls go show you how to set up wallet, your first deposit, plus di math.",
-    "liveNow": "Live Now · Join Anytime",
+    "liveNow": "E dey Live Now · Join Anytime",
     "daily": "Daily · Every Day",
-    "joinLiveCall": "Join Live Call",
-    "joinTodaysCall": "Join Today's Call",
-    "endsIn": "Ends in",
-    "startsIn": "Starts in",
+    "joinLiveCall": "Enter Live Call",
+    "joinTodaysCall": "Enter Today Call",
+    "endsIn": "E go end for",
+    "startsIn": "E go start for",
     "hours": "Hours",
     "min": "Min",
     "sec": "Sec",
@@ -354,7 +354,7 @@
     "findYourCall": "Find your call.",
     "findYourCallDetail": "Live links dey go up daily for our official Telegram. Choose your language, enter.",
     "openTelegram": "Open Telegram",
-    "becomePresenter": "Become a presenter"
+    "becomePresenter": "Become presenter"
   },
   "social-wall": {
     "eyebrow": "The Social Wall",
@@ -365,7 +365,7 @@
     "submitBody": "You make TurboLoop video? Share the link — approved submissions go show here within 48 hours and fit qualify for Creator Star payouts.",
     "submitBtn": "Submit your story",
     "creatorPayouts": "Creator payouts",
-    "refreshNote": "Featured picks first · refreshed every 5 minutes",
+    "refreshNote": "Featured picks first · e dey refresh every 5 minutes",
     "videoSingular": "video for the wall",
     "videoPlural": "videos for the wall",
     "emptyHeading": "The wall dey warm up.",
@@ -374,7 +374,7 @@
   },
   "ecosystem": {
     "eyebrow": "Di Ecosystem",
-    "title": "Six pillars. One engine.",
+    "title": "Six pillar. One engine.",
     "subtitle": "TurboLoop no be only one product — na six DeFi primitives wey dey work together as one self-sustaining flywheel. Each one dey support di oda dem.",
     "pillar1Title": "Loop Plans",
     "pillar1Body": "Fixed-term USDT deposits wey dey generate daily yield. Choose 30, 60, or 90-day plans. Principal dey locked; earnings fit compound or you fit withdraw am daily.",
@@ -390,12 +390,12 @@
     "pillar6Body": "Up to $100,000 USDT for verified smart contract vulnerabilities. Open to anybody, anywhere. No NDA required.",
     "learnMore": "Learn more",
     "launchApp": "Launch App",
-    "metaTitle": "The TurboLoop Ecosystem — Six DeFi Pillars",
+    "metaTitle": "TurboLoop Ecosystem — Six DeFi Pillar",
     "metaDesc": "Explore di six interconnected DeFi primitives wey dey power TurboLoop: Loop Plans, Referral Engine, Sprint Loop, Creator Economy, Local Presenter Program, and Security Bounty."
   },
   "community": {
     "eyebrow": "Di Community",
-    "title": "Voices from everywhere.",
+    "title": "Voices from everi corner.",
     "subtitle": "14+ countries. 6 continents. 12+ languages. Di TurboLoop community global by design — geography no dey determine your financial destiny again.",
     "joinTelegram": "Join Telegram",
     "followTwitter": "Follow for X",
@@ -405,7 +405,7 @@
     "telegramLabel": "Telegram",
     "telegramDetail": "Di main hub. Announcements, support, daily Zoom links, and community talk — all for one place.",
     "twitterLabel": "X (Twitter)",
-    "twitterDetail": "Market updates, ecosystem news, and community highlights. Follow for real-time TurboLoop pulse.",
+    "twitterDetail": "Market update, ecosystem news, and community highlights. Follow make you get real-time TurboLoop pulse.",
     "youtubeLabel": "YouTube",
     "youtubeDetail": "Cinematic films, how-to-join walkthroughs for 10 languages, and community reels. Free to watch, ready to share.",
     "metaTitle": "TurboLoop Community — Global DeFi for 12+ Languages",
@@ -413,16 +413,16 @@
   },
   "films": {
     "eyebrow": "Watch & Learn",
-    "title": "The TurboLoop Film Series.",
+    "title": "TurboLoop Film Series.",
     "subtitle": "Cinematic short films wey explain every part of the TurboLoop ecosystem — from smart contract security to daily yield mechanics. Free to watch, ready to share.",
-    "watchNow": "Watch now",
+    "watchNow": "Watch am now",
     "allFilms": "All films",
     "minutesShort": "min",
     "featuredLabel": "Featured",
     "newLabel": "New",
     "shareBtn": "Share",
     "downloadBtn": "Download",
-    "noFilms": "No films available yet.",
+    "noFilms": "No films dey available yet.",
     "metaTitle": "TurboLoop Films — Cinematic DeFi Education Series",
     "metaDesc": "Watch the TurboLoop cinematic film series. Short films wey dey explain DeFi yield farming, smart contract security, referral mechanics, and more."
   },
@@ -453,7 +453,7 @@
     "filmsTab": "Films",
     "reelsTab": "Reels",
     "presentationsTab": "Presentations",
-    "watchNow": "Watch now",
+    "watchNow": "Watch am now",
     "shareBtn": "Share",
     "downloadBtn": "Download",
     "noContent": "No content dey available yet.",
@@ -461,7 +461,7 @@
     "newLabel": "New",
     "minutesShort": "min",
     "metaTitle": "TurboLoop Library — Films, Reels & Presentations",
-    "metaDesc": "The complete TurboLoop media library. Cinematic films, short reels, and presentations — all free to watch and share."
+    "metaDesc": "TurboLoop full media library dey here. Cinematic films, short reels, and presentations — all free to watch and share."
   },
   "careers": {
     "eyebrow": "We Dey Hire",
@@ -478,16 +478,16 @@
     "benefit1": "$100/month stipend for USDT",
     "benefit2": "Flexible schedule — na you go set di time",
     "benefit3": "Official TurboLoop presenter badge",
-    "benefit4": "Access to exclusive presenter resources",
+    "benefit4": "You go get access to exclusive presenter resources",
     "openRoles": "Open roles",
-    "seatsLeft": "seat left",
-    "seatsLeftPlural": "seats left",
-    "metaTitle": "Careers at TurboLoop — Become a Local Presenter",
+    "seatsLeft": "seat remain",
+    "seatsLeftPlural": "seats remain",
+    "metaTitle": "Work with TurboLoop — Become Local Presenter",
     "metaDesc": "Join the TurboLoop Local Presenter Program. Host weekly community Zoom sessions for your language and earn $100/month for USDT."
   },
   "promotions": {
     "eyebrow": "Make Money As You Build",
-    "title": "Three real ways to get paid.",
+    "title": "Three real ways wey you fit collect money.",
     "subtitle": "Six-figure bounty for security researchers, per-view payout for creators, and monthly stipend for community leaders. All paid in stablecoins.",
     "bountyTitle": "Security Bounty",
     "bountySubtitle": "Up to $100,000 USDT",
@@ -495,7 +495,7 @@
     "bountyBadge": "Open to everybody",
     "bountyBtn": "Submit your finding",
     "creatorTitle": "Creator Payouts",
-    "creatorSubtitle": "Earn per view",
+    "creatorSubtitle": "Earn for every view",
     "creatorBody": "Make TurboLoop video, submit am for Social Wall, and earn USDT anytime people watch am. No minimum views required.",
     "creatorBadge": "Per-view earnings",
     "creatorBtn": "Submit your video",
@@ -505,7 +505,7 @@
     "presenterBadge": "Monthly stipend",
     "presenterBtn": "Apply now",
     "metaTitle": "TurboLoop Promotions — Three Ways to Earn",
-    "metaDesc": "Earn with TurboLoop: $100K security bounty, per-view creator payouts, and $100/month presenter stipend. All paid in USDT stablecoins."
+    "metaDesc": "Earn with TurboLoop: $100K security bounty, per-view creator payouts, and $100/month presenter stipend. Everything dey pay for USDT stablecoins."
   },
   "learn": {
     "eyebrow": "DeFi 101",
@@ -521,7 +521,7 @@
     "lesson4Body": "How you fit dey earn passive income by putting your stablecoins to work for DeFi protocols. How e dey work, and wetin be the risk dem.",
     "lesson5Title": "How to Check Contract",
     "lesson5Body": "Step-by-step guide to read smart contract for BscScan. Wetin you go look for, and wetin red flags mean.",
-    "readGuide": "Read guide",
+    "readGuide": "Read di guide",
     "minutesRead": "min read",
     "beginnerLabel": "Beginner",
     "metaTitle": "Learn DeFi — Free Beginner Guides | TurboLoop",
@@ -531,7 +531,7 @@
     "eyebrow": "Editorial",
     "title": "Read am well well.",
     "subtitle": "Deep deep talk for DeFi, how to make yield, smart contract security, plus TurboLoop system. Clear English. No wahala.",
-    "readArticle": "Read article →",
+    "readArticle": "Read di article →",
     "noArticles": "No article don drop yet.",
     "allLanguages": "All",
     "metaTitle": "DeFi Blog & Editorial — Yield Farming Insights | TurboLoop",

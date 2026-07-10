@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { useLocaleHref } from "@lib/i18n/useLocaleHref";
 import { Brand } from "@components/Brand";
 import {
   PROTOCOL_LINKS,
@@ -306,6 +307,7 @@ function PillarSection({
   activeHref: string | null;
   onNavigate: (href: string) => void;
 }) {
+  const localize = useLocaleHref();
   return (
     <section className="mb-2">
       <div
@@ -320,7 +322,7 @@ function PillarSection({
           return (
             <Link
               key={link.href}
-              href={link.href}
+              href={localize(link.href)}
               onClick={() => onNavigate(link.href)}
               className="flex items-start gap-2.5 p-3 min-h-[56px] rounded-[var(--r-md)] transition select-none"
               style={{

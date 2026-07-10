@@ -1,7 +1,7 @@
 {
   "nav": {
     "launchApp": "ஆப் தொடங்கு",
-    "protocol": "Protocol",
+    "protocol": "நெறிமுறை",
     "watchLearn": "பாருங்கள் மற்றும் கற்றுக்கொள்ளுங்கள்",
     "community": "சமூகம்",
     "earnBuild": "சம்பாதி மற்றும் உருவாக்கு",
@@ -18,18 +18,18 @@
       "library": "நூலகம்",
       "blog": "பிளாக்",
       "learnDeFi": "DeFi பற்றி கற்று கொள்ளுங்கள்",
-      "communityLink": "Community",
+      "communityLink": "சமூகம்",
       "socialWall": "சமூக சுவர்",
-      "leaderboard": "Leaderboard",
+      "leaderboard": "தலைவர் பலகை",
       "events": "நிகழ்வுகள் & Zoom",
       "turboToken": "$TURBO Token",
       "promotions": "புரோமோஷன்கள்",
-      "applyToEarn": "Apply to Earn",
+      "applyToEarn": "சம்பாதிக்க விண்ணப்பிக்கவும்",
       "careers": "வேலைவாய்ப்புகள்",
       "creatives": "கிரியேட்டிவ்ஸ்",
       "faq": "FAQ",
       "roadmap": "Roadmap",
-      "calculator": "Calculator"
+      "calculator": "கணிப்பான்"
     }
   },
   "home": {
@@ -83,7 +83,7 @@
     "startPlan": "இந்த திட்டத்தைத் தொடங்கு",
     "presets": "விரைவான தொகைகள்",
     "rewardTier": "பரிசு நிலை",
-    "tokenBonus": "$TURBO Token Bonus",
+    "tokenBonus": "$TURBO டோக்கன் போனஸ்",
     "vestingRank": "Vesting நிலை",
     "projection": "முன்னறிவு"
   },
@@ -108,14 +108,14 @@
     "eyebrow": "$TURBO Token",
     "title": "மதிப்பைக் குறைக்கும் பரிசு அடுக்கு.",
     "subtitle": "Power மற்றும் Ultimate திட்டங்களில் வைப்பு செய்தவர்கள், அவர்கள் USDT yield-க்கும் மேல் $TURBO tokens-ஐ பரிசாக பெறுவர்.",
-    "buyback": "Daily Buyback & Burn",
+    "buyback": "தினசரி மறு கொள்முதல் & எரிப்பு",
     "supply": "மொத்த வழங்கல்",
     "burned": "எரிக்கப்பட்டது",
     "circulatingSupply": "சுழற்சியில் உள்ள வழங்கல்",
     "viewOnBscScan": "BscScan-ல் காணுதல்",
     "buyTurbo": "$TURBO வாங்குக",
-    "tokenomics": "Tokenomics",
-    "vestingSchedule": "Vesting Schedule"
+    "tokenomics": "டோக்கனாமிக்ஸ்",
+    "vestingSchedule": "வெஸ்டிங் அட்டவணை"
   },
   "common": {
     "learnMore": "மேலும் தெரிந்து கொள்ளுங்கள்",
@@ -139,10 +139,10 @@
   },
   "footer": {
     "tagline": "Binance Smart Chain-இல் மையமில்லா Yield Farming.",
-    "protocol": "Protocol",
+    "protocol": "நெறிமுறை",
     "content": "உள்ளடக்கம்",
     "community": "சமூகம்",
-    "legal": "Legal",
+    "legal": "சட்டம்",
     "privacy": "தனியுரிமை கொள்கை",
     "terms": "சேவை நிபந்தனைகள்",
     "security": "பாதுகாப்பு",
@@ -302,13 +302,13 @@
     "metaDesc": "2,800+ இலவச DeFi மார்க்கெட்டிங் பேனர்களை பதிவிறக்கம் செய்யவும். 14 மொழிகள், கேம்பெயின் தொகுப்புகள், பிராண்டு கல்வி கருவி. TurboLoop சமூகத்திற்கு இலவசம்."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "சமூகத்தின் குரல்கள்",
+    "title": "அவர்களின் சொந்த வார்த்தைகளில்.",
+    "quote": "நான் நான்கு ஆண்டுகளாக DeFi-யில் இருக்கிறேன். TurboLoop தான் என் சொந்த குடும்பத்தினரிடம் பரிந்துரைக்கும் அளவுக்கு நான் நம்பிய முதல் திட்டம். தணிக்கை, விட்டுக்கொடுத்தல், பூட்டிய LP — நம்பாமல் இருக்க இருந்த எல்லா காரணங்களையும் அவர்கள் நீக்கிவிட்டார்கள்.",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "சமூக தலைவர்",
+    "country": "🇳🇬 நைஜீரியா",
+    "readMore": "மேலும் கதைகளைப் படிக்கவும்"
   },
   "newsletter": {
     "eyebrow": "செய்திகளில் இணைந்திருங்கள்",
@@ -316,12 +316,12 @@
     "subtitle": "ஒரு புதிய படம், புதிய திட்டம் அல்லது பாதுகாப்பு மைல்கல் போன்ற உண்மையான ஒன்று வெளியிடப்பட்டால் — அதைக் குறித்த தகவலை முதலில் நீங்கள் பெறுவீர்கள். எப்போதும் ஸ்பாம் இல்லை. ஒரு கிளிக்கில் சந்தாவிலிருந்து விலகலாம்.",
     "placeholder": "your@email.com",
     "subscribe": "சந்தா பெறுங்கள்",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "நீங்கள் இணைந்துவிட்டீர்கள்!",
+    "successBody": "முதல் புதுப்பிப்புக்காக உங்கள் இன்பாக்ஸை கவனியுங்கள்.",
+    "errorInvalidEmail": "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.",
+    "errorGeneric": "பதிவு செய்ய முடியவில்லை — சற்று நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
+    "consentText": "உங்கள் மின்னஞ்சலை சமர்ப்பிப்பதன் மூலம் Turbo Loop-இலிருந்து அவ்வப்போது புதுப்பிப்புகளைப் பெற ஒப்புக்கொள்கிறீர்கள். எப்போது வேண்டுமானாலும் குழுவிலிருந்து விலகலாம்.",
+    "inlineError": "இது சரியான மின்னஞ்சல் முகவரியாக தெரியவில்லை.",
     "followOn": "அல்லது இன்பாக்ஸை தவிர்க்க · பின்தொடர"
   },
   "manifesto": {
@@ -349,8 +349,8 @@
     "hours": "மணிநேரம்",
     "min": "நிமிடம்",
     "sec": "விநாடி",
-    "english": "English",
-    "hindiUrdu": "Hindi / Urdu",
+    "english": "ஆங்கிலம்",
+    "hindiUrdu": "இந்தி / உருது",
     "findYourCall": "உங்கள் அழைப்பை கண்டறியுங்கள்.",
     "findYourCallDetail": "நேரலை இணைப்புகள் தினசரி எங்கள் அதிகாரப்பூர்வ Telegram இல் பதிவாகின்றன. உங்கள் மொழியை தேர்ந்தெடுத்து, இணையுங்கள்.",
     "openTelegram": "Telegram திறக்கவும்",

@@ -215,7 +215,7 @@
       "cta": "查看证明"
     },
     "films": {
-      "title": "What is TurboLoop?",
+      "title": "什么是 TurboLoop？",
       "caption": "新来的吗？从这个开始。",
       "cta": "观看视频"
     }
@@ -302,13 +302,13 @@
     "metaDesc": "下载2800+免费DeFi营销横幅。支持14种语言，活动套件，品牌教育套件。TurboLoop社区免费提供。"
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "来自社区的声音",
+    "title": "用他们自己的话说。",
+    "quote": "我在 DeFi 领域已经四年了。TurboLoop 是我第一个信任到愿意推荐给自己家人的项目。审计、放弃所有权、锁定的 LP——他们消除了所有不相信的理由。",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "社区负责人",
+    "country": "🇳🇬 尼日利亚",
+    "readMore": "阅读更多故事"
   },
   "newsletter": {
     "eyebrow": "随时掌握动态",
@@ -316,12 +316,12 @@
     "subtitle": "当重要进展发布时——新影片、新项目、安全里程碑——你将第一时间知晓。绝不发送垃圾邮件。一键退订。",
     "placeholder": "your@email.com",
     "subscribe": "订阅",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "您已成功订阅！",
+    "successBody": "请留意您的收件箱以获取第一条更新。",
+    "errorInvalidEmail": "请输入有效的电子邮件地址。",
+    "errorGeneric": "注册失败——请稍后重试。",
+    "consentText": "提交您的电子邮件即表示您同意接收来自 Turbo Loop 的不定期更新。随时可以取消订阅。",
+    "inlineError": "这看起来不像是有效的电子邮件地址。",
     "followOn": "或跳过收件箱 · 直接关注"
   },
   "manifesto": {

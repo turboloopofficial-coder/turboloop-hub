@@ -10,8 +10,8 @@
       "yieldFarming": "수익 파밍",
       "referralNetwork": "추천 네트워크",
       "leadershipProgram": "리더십 프로그램",
-      "turboBuy": "Turbo Buy",
-      "turboSwap": "Turbo Swap",
+      "turboBuy": "터보 구매",
+      "turboSwap": "터보 스왑",
       "security": "보안",
       "films": "영상",
       "reels": "릴스",
@@ -61,10 +61,10 @@
     "title": "숫자를 계산해 보세요.",
     "subtitle": "플랜을 선택하고 예치금을 입력하면 정확한 수익을 확인할 수 있습니다 — 복리 없음, 숨겨진 수수료 없음.",
     "plans": {
-      "sprint": "Sprint",
-      "boost": "Boost",
-      "power": "Power",
-      "ultimate": "Ultimate"
+      "sprint": "스프린트",
+      "boost": "부스트",
+      "power": "파워",
+      "ultimate": "얼티밋"
     },
     "planDetails": {
       "sprint": "7일 동안 3%",
@@ -302,13 +302,13 @@
     "metaDesc": "2,800개 이상의 무료 DeFi 마케팅 배너를 다운로드하세요. 14개 언어, 캠페인 세트, 브랜드 교육 키트 포함. TurboLoop 커뮤니티를 위한 무료 제공."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "커뮤니티의 목소리",
+    "title": "그들의 말로 직접.",
+    "quote": "저는 DeFi에 4년간 몸담아 왔습니다. TurboLoop는 제가 가족에게 직접 추천할 만큼 신뢰한 첫 번째 프로젝트입니다. 감사, 소유권 포기, 잠긴 LP — 이 모든 것이 믿지 않을 이유를 없애줬습니다.",
     "author": "Adesina O.",
-    "role": "Community Lead",
-    "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "role": "커뮤니티 리드",
+    "country": "🇳🇬 나이지리아",
+    "readMore": "더 많은 이야기 읽기"
   },
   "newsletter": {
     "eyebrow": "소식을 놓치지 마세요",
@@ -316,12 +316,12 @@
     "subtitle": "새로운 영상, 새 프로그램, 보안 성과 등 실제로 무언가 출시되면 가장 먼저 알려드립니다 — 스팸은 절대 없습니다. 한 번의 클릭으로 구독 해지.",
     "placeholder": "your@email.com",
     "subscribe": "구독하기",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "등록 완료!",
+    "successBody": "첫 번째 업데이트를 받은 편지함에서 확인하세요.",
+    "errorInvalidEmail": "유효한 이메일 주소를 입력해 주세요.",
+    "errorGeneric": "가입에 실패했습니다 — 잠시 후 다시 시도해 주세요.",
+    "consentText": "이메일을 제출하면 Turbo Loop로부터 가끔 업데이트를 받는 것에 동의하게 됩니다. 언제든지 구독을 취소할 수 있습니다.",
+    "inlineError": "유효한 이메일 주소가 아닌 것 같습니다.",
     "followOn": "또는 받은편지함 건너뛰기 · 팔로우하기"
   },
   "manifesto": {

@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
+import { useLocaleHref } from "@lib/i18n/useLocaleHref";
 import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
 import {
   PROTOCOL_LINKS,
@@ -139,9 +140,10 @@ function NavDropdownLink({
   isActive: boolean;
   onNavigate: () => void;
 }) {
+  const localize = useLocaleHref();
   return (
     <Link
-      href={link.href}
+      href={localize(link.href)}
       onClick={onNavigate}
       role="menuitem"
       className={`flex items-start gap-3 p-3 min-h-[52px] rounded-[var(--r-md)] transition group select-none ${

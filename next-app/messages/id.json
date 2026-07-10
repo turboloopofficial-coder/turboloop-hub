@@ -1,7 +1,7 @@
 {
   "nav": {
     "launchApp": "Buka Aplikasi",
-    "protocol": "Protocol",
+    "protocol": "Protokol",
     "watchLearn": "Tonton & Pelajari",
     "community": "Komunitas",
     "earnBuild": "Dapatkan & Bangun",
@@ -10,8 +10,8 @@
       "yieldFarming": "Yield Farming",
       "referralNetwork": "Jaringan Referral",
       "leadershipProgram": "Program Kepemimpinan",
-      "turboBuy": "Turbo Buy",
-      "turboSwap": "Turbo Swap",
+      "turboBuy": "Turbo Beli",
+      "turboSwap": "Turbo Tukar",
       "security": "Keamanan",
       "films": "Film",
       "reels": "Reels",
@@ -28,7 +28,7 @@
       "careers": "Karir",
       "creatives": "Materi Kreatif",
       "faq": "FAQ",
-      "roadmap": "Roadmap",
+      "roadmap": "Peta Jalan",
       "calculator": "Kalkulator"
     }
   },
@@ -43,21 +43,21 @@
     "shareStory": "Atau bagikan cerita Anda →",
     "scroll": "Gulir",
     "trust": {
-      "audited": "Independently Audited",
-      "lpLocked": "100% LP Locked",
-      "renounced": "Ownership Renounced",
-      "bscscan": "BscScan Verified"
+      "audited": "Diaudit Secara Independen",
+      "lpLocked": "100% LP Terkunci",
+      "renounced": "Kepemilikan Diserahkan",
+      "bscscan": "Terverifikasi BscScan"
     },
     "newsletter": {
       "title": "Tetap terdepan dalam yield.",
-      "subtitle": "Weekly protocol updates, new content, and community highlights — straight to your inbox.",
+      "subtitle": "Pembaruan protokol mingguan, konten baru, dan sorotan komunitas — langsung ke kotak masuk Anda.",
       "placeholder": "Alamat email Anda",
       "subscribe": "Berlangganan",
       "privacy": "Tanpa spam. Berhenti berlanggan kapan saja."
     }
   },
   "calculator": {
-    "eyebrow": "Yield + Token Calculator",
+    "eyebrow": "Kalkulator Yield + Token",
     "title": "Hitung angkanya.",
     "subtitle": "Pilih plan, masukkan deposit, dan lihat pengembalian Anda secara tepat — tanpa compounding, tanpa biaya tersembunyi.",
     "plans": {
@@ -67,10 +67,10 @@
       "ultimate": "Ultimate"
     },
     "planDetails": {
-      "sprint": "3% in 7 days",
-      "boost": "10% in 14 days",
-      "power": "24% in 30 days",
-      "ultimate": "54% in 60 days"
+      "sprint": "3% dalam 7 hari",
+      "boost": "10% dalam 14 hari",
+      "power": "24% dalam 30 hari",
+      "ultimate": "54% dalam 60 hari"
     },
     "deposit": "Jumlah Deposit",
     "depositPlaceholder": "Masukkan jumlah dalam USDT",
@@ -83,8 +83,8 @@
     "startPlan": "Mulai Plan Ini",
     "presets": "Jumlah cepat",
     "rewardTier": "Tingkat Reward",
-    "tokenBonus": "$TURBO Token Bonus",
-    "vestingRank": "Vesting rank",
+    "tokenBonus": "Bonus Token $TURBO",
+    "vestingRank": "Peringkat vesting",
     "projection": "Proyeksi"
   },
   "faq": {
@@ -97,8 +97,8 @@
     "eyebrow": "Ajukan untuk Mendapatkan Penghasilan",
     "title": "Bergabung dengan jaringan kreator TurboLoop.",
     "subtitle": "Dapatkan komisi dengan membagikan TurboLoop kepada audiens Anda. Dua jalur: Creator Star dan Local Presenter.",
-    "creatorStar": "Creator Star",
-    "localPresenter": "Local Presenter",
+    "creatorStar": "Bintang Kreator",
+    "localPresenter": "Presenter Lokal",
     "applyNow": "Ajukan Sekarang",
     "requirements": "Persyaratan",
     "benefits": "Manfaat",
@@ -108,14 +108,14 @@
     "eyebrow": "$TURBO Token",
     "title": "Lapisan bonus deflasi.",
     "subtitle": "Penyetor pada plan Power dan Ultimate menerima token $TURBO sebagai bonus di atas yield USDT mereka.",
-    "buyback": "Daily Buyback & Burn",
-    "supply": "Total Supply",
-    "burned": "Burned",
-    "circulatingSupply": "Circulating Supply",
+    "buyback": "Buyback & Burn Harian",
+    "supply": "Total Pasokan",
+    "burned": "Dibakar",
+    "circulatingSupply": "Pasokan Beredar",
     "viewOnBscScan": "Lihat di BscScan",
-    "buyTurbo": "Buy $TURBO",
+    "buyTurbo": "Beli $TURBO",
     "tokenomics": "Tokenomics",
-    "vestingSchedule": "Vesting Schedule"
+    "vestingSchedule": "Jadwal Vesting"
   },
   "common": {
     "learnMore": "Pelajari Lebih Lanjut",
@@ -139,10 +139,10 @@
   },
   "footer": {
     "tagline": "Yield farming terdesentralisasi di Binance Smart Chain.",
-    "protocol": "Protocol",
+    "protocol": "Protokol",
     "content": "Konten",
     "community": "Komunitas",
-    "legal": "Legal",
+    "legal": "Hukum",
     "privacy": "Kebijakan Privasi",
     "terms": "Syarat Layanan",
     "security": "Keamanan",
@@ -302,13 +302,13 @@
     "metaDesc": "Unduh 2.800+ banner pemasaran DeFi gratis. 14 bahasa, suite kampanye, kit edukasi bermerek. Gratis untuk komunitas TurboLoop."
   },
   "testimonial": {
-    "eyebrow": "Voices from the Community",
-    "title": "In their own words.",
-    "quote": "I've been in DeFi for four years. TurboLoop is the first project I've trusted enough to refer to my own family. The audit, the renouncement, the locked LP — they removed every excuse to not believe.",
+    "eyebrow": "Suara dari Komunitas",
+    "title": "Dengan kata-kata mereka sendiri.",
+    "quote": "Saya sudah berkecimpung di DeFi selama empat tahun. TurboLoop adalah proyek pertama yang cukup saya percaya untuk saya rekomendasikan kepada keluarga saya sendiri. Audit, pelepasan kepemilikan, LP yang terkunci — semuanya menghilangkan setiap alasan untuk tidak percaya.",
     "author": "Adesina O.",
-    "role": "Community Lead",
+    "role": "Pemimpin Komunitas",
     "country": "🇳🇬 Nigeria",
-    "readMore": "Read more stories"
+    "readMore": "Baca lebih banyak cerita"
   },
   "newsletter": {
     "eyebrow": "Tetap Terinformasi",
@@ -316,12 +316,12 @@
     "subtitle": "Saat ada sesuatu yang nyata — film baru, program baru, atau pencapaian keamanan — Anda akan menjadi yang pertama tahu. Tanpa spam, selamanya. Berhenti berlangganan cukup dengan satu klik.",
     "placeholder": "your@email.com",
     "subscribe": "Berlangganan",
-    "successTitle": "You're in!",
-    "successBody": "Watch your inbox for the first update.",
-    "errorInvalidEmail": "Please enter a valid email address.",
-    "errorGeneric": "Couldn't sign up — try again in a moment.",
-    "consentText": "By submitting your email you agree to receive occasional updates from Turbo Loop. Unsubscribe any time.",
-    "inlineError": "That doesn't look like a valid email address.",
+    "successTitle": "Kamu masuk!",
+    "successBody": "Pantau kotak masukmu untuk pembaruan pertama.",
+    "errorInvalidEmail": "Harap masukkan alamat email yang valid.",
+    "errorGeneric": "Gagal mendaftar — coba lagi sebentar lagi.",
+    "consentText": "Dengan mengirimkan email kamu, kamu setuju untuk menerima pembaruan sesekali dari TurboLoop. Berhenti berlangganan kapan saja.",
+    "inlineError": "Alamat email tersebut tampaknya tidak valid.",
     "followOn": "Atau lewati kotak masuk · Ikuti di"
   },
   "manifesto": {
@@ -349,7 +349,7 @@
     "hours": "Jam",
     "min": "Menit",
     "sec": "Detik",
-    "english": "English",
+    "english": "Bahasa Inggris",
     "hindiUrdu": "Hindi / Urdu",
     "findYourCall": "Temukan panggilan Anda.",
     "findYourCallDetail": "Link live diunggah setiap hari di Telegram resmi kami. Pilih bahasa Anda, langsung masuk.",

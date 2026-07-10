@@ -2,16 +2,30 @@
  * getPageLocale — reads the active locale for root-level pages (those that
  * live under app/ rather than app/[locale]/).
  *
- * When a user visits e.g. /ar/blog, the middleware rewrites the URL to /blog
- * and injects an "x-locale" request header. This utility reads that header so
- * root pages can call getTranslations() with the correct locale without needing
- * a prop (which Next.js doesn't allow for page components beyond params/searchParams).
+ * Two access patterns are supported:
  *
- * Falls back to "en" when no header is present (direct /blog visit).
+ * 1. Middleware rewrite (EXISTING_ROUTES): When a user visits e.g. /ar/blog,
+ *    our custom middleware rewrites the URL to /blog and injects an "x-locale"
+ *    request header. This utility reads that header so root pages can call
+ *    getTranslations() with the correct locale.
+ *
+ * 2. next-intl routing ([locale] wrappers): When a user visits /th/community,
+ *    next-intl's own middleware handles the request and sets the
+ *    "X-NEXT-INTL-LOCALE" header. The [locale]/community/page.tsx wrapper
+ *    renders the root community page as a child — we read this header as a
+ *    fallback so the root page picks up the correct locale.
+ *
+ * Falls back to "en" when neither header is present (direct /blog visit).
  */
 import { headers } from "next/headers";
 
 export async function getPageLocale(): Promise<string> {
   const h = await headers();
-  return h.get("x-locale") ?? "en";
+  // Our custom middleware sets x-locale for EXISTING_ROUTES rewrites.
+  // next-intl middleware sets x-next-intl-locale for [locale] wrapper routes.
+  return (
+    h.get("x-locale") ??
+    h.get("x-next-intl-locale") ??
+    "en"
+  );
 }

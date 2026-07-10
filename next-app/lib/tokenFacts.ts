@@ -138,14 +138,14 @@ export interface VestingRank {
 }
 
 export const VESTING_RANKS: VestingRank[] = [
-  { slug: "base",       name: "No rank (base)", monthlyUnlock: 0.10, monthlyUnlockLabel: "10%", monthsToFull: 10 },
-  { slug: "partner",    name: "Partner",        monthlyUnlock: 0.11, monthlyUnlockLabel: "11%", monthsToFull: 10 },
-  { slug: "influencer", name: "Influencer",     monthlyUnlock: 0.12, monthlyUnlockLabel: "12%", monthsToFull: 9 },
-  { slug: "leader",     name: "Leader",         monthlyUnlock: 0.14, monthlyUnlockLabel: "14%", monthsToFull: 8 },
-  { slug: "manager",    name: "Manager",        monthlyUnlock: 0.15, monthlyUnlockLabel: "15%", monthsToFull: 7 },
-  { slug: "ambassador", name: "Ambassador",     monthlyUnlock: 0.16, monthlyUnlockLabel: "16%", monthsToFull: 7 },
-  { slug: "champion",   name: "Champion",       monthlyUnlock: 0.18, monthlyUnlockLabel: "18%", monthsToFull: 6 },
-  { slug: "legend",     name: "Legend",         monthlyUnlock: 0.20, monthlyUnlockLabel: "20%", monthsToFull: 5 },
+  { slug: "base",       name: "No rank (base)",    monthlyUnlock: 0.10, monthlyUnlockLabel: "10%", monthsToFull: 10 },
+  { slug: "partner",    name: "Turbo Partner",     monthlyUnlock: 0.11, monthlyUnlockLabel: "11%", monthsToFull: 10 },
+  { slug: "influencer", name: "Turbo Influencer",  monthlyUnlock: 0.12, monthlyUnlockLabel: "12%", monthsToFull: 9 },
+  { slug: "leader",     name: "Turbo Leader",      monthlyUnlock: 0.14, monthlyUnlockLabel: "14%", monthsToFull: 8 },
+  { slug: "manager",    name: "Turbo Manager",     monthlyUnlock: 0.15, monthlyUnlockLabel: "15%", monthsToFull: 7 },
+  { slug: "ambassador", name: "Turbo Ambassador",  monthlyUnlock: 0.16, monthlyUnlockLabel: "16%", monthsToFull: 7 },
+  { slug: "champion",   name: "Turbo Champion",    monthlyUnlock: 0.18, monthlyUnlockLabel: "18%", monthsToFull: 6 },
+  { slug: "legend",     name: "Turbo Legend",      monthlyUnlock: 0.20, monthlyUnlockLabel: "20%", monthsToFull: 5 },
 ];
 
 /** Buyback parameters — separate, independent mechanism from trade

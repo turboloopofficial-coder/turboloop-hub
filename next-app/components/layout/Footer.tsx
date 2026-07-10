@@ -43,7 +43,7 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
     heading: "Community",
     items: [
       { label: "Films", href: "/films" },
-      { label: "Blog", href: "/feed" },
+      { label: "Blog", href: "/blog" },
       { label: "Submit Story", href: "/submit" },
       { label: "Apply to Earn", href: "/apply" },
     ],
@@ -158,7 +158,7 @@ export function Footer() {
 
         {/* Bottom strip */}
         <div className="border-t border-[var(--c-border)] py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-[var(--c-text-subtle)]">
-          <span>© {year} Turbo Loop. All on-chain, all the time.</span>
+          <span>© {year} TurboLoop. All on-chain, all the time.</span>
           <div className="flex gap-5">
             <Link href="/privacy" className="hover:text-[var(--c-text)] transition-colors">
               Privacy

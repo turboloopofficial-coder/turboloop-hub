@@ -1,4 +1,4 @@
-// /library — videos + presentation decks in 49 languages.
+// /library — videos + presentation decks.
 // Build-time fetch from the legacy tRPC endpoint; revalidates every 10 min.
 
 import type { Metadata } from "next";
@@ -22,9 +22,9 @@ import { FILMS } from "@lib/cinematicUniverse";
 export const revalidate = 60; // 1 minute — so new presentations appear quickly
 
 export const metadata: Metadata = {
-  title: "Content Library — Videos and Decks in 49 Languages",
+  title: "Content Library — Films, Reels & Presentations | TurboLoop",
   description:
-    "Watch, learn, download. Cinematic films, video reels, and downloadable presentations in 49 languages.",
+    "Watch, learn, download. Cinematic films, video reels, and downloadable presentations across 15 languages.",
   alternates: { canonical: "https://www.turboloop.tech/library" },
 };
 
@@ -63,7 +63,7 @@ export default async function LibraryPage() {
       <PageHero
         eyebrow="Watch & Learn"
         title="Everything in one library."
-        subtitle={`${FILMS.length} cinematic films · ${reels.length} reels · ${presentations.length} presentations · ${totalLanguages || 48} languages.`}
+        subtitle={`${FILMS.length} cinematic films · ${reels.length} reels · ${presentations.length} presentations · ${totalLanguages || 15} languages.`}
       />
 
       <Container width="wide">
@@ -180,7 +180,7 @@ export default async function LibraryPage() {
                 Presentation Decks
               </Heading>
               <Heading tier="h1" as="h2">
-                {presentations.length} decks · {totalLanguages || 48} languages.
+                {presentations.length} decks · {totalLanguages || 15} languages.
               </Heading>
             </div>
           </div>

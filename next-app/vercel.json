@@ -8,6 +8,19 @@
   "functions": {
     "app/api/creatives/download-kit/route.ts": {
       "maxDuration": 60
+    },
+    "app/api/cron/blog-translate/route.ts": {
+      "maxDuration": 300
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/blog-translate",
+      "schedule": "0 */2 * * *"
+    },
+    {
+      "path": "/api/cron/indexnow",
+      "schedule": "*/30 * * * *"
+    }
+  ]
 }

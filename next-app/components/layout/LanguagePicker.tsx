@@ -219,10 +219,12 @@ export function LanguagePicker() {
               borderRadius: "14px",
               border: "1px solid var(--c-border, #e5e7eb)",
               boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-              overflow: "hidden",
               background: "color-mix(in oklab, var(--c-surface, #f9fafb) 97%, transparent)",
               backdropFilter: "blur(16px)",
               padding: "6px",
+              maxHeight: "min(480px, calc(100vh - 80px))",
+              overflowY: "auto",
+              overflowX: "hidden",
             }}
           >
             {localeLinks}

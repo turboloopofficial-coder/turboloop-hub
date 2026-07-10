@@ -106,6 +106,19 @@ const config: NextConfig = {
         destination: "/films/:slug",
         statusCode: 301,
       },
+      // /banners was the original URL for the creative library before
+      // the page was renamed to /creatives. External links (Telegram
+      // archives, shared URLs) still point here — redirect them cleanly.
+      {
+        source: "/banners",
+        destination: "/creatives",
+        permanent: true,
+      },
+      {
+        source: "/banners/:path*",
+        destination: "/creatives/:path*",
+        permanent: true,
+      },
     ];
   },
   async headers() {

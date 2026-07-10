@@ -135,7 +135,7 @@ function ZoomCard({
         className="mt-auto inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] min-h-[48px] h-12 text-sm px-5 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
       >
         <MessageCircle className="w-4 h-4" />
-        {joinNow}
+        {session.platform === "meet" ? "Join Google Meet" : joinNow}
         <ArrowRight className="w-4 h-4" />
       </a>
     </div>

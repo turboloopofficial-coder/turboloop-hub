@@ -40,7 +40,7 @@ def translate_strings(strings_dict: dict, lang_name: str) -> dict:
     for attempt in range(5):
         try:
             response = client.chat.completions.create(
-                model="claude-sonnet-4-6",
+                model="gpt-4.1-mini",
                 messages=[
                     {
                         "role": "system",

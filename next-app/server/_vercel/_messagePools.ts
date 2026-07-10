@@ -380,7 +380,7 @@ DeFi seekhna ho ya strategy refine karni ho — yahan dono milega. Free, sabke l
 Number, math, contract — jo kuch bhi confuse karta hai, aaj poochiye. Real time, real answers.`,
 ];
 
-export type ZoomLang = "en" | "hi" | "af";
+export type ZoomLang = "en" | "hi" | "af" | "th";
 export type ZoomTier = "T30" | "T60" | "T15" | "LIVE";
 
 // ── English T-60 pool (1 hour before) ─────────────────────────────────────
@@ -591,10 +591,56 @@ This is it. The room is open. See you inside.
 🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
 ];
 
+const TH_T60 = [
+  `<b>Thai Community Call — อีก 1 ชั่วโมง</b>
+การโทรชุมชน TurboLoop ภาษาไทย เริ่มในอีก 1 ชั่วโมง
+นำคำถามของคุณมา — คนจริง คำตอบจริง
+🇹🇭 ประเทศไทย · Google Meet`,
+  `<b>TurboLoop Thai Call — 1 hour away</b>
+ร่วมพูดคุยเกี่ยวกับ TurboLoop กับชุมชนไทย อีก 60 นาที
+🇹🇭 ประเทศไทย · Google Meet`,
+  `<b>60 นาที — Thai Community Call</b>
+ความปลอดภัย ความโปร่งใส และโอกาส ทุกอย่างที่คุณต้องรู้
+🇹🇭 ประเทศไทย · Google Meet`,
+];
+const TH_T30 = [
+  `<b>Thai Community Call — อีก 30 นาที</b>
+อย่าพลาด! การโทรชุมชน TurboLoop ภาษาไทย เริ่มในอีก 30 นาที
+🇹🇭 ประเทศไทย · Google Meet`,
+  `<b>30 นาที — TurboLoop Thai Call</b>
+ห้องประชุมจะเปิดในอีก 30 นาที นำคำถามของคุณมา
+🇹🇭 ประเทศไทย · Google Meet`,
+  `<b>ครึ่งชั่วโมง — Thai Community Call</b>
+เตรียมตัวให้พร้อม อีก 30 นาที
+🇹🇭 ประเทศไทย · Google Meet`,
+];
+const TH_T10 = [
+  `<b>Thai Community Call — อีก 10 นาที</b>
+ห้องกำลังเต็ม เข้าร่วมตอนนี้เพื่อที่นั่งแถวหน้า
+🇹🇭 ประเทศไทย · Google Meet`,
+  `<b>10 นาที — TurboLoop Thai Call</b>
+นาทีสุดท้าย เข้าร่วม Google Meet ตอนนี้
+🇹🇭 ประเทศไทย · Google Meet`,
+  `<b>เกือบถึงเวลาแล้ว — Thai Community Call</b>
+การแจ้งเตือนครั้งสุดท้าย อีก 10 นาที อย่าพลาด
+🇹🇭 ประเทศไทย · Google Meet`,
+];
+const TH_LIVE = [
+  `🔴 <b>Thai Community Call — เราถ่ายทอดสดแล้ว!</b>
+ห้องเปิดแล้วตอนนี้ คลิกลิงก์และเข้าร่วม Google Meet
+🇹🇭 ประเทศไทย · Google Meet`,
+  `🔴 <b>ถ่ายทอดสดแล้ว — TurboLoop Thai Call</b>
+อย่ารอ การโทรถ่ายทอดสดอยู่ เข้าร่วมตอนนี้
+🇹🇭 ประเทศไทย · Google Meet`,
+  `🔴 <b>กำลังถ่ายทอดสด — Thai Community Call</b>
+ห้องเปิดแล้ว เจอกันข้างใน
+🇹🇭 ประเทศไทย · Google Meet`,
+];
 const POOLS: Record<ZoomLang, Record<ZoomTier, string[]>> = {
   en: { T60: EN_T60, T30: EN_T30, T15: EN_T10, LIVE: EN_LIVE },
   hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE },
   af: { T60: AF_T60, T30: AF_T30, T15: AF_T10, LIVE: AF_LIVE },
+  th: { T60: TH_T60, T30: TH_T30, T15: TH_T10, LIVE: TH_LIVE },
 };
 
 // ── 4-Month Celebration overlay (July 8 2026 only) ──────────────────────────
@@ -624,7 +670,8 @@ export function zoomReminderCaption(opts: { lang: ZoomLang; tier: ZoomTier; meet
   if (opts.tier === "LIVE") {
     return `${celebrationOverlay}${body}\n\n🔗 ${tgEscape(opts.meetingLink)}`;
   }
-  return `${celebrationOverlay}${body}\n\n🔗 ${tgEscape(opts.meetingLink)}\n🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>\n⏰ ${tgEscape(opts.timeLabel)}`;
+  const passcodeStr = opts.passcode ? `\n🔐 Passcode: <code>${tgEscape(opts.passcode)}</code>` : "";
+  return `${celebrationOverlay}${body}\n\n🔗 ${tgEscape(opts.meetingLink)}${passcodeStr}\n⏰ ${tgEscape(opts.timeLabel)}`;
 }
 
 // =========================================================

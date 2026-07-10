@@ -17,10 +17,12 @@ export interface ZoomSession {
   title: string;
   /** One-line tease shown under the title */
   description: string;
-  /** Permanent Zoom join URL */
+  /** Permanent join URL (Zoom or Google Meet) */
   link: string;
-  /** Meeting passcode shown in the card and message body */
+  /** Meeting passcode shown in the card and message body. Empty string for Google Meet sessions. */
   passcode: string;
+  /** "zoom" | "meet" — determines button label and icon in UI + TG alerts */
+  platform?: "zoom" | "meet";
   /** Display label like "5:00 PM UTC daily" — what the user sees */
   timeLabel: string;
   /** Daily start time in minutes since UTC 00:00 (e.g. 17 * 60 = 1020) */
@@ -92,36 +94,38 @@ export const ZOOM_AF: ZoomSession = {
   durationMin: 120,
 };
 
-// ── Thai Morning Zoom (placeholder — update with real details) ─────────────
+// ── Thai Morning Google Meet ──────────────────────────────────────────────
 export const ZOOM_TH_AM: ZoomSession = {
   lang: "th",
+  platform: "meet",
   title: "Thai Morning Community Call",
   description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
-  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
-  passcode: "552740",
+  link: "https://meet.google.com/nmh-hhkr-uzd",
+  passcode: "",
   timeLabel: "🇹🇭 9:00 AM ICT · 🇹🇭 Daily Morning",
   startUtcMin: 2 * 60, // 02:00 UTC = 9 AM ICT
   durationMin: 90,
 };
 
-// ── Thai Evening Zoom (placeholder — update with real details) ─────────────
+// ── Thai Evening Google Meet ───────────────────────────────────────────────
 export const ZOOM_TH: ZoomSession = {
   lang: "th",
+  platform: "meet",
   title: "Thai Evening Community Call",
   description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
-  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
-  passcode: "552740",
+  link: "https://meet.google.com/nmh-hhkr-uzd",
+  passcode: "",
   timeLabel: "🇹🇭 8:00 PM ICT · 🇹🇭 Daily Evening",
   startUtcMin: 13 * 60, // 13:00 UTC = 8 PM ICT
   durationMin: 90,
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF];
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side
  *  config reader can reference one regex. */
-export const ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
+export const ZOOM_URL_PATTERN = /^https:\/\/([a-z0-9.-]+\.zoom\.us\/j\/\d+|meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3})/i;
 
 /**
  * Next occurrence of a Zoom session as a Date in the user's local time.

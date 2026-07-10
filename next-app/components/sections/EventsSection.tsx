@@ -256,15 +256,22 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
                 <div className="flex flex-wrap gap-x-5 gap-y-2">
                   <span className="inline-flex items-center gap-2">
                     <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                    {session.lang === "en" ? t("english") : t("hindiUrdu")}
+                    {session.lang === "en" ? t("english") : session.lang === "th" ? "ภาษาไทย" : session.lang === "af" ? "African" : t("hindiUrdu")}
                   </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Users className="w-3.5 h-3.5 text-emerald-400" />
-                    Code:{" "}
-                    <span className="font-mono font-semibold text-white/85">
-                      {session.passcode}
+                  {session.passcode && (
+                    <span className="inline-flex items-center gap-2">
+                      <Users className="w-3.5 h-3.5 text-emerald-400" />
+                      Code:{" "}
+                      <span className="font-mono font-semibold text-white/85">
+                        {session.passcode}
+                      </span>
                     </span>
-                  </span>
+                  )}
+                  {session.platform === "meet" && (
+                    <span className="inline-flex items-center gap-2 text-emerald-400 font-semibold text-xs">
+                      📹 Google Meet
+                    </span>
+                  )}
                 </div>
               </div>
             ) : (
@@ -275,15 +282,22 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                  {session.lang === "en" ? t("english") : t("hindiUrdu")}
+                  {session.lang === "en" ? t("english") : session.lang === "th" ? "ภาษาไทย" : session.lang === "af" ? "African" : t("hindiUrdu")}
                 </span>
-                <span className="inline-flex items-center gap-2">
-                  <Users className="w-3.5 h-3.5 text-emerald-400" />
-                  Code:{" "}
-                  <span className="font-mono font-semibold text-white/85">
-                    {session.passcode}
+                {session.passcode && (
+                  <span className="inline-flex items-center gap-2">
+                    <Users className="w-3.5 h-3.5 text-emerald-400" />
+                    Code:{" "}
+                    <span className="font-mono font-semibold text-white/85">
+                      {session.passcode}
+                    </span>
                   </span>
-                </span>
+                )}
+                {session.platform === "meet" && (
+                  <span className="inline-flex items-center gap-2 text-emerald-400 font-semibold text-xs">
+                    📹 Google Meet
+                  </span>
+                )}
               </div>
             )}
 

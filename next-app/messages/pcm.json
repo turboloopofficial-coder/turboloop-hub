@@ -274,17 +274,18 @@
   "reels": {
     "eyebrow": "Short Films",
     "title": "Every reel. One place.",
-    "subtitle": "Short-form videos, how-to-join walkthroughs for 10 languages, withdraw + compound + referral tutorials. Free to watch, ready to share.",
+    "titleHighlight": "All 15 languages.",
+    "subtitle": "Short-form videos, how-to-join walkthroughs for 15 languages, withdraw + compound + referral tutorials. Free to watch, ready to share.",
     "categoryPresentation": "Featured reels",
     "categoryPresentationDesc": "Sovereign Series shorts + multi-language project intros.",
     "categoryHowToJoin": "How to join — by language",
-    "categoryHowToJoinDesc": "Step-by-step walkthroughs for 10 languages: install wallet → buy USDT → pick one Loop Plan.",
+    "categoryHowToJoinDesc": "Step-by-step walkthroughs for 15 languages: install wallet → buy USDT → pick one Loop Plan.",
     "categoryWithdraw": "Withdraw, compound & refer",
     "categoryWithdrawDesc": "How to claim daily earnings, re-deposit to compound, and use referral system.",
     "watchNow": "Watch now",
     "shareBtn": "Share",
-    "metaTitle": "TurboLoop Reels — Short DeFi Videos for 10 Languages",
-    "metaDesc": "Watch TurboLoop reels: how-to-join walkthroughs for 10 languages, withdraw and compound tutorials, referral guides. Free to watch."
+    "metaTitle": "TurboLoop Reels — Short DeFi Videos for 15 Languages",
+    "metaDesc": "Watch TurboLoop reels: how-to-join walkthroughs for 15 languages, withdraw and compound tutorials, referral guides. Free to watch."
   },
   "creatives": {
     "eyebrow": "Marketing Hub",

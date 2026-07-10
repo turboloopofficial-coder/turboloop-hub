@@ -26,7 +26,7 @@ export const revalidate = 300;
 
 const TITLE = "Reels — TurboLoop";
 const DESC =
-  "Every TurboLoop reel in one place. Short-form videos, how-to-join walkthroughs in 10 languages, withdraw + compound + referral tutorials. Free to watch, ready to share.";
+  "Every TurboLoop reel in one place. Short-form videos, how-to-join walkthroughs in 15 languages, withdraw + compound + referral tutorials. Free to watch, ready to share.";
 const OG_IMAGE =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo/hub-promo-films.png";
 
@@ -69,7 +69,7 @@ const CATEGORY_SECTIONS: Array<{
     category: "how-to-join",
     label: "How to join — by language",
     description:
-      "Step-by-step walkthroughs in 10 languages: install wallet → buy USDT → pick a Loop Plan.",
+      "Step-by-step walkthroughs in 15 languages: install wallet → buy USDT → pick a Loop Plan.",
     emoji: "🚀",
   },
   {

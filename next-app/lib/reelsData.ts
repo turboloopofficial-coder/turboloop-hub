@@ -1,8 +1,8 @@
-// Multi-language "Shorts / Reels" data — 4 tutorial videos × 15 languages.
+// Multi-language "Shorts / Reels" data — 5 tutorial videos × 15 languages.
 // Audio for each language is AI-dubbed (gTTS) from the English originals.
 // DE and ID use the original human-recorded voiceovers.
 // Lao (lo) uses English audio as Lao TTS is not widely available.
-// Thumbnails: language-specific for all 15 languages × 4 videos (60 total).
+// Thumbnails: language-specific for all 15 languages × 5 videos (75 total).
 // Thumbnail CDN path: reel-thumbs/{lang}/{video_id}.png
 
 export type ReelLang =
@@ -428,7 +428,7 @@ function buildLangReels(lang: ReelLang): ReelTrack[] {
       description: def.descriptions[lang] ?? def.descriptions["en"] ?? "",
       hashtags: def.hashtags[lang] ?? def.hashtags["en"] ?? "",
       videoUrl: `${R2}/reels/${LANG_META[videoLang].dir}/${def.id}.mp4`,
-      // Language-specific thumbnails: all 15 languages × 4 videos = 60 unique thumbnails
+      // Language-specific thumbnails: all 15 languages × 5 videos = 75 unique thumbnails
       thumbUrl: `${R2}/reel-thumbs/${lang}/${def.id}.png`,
     };
   });

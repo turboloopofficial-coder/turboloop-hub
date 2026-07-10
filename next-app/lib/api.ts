@@ -66,7 +66,7 @@ async function fetchTRPC<T>(
 // can't be tree-shaken from the client bundle. Types are small; risk
 // of drift is low (the schema rarely changes).
 
-export type BlogLanguage = "en" | "de" | "hi" | "id" | "th" | "ko" | "lo";
+export type BlogLanguage = "en" | "de" | "hi" | "id" | "th" | "ko" | "lo" | "fr" | "ta" | "la" | "cn" | "es" | "ng" | "it" | "sa" | "kr" | "pk";
 
 /** BCP-47 mapping for hreflang. We use 2-letter ISO 639-1 codes in the
  *  DB column (`en`, `de`, `hi`, `id`) and resolve them to a hreflang
@@ -80,6 +80,16 @@ export const HREFLANG_BY_LANG: Record<BlogLanguage, string> = {
   th: "th",
   ko: "ko",
   lo: "lo",
+  fr: "fr",
+  ta: "ta",
+  la: "lo",
+  cn: "zh",
+  es: "es",
+  ng: "pcm",
+  it: "it",
+  sa: "ar",
+  kr: "ko",
+  pk: "ur",
 };
 
 export interface BlogPost {
@@ -126,12 +136,22 @@ export const BLOG_LANGUAGES: ReadonlyArray<{
   flag: string;
 }> = [
   { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
   { code: "hi", label: "हिंदी", flag: "🇮🇳" },
-  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "ta", label: "தமிழ்", flag: "🇮🇳" },
   { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
-  { code: "ko", label: "한국어", flag: "🇰🇷" },
-  { code: "lo", label: "ພາສາລາວ", flag: "🇱🇦" },
+  { code: "kr", label: "한국어", flag: "🇰🇷" },
+  { code: "ko", label: "한국어 (alt)", flag: "🇰🇷" },
+  { code: "la", label: "ພາສາລາວ", flag: "🇱🇦" },
+  { code: "lo", label: "ພາສາລາວ (alt)", flag: "🇱🇦" },
+  { code: "cn", label: "中文", flag: "🇨🇳" },
+  { code: "sa", label: "العربية", flag: "🇸🇦" },
+  { code: "it", label: "Italiano", flag: "🇮🇹" },
+  { code: "pk", label: "اردو", flag: "🇵🇰" },
+  { code: "ng", label: "Naija", flag: "🇳🇬" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
 ];
 
 /** Find all sibling translations of a post within an already-fetched
@@ -154,7 +174,7 @@ export function blogTranslationGroup(
   // `post.translationOf`. If `post` is the original (translationOf is
   // null), root is `post.id`.
   const rootId = post.translationOf ?? post.id;
-  const langOrder: BlogLanguage[] = ["en", "de", "hi", "id", "th", "ko", "lo"];
+  const langOrder: BlogLanguage[] = ["en", "fr", "es", "hi", "ta", "th", "kr", "ko", "la", "lo", "cn", "sa", "it", "pk", "ng", "de", "id"];
   const group = all.filter(p => p.id === rootId || p.translationOf === rootId);
   // Sort by deterministic language order so the rendered hreflang tags
   // don't shuffle between deploys.

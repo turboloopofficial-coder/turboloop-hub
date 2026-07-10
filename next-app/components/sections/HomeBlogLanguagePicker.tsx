@@ -35,11 +35,21 @@ function formatDate(iso: string) {
 const LOCALE_TO_BLOG_LANG: Record<string, BlogLanguage> = {
   en: "en",
   th: "th",
-  ko: "ko",
-  lo: "lo",
+  ko: "kr",
+  lo: "la",
   hi: "hi",
   de: "de",
   id: "id",
+  fr: "fr",
+  ta: "ta",
+  la: "la",
+  cn: "cn",
+  es: "es",
+  ng: "ng",
+  it: "it",
+  sa: "sa",
+  kr: "kr",
+  pk: "pk",
 };
 
 interface Props {

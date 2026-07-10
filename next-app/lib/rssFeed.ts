@@ -27,6 +27,16 @@ const RSS_LANG: Record<BlogLanguage, string> = {
   th: "th-th",
   ko: "ko-kr",
   lo: "lo-la",
+  fr: "fr-fr",
+  ta: "ta-in",
+  la: "lo-la",
+  cn: "zh-cn",
+  es: "es-es",
+  ng: "en-ng",
+  it: "it-it",
+  sa: "ar-sa",
+  kr: "ko-kr",
+  pk: "ur-pk",
 };
 
 // Per-language feed metadata. Keeps the channel <title> + <description>
@@ -69,6 +79,56 @@ const CHANNEL_META: Record<
     title: "Turbo Loop — ບົດບັນນາທິການ",
     description:
       "ບົດຄວາມລະອຽດກ່ຽວກັບ DeFi, ຜົນຕອບແທນ, ຄວາມປອດໄພ ແລະ ຄະນິດສາດທີ່ຢູ່ເບື້ອງຼັງ TurboLoop.",
+  },
+  fr: {
+    title: "Turbo Loop — Éditorial",
+    description:
+      "Articles approfondis sur la DeFi, le rendement, la sécurité et les mathématiques derrière TurboLoop.",
+  },
+  ta: {
+    title: "Turbo Loop — தலையங்கம்",
+    description:
+      "DeFi, வருமானம், பாதுகாப்பு மற்றும் TurboLoop பின்னணியிலுள்ள கணிதம் பற்றிய ஆழமான கட்டுரைகள்.",
+  },
+  la: {
+    title: "Turbo Loop — ບົດບັນນາທິການ",
+    description:
+      "ບົດຄວາມລະອຽດກ່ຽວກັບ DeFi, ຜົນຕອບແທນ, ຄວາມປອດໄພ ແລະ ຄະນິດສາດທີ່ຢູ່ເບື້ອງຼັງ TurboLoop.",
+  },
+  cn: {
+    title: "Turbo Loop — 社论",
+    description:
+      "关于DeFi、收益、安全以及TurboLoop背后数学的深度文章。",
+  },
+  es: {
+    title: "Turbo Loop — Editorial",
+    description:
+      "Artículos en profundidad sobre DeFi, rendimiento, seguridad y las matemáticas detrás de TurboLoop.",
+  },
+  ng: {
+    title: "Turbo Loop — Editorial",
+    description:
+      "Long articles about DeFi, yield, security, and the math wey dey behind TurboLoop.",
+  },
+  it: {
+    title: "Turbo Loop — Editoriale",
+    description:
+      "Articoli approfonditi su DeFi, rendimento, sicurezza e la matematica dietro TurboLoop.",
+  },
+  sa: {
+    title: "Turbo Loop — افتتاحية",
+    description:
+      "مقالات متعمقة حول التمويل اللامركزي والعائد والأمان والرياضيات وراء TurboLoop.",
+  },
+  kr: {
+    title: "Turbo Loop — 에디토리얼",
+    description:
+      "DeFi, 수익, 보안 및 TurboLoop의 수학에 관한 심층 기사.",
+  },
+  pk: {
+    title: "Turbo Loop — اداریہ",
+    description:
+      "DeFi، منافع، سیکیورٹی اور TurboLoop کے پیچھے ریاضی پر گہرائی سے مضامین۔",
   },
 };
 

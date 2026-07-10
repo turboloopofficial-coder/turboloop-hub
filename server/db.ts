@@ -1,4 +1,4 @@
-import { eq, desc, asc, and, isNotNull, isNull, or, lte, gt, gte } from "drizzle-orm";
+import { eq, desc, asc, and, isNotNull, isNull, or, lte, gt, gte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import {
@@ -30,8 +30,8 @@ export function getDb() {
   if (!url) {
     throw new Error("DATABASE_URL is not set");
   }
-  const sql = neon(url);
-  _db = drizzle(sql);
+  const neonSql = neon(url);
+  _db = drizzle(neonSql);
   return _db;
 }
 
@@ -1113,4 +1113,24 @@ export async function logAuditEvent(params: {
 export async function listAuditLog(limit = 100) {
   const db = getDb();
   return db.select().from(auditLog).orderBy(desc(auditLog.createdAt)).limit(limit);
+}
+
+export async function countRecentLoginFailures(ip: string, windowMinutes: number): Promise<number> {
+  try {
+    const db = getDb();
+    const cutoff = new Date(Date.now() - windowMinutes * 60 * 1000);
+    const results = await db.select({ count: sql<number>`count(*)` })
+      .from(auditLog)
+      .where(
+        and(
+          eq(auditLog.ipAddress, ip),
+          eq(auditLog.action, "admin.login.failed"),
+          gte(auditLog.createdAt, cutoff)
+        )
+      );
+    return Number(results[0]?.count ?? 0);
+  } catch (err) {
+    console.error("[rate-limit-check]", err);
+    return 0; // fail open — don't block legitimate users on DB error
+  }
 }

@@ -33,30 +33,17 @@ import { systemRouter } from "./_core/systemRouter";
 import { ENV } from "./_core/env";
 import { logAuditEvent, listAuditLog } from "./db";
 
-// ─── RATE LIMITING (in-memory, per-IP, for admin login) ───────────────────────
-const loginAttempts = new Map<string, { count: number; firstAttempt: number }>();
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-const RATE_LIMIT_MAX_ATTEMPTS = 5; // max 5 attempts per window
-function checkLoginRateLimit(ip: string): { allowed: boolean; retryAfterSec?: number } {
-  const now = Date.now();
-  const record = loginAttempts.get(ip);
-  if (!record || now - record.firstAttempt > RATE_LIMIT_WINDOW_MS) {
-    loginAttempts.set(ip, { count: 1, firstAttempt: now });
-    return { allowed: true };
+// ─── RATE LIMITING (DB-backed via audit_log, works across serverless instances) ───
+import { countRecentLoginFailures } from "./db";
+const RATE_LIMIT_WINDOW_MIN = 15; // 15 minutes
+const RATE_LIMIT_MAX_ATTEMPTS = 5; // max 5 failed attempts per window
+async function checkLoginRateLimit(ip: string): Promise<{ allowed: boolean; retryAfterSec?: number }> {
+  const recentFailures = await countRecentLoginFailures(ip, RATE_LIMIT_WINDOW_MIN);
+  if (recentFailures >= RATE_LIMIT_MAX_ATTEMPTS) {
+    return { allowed: false, retryAfterSec: RATE_LIMIT_WINDOW_MIN * 60 };
   }
-  if (record.count >= RATE_LIMIT_MAX_ATTEMPTS) {
-    const retryAfterSec = Math.ceil((RATE_LIMIT_WINDOW_MS - (now - record.firstAttempt)) / 1000);
-    return { allowed: false, retryAfterSec };
-  }
-  record.count++;
   return { allowed: true };
 }
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, record] of loginAttempts) {
-    if (now - record.firstAttempt > RATE_LIMIT_WINDOW_MS) loginAttempts.delete(ip);
-  }
-}, 30 * 60 * 1000);
 
 // SECURITY: JWT_SECRET MUST be set in production. No fallback allowed.
 const _jwtSecretRaw = process.env.JWT_SECRET;
@@ -93,7 +80,7 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         // Rate limiting: max 5 login attempts per IP per 15 minutes
         const clientIp = (ctx.req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || ctx.req.socket?.remoteAddress || "unknown";
-        const rateCheck = checkLoginRateLimit(clientIp);
+        const rateCheck = await checkLoginRateLimit(clientIp);
         if (!rateCheck.allowed) {
           logAuditEvent({ action: "admin.login.rate_limited", actor: input.email, ipAddress: clientIp });
           throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: `Too many login attempts. Try again in ${rateCheck.retryAfterSec} seconds.` });

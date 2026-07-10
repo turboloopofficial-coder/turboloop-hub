@@ -10,6 +10,12 @@
 //   - No ref callbacks, no duplicate listeners, no relatedTarget checks.
 //
 // MOBILE: Click-triggered portal bottom sheet.
+//
+// LANGUAGE SWITCHING BEHAVIOUR:
+//   Always preserves the current page path when switching locale.
+//   e.g. /blog → /ar/blog, /films/what-is-turboloop → /zh/films/what-is-turboloop
+//   Pages that don't have a translated version will render in English content
+//   but the locale prefix is still set so the nav/blog section reflect the language.
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -17,26 +23,29 @@ import { usePathname } from "next/navigation";
 import { Globe, X, Check } from "lucide-react";
 import { LOCALES, LOCALE_LABELS, type Locale } from "@lib/i18n/routing";
 
-const LOCALIZED_PAGES = new Set(["", "calculator", "faq", "apply", "token"]);
-
-function getLocalePath(locale: Locale, currentPathname: string): string {
-  let pagePath = currentPathname;
+/**
+ * Strip the current locale prefix from a pathname and return the bare path.
+ * e.g. "/ar/blog/some-post" → "/blog/some-post"
+ *      "/blog/some-post"    → "/blog/some-post"  (English has no prefix)
+ */
+function stripLocalePrefix(pathname: string): string {
   for (const l of LOCALES) {
-    if (l === "en") continue;
-    if (pagePath === `/${l}` || pagePath.startsWith(`/${l}/`)) {
-      pagePath = pagePath.slice(l.length + 1) || "/";
-      break;
-    }
+    if (l === "en") continue; // English has no prefix
+    if (pathname === `/${l}`) return "/";
+    if (pathname.startsWith(`/${l}/`)) return pathname.slice(l.length + 1);
   }
-  const pageSegment = pagePath.split("/").filter(Boolean)[0] ?? "";
-  let targetPage: string;
-  if (LOCALIZED_PAGES.has(pageSegment)) {
-    targetPage = pagePath === "/" ? "" : pagePath;
-  } else {
-    targetPage = "";
-  }
-  if (locale === "en") return targetPage || "/";
-  return `/${locale}${targetPage}`;
+  return pathname;
+}
+
+/**
+ * Build the target href for a given locale, preserving the current page path.
+ * English uses no prefix: /blog  (not /en/blog)
+ * All other locales prefix:  /ar/blog, /zh/films/what-is-turboloop, etc.
+ */
+function getLocalePath(locale: Locale, currentPathname: string): string {
+  const barePath = stripLocalePrefix(currentPathname); // e.g. "/blog/some-post"
+  if (locale === "en") return barePath || "/";
+  return `/${locale}${barePath === "/" ? "" : barePath}`;
 }
 
 export function LanguagePicker() {

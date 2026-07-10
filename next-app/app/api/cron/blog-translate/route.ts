@@ -58,7 +58,7 @@ async function translateField(
     system: systemPrompt,
     prompt: userPrompt,
     temperature: 0.2,
-    maxTokens: fieldType === "content" ? 4000 : 300,
+    maxOutputTokens: fieldType === "content" ? 4000 : 300,
   });
 
   return result.trim() || text;

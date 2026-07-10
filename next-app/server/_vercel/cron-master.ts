@@ -1193,7 +1193,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // AF T-60
       try {
         if ((isAfDay || forceZoomAfT60) && (isInWindow(18, 0) || isMissedToday(18, 0) || forceZoomAfT60) && (forceZoomAfT60 || !(await hasFiredToday(db, "zoom:af:T60")))) {
-          await sendZoomReminder("af", "T60", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await sendZoomReminder("af", "T60", "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1", "H97KJx", "🇳🇬 8:00 PM WAT · 🇬🇭 7:00 PM GMT · 🇿🇦 9:00 PM SAST · 🇰🇪 10:00 PM EAT · 🇬🇧 7:00 PM BST · Mon/Wed/Sat");
           await markFired(db, "zoom:af:T60");
           log.push("🌍 AF Zoom T-60");
         }
@@ -1204,7 +1204,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // AF T-30
       try {
         if ((isAfDay || forceZoomAfT30) && (isInWindow(18, 30) || isMissedToday(18, 30) || forceZoomAfT30) && (forceZoomAfT30 || !(await hasFiredToday(db, "zoom:af:T30")))) {
-          await sendZoomReminder("af", "T30", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await sendZoomReminder("af", "T30", "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1", "H97KJx", "🇳🇬 8:00 PM WAT · 🇬🇭 7:00 PM GMT · 🇿🇦 9:00 PM SAST · 🇰🇪 10:00 PM EAT · 🇬🇧 7:00 PM BST · Mon/Wed/Sat");
           await markFired(db, "zoom:af:T30");
           log.push("🌍 AF Zoom T-30");
         }
@@ -1215,7 +1215,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // AF T-10
       try {
         if ((isAfDay || forceZoomAfT10) && (isInWindow(18, 50) || isMissedToday(18, 50) || forceZoomAfT10) && (forceZoomAfT10 || !(await hasFiredToday(db, "zoom:af:T10")))) {
-          await sendZoomReminder("af", "T15", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await sendZoomReminder("af", "T15", "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1", "H97KJx", "🇳🇬 8:00 PM WAT · 🇬🇭 7:00 PM GMT · 🇿🇦 9:00 PM SAST · 🇰🇪 10:00 PM EAT · 🇬🇧 7:00 PM BST · Mon/Wed/Sat");
           await markFired(db, "zoom:af:T10");
           log.push("🌍 AF Zoom T-10");
         }
@@ -1226,7 +1226,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // AF T-0 LIVE
       try {
         if ((isAfDay || forceZoomAfT0) && (isInWindow(19, 0) || isMissedToday(19, 0) || forceZoomAfT0) && (forceZoomAfT0 || !(await hasFiredToday(db, "zoom:af:T0")))) {
-          await sendZoomReminder("af", "LIVE", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await sendZoomReminder("af", "LIVE", "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1", "H97KJx", "🇳🇬 8:00 PM WAT · 🇬🇭 7:00 PM GMT · 🇿🇦 9:00 PM SAST · 🇰🇪 10:00 PM EAT · 🇬🇧 7:00 PM BST · Mon/Wed/Sat");
           await markFired(db, "zoom:af:T0");
           log.push("🌍 AF Zoom T-0 LIVE");
         }

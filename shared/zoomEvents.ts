@@ -7,13 +7,12 @@
 // startUtcMin is "minutes since 00:00 UTC" — easier to compute the next
 // occurrence than parsing 12-hour strings with timezones at runtime.
 // Keep ZOOM_EN.startUtcMin == 17:00 UTC and ZOOM_HI.startUtcMin == 15:30 UTC
-// in sync with the cron reminder windows:
-//   HI: T-60 @ isInWindow(14,30) | T-30 @ isInWindow(15,0) | T-15 @ isInWindow(15,15) | LIVE @ isInWindow(15,30)
-//   EN: T-60 @ isInWindow(16,0)  | T-30 @ isInWindow(16,30) | T-15 @ isInWindow(16,45) | LIVE @ isInWindow(17,0)
+// in sync with the cron T-30 windows (`isInWindow(16, 30)` and
+// `isInWindow(15, 0)`).
 
 export interface ZoomSession {
-  /** "en" | "hi" | "th" — used for banner palette + cron de-dup keys */
-  lang: "en" | "hi" | "th";
+  /** "en" | "hi" | "af" | "th" — used for banner palette + cron de-dup keys */
+  lang: "en" | "hi" | "af" | "th";
   /** Marketing title for the countdown card */
   title: string;
   /** One-line tease shown under the title */
@@ -75,37 +74,49 @@ export const ZOOM_HI: ZoomSession = {
   durationMin: 120,
 };
 
-// Thai Evening session: Sun/Tue/Thu at 20:00 Thailand (13:00 UTC)
-export const ZOOM_TH: ZoomSession = {
-  lang: "th",
-  title: "ประชุม Google Meet ตอนเย็น",
+// ── African Community Zoom ────────────────────────────────────────────────
+// Mon, Wed, Sat · 8 PM WAT = 19:00 UTC
+// Hosts: Sammywealth, Eloho, Amb. Eddie
+export const ZOOM_AF: ZoomSession = {
+  lang: "af",
+  title: "African Community Call",
   description:
-    "อาทิตย์ อังคาร พฤหัสบดี. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
-  link: "https://meet.google.com/nmh-hhkr-uzd",
-  passcode: "",
-  // 13:00 UTC = 20:00 Thailand time (UTC+7) — Sun/Tue/Thu only
+    "Mon · Wed · Sat. Overview, security, transparency and opportunities. Hosts: Sammywealth, Eloho & Amb. Eddie.",
+  link: "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1",
+  passcode: "H97KJx",
   timeLabel:
-    "🇹🇭 20:00 น. · อาทิตย์ / อังคาร / พฤหัสบดี · 13:00 UTC",
-  startUtcMin: 13 * 60, // 13:00 UTC = 20:00 Thailand time (UTC+7)
-  durationMin: 60,
+    "🇳🇬 8:00 PM WAT · 🇬🇭 7:00 PM GMT · 🇿🇦 9:00 PM SAST · 🇰🇪 10:00 PM EAT\n" +
+    "🇬🇧 7:00 PM BST · 🇩🇪 9:00 PM CEST · 🇦🇪 11:00 PM GST\n" +
+    "Mon · Wed · Sat only",
+  startUtcMin: 19 * 60, // 19:00 UTC = 8 PM WAT
+  durationMin: 120,
 };
 
-// Thai Morning session: Saturday at 09:00 Thailand (02:00 UTC)
+// ── Thai Morning Zoom (placeholder — update with real details) ─────────────
 export const ZOOM_TH_AM: ZoomSession = {
   lang: "th",
-  title: "ประชุม Google Meet ตอนเช้า",
-  description:
-    "วันเสาร์. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน. 🇹🇭 Thailand",
-  link: "https://meet.google.com/nmh-hhkr-uzd",
-  passcode: "",
-  // 02:00 UTC = 09:00 Thailand time (UTC+7) — Saturday only
-  timeLabel:
-    "🇹🇭 09:00 น. · วันเสาร์ · 02:00 UTC",
-  startUtcMin: 2 * 60, // 02:00 UTC = 09:00 Thailand time (UTC+7)
-  durationMin: 60,
+  title: "Thai Morning Community Call",
+  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+  passcode: "552740",
+  timeLabel: "🇹🇭 9:00 AM ICT · 🇹🇭 Daily Morning",
+  startUtcMin: 2 * 60, // 02:00 UTC = 9 AM ICT
+  durationMin: 90,
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_TH, ZOOM_TH_AM];
+// ── Thai Evening Zoom (placeholder — update with real details) ─────────────
+export const ZOOM_TH: ZoomSession = {
+  lang: "th",
+  title: "Thai Evening Community Call",
+  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+  passcode: "552740",
+  timeLabel: "🇹🇭 8:00 PM ICT · 🇹🇭 Daily Evening",
+  startUtcMin: 13 * 60, // 13:00 UTC = 8 PM ICT
+  durationMin: 90,
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side

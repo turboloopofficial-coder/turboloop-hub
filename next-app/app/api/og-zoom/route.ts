@@ -13,7 +13,7 @@ export const runtime = "edge";
 const R2_PUBLIC_URL =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
-const VALID_LANGS = new Set(["en", "hi"]);
+const VALID_LANGS = new Set(["en", "hi", "af"]);
 const VALID_TIERS = new Set(["T60", "T30", "T15", "LIVE", "T0"]);
 const VARIANTS = ["A", "B", "C"] as const;
 
@@ -28,7 +28,8 @@ export async function GET(request: Request) {
   const rawLang = (url.searchParams.get("lang") || "hi").toLowerCase();
   const rawTier = url.searchParams.get("tier") || "T30";
 
-  const lang = VALID_LANGS.has(rawLang) ? rawLang : "hi";
+  // "af" uses "en" banner until af-specific R2 images are generated
+  const lang = VALID_LANGS.has(rawLang) ? (rawLang === "af" ? "en" : rawLang) : "hi";
   const tier = VALID_TIERS.has(rawTier.toUpperCase())
     ? normaliseTier(rawTier)
     : "T30";

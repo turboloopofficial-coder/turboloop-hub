@@ -267,7 +267,9 @@
     "joinNow": "Join us now",
     "labelThai": "Thai",
     "labelThaiMorning": "Thai (Morning)",
-    "labelThaiEvening": "Thai (Evening)"
+    "labelThaiEvening": "Thai (Evening)",
+    "labelAfrican": "African",
+    "monWedSat": "Mon · Wed · Sat · Free"
   },
   "reels": {
     "eyebrow": "For All Di Languages",

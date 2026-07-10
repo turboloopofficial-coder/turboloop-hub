@@ -380,7 +380,7 @@ DeFi seekhna ho ya strategy refine karni ho — yahan dono milega. Free, sabke l
 Number, math, contract — jo kuch bhi confuse karta hai, aaj poochiye. Real time, real answers.`,
 ];
 
-export type ZoomLang = "en" | "hi";
+export type ZoomLang = "en" | "hi" | "af";
 export type ZoomTier = "T30" | "T60" | "T15" | "LIVE";
 
 // ── English T-60 pool (1 hour before) ─────────────────────────────────────
@@ -509,9 +509,92 @@ Call shuru ho gaya hai. Der mat karo — join karo abhi.
 Ab aur intezaar mat karo. Room open hai.`,
 ];
 
+
+// ── African Community Zoom message pools ────────────────────────────────────
+const AF_T60 = [
+  `<b>African Community Call — in 1 hour.</b>
+
+Tonight's call covers overview, security, transparency and opportunities in TurboLoop. Bring your questions.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `<b>African TurboLoop Zoom — 1 hour away.</b>
+
+Hosts: Sammywealth, Eloho & Amb. Eddie. Real answers, no scripts. One hour.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `<b>60 minutes — African Community Call.</b>
+
+Security, transparency, opportunities. Everything you need to know. One hour.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+];
+
+const AF_T30 = [
+  `<b>African Community Call — 30 minutes.</b>
+
+Don't miss this one. Sammywealth, Eloho & Amb. Eddie are hosting tonight. 30 minutes.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `<b>30 minutes — African TurboLoop Zoom.</b>
+
+Overview, security, transparency and opportunities. The room opens in 30 minutes.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `<b>African Community Call — half an hour away.</b>
+
+Bring your questions. The hosts are ready. 30 minutes.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+];
+
+const AF_T10 = [
+  `<b>African Community Call — 10 minutes.</b>
+
+The room is filling up. Join now and get a front-row seat.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `<b>10 minutes — African TurboLoop Zoom.</b>
+
+Last call. Sammywealth, Eloho & Amb. Eddie are going live in 10 minutes.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `<b>Almost live — African Community Call.</b>
+
+Final reminder. 10 minutes. Don't miss it.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+];
+
+const AF_LIVE = [
+  `🔴 <b>African Community Call — WE ARE LIVE.</b>
+
+The room is open right now. Sammywealth, Eloho & Amb. Eddie are hosting. Click the link and join.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `🔴 <b>LIVE NOW — African TurboLoop Zoom.</b>
+
+Don't wait. The call is live. Join now.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+
+  `🔴 <b>GOING LIVE — African Community Call.</b>
+
+This is it. The room is open. See you inside.
+
+🇳🇬 Nigeria · 🇬🇭 Ghana · 🇿🇦 South Africa · 🇰🇪 Kenya · 🇬🇧 UK`,
+];
+
 const POOLS: Record<ZoomLang, Record<ZoomTier, string[]>> = {
   en: { T60: EN_T60, T30: EN_T30, T15: EN_T10, LIVE: EN_LIVE },
   hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE },
+  af: { T60: AF_T60, T30: AF_T30, T15: AF_T10, LIVE: AF_LIVE },
 };
 
 // ── 4-Month Celebration overlay (July 8 2026 only) ──────────────────────────

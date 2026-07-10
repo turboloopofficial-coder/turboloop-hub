@@ -1,10 +1,10 @@
-// ZoomLiveSection — surfaces the two daily Zoom calls on the homepage
+// ZoomLiveSection — surfaces the daily Zoom calls on the homepage
 // with live countdown timers. Fully i18n via next-intl getTranslations.
 import { Globe2, MessageCircle, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
-import { ZOOM_EN, ZOOM_HI, ZOOM_TH, ZOOM_TH_AM, type ZoomSession } from "@shared/zoomEvents";
+import { ZOOM_EN, ZOOM_HI, ZOOM_TH, ZOOM_TH_AM, ZOOM_AF, type ZoomSession } from "@shared/zoomEvents";
 import { ZoomCountdown } from "./ZoomLiveCountdown";
 import { LocalZoomTime } from "./LocalZoomTime";
 
@@ -46,7 +46,7 @@ export async function ZoomLiveSection() {
           />
         </div>
         {/* Row 2: Thai Morning + Thai Evening */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto mb-4 md:mb-5">
           <ZoomCard
             session={ZOOM_TH_AM}
             accentLabel={t("labelThaiMorning")}
@@ -59,6 +59,17 @@ export async function ZoomLiveSection() {
             session={ZOOM_TH}
             accentLabel={t("labelThaiEvening")}
             dailyFree={t("dailyFree")}
+            when={t("when")}
+            nextCallIn={t("nextCallIn")}
+            joinNow={t("joinNow")}
+          />
+        </div>
+        {/* Row 3: African Community Call — Mon/Wed/Sat */}
+        <div className="max-w-5xl mx-auto">
+          <ZoomCard
+            session={ZOOM_AF}
+            accentLabel={t("labelAfrican")}
+            dailyFree={t("monWedSat")}
             when={t("when")}
             nextCallIn={t("nextCallIn")}
             joinNow={t("joinNow")}
@@ -106,7 +117,7 @@ function ZoomCard({
         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] block mb-1">
           {when}
         </span>
-        <span className={multiTimezone ? "" : "font-mono"}>{session.timeLabel}</span>
+        <span className={multiTimezone ? "whitespace-pre-line" : "font-mono"}>{session.timeLabel}</span>
       </div>
       <div className="mb-3">
         <LocalZoomTime startUtcMin={session.startUtcMin} />

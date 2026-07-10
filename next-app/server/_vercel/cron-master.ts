@@ -879,6 +879,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceZoomEnT0  = forceSet.has("zoom:en:T0");
     const forceZoomHiT30 = forceSet.has("zoom:hi:T30");
     const forceZoomEnT30 = forceSet.has("zoom:en:T30");
+    const forceZoomAfT60 = forceSet.has("zoom:af:T60");
+    const forceZoomAfT30 = forceSet.has("zoom:af:T30");
+    const forceZoomAfT10 = forceSet.has("zoom:af:T10");
+    const forceZoomAfT0  = forceSet.has("zoom:af:T0");
     const forceCampaignLifestyle   = forceSet.has("campaign:lifestyle");
     const forceCampaignToken        = forceSet.has("campaign:token");
     const forceCampaignReferral     = forceSet.has("campaign:referral");
@@ -1180,7 +1184,58 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       }
     }
 
-    // ============ 5. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
+    // ============ 5. AFRICAN COMMUNITY ZOOM — Mon/Wed/Sat · 8 PM WAT = 19:00 UTC ============
+    // AF call is at 19:00 UTC — T-60=18:00, T-30=18:30, T-10=18:50, T-0=19:00
+    // Only fires on Monday (1), Wednesday (3), Saturday (6) UTC
+    {
+      const utcDay = new Date().getUTCDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+      const isAfDay = utcDay === 1 || utcDay === 3 || utcDay === 6;
+      // AF T-60
+      try {
+        if ((isAfDay || forceZoomAfT60) && (isInWindow(18, 0) || isMissedToday(18, 0) || forceZoomAfT60) && (forceZoomAfT60 || !(await hasFiredToday(db, "zoom:af:T60")))) {
+          await sendZoomReminder("af", "T60", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await markFired(db, "zoom:af:T60");
+          log.push("🌍 AF Zoom T-60");
+        }
+      } catch (err) {
+        await markError(db, "zoom:af:T60", err).catch(() => {});
+        log.push(`❌ zoom:af:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      // AF T-30
+      try {
+        if ((isAfDay || forceZoomAfT30) && (isInWindow(18, 30) || isMissedToday(18, 30) || forceZoomAfT30) && (forceZoomAfT30 || !(await hasFiredToday(db, "zoom:af:T30")))) {
+          await sendZoomReminder("af", "T30", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await markFired(db, "zoom:af:T30");
+          log.push("🌍 AF Zoom T-30");
+        }
+      } catch (err) {
+        await markError(db, "zoom:af:T30", err).catch(() => {});
+        log.push(`❌ zoom:af:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      // AF T-10
+      try {
+        if ((isAfDay || forceZoomAfT10) && (isInWindow(18, 50) || isMissedToday(18, 50) || forceZoomAfT10) && (forceZoomAfT10 || !(await hasFiredToday(db, "zoom:af:T10")))) {
+          await sendZoomReminder("af", "T15", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await markFired(db, "zoom:af:T10");
+          log.push("🌍 AF Zoom T-10");
+        }
+      } catch (err) {
+        await markError(db, "zoom:af:T10", err).catch(() => {});
+        log.push(`❌ zoom:af:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      // AF T-0 LIVE
+      try {
+        if ((isAfDay || forceZoomAfT0) && (isInWindow(19, 0) || isMissedToday(19, 0) || forceZoomAfT0) && (forceZoomAfT0 || !(await hasFiredToday(db, "zoom:af:T0")))) {
+          await sendZoomReminder("af", "LIVE", ZOOM_AF.link, ZOOM_AF.passcode, ZOOM_AF.timeLabel);
+          await markFired(db, "zoom:af:T0");
+          log.push("🌍 AF Zoom T-0 LIVE");
+        }
+      } catch (err) {
+        await markError(db, "zoom:af:T0", err).catch(() => {});
+        log.push(`❌ zoom:af:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+    // ============ 6. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============
     try {
       if (isInWindow(18, 0) && !(await hasFiredToday(db, "cinematic:daily"))) {
         const film = pickTodaysFilm();

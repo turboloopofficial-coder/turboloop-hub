@@ -11,8 +11,8 @@
 // `isInWindow(15, 0)`).
 
 export interface ZoomSession {
-  /** "en" | "hi" — used for banner palette + cron de-dup keys */
-  lang: "en" | "hi";
+  /** "en" | "hi" | "af" | "th" — used for banner palette + cron de-dup keys */
+  lang: "en" | "hi" | "af" | "th";
   /** Marketing title for the countdown card */
   title: string;
   /** One-line tease shown under the title */
@@ -74,7 +74,49 @@ export const ZOOM_HI: ZoomSession = {
   durationMin: 120,
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI];
+// ── African Community Zoom ────────────────────────────────────────────────
+// Mon, Wed, Sat · 8 PM WAT = 19:00 UTC
+// Hosts: Sammywealth, Eloho, Amb. Eddie
+export const ZOOM_AF: ZoomSession = {
+  lang: "af",
+  title: "African Community Call",
+  description:
+    "Mon · Wed · Sat. Overview, security, transparency and opportunities. Hosts: Sammywealth, Eloho & Amb. Eddie.",
+  link: "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1",
+  passcode: "H97KJx",
+  timeLabel:
+    "🇳🇬 8:00 PM WAT · 🇬🇭 7:00 PM GMT · 🇿🇦 9:00 PM SAST · 🇰🇪 10:00 PM EAT\n" +
+    "🇬🇧 7:00 PM BST · 🇩🇪 9:00 PM CEST · 🇦🇪 11:00 PM GST\n" +
+    "Mon · Wed · Sat only",
+  startUtcMin: 19 * 60, // 19:00 UTC = 8 PM WAT
+  durationMin: 120,
+};
+
+// ── Thai Morning Zoom (placeholder — update with real details) ─────────────
+export const ZOOM_TH_AM: ZoomSession = {
+  lang: "th",
+  title: "Thai Morning Community Call",
+  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+  passcode: "552740",
+  timeLabel: "🇹🇭 9:00 AM ICT · 🇹🇭 Daily Morning",
+  startUtcMin: 2 * 60, // 02:00 UTC = 9 AM ICT
+  durationMin: 90,
+};
+
+// ── Thai Evening Zoom (placeholder — update with real details) ─────────────
+export const ZOOM_TH: ZoomSession = {
+  lang: "th",
+  title: "Thai Evening Community Call",
+  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  link: "https://us06web.zoom.us/j/83982689908?pwd=anMZaPJ8GXRPoJbGabeVQy4fkIq4tc.1",
+  passcode: "552740",
+  timeLabel: "🇹🇭 8:00 PM ICT · 🇹🇭 Daily Evening",
+  startUtcMin: 13 * 60, // 13:00 UTC = 8 PM ICT
+  durationMin: 90,
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side

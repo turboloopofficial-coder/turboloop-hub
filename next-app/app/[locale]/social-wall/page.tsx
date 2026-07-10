@@ -18,7 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${t("eyebrow")} — TurboLoop`,
     description: t("subtitle"),
     alternates: {
-      canonical: `https://www.turboloop.tech/${locale}/social-wall`,
+      canonical: locale === "en"
+        ? "https://www.turboloop.tech/social-wall"
+        : `https://www.turboloop.tech/${locale}/social-wall`,
     },
   };
 }

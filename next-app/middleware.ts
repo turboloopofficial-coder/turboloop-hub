@@ -160,7 +160,25 @@ export function middleware(request: NextRequest) {
   return applyCacheClear(request, response);
 }
 
+// Known crawler/bot User-Agent substrings — these must never receive
+// Clear-Site-Data or no-cache headers as it prevents Google from indexing.
+const BOT_UA_PATTERNS = [
+  "googlebot", "bingbot", "slurp", "duckduckbot", "baiduspider",
+  "yandexbot", "sogou", "exabot", "facebot", "ia_archiver",
+  "ahrefsbot", "semrushbot", "mj12bot", "dotbot", "rogerbot",
+  "linkedinbot", "twitterbot", "facebookexternalhit", "applebot",
+  "petalbot", "bytespider", "gptbot", "claudebot", "anthropic",
+];
+
+function isBot(request: NextRequest): boolean {
+  const ua = (request.headers.get("user-agent") ?? "").toLowerCase();
+  return BOT_UA_PATTERNS.some((p) => ua.includes(p));
+}
+
 function applyCacheClear(request: NextRequest, response: NextResponse): NextResponse {
+  // Never send cache-busting headers to crawlers — it prevents indexing.
+  if (isBot(request)) return response;
+
   const cleaned = request.cookies.get(CLEAN_COOKIE);
   if (!cleaned) {
     response.headers.set(

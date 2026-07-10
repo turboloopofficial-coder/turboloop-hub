@@ -139,19 +139,22 @@ const config: NextConfig = {
             value: "max-age=63072000; includeSubDomains; preload",
           },
           // SECURITY: Content-Security-Policy — blocks injected scripts from
-          // untrusted origins. Only allow scripts from self, Vercel analytics,
+          // untrusted origins. Allows Google Analytics/GTM, Vercel analytics,
           // and the R2 CDN (for legitimate video/image assets only).
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live https://va.vercel-scripts.com",
+              // Google Tag Manager + GA4 + Vercel analytics
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live https://va.vercel-scripts.com https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://*.googleusercontent.com",
+              // Google Analytics tracking pixel + R2 assets
+              "img-src 'self' data: blob: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://*.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com",
               "media-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://www.youtube.com",
-              "connect-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://api.turboloop.tech https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-              "frame-src 'self' https://www.youtube.com https://youtube.com https://player.vimeo.com",
+              // GA4 beacon + BscScan API for contract verification
+              "connect-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://api.turboloop.tech https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.bscscan.com",
+              "frame-src 'self' https://www.youtube.com https://youtube.com https://player.vimeo.com https://www.googletagmanager.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

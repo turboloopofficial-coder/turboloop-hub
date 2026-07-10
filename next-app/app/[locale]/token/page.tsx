@@ -18,7 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `https://www.turboloop.tech/${locale}/token`,
+      canonical: locale === "en"
+        ? "https://www.turboloop.tech/token"
+        : `https://www.turboloop.tech/${locale}/token`,
       languages: Object.fromEntries(
         routing.locales.map((l) => [l, l === "en" ? "https://www.turboloop.tech/token" : `https://www.turboloop.tech/${l}/token`])
       ),

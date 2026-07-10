@@ -19,7 +19,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t.has("metaTitle") ? t("metaTitle") : undefined,
       description: t.has("metaDesc") ? t("metaDesc") : undefined,
       alternates: {
-        canonical: `https://www.turboloop.tech/${locale}/careers`,
+        canonical: locale === "en"
+        ? "https://www.turboloop.tech/careers"
+        : `https://www.turboloop.tech/${locale}/careers`,
       },
     };
   } catch {

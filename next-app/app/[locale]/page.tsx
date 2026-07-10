@@ -54,7 +54,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `https://www.turboloop.tech/${locale}/`,
+      // English canonical must be the root URL (no /en/ prefix) — Google
+      // treats /en/ and / as different pages, causing a canonical mismatch
+      // that suppresses the homepage from search rankings.
+      canonical: locale === "en"
+        ? "https://www.turboloop.tech/"
+        : `https://www.turboloop.tech/${locale}/`,
       languages,
     },
   };

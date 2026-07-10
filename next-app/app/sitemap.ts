@@ -16,6 +16,7 @@ import { fetchAllFilmSlugs } from "@lib/filmsApi";
 import { ECOSYSTEM_PILLARS } from "@lib/ecosystemPillars";
 import { LESSONS } from "@lib/defi101";
 import { CAMPAIGN_CATEGORIES } from "@lib/campaignData";
+import { COMPARISONS } from "@lib/comparisons";
 import {
   api,
   blogTranslationGroup,
@@ -116,15 +117,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // Comparison pages
-  const comparisons: MetadataRoute.Sitemap = ["banks", "defi", "inflation"].map(
-    slug => ({
-      url: `${BASE}/vs/${slug}`,
+  // Comparison pages — all slugs from comparisons.ts (auto-updates when new
+  // comparisons are added). Also includes the /vs index page.
+  const comparisons: MetadataRoute.Sitemap = [
+    // /vs index page
+    {
+      url: `${BASE}/vs`,
       lastModified: now,
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.7,
-    })
-  );
+    },
+    // Individual comparison pages
+    ...COMPARISONS.map(c => ({
+      url: `${BASE}/vs/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
 
   // Blog posts (build-time fetch from legacy API; if it fails, just skip).
   //

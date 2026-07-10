@@ -502,3 +502,17 @@ export const scheduledPosts = pgTable("scheduled_posts", {
 
 export type ScheduledPost = typeof scheduledPosts.$inferSelect;
 export type InsertScheduledPost = typeof scheduledPosts.$inferInsert;
+
+// ─── Audit Log (Security hardening — 2026-07-10) ──────────────────────────────
+// Tracks admin logins, blog edits, upload operations, and security events.
+export const auditLog = pgTable("audit_log", {
+  id: serial("id").primaryKey(),
+  action: varchar("action", { length: 100 }).notNull(),
+  actor: varchar("actor", { length: 320 }),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  targetType: varchar("target_type", { length: 50 }),
+  targetId: varchar("target_id", { length: 100 }),
+  details: text("details"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+export type AuditLog = typeof auditLog.$inferSelect;

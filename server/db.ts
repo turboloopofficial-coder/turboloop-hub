@@ -18,6 +18,7 @@ import {
   jobVacancies, type InsertJobVacancy,
   chatConversations, chatMessages,
   scheduledPosts, type ScheduledPost, type InsertScheduledPost,
+  auditLog,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -1082,4 +1083,34 @@ export async function listDueScheduledPosts(limit = 25): Promise<ScheduledPost[]
     )
     .orderBy(asc(scheduledPosts.nextRunAt))
     .limit(limit);
+}
+
+// ===== Audit Logging (Security hardening — 2026-07-10) =====
+export async function logAuditEvent(params: {
+  action: string;
+  actor?: string | null;
+  ipAddress?: string | null;
+  targetType?: string | null;
+  targetId?: string | null;
+  details?: string | null;
+}): Promise<void> {
+  try {
+    const db = getDb();
+    await db.insert(auditLog).values({
+      action: params.action,
+      actor: params.actor ?? null,
+      ipAddress: params.ipAddress ?? null,
+      targetType: params.targetType ?? null,
+      targetId: params.targetId ?? null,
+      details: params.details ?? null,
+    });
+  } catch (err) {
+    // Audit logging must never break the main flow
+    console.error("[audit-log]", err);
+  }
+}
+
+export async function listAuditLog(limit = 100) {
+  const db = getDb();
+  return db.select().from(auditLog).orderBy(desc(auditLog.createdAt)).limit(limit);
 }

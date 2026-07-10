@@ -31,6 +31,32 @@ import { TRPCError } from "@trpc/server";
 import { storagePut } from "./storage";
 import { systemRouter } from "./_core/systemRouter";
 import { ENV } from "./_core/env";
+import { logAuditEvent, listAuditLog } from "./db";
+
+// ─── RATE LIMITING (in-memory, per-IP, for admin login) ───────────────────────
+const loginAttempts = new Map<string, { count: number; firstAttempt: number }>();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX_ATTEMPTS = 5; // max 5 attempts per window
+function checkLoginRateLimit(ip: string): { allowed: boolean; retryAfterSec?: number } {
+  const now = Date.now();
+  const record = loginAttempts.get(ip);
+  if (!record || now - record.firstAttempt > RATE_LIMIT_WINDOW_MS) {
+    loginAttempts.set(ip, { count: 1, firstAttempt: now });
+    return { allowed: true };
+  }
+  if (record.count >= RATE_LIMIT_MAX_ATTEMPTS) {
+    const retryAfterSec = Math.ceil((RATE_LIMIT_WINDOW_MS - (now - record.firstAttempt)) / 1000);
+    return { allowed: false, retryAfterSec };
+  }
+  record.count++;
+  return { allowed: true };
+}
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of loginAttempts) {
+    if (now - record.firstAttempt > RATE_LIMIT_WINDOW_MS) loginAttempts.delete(ip);
+  }
+}, 30 * 60 * 1000);
 
 // SECURITY: JWT_SECRET MUST be set in production. No fallback allowed.
 const _jwtSecretRaw = process.env.JWT_SECRET;
@@ -65,6 +91,14 @@ export const appRouter = router({
     login: publicProcedure
       .input(z.object({ email: z.string().email(), password: z.string().min(1) }))
       .mutation(async ({ input, ctx }) => {
+        // Rate limiting: max 5 login attempts per IP per 15 minutes
+        const clientIp = (ctx.req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || ctx.req.socket?.remoteAddress || "unknown";
+        const rateCheck = checkLoginRateLimit(clientIp);
+        if (!rateCheck.allowed) {
+          logAuditEvent({ action: "admin.login.rate_limited", actor: input.email, ipAddress: clientIp });
+          throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: `Too many login attempts. Try again in ${rateCheck.retryAfterSec} seconds.` });
+        }
+
         const configuredEmail = ENV.adminEmail;
         const configuredPassword = ENV.adminPassword;
         if (!configuredEmail || !configuredPassword) {
@@ -77,11 +111,18 @@ export const appRouter = router({
         }
 
         if (input.email !== configuredEmail) {
+          logAuditEvent({ action: "admin.login.failed", actor: input.email, ipAddress: clientIp, details: "Email mismatch" });
           throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid credentials" });
         }
 
         const valid = await verifyAdminPassword(input.email, input.password);
-        if (!valid) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid credentials" });
+        if (!valid) {
+          logAuditEvent({ action: "admin.login.failed", actor: input.email, ipAddress: clientIp, details: "Wrong password" });
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid credentials" });
+        }
+
+        // Successful login
+        logAuditEvent({ action: "admin.login.success", actor: input.email, ipAddress: clientIp });
 
         const token = await new jose.SignJWT({ email: input.email })
           .setProtectedHeader({ alg: "HS256" })
@@ -1936,7 +1977,11 @@ Return ONLY valid JSON: { "captions": ["caption1", "caption2", "caption3"] } —
         coverImage: z.string().optional(),
         published: z.boolean().default(false),
       }))
-      .mutation(({ input }) => createBlogPost(input)),
+      .mutation(async ({ input, ctx }) => {
+        const result = await createBlogPost(input);
+        logAuditEvent({ action: "blog.create", actor: ctx.admin.email, targetType: "blog_post", targetId: input.slug });
+        return result;
+      }),
     updateBlogPost: adminProcedure
       .input(z.object({
         id: z.number(),
@@ -1947,8 +1992,16 @@ Return ONLY valid JSON: { "captions": ["caption1", "caption2", "caption3"] } —
         coverImage: z.string().nullable().optional(),
         published: z.boolean().optional(),
       }))
-      .mutation(({ input }) => { const { id, ...data } = input; return updateBlogPost(id, data); }),
-    deleteBlogPost: adminProcedure.input(z.object({ id: z.number() })).mutation(({ input }) => deleteBlogPost(input.id)),
+      .mutation(async ({ input, ctx }) => {
+        const { id, ...data } = input;
+        const result = await updateBlogPost(id, data);
+        logAuditEvent({ action: "blog.update", actor: ctx.admin.email, targetType: "blog_post", targetId: String(id) });
+        return result;
+      }),
+    deleteBlogPost: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input, ctx }) => {
+      await deleteBlogPost(input.id);
+      logAuditEvent({ action: "blog.delete", actor: ctx.admin.email, targetType: "blog_post", targetId: String(input.id) });
+    }),
 
     listVideos: adminProcedure.query(() => listVideos(false)),
     createVideo: adminProcedure
@@ -2087,12 +2140,17 @@ Return ONLY valid JSON: { "captions": ["caption1", "caption2", "caption3"] } —
         base64: z.string().min(1),
         contentType: z.string().default("image/png"),
       }))
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         const buffer = Buffer.from(input.base64, "base64");
         const key = `uploads/${Date.now()}-${input.filename}`;
         const result = await storagePut(key, buffer, input.contentType);
+        logAuditEvent({ action: "upload.file", actor: ctx.admin.email, targetType: "r2_file", targetId: key, details: `${input.contentType}, ${buffer.length} bytes` });
         return result;
       }),
+
+    auditLog: adminProcedure
+      .input(z.object({ limit: z.number().min(1).max(500).default(100) }).optional())
+      .query(({ input }) => listAuditLog(input?.limit ?? 100)),
 
     getSetting: adminProcedure.input(z.object({ key: z.string() })).query(({ input }) => getSetting(input.key)),
     setSetting: adminProcedure

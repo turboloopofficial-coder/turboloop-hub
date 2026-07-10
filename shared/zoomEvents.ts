@@ -2,7 +2,8 @@
 //
 // Read by:
 //   - server/_vercel/cron-master.ts — daily T-30 reminder broadcasts
-//   - next-app/components/sections/EventsSection.tsx — live countdown timer
+//   - next-app/components/sections/ZoomLiveSection.tsx — live countdown timer
+//   - next-app/components/sections/EventsSection.tsx — events section
 //
 // startUtcMin is "minutes since 00:00 UTC" — easier to compute the next
 // occurrence than parsing 12-hour strings with timezones at runtime.
@@ -29,6 +30,13 @@ export interface ZoomSession {
   startUtcMin: number;
   /** Call duration in minutes — used to detect "Live now" window */
   durationMin: number;
+  /**
+   * Days of week this session runs (JS getUTCDay: 0=Sun, 1=Mon … 6=Sat).
+   * Undefined means every day.
+   */
+  daysOfWeek?: number[];
+  /** Short frequency badge shown on the card, e.g. "Mon · Wed · Sat · Free" */
+  frequencyLabel?: string;
 }
 
 export const ZOOM_EN: ZoomSession = {
@@ -58,6 +66,8 @@ export const ZOOM_EN: ZoomSession = {
   })(),
   startUtcMin: new Date().toISOString().slice(0, 10) === "2026-06-12" ? 16 * 60 : 17 * 60, // auto-reverts
   durationMin: 120,
+  // daysOfWeek: undefined — runs every day
+  frequencyLabel: "Daily · Free",
 };
 
 export const ZOOM_HI: ZoomSession = {
@@ -74,6 +84,8 @@ export const ZOOM_HI: ZoomSession = {
     "🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST",
   startUtcMin: 15 * 60 + 30, // 15:30 UTC = 9:00 PM IST
   durationMin: 120,
+  // daysOfWeek: undefined — runs every day
+  frequencyLabel: "Daily · Free",
 };
 
 // ── African Community Zoom ────────────────────────────────────────────────
@@ -92,32 +104,40 @@ export const ZOOM_AF: ZoomSession = {
     "Mon · Wed · Sat only",
   startUtcMin: 19 * 60, // 19:00 UTC = 8 PM WAT
   durationMin: 120,
+  daysOfWeek: [1, 3, 6], // Mon, Wed, Sat (JS getUTCDay: 0=Sun…6=Sat)
+  frequencyLabel: "Mon · Wed · Sat · Free",
 };
 
 // ── Thai Morning Google Meet ──────────────────────────────────────────────
+// Saturday only · 9:00 AM ICT = 02:00 UTC
 export const ZOOM_TH_AM: ZoomSession = {
   lang: "th",
   platform: "meet",
   title: "Thai Morning Community Call",
-  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  description: "วันเสาร์. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  timeLabel: "🇹🇭 9:00 AM ICT · 🇹🇭 Daily Morning",
+  timeLabel: "🇹🇭 9:00 AM ICT · วันเสาร์ (Saturday only)",
   startUtcMin: 2 * 60, // 02:00 UTC = 9 AM ICT
   durationMin: 90,
+  daysOfWeek: [6], // Saturday only
+  frequencyLabel: "Saturday only · Free",
 };
 
 // ── Thai Evening Google Meet ───────────────────────────────────────────────
+// Sun, Tue, Thu · 8:00 PM ICT = 13:00 UTC
 export const ZOOM_TH: ZoomSession = {
   lang: "th",
   platform: "meet",
   title: "Thai Evening Community Call",
-  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  description: "อาทิตย์ · อังคาร · พฤหัสบดี. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  timeLabel: "🇹🇭 8:00 PM ICT · 🇹🇭 Daily Evening",
+  timeLabel: "🇹🇭 8:00 PM ICT · อา · อ · พฤ (Sun · Tue · Thu)",
   startUtcMin: 13 * 60, // 13:00 UTC = 8 PM ICT
   durationMin: 90,
+  daysOfWeek: [0, 2, 4], // Sun, Tue, Thu (JS getUTCDay)
+  frequencyLabel: "Sun · Tue · Thu · Free",
 };
 
 export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH];
@@ -128,32 +148,31 @@ export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_
 export const ZOOM_URL_PATTERN = /^https:\/\/([a-z0-9.-]+\.zoom\.us\/j\/\d+|meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3})/i;
 
 /**
- * Next occurrence of a Zoom session as a Date in the user's local time.
- * If the session has started but is still within `durationMin`, returns the
- * start time of the in-progress session (so the UI can render an "Ends in"
- * countdown). Otherwise returns the next future start.
+ * Next occurrence of a Zoom session as a Date.
+ * Respects session.daysOfWeek — skips days when the session doesn't run.
+ * If the session is currently in progress, returns the current start time.
  */
 export function nextZoomOccurrence(
   session: ZoomSession,
   now: Date = new Date()
 ): Date {
   const ms = now.getTime();
-  const todayStart = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate()
-  );
-  const todayCallStart = todayStart + session.startUtcMin * 60_000;
-  const todayCallEnd = todayCallStart + session.durationMin * 60_000;
-
-  // In-progress today
-  if (ms >= todayCallStart && ms < todayCallEnd) {
-    return new Date(todayCallStart);
+  for (let offset = 0; offset <= 7; offset++) {
+    const dayStart = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() + offset
+    );
+    const dayOfWeek = new Date(dayStart).getUTCDay();
+    // Skip days not in the schedule
+    if (session.daysOfWeek && !session.daysOfWeek.includes(dayOfWeek)) continue;
+    const callStart = dayStart + session.startUtcMin * 60_000;
+    const callEnd = callStart + session.durationMin * 60_000;
+    // Skip today if the call has already ended
+    if (offset === 0 && ms >= callEnd) continue;
+    return new Date(callStart);
   }
-  // Already ended today → tomorrow
-  if (ms >= todayCallEnd) {
-    return new Date(todayCallStart + 24 * 60 * 60_000);
-  }
-  // Still upcoming today
-  return new Date(todayCallStart);
+  // Fallback: tomorrow at session time (should never reach here)
+  const tomorrow = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
+  return new Date(tomorrow + session.startUtcMin * 60_000);
 }

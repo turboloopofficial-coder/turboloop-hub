@@ -29,6 +29,12 @@ export interface ZoomSession {
   startUtcMin: number;
   /** Call duration in minutes — used to detect "Live now" window */
   durationMin: number;
+  /**
+   * Optional: which UTC days-of-week this session runs.
+   * Uses JS getUTCDay() convention: 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat.
+   * If omitted, the session runs every day.
+   */
+  daysOfWeek?: number[];
 }
 
 export const ZOOM_EN: ZoomSession = {
@@ -58,6 +64,7 @@ export const ZOOM_EN: ZoomSession = {
   })(),
   startUtcMin: new Date().toISOString().slice(0, 10) === "2026-06-12" ? 16 * 60 : 17 * 60, // auto-reverts
   durationMin: 120,
+  // No daysOfWeek → runs every day
 };
 
 export const ZOOM_HI: ZoomSession = {
@@ -74,6 +81,7 @@ export const ZOOM_HI: ZoomSession = {
     "🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST",
   startUtcMin: 15 * 60 + 30, // 15:30 UTC = 9:00 PM IST
   durationMin: 120,
+  // No daysOfWeek → runs every day
 };
 
 // ── African Community Zoom ────────────────────────────────────────────────
@@ -92,32 +100,37 @@ export const ZOOM_AF: ZoomSession = {
     "Mon · Wed · Sat only",
   startUtcMin: 19 * 60, // 19:00 UTC = 8 PM WAT
   durationMin: 120,
+  daysOfWeek: [1, 3, 6], // Mon, Wed, Sat (JS getUTCDay: 0=Sun…6=Sat)
 };
 
-// ── Thai Morning Google Meet ──────────────────────────────────────────────
+// ── Thai Saturday Morning Google Meet ────────────────────────────────────
+// Saturday only · 9:00 AM ICT = 02:00 UTC
 export const ZOOM_TH_AM: ZoomSession = {
   lang: "th",
   platform: "meet",
-  title: "Thai Morning Community Call",
-  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  title: "Thai Saturday Morning Call",
+  description: "วันเสาร์. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  timeLabel: "🇹🇭 9:00 AM ICT · 🇹🇭 Daily Morning",
-  startUtcMin: 2 * 60, // 02:00 UTC = 9 AM ICT
+  timeLabel: "🇹🇭 9:00 AM ICT · วันเสาร์ (Saturday only)",
+  startUtcMin: 2 * 60, // 02:00 UTC = 9:00 AM ICT
   durationMin: 90,
+  daysOfWeek: [6], // Saturday only (JS getUTCDay: 6=Sat)
 };
 
-// ── Thai Evening Google Meet ───────────────────────────────────────────────
+// ── Thai Evening Google Meet ──────────────────────────────────────────────
+// Sun, Tue, Thu · 8:00 PM ICT = 13:00 UTC
 export const ZOOM_TH: ZoomSession = {
   lang: "th",
   platform: "meet",
   title: "Thai Evening Community Call",
-  description: "ทุกวัน. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
+  description: "อาทิตย์ · อังคาร · พฤหัสบดี. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  timeLabel: "🇹🇭 8:00 PM ICT · 🇹🇭 Daily Evening",
-  startUtcMin: 13 * 60, // 13:00 UTC = 8 PM ICT
+  timeLabel: "🇹🇭 8:00 PM ICT · อาทิตย์ · อังคาร · พฤหัสบดี (Sun · Tue · Thu)",
+  startUtcMin: 13 * 60, // 13:00 UTC = 8:00 PM ICT
   durationMin: 90,
+  daysOfWeek: [0, 2, 4], // Sun, Tue, Thu (JS getUTCDay: 0=Sun, 2=Tue, 4=Thu)
 };
 
 export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH];
@@ -128,32 +141,64 @@ export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_
 export const ZOOM_URL_PATTERN = /^https:\/\/([a-z0-9.-]+\.zoom\.us\/j\/\d+|meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3})/i;
 
 /**
- * Next occurrence of a Zoom session as a Date in the user's local time.
- * If the session has started but is still within `durationMin`, returns the
- * start time of the in-progress session (so the UI can render an "Ends in"
- * countdown). Otherwise returns the next future start.
+ * Next occurrence of a Zoom session as a UTC Date.
+ *
+ * Respects `session.daysOfWeek` — if the session only runs on certain days,
+ * the function skips forward until the next valid day.
+ *
+ * If the session is currently in progress, returns the start time of the
+ * current occurrence (so the UI can render an "Ends in" countdown).
+ * Otherwise returns the next future start.
  */
 export function nextZoomOccurrence(
   session: ZoomSession,
   now: Date = new Date()
 ): Date {
-  const ms = now.getTime();
-  const todayStart = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate()
-  );
-  const todayCallStart = todayStart + session.startUtcMin * 60_000;
-  const todayCallEnd = todayCallStart + session.durationMin * 60_000;
+  const days = session.daysOfWeek; // undefined → runs every day
 
-  // In-progress today
-  if (ms >= todayCallStart && ms < todayCallEnd) {
-    return new Date(todayCallStart);
+  // Helper: is a given UTC day-of-week a valid session day?
+  const isValidDay = (utcDay: number) =>
+    !days || days.includes(utcDay);
+
+  const ms = now.getTime();
+
+  // Walk forward up to 7 days to find the next valid occurrence
+  for (let offset = 0; offset <= 7; offset++) {
+    const candidateStart =
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + offset
+      ) +
+      session.startUtcMin * 60_000;
+
+    const candidateDay = new Date(candidateStart).getUTCDay();
+
+    if (!isValidDay(candidateDay)) continue;
+
+    const candidateEnd = candidateStart + session.durationMin * 60_000;
+
+    if (offset === 0) {
+      // Today's slot
+      if (ms >= candidateStart && ms < candidateEnd) {
+        // Currently live — return start so UI shows "Ends in"
+        return new Date(candidateStart);
+      }
+      if (ms < candidateStart) {
+        // Still upcoming today
+        return new Date(candidateStart);
+      }
+      // Already ended today — continue to next valid day
+      continue;
+    }
+
+    // Future day — always valid
+    return new Date(candidateStart);
   }
-  // Already ended today → tomorrow
-  if (ms >= todayCallEnd) {
-    return new Date(todayCallStart + 24 * 60 * 60_000);
-  }
-  // Still upcoming today
-  return new Date(todayCallStart);
+
+  // Fallback (should never reach here for well-formed daysOfWeek)
+  return new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) +
+      session.startUtcMin * 60_000
+  );
 }

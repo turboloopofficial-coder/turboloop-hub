@@ -29,24 +29,30 @@ function formatDate(iso: string) {
   });
 }
 
-// Map from next-intl locale codes → BlogLanguage codes.
-// Only locales that have a matching blog language are listed;
-// everything else falls back to "en".
+// Map from next-intl locale codes → BlogLanguage (DB) codes.
+// next-intl uses BCP-47/ISO codes (ar, zh, ur, pcm) while the DB uses
+// legacy 2-letter codes (sa, cn, pk, ng). Both sets are mapped here.
 const LOCALE_TO_BLOG_LANG: Record<string, BlogLanguage> = {
+  // next-intl locale codes (from routing.ts)
   en: "en",
   th: "th",
-  ko: "kr",
-  lo: "la",
+  ko: "kr",   // next-intl "ko" → DB "kr"
+  lo: "la",   // next-intl "lo" → DB "la"
   hi: "hi",
   de: "de",
   id: "id",
-  fr: "fr",
   ta: "ta",
+  ar: "sa",   // next-intl "ar" → DB "sa"
+  zh: "cn",   // next-intl "zh" → DB "cn"
+  it: "it",
+  ur: "pk",   // next-intl "ur" → DB "pk"
+  fr: "fr",
+  es: "es",
+  pcm: "ng",  // next-intl "pcm" → DB "ng"
+  // Legacy / DB codes (fallback for any direct usage)
   la: "la",
   cn: "cn",
-  es: "es",
   ng: "ng",
-  it: "it",
   sa: "sa",
   kr: "kr",
   pk: "pk",

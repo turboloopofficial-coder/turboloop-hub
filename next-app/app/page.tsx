@@ -342,9 +342,9 @@ export default function HomePage() {
 
       <SectionDivider />
 
-      {/* 7. Editorial — English only */}
+      {/* 7. Editorial — defaults to English on root (no locale prefix) */}
       <Reveal>
-        <HomeBlogSection />
+        <HomeBlogSection locale="en" />
       </Reveal>
 
       <SectionDivider />

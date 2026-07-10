@@ -120,3 +120,5 @@ _r2_upload_staging/
 
 # Note: api/trpc/[trpc].js is now COMMITTED (built locally, deployed to Vercel as-is)
 # Rebuild with: npm run build:api
+.vercel
+.env*

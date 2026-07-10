@@ -225,7 +225,7 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
                 className="text-[10px] font-bold tracking-[0.25em] uppercase"
                 style={{ color: accent }}
               >
-                {isLive ? t("liveNow") : t("daily")}
+                {isLive ? t("liveNow") : (session.frequencyLabel ?? t("daily"))}
               </span>
               {isLive && (
                 <Radio className="w-3 h-3" style={{ color: accent }} />
@@ -360,7 +360,7 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
               </div>
               {!isLive && (
                 <p className="mt-4 text-xs text-white/45">
-                  Daily community call · No registration needed
+                  {session.frequencyLabel ?? "Daily · Free"} · No registration needed
                 </p>
               )}
             </div>

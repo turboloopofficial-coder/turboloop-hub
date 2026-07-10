@@ -35,6 +35,12 @@ export interface ZoomSession {
    * If omitted, the session runs every day.
    */
   daysOfWeek?: number[];
+  /**
+   * Short human-readable frequency label shown in the countdown card badge.
+   * e.g. "Daily · Free", "Mon · Wed · Sat · Free", "Sat only · Free"
+   * Defaults to "Daily · Free" if omitted.
+   */
+  frequencyLabel?: string;
 }
 
 export const ZOOM_EN: ZoomSession = {
@@ -64,6 +70,7 @@ export const ZOOM_EN: ZoomSession = {
   })(),
   startUtcMin: new Date().toISOString().slice(0, 10) === "2026-06-12" ? 16 * 60 : 17 * 60, // auto-reverts
   durationMin: 120,
+  frequencyLabel: "Daily · Free",
   // No daysOfWeek → runs every day
 };
 
@@ -81,6 +88,7 @@ export const ZOOM_HI: ZoomSession = {
     "🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST",
   startUtcMin: 15 * 60 + 30, // 15:30 UTC = 9:00 PM IST
   durationMin: 120,
+  frequencyLabel: "Daily · Free",
   // No daysOfWeek → runs every day
 };
 
@@ -101,6 +109,7 @@ export const ZOOM_AF: ZoomSession = {
   startUtcMin: 19 * 60, // 19:00 UTC = 8 PM WAT
   durationMin: 120,
   daysOfWeek: [1, 3, 6], // Mon, Wed, Sat (JS getUTCDay: 0=Sun…6=Sat)
+  frequencyLabel: "Mon · Wed · Sat · Free",
 };
 
 // ── Thai Saturday Morning Google Meet ────────────────────────────────────
@@ -116,6 +125,7 @@ export const ZOOM_TH_AM: ZoomSession = {
   startUtcMin: 2 * 60, // 02:00 UTC = 9:00 AM ICT
   durationMin: 90,
   daysOfWeek: [6], // Saturday only (JS getUTCDay: 6=Sat)
+  frequencyLabel: "Saturday only · Free",
 };
 
 // ── Thai Evening Google Meet ──────────────────────────────────────────────
@@ -131,6 +141,7 @@ export const ZOOM_TH: ZoomSession = {
   startUtcMin: 13 * 60, // 13:00 UTC = 8:00 PM ICT
   durationMin: 90,
   daysOfWeek: [0, 2, 4], // Sun, Tue, Thu (JS getUTCDay: 0=Sun, 2=Tue, 4=Thu)
+  frequencyLabel: "Sun · Tue · Thu · Free",
 };
 
 export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH];

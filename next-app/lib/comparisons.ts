@@ -722,7 +722,112 @@ export const COMPARISONS: Comparison[] = [
     closing:
       "Alpaca Finance is a sophisticated protocol for experienced DeFi users who want to maximise yield through leverage. TurboLoop is for anyone who wants fixed, predictable passive income without the complexity of leveraged farming. If you're new to DeFi or want a set-and-forget model, TurboLoop is the right tool. If you're an experienced farmer comfortable with leverage, Alpaca offers more flexibility — but more risk.",
   },
+  // ── New entries added 2026-07-11 ───────────────────────────────────────
+  {
+    slug: "pendle",
+    competitorName: "Pendle Finance",
+    seoTitle: "TurboLoop vs Pendle Finance — Fixed Yield on BSC Compared",
+    heading: "TurboLoop vs Pendle Finance.",
+    summary:
+      "Both promise fixed yield. Pendle tokenises future yield into tradable assets. TurboLoop locks your USDT into a fixed-term plan. One is a DeFi trading desk; the other is a passive income machine.",
+    intro:
+      "Pendle Finance is one of DeFi's most innovative protocols — it splits yield-bearing tokens into Principal Tokens (PT) and Yield Tokens (YT), letting you trade future yield like a commodity. It's powerful but complex. TurboLoop takes the opposite approach: deposit USDT, choose a plan (7/30/60/90 days), collect your fixed return at maturity. No tokenomics to understand, no yield curves to navigate.",
+    rows: [
+      { metric: "Yield type", turboloop: "Fixed-term: 3%, 10%, 24%, 54% per cycle", competitor: "Variable PT discount rate + YT speculation", winner: "turboloop" },
+      { metric: "Complexity", turboloop: "Simple: deposit USDT, choose plan, collect", competitor: "High: PT/YT mechanics, AMM curves, expiry dates", winner: "turboloop" },
+      { metric: "Chains", turboloop: "BNB Smart Chain", competitor: "Ethereum, Arbitrum, BSC, Mantle, Base", winner: "competitor" },
+      { metric: "Minimum deposit", turboloop: "$50 USDT", competitor: "No minimum (gas cost is the practical floor)", winner: "tie" },
+      { metric: "Referral income", turboloop: "20-level referral, 51% total commissions", competitor: "None", winner: "turboloop" },
+      { metric: "Smart contract audit", turboloop: "Haze Crypto, ownership renounced", competitor: "Multiple audits (Ackee, Dedaub) — well-audited", winner: "tie" },
+      { metric: "Who it's for", turboloop: "Passive income seekers — no DeFi experience required", competitor: "Yield traders and DeFi power users", winner: "tie" },
+    ],
+    closing:
+      "Pendle is a sophisticated yield-trading protocol for DeFi power users who want to speculate on or hedge future yield. TurboLoop is for anyone who wants predictable, fixed passive income without trading complexity. If you want to trade yield like a commodity, use Pendle. If you want to set it and forget it, TurboLoop is the better fit.",
+  },
+  {
+    slug: "radiant",
+    competitorName: "Radiant Capital",
+    seoTitle: "TurboLoop vs Radiant Capital — BSC Lending vs Fixed Yield",
+    heading: "TurboLoop vs Radiant Capital.",
+    summary:
+      "Radiant is a cross-chain lending market. TurboLoop is a fixed-yield passive income protocol. Different tools for different goals.",
+    intro:
+      "Radiant Capital is a cross-chain money market built on LayerZero — it lets you deposit assets on one chain and borrow on another. TurboLoop is laser-focused on one thing: giving you the highest fixed yield on USDT with the simplest possible experience on BSC.",
+    rows: [
+      { metric: "Yield type", turboloop: "Fixed: 3%, 10%, 24%, 54% per cycle", competitor: "Variable lending APY + RDNT token emissions", winner: "turboloop" },
+      { metric: "Cross-chain", turboloop: "BNB Smart Chain only", competitor: "Arbitrum, BSC, Ethereum, Base — true cross-chain", winner: "competitor" },
+      { metric: "Liquidation risk", turboloop: "None — no borrowing, no leverage", competitor: "Borrowers face liquidation; lenders are safe", winner: "turboloop" },
+      { metric: "Token inflation", turboloop: "$TURBO — deflationary (daily buyback + burn)", competitor: "$RDNT — inflationary emissions as rewards", winner: "turboloop" },
+      { metric: "Referral income", turboloop: "20-level referral, 51% total commissions", competitor: "None", winner: "turboloop" },
+      { metric: "Minimum deposit", turboloop: "$50 USDT", competitor: "No minimum", winner: "tie" },
+      { metric: "Who it's for", turboloop: "Passive income seekers — no DeFi experience required", competitor: "DeFi users who want cross-chain capital efficiency", winner: "tie" },
+    ],
+    closing:
+      "Radiant Capital is a powerful cross-chain lending market for DeFi users who want to maximise capital efficiency across chains. TurboLoop is for anyone who wants fixed, predictable USDT yield on BSC without the complexity of cross-chain borrowing.",
+  },
+  {
+    slug: "beefy",
+    competitorName: "Beefy Finance",
+    seoTitle: "TurboLoop vs Beefy Finance — Auto-Compounding vs Fixed Yield",
+    heading: "TurboLoop vs Beefy Finance.",
+    summary:
+      "Beefy auto-compounds your yield farming rewards. TurboLoop gives you a fixed return. One maximises variable APY; the other guarantees a predictable number.",
+    intro:
+      "Beefy Finance is the most popular yield aggregator on BSC — it takes your LP tokens and auto-compounds the farming rewards to maximise APY. TurboLoop is different: deposit USDT, choose a fixed-term plan, receive a guaranteed percentage return at maturity. No impermanent loss, no variable APY swings.",
+    rows: [
+      { metric: "Yield type", turboloop: "Fixed: 3%, 10%, 24%, 54% per cycle", competitor: "Variable auto-compounded APY (highly variable)", winner: "turboloop" },
+      { metric: "Impermanent loss risk", turboloop: "None — stablecoin only, no IL", competitor: "Yes — LP positions are exposed to IL", winner: "turboloop" },
+      { metric: "Asset variety", turboloop: "USDT only", competitor: "Hundreds of vaults across dozens of tokens", winner: "competitor" },
+      { metric: "Complexity", turboloop: "Simple: deposit USDT, choose plan", competitor: "Moderate: choose vault, understand underlying strategy", winner: "turboloop" },
+      { metric: "Referral income", turboloop: "20-level referral, 51% total commissions", competitor: "None", winner: "turboloop" },
+      { metric: "Smart contract audit", turboloop: "Haze Crypto, ownership renounced", competitor: "Multiple audits — well-established protocol", winner: "tie" },
+      { metric: "Who it's for", turboloop: "Passive income seekers — no DeFi experience required", competitor: "Yield farmers who want auto-compounding across many assets", winner: "tie" },
+    ],
+    closing:
+      "Beefy Finance is the best auto-compounder on BSC for yield farmers who want to maximise variable APY across many assets. TurboLoop is for anyone who wants a fixed, predictable USDT return without impermanent loss or variable APY uncertainty.",
+  },
+  {
+    slug: "fixed-deposits",
+    competitorName: "Bank Fixed Deposits",
+    seoTitle: "TurboLoop vs Fixed Deposits — DeFi vs Traditional Savings",
+    heading: "TurboLoop vs bank fixed deposits.",
+    summary:
+      "Bank FDs offer 4-7% per year with capital protection. TurboLoop offers up to 54% per cycle with on-chain transparency. The math is stark.",
+    intro:
+      "Bank fixed deposits are the world's most popular savings instrument — deposit money for a fixed term, earn a guaranteed interest rate, get your principal back. TurboLoop is the DeFi equivalent: deposit USDT for a fixed term (7/30/60/90 days), earn a guaranteed yield from PancakeSwap V3 trading fees, withdraw at maturity. The concept is identical. The yield is not.",
+    rows: [
+      { metric: "Annual yield", turboloop: "Up to 54% per 90-day cycle (~216% annualised)", competitor: "4–7% per year (best case, developed markets)", winner: "turboloop" },
+      { metric: "Minimum deposit", turboloop: "$50 USDT", competitor: "Varies: $500–$10,000 (most banks)", winner: "turboloop" },
+      { metric: "Access", turboloop: "Global — anyone with a crypto wallet", competitor: "Requires bank account, citizenship, credit history", winner: "turboloop" },
+      { metric: "Transparency", turboloop: "100% on-chain — verify every transaction", competitor: "Opaque — bank decides how your money is used", winner: "turboloop" },
+      { metric: "Capital protection", turboloop: "Smart contract risk (audited, ownership renounced)", competitor: "Government deposit insurance (up to local limit)", winner: "competitor" },
+      { metric: "Referral income", turboloop: "20-level referral, 51% total commissions", competitor: "None", winner: "turboloop" },
+      { metric: "Hours of operation", turboloop: "24/7/365", competitor: "Business hours only", winner: "turboloop" },
+    ],
+    closing:
+      "Bank fixed deposits are safe, government-insured, and familiar. TurboLoop offers dramatically higher yield with full on-chain transparency. For anyone comfortable with DeFi, TurboLoop's fixed-term model delivers the same predictability as a bank FD — at a fraction of the waiting time and a multiple of the yield.",
+  },
+  {
+    slug: "savings-accounts",
+    competitorName: "High-Yield Savings Accounts",
+    seoTitle: "TurboLoop vs High-Yield Savings Accounts — The Real Numbers",
+    heading: "TurboLoop vs high-yield savings accounts.",
+    summary:
+      "High-yield savings accounts offer 4-5% APY. TurboLoop offers up to 54% per 90-day cycle. Here's the honest comparison.",
+    intro:
+      "High-yield savings accounts (HYSAs) are the best traditional savings product available — they offer 4-5% APY with full liquidity and FDIC/FSCS insurance. They're excellent for emergency funds. TurboLoop is a fixed-term DeFi protocol that offers dramatically higher yield by channelling your USDT into PancakeSwap V3 liquidity.",
+    rows: [
+      { metric: "Annual yield", turboloop: "Up to 54% per 90-day cycle", competitor: "4–5% APY (best HYSA rates, 2026)", winner: "turboloop" },
+      { metric: "Liquidity", turboloop: "Locked until maturity (7/30/60/90 days)", competitor: "Fully liquid — withdraw any time", winner: "competitor" },
+      { metric: "Deposit insurance", turboloop: "None (smart contract risk)", competitor: "FDIC/FSCS insured up to local limit", winner: "competitor" },
+      { metric: "Minimum deposit", turboloop: "$50 USDT", competitor: "$0 (most HYSAs)", winner: "tie" },
+      { metric: "Global access", turboloop: "Anyone with a crypto wallet", competitor: "Requires US/UK bank account", winner: "turboloop" },
+      { metric: "Referral income", turboloop: "20-level referral, 51% total commissions", competitor: "Occasional referral bonuses ($50–$300 one-time)", winner: "turboloop" },
+      { metric: "Transparency", turboloop: "100% on-chain", competitor: "Opaque — bank decides how your money is used", winner: "turboloop" },
+    ],
+    closing:
+      "High-yield savings accounts are the best traditional savings product — safe, liquid, and insured. TurboLoop offers dramatically higher yield at the cost of liquidity and deposit insurance. For emergency funds, use a HYSA. For surplus capital you don't need for 30-90 days, TurboLoop's fixed-term plans deliver returns that no savings account can match.",
+  },
 ];
-
 export const getComparison = (slug: string) =>
   COMPARISONS.find(c => c.slug === slug);

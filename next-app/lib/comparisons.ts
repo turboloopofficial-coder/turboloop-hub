@@ -828,6 +828,29 @@ export const COMPARISONS: Comparison[] = [
     closing:
       "High-yield savings accounts are the best traditional savings product — safe, liquid, and insured. TurboLoop offers dramatically higher yield at the cost of liquidity and deposit insurance. For emergency funds, use a HYSA. For surplus capital you don't need for 30-90 days, TurboLoop's fixed-term plans deliver returns that no savings account can match.",
   },
+  {
+    slug: "yearn",
+    competitorName: "Yearn Finance",
+    seoTitle: "TurboLoop vs Yearn Finance (2026) — Which Earns More?",
+    heading: "TurboLoop vs Yearn Finance.",
+    summary:
+      "Yearn Finance automates DeFi yield strategies. TurboLoop offers fixed 54% ROI per 90-day cycle with a simpler, audited BSC contract. Here's the full comparison.",
+    intro:
+      "Yearn Finance is one of DeFi's most respected yield aggregators — it automatically moves your funds between the highest-yielding strategies on Ethereum and other chains. TurboLoop takes a different approach: a single, audited fixed-term liquidity pool on BSC that delivers predictable returns without strategy complexity.",
+    rows: [
+      { metric: "Yield type", turboloop: "Fixed ROI (up to 54% per 90-day cycle)", competitor: "Variable — depends on market conditions", winner: "turboloop" },
+      { metric: "Predictability", turboloop: "Fully predictable at deposit", competitor: "Fluctuates daily with market rates", winner: "turboloop" },
+      { metric: "Chain", turboloop: "BNB Smart Chain (BSC)", competitor: "Ethereum, Arbitrum, Optimism, Fantom", winner: "tie" },
+      { metric: "Gas fees", turboloop: "Very low (BSC)", competitor: "High on Ethereum mainnet", winner: "turboloop" },
+      { metric: "Minimum deposit", turboloop: "$50 USDT", competitor: "No minimum (but gas costs apply)", winner: "turboloop" },
+      { metric: "Smart contract audit", turboloop: "Audited, ownership renounced", competitor: "Audited by multiple firms", winner: "tie" },
+      { metric: "LP lock", turboloop: "100% LP locked", competitor: "N/A (yield aggregator model)", winner: "turboloop" },
+      { metric: "Referral programme", turboloop: "20-level, 51% total commissions", competitor: "None", winner: "turboloop" },
+      { metric: "Complexity", turboloop: "Deposit USDT, choose plan, collect ROI", competitor: "Requires understanding of vault strategies", winner: "turboloop" },
+    ],
+    closing:
+      "Yearn Finance is a powerful tool for experienced DeFi users who want automated yield optimisation across multiple protocols. TurboLoop is the better choice for users who want a simple, fixed, high-yield product on BSC with predictable returns and no strategy management required.",
+  },
 ];
 export const getComparison = (slug: string) =>
   COMPARISONS.find(c => c.slug === slug);

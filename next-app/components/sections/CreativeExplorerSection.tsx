@@ -56,6 +56,7 @@ const LANGUAGE_GROUPS: Array<{
   { id: "korean",     label: "Korean",           flag: "🇰🇷", categories: ["ko"],          href: "/creatives/ko" },
   { id: "lao",        label: "Lao",              flag: "🇱🇦", categories: ["la"],          href: "/creatives/la" },
   { id: "tamil",      label: "Tamil",            flag: "🇮🇳", categories: ["tamil"],       href: "/creatives/tamil" },
+  { id: "bangla",     label: "Bangla",           flag: "🇧🇩", categories: ["bangla"],      href: "/creatives/bangla" },
 ];
 
 // ── Data: Category tabs ───────────────────────────────────────────────────
@@ -88,6 +89,7 @@ const LOCALE_TO_LANG_ID: Record<string, string> = {
   en: "english", th: "thai", ko: "korean", lo: "lao", hi: "hindi",
   ta: "tamil", ar: "arabic", zh: "chinese", it: "italian", ur: "urdu",
   fr: "french", es: "spanish", pcm: "nigerian", de: "german", id: "indonesian",
+  bn: "bangla",
 };
 
 const VALID_LANG_IDS = new Set(LANGUAGE_GROUPS.map(g => g.id));

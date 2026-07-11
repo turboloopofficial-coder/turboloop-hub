@@ -49,6 +49,7 @@ const LOCALE_TO_BLOG_LANG: Record<string, BlogLanguage> = {
   fr: "fr",
   es: "es",
   pcm: "ng",  // next-intl "pcm" → DB "ng"
+  bn: "bn",   // Bangla
   // Legacy / DB codes (fallback for any direct usage)
   la: "la",
   cn: "cn",

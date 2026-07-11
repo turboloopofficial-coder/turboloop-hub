@@ -8,7 +8,7 @@
 export type ReelLang =
   | "en" | "th" | "ko" | "lo" | "hi" | "ta"
   | "ar" | "zh" | "it" | "ur" | "fr" | "es"
-  | "pcm" | "de" | "id";
+  | "pcm" | "de" | "id" | "bn";
 
 type LocalizedString = Partial<Record<ReelLang, string>>;
 
@@ -414,6 +414,7 @@ export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: str
   pcm: { label: "Nigerian Pidgin",    flag: "🇳🇬", dir: "pcm" },
   de:  { label: "Deutsch",            flag: "🇩🇪", dir: "de" },
   id:  { label: "Bahasa Indonesia",   flag: "🇮🇩", dir: "id" },
+  bn:  { label: "বাংলা",               flag: "🇧🇩", dir: "bn" },
 };
 
 function buildLangReels(lang: ReelLang): ReelTrack[] {
@@ -435,7 +436,7 @@ function buildLangReels(lang: ReelLang): ReelTrack[] {
 }
 
 export const ALL_REEL_LANGS: ReelLang[] = [
-  "en", "th", "ko", "lo", "hi", "ta", "ar", "zh", "it", "ur", "fr", "es", "pcm", "de", "id"
+  "en", "th", "ko", "lo", "hi", "ta", "ar", "zh", "it", "ur", "fr", "es", "pcm", "de", "id", "bn"
 ];
 
 /** Grouped by language so the UI can render language sub-sections or

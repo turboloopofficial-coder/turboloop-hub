@@ -2154,6 +2154,22 @@ export const CAMPAIGN_HINDI_CAPTIONS = [
   `Aaj ka ek chota kadam — kal ki badi azaadi.\n\nJitna jaldi TurboLoop mein shuru karo, utna zyada compounding ka faida milega. Kal ka wait mat karo.\n\n👉 Abhi shuru karo: https://turboloop.tech\n\n#TurboLoop #AajHiShuru #Compounding #DeFiIndia #PassiveIncome`,
 ];
 
+/** Pool for `campaigns/bangla/` — Bangladesh market, Bengali script. */
+export const CAMPAIGN_BANGLA_CAPTIONS = [
+  `🇧🇩 বাংলাদেশের DeFi বিপ্লব শুরু হয়েছে।\n\nTurboLoop-এ আপনার USDT-তে দৈনিক রিটার্ন উপার্জন করুন — কোনো ব্যাংক ছাড়া, কোনো মধ্যস্থতাকারী ছাড়া।\n\nস্মার্ট কন্ট্র্যাক্টে সবকিছু স্বচ্ছ। নিজে যাচাই করুন।\n\n👉 আজই শুরু করুন: https://turboloop.tech\n\n#TurboLoop #BangladeshDeFi #PassiveIncome #USDT`,
+  `ঘরে বসে আয় করুন — এটি শুধু স্বপ্ন নয়, TurboLoop-এর বাস্তবতা।\n\nBNB Smart Chain-এ অপরিবর্তনীয় স্মার্ট কন্ট্র্যাক্ট — কেউ নিয়ন্ত্রণ করতে পারে না।\n\n👉 https://turboloop.tech\n\n#TurboLoop #GhoreBoseKamao #PassiveIncome #DeFi #Bangladesh`,
+  `যদি আপনার টাকা আপনার জন্য কাজ না করে, তাহলে আপনি টাকার জন্য কাজ করছেন।\n\nTurboLoop-এ USDT জমা দিন। প্রতি ২৪ ঘণ্টায় রিটার্ন উপার্জন করুন। আপনার জীবন উপভোগ করুন।\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #TakaKajKoruk #PassiveIncome #DeFiBangladesh`,
+  `মুদ্রাস্ফীতি DeFi দিয়ে মোকাবেলা করুন।\n\nব্যাংক FD দেয় বছরে ৬-৭%। TurboLoop দেয় প্রতিদিন — অন-চেইন, স্বচ্ছ এবং যাচাইযোগ্য।\n\nপার্থক্য বুঝুন। সিদ্ধান্ত নিন।\n\n👉 https://turboloop.tech\n\n#TurboLoop #MudrasfitiBeat #DeFiBangladesh #BankVsDeFi`,
+  `আপনার নেটওয়ার্ক থেকে আয় করুন — ২০ স্তর পর্যন্ত।\n\nTurboLoop-এর রেফারেল সিস্টেম বাংলাদেশের জন্য নিখুঁত — যত বড় আপনার নেটওয়ার্ক, তত বেশি আপনার আয়।\n\n👉 https://turboloop.tech/apply\n\n#TurboLoop #NetworkIncome #Referral20Levels #PassiveIncome`,
+  `স্ক্যাম নয় — স্মার্ট কন্ট্র্যাক্ট।\n\nTurboLoop-এর কোড BscScan-এ পাবলিক। যে কেউ যাচাই করতে পারে। কোনো টিম ওয়ালেট নেই। কোনো অ্যাডমিন কী নেই। শুধু কোড।\n\n👉 যাচাই করুন: https://turboloop.tech/token\n\n#TurboLoop #ScamNoy #SmartContract #DeFiTrust #Bangladesh`,
+  `মাত্র ১ USDT দিয়ে শুরু করুন।\n\nTurboLoop-এ সর্বনিম্ন জমা মাত্র ১ USDT। ছোট শুরু করুন, বড় স্বপ্ন দেখুন। প্রোটোকল সবার জন্য তৈরি।\n\n👉 https://turboloop.tech\n\n#TurboLoop #1USDT #ChhotoThekeShuru #DeFiBangladesh`,
+  `চাকরি ছাড়বেন না — আগে প্যাসিভ ইনকাম তৈরি করুন।\n\nযখন TurboLoop-এর আয় আপনার বেতনের চেয়ে বেশি হবে, তখন সিদ্ধান্ত নিন।\n\n👉 https://turboloop.tech/calculator\n\n#TurboLoop #ChakriChharbenna #PassiveIncome #DeFiBangladesh`,
+  `আপনার টাকা ২৪/৭ কাজ করে — আপনি ঘুমাচ্ছেন বা জেগে আছেন।\n\nTurboLoop-এর স্মার্ট কন্ট্র্যাক্ট কখনো বন্ধ হয় না। প্রতি ২৪ ঘণ্টায় রিটার্ন — স্বয়ংক্রিয়ভাবে।\n\n👉 https://turboloop.tech\n\n#TurboLoop #24x7Kamao #PassiveIncome #DeFi #Bangladesh`,
+  `পরিবারের জন্য কিছু আলাদা করুন।\n\nTurboLoop থেকে যে প্যাসিভ ইনকাম আসে, সেটি আপনার সন্তানের শিক্ষা, বাবা-মায়ের যত্ন, আপনার স্বপ্নের জন্য।\n\n👉 https://turboloop.tech\n\n#TurboLoop #PoribarErJonno #PassiveIncome #DeFiBangladesh`,
+  `ব্লকচেইন কী? সহজ।\n\nএকটি পাবলিক লেজার যেখানে সবকিছু রেকর্ড হয় — স্থায়ীভাবে, স্বচ্ছভাবে। TurboLoop এর উপরেই চলে।\n\n👉 আরো জানুন: https://turboloop.tech/learn\n\n#TurboLoop #BlockchainKi #DeFiEducation #Bangladesh`,
+  `আজকের একটি ছোট পদক্ষেপ — আগামীকালের বড় স্বাধীনতা।\n\nযত তাড়াতাড়ি TurboLoop-এ শুরু করবেন, তত বেশি কম্পাউন্ডিং-এর সুবিধা পাবেন।\n\n👉 এখনই শুরু করুন: https://turboloop.tech\n\n#TurboLoop #AjHiShuru #Compounding #DeFiBangladesh #PassiveIncome`,
+];
+
 /** Pool for `campaigns/nigerian/` — Nigeria market, Pidgin-flavoured. */
 export const CAMPAIGN_NIGERIAN_CAPTIONS = [
   `🇳🇬 Naija, the DeFi revolution don reach our side.\n\nTurboLoop dey pay 0.9% daily yield on your USDT — no bank, no wahala, no middleman. Just smart contract.\n\n👉 Start today: https://turboloop.tech\n\n#TurboLoop #NaijaDeFi #PassiveIncome #MakeMoneyOnline #Nigeria`,

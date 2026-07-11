@@ -32,7 +32,7 @@ import { and, asc, eq, like, lte, isNotNull } from "drizzle-orm";
 import { blogPosts, siteSettings, scheduledPosts } from "../../drizzle/schema";
 import { tgBroadcastPhoto, tgSendPhoto, tgBroadcastVideo, tgSendVideo, tgBroadcastMessage } from "./_telegram";
 // _campaignSchedule is no longer imported — campaign slots are defined inline below
-import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
+import { blogPostCaption, launchAnnouncementCaption, zoomReminderCaption, pickTodaysFilm, cinematicCaption, cinematicPosterUrl, pickTodaysMonthlyBanner, monthlyBannerUrl, monthlyCompoundingCaption, pickTodaysHubPromo, hubPromoBannerUrl, pickHubPromoByPages, MONTHLY_COMPOUND_BANNERS, pickByDay, campaignBannerUrl, CAMPAIGN_LIFESTYLE_CAPTIONS, CAMPAIGN_TOKEN_CAPTIONS, CAMPAIGN_REFERRAL_CAPTIONS, CAMPAIGN_OBJECTION_CAPTIONS, CAMPAIGN_HINDI_CAPTIONS, CAMPAIGN_BANGLA_CAPTIONS, CAMPAIGN_NIGERIAN_CAPTIONS, CAMPAIGN_SUCCESS_CAPTIONS, CAMPAIGN_EDUCATION_CAPTIONS, CAMPAIGN_URGENCY_CAPTIONS, CAMPAIGN_BUYBACK_CAPTIONS, CAMPAIGN_COMPARISON_CAPTIONS, CAMPAIGN_COMMUNITY_CAPTIONS, type ZoomLang, type ZoomTier } from "./_messagePools";
 import { getZoomConfig } from "../zoom-config";
 import {
   CAMPAIGN_A,
@@ -2341,6 +2341,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // ── 02:xx ──
       { hour:  2, minute:  0, taskId: "campaign:c05", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
       { hour:  2, minute: 30, taskId: "campaign:c06", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 03:xx (Bangla — 9 AM Bangladesh time) ──
+      { hour:  3, minute: 15, taskId: "campaign:c07b", category: "bangla",           captions: CAMPAIGN_BANGLA_CAPTIONS },
       // ── 03:xx ──
       { hour:  3, minute:  0, taskId: "campaign:c07", category: "success-story",     captions: CAMPAIGN_SUCCESS_CAPTIONS },
       { hour:  3, minute: 30, taskId: "campaign:c08", category: "comparison",        captions: CAMPAIGN_COMPARISON_CAPTIONS },
@@ -2377,6 +2379,8 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       // ── 14:xx ──
       { hour: 14, minute:  0, taskId: "campaign:c29", category: "hindi-new",         captions: CAMPAIGN_HINDI_CAPTIONS },
       { hour: 14, minute: 30, taskId: "campaign:c30", category: "nigerian",          captions: CAMPAIGN_NIGERIAN_CAPTIONS },
+      // ── 15:15 (Bangla — 9 PM Bangladesh time) ──
+      { hour: 15, minute: 15, taskId: "campaign:c31b", category: "bangla",           captions: CAMPAIGN_BANGLA_CAPTIONS },
       // ── 15:xx ──
       { hour: 15, minute:  0, taskId: "campaign:c31", category: "referral",          captions: CAMPAIGN_REFERRAL_CAPTIONS },
       { hour: 15, minute: 30, taskId: "campaign:c32", category: "objection-handler", captions: CAMPAIGN_OBJECTION_CAPTIONS },

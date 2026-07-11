@@ -1,4 +1,5 @@
-// ── unifiedCreativesData.ts ────────────────────────────────────────────────
+// ── unifiedCreativesData.ts ─────────────────────────────────────────────────
+// v2.1 — 2026-07-11: added bn (Bangla 193) + tr (Turkish 186) language support
 // Single source of truth for ALL 1,134+ creatives across three libraries:
 //   1. Legacy branded library (175 images)
 //   2. Language Education Kit (455 images × 7 languages)

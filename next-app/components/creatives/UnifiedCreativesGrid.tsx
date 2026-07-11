@@ -98,13 +98,16 @@ export function UnifiedCreativesGrid({
   useEffect(() => {
     // Skip the very first render — we already have SSR data for the
     // default state (all categories, all languages, no search, page 1).
+    // However, if initialLang is set (locale-specific page), the SSR items
+    // are English — always fetch on first render to get the right language.
     const isDefaultState =
       activeCategory === (initialCategory ?? "all") &&
       activeLang === (initialLang ?? "all") &&
       debouncedSearch === "" &&
       currentPage === 1;
 
-    if (isDefaultState && items === initialItems) return;
+    const hasLocaleFilter = initialLang && initialLang !== "all";
+    if (isDefaultState && items === initialItems && !hasLocaleFilter) return;
 
     setLoading(true);
     setCurrentPage(1);

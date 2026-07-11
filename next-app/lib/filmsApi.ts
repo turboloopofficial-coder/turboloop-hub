@@ -58,9 +58,10 @@ export const LANG_LABEL_TO_CODE: Record<string, "en" | "de" | "hi" | "id" | "th"
   Spanish: "es",
   Lao: "lo",
   "Nigerian Pidgin": "pcm",
+  Bangla: "bn",
 };
 
-export const LANG_CODE_TO_LABEL: Record<"en" | "de" | "hi" | "id" | "th" | "ko" | "ar" | "zh" | "ta" | "it" | "ur" | "fr" | "es" | "lo" | "pcm", string> = {
+export const LANG_CODE_TO_LABEL: Record<"en" | "de" | "hi" | "id" | "th" | "ko" | "ar" | "zh" | "ta" | "it" | "ur" | "fr" | "es" | "lo" | "pcm" | "bn", string> = {
   en: "English",
   de: "German",
   hi: "Hindi",
@@ -76,6 +77,7 @@ export const LANG_CODE_TO_LABEL: Record<"en" | "de" | "hi" | "id" | "th" | "ko" 
   es: "Spanish",
   lo: "Lao",
   pcm: "Nigerian Pidgin",
+  bn: "Bangla",
 };
 
 export type FilmLang = keyof typeof LANG_CODE_TO_LABEL;

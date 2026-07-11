@@ -75,6 +75,7 @@ const LANG_TABS: ReadonlyArray<{ code: FilmLang; label: string; flag: string }> 
   { code: "de", label: "Deutsch", flag: "🇩🇪" },
   { code: "hi", label: "हिंदी", flag: "🇮🇳" },
   { code: "id", label: "Bahasa", flag: "🇮🇩" },
+  { code: "bn", label: "বাংলা", flag: "🇧🇩" },
 ];
 
 export const metadata: Metadata = {
@@ -87,6 +88,7 @@ export const metadata: Metadata = {
       de: "https://www.turboloop.tech/films?lang=de",
       hi: "https://www.turboloop.tech/films?lang=hi",
       id: "https://www.turboloop.tech/films?lang=id",
+      bn: "https://www.turboloop.tech/films?lang=bn",
       "x-default": "https://www.turboloop.tech/films",
     },
   },

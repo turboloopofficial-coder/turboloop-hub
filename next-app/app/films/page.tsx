@@ -28,6 +28,7 @@ import Link from "next/link";
 import {
   fetchFilmsByLanguage,
   groupFilmsForListing,
+  LANG_CODE_TO_LABEL,
   type FilmLang,
 } from "@lib/filmsApi";
 import { SEASONS } from "@lib/cinematicUniverse";
@@ -119,8 +120,9 @@ const S2_BLOCKS: ReadonlyArray<{
   { range: [16, 20], title: "The Vision", emoji: "🌍", accent: "#10B981" },
 ];
 
+const VALID_LANG_CODES = new Set(Object.keys(LANG_CODE_TO_LABEL));
 function isLang(v: string | undefined): v is FilmLang {
-  return v === "en" || v === "de" || v === "hi" || v === "id";
+  return v !== undefined && VALID_LANG_CODES.has(v);
 }
 
 export default async function FilmsPage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {

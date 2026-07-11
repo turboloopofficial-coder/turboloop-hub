@@ -19,7 +19,7 @@
 // records the pipeline state and provides a status dashboard for admins.
 
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/server/db";
+import { getDb } from "@lib/db";
 import { languageRequests } from "../../../drizzle/schema";
 import { eq } from "drizzle-orm";
 

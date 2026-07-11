@@ -17,7 +17,7 @@
 // the admin panel, which triggers the automated onboarding pipeline.
 
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/server/db";
+import { getDb } from "@lib/db";
 import { languageRequests } from "../../../drizzle/schema";
 import { desc, eq } from "drizzle-orm";
 

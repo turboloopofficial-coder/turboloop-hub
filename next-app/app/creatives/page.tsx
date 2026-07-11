@@ -14,7 +14,15 @@ import {
   UNIFIED_CATEGORIES,
   TOTAL_CREATIVES,
   TOTAL_CATEGORIES,
+  type CreativeLanguage,
 } from "@lib/unifiedCreativesData";
+
+// Maps next-intl locale code → CreativeLanguage for auto-selecting the language tab.
+const LOCALE_TO_CREATIVE_LANG: Record<string, CreativeLanguage> = {
+  en: "en", hi: "hi", id: "id", fr: "fr", ar: "ar", es: "es",
+  de: "de", zh: "zh", it: "it", ur: "ur", pcm: "pcm", th: "th",
+  ko: "ko", lo: "lo", ta: "ta", bn: "bn", tr: "tr",
+};
 
 // First page of items for SSR — avoids serialising all 1,400+ items into HTML.
 // The UnifiedCreativesGrid fetches subsequent pages from /api/creatives.
@@ -137,6 +145,7 @@ export default async function CreativesPage() {
           initialTotal={TOTAL_CREATIVES}
           categories={UNIFIED_CATEGORIES}
           categoryNavMode={true}
+          initialLang={LOCALE_TO_CREATIVE_LANG[locale] ?? "all"}
         />
 
         {/* ── SEO footer ──────────────────────────────────────────────────── */}

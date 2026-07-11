@@ -40,6 +40,8 @@ interface Props {
   initialCategory?: string;
   // When true, clicking a category tab navigates to /creatives/[id] instead of filtering in-place.
   categoryNavMode?: boolean;
+  // Optional pre-selected language (auto-set from page locale so e.g. /tr/creatives shows Turkish banners)
+  initialLang?: CreativeLanguage | "all";
 }
 
 export function UnifiedCreativesGrid({
@@ -48,6 +50,7 @@ export function UnifiedCreativesGrid({
   categories,
   initialCategory,
   categoryNavMode = false,
+  initialLang = "all" as CreativeLanguage | "all",
 }: Props) {
   const router = useRouter();
   // Hardcoded strings — /creatives is not inside the [locale] segment so
@@ -71,7 +74,7 @@ export function UnifiedCreativesGrid({
     setActiveCategory(initialCategory ?? "all"); // clear category filter when switching to language mode
   };
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory ?? "all");
-  const [activeLang, setActiveLang] = useState<CreativeLanguage | "all">("all");
+  const [activeLang, setActiveLang] = useState<CreativeLanguage | "all">(initialLang);
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -97,7 +100,7 @@ export function UnifiedCreativesGrid({
     // default state (all categories, all languages, no search, page 1).
     const isDefaultState =
       activeCategory === (initialCategory ?? "all") &&
-      activeLang === "all" &&
+      activeLang === (initialLang ?? "all") &&
       debouncedSearch === "" &&
       currentPage === 1;
 

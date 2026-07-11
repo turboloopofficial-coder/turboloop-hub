@@ -502,3 +502,41 @@ export const scheduledPosts = pgTable("scheduled_posts", {
 
 export type ScheduledPost = typeof scheduledPosts.$inferSelect;
 export type InsertScheduledPost = typeof scheduledPosts.$inferInsert;
+
+// ── Language Requests ──────────────────────────────────────────────────────
+// Community members can request new languages. Admin approves → pipeline runs.
+export const languageRequestStatusEnum = pgEnum("language_request_status", [
+  "pending",
+  "approved",
+  "in_progress",
+  "completed",
+  "rejected",
+]);
+
+export const languageRequests = pgTable("language_requests", {
+  id: serial("id").primaryKey(),
+  languageName: varchar("language_name", { length: 100 }).notNull(),
+  languageCode: varchar("language_code", { length: 10 }).notNull().unique(),
+  nativeName: varchar("native_name", { length: 100 }).notNull(),
+  flag: varchar("flag", { length: 10 }).notNull(),
+  requesterName: varchar("requester_name", { length: 200 }),
+  requesterTelegram: varchar("requester_telegram", { length: 100 }),
+  reason: text("reason"),
+  status: languageRequestStatusEnum("status").default("pending").notNull(),
+  votes: integer("votes").default(1).notNull(),
+  // Pipeline progress tracking
+  pipelineProgress: jsonb("pipeline_progress").$type<{
+    videoDubbing?: "pending" | "done";
+    thumbnails?: "pending" | "done";
+    banners?: "pending" | "done";
+    blogs?: "pending" | "done";
+    telegramSchedule?: "pending" | "done";
+  }>(),
+  adminNotes: text("admin_notes"),
+  approvedAt: timestamp("approved_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+});
+export type LanguageRequest = typeof languageRequests.$inferSelect;
+export type InsertLanguageRequest = typeof languageRequests.$inferInsert;

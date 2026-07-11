@@ -10,7 +10,18 @@
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: Request) {
+  // Simple auth check — require CRON_SECRET as query param or header
+  const url = new URL(req.url);
+  const secret = url.searchParams.get("secret") || req.headers.get("x-admin-token");
+  const expected = process.env.CRON_SECRET || process.env.ADMIN_API_TOKEN;
+  if (!secret || secret !== expected) {
+    return new Response(
+      JSON.stringify({ ok: false, error: "Unauthorized" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) {
     return new Response(

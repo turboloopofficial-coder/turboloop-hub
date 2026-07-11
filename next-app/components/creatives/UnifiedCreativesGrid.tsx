@@ -19,6 +19,7 @@ import { UnifiedBannerCard } from "./UnifiedBannerCard";
 import { DownloadKitButton } from "./DownloadKitButton";
 import type { UnifiedCreative, UnifiedCategoryDef, CreativeLanguage } from "@lib/unifiedCreativesData";
 import { UNIFIED_LANGUAGES } from "@lib/unifiedCreativesData";
+import { LanguageRequestForm } from "./LanguageRequestForm";
 
 const PAGE_SIZE = 48;
 
@@ -309,6 +310,13 @@ export function UnifiedCreativesGrid({
           </div>
         )}
       </div>
+
+      {/* ── Language request form — below sticky bar ──────────────────── */}
+      {exploreMode === "language" && (
+        <div className="px-4 md:px-6 pt-3">
+          <LanguageRequestForm />
+        </div>
+      )}
 
       {/* ── Results count ─────────────────────────────────────────────── */}
       <div className="px-4 md:px-6 pt-4 pb-2 flex items-center justify-between gap-3">

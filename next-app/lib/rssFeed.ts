@@ -14,123 +14,23 @@
 // correct language hint for spell-check, TTS, and read-aloud.
 
 import { api, BLOG_LANGUAGES, type BlogLanguage, type BlogPost } from "./api";
+import { LANGUAGES } from "./languages";
 
 const SITE = "https://www.turboloop.tech";
 
-// RFC-3066 language tags per feed. RSS 2.0's <language> element wants
-// these specifically (not BCP-47 like the rest of our SEO stack).
-const RSS_LANG: Record<BlogLanguage, string> = {
-  en: "en-us",
-  de: "de-de",
-  hi: "hi-in",
-  id: "id-id",
-  th: "th-th",
-  ko: "ko-kr",
-  lo: "lo-la",
-  fr: "fr-fr",
-  ta: "ta-in",
-  la: "lo-la",
-  cn: "zh-cn",
-  es: "es-es",
-  ng: "en-ng",
-  it: "it-it",
-  sa: "ar-sa",
-  kr: "ko-kr",
-  pk: "ur-pk",
-};
+// ⚡ RSS_LANG and CHANNEL_META derived from languages.ts — no manual updates needed
+const RSS_LANG: Record<BlogLanguage, string> = Object.fromEntries(
+  Object.values(LANGUAGES).map(l => [l.code, l.bcp47])
+) as Record<BlogLanguage, string>;
 
-// Per-language feed metadata. Keeps the channel <title> + <description>
-// native to the audience rather than always reading in English.
-const CHANNEL_META: Record<
-  BlogLanguage,
-  { title: string; description: string }
-> = {
-  en: {
-    title: "Turbo Loop — Editorial",
-    description:
-      "Long-form articles on DeFi, yield, security, and the math behind TurboLoop.",
-  },
-  de: {
-    title: "Turbo Loop — Redaktion",
-    description:
-      "Langform-Artikel über DeFi, Renditen, Sicherheit und die Mathematik hinter TurboLoop.",
-  },
-  hi: {
-    title: "Turbo Loop — संपादकीय",
-    description:
-      "DeFi, यील्ड, सुरक्षा और TurboLoop के पीछे के गणित पर विस्तृत लेख।",
-  },
-  id: {
-    title: "Turbo Loop — Editorial",
-    description:
-      "Artikel mendalam tentang DeFi, yield, keamanan, dan matematika di balik TurboLoop.",
-  },
-  th: {
-    title: "Turbo Loop — บทบรรณาธิการ",
-    description:
-      "บทความเชิงลึกเกี่ยวกับ DeFi, ผลตอบแทน, ความปลอดภัย และคณิตศาสตร์เบื้องหลัง TurboLoop.",
-  },
-  ko: {
-    title: "Turbo Loop — 에디토리얼",
-    description:
-      "DeFi, 수익, 보안 및 TurboLoop의 수학에 관한 심층 기사.",
-  },
-  lo: {
-    title: "Turbo Loop — ບົດບັນນາທິການ",
-    description:
-      "ບົດຄວາມລະອຽດກ່ຽວກັບ DeFi, ຜົນຕອບແທນ, ຄວາມປອດໄພ ແລະ ຄະນິດສາດທີ່ຢູ່ເບື້ອງຼັງ TurboLoop.",
-  },
-  fr: {
-    title: "Turbo Loop — Éditorial",
-    description:
-      "Articles approfondis sur la DeFi, le rendement, la sécurité et les mathématiques derrière TurboLoop.",
-  },
-  ta: {
-    title: "Turbo Loop — தலையங்கம்",
-    description:
-      "DeFi, வருமானம், பாதுகாப்பு மற்றும் TurboLoop பின்னணியிலுள்ள கணிதம் பற்றிய ஆழமான கட்டுரைகள்.",
-  },
-  la: {
-    title: "Turbo Loop — ບົດບັນນາທິການ",
-    description:
-      "ບົດຄວາມລະອຽດກ່ຽວກັບ DeFi, ຜົນຕອບແທນ, ຄວາມປອດໄພ ແລະ ຄະນິດສາດທີ່ຢູ່ເບື້ອງຼັງ TurboLoop.",
-  },
-  cn: {
-    title: "Turbo Loop — 社论",
-    description:
-      "关于DeFi、收益、安全以及TurboLoop背后数学的深度文章。",
-  },
-  es: {
-    title: "Turbo Loop — Editorial",
-    description:
-      "Artículos en profundidad sobre DeFi, rendimiento, seguridad y las matemáticas detrás de TurboLoop.",
-  },
-  ng: {
-    title: "Turbo Loop — Editorial",
-    description:
-      "Long articles about DeFi, yield, security, and the math wey dey behind TurboLoop.",
-  },
-  it: {
-    title: "Turbo Loop — Editoriale",
-    description:
-      "Articoli approfonditi su DeFi, rendimento, sicurezza e la matematica dietro TurboLoop.",
-  },
-  sa: {
-    title: "Turbo Loop — افتتاحية",
-    description:
-      "مقالات متعمقة حول التمويل اللامركزي والعائد والأمان والرياضيات وراء TurboLoop.",
-  },
-  kr: {
-    title: "Turbo Loop — 에디토리얼",
-    description:
-      "DeFi, 수익, 보안 및 TurboLoop의 수학에 관한 심층 기사.",
-  },
-  pk: {
-    title: "Turbo Loop — اداریہ",
-    description:
-      "DeFi، منافع، سیکیورٹی اور TurboLoop کے پیچھے ریاضی پر گہرائی سے مضامین۔",
-  },
-};
+// ⚡ CHANNEL_META derived from languages.ts — no manual updates needed when adding a language
+const CHANNEL_META: Record<BlogLanguage, { title: string; description: string }> =
+  Object.fromEntries(
+    Object.values(LANGUAGES).map(l => [
+      l.code,
+      { title: l.rssTitle, description: l.rssDescription }
+    ])
+  ) as Record<BlogLanguage, { title: string; description: string }>;
 
 function escape(s: string): string {
   return String(s ?? "")

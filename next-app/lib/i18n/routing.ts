@@ -1,32 +1,27 @@
 import { defineRouting } from "next-intl/routing";
+// ⚡ LANGUAGE SOURCE OF TRUTH: lib/languages.ts
+// LOCALES and LOCALE_LABELS are derived from that config.
+// To add a new language, edit ONLY lib/languages.ts.
+import { LANGUAGES, LANGUAGE_ORDER } from "../languages";
 
-export const LOCALES = [
-  "en", "th", "ko", "lo", "hi", "de", "id", "ta",
-  "ar", "zh", "it", "ur", "fr", "es", "pcm",
-] as const;
-export type Locale = (typeof LOCALES)[number];
+// Deduplicate locales (some DB codes share a locale, e.g. kr/ko both use "ko")
+const uniqueLocales = [...new Set(LANGUAGE_ORDER.map(code => LANGUAGES[code].locale))];
 
-export const LOCALE_LABELS: Record<Locale, { label: string; flag: string; native: string }> = {
-  en: { label: "English",           flag: "🇬🇧", native: "English" },
-  th: { label: "Thai",              flag: "🇹🇭", native: "ภาษาไทย" },
-  ko: { label: "Korean",            flag: "🇰🇷", native: "한국어" },
-  lo: { label: "Lao",               flag: "🇱🇦", native: "ພາສາລາວ" },
-  hi: { label: "Hindi",             flag: "🇮🇳", native: "हिंदी" },
-  de: { label: "German",            flag: "🇩🇪", native: "Deutsch" },
-  id: { label: "Indonesian",        flag: "🇮🇩", native: "Bahasa Indonesia" },
-  ta:  { label: "Tamil",                 flag: "🇮🇳", native: "தமிழ்" },
-  ar:  { label: "Arabic",                flag: "🇸🇦", native: "العربية" },
-  zh:  { label: "Chinese",               flag: "🇨🇳", native: "中文" },
-  it:  { label: "Italian",               flag: "🇮🇹", native: "Italiano" },
-  ur:  { label: "Urdu",                  flag: "🇵🇰", native: "اردو" },
-  fr:  { label: "French",                flag: "🇫🇷", native: "Français" },
-  es:  { label: "Spanish",               flag: "🇪🇸", native: "Español" },
-  pcm: { label: "Nigerian Pidgin",       flag: "🇳🇬", native: "Naija" },
-};
+export const LOCALES = uniqueLocales as unknown as readonly string[];
+export type Locale = typeof LOCALES[number];
+
+export const LOCALE_LABELS: Record<string, { label: string; flag: string; native: string }> =
+  Object.fromEntries(
+    uniqueLocales.map(locale => {
+      // Find the first language config that uses this locale
+      const lang = Object.values(LANGUAGES).find(l => l.locale === locale)!;
+      return [locale, { label: lang.name, flag: lang.flag, native: lang.nativeName }];
+    })
+  );
 
 export const routing = defineRouting({
   // A list of all locales that are supported
-  locales: LOCALES,
+  locales: LOCALES as unknown as [string, ...string[]],
 
   // Used when no locale matches — English is the default (no prefix)
   defaultLocale: "en",

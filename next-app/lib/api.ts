@@ -65,32 +65,18 @@ async function fetchTRPC<T>(
 // import @drizzle/* directly because it pulls in node-only deps that
 // can't be tree-shaken from the client bundle. Types are small; risk
 // of drift is low (the schema rarely changes).
+//
+// ⚡ LANGUAGE SOURCE OF TRUTH: lib/languages.ts
+// To add a new language, edit ONLY lib/languages.ts.
+// All types, maps, and arrays below are derived from that config.
+import { LANGUAGES, LANGUAGE_ORDER, type LanguageCode } from "./languages";
 
-export type BlogLanguage = "en" | "de" | "hi" | "id" | "th" | "ko" | "lo" | "fr" | "ta" | "la" | "cn" | "es" | "ng" | "it" | "sa" | "kr" | "pk";
+export type BlogLanguage = LanguageCode;
 
-/** BCP-47 mapping for hreflang. We use 2-letter ISO 639-1 codes in the
- *  DB column (`en`, `de`, `hi`, `id`) and resolve them to a hreflang
- *  value here. Google accepts both 2-letter and full BCP-47 — using
- *  region-less codes keeps the tag count predictable. */
-export const HREFLANG_BY_LANG: Record<BlogLanguage, string> = {
-  en: "en",
-  de: "de",
-  hi: "hi",
-  id: "id",
-  th: "th",
-  ko: "ko",
-  lo: "lo",
-  fr: "fr",
-  ta: "ta",
-  la: "lo",
-  cn: "zh",
-  es: "es",
-  ng: "pcm",
-  it: "it",
-  sa: "ar",
-  kr: "ko",
-  pk: "ur",
-};
+/** BCP-47 mapping for hreflang — derived from languages.ts */
+export const HREFLANG_BY_LANG: Record<BlogLanguage, string> = Object.fromEntries(
+  Object.values(LANGUAGES).map(l => [l.code, l.bcp47.split("-")[0]])
+) as Record<BlogLanguage, string>;
 
 export interface BlogPost {
   id: number;
@@ -130,29 +116,16 @@ export interface BlogPost {
   updatedAt: string | null;
 }
 
+/** Ordered language list for UI rendering — derived from languages.ts */
 export const BLOG_LANGUAGES: ReadonlyArray<{
   code: BlogLanguage;
   label: string;
   flag: string;
-}> = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-  { code: "hi", label: "हिंदी", flag: "🇮🇳" },
-  { code: "ta", label: "தமிழ்", flag: "🇮🇳" },
-  { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
-  { code: "kr", label: "한국어", flag: "🇰🇷" },
-  { code: "ko", label: "한국어 (alt)", flag: "🇰🇷" },
-  { code: "la", label: "ພາສາລາວ", flag: "🇱🇦" },
-  { code: "lo", label: "ພາສາລາວ (alt)", flag: "🇱🇦" },
-  { code: "cn", label: "中文", flag: "🇨🇳" },
-  { code: "sa", label: "العربية", flag: "🇸🇦" },
-  { code: "it", label: "Italiano", flag: "🇮🇹" },
-  { code: "pk", label: "اردو", flag: "🇵🇰" },
-  { code: "ng", label: "Naija", flag: "🇳🇬" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
-];
+}> = LANGUAGE_ORDER.map(code => ({
+  code,
+  label: LANGUAGES[code].nativeName,
+  flag: LANGUAGES[code].flag,
+}));
 
 /** Find all sibling translations of a post within an already-fetched
  *  catalogue. Includes both the parent (if `post` is a translation) and
@@ -174,7 +147,7 @@ export function blogTranslationGroup(
   // `post.translationOf`. If `post` is the original (translationOf is
   // null), root is `post.id`.
   const rootId = post.translationOf ?? post.id;
-  const langOrder: BlogLanguage[] = ["en", "fr", "es", "hi", "ta", "th", "kr", "ko", "la", "lo", "cn", "sa", "it", "pk", "ng", "de", "id"];
+  const langOrder: BlogLanguage[] = LANGUAGE_ORDER;
   const group = all.filter(p => p.id === rootId || p.translationOf === rootId);
   // Sort by deterministic language order so the rendered hreflang tags
   // don't shuffle between deploys.

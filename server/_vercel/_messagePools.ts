@@ -121,11 +121,36 @@ const BLOG_HEADLINES_ID = [
   "📖 Bacaan harian",
 ];
 
+const BLOG_HEADLINES_BN = [
+  "📖 আজকের পড়া",
+  "📖 ব্লগে নতুন",
+  "📖 আজকের আর্টিকেল",
+  "📖 সম্পাদকীয় থেকে তাজা",
+  "📖 আজকের গভীর বিশ্লেষণ",
+  "📖 আজ রাতে পড়ার মতো",
+  "📖 আজকের লেখা",
+  "📖 এইমাত্র প্রকাশিত",
+  "📖 সম্পাদক থেকে সরাসরি",
+  "📖 আজকের দীর্ঘ পড়া",
+  "📖 আজকের গল্প",
+  "📖 নতুন অধ্যায় — TurboLoop ব্লগ",
+  "📖 সন্ধ্যার পড়া",
+  "📖 আজকের দৃষ্টিভঙ্গি",
+  "📖 নতুন প্রবন্ধ লাইভ",
+  "📖 TurboLoop ব্লগ — আজকের লেখা",
+  "📖 এইমাত্র এলো",
+  "📖 turboloop.tech-এ নতুন",
+  "📖 আজকের সম্পাদকীয়",
+  "📖 নতুন দৃষ্টিভঙ্গি",
+  "📖 দৈনিক পড়া",
+];
+
 const HEADLINE_POOLS = {
   en: BLOG_HEADLINES_EN,
   de: BLOG_HEADLINES_DE,
   hi: BLOG_HEADLINES_HI,
   id: BLOG_HEADLINES_ID,
+  bn: BLOG_HEADLINES_BN,
 } as const;
 
 /** Per-language footer line. Keeps the trailing brand mention native to
@@ -136,6 +161,7 @@ const FOOTER_BY_LANG = {
   de: "turboloop.tech — sicher und transparent",
   hi: "turboloop.tech — सुरक्षित और पारदर्शी",
   id: "turboloop.tech — aman & transparan",
+  bn: "turboloop.tech — নিরাপদ ও স্বচ্ছ",
 } as const;
 
 export type BlogLang = keyof typeof HEADLINE_POOLS;

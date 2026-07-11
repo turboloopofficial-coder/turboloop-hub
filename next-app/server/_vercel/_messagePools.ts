@@ -121,24 +121,50 @@ const BLOG_HEADLINES_ID = [
   "📖 Bacaan harian",
 ];
 
-const HEADLINE_POOLS = {
+// ⚡ Add new language headlines here. HEADLINE_POOLS and FOOTER_BY_LANG are built from this map.
+// Each key is the DB language code. Falls back to EN if a language has no entry.
+const BLOG_HEADLINES_BN = [
+  "📖 আজের পাঠ",
+  "📖 ব্লগে নতুন",
+  "📖 আজের প্রবন্ধ",
+  "📖 সম্পাদকীয় থেকে তাজা",
+  "📖 আজের গভীর বিশ্লেষণ",
+  "📖 আজ সন্ধ্যায় পড়ার যোগ্য",
+  "📖 আজের লেখা",
+  "📖 এইমাত্র প্রকাশিত",
+  "📖 সম্পাদকের কলম থেকে",
+  "📖 আজের দীর্ঘ পাঠ",
+  "📖 আজের গল্প",
+  "📖 নতুন অধ্যায় — TurboLoop ব্লগ",
+  "📖 সন্ধ্যার পাঠ",
+  "📖 আজের দৃষ্টিভঙ্গি",
+  "📖 নতুন প্রবন্ধ লাইভ",
+  "📖 TurboLoop ব্লগ — আজের লেখা",
+  "📖 এইমাত্র প্রকাশিত হলো",
+  "📖 turboloop.tech-এ নতুন",
+  "📖 আজের সম্পাদকীয়",
+  "📖 নতুন দৃষ্টিভঙ্গি",
+  "📖 দৈনিক পাঠ",
+];
+
+const HEADLINE_POOLS: Record<string, readonly string[]> = {
   en: BLOG_HEADLINES_EN,
   de: BLOG_HEADLINES_DE,
   hi: BLOG_HEADLINES_HI,
   id: BLOG_HEADLINES_ID,
-} as const;
+  bn: BLOG_HEADLINES_BN,
+};
 
-/** Per-language footer line. Keeps the trailing brand mention native to
- *  the audience rather than always reading "turboloop.tech" in Latin
- *  script (which is fine but a translated tagline reads more natural). */
-const FOOTER_BY_LANG = {
+/** Per-language footer line. Add a new entry here when adding a language. */
+const FOOTER_BY_LANG: Record<string, string> = {
   en: "turboloop.tech",
   de: "turboloop.tech — sicher und transparent",
   hi: "turboloop.tech — सुरक्षित और पारदर्शी",
   id: "turboloop.tech — aman & transparan",
-} as const;
+  bn: "turboloop.tech — নিরাপদ ও স্বচ্ছ",
+};
 
-export type BlogLang = keyof typeof HEADLINE_POOLS;
+export type BlogLang = string;
 
 /** Pick a language pool by ISO code, falling back to English if the
  *  caller passes a language we haven't translated copy for yet (e.g. a

@@ -20,26 +20,13 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing, LOCALES, type Locale } from "./lib/i18n/routing";
+import { LANGUAGES } from "./lib/languages";
 
+// ⚡ LOCALE_TO_BLOG_LANG derived from languages.ts — no manual updates needed when adding a language
 // Maps next-intl locale codes → DB blog language codes.
-// Used to inject ?lang= when rewriting locale-prefixed blog URLs.
-const LOCALE_TO_BLOG_LANG: Record<string, string> = {
-  en: "en",
-  th: "th",
-  ko: "kr",   // next-intl "ko" → DB "kr"
-  lo: "la",   // next-intl "lo" → DB "la"
-  hi: "hi",
-  de: "de",
-  id: "id",
-  ta: "ta",
-  ar: "sa",   // next-intl "ar" → DB "sa"
-  zh: "cn",   // next-intl "zh" → DB "cn"
-  it: "it",
-  ur: "pk",   // next-intl "ur" → DB "pk"
-  fr: "fr",
-  es: "es",
-  pcm: "ng",  // next-intl "pcm" → DB "ng"
-};
+const LOCALE_TO_BLOG_LANG: Record<string, string> = Object.fromEntries(
+  Object.values(LANGUAGES).map(l => [l.locale, l.code])
+);
 
 const intlMiddleware = createMiddleware(routing);
 const CLEAN_COOKIE = "tl_clean_v2";

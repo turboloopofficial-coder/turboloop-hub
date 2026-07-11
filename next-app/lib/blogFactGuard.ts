@@ -93,28 +93,18 @@ You are a professional DeFi content writer for Turbo Loop — a decentralized yi
 `.trim();
 
 /**
- * The 15 supported blog languages with their BCP-47 codes and native names.
- * Used for translation routing and slug suffix generation.
+ * ⚡ LANGUAGE SOURCE OF TRUTH: lib/languages.ts
+ * Blog languages are derived from the master config. To add a language, edit languages.ts only.
  */
-export const BLOG_LANGUAGES = [
-  { code: "en", name: "English",          nativeName: "English" },
-  { code: "hi", name: "Hindi",            nativeName: "हिंदी" },
-  { code: "es", name: "Spanish",          nativeName: "Español" },
-  { code: "ng", name: "Nigerian Pidgin",  nativeName: "Nigerian Pidgin" },
-  { code: "id", name: "Indonesian",       nativeName: "Bahasa Indonesia" },
-  { code: "cn", name: "Chinese",          nativeName: "中文" },
-  { code: "it", name: "Italian",          nativeName: "Italiano" },
-  { code: "sa", name: "Arabic",           nativeName: "العربية" },
-  { code: "pk", name: "Urdu",             nativeName: "اردو" },
-  { code: "de", name: "German",           nativeName: "Deutsch" },
-  { code: "th", name: "Thai",             nativeName: "ภาษาไทย" },
-  { code: "kr", name: "Korean",           nativeName: "한국어" },
-  { code: "la", name: "Lao",              nativeName: "ພາສາລາວ" },
-  { code: "ta", name: "Tamil",            nativeName: "தமிழ்" },
-  { code: "fr", name: "French",           nativeName: "Français" },
-] as const;
+import { LANGUAGES, LANGUAGE_ORDER } from "./languages";
 
-export type BlogLanguageCode = typeof BLOG_LANGUAGES[number]["code"];
+export const BLOG_LANGUAGES = LANGUAGE_ORDER.map(code => ({
+  code,
+  name: LANGUAGES[code].name,
+  nativeName: LANGUAGES[code].nativeName,
+}));
+
+export type BlogLanguageCode = typeof LANGUAGE_ORDER[number];
 
 /**
  * Returns the translation system prompt for a given target language.

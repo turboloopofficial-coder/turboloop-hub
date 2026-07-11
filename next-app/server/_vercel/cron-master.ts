@@ -306,6 +306,57 @@ async function dispatchScheduledPost(
       log.push("📡 telegram_de");
       continue;
     }
+    if (ch === "telegram_bn") {
+      // Bangla channel — uses TELEGRAM_BANGLA_CHAT env var when provisioned,
+      // falls back to main channel broadcast until a dedicated BD group exists.
+      const banglaChat = process.env.TELEGRAM_BANGLA_CHAT;
+      if (banglaChat && token) {
+        if (post.mediaType === "video" && post.mediaUrl) {
+          await tgSendVideo(token, { chatId: banglaChat, videoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+        } else if (post.mediaUrl) {
+          await tgSendPhoto(token, { chatId: banglaChat, photoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+        } else {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: banglaChat,
+              text: caption,
+              parse_mode: "HTML",
+              reply_markup: buttons.length > 0
+                ? { inline_keyboard: [buttons.map(b => ({ text: b.text, url: b.url }))] }
+                : undefined,
+            }),
+          });
+        }
+        log.push("📡 telegram_bn (dedicated)");
+      } else {
+        // No dedicated Bangla chat yet — broadcast to main channel
+        if (post.mediaType === "video" && post.mediaUrl) {
+          await tgBroadcastVideo({ videoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+        } else if (post.mediaUrl) {
+          await tgBroadcastPhoto({ photoUrl: post.mediaUrl, caption, parseMode: "HTML", buttons });
+        } else if (token) {
+          const dests = [process.env.TELEGRAM_CHANNEL].filter(Boolean) as string[];
+          for (const chatId of dests) {
+            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: chatId,
+                text: caption,
+                parse_mode: "HTML",
+                reply_markup: buttons.length > 0
+                  ? { inline_keyboard: [buttons.map(b => ({ text: b.text, url: b.url }))] }
+                  : undefined,
+              }),
+            });
+          }
+        }
+        log.push("📡 telegram_bn (main channel fallback)");
+      }
+      continue;
+    }
     if (ch === "telegram_hi" || ch === "telegram_id") {
       // No per-language groups exist yet — broadcast to default
       // Channel + Group with the (already language-tagged) caption.

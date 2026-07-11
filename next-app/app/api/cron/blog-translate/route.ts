@@ -21,6 +21,7 @@ import { neon } from "@neondatabase/serverless";
 import { anthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
 import { BLOG_LANGUAGES, getTranslationPrompt } from "@lib/blogFactGuard";
+import { LANGUAGES } from "@lib/languages";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -30,12 +31,12 @@ export const maxDuration = 300;
 const HOST = "https://www.turboloop.tech";
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 
-// Slug suffix map — matches the existing convention in the codebase
-const LANG_SLUG_SUFFIX: Record<string, string> = {
-  hi: "-hi", es: "-es", ng: "-ng", id: "-id", cn: "-cn",
-  it: "-it", sa: "-sa", pk: "-pk", de: "-de", th: "-th",
-  kr: "-kr", la: "-la", ta: "-ta", fr: "-fr",
-};
+// ⚡ Slug suffixes derived from languages.ts — no manual updates needed when adding a language
+const LANG_SLUG_SUFFIX: Record<string, string> = Object.fromEntries(
+  Object.values(LANGUAGES)
+    .filter(l => l.slugSuffix !== "")
+    .map(l => [l.code, l.slugSuffix])
+);
 
 function estimateReadingTime(content: string): number {
   const words = content.trim().split(/\s+/).length;

@@ -14,7 +14,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -83,6 +83,8 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   ko:                 { from: "#EF4444", to: "#1D4ED8" },
   la:                 { from: "#CE1126", to: "#002868" },
   tamil:              { from: "#F97316", to: "#7C3AED" },
+  bangla:             { from: "#006A4E", to: "#F42A41" },
+  turkish:            { from: "#E30A17", to: "#FFFFFF" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -109,6 +111,8 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   ko:                  { label: "Korean Market", emoji: "🇰🇷", description: "Korean-language banners for the Korean DeFi community." },
   la:                  { label: "Lao Market", emoji: "🇱🇦", description: "Lao-language banners for the Lao DeFi community." },
   tamil:               { label: "Tamil Market", emoji: "🇱🇰", description: "Tamil-language banners for the Tamil-speaking DeFi community." },
+  bangla:              { label: "Bangla Market", emoji: "🇧🇩", description: "Bangla-language banners for the Bangladeshi DeFi community." },
+  turkish:             { label: "Turkish Market", emoji: "🇹🇷", description: "Turkish-language banners for the Turkish DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -257,7 +261,9 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "thai" ? "th" :
     b.category === "ko" ? "ko" :
     b.category === "tamil" ? "ta" :
-    b.category === "la" ? "lo" : "en";
+    b.category === "la" ? "lo" :
+    b.category === "bangla" ? "bn" :
+    b.category === "turkish" ? "tr" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,
@@ -294,7 +300,7 @@ function buildCategories(): UnifiedCategoryDef[] {
   // Language-specific category IDs — these are shown in the language filter, not the category filter
   const LANGUAGE_CATEGORY_IDS = new Set([
     "hindi-new", "nigerian", "spanish", "indonesian", "chinese", "italian",
-    "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "lang-kit",
+    "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "bangla", "turkish", "lang-kit",
   ]);
   // Campaign categories
   const campaignCats: UnifiedCategoryDef[] = Object.entries(CAMPAIGN_LABELS).map(([id, meta]) => ({
@@ -359,6 +365,8 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "ko", label: "한국어", flag: "🇰🇷" },
   { code: "lo", label: "ພາສາລາວ", flag: "🇱🇦" },
   { code: "ta", label: "தமிழ்", flag: "🇮🇳" },
+  { code: "bn", label: "বাংলা", flag: "🇧🇩" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

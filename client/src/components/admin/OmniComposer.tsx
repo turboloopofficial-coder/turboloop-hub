@@ -57,6 +57,7 @@ const ALL_CHANNELS = [
   { id: "telegram_de",  label: "Telegram DE", hint: "German group only" },
   { id: "telegram_hi",  label: "Telegram HI", hint: "Default broadcast (no HI group)" },
   { id: "telegram_id",  label: "Telegram ID", hint: "Default broadcast (no ID group)" },
+  { id: "telegram_bn",  label: "Telegram BN", hint: "Bangla broadcast (BD community)" },
 ] as const;
 type ChannelId = typeof ALL_CHANNELS[number]["id"];
 
@@ -452,12 +453,12 @@ function ComposeView(props: {
   // Translate — replaces editor content with translation in place.
   // Toast warns the admin to save-as-new or revert (Ctrl+Z works on
   // the textarea but not on title — keep that in mind).
-  const handleTranslate = async (target: "de" | "hi" | "id") => {
+  const handleTranslate = async (target: "de" | "hi" | "id" | "bn") => {
     if (!state.content.trim()) {
       toast.error("Write some content first");
       return;
     }
-    const label = { de: "German", hi: "Hindi", id: "Indonesian" }[target];
+    const label = { de: "German", hi: "Hindi", id: "Indonesian", bn: "Bangla" }[target];
     try {
       const r = await translateMut.mutateAsync({
         source: (state.title ? state.title + "\n\n" : "") + state.content,
@@ -1254,7 +1255,7 @@ function ComposeView(props: {
 function TranslateDropdown(props: {
   disabled: boolean;
   loading: boolean;
-  onPick: (target: "de" | "hi" | "id") => void;
+  onPick: (target: "de" | "hi" | "id" | "bn") => void;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -1290,6 +1291,7 @@ function TranslateDropdown(props: {
             { id: "de" as const, label: "German (Deutsch)", flag: "🇩🇪" },
             { id: "hi" as const, label: "Hindi (हिन्दी)", flag: "🇮🇳" },
             { id: "id" as const, label: "Indonesian", flag: "🇮🇩" },
+            { id: "bn" as const, label: "Bangla (বাংলা)", flag: "🇧🇩" },
           ].map((opt) => (
             <button
               key={opt.id}
@@ -2099,6 +2101,7 @@ const SMART_CHANNELS: { id: ChannelId; label: string }[] = [
   { id: "telegram_de",  label: "Telegram DE" },
   { id: "telegram_hi",  label: "Telegram HI" },
   { id: "telegram_id",  label: "Telegram ID" },
+  { id: "telegram_bn",  label: "Telegram BN" },
 ];
 
 type SmartOutputs = {
@@ -2110,6 +2113,7 @@ type SmartOutputs = {
   telegramDE: string;
   telegramHI: string;
   telegramID: string;
+  telegramBN: string;
   suggestedButtonText: string;
   whatsappText: string;
   instagramCaption: string;
@@ -2278,6 +2282,7 @@ function SmartComposerView(props: { onScheduled: () => void }) {
           ch === "telegram_de" ? outputs.telegramDE :
           ch === "telegram_hi" ? outputs.telegramHI :
           ch === "telegram_id" ? outputs.telegramID :
+          ch === "telegram_bn" ? outputs.telegramBN :
           outputs.blogContent;
 
         await createScheduledMut.mutateAsync({

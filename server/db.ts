@@ -1010,6 +1010,7 @@ export const SCHEDULED_POST_CHANNELS = [
   "telegram_de",
   "telegram_hi",
   "telegram_id",
+  "telegram_bn",
 ] as const;
 export type ScheduledPostChannel = typeof SCHEDULED_POST_CHANNELS[number];
 

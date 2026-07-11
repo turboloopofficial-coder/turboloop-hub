@@ -545,7 +545,7 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
     translate: adminProcedure
       .input(z.object({
         source: z.string().min(1).max(20_000),
-        target: z.enum(["de", "hi", "id"]),
+        target: z.enum(["de", "hi", "id", "bn"]),
       }))
       .mutation(async ({ input }) => {
         const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -562,6 +562,7 @@ Output format: respond with VALID JSON only. No prose outside the JSON. Schema:
           de: "German (Deutsch)",
           hi: "Hindi (हिन्दी)",
           id: "Indonesian (Bahasa Indonesia)",
+          bn: "Bangla (বাংলা)",
         }[input.target];
 
         const systemPrompt = `You translate Turbo Loop marketing content into ${targetName} while keeping the brand voice intact.

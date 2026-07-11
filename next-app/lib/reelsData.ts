@@ -8,7 +8,7 @@
 export type ReelLang =
   | "en" | "th" | "ko" | "lo" | "hi" | "ta"
   | "ar" | "zh" | "it" | "ur" | "fr" | "es"
-  | "pcm" | "de" | "id" | "bn";
+  | "pcm" | "de" | "id" | "bn" | "tr";
 
 type LocalizedString = Partial<Record<ReelLang, string>>;
 
@@ -39,6 +39,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Wie man über Smart Contract auf BSC abhebt",
       id: "Cara Menarik Dana via Smart Contract di BSC",
       bn: "BSC স্মার্ট কন্ট্রাক্টের মাধ্যমে উইথড্র করার পদ্ধতি",
+      tr: "BSC'de Smart Contract ile Para Çekme Yöntemi",
     },
     descriptions: {
       en: "Your funds. Your control. Always on-chain. Withdraw from TurboLoop directly through the BSC smart contract — no website needed.",
@@ -57,6 +58,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Ihre Gelder. Ihre Kontrolle. Immer on-chain. Heben Sie direkt über den BSC Smart Contract ab — keine Website nötig.",
       id: "Dana Anda. Kendali Anda. Selalu on-chain. Tarik dana langsung melalui smart contract BSC — tanpa perlu website.",
       bn: "আপনার অর্থ। আপনার নিয়ন্ত্রণ। সর্বদা অন-চেইন। ওয়েবসাইট ছাড়াই BSC স্মার্ট কন্ট্রাক্টের মাধ্যমে সরাসরি TurboLoop থেকে উইথড্র করুন।",
+      tr: "Fonların. Kontrolün. Her zaman on-chain. TurboLoop'tan doğrudan BSC smart contract üzerinden çek — web sitesi gerekmez.",
     },
     hashtags: {
       en: "#TurboLoop #DeFi #BSC #Web3 #SmartContract",
@@ -75,6 +77,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "#TurboLoop #DeFi #BSC #Web3 #SmartContract",
       id: "#TurboLoop #DeFi #BSC #Web3 #SmartContract",
       bn: "#TurboLoop #DeFi #BSC #Web3 #SmartContract",
+      tr: "#TurboLoop #DeFi #BSC #Web3 #SmartContract",
     },
   },
   {
@@ -96,6 +99,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Investitionsrenditen — 30-Tage-Loop abgeschlossen",
       id: "Hasil Investasi — Loop 30 Hari Selesai",
       bn: "বিনিয়োগের রিটার্ন — ৩০ দিনের Loop সম্পন্ন",
+      tr: "Yatırım Getirileri — 30 Günlük Loop Tamamlandı",
     },
     descriptions: {
       en: "30-Day Loop COMPLETED. The returns are in. Full breakdown: daily returns, compounding strategy, and how to claim your rewards.",
@@ -114,6 +118,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "30-Tage-Loop ABGESCHLOSSEN. Die Renditen sind da. Vollständige Analyse: tägliche Renditen, Compounding-Strategie und Belohnungen einfordern.",
       id: "Loop 30 Hari SELESAI. Hasilnya sudah masuk. Analisis lengkap: pengembalian harian, strategi compounding, dan cara klaim hadiah.",
       bn: "৩০ দিনের Loop সম্পন্ন। রিটার্ন এসে গেছে। সম্পূর্ণ বিশ্লেষণ: প্রতিদিনের রিটার্ন, কম্পাউন্ডিং কৌশল এবং পুরস্কার কিভাবে ক্লেইম করবেন।",
+      tr: "30 Günlük Loop TAMAMLANDI. Getiriler geldi. Tam analiz: günlük getiriler, bileşik faiz stratejisi ve ödülleri nasıl talep edersiniz.",
     },
     hashtags: {
       en: "#TurboLoop #CryptoReturns #DeFi #Automation #ROI",
@@ -132,6 +137,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "#TurboLoop #KryptoRenditen #DeFi #Automatisierung #ROI",
       id: "#TurboLoop #HasilKripto #DeFi #Otomatisasi #ROI",
       bn: "#TurboLoop #CryptoReturns #DeFi #Automation #ROI",
+      tr: "#TurboLoop #CryptoReturns #DeFi #Automation #ROI",
     },
   },
   {
@@ -153,6 +159,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "LP Lock Prüfung — $34.7M Liquidität verifiziert",
       id: "Cek LP Lock — $34.7M Likuiditas Terverifikasi",
       bn: "LP Lock যাচাই — $34.7M লিকুয়িডিটি যাচাইকৃত",
+      tr: "LP Kilidi Kontrolü — $34.7M Likidite Doğrulandı",
     },
     descriptions: {
       en: "$34.7M Liquidity. 100% Locked. Fully Verified. Learn how to check TurboLoop's LP lock yourself on BscScan and PancakeSwap.",
@@ -171,6 +178,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "$34.7M Liquidität. 100% gesperrt. Vollständig verifiziert. Prüfen Sie TurboLoops LP-Lock selbst auf BscScan und PancakeSwap.",
       id: "$34.7M Likuiditas. 100% Terkunci. Sepenuhnya Terverifikasi. Periksa LP lock TurboLoop sendiri di BscScan dan PancakeSwap.",
       bn: "$34.7M লিকুয়িডিটি। ১০০% লকড। সম্পূর্ণ যাচাইকৃত। BscScan এবং PancakeSwap-এ TurboLoop-এর LP lock নিজেই যাচাই করুন।",
+      tr: "$34.7M Likidite. %100 Kilitli. Tamamen Doğrulandı. BscScan ve PancakeSwap'ta TurboLoop'un LP kilidini kendin kontrol et.",
     },
     hashtags: {
       en: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
@@ -189,6 +197,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
       id: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
       bn: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
+      tr: "#TurboLoop #LiquidityLock #DYOR #BSC #PancakeSwap",
     },
   },
   {
@@ -210,6 +219,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Wie man über Smart Contract auf BSC einzahlt",
       id: "Cara Deposit via Smart Contract di BSC",
       bn: "BSC স্মার্ট কন্ট্রাক্টের মাধ্যমে ডিপোজিট করার পদ্ধতি",
+      tr: "BSC'de Smart Contract ile Para Yatırma Yöntemi",
     },
     descriptions: {
       en: "Step-by-step: connect your wallet, choose your plan, and deposit USDT directly into the TurboLoop smart contract on BSC — no middleman, no trust required.",
@@ -228,6 +238,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Schritt für Schritt: Wallet verbinden, Plan wählen und USDT direkt in den TurboLoop Smart Contract auf BSC einzahlen — kein Mittelsmann.",
       id: "Langkah demi langkah: hubungkan wallet, pilih paket, dan deposit USDT langsung ke smart contract TurboLoop di BSC — tanpa perantara.",
       bn: "ধাপে ধাপে: আপনার wallet কানেক্ট করুন, প্ল্যান বেছে নিন, এবং BSC-তে TurboLoop স্মার্ট কন্ট্রাক্টে সরাসরি USDT ডিপোজিট করুন — কোনো মধ্যস্থকারী নেই।",
+      tr: "Adım adım: cüzdanını bağla, planını seç ve BSC'deki TurboLoop smart contract'a doğrudan USDT yatır — aracı yok, güven gerekmez.",
     },
     hashtags: {
       en: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
@@ -246,6 +257,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
       id: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
       bn: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
+      tr: "#TurboLoop #DeFi #BSC #SmartContract #HowTo",
     },
   },
   {
@@ -267,6 +279,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Position über den V3 Position Manager prüfen",
       id: "Cek Posisi via V3 Position Manager",
       bn: "V3 Position Manager-এর মাধ্যমে পজিশন যাচাই করুন",
+      tr: "V3 Position Manager ile Pozisyon Kontrolü",
     },
     descriptions: {
       en: "See exactly where your liquidity sits. Use the PancakeSwap V3 Position Manager to verify TurboLoop's $34.7M LP position is IN RANGE and fully active.",
@@ -285,6 +298,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "Verwenden Sie den PancakeSwap V3 Position Manager, um TurboLoops $34.7M LP-Position als IN RANGE zu verifizieren.",
       id: "Gunakan PancakeSwap V3 Position Manager untuk memverifikasi posisi LP $34.7M TurboLoop berada IN RANGE.",
       bn: "PancakeSwap V3 Position Manager ব্যবহার করে TurboLoop-এর $34.7M LP পজিশন IN RANGE-এ আছে কিনা যাচাই করুন।",
+      tr: "PancakeSwap V3 Position Manager'ı kullanarak TurboLoop'un $34.7M LP pozisyonunun IN RANGE'de olduğunu doğrula.",
     },
     hashtags: {
       en: "#TurboLoop #PancakeSwap #V3 #LiquidityPool #DeFi",
@@ -303,6 +317,7 @@ const REEL_DEFS: ReelDef[] = [
       de: "#TurboLoop #PancakeSwap #V3 #LiquidityPool #DeFi",
       id: "#TurboLoop #PancakeSwap #V3 #LiquidityPool #DeFi",
       bn: "#TurboLoop #PancakeSwap #V3 #LiquidityPool #DeFi",
+      tr: "#TurboLoop #PancakeSwap #V3 #LiquidityPool #DeFi",
     },
   },
 ];
@@ -413,6 +428,8 @@ const DUBBED_REELS = new Set([
   "de/v5-lp-position",  "id/v5-lp-position",
   // ── Bangla (bn) tutorial videos — dubbed and uploaded 2026-07-11 ──────────
   "bn/v1-withdrawal",  "bn/v2-investment",  "bn/v3-lp-check",  "bn/v4-deposit",  "bn/v5-lp-position",
+  // ── Turkish (tr) tutorial videos — dubbed and uploaded 2026-07-11 ──────────
+  "tr/v1-withdrawal",  "tr/v2-investment",  "tr/v3-lp-check",  "tr/v4-deposit",  "tr/v5-lp-position",
 ]);
 
 export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: string }> = {
@@ -432,6 +449,7 @@ export const LANG_META: Record<ReelLang, { label: string; flag: string; dir: str
   de:  { label: "Deutsch",            flag: "🇩🇪", dir: "de" },
   id:  { label: "Bahasa Indonesia",   flag: "🇮🇩", dir: "id" },
   bn:  { label: "বাংলা",               flag: "🇧🇩", dir: "bn" },
+  tr:  { label: "Türkçe",              flag: "🇹🇷", dir: "tr" },
 };
 
 function buildLangReels(lang: ReelLang): ReelTrack[] {
@@ -453,7 +471,7 @@ function buildLangReels(lang: ReelLang): ReelTrack[] {
 }
 
 export const ALL_REEL_LANGS: ReelLang[] = [
-  "en", "th", "ko", "lo", "hi", "ta", "ar", "zh", "it", "ur", "fr", "es", "pcm", "de", "id", "bn"
+  "en", "th", "ko", "lo", "hi", "ta", "ar", "zh", "it", "ur", "fr", "es", "pcm", "de", "id", "bn", "tr"
 ];
 
 /** Grouped by language so the UI can render language sub-sections or

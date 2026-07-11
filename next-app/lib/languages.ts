@@ -8,7 +8,7 @@
 export type LanguageCode = 
   | "en" | "de" | "hi" | "id" | "th" | "ko" | "lo" | "fr" 
   | "ta" | "la" | "cn" | "es" | "ng" | "it" | "sa" | "kr" 
-  | "pk" | "bn";
+  | "pk" | "bn" | "tr";
 
 export interface LanguageConfig {
   /** The 2-letter DB code used internally (e.g., "en", "hi", "kr") */
@@ -141,13 +141,19 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     bcp47: "bn-bd", slugSuffix: "-bn", telegramChannel: "telegram_bn",
     rssTitle: "Turbo Loop — সম্পাদকীয়",
     rssDescription: "DeFi, ইল্ড, নিরাপত্তা এবং TurboLoop এর পেছনের গণিত নিয়ে বিস্তারিত প্রবন্ধ।"
+  },
+  tr: {
+    code: "tr", locale: "tr", name: "Turkish", nativeName: "Türkçe", flag: "🇹🇷",
+    bcp47: "tr-tr", slugSuffix: "-tr", telegramChannel: null,
+    rssTitle: "Turbo Loop — Editoryal",
+    rssDescription: "DeFi, getiri, güvenlik ve TurboLoop'un arkasındaki matematik hakkında derinlemesine makaleler."
   }
 };
 
 /** Ordered list of languages for UI rendering (English first, then alphabetical or priority) */
 export const LANGUAGE_ORDER: LanguageCode[] = [
   "en", "fr", "es", "hi", "ta", "th", "kr", "ko", "la", "lo", 
-  "cn", "sa", "it", "pk", "ng", "de", "id", "bn"
+  "cn", "sa", "it", "pk", "ng", "de", "id", "bn", "tr"
 ];
 
 /** Helper to get the base hreflang (e.g., "en-us" -> "en") */

@@ -21,12 +21,12 @@ import { dispatchNudgeEvent } from "@components/notifications/SmartNotifications
 const LANG_LABEL: Record<ReelTrack["lang"], string> = {
   en: "EN", th: "TH", ko: "KO", lo: "LO", hi: "HI", ta: "TA",
   ar: "AR", zh: "ZH", it: "IT", ur: "UR", fr: "FR", es: "ES",
-  pcm: "PCM", de: "DE", id: "ID", bn: "BN",
+  pcm: "PCM", de: "DE", id: "ID", bn: "BN", tr: "TR",
 };
 const LANG_FLAG: Record<ReelTrack["lang"], string> = {
   en: "🇬🇧", th: "🇹🇭", ko: "🇰🇷", lo: "🇱🇦", hi: "🇮🇳", ta: "🇮🇳",
   ar: "🇸🇦", zh: "🇨🇳", it: "🇮🇹", ur: "🇵🇰", fr: "🇫🇷", es: "🇪🇸",
-  pcm: "🇳🇬", de: "🇩🇪", id: "🇮🇩", bn: "🇧🇩",
+  pcm: "🇳🇬", de: "🇩🇪", id: "🇮🇩", bn: "🇧🇩", tr: "🇹🇷",
 };
 
 function filenameFromUrl(url: string): string {

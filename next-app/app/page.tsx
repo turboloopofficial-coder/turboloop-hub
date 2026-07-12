@@ -70,9 +70,6 @@ const NewsletterSection = dynamic(
 const CreativeExplorerSection = dynamic(
   () =>
     import("@components/sections/CreativeExplorerSection").then(m => ({
-
-// ISR: revalidate every 60 seconds for performance
-export const revalidate = 60;
       default: m.CreativeExplorerSection,
     })),
   { ssr: true }

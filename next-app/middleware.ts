@@ -37,6 +37,7 @@ const CLEAN_COOKIE = "tl_clean_v2";
 // to the base path and set the locale cookie so the page knows the active locale.
 const EXISTING_ROUTES = new Set([
   "blog",
+  "earn",
   "films",
   "reels",
   "library",

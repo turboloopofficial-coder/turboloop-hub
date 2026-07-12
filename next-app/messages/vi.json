@@ -403,5 +403,188 @@
     "step4": "Nhận lợi nhuận tự động",
     "compoundReturns": "Công cụ tính lãi kép",
     "revenueSource": "Do PancakeSwap V3 vị trí thanh khoản tập trung cung cấp"
+  },
+  "common": {
+    "learnMore": "Tìm hiểu thêm",
+    "viewAll": "Xem tất cả",
+    "getStarted": "Bắt đầu",
+    "joinNow": "Tham gia ngay",
+    "readMore": "Đọc thêm",
+    "download": "Tải xuống",
+    "share": "Chia sẻ",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "loading": "Đang tải...",
+    "error": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "copyLink": "Sao chép liên kết",
+    "copied": "Đã sao chép!",
+    "days": "ngày",
+    "hours": "giờ",
+    "minutes": "phút",
+    "seconds": "giây"
+  },
+  "footer": {
+    "tagline": "Yield farming phi tập trung trên Binance Smart Chain.",
+    "protocol": "Giao thức",
+    "content": "Nội dung",
+    "community": "Cộng đồng",
+    "legal": "Pháp lý",
+    "privacy": "Chính sách quyền riêng tư",
+    "terms": "Điều khoản dịch vụ",
+    "security": "Bảo mật",
+    "allRightsReserved": "Tất cả các quyền được bảo lưu.",
+    "auditedBy": "Được kiểm toán bởi"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming trên BSC",
+      "description": "Kiếm lợi nhuận lên tới 54% trong 60 ngày từ một bể thanh khoản USDC/USDT thực. Được kiểm toán, LP khóa, quyền sở hữu từ bỏ. Mức tối thiểu 1 USDT."
+    },
+    "calculator": {
+      "title": "Máy tính lợi nhuận — TurboLoop",
+      "description": "Tính toán chính xác lợi nhuận USDT của bạn và phần thưởng token $TURBO cho các kế hoạch Sprint, Boost, Power, và Ultimate."
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp — TurboLoop",
+      "description": "Các câu trả lời cho các câu hỏi phổ biến nhất về yield farming DeFi của TurboLoop."
+    },
+    "apply": {
+      "title": "Ứng tuyển để kiếm — TurboLoop",
+      "description": "Tham gia mạng lưới sáng tạo của TurboLoop. Kiếm hoa hồng với vai trò Creator Star hoặc Người trình bày địa phương."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "Tìm hiểu về token giảm phát $TURBO — mua lại và đốt hàng ngày, lịch trình vesting, và tokenomics."
+    }
+  },
+  "protocol": {
+    "eyebrow": "Giao thức",
+    "title": "Mỗi phần.",
+    "titleHighlight": "Một cái nhìn.",
+    "subtitle": "Bốn kế hoạch lợi nhuận. Một sơ đồ giới thiệu 20 cấp. Bảy cấp lãnh đạo. Mã đã được kiểm toán. Một giao thức — được xây dựng để kiểm tra, không phải để tin tưởng.",
+    "plans": {
+      "eyebrow": "4 Kế hoạch Loop",
+      "title": "Chọn một khoảng thời gian. Kiếm lợi nhuận cố định.",
+      "subtitle": "Vốn và lợi nhuận được trả về cuối kế hoạch — không có thủ thuật lãi kép, không cần tính toán phức tạp hàng năm.",
+      "calculateReturn": "Tính lợi nhuận của bạn",
+      "turboBonusLabel": "Phần thưởng $TURBO"
+    },
+    "referral": {
+      "title": "20 cấp sâu",
+      "subtitle": "51% phí giao thức phân phối cho cộng đồng.",
+      "fact1": "Không yêu cầu về khối lượng",
+      "fact2": "Phần trăm cố định",
+      "fact3": "Sâu nhất trong DeFi",
+      "cta": "Khám phá sơ đồ"
+    },
+    "leadership": {
+      "title": "Đối tác → Huyền thoại",
+      "subtitle": "7 cấp. Kiếm hoa hồng từ 100 cấp của mạng lưới của bạn.",
+      "cta": "Xem bảng xếp hạng",
+      "ranks": {
+        "partner": "Đối tác",
+        "builder": "Nhà xây dựng",
+        "accelerator": "Tăng tốc",
+        "director": "Giám đốc",
+        "executive": "Chấp hành",
+        "ambassador": "Đại sứ",
+        "legend": "Huyền thoại"
+      }
+    },
+    "security": {
+      "title": "Không phát hiện lỗ hổng nào.",
+      "chip1": "Được kiểm toán",
+      "chip2": "Từ bỏ quyền sở hữu",
+      "chip3": "LP khóa",
+      "bounty": "$100K phần thưởng",
+      "bountyUnclaimed": "chưa nhận.",
+      "cta": "Xem bằng chứng"
+    },
+    "films": {
+      "title": "TurboLoop là gì?",
+      "caption": "Mới ở đây? Bắt đầu với cái này.",
+      "cta": "Xem phim"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Theo số liệu",
+    "title": "Một phong trào, không phải một khoảnh khắc.",
+    "subtitle": "Tiếp cận thực sự trên toàn thế giới. Dịch, kể và sống trong hàng chục ngôn ngữ mỗi ngày.",
+    "stat1Label": "Ngôn ngữ",
+    "stat1Help": "Ngôn ngữ được hỗ trợ trên toàn trung tâm",
+    "stat2Label": "Phim",
+    "stat2Help": "Phim trong Sovereign Series & Cinematic Universe",
+    "stat3Label": "Châu lục",
+    "stat3Help": "Sự hiện diện cộng đồng tích cực",
+    "stat4Label": "Phần thưởng",
+    "stat4Help": "Chứng minh tính tập trung"
+  },
+  "security": {
+    "eyebrow": "Không tin cậy theo thiết kế",
+    "title": "Năm lý do để không tin ai.",
+    "subtitle": "Chúng tôi đã loại bỏ mọi cách có thể gây hại cho bạn. Những gì còn lại là mã, đã được công bố, khóa, và xác minh bởi những người không làm việc cho chúng tôi.",
+    "reason1Title": "Hợp đồng thông minh bất biến",
+    "reason1Body": "Hợp đồng đã được triển khai và từ bỏ quyền sở hữu. Không có khóa quản trị, không có proxy nâng cấp, không có chức năng tạm dừng. Thậm chí các nhà sáng lập cũng không thể chỉnh sửa.",
+    "reason2Title": "Thanh khoản phi tập trung",
+    "reason2Body": "Lợi nhuận được tạo ra từ các bể thanh khoản thuộc sở hữu của giao thức — không từ các khoản gửi mới. Toán học vẫn hoạt động ngay cả khi không có thành viên mới tham gia.",
+    "reason3Title": "Không có khóa quản trị",
+    "reason3Body": "Quyền sở hữu đã được từ bỏ khi triển khai. Không có ví nào có thể rút tiền, đóng băng tài khoản hoặc thay đổi tham số.",
+    "reason4Title": "Mã nguồn mở & đã xác minh",
+    "reason4Body": "Toàn bộ mã nguồn hợp đồng được công bố và xác minh trên BscScan. Bất kỳ ai cũng có thể đọc từng dòng trước khi gửi một đô la.",
+    "reason5Title": "$100K phần thưởng bảo mật",
+    "reason5Body": "Chúng tôi đặt ra 100.000 USDT để ai đó tìm ra lỗ hổng thực sự. Mở cho tất cả, không NDA, trả trong vòng 7 ngày sau khi xác minh.",
+    "viewContract": "Xem trên BscScan",
+    "submitBounty": "Gửi phát hiện",
+    "metaTitle": "TurboLoop Bảo mật — Hợp đồng thông minh bất biến & phần thưởng $100K"
+  },
+  "zoom": {
+    "eyebrow": "Trực tiếp ngay bây giờ",
+    "title": "Cộng đồng đang",
+    "titleHighlight": "trực tiếp ngay bây giờ.",
+    "subtitle": "Người thật, câu trả lời thật. Mỗi ngày.",
+    "labelEnglish": "Tiếng Anh",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Hàng ngày · Miễn phí",
+    "when": "Khi nào",
+    "nextCallIn": "Lần gọi tiếp theo trong",
+    "joinNow": "Tham gia ngay",
+    "labelThai": "Thái",
+    "labelThaiMorning": "Sáng Thái",
+    "labelThaiEvening": "Tối Thái",
+    "labelAfrican": "Châu Phi",
+    "monWedSat": "Thứ Hai · Thứ Tư · Thứ Bảy · Miễn phí",
+    "satOnly": "Chỉ thứ Bảy · Miễn phí",
+    "sunTueThu": "Chủ Nhật · Thứ Ba · Thứ Năm · Miễn phí"
+  },
+  "reels": {
+    "eyebrow": "Phim ngắn",
+    "title": "Mỗi clip. Một nơi.",
+    "titleHighlight": "Tất cả 15 ngôn ngữ.",
+    "subtitle": "Video dạng ngắn, hướng dẫn cách tham gia bằng 15 ngôn ngữ, hướng dẫn rút tiền + tích lũy + giới thiệu. Miễn phí xem, sẵn sàng chia sẻ.",
+    "categoryPresentation": "Các clip nổi bật",
+    "categoryPresentationDesc": "Các clip trong Sovereign Series + giới thiệu dự án đa ngôn ngữ.",
+    "categoryHowToJoin": "Cách tham gia — theo ngôn ngữ",
+    "categoryHowToJoinDesc": "Hướng dẫn từng bước bằng 15 ngôn ngữ: cài đặt ví → mua USDT → chọn kế hoạch Loop.",
+    "categoryWithdraw": "Rút, tích lũy & giới thiệu",
+    "categoryWithdrawDesc": "Cách yêu cầu lợi nhuận hàng ngày, gửi lại để tích lũy, và sử dụng hệ thống giới thiệu.",
+    "watchNow": "Xem ngay",
+    "shareBtn": "Chia sẻ",
+    "metaTitle": "TurboLoop Reels — Video DeFi ngắn trong 15 ngôn ngữ",
+    "metaDesc": "Xem các clip TurboLoop: hướng dẫn cách tham gia bằng 15 ngôn ngữ, hướng dẫn rút tiền và tích lũy, hướng dẫn giới thiệu. Miễn phí xem."
+  },
+  "creatives": {
+    "eyebrow": "Trung tâm Marketing",
+    "title": "Biểu ngữ miễn phí. Sẵn sàng chia sẻ.",
+    "subtitle": "Bộ chiến dịch, cột thương hiệu, và bộ tài liệu giáo dục 14 ngôn ngữ. Tải xuống, chia sẻ trên Telegram hoặc WhatsApp — không cần ghi nhận nguồn.",
+    "statBanners": "Tổng số biểu ngữ",
+    "statCategories": "Danh mục",
+    "statLanguages": "Ngôn ngữ",
+    "statFree": "Miễn phí chia sẻ",
+    "downloadBtn": "Tải xuống",
+    "shareBtn": "Chia sẻ",
+    "viewAll": "Xem tất cả",
+    "metaTitle": "Trung tâm Marketing TurboLoop — Hơn 2.800 biểu ngữ DeFi miễn phí bằng 14 ngôn ngữ",
+    "metaDesc": "Tải xuống hơn 2.800 biểu ngữ marketing DeFi miễn phí. 14 ngôn ngữ, bộ chiến dịch, bộ tài liệu giáo dục thương hiệu. Miễn phí cho cộng đồng TurboLoop."
   }
 }

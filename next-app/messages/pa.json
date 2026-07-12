@@ -404,5 +404,189 @@
     "step4": "ਵਾਪਸੀ ਆਪਣੇ ਆਪ ਪ੍ਰਾਪਤ ਕਰੋ",
     "compoundReturns": "ਜੋੜੀ ਵਾਪਸੀ ਕੈਲਕुलेਟਰ",
     "revenueSource": "ਆਮਦਨੀ PancakeSwap V3 ਕੇਂਦਰੀਕ੍ਰਿਤ ਲਿਕਵਿਡਿਟੀ ਪੋਜ਼ੀਸ਼ਨਾਂ ਤੋਂ ਆਉਂਦੀ ਹੈ"
+  },
+  "common": {
+    "learnMore": "مزید سیکھیں",
+    "viewAll": "تمام دیکھیں",
+    "getStarted": "شروع کریں",
+    "joinNow": "ابھی شامل ہوں",
+    "readMore": "مزید پڑھیں",
+    "download": "ڈاؤن لوڈ کریں",
+    "share": "شیئر کریں",
+    "close": "بند کریں",
+    "back": "پیچھے",
+    "next": "اگلا",
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "کچھ غلط ہو گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
+    "copyLink": "لنک کاپی کریں",
+    "copied": "کاپی ہو گیا!",
+    "days": "دن",
+    "hours": "گھنٹے",
+    "minutes": "منٹ",
+    "seconds": "سیکنڈ"
+  },
+  "footer": {
+    "tagline": "Binance Smart Chain پر غیر مرکزیت والی ییلڈ فارمنگ۔",
+    "protocol": "پروٹوکول",
+    "content": "مواد",
+    "community": "کمیونٹی",
+    "legal": "قانونی",
+    "privacy": "رازداری کی پالیسی",
+    "terms": "سروس کے شرائط",
+    "security": "سیکیورٹی",
+    "allRightsReserved": "تمام حقوق محفوظ ہیں۔",
+    "auditedBy": "کی طرف سے آڈٹ شدہ"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming on BSC",
+      "description": "ایک حقیقی USDC/USDT لیکویڈیٹی پول سے 60 دنوں میں 54% ROI تک کمائیں۔ آڈٹ شدہ، LP-لاک، ملکیت ترک۔ کم از کم 1 USDT۔"
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "اپنی درست USDT واپسی اور $TURBO ٹوکن بونس کا حساب لگائیں، Sprint، Boost، Power، اور Ultimate منصوبوں کے لیے۔"
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "TurboLoop DeFi yield farming کے بارے میں سب سے عام سوالات کے جوابات۔"
+    },
+    "apply": {
+      "title": "Apply to Earn — TurboLoop",
+      "description": "TurboLoop تخلیق کار نیٹ ورک میں شامل ہوں۔ Creator Star یا Local Presenter کے طور پر کمیشن کمائیں۔"
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "$TURBO ڈیفلیشنری ٹوکن کے بارے میں جانیں — روزانہ خرید و فروخت اور آگ لگانا، وینٹنگ شیڈول، اور ٹوکنومکس۔"
+    }
+  },
+  "protocol": {
+    "eyebrow": "پروٹوکول",
+    "title": "ہر ٹکڑا۔",
+    "titleHighlight": "ایک نظر میں۔",
+    "subtitle": "چار yield منصوبے۔ 20 سطح کا ریفرل گراف۔ سات قیادت کے رینک۔ آڈٹ شدہ کوڈ۔ ایک پروٹوکول — بنایا گیا ہے تاکہ معائنہ کیا جا سکے، اعتماد نہیں۔",
+    "plans": {
+      "eyebrow": "The 4 Loop Plans",
+      "title": "مدت منتخب کریں۔ ایک مقررہ پیداوار کمائیں۔",
+      "subtitle": "پلان کے آخر میں سرمایہ اور پیداوار واپس ملتی ہے — کوئی کمپاؤنڈنگ ٹرکس نہیں، کوئی سالانہ حساب کتاب نہیں۔",
+      "calculateReturn": "اپنی واپسی کا حساب لگائیں",
+      "turboBonusLabel": "$TURBO بونس"
+    },
+    "referral": {
+      "title": "20 سطح گہری",
+      "subtitle": "پروٹوکول فیس کا 51% کمیونٹی میں تقسیم ہوتا ہے۔",
+      "fact1": "کوئی حجم کی ضروریات نہیں",
+      "fact2": "مقررہ فیصد",
+      "fact3": "DeFi میں سب سے گہرا",
+      "cta": "گراف کو دریافت کریں"
+    },
+    "leadership": {
+      "title": "Partner → Legend",
+      "subtitle": "7 رینک۔ اپنی نیٹ ورک سے 100 سطحوں سے کمائیں۔",
+      "cta": "رینک لیڈر دیکھیں",
+      "ranks": {
+        "partner": "پارٹنر",
+        "builder": "بلڈر",
+        "accelerator": "ایکسلیریٹر",
+        "director": "ڈائریکٹر",
+        "executive": "ایگزیکٹو",
+        "ambassador": "ایمبیسیڈر",
+        "legend": "لیجنڈ"
+      }
+    },
+    "security": {
+      "title": "زیرو کمزوریاں پائی گئیں۔",
+      "chip1": "آڈٹ شدہ",
+      "chip2": "ترک شدہ",
+      "chip3": "LP لاکڈ",
+      "bounty": "$100K بونٹی",
+      "bountyUnclaimed": "ادائیگی باقی ہے۔",
+      "cta": "ثبوت دیکھیں"
+    },
+    "films": {
+      "title": "TurboLoop کیا ہے؟",
+      "caption": "نیا یہاں؟ اس سے شروع کریں۔",
+      "cta": "فلم دیکھیں"
+    }
+  },
+  "numbers": {
+    "eyebrow": "اعداد و شمار کے مطابق",
+    "title": "ایک تحریک، لمحہ نہیں۔",
+    "subtitle": "دنیا بھر میں حقیقی رسائی۔ ترجمہ، کہانی، اور زندگی ہر دن درجنوں زبانوں میں۔",
+    "stat1Label": "زبانیں",
+    "stat1Help": "ہب میں معاون زبانیں",
+    "stat2Label": "فلمیں",
+    "stat2Help": "Sovereign Series اور Cinematic Universe میں فلمیں",
+    "stat3Label": "براعظم",
+    "stat3Help": "فعال کمیونٹی موجودگی",
+    "stat4Label": "بونٹی",
+    "stat4Help": "مرکزی کاری کا ثبوت"
+  },
+  "security": {
+    "eyebrow": "بنانا اعتماد سے آزاد",
+    "title": "پانچ وجوہات کیوں کسی پر اعتماد نہ کریں۔",
+    "subtitle": "ہم نے ہر وہ طریقہ ہٹا دیا ہے جس سے آپ کو نقصان پہنچ سکتا ہے۔ جو باقی ہے وہ کوڈ ہے، شائع شدہ، لاک شدہ، اور تصدیق شدہ ان لوگوں کے ذریعے جو ہمارے لیے کام نہیں کرتے۔",
+    "reason1Title": "Immutable Smart Contract",
+    "reason1Body": "معاہدہ تعینات اور ترک کیا گیا ہے۔ کوئی ایڈمن کیز نہیں، کوئی اپ گریڈ پراکسی نہیں، کوئی توقف فنکشن نہیں۔ یہاں تک کہ بانی بھی اسے تبدیل نہیں کر سکتے۔",
+    "reason2Title": "Decentralized Liquidity",
+    "reason2Body": "پیداوار پروٹوکول کے ملکیتی لیکویڈیٹی پولز سے پیدا ہوتی ہے — نئے جمع کرانے سے نہیں۔ حساب کتاب کام کرتا ہے چاہے کوئی نیا رکن شامل نہ ہو۔",
+    "reason3Title": "کوئی ایڈمن کیز نہیں",
+    "reason3Body": "ملکیت تعیناتی پر ترک کی گئی تھی۔ کوئی والیٹ نہیں جو فنڈز نکال سکے، اکاؤنٹس فریز کر سکے، یا پیرامیٹرز تبدیل کر سکے۔",
+    "reason4Title": "اوپن سورس اور تصدیق شدہ",
+    "reason4Body": "مکمل معاہدہ کا ماخذ شائع اور BscScan پر تصدیق شدہ ہے۔ کوئی بھی ہر لائن پڑھ سکتا ہے قبل اس کے کہ ایک ڈالر جمع کرے۔",
+    "reason5Title": "$100K سیکیورٹی بونٹی",
+    "reason5Body": "ہم نے $100,000 USDT کی پیش کش کی ہے کسی بھی شخص کے لیے جو ایک حقیقی کمزوری تلاش کرتا ہے۔ سب کے لیے کھلا، کوئی NDA نہیں، تصدیق کے 7 دن کے اندر ادائیگی۔",
+    "viewContract": "BscScan پر دیکھیں",
+    "submitBounty": "ایک دریافت جمع کریں",
+    "metaTitle": "TurboLoop Security — Immutable Smart Contract & $100K Bounty",
+    "metaDesc": "TurboLoop کا سمارٹ معاہدہ غیر قابل تبدیل، ترک شدہ، اور اوپن سورس ہے۔ کوئی ایڈمن کیز نہیں، کوئی اپ گریڈ پراکسی نہیں۔ تصدیق شدہ کمزوریوں کے لیے $100,000 USDT بونٹی۔"
+  },
+  "zoom": {
+    "eyebrow": "ابھی براہ راست",
+    "title": "کمیونٹی ہے",
+    "titleHighlight": "ابھی براہ راست۔",
+    "subtitle": "حقیقی لوگ، حقیقی جوابات۔ ہر دن۔",
+    "labelEnglish": "انگریزی",
+    "labelHindi": "ہندی / اردو",
+    "dailyFree": "روزانہ · مفت",
+    "when": "کب",
+    "nextCallIn": "اگلی کال میں",
+    "joinNow": "ابھی شامل ہوں",
+    "labelThai": "تھائی",
+    "labelThaiMorning": "تھائی صبح",
+    "labelThaiEvening": "تھائی شام",
+    "labelAfrican": "افریقی",
+    "monWedSat": "پیر · بدھ · ہفتہ · مفت",
+    "satOnly": "صرف ہفتہ · مفت",
+    "sunTueThu": "اتوار · منگل · جمعرات · مفت"
+  },
+  "reels": {
+    "eyebrow": "مختصر فلمیں",
+    "title": "ہر رییل۔ ایک جگہ۔",
+    "titleHighlight": "تمام 15 زبانیں۔",
+    "subtitle": "مختصر ویڈیوز، شامل ہونے کا طریقہ کار 15 زبانوں میں، نکالیں + کمپاؤنڈ + ریفرل ٹیوٹوریلز۔ دیکھنے کے لیے مفت، شیئر کرنے کے لیے تیار۔",
+    "categoryPresentation": "نمایاں رییلز",
+    "categoryPresentationDesc": "Sovereign Series مختصر فلمیں + کثیر زبان پروجیکٹ تعارف۔",
+    "categoryHowToJoin": "شامل ہونے کا طریقہ — زبان کے حساب سے",
+    "categoryHowToJoinDesc": "15 زبانوں میں مرحلہ وار ہدایات: والیٹ انسٹال کریں → USDT خریدیں → Loop پلان منتخب کریں۔",
+    "categoryWithdraw": "نکالیں، کمپاؤنڈ کریں اور ریفر کریں",
+    "categoryWithdrawDesc": "روزانہ کی کمائی کا دعویٰ کرنے، دوبارہ جمع کرنے اور ریفرل نظام استعمال کرنے کا طریقہ۔",
+    "watchNow": "ابھی دیکھیں",
+    "shareBtn": "شیئر کریں",
+    "metaTitle": "TurboLoop Reels — Short DeFi Videos in 15 Languages",
+    "metaDesc": "TurboLoop رییلز دیکھیں: شامل ہونے کا طریقہ کار 15 زبانوں میں، نکالیں اور کمپاؤنڈ کرنے کے ٹیوٹوریلز، ریفرل گائیڈز۔ دیکھنے کے لیے مفت۔"
+  },
+  "creatives": {
+    "eyebrow": "مارکیٹنگ ہب",
+    "title": "مفت بینرز۔ شیئر کرنے کے لیے تیار۔",
+    "subtitle": "مہم سیٹ، برانڈڈ ستون، اور 14 زبانوں کا تعلیمی کٹ۔ ڈاؤن لوڈ کریں، ٹیلیگرام یا WhatsApp پر شیئر کریں — کوئی attribution ضروری نہیں۔",
+    "statBanners": "کل بینرز",
+    "statCategories": "زمرے",
+    "statLanguages": "زبانیں",
+    "statFree": "مفت شیئر کرنے کے لیے",
+    "downloadBtn": "ڈاؤن لوڈ کریں",
+    "shareBtn": "شیئر کریں",
+    "viewAll": "تمام دیکھیں",
+    "metaTitle": "TurboLoop مارکیٹنگ ہب — 14 زبانوں میں 2,800+ مفت DeFi بینرز",
+    "metaDesc": "2,800+ مفت DeFi مارکیٹنگ بینرز ڈاؤن لوڈ کریں۔ 14 زبانیں، مہم سیٹ، برانڈڈ تعلیمی کٹ۔ TurboLoop کمیونٹی کے لیے مفت۔"
   }
 }

@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
             "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
           },
           body: JSON.stringify({
-            model: "claude-sonnet-4-6",
+            model: "gpt-4.1-nano",
             messages: [
               {
                 role: "system",

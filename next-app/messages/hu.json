@@ -456,5 +456,135 @@
     "step4": "Automatikus hozamok fogadása",
     "compoundReturns": "Kamatkalkulátor",
     "revenueSource": "Jövedelem a PancakeSwap V3 koncentrált likviditási pozícióiból"
+  },
+  "protocol": {
+    "eyebrow": "A Protocol",
+    "title": "Minden darab.",
+    "titleHighlight": "Egy pillantás.",
+    "subtitle": "Négy hozamterv. Egy 20 szintű ajánlói gráf. Hét vezetői rang. Auditált kód. Egy protokoll — építve arra, hogy megvizsgálják, nem pedig arra, hogy bízzanak benne.",
+    "plans": {
+      "eyebrow": "A 4 Loop Terv",
+      "title": "Válassz egy időtartamot. Keress fix hozamot.",
+      "subtitle": "A tőke és hozam visszatér a terv végén — nincs kamatos trükk, nincs évesítés.",
+      "calculateReturn": "Számold ki a hozamod",
+      "turboBonusLabel": "$TURBO bónusz"
+    },
+    "referral": {
+      "title": "20 Szintek Mélyen",
+      "subtitle": "A protocol díjainak 51%-a a közösséghez kerül.",
+      "fact1": "Nincs volumen követelmény",
+      "fact2": "Fix százalékok",
+      "fact3": "A legmélyebb a DeFi-ben",
+      "cta": "Fedezd fel a gráfot"
+    },
+    "leadership": {
+      "title": "Partner → Legend",
+      "subtitle": "7 rang. Keress 100 szintből álló hálózatodból.",
+      "cta": "Lásd a ranglépcsőt",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Építő",
+        "accelerator": "Gyorsító",
+        "director": "Igazgató",
+        "executive": "Vezető",
+        "ambassador": "Nagykövet",
+        "legend": "Legenda"
+      }
+    },
+    "security": {
+      "title": "Nulla sebezhetőség találva.",
+      "chip1": "Auditált",
+      "chip2": "Felmondva",
+      "chip3": "LP zárolva",
+      "bounty": "$100K bónusz",
+      "bountyUnclaimed": "nem igényelt.",
+      "cta": "Lásd a bizonyítékot"
+    },
+    "films": {
+      "title": "Mi az a TurboLoop?",
+      "caption": "Új vagy? Kezdd ezzel.",
+      "cta": "Nézd meg a filmet"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Számok szerint",
+    "title": "Egy mozgalom, nem pillanat.",
+    "subtitle": "Valós elérés a világ minden táján. Fordítva, mesélve és élve több tucat nyelven minden nap.",
+    "stat1Label": "Nyelvek",
+    "stat1Help": "Támogatott nyelvek a központban",
+    "stat2Label": "Filmek",
+    "stat2Help": "Filmek a Sovereign Series & Cinematic Universe-ben",
+    "stat3Label": "Kontinensek",
+    "stat3Help": "Aktív közösségi jelenlét",
+    "stat4Label": "Bounty",
+    "stat4Help": "A centralizáció bizonyítékaként"
+  },
+  "security": {
+    "eyebrow": "Bizalom nélküli kialakítás",
+    "title": "Öt ok, hogy senkiben se bízz.",
+    "subtitle": "Eltávolítottuk minden módját annak, hogy ártson neked. Ami maradt, az kód, publikálva, zárolva és ellenőrizve olyan emberek által, akik nem dolgoznak nekünk.",
+    "reason1Title": "Változtathatatlan okosszerződés",
+    "reason1Body": "A szerződés telepítve és felmondva. Nincs admin kulcs, nincs frissítési proxy, nincs szünet funkció. Még a alapítók sem módosíthatják.",
+    "reason2Title": "Decentralizált likviditás",
+    "reason2Body": "Hozam a protokoll tulajdonában lévő likviditási medencékből származik — nem az új betétekből. A matematika akkor is működik, ha nem csatlakozik új tag.",
+    "reason3Title": "Nincs admin kulcs",
+    "reason3Body": "A tulajdonjog felmondva a telepítéskor. Nincs olyan pénztárca, amely kifolyhatja az alapokat, befagyaszthatja a számlákat vagy módosíthatja a paramétereket.",
+    "reason4Title": "Nyílt forráskód & Ellenőrzött",
+    "reason4Body": "A teljes szerződés forrása közzétéve és ellenőrizve a BscScan-en. Bárki olvashatja minden sorát, mielőtt egyetlen dollárt is betesz.",
+    "reason5Title": "$100K Biztonsági Bónusz",
+    "reason5Body": "100 000 USDT-t teszünk az asztalra, ha valaki valódi sebezhetőséget talál. Mindenki számára nyitott, NDA nélkül, 7 napon belül kifizetve a verifikáció után.",
+    "viewContract": "Megtekintés a BscScan-en",
+    "submitBounty": "Jelentsen hibát",
+    "metaTitle": "TurboLoop Biztonság — Változtathatatlan okosszerződés & $100K Bónusz",
+    "metaDesc": "A TurboLoop okosszerződése változtathatatlan, felmondott és nyílt forráskódú. Nincs admin kulcs, nincs frissítési proxy. $100,000 USDT bónusz a verifikált sebezhetőségekért."
+  },
+  "zoom": {
+    "eyebrow": "Azonnal Élő",
+    "title": "A közösség",
+    "titleHighlight": "most él.",
+    "subtitle": "Valós emberek, valós válaszok. Minden nap.",
+    "labelEnglish": "Angol",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Napi · Ingyenes",
+    "when": "Mikor",
+    "nextCallIn": "Következő hívásban",
+    "joinNow": "Csatlakozz most",
+    "labelThai": "Thai",
+    "labelThaiMorning": "Thai Reggel",
+    "labelThaiEvening": "Thai Este",
+    "labelAfrican": "Afrikai",
+    "monWedSat": "Hét · Sze · Szat · Ingyenes",
+    "satOnly": "Csak szombat · Ingyenes",
+    "sunTueThu": "Vas · Sze · Cs · Ingyenes"
+  },
+  "reels": {
+    "eyebrow": "Rövidfilmek",
+    "title": "Minden rövid. Egy hely.",
+    "titleHighlight": "Minden 15 nyelven.",
+    "subtitle": "Rövid formátumú videók, hogyan csatlakozz, bemutatók 15 nyelven, visszavonás + kamatoztatás + ajánlói útmutatók. Ingyen nézhető, megosztható.",
+    "categoryPresentation": "Kiemelt rövidfilmek",
+    "categoryPresentationDesc": "Sovereign Series rövidfilmek + többnyelvű projektbevezetők.",
+    "categoryHowToJoin": "Hogyan csatlakozz — nyelv szerint",
+    "categoryHowToJoinDesc": "Lépésről lépésre útmutatók 15 nyelven: pénztárca telepítése → USDT vásárlás → Loop terv kiválasztása.",
+    "categoryWithdraw": "Kivétel, kamatoztatás & ajánlás",
+    "categoryWithdrawDesc": "Hogyan igényeld a napi jövedelmet, újra betétel kamatoztatáshoz, és használd az ajánlói rendszert.",
+    "watchNow": "Nézd meg most",
+    "shareBtn": "Megosztás",
+    "metaTitle": "TurboLoop Rövidfilmek — Rövid DeFi Videók 15 Nyelven",
+    "metaDesc": "Nézd meg a TurboLoop rövidfilmeket: hogyan csatlakozz útmutatók 15 nyelven, visszavonás és kamatoztatás útmutatók, ajánlói útmutatók. Ingyen nézhető."
+  },
+  "creatives": {
+    "eyebrow": "Marketing Központ",
+    "title": "Ingyenes bannerek. Készen állnak a megosztásra.",
+    "subtitle": "Kampánycsomagok, márkázott pillérek és egy 14 nyelvet tartalmazó oktatócsomag. Letöltés, megosztás Telegramon vagy WhatsApp-on — szerzői jog nem szükséges.",
+    "statBanners": "Összes banner",
+    "statCategories": "Kategóriák",
+    "statLanguages": "Nyelvek",
+    "statFree": "Ingyen megosztható",
+    "downloadBtn": "Letöltés",
+    "shareBtn": "Megosztás",
+    "viewAll": "Összes megtekintése",
+    "metaTitle": "TurboLoop Marketing Központ — Több mint 2800 Ingyenes DeFi Banner 14 Nyelven",
+    "metaDesc": "Töltsd le több mint 2800 ingyenes DeFi marketing bannert. 14 nyelv, kampánycsomagok, márkázott oktatócsomag. Ingyenes a TurboLoop közösség számára."
   }
 }

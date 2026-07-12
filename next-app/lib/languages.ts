@@ -151,25 +151,8 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     bcp47: "tr-tr", slugSuffix: "-tr", telegramChannel: null,
     rssTitle: "Turbo Loop — Editoryal",
     rssDescription: "DeFi, getiri, güvenlik ve TurboLoop'un arkasındaki matematik hakkında derinlemesine makaleler."
-  }
-};
-
-/** Ordered list of languages for UI rendering (English first, then alphabetical or priority) */
-export const LANGUAGE_ORDER: LanguageCode[] = [
-  "en", "fr", "es", "pt", "de", "it", "nl", "ro", "el", "cs", "hu", "pl", "ru", "uk",
-  "hi", "ta", "bn", "te", "mr", "gu", "kn", "ml", "pa", "ne", "si",
-  "th", "vi", "ja", "ms", "tl", "km", "my", "id",
-  "kr", "ko", "la", "lo", "cn", "sa", "pk",
-  "tr", "az", "uz", "kk", "fa", "he",
-  "sw", "ha", "yo", "am", "ng"
-];
-
-/** Helper to get the base hreflang (e.g., "en-us" -> "en") */
-export function getHreflang(code: LanguageCode): string {
-  return LANGUAGES[code].bcp47.split("-")[0];
-},
-
-  pt: {
+  },
+pt: {
     code: "pt", locale: "pt", name: "Portuguese", nativeName: "Português", flag: "🇧🇷",
     bcp47: "pt-br", slugSuffix: "-pt", telegramChannel: null,
     rssTitle: "Turbo Loop — Editorial",
@@ -361,4 +344,19 @@ export function getHreflang(code: LanguageCode): string {
     rssTitle: "Turbo Loop — מערכת",
     rssDescription: "מאמרים מעמיקים על DeFi, תשואה, אבטחה והמתמטיקה מאחורי TurboLoop."
   }
+};
 
+/** Ordered list of languages for UI rendering (English first, then alphabetical or priority) */
+export const LANGUAGE_ORDER: LanguageCode[] = [
+  "en", "fr", "es", "pt", "de", "it", "nl", "ro", "el", "cs", "hu", "pl", "ru", "uk",
+  "hi", "ta", "bn", "te", "mr", "gu", "kn", "ml", "pa", "ne", "si",
+  "th", "vi", "ja", "ms", "tl", "km", "my", "id",
+  "kr", "ko", "la", "lo", "cn", "sa", "pk",
+  "tr", "az", "uz", "kk", "fa", "he",
+  "sw", "ha", "yo", "am", "ng"
+];
+
+/** Helper to get the base hreflang (e.g., "en-us" -> "en") */
+export function getHreflang(code: LanguageCode): string {
+  return LANGUAGES[code].bcp47.split("-")[0];
+}

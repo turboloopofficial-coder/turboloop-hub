@@ -45,7 +45,7 @@ export default function EarnIndexPage() {
               href={`/earn/${page.slug}`}
               className="group relative rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-emerald-500/40 hover:bg-emerald-500/[0.03] transition-all duration-300"
             >
-              <Heading tier="h3" className="text-lg mb-2 group-hover:text-emerald-400 transition-colors">
+              <Heading tier="title" className="text-lg mb-2 group-hover:text-emerald-400 transition-colors">
                 {page.headline}
               </Heading>
               <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">

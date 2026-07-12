@@ -125,7 +125,7 @@ export default async function EarnPage({
           <div className="space-y-4">
             {page.faqs.map((faq, i) => (
               <Card key={i} className="p-5 bg-white/[0.02] border-white/10">
-                <Heading tier="h3" className="text-base font-semibold mb-2 text-emerald-400">
+                <Heading tier="title" className="text-base font-semibold mb-2 text-emerald-400">
                   {faq.question}
                 </Heading>
                 <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
@@ -169,7 +169,7 @@ export default async function EarnPage({
 
         {/* Related Links */}
         <section className="mt-12">
-          <Heading tier="h3" className="text-lg mb-4">
+          <Heading tier="title" className="text-lg mb-4">
             Related Resources
           </Heading>
           <div className="flex flex-wrap gap-3">

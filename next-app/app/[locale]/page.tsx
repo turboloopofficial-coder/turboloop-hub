@@ -79,7 +79,7 @@ export default async function LocaleHomePage({ params }: Props) {
     {
       icon: ShieldCheck,
       label: t("trust.audited"),
-      href: "https://github.com/turboloop/audit",
+      href: "https://solidityscan.com/quickscan/0xc90E5785632dAaB9Cb61F5050dA393090541A76D/bsc",
     },
     {
       icon: Lock,

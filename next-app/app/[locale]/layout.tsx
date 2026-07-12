@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       alternateLocale: routing.locales.filter((l) => l !== locale),
       url: locale === "en"
         ? "https://www.turboloop.tech/"
-        : \`https://www.turboloop.tech/\${locale}/\`,
+        : `https://www.turboloop.tech/${locale}/`,
       title: t("title"),
       description: t("description"),
       images: [

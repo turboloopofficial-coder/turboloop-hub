@@ -20,6 +20,7 @@ import {
   type BlogLanguage,
   type BlogPostSummary,
 } from "@lib/api";
+import { LANGUAGE_ORDER } from "@lib/languages";
 import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
 export const revalidate = 300; // 5 min
@@ -60,13 +61,8 @@ function formatDate(iso: string) {
 }
 
 function isBlogLanguage(v: string | undefined): v is BlogLanguage {
-  // Whitelist must mirror BLOG_LANGUAGES in lib/api.ts.
-  return (
-    v === "en" || v === "de" || v === "hi" || v === "id" || v === "th" ||
-    v === "ko" || v === "lo" || v === "fr" || v === "ta" || v === "la" ||
-    v === "cn" || v === "es" || v === "ng" || v === "it" || v === "sa" ||
-    v === "kr" || v === "pk"
-  );
+  // Dynamic check — automatically includes any language added to languages.ts.
+  return v !== undefined && (LANGUAGE_ORDER as readonly string[]).includes(v);
 }
 
 export default async function BlogIndex({ searchParams }: { searchParams: Promise<{ lang?: string | string[] }> }) {

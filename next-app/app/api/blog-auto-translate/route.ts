@@ -6,23 +6,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
 
+// IMPORTANT: These codes MUST match the DB language column values.
+// DB uses: pk (Urdu), sa (Arabic), cn (Chinese), ng (Pidgin), kr (Korean), la (Lao)
 const LANGUAGES = [
   { code: "hi", name: "Hindi" },
   { code: "th", name: "Thai" },
   { code: "id", name: "Indonesian" },
   { code: "bn", name: "Bangla" },
-  { code: "ko", name: "Korean" },
-  { code: "ur", name: "Urdu" },
-  { code: "ta", name: "Tamil" },
-  { code: "ar", name: "Arabic" },
-  { code: "zh", name: "Chinese (Simplified)" },
   { code: "tr", name: "Turkish" },
-  { code: "lo", name: "Lao" },
+  { code: "kr", name: "Korean" },
+  { code: "pk", name: "Urdu" },
+  { code: "ta", name: "Tamil" },
+  { code: "sa", name: "Arabic" },
+  { code: "cn", name: "Chinese (Simplified)" },
+  { code: "la", name: "Lao" },
   { code: "fr", name: "French" },
   { code: "es", name: "Spanish" },
   { code: "it", name: "Italian" },
   { code: "de", name: "German" },
-  { code: "pcm", name: "Nigerian Pidgin" },
+  { code: "ng", name: "Nigerian Pidgin" },
 ];
 
 export async function POST(req: NextRequest) {
@@ -81,7 +83,19 @@ export async function POST(req: NextRequest) {
             messages: [
               {
                 role: "system",
-                content: `You are a professional translator. Translate the following blog post to ${lang.name}. Keep all markdown formatting, links, and structure intact. Only translate the text content. Return a JSON object with keys: title, content, excerpt. Do not add any explanation.`,
+                content: `You are a professional translator for TurboLoop, a DeFi protocol on BNB Smart Chain. Translate the following blog post to ${lang.name}.
+
+CRITICAL RULES:
+- Keep all markdown formatting, links, and structure intact
+- Only translate the text content
+- The 4 investment plans are: Sprint Loop (7 days, 3%), Accelerate Loop (14 days, 10%), Power Loop (30 days, 24%), Ultimate Loop (60 days, 54%) — NEVER change these names or numbers
+- Minimum deposit is 1 USDT — never change this
+- Smart contract ownership is RENOUNCED — always keep this fact
+- NEVER use the term "APY" to describe TurboLoop returns — use "fixed return" or "total return"
+- Returns are paid in USDT (BEP-20), not a native token
+- The protocol uses PancakeSwap V3 USDC/USDT concentrated liquidity
+
+Return a JSON object with keys: title, content, excerpt. Do not add any explanation.`,
               },
               {
                 role: "user",

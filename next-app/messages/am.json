@@ -458,5 +458,135 @@
     "step4": "Receive returns automatically",
     "compoundReturns": "Compound Returns Calculator",
     "revenueSource": "Revenue comes from PancakeSwap V3 concentrated liquidity positions"
+  },
+  "protocol": {
+    "eyebrow": "The Protocol",
+    "title": "Every piece.",
+    "titleHighlight": "One glance.",
+    "subtitle": "Four yield plans. A 20-level referral graph. Seven leadership ranks. Audited code. One protocol — built to be inspected, not trusted.",
+    "plans": {
+      "eyebrow": "The 4 Loop Plans",
+      "title": "Pick a duration. Earn a fixed yield.",
+      "subtitle": "Capital and yield returned at the end of the plan — no compounding tricks, no annualization gymnastics.",
+      "calculateReturn": "Calculate your return",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 Levels Deep",
+      "subtitle": "51% of protocol fees distributed to the community.",
+      "fact1": "No volume requirements",
+      "fact2": "Fixed percentages",
+      "fact3": "Deepest in DeFi",
+      "cta": "Explore the graph"
+    },
+    "leadership": {
+      "title": "Partner → Legend",
+      "subtitle": "7 ranks. Earn from 100 levels of your network.",
+      "cta": "See the rank ladder",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Builder",
+        "accelerator": "Accelerator",
+        "director": "Director",
+        "executive": "Executive",
+        "ambassador": "Ambassador",
+        "legend": "Legend"
+      }
+    },
+    "security": {
+      "title": "Zero vulnerabilities found.",
+      "chip1": "Audited",
+      "chip2": "Renounced",
+      "chip3": "LP Locked",
+      "bounty": "$100K bounty",
+      "bountyUnclaimed": "unclaimed.",
+      "cta": "See the proof"
+    },
+    "films": {
+      "title": "What is TurboLoop?",
+      "caption": "New here? Start with this.",
+      "cta": "Watch the film"
+    }
+  },
+  "numbers": {
+    "eyebrow": "By the Numbers",
+    "title": "A movement, not a moment.",
+    "subtitle": "Real reach across the world. Translated, told, and lived in dozens of languages every day.",
+    "stat1Label": "Languages",
+    "stat1Help": "Languages supported across the hub",
+    "stat2Label": "Films",
+    "stat2Help": "Films across Sovereign Series & Cinematic Universe",
+    "stat3Label": "Continents",
+    "stat3Help": "Active community presence",
+    "stat4Label": "Bounty",
+    "stat4Help": "For proof of centralization"
+  },
+  "security": {
+    "eyebrow": "Trustless by Design",
+    "title": "Five reasons to trust nobody.",
+    "subtitle": "We removed every way we could harm you. What remains is code, published, locked, and verified by people who don't work for us.",
+    "reason1Title": "Immutable Smart Contract",
+    "reason1Body": "The contract is deployed and renounced. No admin keys, no upgrade proxy, no pause function. Not even the founders can modify it.",
+    "reason2Title": "Decentralized Liquidity",
+    "reason2Body": "Yield is generated from protocol-owned liquidity pools — not from new deposits. The math works even if no new members join.",
+    "reason3Title": "No Admin Keys",
+    "reason3Body": "Ownership was renounced at deployment. There is no wallet that can drain funds, freeze accounts, or change parameters.",
+    "reason4Title": "Open Source & Verified",
+    "reason4Body": "The full contract source is published and verified on BscScan. Anyone can read every line before depositing a single dollar.",
+    "reason5Title": "$100K Security Bounty",
+    "reason5Body": "We put $100,000 USDT on the table for anyone who finds a real vulnerability. Open to all, no NDA, paid within 7 days of verification.",
+    "viewContract": "View on BscScan",
+    "submitBounty": "Submit a finding",
+    "metaTitle": "TurboLoop Security — Immutable Smart Contract & $100K Bounty",
+    "metaDesc": "TurboLoop's smart contract is immutable, renounced, and open source. No admin keys, no upgrade proxy. $100,000 USDT bounty for verified vulnerabilities."
+  },
+  "zoom": {
+    "eyebrow": "Live Right Now",
+    "title": "The community is",
+    "titleHighlight": "live right now.",
+    "subtitle": "Real people, real answers. Every day.",
+    "labelEnglish": "English",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Daily · Free",
+    "when": "When",
+    "nextCallIn": "Next call in",
+    "joinNow": "Join now",
+    "labelThai": "Thai",
+    "labelThaiMorning": "Thai Morning",
+    "labelThaiEvening": "Thai Evening",
+    "labelAfrican": "African",
+    "monWedSat": "Mon · Wed · Sat · Free",
+    "satOnly": "Saturday only · Free",
+    "sunTueThu": "Sun · Tue · Thu · Free"
+  },
+  "reels": {
+    "eyebrow": "Short Films",
+    "title": "Every reel. One place.",
+    "titleHighlight": "All 15 languages.",
+    "subtitle": "Short-form videos, how-to-join walkthroughs in 15 languages, withdraw + compound + referral tutorials. Free to watch, ready to share.",
+    "categoryPresentation": "Featured reels",
+    "categoryPresentationDesc": "Sovereign Series shorts + multi-language project intros.",
+    "categoryHowToJoin": "How to join — by language",
+    "categoryHowToJoinDesc": "Step-by-step walkthroughs in 15 languages: install wallet → buy USDT → pick a Loop Plan.",
+    "categoryWithdraw": "Withdraw, compound & refer",
+    "categoryWithdrawDesc": "How to claim daily earnings, re-deposit to compound, and use the referral system.",
+    "watchNow": "Watch now",
+    "shareBtn": "Share",
+    "metaTitle": "TurboLoop Reels — Short DeFi Videos in 15 Languages",
+    "metaDesc": "Watch TurboLoop reels: how-to-join walkthroughs in 15 languages, withdraw and compound tutorials, referral guides. Free to watch."
+  },
+  "creatives": {
+    "eyebrow": "Marketing Hub",
+    "title": "Free banners. Ready to share.",
+    "subtitle": "Campaign suites, branded pillars, and a 14-language educational kit. Download, share on Telegram or WhatsApp — no attribution required.",
+    "statBanners": "Total banners",
+    "statCategories": "Categories",
+    "statLanguages": "Languages",
+    "statFree": "Free to share",
+    "downloadBtn": "Download",
+    "shareBtn": "Share",
+    "viewAll": "View all",
+    "metaTitle": "TurboLoop Marketing Hub — 2,800+ Free DeFi Banners in 14 Languages",
+    "metaDesc": "Download 2,800+ free DeFi marketing banners. 14 languages, campaign suites, branded educational kit. Free for the TurboLoop community."
   }
 }

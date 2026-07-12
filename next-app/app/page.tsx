@@ -29,10 +29,10 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { SectionDivider } from "@components/ui/SectionDivider";
-const NumbersSection = dynamic(() => import("@components/sections/NumbersSection"), { ssr: false });
-const TestimonialSection = dynamic(() => import("@components/sections/TestimonialSection"), { ssr: false });
-const ProtocolBentoSection = dynamic(() => import("@components/sections/ProtocolBentoSection"), { ssr: false });
-const TokenSpotlightSection = dynamic(() => import("@components/sections/TokenSpotlightSection"), { ssr: false });
+import { NumbersSection } from "@components/sections/NumbersSection";
+import { TestimonialSection } from "@components/sections/TestimonialSection";
+import { ProtocolBentoSection } from "@components/sections/ProtocolBentoSection";
+import { TokenSpotlightSection } from "@components/sections/TokenSpotlightSection";
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
 

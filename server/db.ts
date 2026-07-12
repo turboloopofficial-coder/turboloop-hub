@@ -1105,10 +1105,34 @@ export async function logAuditEvent(params: {
       targetId: params.targetId ?? null,
       details: params.details ?? null,
     });
+    // Send Telegram alert for security-relevant events
+    if (params.action.includes("login.failed") || params.action.includes("rate_limited")) {
+      sendSecurityAlert(params).catch(() => {});
+    }
   } catch (err) {
     // Audit logging must never break the main flow
     console.error("[audit-log]", err);
   }
+}
+
+async function sendSecurityAlert(params: { action: string; actor?: string | null; ipAddress?: string | null; details?: string | null }) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_ADMIN_CHAT || process.env.TELEGRAM_SUPPORT_CHAT;
+  if (!token || !chatId) return;
+  const emoji = params.action.includes("rate_limited") ? "\u{1F6A8}" : "\u26A0\uFE0F";
+  const text = `${emoji} <b>Security Alert</b>\n\n` +
+    `<b>Event:</b> ${params.action}\n` +
+    `<b>Actor:</b> ${params.actor || "unknown"}\n` +
+    `<b>IP:</b> <code>${params.ipAddress || "unknown"}</code>\n` +
+    `<b>Details:</b> ${params.details || "-"}\n` +
+    `<b>Time:</b> ${new Date().toISOString()}`;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+    });
+  } catch { /* non-blocking */ }
 }
 
 export async function listAuditLog(limit = 100) {

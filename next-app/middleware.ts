@@ -61,7 +61,23 @@ const EXISTING_ROUTES = new Set([
   "robots.txt",
 ]);
 
+// ─── BLOCKED IPs (known attackers from Jul 10, 2026 brute-force attempt) ───
+const BLOCKED_IPS = new Set([
+  "126.209.72.71",
+  "126.209.72.73",
+  "43.240.55.40",
+  "43.240.55.41",
+  "43.240.55.35",
+  "103.167.116.93",
+]);
+
 export function middleware(request: NextRequest) {
+  // IP blocking — reject known attackers immediately
+  const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "";
+  if (BLOCKED_IPS.has(clientIp)) {
+    return new NextResponse("Forbidden", { status: 403 });
+  }
+
   const { pathname } = request.nextUrl;
 
   // Skip API routes, static assets, the SW file itself, and /reset

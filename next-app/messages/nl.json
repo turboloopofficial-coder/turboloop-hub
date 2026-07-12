@@ -457,5 +457,135 @@
     "step4": "Ontvang automatisch rendement",
     "compoundReturns": "Rente op rente calculator",
     "revenueSource": "Inkomsten komen van PancakeSwap V3 geconcentreerde liquiditeitsposities"
+  },
+  "protocol": {
+    "eyebrow": "Het Protocol",
+    "title": "Elk stuk.",
+    "titleHighlight": "Eén blik.",
+    "subtitle": "Vier opbrengstplannen. Een verwijzingsgrafiek met 20 niveaus. Zeven leiderschapsrangen. Gecodeerde code. Eén protocol — gebouwd om geïnspecteerd te worden, niet om vertrouwd te worden.",
+    "plans": {
+      "eyebrow": "De 4 Loop Plannen",
+      "title": "Kies een duur. Verdien een vaste opbrengst.",
+      "subtitle": "Kapitaal en opbrengst terug aan het einde van het plan — geen samengestelde trucs, geen jaarrekeninggymnastiek.",
+      "calculateReturn": "Bereken je rendement",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 Niveaus Diep",
+      "subtitle": "51% van de protocolkosten verdeeld onder de gemeenschap.",
+      "fact1": "Geen volume-eisen",
+      "fact2": "Vaste percentages",
+      "fact3": "Diepste in DeFi",
+      "cta": "Verken de grafiek"
+    },
+    "leadership": {
+      "title": "Partner → Legende",
+      "subtitle": "7 rangen. Verdien vanaf 100 niveaus van je netwerk.",
+      "cta": "Bekijk de rangladder",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Bouwer",
+        "accelerator": "Versneller",
+        "director": "Directeur",
+        "executive": "Uitvoerend",
+        "ambassador": "Ambassadeur",
+        "legend": "Legende"
+      }
+    },
+    "security": {
+      "title": "Zero kwetsbaarheden gevonden.",
+      "chip1": "Gecodeerd",
+      "chip2": "Afstand gedaan",
+      "chip3": "LP Vergrendeld",
+      "bounty": "$100K beloning",
+      "bountyUnclaimed": "niet opgeëist.",
+      "cta": "Zie het bewijs"
+    },
+    "films": {
+      "title": "Wat is TurboLoop?",
+      "caption": "Nieuw hier? Begin hiermee.",
+      "cta": "Bekijk de film"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Per Cijfers",
+    "title": "Een beweging, geen moment.",
+    "subtitle": "Echte bereik over de hele wereld. Verteld, vertaald en geleefd in tientallen talen elke dag.",
+    "stat1Label": "Talen",
+    "stat1Help": "Talen ondersteund door het centrum",
+    "stat2Label": "Films",
+    "stat2Help": "Films uit Sovereign Series & Cinematic Universe",
+    "stat3Label": "Continenten",
+    "stat3Help": "Actieve gemeenschapspresentie",
+    "stat4Label": "Beloning",
+    "stat4Help": "Voor bewijs van centralisatie"
+  },
+  "security": {
+    "eyebrow": "Trustless by Design",
+    "title": "Vijf redenen om niemand te vertrouwen.",
+    "subtitle": "We hebben elke manier verwijderd waarop we je konden schaden. Wat overblijft is code, gepubliceerd, vergrendeld en geverifieerd door mensen die niet voor ons werken.",
+    "reason1Title": "Onveranderlijk Slim Contract",
+    "reason1Body": "Het contract is gedeployed en afgezworen. Geen beheerderssleutels, geen upgrade proxy, geen pauzefunctie. Zelfs de oprichters kunnen het niet aanpassen.",
+    "reason2Title": "Gedecentraliseerde Liquiditeit",
+    "reason2Body": "Opbrengst wordt gegenereerd uit protocol-eigendom liquiditeitspools — niet uit nieuwe stortingen. De wiskunde werkt zelfs als geen nieuwe leden zich aanmelden.",
+    "reason3Title": "Geen Beheerderssleutels",
+    "reason3Body": "Eigendom is afgezworen bij deployment. Er is geen wallet die fondsen kan legen, accounts kan bevriezen of parameters kan wijzigen.",
+    "reason4Title": "Open Source & Geverifieerd",
+    "reason4Body": "De volledige contractbron is gepubliceerd en geverifieerd op BscScan. Iedereen kan elke regel lezen voordat hij een dollar stort.",
+    "reason5Title": "$100K Beveiligingsbeloning",
+    "reason5Body": "We zetten $100.000 USDT op tafel voor iedereen die een echte kwetsbaarheid vindt. Open voor iedereen, geen NDA, betaald binnen 7 dagen na verificatie.",
+    "viewContract": "Bekijk op BscScan",
+    "submitBounty": "Dien een bevinding in",
+    "metaTitle": "TurboLoop Beveiliging — Onveranderlijk Slim Contract & $100K Beloning",
+    "metaDesc": "TurboLoop's slim contract is onveranderlijk, afgezworen en open source. Geen beheerderssleutels, geen upgrade proxy. $100.000 USDT beloning voor geverifieerde kwetsbaarheden."
+  },
+  "zoom": {
+    "eyebrow": "Leeft Nu",
+    "title": "De gemeenschap is",
+    "titleHighlight": "leeft op dit moment.",
+    "subtitle": "Echte mensen, echte antwoorden. Elke dag.",
+    "labelEnglish": "Engels",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Dagelijks · Gratis",
+    "when": "Wanneer",
+    "nextCallIn": "Volgende oproep in",
+    "joinNow": "Doe nu mee",
+    "labelThai": "Thai",
+    "labelThaiMorning": "Thai Ochtend",
+    "labelThaiEvening": "Thai Avond",
+    "labelAfrican": "Afrikaans",
+    "monWedSat": "Ma · Wo · Za · Gratis",
+    "satOnly": "Alleen zaterdag · Gratis",
+    "sunTueThu": "Zo · Di · Do · Gratis"
+  },
+  "reels": {
+    "eyebrow": "Korte Films",
+    "title": "Elke reel. Eén plek.",
+    "titleHighlight": "Alle 15 talen.",
+    "subtitle": "Korte video's, handleidingen voor deelname in 15 talen, tutorials voor opnemen + samenstellen + verwijzing. Gratis te bekijken, klaar om te delen.",
+    "categoryPresentation": "Uitgelichte reels",
+    "categoryPresentationDesc": "Sovereign Series shorts + meertalige projectintroducties.",
+    "categoryHowToJoin": "Hoe te joinen — per taal",
+    "categoryHowToJoinDesc": "Stapsgewijze handleidingen in 15 talen: installeer wallet → koop USDT → kies een Loop Plan.",
+    "categoryWithdraw": "Opnemen, samenstellen & verwijzen",
+    "categoryWithdrawDesc": "Hoe dagelijkse inkomsten te claimen, opnieuw te storten om samen te stellen, en het verwijzingsysteem te gebruiken.",
+    "watchNow": "Bekijk nu",
+    "shareBtn": "Delen",
+    "metaTitle": "TurboLoop Reels — Korte DeFi Video's in 15 Talen",
+    "metaDesc": "Bekijk TurboLoop reels: handleidingen voor deelname in 15 talen, tutorials voor opnemen en samenstellen, verwijzingsgidsen. Gratis te bekijken."
+  },
+  "creatives": {
+    "eyebrow": "Marketing Hub",
+    "title": "Gratis banners. Klaar om te delen.",
+    "subtitle": "Campagnesets, merkpilaren en een educatief pakket in 14 talen. Download, deel op Telegram of WhatsApp — geen attributie vereist.",
+    "statBanners": "Totaal banners",
+    "statCategories": "Categorieën",
+    "statLanguages": "Talen",
+    "statFree": "Gratis om te delen",
+    "downloadBtn": "Download",
+    "shareBtn": "Delen",
+    "viewAll": "Bekijk alles",
+    "metaTitle": "TurboLoop Marketing Hub — 2.800+ Gratis DeFi Banners in 14 Talen",
+    "metaDesc": "Download meer dan 2.800 gratis DeFi marketingbanners. 14 talen, campagnesets, merkeducatief pakket. Gratis voor de TurboLoop gemeenschap."
   }
 }

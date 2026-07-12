@@ -402,5 +402,188 @@
     "step4": "Pokea mapato moja kwa moja",
     "compoundReturns": "Kalkuta ya Mchanganyiko wa Mapato",
     "revenueSource": "Mapato yanatoka kwa PancakeSwap V3 nafasi za unyonyaji wa umakini"
+  },
+  "common": {
+    "learnMore": "Jifunze Zaidi",
+    "viewAll": "Tazama Zote",
+    "getStarted": "Anza",
+    "joinNow": "Jiunge Sasa",
+    "readMore": "Soma Zaidi",
+    "download": "Pakua",
+    "share": "Shiriki",
+    "close": "Funga",
+    "back": "Rudi",
+    "next": "Ifuatayo",
+    "loading": "Inapakia...",
+    "error": "Kitu kimeenda mrama. Tafadhali jaribu tena.",
+    "copyLink": "Nakili Kiungo",
+    "copied": "Imenakiliwa!",
+    "days": "siku",
+    "hours": "masaa",
+    "minutes": "dakika",
+    "seconds": "sekunde"
+  },
+  "footer": {
+    "tagline": "Kilimo cha faida cha decentralised kwenye Binance Smart Chain.",
+    "protocol": "Itifaki",
+    "content": "Yaliyomo",
+    "community": "Jamii",
+    "legal": "Kisheria",
+    "privacy": "Sera ya Faragha",
+    "terms": "Masharti ya Huduma",
+    "security": "Usalama",
+    "allRightsReserved": "Haki zote zimehifadhiwa.",
+    "auditedBy": "Imehakikiwa na"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming on BSC",
+      "description": "Pata hadi 54% ROI kwa siku 60 kutoka kwa mfuko halisi wa USDC/USDT. Imehakikiwa, LP-imefungwa, umiliki umekataliwa. USDT ya chini ni 1."
+    },
+    "calculator": {
+      "title": "Yield Calculator — TurboLoop",
+      "description": "Hesabu faida yako halisi ya USDT na bonasi ya token $TURBO kwa mipango ya Sprint, Boost, Power, na Ultimate."
+    },
+    "faq": {
+      "title": "Maswali Yanayoulizwa Mara kwa Mara — TurboLoop",
+      "description": "Majibu kwa maswali yanayoulizwa mara kwa mara kuhusu TurboLoop DeFi yield farming."
+    },
+    "apply": {
+      "title": "Tuma Maombi ya Kupata Faida — TurboLoop",
+      "description": "Jiunge na mtandao wa watengenezaji wa TurboLoop. Pata kamisheni kama Muundaji wa Nyota au Mwakilishi wa Mtaa."
+    },
+    "token": {
+      "title": "Token $TURBO — TurboLoop",
+      "description": "Jifunze kuhusu token ya $TURBO inayopungua kwa thamani — ununuzi wa kila siku na kuchoma, ratiba ya uwekezaji, na tokenomics."
+    }
+  },
+  "protocol": {
+    "eyebrow": "Itifaki",
+    "title": "Kila kipande.",
+    "titleHighlight": "Moja kwa moja.",
+    "subtitle": "Mipango minne ya faida. Gridi ya rufaa ya ngazi 20. Viwango saba vya uongozi. Kanuni zilizohakikiwa. Itifaki moja — iliyojengwa kwa ukaguzi, si kwa kuaminika.",
+    "plans": {
+      "eyebrow": "Mipango 4 ya Loop",
+      "title": "Chagua muda. Pata faida thabiti.",
+      "subtitle": "Mtaji na faida hurudiwa mwishoni mwa mpango — hakuna mbinu za kuongezea faida, hakuna mazoea ya mwaka.",
+      "calculateReturn": "Hesabu faida yako",
+      "turboBonusLabel": "$TURBO bonasi"
+    },
+    "referral": {
+      "title": "Ngazi 20 Zaidi",
+      "subtitle": "Asilimia 51% ya ada za itifaki zinagawanywa kwa jamii.",
+      "fact1": "Hakuna mahitaji ya volume",
+      "fact2": "Asilimia zilizowekwa",
+      "fact3": "Zaidi sana katika DeFi",
+      "cta": "Chunguza grafu"
+    },
+    "leadership": {
+      "title": "Mshirika → Hadithi",
+      "subtitle": "Viwango 7. Pata faida kutoka kwa ngazi 100 za mtandao wako.",
+      "cta": "Tazama ngazi za cheo",
+      "ranks": {
+        "partner": "Mshirika",
+        "builder": "Mjenzi",
+        "accelerator": "Mhamasishaji",
+        "director": "Mkurugenzi",
+        "executive": "Mtendaji",
+        "ambassador": "Balozi",
+        "legend": "Hadithi"
+      }
+    },
+    "security": {
+      "title": "Hakuna udhaifu uliopatikana.",
+      "chip1": "Imehakikiwa",
+      "chip2": "Imekataliwa",
+      "chip3": "LP imefungwa",
+      "bounty": "$100K zawadi",
+      "bountyUnclaimed": "hajachukuliwa.",
+      "cta": "Tazama ushahidi"
+    },
+    "films": {
+      "title": "Nini TurboLoop?",
+      "caption": "Mara ya kwanza hapa? Anza na hii.",
+      "cta": "Tazama filamu"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Kwa Takwimu",
+    "title": "Harakati, si tukio.",
+    "subtitle": "Ufikiaji halisi duniani kote. Umetafsiriwa, umesimuliwa, na kuishiwa katika lugha kadhaa kila siku.",
+    "stat1Label": "Lugha",
+    "stat1Help": "Lugha zinazoungwa mkono kwenye kituo",
+    "stat2Label": "Filamu",
+    "stat2Help": "Filamu kutoka kwa Mfululizo wa Sovereign & Ulimwengu wa Sinema",
+    "stat3Label": "Mataifa",
+    "stat3Help": "Uwepo wa jamii unaoendelea",
+    "stat4Label": "Zawadi",
+    "stat4Help": "Kwa ushahidi wa uongozi wa kati"
+  },
+  "security": {
+    "eyebrow": "Hakuna Uaminifu kwa Muundo",
+    "title": "Sababu tano za kuaminika na mtu yeyote.",
+    "subtitle": "Tumeondoa kila njia tunayoweza kukudhuru. Kinachobaki ni kanuni, iliyochapishwa, imefungwa, na kuthibitishwa na watu wasiofanya kazi kwetu.",
+    "reason1Title": "Mkataba wa Smart Contract usiobadilika",
+    "reason1Body": "Mkataba umewekwa na umekataliwa. Hakuna funguo za msimamizi, hakuna proxy ya uboreshaji, hakuna kazi ya kusimamisha. Hata waasisi hawawezi kuibadilisha.",
+    "reason2Title": "Uwekezaji wa decentralised",
+    "reason2Body": "Faida inatokana na mifuko ya liquidity inayomilikiwa na itifaki — si kutoka kwa amana mpya. Hisabati inafanya kazi hata kama wanachama wapya hawaji.",
+    "reason3Title": "Hakuna Funguo za Msimamizi",
+    "reason3Body": "Umiliki umekataliwa wakati wa uwekaji. Hakuna pochi inayoweza kuondoa fedha, kuzuia akaunti, au kubadilisha vigezo.",
+    "reason4Title": "Chanzo wazi & Imethibitishwa",
+    "reason4Body": "Chanzo kamili cha mkataba umechapishwa na kuthibitishwa kwenye BscScan. Mtu yeyote anaweza kusoma kila mstari kabla ya kuweka dola moja.",
+    "reason5Title": "$100K zawadi ya Usalama",
+    "reason5Body": "Tunaweka $100,000 USDT mezani kwa mtu yeyote anayepata udhaifu halisi. Inafunguliwa kwa wote, hakuna NDA, inalipwa ndani ya siku 7 za uthibitisho.",
+    "viewContract": "Tazama kwenye BscScan",
+    "submitBounty": "Wasilisha ugunduzi",
+    "metaTitle": "TurboLoop Usalama — Smart Contract Isiyobadilika & $100K Zawadi"
+  },
+  "zoom": {
+    "eyebrow": "Moja kwa Moja Sasa",
+    "title": "Jamii ni",
+    "titleHighlight": "moje kwa moja sasa.",
+    "subtitle": "Watu halisi, majibu halisi. Kila siku.",
+    "labelEnglish": "Kiingereza",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Kila siku · Bure",
+    "when": "Lini",
+    "nextCallIn": "Ifuatayo inakuja",
+    "joinNow": "Jiunge sasa",
+    "labelThai": "Khaisi",
+    "labelThaiMorning": "Asubuhi ya Thai",
+    "labelThaiEvening": "Jioni ya Thai",
+    "labelAfrican": "Mataifa ya Afrika",
+    "monWedSat": "Jumamosi · Jumatano · Jumamosi · Bure",
+    "satOnly": "Jumamosi pekee · Bure",
+    "sunTueThu": "Jumapili · Jumanne · Alhamisi · Bure"
+  },
+  "reels": {
+    "eyebrow": "Filamu Fupi",
+    "title": "Reel zote. Mahali pamoja.",
+    "titleHighlight": "Lugha zote 15.",
+    "subtitle": "Video za fupi, maelekezo ya jinsi ya kujiunga kwa lugha 15, mafunzo ya kutoa na kuunganisha, na mwongozo wa referral. Bure kuangalia, tayari kushiriki.",
+    "categoryPresentation": "Reels zilizochaguliwa",
+    "categoryPresentationDesc": "Reels za Sovereign Series + utangulizi wa mradi wa lugha nyingi.",
+    "categoryHowToJoin": "Jinsi ya kujiunga — kwa lugha",
+    "categoryHowToJoinDesc": "Maelekezo hatua kwa hatua kwa lugha 15: weka pochi → nunua USDT → chagua Mpango wa Loop.",
+    "categoryWithdraw": "Toa, ungana & rufaa",
+    "categoryWithdrawDesc": "Jinsi ya kudai mapato ya kila siku, kuwekeza tena ili kuunganisha, na kutumia mfumo wa referral.",
+    "watchNow": "Tazama sasa",
+    "shareBtn": "Shiriki",
+    "metaTitle": "TurboLoop Reels — Video Fupi za DeFi kwa Lugha 15",
+    "metaDesc": "Tazama reels za TurboLoop: maelekezo ya jinsi ya kujiunga kwa lugha 15, mafunzo ya kutoa na kuunganisha, mwongozo wa referral. Bure kuangalia."
+  },
+  "creatives": {
+    "eyebrow": "Kituo cha Masoko",
+    "title": "Banners za bure. Tayari kushiriki.",
+    "subtitle": "Mifuko ya kampeni, nguzo za chapa, na kifurushi cha elimu cha lugha 14. Pakua, shiriki kwenye Telegram au WhatsApp — hakuna uhitaji wa attribution.",
+    "statBanners": "Banners zote",
+    "statCategories": "Aina",
+    "statLanguages": "Lugha",
+    "statFree": "Bure kushiriki",
+    "downloadBtn": "Pakua",
+    "shareBtn": "Shiriki",
+    "viewAll": "Tazama Zote",
+    "metaTitle": "Kituo cha Masoko cha TurboLoop — Banners 2,800+ za Bure za DeFi kwa Lugha 14",
+    "metaDesc": "Pakua banners zaidi ya 2,800 za bure za masoko ya DeFi. Lugha 14, mifuko ya kampeni, kifurushi cha elimu cha chapa. Bure kwa jamii ya TurboLoop."
   }
 }

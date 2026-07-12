@@ -457,5 +457,135 @@
     "step4": "Karɓi ribar ta atomatik",
     "compoundReturns": "Kalkulatocin Haɗa Riba",
     "revenueSource": "Kuɗin shiga daga PancakeSwap V3 ƙungiyoyin ruwa masu mayar da hankali"
+  },
+  "protocol": {
+    "eyebrow": "The Protocol",
+    "title": "Kowane sashi.",
+    "titleHighlight": "Duba guda daya.",
+    "subtitle": "Hanyoyi hudu na samun riba. Hoton shawarwari na matakai 20. Matsayi 7 na shugabanci. Lambar da aka duba. Tsari guda ɗaya — an gina shi don a duba, ba don a amince da shi ba.",
+    "plans": {
+      "eyebrow": "The 4 Loop Plans",
+      "title": "Zaɓi lokaci. Samu riba ta dindindin.",
+      "subtitle": "Jari da ribar da aka dawo da ita a ƙarshen shirin — babu dabarun haɗawa, babu wasan kwaikwayo na shekara-shekara.",
+      "calculateReturn": "Lissafa ribarka",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 Matakai Zurfi",
+      "subtitle": "Kashi 51% na kuɗin tsarin an raba su ga al'umma.",
+      "fact1": "Babu buƙatar yawan kasuwa",
+      "fact2": "Kashi na dindindin",
+      "fact3": "Mafi zurfi a DeFi",
+      "cta": "Bincika hoton"
+    },
+    "leadership": {
+      "title": "Abokin Hulɗa → Dattijo",
+      "subtitle": "Matsayi 7. Samu daga matakai 100 na cibiyarka.",
+      "cta": "Duba matakin mataki",
+      "ranks": {
+        "partner": "Abokin Hulɗa",
+        "builder": "Mai Gina",
+        "accelerator": "Mai Hanzari",
+        "director": "Darakta",
+        "executive": "Jami'i",
+        "ambassador": "Jakadiya",
+        "legend": "Dattijo"
+      }
+    },
+    "security": {
+      "title": "Babu matsaloli da aka samu.",
+      "chip1": "An duba",
+      "chip2": "An ƙyale",
+      "chip3": "LP An kulle",
+      "bounty": "$100K bounty",
+      "bountyUnclaimed": "ba a nema ba.",
+      "cta": "Duba shaidar"
+    },
+    "films": {
+      "title": "Menene TurboLoop?",
+      "caption": "Sabon nan? Fara da wannan.",
+      "cta": "Kalli fim"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Da Lambobi",
+    "title": "Motsi, ba lokaci ba.",
+    "subtitle": "Gaskiya ta kai duniya. An fassara, an faɗa, kuma ana rayuwa da shi a cikin harsuna da dama kowace rana.",
+    "stat1Label": "Harsuna",
+    "stat1Help": "Harsuna da ke cikin cibiyar",
+    "stat2Label": "Fina-finai",
+    "stat2Help": "Fina-finai a cikin Sovereign Series & Cinematic Universe",
+    "stat3Label": "Kontinenti",
+    "stat3Help": "Akwai al'umma mai aiki",
+    "stat4Label": "Bounty",
+    "stat4Help": "Domin shaida na tsakiya"
+  },
+  "security": {
+    "eyebrow": "Trustless by Design",
+    "title": "Dalilai biyar na rashin amincewa da kowa.",
+    "subtitle": "Mun cire duk hanyar da za mu iya cutar da ku. Abin da ya rage shine lamba, an buga shi, an kulle shi, kuma an tabbatar da shi ta mutane da ba su aiki a gare mu ba.",
+    "reason1Title": "Tsarin Smart Contract mai Dindindin",
+    "reason1Body": "An tura kwangilar kuma an ƙyale ta. Babu makullin admin, babu proxy na haɓakawa, babu aikin tsayawa. Ko masu kafa ba za su iya canza shi ba.",
+    "reason2Title": "Liquidity mai Tsakiya",
+    "reason2Body": "Ribar tana fitowa daga rukunin liquidity na tsarin — ba daga sababbin ajiya ba. Lissafin yana aiki ko da ba a ƙara sababbin membobi ba.",
+    "reason3Title": "Babu Makullin Admin",
+    "reason3Body": "An ƙyale mallakar lokacin tura. Babu walat da zai iya zuba kuɗi, ya daskare asusun, ko ya canza sigogi.",
+    "reason4Title": "Open Source & Tabbas",
+    "reason4Body": "An buga cikakken asalin kwangilar kuma an tabbatar da shi a BscScan. Kowa zai iya karanta kowace layi kafin ya ajiye dala guda.",
+    "reason5Title": "$100K Security Bounty",
+    "reason5Body": "Mun sanya $100,000 USDT a tebur don duk wanda ya gano matsalar tsaro. Bude ga kowa, babu NDA, an biya cikin kwanaki 7 na tabbatarwa.",
+    "viewContract": "Duba a BscScan",
+    "submitBounty": "Aika gano matsala",
+    "metaTitle": "TurboLoop Security — Tsarin Smart Contract mai Dindindin & $100K Bounty",
+    "metaDesc": "Tsarin smart contract na TurboLoop ba shi da canji, an ƙyale shi, kuma yana da tushen buɗe. Babu makullin admin, babu proxy na haɓakawa. $100,000 USDT bounty don matsalolin da aka tabbatar."
+  },
+  "zoom": {
+    "eyebrow": "Rayuwa Yanzu",
+    "title": "Al'umma tana",
+    "titleHighlight": "rayuwa yanzu.",
+    "subtitle": "Mutane na gaskiya, amsoshi na gaskiya. Kowace rana.",
+    "labelEnglish": "Turanci",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Kullum · Kyauta",
+    "when": "Yaushe",
+    "nextCallIn": "Kiran na gaba a cikin",
+    "joinNow": "Shiga yanzu",
+    "labelThai": "Thai",
+    "labelThaiMorning": "Safe na Thai",
+    "labelThaiEvening": "Yamma na Thai",
+    "labelAfrican": "Afirka",
+    "monWedSat": "Litinin · Laraba · Asabar · Kyauta",
+    "satOnly": "Asabar kawai · Kyauta",
+    "sunTueThu": "Lahadi · Talata · Alhamis · Kyauta"
+  },
+  "reels": {
+    "eyebrow": "Short Films",
+    "title": "Kowane fim. Wuri guda.",
+    "titleHighlight": "Dukkan harsuna 15.",
+    "subtitle": "Bidiyo masu gajeren lokaci, yadda ake shiga cikin harsuna 15, koyarwar cirewa + haɗawa + shawarwari. Kyauta don kallo, shirye don rabawa.",
+    "categoryPresentation": "Fina-finai masu nuna",
+    "categoryPresentationDesc": "Shorts na Sovereign Series + gabatarwar ayyukan harsuna da dama.",
+    "categoryHowToJoin": "Yadda ake shiga — ta harshe",
+    "categoryHowToJoinDesc": "Mataki-mataki na hanyoyi a cikin harsuna 15: shigar da walat → sayi USDT → zaɓi Loop Plan.",
+    "categoryWithdraw": "Cire, haɗa & shawarwari",
+    "categoryWithdrawDesc": "Yadda ake karɓar kuɗin yau da kullum, sake saka kuɗi don haɗawa, da amfani da tsarin shawarwari.",
+    "watchNow": "Kalli yanzu",
+    "shareBtn": "Raba",
+    "metaTitle": "TurboLoop Reels — Short DeFi Videos in 15 Languages",
+    "metaDesc": "Kalli TurboLoop reels: yadda ake shiga cikin harsuna 15, koyarwar cirewa da haɗawa, shawarwari. Kyauta don kallo."
+  },
+  "creatives": {
+    "eyebrow": "Marketing Hub",
+    "title": "Banners kyauta. Shirye don rabawa.",
+    "subtitle": "Kayan kamfen, ginshikan alama, da kayan ilimi na harsuna 14. Zazzage, raba a Telegram ko WhatsApp — babu buƙatar ambato.",
+    "statBanners": "Jimlar banners",
+    "statCategories": "Categories",
+    "statLanguages": "Harsuna",
+    "statFree": "Kyauta don rabawa",
+    "downloadBtn": "Zazzage",
+    "shareBtn": "Raba",
+    "viewAll": "Duba duka",
+    "metaTitle": "TurboLoop Marketing Hub — Banners 2,800+ na Kyauta a Harsuna 14",
+    "metaDesc": "Zazzage banners na kasuwanci na DeFi 2,800+ kyauta. Harsuna 14, kayan kamfen, kayan ilimi na alama. Kyauta ga al'ummar TurboLoop."
   }
 }

@@ -85,6 +85,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path === "" ? "daily" : path === "/blog" ? "weekly" : "monthly",
     priority: path === "" ? 1.0 : path === "/blog" ? 0.9 : 0.7,
   }));
+  // Earn programmatic SEO sub-pages
+  const earnPages: MetadataRoute.Sitemap = [
+    "/earn/automated-crypto-earnings",
+    "/earn/best-defi-yield-2026",
+    "/earn/crypto-income-without-trading",
+    "/earn/defi-passive-income-beginners",
+    "/earn/pancakeswap-v3-yield-optimization",
+    "/earn/passive-income-with-bnb",
+    "/earn/turboloop-vs-pancakeswap",
+    "/earn/usdt-yield-bsc",
+  ].map(path => ({
+    url: `${BASE}${path}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
 
   // Films — all cinematic videos from DB (original Cinematic Universe
   // + Sovereign Series S2 + any future uploads). Canonical slugs only;

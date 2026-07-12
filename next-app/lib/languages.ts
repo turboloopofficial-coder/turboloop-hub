@@ -8,7 +8,11 @@
 export type LanguageCode = 
   | "en" | "de" | "hi" | "id" | "th" | "ko" | "lo" | "fr" 
   | "ta" | "la" | "cn" | "es" | "ng" | "it" | "sa" | "kr" 
-  | "pk" | "bn" | "tr";
+  | "pk" | "bn" | "tr" | "pt" | "ru" | "ja" | "vi" | "tl"
+  | "ms" | "fa" | "uk" | "pl" | "sw" | "ha" | "yo" | "az"
+  | "uz" | "kk" | "ne" | "si" | "te" | "mr" | "gu" | "kn"
+  | "ml" | "pa" | "my" | "km" | "am" | "ro" | "nl" | "el"
+  | "cs" | "hu" | "he";
 
 export interface LanguageConfig {
   /** The 2-letter DB code used internally (e.g., "en", "hi", "kr") */
@@ -152,11 +156,209 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
 
 /** Ordered list of languages for UI rendering (English first, then alphabetical or priority) */
 export const LANGUAGE_ORDER: LanguageCode[] = [
-  "en", "fr", "es", "hi", "ta", "th", "kr", "ko", "la", "lo", 
-  "cn", "sa", "it", "pk", "ng", "de", "id", "bn", "tr"
+  "en", "fr", "es", "pt", "de", "it", "nl", "ro", "el", "cs", "hu", "pl", "ru", "uk",
+  "hi", "ta", "bn", "te", "mr", "gu", "kn", "ml", "pa", "ne", "si",
+  "th", "vi", "ja", "ms", "tl", "km", "my", "id",
+  "kr", "ko", "la", "lo", "cn", "sa", "pk",
+  "tr", "az", "uz", "kk", "fa", "he",
+  "sw", "ha", "yo", "am", "ng"
 ];
 
 /** Helper to get the base hreflang (e.g., "en-us" -> "en") */
 export function getHreflang(code: LanguageCode): string {
   return LANGUAGES[code].bcp47.split("-")[0];
-}
+},
+
+  pt: {
+    code: "pt", locale: "pt", name: "Portuguese", nativeName: "Português", flag: "🇧🇷",
+    bcp47: "pt-br", slugSuffix: "-pt", telegramChannel: null,
+    rssTitle: "Turbo Loop — Editorial",
+    rssDescription: "Artigos aprofundados sobre DeFi, rendimento, segurança e a matemática por trás do TurboLoop."
+  },
+  ru: {
+    code: "ru", locale: "ru", name: "Russian", nativeName: "Русский", flag: "🇷🇺",
+    bcp47: "ru-ru", slugSuffix: "-ru", telegramChannel: null,
+    rssTitle: "Turbo Loop — Редакция",
+    rssDescription: "Подробные статьи о DeFi, доходности, безопасности и математике TurboLoop."
+  },
+  ja: {
+    code: "ja", locale: "ja", name: "Japanese", nativeName: "日本語", flag: "🇯🇵",
+    bcp47: "ja-jp", slugSuffix: "-ja", telegramChannel: null,
+    rssTitle: "Turbo Loop — エディトリアル",
+    rssDescription: "DeFi、利回り、セキュリティ、TurboLoopの数学に関する詳細記事。"
+  },
+  vi: {
+    code: "vi", locale: "vi", name: "Vietnamese", nativeName: "Tiếng Việt", flag: "🇻🇳",
+    bcp47: "vi-vn", slugSuffix: "-vi", telegramChannel: null,
+    rssTitle: "Turbo Loop — Biên tập",
+    rssDescription: "Bài viết chuyên sâu về DeFi, lợi suất, bảo mật và toán học đằng sau TurboLoop."
+  },
+  tl: {
+    code: "tl", locale: "tl", name: "Filipino", nativeName: "Filipino", flag: "🇵🇭",
+    bcp47: "tl-ph", slugSuffix: "-tl", telegramChannel: null,
+    rssTitle: "Turbo Loop — Editorial",
+    rssDescription: "Mga malalim na artikulo tungkol sa DeFi, yield, seguridad, at matematika sa likod ng TurboLoop."
+  },
+  ms: {
+    code: "ms", locale: "ms", name: "Malay", nativeName: "Bahasa Melayu", flag: "🇲🇾",
+    bcp47: "ms-my", slugSuffix: "-ms", telegramChannel: null,
+    rssTitle: "Turbo Loop — Editorial",
+    rssDescription: "Artikel mendalam tentang DeFi, hasil, keselamatan dan matematik di sebalik TurboLoop."
+  },
+  fa: {
+    code: "fa", locale: "fa", name: "Persian", nativeName: "فارسی", flag: "🇮🇷",
+    bcp47: "fa-ir", slugSuffix: "-fa", telegramChannel: null,
+    rssTitle: "Turbo Loop — سرمقاله",
+    rssDescription: "مقالات عمیق درباره DeFi، بازده، امنیت و ریاضیات پشت TurboLoop."
+  },
+  uk: {
+    code: "uk", locale: "uk", name: "Ukrainian", nativeName: "Українська", flag: "🇺🇦",
+    bcp47: "uk-ua", slugSuffix: "-uk", telegramChannel: null,
+    rssTitle: "Turbo Loop — Редакція",
+    rssDescription: "Детальні статті про DeFi, дохідність, безпеку та математику TurboLoop."
+  },
+  pl: {
+    code: "pl", locale: "pl", name: "Polish", nativeName: "Polski", flag: "🇵🇱",
+    bcp47: "pl-pl", slugSuffix: "-pl", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redakcja",
+    rssDescription: "Szczegółowe artykuły o DeFi, zyskach, bezpieczeństwie i matematyce TurboLoop."
+  },
+  sw: {
+    code: "sw", locale: "sw", name: "Swahili", nativeName: "Kiswahili", flag: "🇰🇪",
+    bcp47: "sw-ke", slugSuffix: "-sw", telegramChannel: null,
+    rssTitle: "Turbo Loop — Uhariri",
+    rssDescription: "Makala ya kina kuhusu DeFi, mavuno, usalama na hesabu nyuma ya TurboLoop."
+  },
+  ha: {
+    code: "ha", locale: "ha", name: "Hausa", nativeName: "Hausa", flag: "🇳🇬",
+    bcp47: "ha-ng", slugSuffix: "-ha", telegramChannel: null,
+    rssTitle: "Turbo Loop — Edita",
+    rssDescription: "Labaran cikakku game da DeFi, riba, tsaro da lissafin da ke bayan TurboLoop."
+  },
+  yo: {
+    code: "yo", locale: "yo", name: "Yoruba", nativeName: "Yorùbá", flag: "🇳🇬",
+    bcp47: "yo-ng", slugSuffix: "-yo", telegramChannel: null,
+    rssTitle: "Turbo Loop — Àtúnṣe",
+    rssDescription: "Àwọn àpilẹ̀kọ jíjinlẹ̀ nípa DeFi, èrè, ààbò àti ìṣirò tó wà lẹ́yìn TurboLoop."
+  },
+  az: {
+    code: "az", locale: "az", name: "Azerbaijani", nativeName: "Azərbaycan", flag: "🇦🇿",
+    bcp47: "az-az", slugSuffix: "-az", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redaksiya",
+    rssDescription: "DeFi, gəlir, təhlükəsizlik və TurboLoop arxasındakı riyaziyyat haqqında ətraflı məqalələr."
+  },
+  uz: {
+    code: "uz", locale: "uz", name: "Uzbek", nativeName: "Oʻzbekcha", flag: "🇺🇿",
+    bcp47: "uz-uz", slugSuffix: "-uz", telegramChannel: null,
+    rssTitle: "Turbo Loop — Tahririyat",
+    rssDescription: "DeFi, daromad, xavfsizlik va TurboLoop ortidagi matematika haqida batafsil maqolalar."
+  },
+  kk: {
+    code: "kk", locale: "kk", name: "Kazakh", nativeName: "Қазақша", flag: "🇰🇿",
+    bcp47: "kk-kz", slugSuffix: "-kk", telegramChannel: null,
+    rssTitle: "Turbo Loop — Редакция",
+    rssDescription: "DeFi, табыс, қауіпсіздік және TurboLoop артындағы математика туралы терең мақалалар."
+  },
+  ne: {
+    code: "ne", locale: "ne", name: "Nepali", nativeName: "नेपाली", flag: "🇳🇵",
+    bcp47: "ne-np", slugSuffix: "-ne", telegramChannel: null,
+    rssTitle: "Turbo Loop — सम्पादकीय",
+    rssDescription: "DeFi, उपज, सुरक्षा र TurboLoop पछाडिको गणित बारे गहिरा लेखहरू।"
+  },
+  si: {
+    code: "si", locale: "si", name: "Sinhala", nativeName: "සිංහල", flag: "🇱🇰",
+    bcp47: "si-lk", slugSuffix: "-si", telegramChannel: null,
+    rssTitle: "Turbo Loop — සංස්කාරක",
+    rssDescription: "DeFi, ප්‍රතිලාභ, ආරක්ෂාව සහ TurboLoop පිටුපස ගණිතය පිළිබඳ ගැඹුරු ලිපි."
+  },
+  te: {
+    code: "te", locale: "te", name: "Telugu", nativeName: "తెలుగు", flag: "🇮🇳",
+    bcp47: "te-in", slugSuffix: "-te", telegramChannel: null,
+    rssTitle: "Turbo Loop — సంపాదకీయం",
+    rssDescription: "DeFi, రాబడి, భద్రత మరియు TurboLoop వెనుక గణితం గురించి లోతైన వ్యాసాలు."
+  },
+  mr: {
+    code: "mr", locale: "mr", name: "Marathi", nativeName: "मराठी", flag: "🇮🇳",
+    bcp47: "mr-in", slugSuffix: "-mr", telegramChannel: null,
+    rssTitle: "Turbo Loop — संपादकीय",
+    rssDescription: "DeFi, उत्पन्न, सुरक्षा आणि TurboLoop मागील गणित यावरील सखोल लेख."
+  },
+  gu: {
+    code: "gu", locale: "gu", name: "Gujarati", nativeName: "ગુજરાતી", flag: "🇮🇳",
+    bcp47: "gu-in", slugSuffix: "-gu", telegramChannel: null,
+    rssTitle: "Turbo Loop — સંપાદકીય",
+    rssDescription: "DeFi, ઉપજ, સુરક્ષા અને TurboLoop પાછળના ગણિત વિશે ઊંડાણપૂર્વક લેખો."
+  },
+  kn: {
+    code: "kn", locale: "kn", name: "Kannada", nativeName: "ಕನ್ನಡ", flag: "🇮🇳",
+    bcp47: "kn-in", slugSuffix: "-kn", telegramChannel: null,
+    rssTitle: "Turbo Loop — ಸಂಪಾದಕೀಯ",
+    rssDescription: "DeFi, ಇಳುವರಿ, ಭದ್ರತೆ ಮತ್ತು TurboLoop ಹಿಂದಿನ ಗಣಿತದ ಕುರಿತು ಆಳವಾದ ಲೇಖನಗಳು."
+  },
+  ml: {
+    code: "ml", locale: "ml", name: "Malayalam", nativeName: "മലയാളം", flag: "🇮🇳",
+    bcp47: "ml-in", slugSuffix: "-ml", telegramChannel: null,
+    rssTitle: "Turbo Loop — എഡിറ്റോറിയൽ",
+    rssDescription: "DeFi, വരുമാനം, സുരക്ഷ, TurboLoop-ന് പിന്നിലെ ഗണിതം എന്നിവയെക്കുറിച്ചുള്ള ആഴത്തിലുള്ള ലേഖനങ്ങൾ."
+  },
+  pa: {
+    code: "pa", locale: "pa", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ", flag: "🇮🇳",
+    bcp47: "pa-in", slugSuffix: "-pa", telegramChannel: null,
+    rssTitle: "Turbo Loop — ਸੰਪਾਦਕੀ",
+    rssDescription: "DeFi, ਉਪਜ, ਸੁਰੱਖਿਆ ਅਤੇ TurboLoop ਪਿੱਛੇ ਦੀ ਗਣਿਤ ਬਾਰੇ ਡੂੰਘੇ ਲੇਖ।"
+  },
+  my: {
+    code: "my", locale: "my", name: "Burmese", nativeName: "မြန်မာ", flag: "🇲🇲",
+    bcp47: "my-mm", slugSuffix: "-my", telegramChannel: null,
+    rssTitle: "Turbo Loop — အယ်ဒီတာ",
+    rssDescription: "DeFi, အမြတ်, လုံခြုံရေးနှင့် TurboLoop နောက်ကွယ်ရှိ သင်္ချာအကြောင်း အသေးစိတ်ဆောင်းပါးများ။"
+  },
+  km: {
+    code: "km", locale: "km", name: "Khmer", nativeName: "ភាសាខ្មែរ", flag: "🇰🇭",
+    bcp47: "km-kh", slugSuffix: "-km", telegramChannel: null,
+    rssTitle: "Turbo Loop — វិចារណកថា",
+    rssDescription: "អត្ថបទស៊ីជម្រៅអំពី DeFi ទិន្នផល សុវត្ថិភាព និងគណិតវិទ្យានៅពីក្រោយ TurboLoop។"
+  },
+  am: {
+    code: "am", locale: "am", name: "Amharic", nativeName: "አማርኛ", flag: "🇪🇹",
+    bcp47: "am-et", slugSuffix: "-am", telegramChannel: null,
+    rssTitle: "Turbo Loop — ዝግጅት",
+    rssDescription: "ስለ DeFi፣ ትርፍ፣ ደህንነት እና ከTurboLoop በስተጀርባ ያለው ሂሳብ ጥልቅ ጽሑፎች።"
+  },
+  ro: {
+    code: "ro", locale: "ro", name: "Romanian", nativeName: "Română", flag: "🇷🇴",
+    bcp47: "ro-ro", slugSuffix: "-ro", telegramChannel: null,
+    rssTitle: "Turbo Loop — Editorial",
+    rssDescription: "Articole aprofundate despre DeFi, randament, securitate și matematica din spatele TurboLoop."
+  },
+  nl: {
+    code: "nl", locale: "nl", name: "Dutch", nativeName: "Nederlands", flag: "🇳🇱",
+    bcp47: "nl-nl", slugSuffix: "-nl", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redactie",
+    rssDescription: "Diepgaande artikelen over DeFi, rendement, beveiliging en de wiskunde achter TurboLoop."
+  },
+  el: {
+    code: "el", locale: "el", name: "Greek", nativeName: "Ελληνικά", flag: "🇬🇷",
+    bcp47: "el-gr", slugSuffix: "-el", telegramChannel: null,
+    rssTitle: "Turbo Loop — Σύνταξη",
+    rssDescription: "Εις βάθος άρθρα για DeFi, απόδοση, ασφάλεια και τα μαθηματικά πίσω από το TurboLoop."
+  },
+  cs: {
+    code: "cs", locale: "cs", name: "Czech", nativeName: "Čeština", flag: "🇨🇿",
+    bcp47: "cs-cz", slugSuffix: "-cs", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redakce",
+    rssDescription: "Podrobné články o DeFi, výnosech, bezpečnosti a matematice za TurboLoop."
+  },
+  hu: {
+    code: "hu", locale: "hu", name: "Hungarian", nativeName: "Magyar", flag: "🇭🇺",
+    bcp47: "hu-hu", slugSuffix: "-hu", telegramChannel: null,
+    rssTitle: "Turbo Loop — Szerkesztőség",
+    rssDescription: "Mélyreható cikkek a DeFi-ről, hozamról, biztonságról és a TurboLoop mögötti matematikáról."
+  },
+  he: {
+    code: "he", locale: "he", name: "Hebrew", nativeName: "עברית", flag: "🇮🇱",
+    bcp47: "he-il", slugSuffix: "-he", telegramChannel: null,
+    rssTitle: "Turbo Loop — מערכת",
+    rssDescription: "מאמרים מעמיקים על DeFi, תשואה, אבטחה והמתמטיקה מאחורי TurboLoop."
+  }
+

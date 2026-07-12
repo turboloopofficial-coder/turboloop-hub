@@ -401,5 +401,189 @@
     "step4": "Gəlirləri avtomatik alın",
     "compoundReturns": "Birləşmiş Gəlir Kalkulyatoru",
     "revenueSource": "Gəlir PancakeSwap V3 konsentrə olunmuş likvidlik mövqelərindən gəlir"
+  },
+  "common": {
+    "learnMore": "Daha çox öyrən",
+    "viewAll": "Hamısını göstər",
+    "getStarted": "Başla",
+    "joinNow": "İndi qoşul",
+    "readMore": "Daha çox oxu",
+    "download": "Yüklə",
+    "share": "Paylaş",
+    "close": "Bağla",
+    "back": "Geri",
+    "next": "İrəli",
+    "loading": "Yüklənir...",
+    "error": "Bir şey səhv getdi. Zəhmət olmasa yenidən cəhd edin.",
+    "copyLink": "Linki kopyala",
+    "copied": "Kopyalandı!",
+    "days": "gün",
+    "hours": "saat",
+    "minutes": "dəqiqə",
+    "seconds": "saniyə"
+  },
+  "footer": {
+    "tagline": "Binance Smart Chain-də mərkəzsiz gəlir ferması.",
+    "protocol": "Protokol",
+    "content": "Məzmun",
+    "community": "İcma",
+    "legal": "Hüquqi",
+    "privacy": "Gizlilik Siyasəti",
+    "terms": "Xidmət Şərtləri",
+    "security": "Təhlükəsizlik",
+    "allRightsReserved": "Bütün hüquqlar qorunur.",
+    "auditedBy": "Audit olunub"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — BSC-də DeFi Gəlir Ferması",
+      "description": "Həqiqi USDC/USDT likvidlik hovuzundan 60 gündə 54% ROI əldə edin. Audit olunub, LP-kilidli, mülkiyyət rədd olunub. Ən azı 1 USDT."
+    },
+    "calculator": {
+      "title": "Gəlir Hesablayıcısı — TurboLoop",
+      "description": "Sprint, Boost, Power və Ultimate planları üçün dəqiq USDT gəlirinizi və $TURBO token bonusunuzu hesablayın."
+    },
+    "faq": {
+      "title": "Tez-tez verilən suallar — TurboLoop",
+      "description": "TurboLoop DeFi gəlir ferması haqqında ən çox verilən suallara cavablar."
+    },
+    "apply": {
+      "title": "Qazanmaq üçün müraciət et — TurboLoop",
+      "description": "TurboLoop yaradıcı şəbəkəsinə qoşulun. Yaradıçı Ulduz və ya Yerli Təqdimatçı kimi komissiya qazanın."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "$TURBO deflasiya tokeni haqqında öyrənin — gündəlik geri alış və yandırma, vesting cədvəli və tokenomika."
+    }
+  },
+  "protocol": {
+    "eyebrow": "Protokol",
+    "title": "Hər bir parça.",
+    "titleHighlight": "Bir baxış.",
+    "subtitle": "Dörd gəlir planı. 20 pilləli referral qrafiki. Yeddi liderlik rütbəsi. Audit olunmuş kod. Bir protokol — yoxlamaq üçün qurulub, etibar etmək üçün deyil.",
+    "plans": {
+      "eyebrow": "4 Döngü Planı",
+      "title": "Müddət seçin. Sabit gəlir qazanın.",
+      "subtitle": "Müddət sonunda kapital və gəlir geri qaytarılır — heç bir toplama tricks və ya illikləşdirmə gimnastikası yoxdur.",
+      "calculateReturn": "Gəlirinizi hesablayın",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 səviyyə dərinlik",
+      "subtitle": "Protokol ödənişlərinin 51%-i icmaya paylanır.",
+      "fact1": "Həcmi tələbləri yoxdur",
+      "fact2": "Sabit faizlər",
+      "fact3": "DeFi-də ən dərin",
+      "cta": "Qrafiki araşdırın"
+    },
+    "leadership": {
+      "title": "Partnyor → Əfsanə",
+      "subtitle": "7 rütbə. Şəbəkənizdən 100 səviyyədən qazanın.",
+      "cta": "Rütbə pilləsini gör",
+      "ranks": {
+        "partner": "Partnyor",
+        "builder": "İnşaatçı",
+        "accelerator": "İvmeverici",
+        "director": "Direktor",
+        "executive": "İcraçı",
+        "ambassador": "Elçi",
+        "legend": "Əfsanə"
+      }
+    },
+    "security": {
+      "title": "Sıfır zəiflik tapıldı.",
+      "chip1": "Audit olunub",
+      "chip2": "Rədd olunub",
+      "chip3": "LP kilidli",
+      "bounty": "$100K mükafat",
+      "bountyUnclaimed": "tələb olunmayıb.",
+      "cta": "Sübutu gör"
+    },
+    "films": {
+      "title": "TurboLoop nədir?",
+      "caption": "Yeni buradasınız? Bu ilə başlayın.",
+      "cta": "Filmi izləyin"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Rəqəmlərlə",
+    "title": "Bir hərəkət, deyil an.",
+    "subtitle": "Dünyada real təsir. Hər gün onlarla dildə tərcümə olunub, danışılıb və yaşanıb.",
+    "stat1Label": "Dillər",
+    "stat1Help": "Hub boyunca dəstəklənən dillər",
+    "stat2Label": "Filmlər",
+    "stat2Help": "Sovereign Series və Cinematic Universe-də filmlər",
+    "stat3Label": "Kontinentalar",
+    "stat3Help": "Aktiv icma mövcudluğu",
+    "stat4Label": "Mükafat",
+    "stat4Help": "Mərkəzləşdirmənin sübutu üçün"
+  },
+  "security": {
+    "eyebrow": "Etibara əsaslanmayan dizayn",
+    "title": "Niyə heç kimə güvənməyin.",
+    "subtitle": "Sizə zərər verə biləcək hər şeyi aradan qaldırdıq. Qalanlar kod, yayımlanmış, kilidli və bizim üçün işləməyən insanlar tərəfindən təsdiqlənmişdir.",
+    "reason1Title": "Dəyişməz Smart Contract",
+    "reason1Body": "Contract yerləşdirilib və rədd olunub. İdarəçi açarları, yeniləmə proxy-si və dayandırma funksiyası yoxdur. Hətta qurucular da dəyişə bilməz.",
+    "reason2Title": "Mərkəzsiz Likvidlik",
+    "reason2Body": "Gəlir protokolun mülkiyyətində olan likvidlik hovuzlarından əldə edilir — yeni depozitlərdən deyil. Rəqəmlər işləyir, hətta yeni üzvlər qoşulmasa da.",
+    "reason3Title": "İdarəçi Açarlar Yoxdur",
+    "reason3Body": "Mülkiyyət yerləşdirmədə rədd olunub. Fonları boşaltmaq, hesabları dondurmaq və ya parametrləri dəyişmək üçün cüzdan yoxdur.",
+    "reason4Title": "Açıq Mənbə və Təsdiqlənmiş",
+    "reason4Body": "Tam kontrakt mənbəyi yayımlanıb və BscScan-də təsdiqlənib. Hər kəs bir dollar yatırmadan əvvəl hər sətri oxuya bilər.",
+    "reason5Title": "$100K Təhlükəsizlik Mükafatı",
+    "reason5Body": "Hər kəsə həqiqi zəiflik taparsa $100,000 USDT təqdim edirik. Hamıya açıq, NDA tələb olunmur, təsdiqləndikdən sonra 7 gün ərzində ödənilir.",
+    "viewContract": "BscScan-də bax",
+    "submitBounty": "Tapıntını təqdim et",
+    "metaTitle": "TurboLoop Təhlükəsizliyi — Dəyişməz Smart Contract və $100K Mükafat",
+    "metaDesc": "TurboLoop-un smart contract-i dəyişməz, rədd olunub və açıq mənbədir. İdarəçi açarları yoxdur, yeniləmə proxy-si yoxdur. Təsdiqlənmiş zəifliklər üçün $100,000 USDT mükafatı."
+  },
+  "zoom": {
+    "eyebrow": "İndi Canlıdır",
+    "title": "İcma",
+    "titleHighlight": "indi canlıdır.",
+    "subtitle": "Həqiqi insanlar, həqiqi cavablar. Hər gün.",
+    "labelEnglish": "İngilis",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Gündəlik · Pulsuz",
+    "when": "Nə vaxt",
+    "nextCallIn": "Növbəti zəngdə",
+    "joinNow": "İndi qoşul",
+    "labelThai": "Tay",
+    "labelThaiMorning": "Tay Səhər",
+    "labelThaiEvening": "Tay Axşam",
+    "labelAfrican": "Afrikalı",
+    "monWedSat": "B.e. gün · Çərşənbə · Şənbə · Pulsuz",
+    "satOnly": "Yalnız şənbə · Pulsuz",
+    "sunTueThu": "Bazar · Çərşənbə · Cümə · Pulsuz"
+  },
+  "reels": {
+    "eyebrow": "Qısa Filmlər",
+    "title": "Hər bir büküm. Bir yer.",
+    "titleHighlight": "Bütün 15 dil.",
+    "subtitle": "Qısa videolar, qoşulma təlimatları 15 dildə, çıxarış + toplama + referral təlimatları. İzləmək pulsuz, paylaşmağa hazır.",
+    "categoryPresentation": "Seçilmiş bükümlər",
+    "categoryPresentationDesc": "Sovereign Series qısa videoları + çoxdilli layihə girişləri.",
+    "categoryHowToJoin": "Necə qoşulmaq — dil üzrə",
+    "categoryHowToJoinDesc": "15 dildə addım-addım təlimatlar: cüzdanı quraşdır → USDT al → Loop Plan seç.",
+    "categoryWithdraw": "Çıxar, toplama və referral",
+    "categoryWithdrawDesc": "Gündəlik qazancınızı necə tələb etmək, toplamaq üçün yenidən yatırmaq və referral sistemindən istifadə etmək.",
+    "watchNow": "İndi izləyin",
+    "shareBtn": "Paylaş",
+    "metaTitle": "TurboLoop Reels — 15 Dildə Qısa DeFi Videoları",
+    "metaDesc": "TurboLoop bükümlərini izləyin: 15 dildə qoşulma təlimatları, çıxarış və toplama dərsləri, referral bələdçiləri. İzləmək pulsuz."
+  },
+  "creatives": {
+    "eyebrow": "Marketinq Mərkəzi",
+    "title": "Pulsuz bannerlər. Paylaşmağa hazır.",
+    "subtitle": "Kampaniya paketləri, brend sütunlar və 14 dildə təhsil dəsti. Yüklə, Telegram və ya WhatsApp-da paylaş — atfet tələb olunmur.",
+    "statBanners": "Ümumi bannerlər",
+    "statCategories": "Kateqoriyalar",
+    "statLanguages": "Dillər",
+    "statFree": "Pulsuz paylaş",
+    "downloadBtn": "Yüklə",
+    "shareBtn": "Paylaş",
+    "viewAll": "Hamısını göstər",
+    "metaTitle": "TurboLoop Marketinq Mərkəzi — 14 Dildə 2800+ Pulsuz DeFi Banneri",
+    "metaDesc": "2800+ pulsuz DeFi marketinq banneri yükləyin. 14 dil, kampaniya paketləri, brend təhsil dəsti. TurboLoop icması üçün pulsuz."
   }
 }

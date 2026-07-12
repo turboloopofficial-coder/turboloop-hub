@@ -30,6 +30,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
 import { sanitize } from "@lib/sanitize";
+import { injectInternalLinks } from "@lib/internal-links";
+import { RelatedPosts } from "@components/blog/RelatedPosts";
 import { preprocessMarkdown } from "@lib/markdownPrep";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
@@ -203,6 +205,8 @@ export default async function BlogPostPage({
       const prepared = preprocessMarkdown(post.content);
       const rawHtml = await marked.parse(prepared, { breaks: true, gfm: true });
       cleanHtml = sanitize(rawHtml as string);
+      // Inject contextual internal links (max 3 per post)
+      cleanHtml = injectInternalLinks(cleanHtml, 3);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error(
@@ -387,6 +391,9 @@ export default async function BlogPostPage({
             className="prose-blog text-[var(--c-text)]"
             dangerouslySetInnerHTML={{ __html: cleanHtml }}
           />
+
+          {/* Related posts — internal linking for SEO */}
+          <RelatedPosts title={post.title} content={post.content || ""} />
 
           {/* End-of-article share strip — encourages onward sharing */}
           <div className="mt-12 pt-8 border-t border-[var(--c-border)] flex flex-col sm:flex-row items-center justify-between gap-4">

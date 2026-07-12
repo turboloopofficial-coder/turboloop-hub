@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "launchApp": "Запустить приложение",
+    "protocol": "Протокол",
+    "watchLearn": "Смотреть и учиться",
+    "community": "Сообщество",
+    "earnBuild": "Зарабатывать и строить",
+    "languagePicker": "Язык",
+    "links": {
+      "yieldFarming": "Фермерство",
+      "referralNetwork": "Реферальная сеть",
+      "leadershipProgram": "Программа лидерства",
+      "turboBuy": "TurboBuy",
+      "turboSwap": "TurboSwap",
+      "security": "Безопасность",
+      "films": "Фильмы",
+      "reels": "Рилсы",
+      "library": "Библиотека",
+      "blog": "Блог",
+      "learnDeFi": "Изучать DeFi",
+      "communityLink": "Сообщество",
+      "socialWall": "Социальная стена",
+      "leaderboard": "Таблица лидеров",
+      "events": "Мероприятия и Zoom",
+      "turboToken": "$TURBO Токен",
+      "promotions": "Акции",
+      "applyToEarn": "Подать заявку на заработок",
+      "careers": "Карьера",
+      "creatives": "Креативы",
+      "faq": "Часто задаваемые вопросы",
+      "roadmap": "Дорожная карта",
+      "calculator": "Калькулятор"
+    }
+  },
+  "home": {
+    "liveStatus": "В сети на Binance Smart Chain",
+    "heroTagline": "Устойчивая доходность. Прозрачно по дизайну. Открыто для всех.",
+    "heroTaglinePart1": "Устойчивая доходность.",
+    "heroTaglinePart2": "Прозрачно по дизайну.",
+    "heroTaglinePart3": "Открыто для всех.",
+    "launchApp": "Запустить приложение",
+    "watchFilms": "Смотреть фильмы",
+    "shareStory": "Или поделитесь своей историей →",
+    "scroll": "Прокрутка",
+    "trust": {
+      "audited": "Независимо проверено",
+      "lpLocked": "100% LP заблокирован",
+      "renounced": "Право собственности отказано",
+      "bscscan": "Проверено на BscScan"
+    },
+    "newsletter": {
+      "title": "Будьте впереди по доходности.",
+      "subtitle": "Еженедельные обновления протокола, новый контент и новости сообщества — прямо на ваш почтовый ящик.",
+      "placeholder": "Ваш адрес электронной почты",
+      "subscribe": "Подписаться",
+      "privacy": "Без спама. Отписка в любой момент."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Калькулятор доходности + токенов",
+    "title": "Рассчитайте цифры.",
+    "subtitle": "Выберите план, введите ваш депозит и увидьте точную прибыль — без сложных процентов и скрытых сборов.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% за 7 дней",
+      "boost": "10% за 14 дней",
+      "power": "24% за 30 дней",
+      "ultimate": "54% за 60 дней"
+    },
+    "deposit": "Сумма депозита",
+    "depositPlaceholder": "Введите сумму в USDT",
+    "minimum": "Минимум: 1 USDT",
+    "yourReturn": "Ваша прибыль",
+    "earnings": "Заработок",
+    "totalAtMaturity": "Общая сумма к окончанию",
+    "planDuration": "Длительность плана",
+    "days": "дней",
+    "startPlan": "Начать этот план",
+    "presets": "Быстрые суммы",
+    "rewardTier": "Уровень награды",
+    "tokenBonus": "$TURBO Бонус токена",
+    "vestingRank": "Ранг вестинга",
+    "projection": "Прогноз"
+  },
+  "faq": {
+    "eyebrow": "Часто задаваемые вопросы",
+    "title": "Всё, что нужно знать.",
+    "subtitle": "Не нашли ответ? Спросите в нашем Telegram сообществе.",
+    "askCommunity": "Спросить сообщество"
+  },
+  "apply": {
+    "eyebrow": "Подать заявку на заработок",
+    "title": "Присоединяйтесь к сети создателей TurboLoop.",
+    "subtitle": "Зарабатывайте комиссии, делясь TurboLoop со своей аудиторией. Два направления: Creator Star и Local Presenter.",
+    "creatorStar": "Creator Star",
+    "localPresenter": "Local Presenter",
+    "applyNow": "Подать заявку",
+    "requirements": "Требования",
+    "benefits": "Преимущества",
+    "howItWorks": "Как это работает"
+  },
+  "token": {
+    "eyebrow": "$TURBO Токен",
+    "title": "Дефляционный бонусный слой.",
+    "subtitle": "Депозиторы планов Power и Ultimate получают $TURBO токены в качестве бонуса сверху своих доходов в USDT.",
+    "buyback": "Ежедневный выкуп и сжигание",
+    "supply": "Общий объем",
+    "burned": "Сжигано",
+    "circulatingSupply": "Обращающийся объем",
+    "viewOnBscScan": "Посмотреть на BscScan",
+    "buyTurbo": "Купить $TURBO",
+    "tokenomics": "Токеномика",
+    "vestingSchedule": "График вестинга",
+    "heroTitle": "Ваши долгосрочные инвестиции стали лучше",
+    "heroSubtitle": "Зарабатывайте $TURBO токены как бонус на планах Power и Ultimate. Ежедневный выкуп и сжигание создают дефляционное давление.",
+    "liveChart": "Живой график",
+    "liveChartDesc": "Данные цен и объемов в реальном времени, предоставленные DexScreener.",
+    "deflationaryProof": "Доказательство дефляции",
+    "recentBurnEvents": "Недавние сжигания",
+    "burnEventsDesc": "Каждое ежедневное выкуп и сжигание записывается в блокчейн. Проверено, прозрачно, навсегда.",
+    "howYouEarn": "Как зарабатывать $TURBO",
+    "leadershipRank": "Ваш ранг в лидерстве ускоряет получение токенов",
+    "dailyBuybackBurn": "Ежедневный выкуп и сжигание",
+    "fairLaunch": "Честный запуск, полностью в блокчейне, без ключей администратора",
+    "twoWaysToTrade": "Два способа торговли",
+    "listedOnCoinGecko": "В списке CoinGecko",
+    "viewOnCoinGecko": "Посмотреть на CoinGecko",
+    "network": "Сеть",
+    "contractAddress": "Адрес контракта",
+    "buyTax": "Налог при покупке",
+    "sellTax": "Налог при продаже",
+    "lpStatus": "Статус LP",
+    "teamAllocation": "Распределение команды",
+    "auditStatus": "Статус аудита",
+    "independentlyAudited": "Независимо проверено",
+    "lpLock": "Блокировка LP",
+    "ownership": "Право собственности",
+    "ownershipRenounced": "Отказано в праве собственности",
+    "minimumDeposit": "Минимальный депозит",
+    "sprintPlanROI": "ROI плана Sprint",
+    "boostPlanROI": "ROI плана Boost",
+    "powerPlanROI": "ROI плана Power",
+    "ultimatePlanROI": "ROI плана Ultimate"
+  },
+  "common": {
+    "learnMore": "Узнать больше",
+    "viewAll": "Посмотреть все",
+    "getStarted": "Начать",
+    "joinNow": "Присоединиться сейчас",
+    "readMore": "Читать далее",
+    "download": "Скачать",
+    "share": "Поделиться",
+    "close": "Закрыть",
+    "back": "Назад",
+    "next": "Далее",
+    "loading": "Загрузка...",
+    "error": "Что-то пошло не так. Попробуйте снова.",
+    "copyLink": "Копировать ссылку",
+    "copied": "Скопировано!",
+    "days": "дней",
+    "hours": "часов",
+    "minutes": "минут",
+    "seconds": "секунд"
+  },
+  "footer": {
+    "tagline": "Децентрализованное фермерство на Binance Smart Chain.",
+    "protocol": "Протокол",
+    "content": "Контент",
+    "community": "Сообщество",
+    "legal": "Юридическая информация",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования",
+    "security": "Безопасность",
+    "allRightsReserved": "Все права защищены.",
+    "auditedBy": "Проверено"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi фермерство на BSC",
+      "description": "Зарабатывайте до 54% ROI за 60 дней из реального пула ликвидности USDC/USDT. Проверено, LP-заблокировано, право собственности отказано. Минимум 1 USDT."
+    },
+    "calculator": {
+      "title": "Калькулятор доходности — TurboLoop",
+      "description": "Рассчитайте точную прибыль в USDT и бонус токенов $TURBO для планов Sprint, Boost, Power и Ultimate."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "Ответы на самые распространённые вопросы о DeFi фермерстве TurboLoop."
+    },
+    "apply": {
+      "title": "Подать заявку на заработок — TurboLoop",
+      "description": "Присоединяйтесь к сети создателей TurboLoop. Зарабатывайте комиссии, делясь с сообществом."
+    },
+    "token": {
+      "title": "$TURBO Токен — TurboLoop",
+      "description": "Узнайте о $TURBO — дефляционном токене — ежедневных выкупах и сжиганиях, графике вестинга и токеномике."
+    }
+  }
+}

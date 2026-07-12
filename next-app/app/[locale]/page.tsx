@@ -65,6 +65,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+export const revalidate = 60; // ISR: revalidate every 60 seconds
+
 export default async function LocaleHomePage({ params }: Props) {
   const { locale } = await params;
 

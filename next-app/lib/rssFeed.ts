@@ -62,7 +62,10 @@ export async function buildRssFeed(lang: BlogLanguage): Promise<string> {
   }
 
   const items = posts
-    .filter(p => p.published && p.language === lang)
+    .filter(p => {
+      const pubDate = new Date(p.scheduledPublishAt ?? p.createdAt);
+      return p.published && p.language === lang && pubDate <= new Date();
+    })
     .sort((a, b) => {
       const aT = new Date(a.scheduledPublishAt ?? a.createdAt).getTime();
       const bT = new Date(b.scheduledPublishAt ?? b.createdAt).getTime();

@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "launchApp": "Lançar Aplicativo",
+    "protocol": "Protocolo",
+    "watchLearn": "Assista & Aprenda",
+    "community": "Comunidade",
+    "earnBuild": "Ganhar & Construir",
+    "languagePicker": "Idioma",
+    "links": {
+      "yieldFarming": "Agricultura de Rendimento",
+      "referralNetwork": "Rede de Referência",
+      "leadershipProgram": "Programa de Liderança",
+      "turboBuy": "Turbo Buy",
+      "turboSwap": "Turbo Swap",
+      "security": "Segurança",
+      "films": "Filmes",
+      "reels": "Reels",
+      "library": "Biblioteca",
+      "blog": "Blog",
+      "learnDeFi": "Aprenda DeFi",
+      "communityLink": "Comunidade",
+      "socialWall": "Mural Social",
+      "leaderboard": "Classificação",
+      "events": "Eventos & Zoom",
+      "turboToken": "Token $TURBO",
+      "promotions": "Promoções",
+      "applyToEarn": "Candidate-se para Ganhar",
+      "careers": "Carreiras",
+      "creatives": "Criativos",
+      "faq": "Perguntas Frequentes",
+      "roadmap": "Roteiro",
+      "calculator": "Calculadora"
+    }
+  },
+  "home": {
+    "liveStatus": "Ao vivo na Binance Smart Chain",
+    "heroTagline": "Rendimento sustentável. Transparente por design. Aberto a todos.",
+    "heroTaglinePart1": "Rendimento sustentável.",
+    "heroTaglinePart2": "Transparente por design.",
+    "heroTaglinePart3": "Aberto a todos.",
+    "launchApp": "Lançar Aplicativo",
+    "watchFilms": "Assista aos filmes",
+    "shareStory": "Ou compartilhe sua história →",
+    "scroll": "Role",
+    "trust": {
+      "audited": "Auditado Independente",
+      "lpLocked": "LP 100% Bloqueado",
+      "renounced": "Propriedade Renunciada",
+      "bscscan": "Verificado no BscScan"
+    },
+    "newsletter": {
+      "title": "Fique à frente do rendimento.",
+      "subtitle": "Atualizações semanais do protocolo, novos conteúdos e destaques da comunidade — direto na sua caixa de entrada.",
+      "placeholder": "Seu endereço de email",
+      "subscribe": "Inscrever-se",
+      "privacy": "Sem spam. Cancele a inscrição a qualquer momento."
+    }
+  },
+  "calculator": {
+    "eyebrow": "Calculadora de Rendimento + Token",
+    "title": "Faça os números.",
+    "subtitle": "Escolha um plano, insira seu depósito e veja seu retorno exato — sem composição, sem taxas ocultas.",
+    "plans": {
+      "sprint": "Sprint",
+      "boost": "Boost",
+      "power": "Power",
+      "ultimate": "Ultimate"
+    },
+    "planDetails": {
+      "sprint": "3% em 7 dias",
+      "boost": "10% em 14 dias",
+      "power": "24% em 30 dias",
+      "ultimate": "54% em 60 dias"
+    },
+    "deposit": "Valor do Depósito",
+    "depositPlaceholder": "Insira o valor em USDT",
+    "minimum": "Mínimo: 1 USDT",
+    "yourReturn": "Seu Retorno",
+    "earnings": "Ganhos",
+    "totalAtMaturity": "Total no Vencimento",
+    "planDuration": "Duração do Plano",
+    "days": "dias",
+    "startPlan": "Iniciar Este Plano",
+    "presets": "Valores Rápidos",
+    "rewardTier": "Nível de Recompensa",
+    "tokenBonus": "Bônus de Token $TURBO",
+    "vestingRank": "Classificação de Vesting",
+    "projection": "Projeção"
+  },
+  "faq": {
+    "eyebrow": "Perguntas Frequentes",
+    "title": "Tudo que você precisa saber.",
+    "subtitle": "Não encontrou uma resposta? Pergunte na nossa comunidade do Telegram.",
+    "askCommunity": "Pergunte à Comunidade"
+  },
+  "apply": {
+    "eyebrow": "Candidate-se para Ganhar",
+    "title": "Junte-se à rede de criadores TurboLoop.",
+    "subtitle": "Ganhe comissões compartilhando TurboLoop com seu público. Dois caminhos: Estrela Criadora e Apresentador Local.",
+    "creatorStar": "Estrela Criadora",
+    "localPresenter": "Apresentador Local",
+    "applyNow": "Candidate-se Agora",
+    "requirements": "Requisitos",
+    "benefits": "Benefícios",
+    "howItWorks": "Como Funciona"
+  },
+  "token": {
+    "eyebrow": "Token $TURBO",
+    "title": "A camada de bônus deflacionária.",
+    "subtitle": "Depósitos nos planos Power e Ultimate recebem tokens $TURBO como recompensa bônus além dos retornos em USDT.",
+    "buyback": "Recompra & Queima Diária",
+    "supply": "Oferta Total",
+    "burned": "Queimado",
+    "circulatingSupply": "Oferta Circulante",
+    "viewOnBscScan": "Ver no BscScan",
+    "buyTurbo": "Comprar $TURBO",
+    "tokenomics": "Tokenomics",
+    "vestingSchedule": "Cronograma de Vesting",
+    "heroTitle": "Seu Investimento de Longo Prazo Acabou de Melhorar",
+    "heroSubtitle": "Ganhe tokens $TURBO como uma camada de bônus nos planos Power e Ultimate. Recompra & queima diária cria pressão deflacionária.",
+    "liveChart": "Gráfico ao Vivo",
+    "liveChartDesc": "Dados de preço e volume em tempo real fornecidos pelo DexScreener.",
+    "deflationaryProof": "Prova de Deflação",
+    "recentBurnEvents": "Eventos Recentes de Queima",
+    "burnEventsDesc": "Cada recompra & queima diária é registrada na blockchain. Verificado, transparente, permanente.",
+    "howYouEarn": "Como você ganha $TURBO",
+    "leadershipRank": "Seu nível de liderança desbloqueia tokens mais rápido",
+    "dailyBuybackBurn": "Recompra & Queima Diária",
+    "fairLaunch": "Lançamento Justo, totalmente na blockchain, sem chaves de administração",
+    "twoWaysToTrade": "Duas formas de negociar",
+    "listedOnCoinGecko": "Listada no CoinGecko",
+    "viewOnCoinGecko": "Ver no CoinGecko",
+    "network": "Rede",
+    "contractAddress": "Endereço do Contrato",
+    "buyTax": "Imposto na Compra",
+    "sellTax": "Imposto na Venda",
+    "lpStatus": "Status do LP",
+    "teamAllocation": "Alocação da Equipe",
+    "auditStatus": "Status da Auditoria",
+    "independentlyAudited": "Auditado Independente",
+    "lpLock": "Lock do LP",
+    "ownership": "Propriedade",
+    "ownershipRenounced": "Propriedade Renunciada",
+    "minimumDeposit": "Depósito Mínimo",
+    "sprintPlanROI": "ROI do Plano Sprint",
+    "boostPlanROI": "ROI do Plano Boost",
+    "powerPlanROI": "ROI do Plano Power",
+    "ultimatePlanROI": "ROI do Plano Ultimate"
+  },
+  "common": {
+    "learnMore": "Saiba Mais",
+    "viewAll": "Ver Tudo",
+    "getStarted": "Comece Agora",
+    "joinNow": "Junte-se Agora",
+    "readMore": "Leia Mais",
+    "download": "Baixar",
+    "share": "Compartilhar",
+    "close": "Fechar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "loading": "Carregando...",
+    "error": "Algo deu errado. Tente novamente.",
+    "copyLink": "Copiar Link",
+    "copied": "Copiado!",
+    "days": "dias",
+    "hours": "horas",
+    "minutes": "minutos",
+    "seconds": "segundos"
+  },
+  "footer": {
+    "tagline": "Agricultura de rendimento descentralizada na BSC.",
+    "protocol": "Protocolo",
+    "content": "Conteúdo",
+    "community": "Comunidade",
+    "legal": "Legal",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço",
+    "security": "Segurança",
+    "allRightsReserved": "Todos os direitos reservados.",
+    "auditedBy": "Auditado por"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — Agricultura de Rendimento DeFi na BSC",
+      "description": "Ganhe até 54% de ROI em 60 dias de um pool de liquidez real USDC/USDT. Auditada, LP-locked, propriedade renunciada. Mínimo de 1 USDT."
+    },
+    "calculator": {
+      "title": "Calculadora de Rendimento — TurboLoop",
+      "description": "Calcule seu retorno exato em USDT e bônus de token $TURBO para planos Sprint, Boost, Power e Ultimate."
+    },
+    "faq": {
+      "title": "Perguntas Frequentes — TurboLoop",
+      "description": "Respostas às perguntas mais comuns sobre agricultura de rendimento DeFi do TurboLoop."
+    },
+    "apply": {
+      "title": "Candidate-se para Ganhar — TurboLoop",
+      "description": "Junte-se à rede de criadores TurboLoop. Ganhe comissões ao compartilhar."
+    },
+    "token": {
+      "title": "Token $TURBO — TurboLoop",
+      "description": "Saiba mais sobre o token $TURBO deflacionário — recompra e queima diária, cronograma de vesting e tokenomics."
+    }
+  }
+}

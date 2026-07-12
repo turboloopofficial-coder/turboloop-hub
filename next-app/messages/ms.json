@@ -145,5 +145,276 @@
     "boostPlanROI": "Pulangan Pelan Boost",
     "powerPlanROI": "Pulangan Pelan Power",
     "ultimatePlanROI": "Pulangan Pelan Ultimate"
+  },
+  "common": {
+    "learnMore": "Pelajari Lebih Lanjut",
+    "viewAll": "Lihat Semua",
+    "getStarted": "Mula",
+    "joinNow": "Daftar Sekarang",
+    "readMore": "Baca Lebih Lanjut",
+    "download": "Muatturun",
+    "share": "Kongsi",
+    "close": "Tutup",
+    "back": "Kembali",
+    "next": "Seterusnya",
+    "loading": "Sedang Muat...",
+    "error": "Ada yang tidak kena. Sila cuba lagi.",
+    "copyLink": "Salin Pautan",
+    "copied": "Disalin!",
+    "days": "hari",
+    "hours": "jam",
+    "minutes": "minit",
+    "seconds": " saat"
+  },
+  "footer": {
+    "tagline": "Pertanian hasil terdesentralisasi di Binance Smart Chain.",
+    "protocol": "Protokol",
+    "content": "Kandungan",
+    "community": "Komuniti",
+    "legal": "Undang-Undang",
+    "privacy": "Dasar Privasi",
+    "terms": "Syarat Perkhidmatan",
+    "security": "Keselamatan",
+    "allRightsReserved": "Hak cipta terpelihara.",
+    "auditedBy": "Diaudit oleh"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming di BSC",
+      "description": "Hasilkan sehingga 54% ROI dalam 60 hari dari kolam kecairan USDC/USDT sebenar. Diaudit, LP terkunci, penyerahan hak milik. Minimum 1 USDT."
+    },
+    "calculator": {
+      "title": "Pengira Hasil — TurboLoop",
+      "description": "Kira pulangan USDT anda yang tepat dan bonus token $TURBO untuk pelan Sprint, Boost, Power, dan Ultimate."
+    },
+    "faq": {
+      "title": "Soalan Lazim — TurboLoop",
+      "description": "Jawapan kepada soalan yang paling biasa tentang TurboLoop DeFi yield farming."
+    },
+    "apply": {
+      "title": "Mohon untuk Mendapatkan — TurboLoop",
+      "description": "Sertai rangkaian pencipta TurboLoop. Dapatkan komisen sebagai Creator Star atau Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "Ketahui tentang token deflasi $TURBO — pembelian balik dan pembakaran harian, jadual vesting, dan tokenomics."
+    }
+  },
+  "protocol": {
+    "eyebrow": "Protokol",
+    "title": "Setiap bahagian.",
+    "titleHighlight": "Sekilas pandang.",
+    "subtitle": "Empat pelan hasil. Grafik rujukan 20 peringkat. Tujuh kedudukan kepimpinan. Kod diaudit. Satu protokol — dibina untuk diperiksa, bukan dipercayai.",
+    "plans": {
+      "eyebrow": "4 Pelan Loop",
+      "title": "Pilih tempoh. Dapatkan hasil tetap.",
+      "subtitle": "Modal dan hasil dikembalikan pada akhir pelan — tiada helah penggandaan, tiada gimnastik tahunan.",
+      "calculateReturn": "Kira pulangan anda",
+      "turboBonusLabel": "Bonus $TURBO"
+    },
+    "referral": {
+      "title": "20 Peringkat Dalam",
+      "subtitle": "51% yuran protokol diagihkan kepada komuniti.",
+      "fact1": "Tiada keperluan volum",
+      "fact2": "Peratusan tetap",
+      "fact3": "Paling mendalam dalam DeFi",
+      "cta": "Terokai graf"
+    },
+    "leadership": {
+      "title": "Rakan → Legenda",
+      "subtitle": "7 kedudukan. Dapatkan dari 100 peringkat rangkaian anda.",
+      "cta": "Lihat tangga kedudukan",
+      "ranks": {
+        "partner": "Rakan Kongsi",
+        "builder": "Pembina",
+        "accelerator": "Pemecut",
+        "director": "Pengarah",
+        "executive": "Eksekutif",
+        "ambassador": "Duta",
+        "legend": "Legenda"
+      }
+    },
+    "security": {
+      "title": "Tiada kerentanan ditemui.",
+      "chip1": "Diaudit",
+      "chip2": "Diserahkan",
+      "chip3": "LP Dikunci",
+      "bounty": "$100K ganjaran",
+      "bountyUnclaimed": "belum dituntut.",
+      "cta": "Lihat bukti"
+    },
+    "films": {
+      "title": "Apa itu TurboLoop?",
+      "caption": "Baru di sini? Mulakan dengan ini.",
+      "cta": "Tonton filem"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Mengikut Nombor",
+    "title": "Satu gerakan, bukan sekadar detik.",
+    "subtitle": "Jangkauan sebenar di seluruh dunia. Diterjemah, diceritakan, dan dialami dalam puluhan bahasa setiap hari.",
+    "stat1Label": "Bahasa",
+    "stat1Help": "Bahasa yang disokong di seluruh pusat",
+    "stat2Label": "Filem",
+    "stat2Help": "Filem dari Sovereign Series & Cinematic Universe",
+    "stat3Label": "Benua",
+    "stat3Help": "Kehadiran komuniti aktif",
+    "stat4Label": "Ganjaran",
+    "stat4Help": "Sebagai bukti penstrukturan pusat"
+  },
+  "security": {
+    "eyebrow": "Tanpa Kepercayaan Reka Bentuk",
+    "title": "Lima sebab untuk tidak mempercayai sesiapa.",
+    "subtitle": "Kami menghapuskan setiap cara yang boleh membahayakan anda. Yang tinggal adalah kod, diterbitkan, dikunci, dan disahkan oleh orang yang tidak bekerja untuk kami.",
+    "reason1Title": "Smart Contract Tidak Boleh Diubah",
+    "reason1Body": "Kontrak dipasang dan diserahkan. Tiada kunci pentadbir, tiada proksi naik taraf, tiada fungsi jeda. Malah pengasas tidak boleh mengubahnya.",
+    "reason2Title": "Likuiditi Terdesentralisasi",
+    "reason2Body": "Hasil dijana dari kolam kecairan milik protokol — bukan dari deposit baharu. Matematik berfungsi walaupun tiada ahli baharu yang menyertai.",
+    "reason3Title": "Tiada Kunci Pentadbir",
+    "reason3Body": "Hak milik diserahkan semasa pelancaran. Tiada dompet yang boleh menguras dana, membekukan akaun, atau mengubah parameter.",
+    "reason4Title": "Sumber Terbuka & Disahkan",
+    "reason4Body": "Sumber kontrak penuh diterbitkan dan disahkan di BscScan. Sesiapa sahaja boleh membaca setiap baris sebelum membuat deposit.",
+    "reason5Title": "$100K Ganjaran Keselamatan",
+    "reason5Body": "Kami meletakkan $100,000 USDT di atas meja untuk sesiapa yang menemui kerentanan sebenar. Terbuka kepada semua, tanpa NDA, dibayar dalam 7 hari selepas pengesahan.",
+    "viewContract": "Lihat di BscScan",
+    "submitBounty": "Hantar penemuan",
+    "metaTitle": "Keselamatan TurboLoop — Smart Contract Tidak Boleh Diubah & Ganjaran $100K"
+  },
+  "zoom": {
+    "eyebrow": "Langsung Sekarang",
+    "title": "Komuniti sedang",
+    "titleHighlight": "hidup sekarang.",
+    "subtitle": "Orang sebenar, jawapan sebenar. Setiap hari.",
+    "labelEnglish": "Bahasa Inggeris",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Harian · Percuma",
+    "when": "Bila",
+    "nextCallIn": "Panggilan seterusnya dalam",
+    "joinNow": "Daftar sekarang",
+    "labelThai": "Thai",
+    "labelThaiMorning": "Pagi Thai",
+    "labelThaiEvening": "Petang Thai",
+    "labelAfrican": "Afrika",
+    "monWedSat": "Isn · Rabu · Sab · Percuma",
+    "satOnly": "Sabah sahaja · Percuma",
+    "sunTueThu": "Ahad · Sel · Kam · Percuma"
+  },
+  "reels": {
+    "eyebrow": "Filem Pendek",
+    "title": "Setiap reel. Satu tempat.",
+    "titleHighlight": "Semua 15 bahasa.",
+    "subtitle": "Video pendek, panduan cara menyertai dalam 15 bahasa, tutorial pengeluaran + penggandaan + rujukan. Percuma untuk ditonton, sedia untuk dikongsi.",
+    "categoryPresentation": "Reel yang dipaparkan",
+    "categoryPresentationDesc": "Pendekatan Sovereign Series + pengenalan projek pelbagai bahasa.",
+    "categoryHowToJoin": "Cara menyertai — mengikut bahasa",
+    "categoryHowToJoinDesc": "Panduan langkah demi langkah dalam 15 bahasa: pasang dompet → beli USDT → pilih Pelan Loop.",
+    "categoryWithdraw": "Pengeluaran, penggandaan & rujukan",
+    "categoryWithdrawDesc": "Cara menuntut pendapatan harian, deposit semula untuk penggandaan, dan menggunakan sistem rujukan.",
+    "watchNow": "Tonton sekarang",
+    "shareBtn": "Kongsi",
+    "metaTitle": "TurboLoop Reels — Video DeFi Pendek dalam 15 Bahasa",
+    "metaDesc": "Tonton reel TurboLoop: panduan cara menyertai dalam 15 bahasa, tutorial pengeluaran dan penggandaan, panduan rujukan. Percuma untuk ditonton."
+  },
+  "creatives": {
+    "eyebrow": "Pusat Pemasaran",
+    "title": "Bendera percuma. Sedia untuk dikongsi.",
+    "subtitle": "Set suite kempen, tiang berjenama, dan kit pendidikan 14 bahasa. Muatturun, kongsi di Telegram atau WhatsApp — tanpa keperluan atribusi.",
+    "statBanners": "Jumlah bendera",
+    "statCategories": "Kategori",
+    "statLanguages": "Bahasa",
+    "statFree": "Percuma untuk dikongsi",
+    "downloadBtn": "Muatturun",
+    "shareBtn": "Kongsi",
+    "viewAll": "Lihat semua",
+    "metaTitle": "Pusat Pemasaran TurboLoop — Lebih 2,800 Bendera DeFi Percuma dalam 14 Bahasa",
+    "metaDesc": "Muatturun lebih 2,800 bendera pemasaran DeFi percuma. 14 bahasa, suite kempen, kit pendidikan berjenama. Percuma untuk komuniti TurboLoop."
+  },
+  "testimonial": {
+    "eyebrow": "Suara dari Komuniti",
+    "title": "Dalam kata mereka sendiri.",
+    "quote": "Saya telah berada dalam DeFi selama empat tahun. TurboLoop adalah projek pertama yang saya percayai cukup untuk dirujuk kepada keluarga sendiri. Audit, penyerahan, LP terkunci — mereka menghapuskan setiap alasan untuk tidak percaya.",
+    "author": "Adesina O.",
+    "role": "Ketua Komuniti",
+    "country": "🇳🇬 Nigeria",
+    "readMore": "Baca cerita lain"
+  },
+  "newsletter": {
+    "eyebrow": "Teruskan Mendapat Maklumat",
+    "title": "Satu emel. Kemaskini sebenar. Tiada sampah.",
+    "subtitle": "Apabila sesuatu yang sebenar dihantar — filem baharu, program baharu, pencapaian keselamatan — anda akan menjadi yang pertama tahu. Tiada spam, pernah. Berhenti langgan dengan satu klik.",
+    "placeholder": "alamat@email.com",
+    "subscribe": "Langgan",
+    "successTitle": "Anda telah disertakan!",
+    "successBody": "Periksa peti masuk anda untuk kemaskini pertama.",
+    "errorInvalidEmail": "Sila masukkan alamat emel yang sah.",
+    "errorGeneric": "Tidak dapat mendaftar — cuba lagi sebentar lagi.",
+    "consentText": "Dengan menghantar emel anda, anda bersetuju menerima kemaskini dari Turbo Loop dari semasa ke semasa. Berhenti langgan bila-bila masa.",
+    "inlineError": "Itu nampaknya bukan alamat emel yang sah.",
+    "followOn": "Atau lewati peti masuk · Ikuti di"
+  },
+  "manifesto": {
+    "eyebrow": "Manifesto",
+    "title": "Wang anda. Kuasa anda. Masa depan anda.",
+    "episodeLabel": "S4 · E5 — Pergerakan"
+  },
+  "events": {
+    "eyebrow": "Langsung & Harian",
+    "title": "Zoom harian",
+    "titleHighlight": "lebih 12 bahasa.",
+    "subtitle": "Komuniti menjalankan sesi Zoom percuma setiap hari. Sertai, tanya apa sahaja, dan daftar masuk. Tiada pitch, tiada tekanan, perbualan sebenar dalam bahasa anda.",
+    "sessionType1Label": "Panggilan komuniti harian",
+    "sessionType1Detail": "Zoom terbuka dalam lebih 12 bahasa — Inggeris, Hindi, Indonesia, Portugis, Rusia, Turki, Sepanyol + lagi. Sertai bila-bila masa.",
+    "sessionType2Label": "Penyampai tempatan",
+    "sessionType2Detail": "Penutur asli menjalankan panggilan dalam bahasa anda. Kami bayar mereka $100/bulan — mohon di /apply.",
+    "sessionType3Label": "Sesi pengenalan",
+    "sessionType3Detail": "Baru dalam DeFi? Panggilan kumpulan kecil membimbing anda melalui pemasangan dompet, deposit pertama, dan matematik.",
+    "liveNow": "Hidup Sekarang · Sertai Bila-bila Masa",
+    "daily": "Harian · Setiap Hari",
+    "joinLiveCall": "Sertai Panggilan Langsung",
+    "joinTodaysCall": "Sertai Panggilan Hari Ini",
+    "endsIn": "Berakhir dalam",
+    "startsIn": "Mula dalam",
+    "hours": "Jam",
+    "min": "Minit",
+    "sec": "Saat",
+    "english": "Bahasa Inggeris",
+    "hindiUrdu": "Hindi / Urdu",
+    "findYourCall": "Cari panggilan anda.",
+    "findYourCallDetail": "Pautan langsung akan muncul setiap hari di Telegram rasmi kami. Pilih bahasa anda, sertai.",
+    "openTelegram": "Buka Telegram",
+    "becomePresenter": "Jadi penyampai"
+  },
+  "social-wall": {
+    "eyebrow": "Dinding Sosial",
+    "title": "Suara dari mana-mana.",
+    "subtitle": "Setiap video TurboLoop yang dibuat komuniti, di satu tempat. Cerita, tutorial, ringkasan — dikurasi oleh pasukan, percuma untuk ditonton, sedia untuk dikongsi. Hantar video anda sendiri dan sertai dinding.",
+    "submitBadge": "Hantar cerita anda",
+    "submitHeading": "Gilirannya di dinding.",
+    "submitBody": "Buat video TurboLoop? Kongsi pautannya — penghantaran yang diluluskan akan dipaparkan di sini dalam 48 jam dan mungkin layak untuk pembayaran Creator Star.",
+    "submitBtn": "Hantar cerita anda",
+    "creatorPayouts": "Pembayaran pencipta",
+    "refreshNote": "Pilihan utama terlebih dahulu · dikemas kini setiap 5 minit",
+    "videoSingular": "video di dinding",
+    "videoPlural": "video di dinding",
+    "emptyHeading": "Dinding sedang panas.",
+    "emptyBody": "Jadilah yang pertama mendarat di sini — hantar video TurboLoop anda dan pasukan akan meluluskan dalam 48 jam.",
+    "featuredBadge": "Dipaparkan"
+  },
+  "ecosystem": {
+    "eyebrow": "Ekosistem",
+    "title": "Enam tiang. Satu enjin.",
+    "subtitle": "TurboLoop bukan satu produk tunggal — ia adalah enam primitif DeFi yang berfungsi bersama sebagai roda berputar yang mampan. Setiap satu memberi makan kepada yang lain.",
+    "pillar1Title": "Pelan Loop",
+    "pillar1Body": "Deposit USDT jangka tetap yang menjana hasil harian. Pilih pelan 30, 60, atau 90 hari. Modal dikunci; pendapatan digandakan atau dikeluarkan setiap hari.",
+    "pillar2Title": "Enjin Rujukan",
+    "pillar2Body": "12% pada rujukan Peringkat 1, 3% pada Peringkat 2. Dibayar segera dalam USDT untuk setiap deposit yang dibuat rangkaian anda — tiada menunggu, tiada minima.",
+    "pillar3Title": "Loop Sprint",
+    "pillar3Body": "Pelan 7 hari jangka pendek untuk ahli yang mahukan kitaran kecairan yang lebih cepat. Logik hasil harian yang sama, garis masa dipadatkan.",
+    "pillar4Title": "Ekonomi Pencipta",
+    "pillar4Body": "Dapatkan pembayaran setiap tontonan untuk kandungan TurboLoop. Hantar video anda, diluluskan, dan kutip USDT setiap kali ia ditonton.",
+    "pillar5Title": "Program Penyampai Tempatan",
+    "pillar5Body": "Anjurkan sesi Zoom komuniti mingguan dalam bahasa anda. Kami tanggung kos operasi anda — elaun $100/bulan dibayar dalam USDT.",
+    "pillar6Title": "Ganjaran Keselamatan",
+    "pillar6Body": "Sehingga $100,000 USDT untuk kerentanan kontrak pintar yang disahkan. Terbuka kepada sesiapa sahaja, di mana sahaja. Tiada NDA diperlukan."
   }
 }

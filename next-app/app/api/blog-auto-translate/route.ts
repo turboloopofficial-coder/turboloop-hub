@@ -62,9 +62,10 @@ export async function POST(req: NextRequest) {
     for (const lang of LANGUAGES) {
       try {
         // Check if translation already exists
+        const translatedSlug = `${post.slug}-${lang.code}`;
         const existing = await sql`
           SELECT id FROM blog_posts
-          WHERE slug = ${post.slug} AND language = ${lang.code}
+          WHERE slug = ${translatedSlug}
           LIMIT 1
         `;
         if (existing.length > 0) {
@@ -79,7 +80,7 @@ export async function POST(req: NextRequest) {
             "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
           },
           body: JSON.stringify({
-            model: "anthropic/claude-sonnet-4",
+            model: "claude-sonnet-4-6",
             messages: [
               {
                 role: "system",
@@ -107,7 +108,6 @@ Return a JSON object with keys: title, content, excerpt. Do not add any explanat
               },
             ],
             max_tokens: 4096,
-            response_format: { type: "json_object" },
           }),
         });
 
@@ -117,14 +117,17 @@ Return a JSON object with keys: title, content, excerpt. Do not add any explanat
         }
 
         const data = await response.json();
-        const translated = JSON.parse(data.choices[0].message.content);
+        const raw = data.choices?.[0]?.message?.content || "{}";
+        const jsonStart = raw.indexOf('{');
+        const jsonEnd = raw.lastIndexOf('}') + 1;
+        const translated = JSON.parse(raw.substring(jsonStart, jsonEnd));
 
         // Insert translated post
         const inserted = await sql`
           INSERT INTO blog_posts (title, slug, content, excerpt, language, author_name, published, tags, cover_image, created_at)
           VALUES (
             ${translated.title},
-            ${post.slug},
+            ${translatedSlug},
             ${translated.content},
             ${translated.excerpt || null},
             ${lang.code},
@@ -141,7 +144,7 @@ Return a JSON object with keys: title, content, excerpt. Do not add any explanat
           postId: post.id,
           language: lang.code,
           newId: inserted[0].id,
-          slug: post.slug,
+          slug: translatedSlug,
         });
       } catch (err) {
         errors.push({

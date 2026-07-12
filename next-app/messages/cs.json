@@ -457,5 +457,135 @@
     "step4": "Automaticky přijímejte výnosy",
     "compoundReturns": "Kalkulačka složených výnosů",
     "revenueSource": "Příjmy pocházejí z PancakeSwap V3 koncentrovaných likviditních pozic"
+  },
+  "protocol": {
+    "eyebrow": "Protokol",
+    "title": "Každý kus.",
+    "titleHighlight": "Jeden pohled.",
+    "subtitle": "Čtyři plány výnosů. Graf doporučení na 20 úrovních. Sedm vedoucích hodností. Auditovaný kód. Jeden protokol — navržený tak, aby byl inspektován, nikoliv důvěřován.",
+    "plans": {
+      "eyebrow": "4 Loop plány",
+      "title": "Vyberte dobu trvání. Získejte pevný výnos.",
+      "subtitle": "Kapital a výnos vrácen na konci plánu — žádné složitosti s úročením, žádná gymnastika s ročním výnosem.",
+      "calculateReturn": "Vypočítejte svůj výnos",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "20 úrovní hluboko",
+      "subtitle": "51 % poplatků protokolu rozděleno komunitě.",
+      "fact1": "Žádné požadavky na objem",
+      "fact2": "Pevné procenta",
+      "fact3": "Nejhlubší v DeFi",
+      "cta": "Prozkoumejte graf"
+    },
+    "leadership": {
+      "title": "Partner → Legenda",
+      "subtitle": "7 hodností. Vydělávejte z 100 úrovní své sítě.",
+      "cta": "Zobrazit žebřík hodností",
+      "ranks": {
+        "partner": "Partner",
+        "builder": "Stavitel",
+        "accelerator": "Akcelerátor",
+        "director": "Ředitel",
+        "executive": "Výkonný",
+        "ambassador": "Velvyslanec",
+        "legend": "Legenda"
+      }
+    },
+    "security": {
+      "title": "Nebyly zjištěny žádné zranitelnosti.",
+      "chip1": "Auditováno",
+      "chip2": "Odvoláno",
+      "chip3": "LP uzamčeno",
+      "bounty": "$100K odměna",
+      "bountyUnclaimed": "nevyužitá.",
+      "cta": "Zobrazit důkaz"
+    },
+    "films": {
+      "title": "Co je TurboLoop?",
+      "caption": "Nově zde? Začněte tímto.",
+      "cta": "Sledovat film"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Podle čísel",
+    "title": "Hnutí, nikoliv okamžik.",
+    "subtitle": "Skutečný dosah po celém světě. Přeložen, vyprávěn a žit v desítkách jazyků každý den.",
+    "stat1Label": "Jazyky",
+    "stat1Help": "Podporované jazyky napříč centrem",
+    "stat2Label": "Filmy",
+    "stat2Help": "Filmy z řady Sovereign Series & Cinematic Universe",
+    "stat3Label": "Kontinenty",
+    "stat3Help": "Aktivní přítomnost komunity",
+    "stat4Label": "Odměna",
+    "stat4Help": "Pro důkaz centralizace"
+  },
+  "security": {
+    "eyebrow": "Bezpečnost bez důvěry",
+    "title": "Pět důvodů, proč nikomu nedůvěřovat.",
+    "subtitle": "Odstranili jsme všechny způsoby, jak bychom vám mohli ublížit. Zbývá pouze kód, zveřejněný, uzamčený a ověřený lidmi, kteří pro nás nepracují.",
+    "reason1Title": "Neměnný chytrý kontrakt",
+    "reason1Body": "Kontrakt je nasazen a odvolán. Žádné administrátorské klíče, žádný upgrade proxy, žádná funkce pozastavení. Ani zakladatelé ho nemohou upravit.",
+    "reason2Title": "Decentralizovaná likvidita",
+    "reason2Body": "Výnos je generován z protokolově vlastněných likviditních fondů — nikoliv z nových vkladů. Matematika funguje i když se nepřipojí žádní noví členové.",
+    "reason3Title": "Žádné administrátorské klíče",
+    "reason3Body": "Vlastnictví bylo odvoláno při nasazení. Neexistuje žádná peněženka, která by mohla vyprázdnit fondy, zamrazit účty nebo změnit parametry.",
+    "reason4Title": "Open Source & ověřeno",
+    "reason4Body": "Celý zdrojový kód kontraktu je zveřejněn a ověřen na BscScan. Každý si může přečíst každý řádek před tím, než vloží jediný dolar.",
+    "reason5Title": "$100K bezpečnostní odměna",
+    "reason5Body": "Dáváme 100 000 USDT na stůl komukoliv, kdo najde skutečnou zranitelnost. Otevřeno všem, bez NDA, vyplaceno do 7 dnů od ověření.",
+    "viewContract": "Zobrazit na BscScan",
+    "submitBounty": "Odeslat zjištění",
+    "metaTitle": "TurboLoop Bezpečnost — Neměnný chytrý kontrakt & $100K odměna",
+    "metaDesc": "Chytrý kontrakt TurboLoop je neměnný, odvolaný a open source. Žádné administrátorské klíče, žádný upgrade proxy. Odměna $100 000 USDT za ověřené zranitelnosti."
+  },
+  "zoom": {
+    "eyebrow": "Živě právě teď",
+    "title": "Komunita je",
+    "titleHighlight": "žije právě teď.",
+    "subtitle": "Skuteční lidé, skutečné odpovědi. Každý den.",
+    "labelEnglish": "Angličtina",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Denně · Zdarma",
+    "when": "Kdy",
+    "nextCallIn": "Další hovor za",
+    "joinNow": "Připojit se nyní",
+    "labelThai": "Thajština",
+    "labelThaiMorning": "Thajské ráno",
+    "labelThaiEvening": "Thajský večer",
+    "labelAfrican": "Africký",
+    "monWedSat": "Po · St · So · Zdarma",
+    "satOnly": "Pouze sobota · Zdarma",
+    "sunTueThu": "Ne · Út · Čt · Zdarma"
+  },
+  "reels": {
+    "eyebrow": "Krátká videa",
+    "title": "Každé video. Jedno místo.",
+    "titleHighlight": "Vše v 15 jazycích.",
+    "subtitle": "Krátká videa, návody jak se připojit v 15 jazycích, návody na výběr + složení + doporučení. Zdarma ke sledování, připraveno ke sdílení.",
+    "categoryPresentation": "Vybraná videa",
+    "categoryPresentationDesc": "Krátká videa Sovereign Series + úvody do více jazykových projektů.",
+    "categoryHowToJoin": "Jak se připojit — podle jazyka",
+    "categoryHowToJoinDesc": "Postupné návody v 15 jazycích: nainstalujte peněženku → zakupte USDT → vyberte Loop plán.",
+    "categoryWithdraw": "Výběr, složení a doporučení",
+    "categoryWithdrawDesc": "Jak nárokovat denní výdělky, znovu vložit ke složení a používat doporučovací systém.",
+    "watchNow": "Sledovat nyní",
+    "shareBtn": "Sdílet",
+    "metaTitle": "TurboLoop Reels — Krátká DeFi videa v 15 jazycích",
+    "metaDesc": "Sledujte TurboLoop reels: návody jak se připojit v 15 jazycích, návody na výběr a složení, doporučovací průvodce. Zdarma ke sledování."
+  },
+  "creatives": {
+    "eyebrow": "Marketingové centrum",
+    "title": "Zdarma bannery. Připravené ke sdílení.",
+    "subtitle": "Sady kampaní, značkové pilíře a vzdělávací sada v 14 jazycích. Stáhněte, sdílejte na Telegramu nebo WhatsApp — bez nutnosti atribuce.",
+    "statBanners": "Celkem bannerů",
+    "statCategories": "Kategorie",
+    "statLanguages": "Jazyky",
+    "statFree": "Zdarma ke sdílení",
+    "downloadBtn": "Stáhnout",
+    "shareBtn": "Sdílet",
+    "viewAll": "Zobrazit vše",
+    "metaTitle": "TurboLoop Marketingové centrum — 2 800+ bezplatných DeFi bannerů v 14 jazycích",
+    "metaDesc": "Stáhněte si více než 2800 bezplatných marketingových bannerů pro DeFi. 14 jazyků, sady kampaní, značková vzdělávací sada. Zdarma pro komunitu TurboLoop."
   }
 }

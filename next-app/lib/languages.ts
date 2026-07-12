@@ -152,7 +152,7 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     rssTitle: "Turbo Loop — Editoryal",
     rssDescription: "DeFi, getiri, güvenlik ve TurboLoop'un arkasındaki matematik hakkında derinlemesine makaleler."
   },
-pt: {
+  pt: {
     code: "pt", locale: "pt", name: "Portuguese", nativeName: "Português", flag: "🇧🇷",
     bcp47: "pt-br", slugSuffix: "-pt", telegramChannel: null,
     rssTitle: "Turbo Loop — Editorial",
@@ -354,7 +354,7 @@ export const LANGUAGE_ORDER: LanguageCode[] = [
   "kr", "ko", "la", "lo", "cn", "sa", "pk",
   "tr", "az", "uz", "kk", "fa", "he",
   "sw", "ha", "yo", "am", "ng"
-];
+  ];
 
 /** Helper to get the base hreflang (e.g., "en-us" -> "en") */
 export function getHreflang(code: LanguageCode): string {

@@ -29,10 +29,8 @@ import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { SectionDivider } from "@components/ui/SectionDivider";
-import { NumbersSection } from "@components/sections/NumbersSection";
-import { TestimonialSection } from "@components/sections/TestimonialSection";
-import { ProtocolBentoSection } from "@components/sections/ProtocolBentoSection";
-import { TokenSpotlightSection } from "@components/sections/TokenSpotlightSection";
+
+
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
 
@@ -71,6 +69,34 @@ const CreativeExplorerSection = dynamic(
   () =>
     import("@components/sections/CreativeExplorerSection").then(m => ({
       default: m.CreativeExplorerSection,
+    })),
+  { ssr: true }
+);
+const NumbersSection = dynamic(
+  () =>
+    import("@components/sections/NumbersSection").then(m => ({
+      default: m.NumbersSection,
+    })),
+  { ssr: true }
+);
+const TestimonialSection = dynamic(
+  () =>
+    import("@components/sections/TestimonialSection").then(m => ({
+      default: m.TestimonialSection,
+    })),
+  { ssr: true }
+);
+const ProtocolBentoSection = dynamic(
+  () =>
+    import("@components/sections/ProtocolBentoSection").then(m => ({
+      default: m.ProtocolBentoSection,
+    })),
+  { ssr: true }
+);
+const TokenSpotlightSection = dynamic(
+  () =>
+    import("@components/sections/TokenSpotlightSection").then(m => ({
+      default: m.TokenSpotlightSection,
     })),
   { ssr: true }
 );
@@ -159,6 +185,8 @@ const homeJsonLd = {
     },
   ],
 };
+
+export const revalidate = 60;
 
 export default function HomePage() {
   return (

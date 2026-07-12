@@ -458,5 +458,135 @@
     "step4": "Primește randamente automat",
     "compoundReturns": "Calculator de randamente compuse",
     "revenueSource": "Veniturile provin din pozițiile de lichiditate concentrate PancakeSwap V3"
+  },
+  "protocol": {
+    "eyebrow": "Protocolul",
+    "title": "Fiecare piesă.",
+    "titleHighlight": "O privire.",
+    "subtitle": "Patru planuri de randament. Un grafic de recomandare pe 20 de niveluri. Șapte ranguri de conducere. Cod auditat. Un protocol — construit pentru a fi inspectat, nu pentru a fi de încredere.",
+    "plans": {
+      "eyebrow": "Cele 4 Planuri Loop",
+      "title": "Alege o durată. Câștigă un randament fix.",
+      "subtitle": "Capitalul și randamentul returnate la sfârșitul planului — fără trucuri de compounding, fără gimnastică de anualizare.",
+      "calculateReturn": "Calculează-ți randamentul",
+      "turboBonusLabel": "Bonus $TURBO"
+    },
+    "referral": {
+      "title": "20 de niveluri adâncime",
+      "subtitle": "51% din taxele protocolului distribuite comunității.",
+      "fact1": "Fără cerințe de volum",
+      "fact2": "Procente fixe",
+      "fact3": "Cel mai profund în DeFi",
+      "cta": "Explorează graficul"
+    },
+    "leadership": {
+      "title": "Partener → Legendă",
+      "subtitle": "7 ranguri. Câștigă din 100 de niveluri ale rețelei tale.",
+      "cta": "Vezi scara de ranguri",
+      "ranks": {
+        "partner": "Partener",
+        "builder": "Constructor",
+        "accelerator": "Accelerator",
+        "director": "Director",
+        "executive": "Executiv",
+        "ambassador": "Ambasador",
+        "legend": "Legendă"
+      }
+    },
+    "security": {
+      "title": "Zero vulnerabilități găsite.",
+      "chip1": "Auditat",
+      "chip2": "Renunțat",
+      "chip3": "LP Blocat",
+      "bounty": "Recompensă de $100K",
+      "bountyUnclaimed": "ne revendicată.",
+      "cta": "Vezi dovada"
+    },
+    "films": {
+      "title": "Ce este TurboLoop?",
+      "caption": "Nou aici? Începe cu acesta.",
+      "cta": "Urmărește filmul"
+    }
+  },
+  "numbers": {
+    "eyebrow": "După numere",
+    "title": "O mișcare, nu un moment.",
+    "subtitle": "Atingere reală în întreaga lume. Tradus, spus și trăit în zeci de limbi în fiecare zi.",
+    "stat1Label": "Limbi",
+    "stat1Help": "Limbi suportate în întregul hub",
+    "stat2Label": "Filme",
+    "stat2Help": "Filme din seria Sovereign & Universul Cinematic",
+    "stat3Label": "Continente",
+    "stat3Help": "Prezență activă a comunității",
+    "stat4Label": "Recompensă",
+    "stat4Help": "Pentru dovada centralizării"
+  },
+  "security": {
+    "eyebrow": "Fără încredere prin design",
+    "title": "Cinci motive să nu ai încredere în nimeni.",
+    "subtitle": "Am eliminat orice metodă prin care te-am putea răni. Rămâne doar cod, publicat, blocat și verificat de oameni care nu lucrează pentru noi.",
+    "reason1Title": "Contract inteligent imutabil",
+    "reason1Body": "Contractul este implementat și renunțat. Fără chei de administrator, fără proxy de upgrade, fără funcție de pauză. Nici măcar fondatorii nu pot modifica.",
+    "reason2Title": "Lichiditate descentralizată",
+    "reason2Body": "Randamentul provine din pool-uri de lichiditate deținute de protocol — nu din depozite noi. Matematica funcționează chiar dacă nu se alătură noi membri.",
+    "reason3Title": "Fără chei de administrator",
+    "reason3Body": "Deținerea a fost renunțată la implementare. Nu există portofel care să poată drena fonduri, să blocheze conturi sau să schimbe parametri.",
+    "reason4Title": "Open Source & Verificat",
+    "reason4Body": "Sursa completă a contractului este publicată și verificată pe BscScan. Oricine poate citi fiecare linie înainte de a depune un dolar.",
+    "reason5Title": "Recompensă de securitate de $100K",
+    "reason5Body": "Am pus pe masă $100.000 USDT pentru oricine găsește o vulnerabilitate reală. Deschis tuturor, fără NDA, plătit în 7 zile de la verificare.",
+    "viewContract": "Vezi pe BscScan",
+    "submitBounty": "Trimite o descoperire",
+    "metaTitle": "TurboLoop Securitate — Contract Inteligent Imutabil & Recompensă de $100K",
+    "metaDesc": "Contractul inteligent TurboLoop este imutabil, renunțat și open source. Fără chei de administrator, fără proxy de upgrade. Recompensă de $100.000 USDT pentru vulnerabilități verificate."
+  },
+  "zoom": {
+    "eyebrow": "Live chiar acum",
+    "title": "Comunitatea este",
+    "titleHighlight": "live chiar acum.",
+    "subtitle": "Oameni reali, răspunsuri reale. În fiecare zi.",
+    "labelEnglish": "Engleză",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Zilnic · Gratuit",
+    "when": "Când",
+    "nextCallIn": "Următorul apel în",
+    "joinNow": "Alătură-te acum",
+    "labelThai": "Thailandeză",
+    "labelThaiMorning": "Dimineața thailandeză",
+    "labelThaiEvening": "Seara thailandeză",
+    "labelAfrican": "African",
+    "monWedSat": "Lun · Mie · Sâm · Gratuit",
+    "satOnly": "Doar sâmbătă · Gratuit",
+    "sunTueThu": "Dum · Mar · Joi · Gratuit"
+  },
+  "reels": {
+    "eyebrow": "Filme scurte",
+    "title": "Fiecare film. Un loc.",
+    "titleHighlight": "Toate 15 limbi.",
+    "subtitle": "Videoclipuri scurte, tutoriale despre cum să te alături în 15 limbi, tutoriale de retragere + compounding + recomandare. Gratuit de vizionat, gata de partajat.",
+    "categoryPresentation": "Reels prezentare",
+    "categoryPresentationDesc": "Clipuri din seria Sovereign + introduceri în proiecte multilingve.",
+    "categoryHowToJoin": "Cum să te alături — după limbă",
+    "categoryHowToJoinDesc": "Tutoriale pas cu pas în 15 limbi: instalează portofel → cumpără USDT → alege un Loop Plan.",
+    "categoryWithdraw": "Retrage, compunde & recomandă",
+    "categoryWithdrawDesc": "Cum să revendici câștigurile zilnice, să re-depui pentru compounding și să folosești sistemul de recomandări.",
+    "watchNow": "Urmărește acum",
+    "shareBtn": "Partajează",
+    "metaTitle": "TurboLoop Reels — Videoclipuri DeFi scurte în 15 limbi",
+    "metaDesc": "Urmărește reels-urile TurboLoop: tutoriale despre cum să te alături în 15 limbi, tutoriale de retragere și compounding, ghiduri de recomandare. Gratuit de vizionat."
+  },
+  "creatives": {
+    "eyebrow": "Hub de marketing",
+    "title": "Bannere gratuite. Gata de partajat.",
+    "subtitle": "Suite de campanie, piloni de brand și un kit educațional în 14 limbi. Descarcă, partajează pe Telegram sau WhatsApp — fără nevoie de atribuire.",
+    "statBanners": "Total bannere",
+    "statCategories": "Categorii",
+    "statLanguages": "Limbi",
+    "statFree": "Gratuit de partajat",
+    "downloadBtn": "Descarcă",
+    "shareBtn": "Partajează",
+    "viewAll": "Vezi tot",
+    "metaTitle": "Hub de marketing TurboLoop — 2.800+ bannere DeFi gratuite în 14 limbi",
+    "metaDesc": "Descarcă peste 2.800 de bannere de marketing DeFi gratuite. 14 limbi, suite de campanie, kit educațional de brand. Gratuit pentru comunitatea TurboLoop."
   }
 }

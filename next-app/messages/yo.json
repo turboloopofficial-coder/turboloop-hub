@@ -403,5 +403,188 @@
     "step4": "Gba àǹfààní laifọwọyi",
     "compoundReturns": "Ìṣirò Àǹfààní Pọ̀",
     "revenueSource": "Owo-wiwọle wa láti PancakeSwap V3 ipo ìdoko-owo pẹ̀lú àkúnya."
+  },
+  "common": {
+    "learnMore": "Kọ ẹkọ siwaju",
+    "viewAll": "Wo Gbogbo",
+    "getStarted": "Bẹrẹ",
+    "joinNow": "Darapọ Bayi",
+    "readMore": "Ka Siwaju",
+    "download": "Gba lati ayelujara",
+    "share": "Pin",
+    "close": "Pa",
+    "back": "Pada",
+    "next": "Tẹsiwaju",
+    "loading": "N loading...",
+    "error": "Ohun kan ṣẹlẹ. Jọwọ gbiyanju lẹẹkansi.",
+    "copyLink": "Da ọna asopọ",
+    "copied": "Ti da!",
+    "days": "ọjọ",
+    "hours": "wakati",
+    "minutes": "iṣẹju",
+    "seconds": "aaya"
+  },
+  "footer": {
+    "tagline": "Iṣẹ-ogun ti a ko ni aarin lori Binance Smart Chain.",
+    "protocol": "Ilana",
+    "content": "Akopọ",
+    "community": "Ajo",
+    "legal": "Ofin",
+    "privacy": "Ilana Asiri",
+    "terms": "Awọn ofin iṣẹ",
+    "security": "Aabo",
+    "allRightsReserved": "Gbogbo awọn ẹtọ wa ni aabo.",
+    "auditedBy": "Ti ṣe ayẹwo nipasẹ"
+  },
+  "meta": {
+    "home": {
+      "title": "TurboLoop — DeFi Yield Farming lori BSC",
+      "description": "Gba to 54% ROI ni ọjọ 60 lati inu omi-omi USDC/USDT gidi. Ti ṣe ayẹwo, LP-locked, ijọba ti fi silẹ. O kere ju USDT 1."
+    },
+    "calculator": {
+      "title": "Iṣiro Owo-ori — TurboLoop",
+      "description": "Ṣe iṣiro ipadabọ USDT rẹ pato ati $TURBO token bonus fun awọn eto Sprint, Boost, Power, ati Ultimate."
+    },
+    "faq": {
+      "title": "FAQ — TurboLoop",
+      "description": "Awọn idahun si awọn ibeere ti o wọpọ julọ nipa TurboLoop DeFi yield farming."
+    },
+    "apply": {
+      "title": "Lọ si Iṣẹ-ṣiṣe — TurboLoop",
+      "description": "Darapọ mọ nẹtiwọọki awọn aṣelọpọ TurboLoop. Gba awọn igbimọ bi Creator Star tabi Local Presenter."
+    },
+    "token": {
+      "title": "$TURBO Token — TurboLoop",
+      "description": "Kọ ẹkọ nipa $TURBO deflationary token — rira ati iná lojoojumọ, eto vesting, ati tokenomics."
+    }
+  },
+  "protocol": {
+    "eyebrow": "Ilana",
+    "title": "Gbogbo ege.",
+    "titleHighlight": "Ọkan wo.",
+    "subtitle": "Awọn eto yield mẹrin. Graph itọkasi 20 ipele. Awọn ipo oludari meje. Koodu ti a ṣe ayẹwo. Ilana kan — ti a kọ lati jẹ ki a ṣayẹwo, kii ṣe lati ni igbẹkẹle.",
+    "plans": {
+      "eyebrow": "Awọn Eto Loop 4",
+      "title": "Yan akoko. Gba owo-ori ti a fi idi mulẹ.",
+      "subtitle": "Iṣowo ati owo-ori ti pada ni ipari eto — ko si awọn ọna ṣiṣe apapọ, ko si awọn iṣe afọwọṣe ọdun.",
+      "calculateReturn": "Ṣe iṣiro ipadabọ rẹ",
+      "turboBonusLabel": "$TURBO bonus"
+    },
+    "referral": {
+      "title": "Awọn ipele 20 jinlẹ",
+      "subtitle": "51% ti awọn idiyele ilana pin si agbegbe.",
+      "fact1": "Ko si awọn ibeere iwọn didun",
+      "fact2": "Awọn ipin ti a fi idi mulẹ",
+      "fact3": "Jinlẹ julọ ninu DeFi",
+      "cta": "Ṣawari graph"
+    },
+    "leadership": {
+      "title": "Alabaṣepọ → Aṣáájú",
+      "subtitle": "Awọn ipo 7. Gba lati awọn ipele 100 ti nẹtiwọọki rẹ.",
+      "cta": "Wo igbese ipo",
+      "ranks": {
+        "partner": "Alabaṣepọ",
+        "builder": "Akọṣẹ",
+        "accelerator": "Aṣáájú",
+        "director": "Oludari",
+        "executive": "Alakoso",
+        "ambassador": "Asoju",
+        "legend": "Aṣáájú"
+      }
+    },
+    "security": {
+      "title": "Ko si awọn ailagbara ti a rii.",
+      "chip1": "Ti ṣe ayẹwo",
+      "chip2": "Ti fi silẹ",
+      "chip3": "LP Locked",
+      "bounty": "$100K bounty",
+      "bountyUnclaimed": "ko ti gba.",
+      "cta": "Wo ẹri"
+    },
+    "films": {
+      "title": "Kí ni TurboLoop?",
+      "caption": "Tuntun nibi? Bẹrẹ pẹlu eyi.",
+      "cta": "Wo fiimu"
+    }
+  },
+  "numbers": {
+    "eyebrow": "Nipasẹ Awọn Nọ́mbà",
+    "title": "Igbese, kii ṣe iṣẹju.",
+    "subtitle": "Ibi gidi kakiri agbaye. Ti tumọ, sọ, ati gbe ni ọpọlọpọ awọn ede lojoojumọ.",
+    "stat1Label": "Ede",
+    "stat1Help": "Awọn ede ti a ṣe atilẹyin kọja ile-iṣẹ",
+    "stat2Label": "Fọto",
+    "stat2Help": "Awọn fọto kọja Sovereign Series & Cinematic Universe",
+    "stat3Label": "Awọn ilẹ",
+    "stat3Help": "Ibi ti agbegbe ṣiṣẹ lọwọlọwọ",
+    "stat4Label": "Bounty",
+    "stat4Help": "Fun ẹri ti aarin"
+  },
+  "security": {
+    "eyebrow": "Aabo ti a ko ni igbẹkẹle nipasẹ Apẹrẹ",
+    "title": "Awọn idi marun lati ni igbẹkẹle ẹnikẹni.",
+    "subtitle": "A yọ gbogbo ọna ti a le fi ṣe ipalara fun ọ. Ohun ti o ku ni koodu, ti a tẹjade, ti a fi silẹ, ati ti a jẹrisi nipasẹ awọn eniyan ti kii ṣe iṣẹ fun wa.",
+    "reason1Title": "Akọsilẹ Smart Contract ti ko le yipada",
+    "reason1Body": "Akọsilẹ naa ti fi silẹ ati ti fi silẹ. Ko si awọn bọtini alakoso, ko si proxy imudojuiwọn, ko si iṣẹ idaduro. Kii ṣe paapaa awọn aṣelọpọ le yi pada.",
+    "reason2Title": "Aarin ti a ko ni aarin",
+    "reason2Body": "Owo-ori ti wa lati inu awọn omi-omi ti ile-iṣẹ ni — kii ṣe lati awọn idogo tuntun. Awọn iṣiro naa ṣiṣẹ paapaa ti ko ba si awọn ọmọ ẹgbẹ tuntun ti n darapọ.",
+    "reason3Title": "Ko si Awọn Bọtini Alakoso",
+    "reason3Body": "Ijọba ti fi silẹ ni akoko ifilọlẹ. Ko si apamọwọ ti o le fa awọn owo, tutu awọn akọọlẹ, tabi yi awọn paramita pada.",
+    "reason4Title": "Open Source & Ti jẹrisi",
+    "reason4Body": "Gbogbo orisun akọọlẹ ti fi silẹ ati ti jẹrisi lori BscScan. Ẹnikẹni le ka gbogbo laini ṣaaju ki o to fi owo kan silẹ.",
+    "reason5Title": "$100K Bounty Aabo",
+    "reason5Body": "A fi $100,000 USDT si tabili fun ẹnikẹni ti o ba ri ailagbara gidi. Ṣii si gbogbo, ko si NDA, sanwo laarin awọn ọjọ 7 ti ifọwọsi.",
+    "viewContract": "Wo lori BscScan",
+    "submitBounty": "Firanṣẹ awari",
+    "metaTitle": "TurboLoop Aabo — Akọọlẹ Smart ti ko le yipada & $100K Bounty"
+  },
+  "zoom": {
+    "eyebrow": "Lọ laaye Bayi",
+    "title": "Ajo naa ni",
+    "titleHighlight": "lori laaye bayi.",
+    "subtitle": "Awọn eniyan gidi, awọn idahun gidi. Gbogbo ọjọ.",
+    "labelEnglish": "Gẹẹsi",
+    "labelHindi": "Hindi / Urdu",
+    "dailyFree": "Ọjọgbọn · Ọfẹ",
+    "when": "Nigbawo",
+    "nextCallIn": "Tẹsiwaju ni",
+    "joinNow": "Darapọ Bayi",
+    "labelThai": "Thai",
+    "labelThaiMorning": "Ọjọ́ àárọ̀ Thai",
+    "labelThaiEvening": "Ọjọ́ alẹ́ Thai",
+    "labelAfrican": "Afrika",
+    "monWedSat": "Ọjọ́ Ajé · Ọjọ́ Rẹ́rìndínlógún · Ọjọ́ Àbámẹ́ta · Ọfẹ",
+    "satOnly": "Ọjọ́ Àbámẹ́ta nikan · Ọfẹ",
+    "sunTueThu": "Ọjọ́ Àìkú · Ọjọ́ Ìsẹ́gun · Ọjọ́bọ · Ọfẹ"
+  },
+  "reels": {
+    "eyebrow": "Fọto Kukuru",
+    "title": "Gbogbo reel. Ibi kan.",
+    "titleHighlight": "Gbogbo awọn ede 15.",
+    "subtitle": "Awọn fidio kukuru, awọn ọna lati darapọ mọ ni awọn ede 15, awọn itọnisọna yiyọ + apapọ + itọsọna itọkasi. Ọfẹ lati wo, setan lati pin.",
+    "categoryPresentation": "Awọn reels ti a yan",
+    "categoryPresentationDesc": "Awọn kukuru Series Sovereign + awọn ifihan iṣẹ akanṣe pupọ-ede.",
+    "categoryHowToJoin": "Bawo ni lati darapọ — nipasẹ ede",
+    "categoryHowToJoinDesc": "Awọn ọna igbesẹ-nipasẹ-igbesẹ ni awọn ede 15: fi sori ẹrọ apamọwọ → ra USDT → yan Eto Loop.",
+    "categoryWithdraw": "Yọ, apapọ & tọka",
+    "categoryWithdrawDesc": "Bawo ni lati gba awọn owo-ori ojoojumọ, tun fi sii lati ṣe apapọ, ati lo eto itọkasi.",
+    "watchNow": "Wo bayi",
+    "shareBtn": "Pin",
+    "metaTitle": "TurboLoop Reels — Awọn fidio DeFi Kukuru ni Awọn ede 15",
+    "metaDesc": "Wo awọn reels TurboLoop: awọn ọna lati darapọ mọ ni awọn ede 15, awọn itọnisọna yiyọ ati apapọ, awọn itọsọna itọkasi. Ọfẹ lati wo."
+  },
+  "creatives": {
+    "eyebrow": "Ile-iṣẹ Tita",
+    "title": "Awọn banner ọfẹ. Setan lati pin.",
+    "subtitle": "Awọn akopọ ipolongo, awọn ọpa ami iyasọtọ, ati kit ẹkọ 14-ede. Gba lati ayelujara, pin lori Telegram tabi WhatsApp — ko si ibeere fun attribution.",
+    "statBanners": "Gbogbo awọn banner",
+    "statCategories": "Awọn ẹka",
+    "statLanguages": "Awọn ede",
+    "statFree": "Ọfẹ lati pin",
+    "downloadBtn": "Gba lati ayelujara",
+    "shareBtn": "Pin",
+    "viewAll": "Wo Gbogbo",
+    "metaTitle": "Ile-iṣẹ Tita TurboLoop — 2,800+ Awọn Banner DeFi Ọfẹ ni Awọn ede 14",
+    "metaDesc": "Gba lati ayelujara 2,800+ awọn banner tita DeFi ọfẹ. Awọn ede 14, awọn akopọ ipolongo, kit ẹkọ ami iyasọtọ. Ọfẹ fun agbegbe TurboLoop."
   }
 }

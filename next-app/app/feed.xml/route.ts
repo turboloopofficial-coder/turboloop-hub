@@ -11,6 +11,7 @@
 
 import { buildRssFeed, RSS_CACHE_HEADER } from "@lib/rssFeed";
 
+export const dynamic = "force-dynamic";
 export const revalidate = 600;
 
 export async function GET() {

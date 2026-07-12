@@ -25,6 +25,7 @@ const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 // listing — 5 minutes is short enough that newly-published posts
 // show up in the image sitemap within one cron tick, long enough
 // that we don't refetch the post catalogue on every crawler hit.
+export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 // Per-page image bundles. `loc` is the page that hosts the image;

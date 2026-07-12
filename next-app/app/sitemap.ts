@@ -262,5 +262,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const localizedPaths = new Set(LOCALIZED_PAGES.map(p => `${BASE}${p || "/"}`));
   const topFiltered = top.filter(entry => !localizedPaths.has(entry.url));
 
-  return [...localizedPages, ...topFiltered, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels, ...campaignPages];
+  return [...localizedPages, ...topFiltered, ...earnPages, ...films, ...pillars, ...lessons, ...comparisons, ...blog, ...reels, ...campaignPages];
 }

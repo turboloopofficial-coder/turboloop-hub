@@ -154,7 +154,7 @@ const config: NextConfig = {
               "media-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://www.youtube.com",
               // GA4 beacon + BscScan API for contract verification
               "connect-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://api.turboloop.tech https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.bscscan.com",
-              "frame-src 'self' https://www.youtube.com https://youtube.com https://player.vimeo.com https://www.googletagmanager.com",
+              "frame-src 'self' https://www.youtube.com https://youtube.com https://player.vimeo.com https://www.googletagmanager.com https://dexscreener.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

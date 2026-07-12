@@ -51,8 +51,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages,
     },
     openGraph: {
+      type: "website",
+      siteName: "Turbo Loop",
       locale: locale,
       alternateLocale: routing.locales.filter((l) => l !== locale),
+      url: locale === "en"
+        ? "https://www.turboloop.tech/"
+        : \`https://www.turboloop.tech/\${locale}/\`,
+      title: t("title"),
+      description: t("description"),
+      images: [
+        {
+          url: "https://www.turboloop.tech/api/og-banner?type=launch",
+          width: 1200,
+          height: 630,
+          alt: "TurboLoop — sustainable DeFi yield on Binance Smart Chain.",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@TurboLoop_io",
+      creator: "@TurboLoop_io",
+      title: t("title"),
+      description: t("description"),
+      images: ["https://www.turboloop.tech/api/og-banner?type=launch"],
     },
   };
 }

@@ -106,27 +106,45 @@ async function refreshHolderCount(db: ReturnType<typeof drizzle>): Promise<strin
     "Referer":         "https://www.google.com/",
   };
 
-  let html = "";
-  for (const ua of [USER_AGENTS[uaIdx], USER_AGENTS[(uaIdx + 2) % USER_AGENTS.length]]) {
-    try {
-      const res = await fetch(`https://bscscan.com/token/${CONTRACT}`, {
-        headers: { ...headers, "User-Agent": ua },
-        signal: AbortSignal.timeout(15000),
-      });
-      if (res.ok || res.status === 403) {
+  // Strategy: try two URLs — the main token page and the holders sub-page.
+  // Vercel IPs are often blocked by BscScan's Cloudflare on the main page,
+  // but the sub-page (iframe content) is less protected.
+  const urls = [
+    `https://bscscan.com/token/${CONTRACT}`,
+    `https://bscscan.com/token/generic-tokenholders2?a=${CONTRACT}&s=0&p=1`,
+  ];
+
+  let holdersNum = 0;
+
+  for (const url of urls) {
+    if (holdersNum > 0) break;
+    for (const ua of [USER_AGENTS[uaIdx], USER_AGENTS[(uaIdx + 2) % USER_AGENTS.length]]) {
+      try {
+        const res = await fetch(url, {
+          headers: { ...headers, "User-Agent": ua, "Referer": url.includes("generic") ? `https://bscscan.com/token/${CONTRACT}` : "https://www.google.com/" },
+          signal: AbortSignal.timeout(15000),
+        });
+        if (!res.ok && res.status !== 403) continue;
         const body = await res.text();
-        if (body.length > 200) { html = body; break; }
-      }
-    } catch { /* try next */ }
+        if (body.length < 200) continue;
+
+        // Try multiple patterns:
+        // Main page: "Holders: 1,318" or "holdersCount": "1318"
+        // Sub-page: "From a total of 1,318 holders"
+        const match =
+          body.match(/Holders[:\s]*([\d,]+)/i) ||
+          body.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/) ||
+          body.match(/total of\s*([\d,]+)\s*holders/i);
+
+        if (match) {
+          const parsed = parseInt(match[1].replace(/,/g, ""), 10);
+          if (parsed > 0) { holdersNum = parsed; break; }
+        }
+      } catch { /* try next */ }
+    }
   }
 
-  if (!html) throw new Error("BscScan returned no usable HTML");
-
-  const match = html.match(/Holders[:\s]*([\d,]+)/i) || html.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/);
-  if (!match) throw new Error("Holder count pattern not found in BscScan HTML");
-
-  const holdersNum = parseInt(match[1].replace(/,/g, ""), 10);
-  if (holdersNum <= 0) throw new Error("Parsed holder count is 0 or negative");
+  if (holdersNum <= 0) throw new Error("Could not scrape holder count from BscScan (all URLs/patterns failed)");
 
   const value = JSON.stringify({
     holders:   holdersNum.toLocaleString("en-US"),

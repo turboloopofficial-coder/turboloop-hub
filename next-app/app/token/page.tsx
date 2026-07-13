@@ -334,10 +334,6 @@ export default async function TokenPage({ searchParams }: PageProps) {
         {/* Live supply trio: true circulating / total / vested+locked.
             Reads on-chain via /api/token-vested, polls every 5 min. */}
         <TokenSupplyWidget className="mb-6 md:mb-8" />
-        {/* Circulating supply time-series chart — daily decline from burns */}
-        <div className="mb-10 md:mb-14">
-          <CirculatingSupplyChart />
-        </div>
       </Container>
 
       {/* ── B2. LIVE CHART (DexScreener iframe) ─────────────────── */}
@@ -361,6 +357,10 @@ export default async function TokenPage({ searchParams }: PageProps) {
             subtitle="Every daily buyback &amp; burn is recorded on-chain. Verified, transparent, permanent."
           />
           <BurnEventsFeed />
+          {/* Circulating supply time-series chart — daily decline from burns */}
+          <div className="mt-10 md:mt-14">
+            <CirculatingSupplyChart />
+          </div>
         </section>
       </Container>
 

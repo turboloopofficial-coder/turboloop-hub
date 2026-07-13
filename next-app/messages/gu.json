@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain પર જીવંત",
+    "liveStatus": "BNB Smart Chain પર જીવંત",
     "heroTagline": "સતત ફસલ. ડિઝાઇન દ્વારા પારદર્શક. દરેક માટે ખુલ્લું.",
     "heroTaglinePart1": "સતત ફસલ.",
     "heroTaglinePart2": "ડિઝાઇન દ્વારા પારદર્શક.",
@@ -425,7 +425,7 @@
     "seconds": "સેકન્ડ"
   },
   "footer": {
-    "tagline": "Binance Smart Chain પર ડીસેન્ટ્રલાઇઝ્ડ યીલ્ડ ફાર્મિંગ.",
+    "tagline": "BNB Smart Chain પર ડીસેન્ટ્રલાઇઝ્ડ યીલ્ડ ફાર્મિંગ.",
     "protocol": "પ્રોટોકોલ",
     "content": "સામગ્રી",
     "community": "સમુદાય",

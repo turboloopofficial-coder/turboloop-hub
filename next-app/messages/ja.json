@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chainでライブ",
+    "liveStatus": "BNB Smart Chainでライブ",
     "heroTagline": "持続可能な利回り。設計上透明。誰にでも開放。",
     "heroTaglinePart1": "持続可能な利回り。",
     "heroTaglinePart2": "設計上透明。",
@@ -167,7 +167,7 @@
     "seconds": "秒"
   },
   "footer": {
-    "tagline": "Binance Smart Chain上の分散型イールドファーミング。",
+    "tagline": "BNB Smart Chain上の分散型イールドファーミング。",
     "protocol": "プロトコル",
     "content": "コンテンツ",
     "community": "コミュニティ",

@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Živě na Binance Smart Chain",
+    "liveStatus": "Živě na BNB Smart Chain",
     "heroTagline": "Udržitelný výnos. Transparentní podle návrhu. Otevřeno pro všechny.",
     "heroTaglinePart1": "Udržitelný výnos.",
     "heroTaglinePart2": "Transparentní podle návrhu.",
@@ -168,7 +168,7 @@
     "seconds": "sekund"
   },
   "footer": {
-    "tagline": "Decentralizované výnosové farmářství na Binance Smart Chain.",
+    "tagline": "Decentralizované výnosové farmářství na BNB Smart Chain.",
     "protocol": "Protokol",
     "content": "Obsah",
     "community": "Komunita",

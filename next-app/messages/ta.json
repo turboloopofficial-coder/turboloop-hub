@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain-இல் செயலில் உள்ளது",
+    "liveStatus": "BNB Smart Chain-இல் செயலில் உள்ளது",
     "heroTagline": "நிலைத்திருக்கும் வருமானம். வடிவமைப்பில் வெளிப்படையானது. அனைவருக்கும் திறந்தது.",
     "heroTaglinePart1": "நிலைத்திருக்கும் வருமானம்.",
     "heroTaglinePart2": "வடிவமைப்பில் வெளிப்படையானது.",
@@ -168,7 +168,7 @@
     "seconds": "வினாடிகள்"
   },
   "footer": {
-    "tagline": "Binance Smart Chain-இல் மையமில்லா Yield Farming.",
+    "tagline": "BNB Smart Chain-இல் மையமில்லா Yield Farming.",
     "protocol": "நெறிமுறை",
     "content": "உள்ளடக்கம்",
     "community": "சமூகம்",

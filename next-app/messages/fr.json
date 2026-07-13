@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "En ligne sur Binance Smart Chain",
+    "liveStatus": "En ligne sur BNB Smart Chain",
     "heroTagline": "Rendements durables. Conçu pour la transparence. Ouvert à tous.",
     "heroTaglinePart1": "Rendements durables.",
     "heroTaglinePart2": "Conçu pour la transparence.",
@@ -168,7 +168,7 @@
     "seconds": "secondes"
   },
   "footer": {
-    "tagline": "Yield farming décentralisé sur Binance Smart Chain.",
+    "tagline": "Yield farming décentralisé sur BNB Smart Chain.",
     "protocol": "Protocole",
     "content": "Contenu",
     "community": "Communauté",

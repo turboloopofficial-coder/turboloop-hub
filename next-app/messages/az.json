@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain-də canlı",
+    "liveStatus": "BNB Smart Chain-də canlı",
     "heroTagline": "Davamlı gəlir. Dizayn ilə şəffaf. Hər kəsə açıq.",
     "heroTaglinePart1": "Davamlı gəlir.",
     "heroTaglinePart2": "Dizayn ilə şəffaf.",
@@ -423,7 +423,7 @@
     "seconds": "saniyə"
   },
   "footer": {
-    "tagline": "Binance Smart Chain-də mərkəzsiz gəlir ferması.",
+    "tagline": "BNB Smart Chain-də mərkəzsiz gəlir ferması.",
     "protocol": "Protokol",
     "content": "Məzmun",
     "community": "İcma",

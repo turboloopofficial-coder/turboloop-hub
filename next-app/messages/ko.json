@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain에서 운영 중",
+    "liveStatus": "BNB Smart Chain에서 운영 중",
     "heroTagline": "지속 가능한 수익. 설계부터 투명함. 누구나 이용할 수 있습니다.",
     "heroTaglinePart1": "지속 가능한 수익.",
     "heroTaglinePart2": "설계부터 투명함.",
@@ -168,7 +168,7 @@
     "seconds": "초"
   },
   "footer": {
-    "tagline": "Binance Smart Chain 상의 탈중앙화 수익 농사.",
+    "tagline": "BNB Smart Chain 상의 탈중앙화 수익 농사.",
     "protocol": "프로토콜",
     "content": "콘텐츠",
     "community": "커뮤니티",

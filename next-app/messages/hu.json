@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Élő a Binance Smart Chain-en",
+    "liveStatus": "Élő a BNB Smart Chain-en",
     "heroTagline": "Fenntartható hozam. Átlátható tervezés szerint. Mindenki számára nyitott.",
     "heroTaglinePart1": "Fenntartható hozam.",
     "heroTaglinePart2": "Átlátható tervezés szerint.",
@@ -167,7 +167,7 @@
     "seconds": "másodperc"
   },
   "footer": {
-    "tagline": "Decentralizált hozamgazdálkodás a Binance Smart Chain-en.",
+    "tagline": "Decentralizált hozamgazdálkodás a BNB Smart Chain-en.",
     "protocol": "Protokoll",
     "content": "Tartalom",
     "community": "Közösség",

@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Hidup di Binance Smart Chain",
+    "liveStatus": "Hidup di BNB Smart Chain",
     "heroTagline": "Hasil mampan. Telus oleh reka bentuk. Terbuka kepada semua.",
     "heroTaglinePart1": "Hasil mampan.",
     "heroTaglinePart2": "Telus oleh reka bentuk.",
@@ -167,7 +167,7 @@
     "seconds": " saat"
   },
   "footer": {
-    "tagline": "Pertanian hasil terdesentralisasi di Binance Smart Chain.",
+    "tagline": "Pertanian hasil terdesentralisasi di BNB Smart Chain.",
     "protocol": "Protokol",
     "content": "Kandungan",
     "community": "Komuniti",

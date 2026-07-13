@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Dey live for Binance Smart Chain",
+    "liveStatus": "Dey live for BNB Smart Chain",
     "heroTagline": "Yield wey go last. Everything clear from start. Open to everybody.",
     "heroTaglinePart1": "Yield wey go last.",
     "heroTaglinePart2": "Everything clear from start.",
@@ -168,7 +168,7 @@
     "seconds": "seconds"
   },
   "footer": {
-    "tagline": "Decentralized yield farming for Binance Smart Chain.",
+    "tagline": "Decentralized yield farming for BNB Smart Chain.",
     "protocol": "Protocol",
     "content": "Content",
     "community": "Community",

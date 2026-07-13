@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain वर लाइव्ह",
+    "liveStatus": "BNB Smart Chain वर लाइव्ह",
     "heroTagline": "सतत उत्पन्न. डिझाइनद्वारे पारदर्शक. सर्वांसाठी खुला.",
     "heroTaglinePart1": "सतत उत्पन्न.",
     "heroTaglinePart2": "डिझाइनद्वारे पारदर्शक.",
@@ -168,7 +168,7 @@
     "seconds": "सेकंद"
   },
   "footer": {
-    "tagline": "Binance Smart Chain वर विकेंद्रीकृत उत्पन्न शेती.",
+    "tagline": "BNB Smart Chain वर विकेंद्रीकृत उत्पन्न शेती.",
     "protocol": "प्रोटोकॉल",
     "content": "सामग्री",
     "community": "समुदाय",

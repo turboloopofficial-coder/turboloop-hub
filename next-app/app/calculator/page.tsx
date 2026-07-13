@@ -285,7 +285,7 @@ export default function CalculatorPage() {
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web",
         url: "https://www.turboloop.tech/calculator",
-        description: "Free online DeFi yield calculator for TurboLoop. Instantly compute fixed ROI returns for Sprint (3%), Boost (10%), Power (24%), and Ultimate (54%) plans on Binance Smart Chain.",
+        description: "Free online DeFi yield calculator for TurboLoop. Instantly compute fixed ROI returns for Sprint (3%), Accelerate (10%), Power (24%), and Ultimate (54%) plans on BNB Smart Chain.",
         offers: {
           "@type": "Offer",
           price: "0",

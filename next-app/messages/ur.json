@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain پر لائیو",
+    "liveStatus": "BNB Smart Chain پر لائیو",
     "heroTagline": "پائیدار منافع۔ ڈیزائن کے اعتبار سے شفاف۔ سب کے لیے کھلا۔",
     "heroTaglinePart1": "پائیدار منافع.",
     "heroTaglinePart2": "ڈیزائن کے اعتبار سے شفاف.",
@@ -168,7 +168,7 @@
     "seconds": "سیکنڈ"
   },
   "footer": {
-    "tagline": "Binance Smart Chain پر غیر مرکزی ییلڈ فارمنگ۔",
+    "tagline": "BNB Smart Chain پر غیر مرکزی ییلڈ فارمنگ۔",
     "protocol": "پروٹوکول",
     "content": "مواد",
     "community": "کمیونٹی",

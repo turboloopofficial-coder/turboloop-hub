@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Живе на Binance Smart Chain",
+    "liveStatus": "Живе на BNB Smart Chain",
     "heroTagline": "Стійкий дохід. Прозорий за задумом. Відкритий для всіх.",
     "heroTaglinePart1": "Стійкий дохід.",
     "heroTaglinePart2": "Прозорий за задумом.",
@@ -168,7 +168,7 @@
     "seconds": "секунд"
   },
   "footer": {
-    "tagline": "Децентралізоване фермерство доходу на Binance Smart Chain.",
+    "tagline": "Децентралізоване фермерство доходу на BNB Smart Chain.",
     "protocol": "Протокол",
     "content": "Контент",
     "community": "Спільнота",

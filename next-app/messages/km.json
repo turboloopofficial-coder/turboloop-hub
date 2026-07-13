@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "ផ្សាយបន្តផ្ទាល់នៅលើ Binance Smart Chain",
+    "liveStatus": "ផ្សាយបន្តផ្ទាល់នៅលើ BNB Smart Chain",
     "heroTagline": "ផលចំណេញដែលអាចរកបានយូរ។ មានភាពច្បាស់លាស់តាមរចនាប័ទ្ម។ បើកសម្រាប់គ្រប់គ្នា។",
     "heroTaglinePart1": "ផលចំណេញដែលអាចរកបានយូរ។",
     "heroTaglinePart2": "មានភាពច្បាស់លាស់តាមរចនាប័ទ្ម។",
@@ -167,7 +167,7 @@
     "seconds": "វិនាទី"
   },
   "footer": {
-    "tagline": "Yield farming អចិន្ត្រៃយ៍លើ Binance Smart Chain។",
+    "tagline": "Yield farming អចិន្ត្រៃយ៍លើ BNB Smart Chain។",
     "protocol": "Protocol",
     "content": "Content",
     "community": "Community",

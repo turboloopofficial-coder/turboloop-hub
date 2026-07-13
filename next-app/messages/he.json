@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "חי ב-Binance Smart Chain",
+    "liveStatus": "חי ב-BNB Smart Chain",
     "heroTagline": "תשואה בת קיימא. שקופה מעצם הטבע. פתוח לכולם.",
     "heroTaglinePart1": "תשואה בת קיימא.",
     "heroTaglinePart2": "שקופה מעצם הטבע.",
@@ -167,7 +167,7 @@
     "seconds": "שניות"
   },
   "footer": {
-    "tagline": "חוות רווחים מבוזרת על Binance Smart Chain.",
+    "tagline": "חוות רווחים מבוזרת על BNB Smart Chain.",
     "protocol": "פרוטוקול",
     "content": "תוכן",
     "community": "קהילה",

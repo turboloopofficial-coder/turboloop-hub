@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain پر زندہ",
+    "liveStatus": "BNB Smart Chain پر زندہ",
     "heroTagline": "پائیدار پیداوار۔ ڈیزائن کے مطابق شفاف۔ سب کے لیے کھلا۔",
     "heroTaglinePart1": "پائیدار پیداوار۔",
     "heroTaglinePart2": "ڈیزائن کے مطابق شفاف۔",
@@ -426,7 +426,7 @@
     "seconds": "سیکنڈ"
   },
   "footer": {
-    "tagline": "Binance Smart Chain پر غیر مرکزیت والی ییلڈ فارمنگ۔",
+    "tagline": "BNB Smart Chain پر غیر مرکزیت والی ییلڈ فارمنگ۔",
     "protocol": "پروٹوکول",
     "content": "مواد",
     "community": "کمیونٹی",

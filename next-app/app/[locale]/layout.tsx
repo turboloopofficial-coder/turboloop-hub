@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: "https://www.turboloop.tech/api/og-banner?type=launch",
           width: 1200,
           height: 630,
-          alt: "TurboLoop — sustainable DeFi yield on Binance Smart Chain.",
+          alt: "TurboLoop — sustainable DeFi yield on BNB Smart Chain.",
         },
       ],
     },

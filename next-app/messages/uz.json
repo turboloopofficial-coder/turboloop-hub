@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain da jonli",
+    "liveStatus": "BNB Smart Chain da jonli",
     "heroTagline": "Barqaror daromad. Dizaynda shaffof. Hamma uchun ochiq.",
     "heroTaglinePart1": "Barqaror daromad.",
     "heroTaglinePart2": "Dizaynda shaffof.",
@@ -422,7 +422,7 @@
     "seconds": "soniya"
   },
   "footer": {
-    "tagline": "Binance Smart Chainda markazsiz daromad fermasi.",
+    "tagline": "BNB Smart Chainda markazsiz daromad fermasi.",
     "protocol": "Protokol",
     "content": "Mazmun",
     "community": "Jamoa",

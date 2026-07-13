@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Sống trên Binance Smart Chain",
+    "liveStatus": "Sống trên BNB Smart Chain",
     "heroTagline": "Lợi nhuận bền vững. Minh bạch theo thiết kế. Mở cho tất cả mọi người.",
     "heroTaglinePart1": "Lợi nhuận bền vững.",
     "heroTaglinePart2": "Minh bạch theo thiết kế.",
@@ -425,7 +425,7 @@
     "seconds": "giây"
   },
   "footer": {
-    "tagline": "Yield farming phi tập trung trên Binance Smart Chain.",
+    "tagline": "Yield farming phi tập trung trên BNB Smart Chain.",
     "protocol": "Giao thức",
     "content": "Nội dung",
     "community": "Cộng đồng",

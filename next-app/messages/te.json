@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain పై ప్రత్యక్షం",
+    "liveStatus": "BNB Smart Chain పై ప్రత్యక్షం",
     "heroTagline": "సుస్థిర ఫలితం. డిజైన్ ద్వారా పారదర్శకంగా. అందరికీ తెరవబడింది.",
     "heroTaglinePart1": "సుస్థిర ఫలితం.",
     "heroTaglinePart2": "డిజైన్ ద్వారా పారదర్శకంగా.",
@@ -168,7 +168,7 @@
     "seconds": "seconds"
   },
   "footer": {
-    "tagline": "Decentralized yield farming on Binance Smart Chain.",
+    "tagline": "Decentralized yield farming on BNB Smart Chain.",
     "protocol": "Protocol",
     "content": "Content",
     "community": "Community",

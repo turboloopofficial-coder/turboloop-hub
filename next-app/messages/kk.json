@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain-да тірі",
+    "liveStatus": "BNB Smart Chain-да тірі",
     "heroTagline": "Тұрақты кіріс. Тәжірибеге ашық. Барлыққа қол жетімді.",
     "heroTaglinePart1": "Тұрақты кіріс.",
     "heroTaglinePart2": "Тәжірибеге ашық.",
@@ -425,7 +425,7 @@
     "seconds": "секунд"
   },
   "footer": {
-    "tagline": "Binance Smart Chain-де децентрализованный табыс фермерлігі.",
+    "tagline": "BNB Smart Chain-де децентрализованный табыс фермерлігі.",
     "protocol": "Протокол",
     "content": "Мазмұн",
     "community": "Қауымдастық",

@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "В сети на Binance Smart Chain",
+    "liveStatus": "В сети на BNB Smart Chain",
     "heroTagline": "Устойчивая доходность. Прозрачно по дизайну. Открыто для всех.",
     "heroTaglinePart1": "Устойчивая доходность.",
     "heroTaglinePart2": "Прозрачно по дизайну.",
@@ -168,7 +168,7 @@
     "seconds": "секунд"
   },
   "footer": {
-    "tagline": "Децентрализованное фермерство на Binance Smart Chain.",
+    "tagline": "Децентрализованное фермерство на BNB Smart Chain.",
     "protocol": "Протокол",
     "content": "Контент",
     "community": "Сообщество",

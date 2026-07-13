@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Iko hai kwenye Binance Smart Chain",
+    "liveStatus": "Iko hai kwenye BNB Smart Chain",
     "heroTagline": "Mazao endelevu. Hali wazi kwa kila mtu.",
     "heroTaglinePart1": "Mazao endelevu.",
     "heroTaglinePart2": "Hali wazi kwa kila mtu.",
@@ -424,7 +424,7 @@
     "seconds": "sekunde"
   },
   "footer": {
-    "tagline": "Kilimo cha faida cha decentralised kwenye Binance Smart Chain.",
+    "tagline": "Kilimo cha faida cha decentralised kwenye BNB Smart Chain.",
     "protocol": "Itifaki",
     "content": "Yaliyomo",
     "community": "Jamii",

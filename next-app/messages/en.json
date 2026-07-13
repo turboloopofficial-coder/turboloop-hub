@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Live on Binance Smart Chain",
+    "liveStatus": "Live on BNB Smart Chain",
     "heroTagline": "Sustainable yield. Transparent by design. Open to everyone.",
     "heroTaglinePart1": "Sustainable yield.",
     "heroTaglinePart2": "Transparent by design.",
@@ -168,7 +168,7 @@
     "seconds": "seconds"
   },
   "footer": {
-    "tagline": "Decentralized yield farming on Binance Smart Chain.",
+    "tagline": "Decentralized yield farming on BNB Smart Chain.",
     "protocol": "Protocol",
     "content": "Content",
     "community": "Community",

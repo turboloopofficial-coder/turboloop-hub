@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Buhay sa Binance Smart Chain",
+    "liveStatus": "Buhay sa BNB Smart Chain",
     "heroTagline": "Sustainable na ani. Transparent sa disenyo. Bukas sa lahat.",
     "heroTaglinePart1": "Sustainable na ani.",
     "heroTaglinePart2": "Transparent sa disenyo.",
@@ -168,7 +168,7 @@
     "seconds": "segundo"
   },
   "footer": {
-    "tagline": "Decentralized yield farming sa Binance Smart Chain.",
+    "tagline": "Decentralized yield farming sa BNB Smart Chain.",
     "protocol": "Protocol",
     "content": "Nilalaman",
     "community": "Komunidad",

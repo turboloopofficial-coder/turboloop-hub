@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Aktif di Binance Smart Chain",
+    "liveStatus": "Aktif di BNB Smart Chain",
     "heroTagline": "Hasil berkelanjutan. Transparan berdasarkan desain. Terbuka untuk semua.",
     "heroTaglinePart1": "Hasil berkelanjutan.",
     "heroTaglinePart2": "Transparan berdasarkan desain.",
@@ -168,7 +168,7 @@
     "seconds": "detik"
   },
   "footer": {
-    "tagline": "Yield farming terdesentralisasi di Binance Smart Chain.",
+    "tagline": "Yield farming terdesentralisasi di BNB Smart Chain.",
     "protocol": "Protokol",
     "content": "Konten",
     "community": "Komunitas",

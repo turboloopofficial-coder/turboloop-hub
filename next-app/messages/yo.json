@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Lọwọlọwọ lori Binance Smart Chain",
+    "liveStatus": "Lọwọlọwọ lori BNB Smart Chain",
     "heroTagline": "Iye ti o tọ. Ṣíṣe ni ọna ti o han gbangba. Ṣii si gbogbo eniyan.",
     "heroTaglinePart1": "Iye ti o tọ.",
     "heroTaglinePart2": "Ṣíṣe ni ọna ti o han gbangba.",
@@ -425,7 +425,7 @@
     "seconds": "aaya"
   },
   "footer": {
-    "tagline": "Iṣẹ-ogun ti a ko ni aarin lori Binance Smart Chain.",
+    "tagline": "Iṣẹ-ogun ti a ko ni aarin lori BNB Smart Chain.",
     "protocol": "Ilana",
     "content": "Akopọ",
     "community": "Ajo",

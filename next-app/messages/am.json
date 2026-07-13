@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "በ Binance Smart Chain ላይ ቀጥሎ እየተሰራ ነው",
+    "liveStatus": "በ BNB Smart Chain ላይ ቀጥሎ እየተሰራ ነው",
     "heroTagline": "የሚቀጥል እንደምትያዙ. በንግድ የተገለጸ. ለሁሉም ክፍት.",
     "heroTaglinePart1": "የሚቀጥል እንደምትያዙ.",
     "heroTaglinePart2": "በንግድ የተገለጸ.",
@@ -168,7 +168,7 @@
     "seconds": "ሰከንዶች"
   },
   "footer": {
-    "tagline": "የማይተላለፍ የእንደምትያዙ ግብይት በ Binance Smart Chain.",
+    "tagline": "የማይተላለፍ የእንደምትያዙ ግብይት በ BNB Smart Chain.",
     "protocol": "ፕሮቶኮል",
     "content": "ይዘት",
     "community": "ማህበረሰብ",

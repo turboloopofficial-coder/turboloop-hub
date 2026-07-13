@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Ζωντανό στο Binance Smart Chain",
+    "liveStatus": "Ζωντανό στο BNB Smart Chain",
     "heroTagline": "Βιώσιμη απόδοση. Διαφανές σχεδιασμό. Ανοιχτό σε όλους.",
     "heroTaglinePart1": "Βιώσιμη απόδοση.",
     "heroTaglinePart2": "Διαφανές σχεδιασμό.",
@@ -167,7 +167,7 @@
     "seconds": "δευτερόλεπτα"
   },
   "footer": {
-    "tagline": "Αποκεντρωμένη αγροτική απόδοση στο Binance Smart Chain.",
+    "tagline": "Αποκεντρωμένη αγροτική απόδοση στο BNB Smart Chain.",
     "protocol": "Πρωτόκολλο",
     "content": "Περιεχόμενο",
     "community": "Κοινότητα",

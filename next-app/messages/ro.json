@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Live pe Binance Smart Chain",
+    "liveStatus": "Live pe BNB Smart Chain",
     "heroTagline": "Randament durabil. Transparent prin design. Deschis tuturor.",
     "heroTaglinePart1": "Randament durabil.",
     "heroTaglinePart2": "Transparent prin design.",
@@ -168,7 +168,7 @@
     "seconds": "secunde"
   },
   "footer": {
-    "tagline": "Farming descentralizat de randament pe Binance Smart Chain.",
+    "tagline": "Farming descentralizat de randament pe BNB Smart Chain.",
     "protocol": "Protocol",
     "content": "Conținut",
     "community": "Comunitate",

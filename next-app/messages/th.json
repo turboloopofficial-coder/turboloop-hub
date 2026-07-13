@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "เปิดให้บริการบน Binance Smart Chain",
+    "liveStatus": "เปิดให้บริการบน BNB Smart Chain",
     "heroTagline": "ผลตอบแทนที่ยั่งยืน โปร่งใสตามการออกแบบ เปิดให้ทุกคนเข้าถึง",
     "heroTaglinePart1": "ผลตอบแทนที่ยั่งยืน.",
     "heroTaglinePart2": "โปร่งใสตามการออกแบบ.",
@@ -168,7 +168,7 @@
     "seconds": "วินาที"
   },
   "footer": {
-    "tagline": "ฟาร์มผลตอบแทนแบบกระจายศูนย์บน Binance Smart Chain.",
+    "tagline": "ฟาร์มผลตอบแทนแบบกระจายศูนย์บน BNB Smart Chain.",
     "protocol": "โปรโตคอล",
     "content": "เนื้อหา",
     "community": "ชุมชน",

@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Binance Smart Chain पर लाइव",
+    "liveStatus": "BNB Smart Chain पर लाइव",
     "heroTagline": "सस्टेनेबल रिटर्न। डिजाइन के अनुसार पारदर्शी। सभी के लिए खुला।",
     "heroTaglinePart1": "सस्टेनेबल रिटर्न.",
     "heroTaglinePart2": "डिजाइन के अनुसार पारदर्शी.",
@@ -168,7 +168,7 @@
     "seconds": "सेकंड"
   },
   "footer": {
-    "tagline": "Binance Smart Chain पर विकेंद्रीकृत यील्ड फ़ार्मिंग.",
+    "tagline": "BNB Smart Chain पर विकेंद्रीकृत यील्ड फ़ार्मिंग.",
     "protocol": "प्रोटोकॉल",
     "content": "सामग्री",
     "community": "कम्युनिटी",

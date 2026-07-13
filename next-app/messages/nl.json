@@ -33,7 +33,7 @@
     }
   },
   "home": {
-    "liveStatus": "Live op Binance Smart Chain",
+    "liveStatus": "Live op BNB Smart Chain",
     "heroTagline": "Duurzame opbrengst. Transparant van ontwerp. Voor iedereen toegankelijk.",
     "heroTaglinePart1": "Duurzame opbrengst.",
     "heroTaglinePart2": "Transparant van ontwerp.",
@@ -167,7 +167,7 @@
     "seconds": "seconden"
   },
   "footer": {
-    "tagline": "Gedecentraliseerde yield farming op Binance Smart Chain.",
+    "tagline": "Gedecentraliseerde yield farming op BNB Smart Chain.",
     "protocol": "Protocol",
     "content": "Inhoud",
     "community": "Community",

@@ -1,15 +1,10 @@
 // /api/token-burns — serves the burn events feed on /token.
-// Deploy: 2026-06-11-buybacks-proxy
+// Deploy: 2026-07-13-burn-table-v2
 //
 // Data source: https://turboloop.io/api/proxy/buybacks
 // The turboloop.io backend tracks every daily buyback & burn execution
 // in its own database, including the tx hash, USDT spent, tokens burned,
-// and timestamp. This is the same data shown on the turboloop.io
-// Token Rewards dashboard.
-//
-// Why not BscScan? BscScan V1 was deprecated. BscScan V2 requires a
-// paid API key for BSC — free tier returns an error. The turboloop.io
-// proxy is public, always fresh, and returns exactly the fields we need.
+// and timestamp. Multi-tx burns include a "slices" array.
 //
 // Caching strategy:
 //   • Module-scoped in-memory cache, 5-minute TTL.
@@ -29,8 +24,16 @@ const BUYBACKS_URL =
   "https://turboloop.io/api/proxy/buybacks?limit=100&page=1";
 const CACHE_TTL_MS = 5 * 60_000; // 5 minutes
 
+export interface BurnSlice {
+  sliceIndex: number;
+  hash: string;
+  amount: number;
+  usdtSpent: number;
+  executedAt: number;
+}
+
 export interface BurnEvent {
-  /** Transaction hash, full 0x… string. */
+  /** Transaction hash, full 0x… string. Empty if multi-tx (sliced). */
   hash: string;
   /** Unix epoch (seconds). */
   timestamp: number;
@@ -40,26 +43,43 @@ export interface BurnEvent {
   usdtSpent: number;
   /** Execution number (1 = first ever buyback). */
   executionNumber: number;
+  /** Whether this burn was split into multiple on-chain transactions. */
+  isSliced: boolean;
+  /** Individual transaction slices (only present if isSliced=true). */
+  slices: BurnSlice[];
 }
 
 export interface BurnFeedData {
   burns: BurnEvent[];
   /** Sum of all `amount` values across all returned burns. */
   totalBurned: number;
-  /** Sum of all `usdtSpent` values across all returned burns. Mirrors
-   *  `totalBurned` so the UI footer can show "X TURBO · $Y USDT spent"
-   *  without recomputing on the client. */
+  /** Sum of all `usdtSpent` values across all returned burns. */
   totalUsdtSpent: number;
   fetchedAt: number;
   fresh: boolean;
 }
 
+interface BuybackSliceRaw {
+  slice_index: number;
+  usdt_amount: string;
+  tokens_burned: string;
+  tx_hash: string;
+  status?: string;
+  executed_at?: string;
+  execute_after?: string;
+}
+
 interface BuybackItem {
   execution_number: number;
   tx_hash: string;
-  usdt_spent: string; // raw wei string (18 decimals)
-  tokens_burned: string; // raw wei string (18 decimals), may use scientific notation
-  timestamp: string; // ISO 8601
+  usdt_spent: string;
+  tokens_burned: string;
+  token_price_usdt?: string;
+  processing_day?: number;
+  timestamp: string;
+  is_sliced?: boolean;
+  is_in_progress?: boolean;
+  slices?: BuybackSliceRaw[];
 }
 
 interface BuybacksResponse {
@@ -95,7 +115,7 @@ function parseTokenAmount(raw: string): number {
 async function fetchFromBuybacksProxy(): Promise<BurnFeedData> {
   try {
     const res = await fetch(BUYBACKS_URL, {
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(10000),
       cache: "no-store",
       headers: { Accept: "application/json" },
     });
@@ -111,12 +131,26 @@ async function fetchFromBuybacksProxy(): Promise<BurnFeedData> {
         const timestamp = item.timestamp
           ? Math.floor(new Date(item.timestamp).getTime() / 1000)
           : 0;
+
+        // Parse slices if present
+        const slices: BurnSlice[] = (item.slices ?? []).map((s) => ({
+          sliceIndex: s.slice_index,
+          hash: s.tx_hash ?? "",
+          amount: parseTokenAmount(s.tokens_burned),
+          usdtSpent: parseTokenAmount(s.usdt_amount),
+          executedAt: s.executed_at
+            ? Math.floor(new Date(s.executed_at).getTime() / 1000)
+            : timestamp,
+        }));
+
         return {
           hash: item.tx_hash ?? "",
           timestamp,
           amount,
           usdtSpent,
           executionNumber: Number(item.execution_number) || 0,
+          isSliced: item.is_sliced ?? false,
+          slices,
         };
       })
       .sort((a, b) => b.timestamp - a.timestamp);

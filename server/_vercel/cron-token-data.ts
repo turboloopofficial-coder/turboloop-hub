@@ -128,17 +128,21 @@ async function refreshHolderCount(db: ReturnType<typeof drizzle>): Promise<strin
         const body = await res.text();
         if (body.length < 200) continue;
 
-        // Try multiple patterns:
-        // Main page: "Holders: 1,318" or "holdersCount": "1318"
-        // Sub-page: "From a total of 1,318 holders"
-        const match =
-          body.match(/Holders[:\s]*([\d,]+)/i) ||
-          body.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/) ||
-          body.match(/total of\s*([\d,]+)\s*holders/i);
+        // Use different patterns depending on URL type.
+        // Main page: meta description has "Holders: 1,312"
+        // Sub-page: "From a total of 1,312 holders" (NOT the URL which contains "holders2")
+        const isSubPage = url.includes("generic");
+        const match = isSubPage
+          ? body.match(/total of\s*([\d,]+)\s*holders/i) ||
+            body.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/)
+          : body.match(/Holders[:]\s*([\d,]+)/) ||
+            body.match(/"holdersCount"\s*:\s*"?([\d,]+)"?/) ||
+            body.match(/total of\s*([\d,]+)\s*holders/i);
 
         if (match) {
           const parsed = parseInt(match[1].replace(/,/g, ""), 10);
-          if (parsed > 0) { holdersNum = parsed; break; }
+          // Sanity: holder count must be > 10 (avoids matching pagination numbers)
+          if (parsed > 10) { holdersNum = parsed; break; }
         }
       } catch { /* try next */ }
     }

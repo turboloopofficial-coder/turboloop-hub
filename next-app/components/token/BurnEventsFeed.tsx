@@ -2,6 +2,7 @@
 
 // BurnEventsFeed — renders the $TURBO buyback & burn history as a table.
 // Matches the turboloop.io dashboard design: table with expandable multi-tx rows.
+// Uses CSS variables (--c-*) for full light/dark theme support.
 //
 // Data source: /api/token-burns → turboloop.io/api/proxy/buybacks
 // Polls every 5 minutes.
@@ -49,28 +50,28 @@ function BurnCountdown() {
       className={`flex items-center justify-between gap-3 mb-5 px-4 py-3 rounded-xl border ${
         isFiring
           ? "border-orange-500/60 bg-orange-500/10 animate-pulse"
-          : "border-white/10 bg-white/5"
+          : "border-[var(--c-border)] bg-[var(--c-bg)]"
       }`}
     >
       <div className="flex items-center gap-2">
         <Timer
           className={`w-4 h-4 shrink-0 ${
-            isFiring ? "text-orange-400" : "text-white/40"
+            isFiring ? "text-orange-400" : "text-[var(--c-text-muted)]"
           }`}
           aria-hidden="true"
         />
-        <span className="text-xs text-white/50">
+        <span className="text-xs text-[var(--c-text-muted)]">
           {isFiring ? "🔥 Burn executing…" : "Next burn in"}
         </span>
       </div>
       {secs === null ? (
-        <div className="h-4 w-16 rounded bg-white/10 animate-pulse" />
+        <div className="h-4 w-16 rounded bg-[var(--c-border)] animate-pulse" />
       ) : isFiring ? (
         <span className="text-xs font-bold text-orange-400 font-mono tabular-nums">
           any moment
         </span>
       ) : (
-        <span className="text-sm font-bold font-mono tabular-nums text-amber-400">
+        <span className="text-sm font-bold font-mono tabular-nums text-amber-500 dark:text-amber-400">
           {formatCountdown(secs)}
         </span>
       )}
@@ -147,7 +148,7 @@ async function fetchBurns(signal?: AbortSignal): Promise<BurnFeedData | null> {
   }
 }
 
-// ─── Expandable Row ──────────────────────────────────────────────
+// ─── Expandable Row (Desktop) ────────────────────────────────────
 function BurnRow({ burn }: { burn: BurnEvent }) {
   const [expanded, setExpanded] = useState(false);
   const hasSlices = burn.isSliced && burn.slices.length > 0;
@@ -155,33 +156,33 @@ function BurnRow({ burn }: { burn: BurnEvent }) {
   return (
     <>
       {/* Main row */}
-      <tr className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+      <tr className="border-b border-[var(--c-border)] hover:bg-[var(--c-bg)] transition-colors">
         {/* # */}
         <td className="py-3 px-2 md:px-4">
-          <span className="text-sm font-bold text-cyan-400 tabular-nums">
+          <span className="text-sm font-bold text-[var(--c-brand-cyan)] tabular-nums">
             {burn.executionNumber}
           </span>
         </td>
         {/* Date & Time */}
         <td className="py-3 px-2 md:px-4">
-          <span className="text-sm text-white/70 tabular-nums whitespace-nowrap">
+          <span className="text-sm text-[var(--c-text-muted)] tabular-nums whitespace-nowrap">
             {formatDateTime(burn.timestamp)}
           </span>
         </td>
         {/* USDT Spent */}
         <td className="py-3 px-2 md:px-4">
-          <span className="text-sm font-bold text-green-400 tabular-nums">
+          <span className="text-sm font-bold text-emerald-600 dark:text-green-400 tabular-nums">
             {formatUsdt(burn.usdtSpent)}
           </span>
         </td>
         {/* Tokens Burned */}
         <td className="py-3 px-2 md:px-4">
-          <span className="text-sm text-white/90 tabular-nums whitespace-nowrap">
-            <span className="text-orange-400 mr-1">🔥</span>
-            <span className="font-bold text-orange-300">
+          <span className="text-sm tabular-nums whitespace-nowrap">
+            <span className="text-orange-500 mr-1">🔥</span>
+            <span className="font-bold text-orange-600 dark:text-orange-300">
               {formatAmount(burn.amount)}
             </span>
-            <span className="text-white/40 ml-1 text-xs">TURBO</span>
+            <span className="text-[var(--c-text-subtle)] ml-1 text-xs">TURBO</span>
           </span>
         </td>
         {/* Transaction */}
@@ -189,7 +190,7 @@ function BurnRow({ burn }: { burn: BurnEvent }) {
           {hasSlices ? (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-xs font-bold text-orange-400 hover:bg-orange-500/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-xs font-bold text-orange-600 dark:text-orange-400 hover:bg-orange-500/20 transition-colors"
             >
               🔥 {burn.slices.length} TXs
               {expanded ? (
@@ -203,13 +204,13 @@ function BurnRow({ burn }: { burn: BurnEvent }) {
               href={`https://bscscan.com/tx/${burn.hash}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono text-[var(--c-brand-cyan)] hover:underline transition-colors"
             >
               {truncateHash(burn.hash)}
               <ExternalLink className="w-3 h-3" />
             </a>
           ) : (
-            <span className="text-xs text-white/30">—</span>
+            <span className="text-xs text-[var(--c-text-subtle)]">—</span>
           )}
         </td>
       </tr>
@@ -218,37 +219,37 @@ function BurnRow({ burn }: { burn: BurnEvent }) {
       {expanded && hasSlices && (
         <tr>
           <td colSpan={5} className="p-0">
-            <div className="bg-white/[0.02] border-b border-white/5">
+            <div className="bg-[var(--c-bg)] border-b border-[var(--c-border)]">
               {/* Slice header */}
-              <div className="grid grid-cols-[60px_1fr_100px_1fr_1fr] md:grid-cols-[80px_1fr_120px_1fr_1fr] gap-1 px-4 md:px-8 py-2 border-b border-white/5">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/30">Slice</span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/30">Executed At</span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/30">USDT</span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/30">Burned</span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/30 text-right">Transaction</span>
+              <div className="grid grid-cols-[60px_1fr_100px_1fr_1fr] md:grid-cols-[80px_1fr_120px_1fr_1fr] gap-1 px-4 md:px-8 py-2 border-b border-[var(--c-border)]">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">Slice</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">Executed At</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">USDT</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">Burned</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)] text-right">Transaction</span>
               </div>
               {/* Slice rows */}
               {burn.slices.map((slice) => (
                 <div
                   key={slice.sliceIndex}
-                  className="grid grid-cols-[60px_1fr_100px_1fr_1fr] md:grid-cols-[80px_1fr_120px_1fr_1fr] gap-1 px-4 md:px-8 py-2.5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors"
+                  className="grid grid-cols-[60px_1fr_100px_1fr_1fr] md:grid-cols-[80px_1fr_120px_1fr_1fr] gap-1 px-4 md:px-8 py-2.5 border-b border-[var(--c-border)] last:border-b-0 hover:bg-[var(--c-surface)] transition-colors"
                 >
                   {/* Slice # */}
-                  <span className="text-xs font-bold text-cyan-400/70 tabular-nums">
+                  <span className="text-xs font-bold text-[var(--c-brand-cyan)] opacity-70 tabular-nums">
                     {slice.sliceIndex + 1}
                   </span>
                   {/* Executed At */}
-                  <span className="text-xs text-white/50 tabular-nums whitespace-nowrap">
+                  <span className="text-xs text-[var(--c-text-muted)] tabular-nums whitespace-nowrap">
                     {formatDateTime(slice.executedAt)}
                   </span>
                   {/* USDT */}
-                  <span className="text-xs font-bold text-green-400/80 tabular-nums">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-green-400 opacity-80 tabular-nums">
                     {formatUsdt(slice.usdtSpent)}
                   </span>
                   {/* Burned */}
-                  <span className="text-xs text-orange-300/80 tabular-nums whitespace-nowrap">
+                  <span className="text-xs text-orange-600 dark:text-orange-300 opacity-80 tabular-nums whitespace-nowrap">
                     {formatAmount(slice.amount)}
-                    <span className="text-white/30 ml-1">TURBO</span>
+                    <span className="text-[var(--c-text-subtle)] ml-1">TURBO</span>
                   </span>
                   {/* Transaction */}
                   <span className="text-right">
@@ -257,13 +258,13 @@ function BurnRow({ burn }: { burn: BurnEvent }) {
                         href={`https://bscscan.com/tx/${slice.hash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[11px] font-mono text-cyan-400/80 hover:text-cyan-300 transition-colors"
+                        className="inline-flex items-center gap-1 text-[11px] font-mono text-[var(--c-brand-cyan)] opacity-80 hover:underline transition-colors"
                       >
                         {truncateHash(slice.hash)}
                         <ExternalLink className="w-2.5 h-2.5" />
                       </a>
                     ) : (
-                      <span className="text-xs text-white/20">—</span>
+                      <span className="text-xs text-[var(--c-text-subtle)]">—</span>
                     )}
                   </span>
                 </div>
@@ -282,27 +283,27 @@ function BurnCard({ burn }: { burn: BurnEvent }) {
   const hasSlices = burn.isSliced && burn.slices.length > 0;
 
   return (
-    <div className="border-b border-white/5 py-4 first:pt-0 last:border-b-0">
+    <div className="border-b border-[var(--c-border)] py-4 first:pt-0 last:border-b-0">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm font-bold text-cyan-400 tabular-nums">
+            <span className="text-sm font-bold text-[var(--c-brand-cyan)] tabular-nums">
               #{burn.executionNumber}
             </span>
-            <span className="text-xs text-white/40 tabular-nums">
+            <span className="text-xs text-[var(--c-text-subtle)] tabular-nums">
               {formatDateTime(burn.timestamp)}
             </span>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-sm font-bold text-green-400 tabular-nums">
+            <span className="text-sm font-bold text-emerald-600 dark:text-green-400 tabular-nums">
               {formatUsdt(burn.usdtSpent)}
             </span>
             <span className="text-sm tabular-nums">
-              <span className="text-orange-400">🔥</span>{" "}
-              <span className="font-bold text-orange-300">
+              <span className="text-orange-500">🔥</span>{" "}
+              <span className="font-bold text-orange-600 dark:text-orange-300">
                 {formatAmount(burn.amount)}
               </span>
-              <span className="text-white/40 ml-1 text-xs">TURBO</span>
+              <span className="text-[var(--c-text-subtle)] ml-1 text-xs">TURBO</span>
             </span>
           </div>
         </div>
@@ -310,7 +311,7 @@ function BurnCard({ burn }: { burn: BurnEvent }) {
           {hasSlices ? (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-[11px] font-bold text-orange-400 hover:bg-orange-500/20 transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-[11px] font-bold text-orange-600 dark:text-orange-400 hover:bg-orange-500/20 transition-colors"
             >
               🔥 {burn.slices.length} TXs
               {expanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
@@ -320,7 +321,7 @@ function BurnCard({ burn }: { burn: BurnEvent }) {
               href={`https://bscscan.com/tx/${burn.hash}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[11px] font-mono text-cyan-400 hover:text-cyan-300"
+              className="inline-flex items-center gap-1 text-[11px] font-mono text-[var(--c-brand-cyan)] hover:underline"
             >
               {truncateHash(burn.hash)}
               <ExternalLink className="w-3 h-3" />
@@ -335,18 +336,18 @@ function BurnCard({ burn }: { burn: BurnEvent }) {
           {burn.slices.map((slice) => (
             <div key={slice.sliceIndex} className="text-xs">
               <div className="flex items-center gap-2 mb-0.5">
-                <span className="font-bold text-cyan-400/70 tabular-nums">
+                <span className="font-bold text-[var(--c-brand-cyan)] opacity-70 tabular-nums">
                   #{slice.sliceIndex + 1}
                 </span>
-                <span className="text-white/40 tabular-nums">
+                <span className="text-[var(--c-text-subtle)] tabular-nums">
                   {formatDateTime(slice.executedAt)}
                 </span>
               </div>
               <div className="flex items-center gap-3 flex-wrap">
-                <span className="font-bold text-green-400/80 tabular-nums">
+                <span className="font-bold text-emerald-600 dark:text-green-400 opacity-80 tabular-nums">
                   {formatUsdt(slice.usdtSpent)}
                 </span>
-                <span className="text-orange-300/80 tabular-nums">
+                <span className="text-orange-600 dark:text-orange-300 opacity-80 tabular-nums">
                   {formatAmount(slice.amount)} TURBO
                 </span>
                 {slice.hash && (
@@ -354,7 +355,7 @@ function BurnCard({ burn }: { burn: BurnEvent }) {
                     href={`https://bscscan.com/tx/${slice.hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-0.5 font-mono text-cyan-400/70 hover:text-cyan-300"
+                    className="inline-flex items-center gap-0.5 font-mono text-[var(--c-brand-cyan)] opacity-70 hover:underline"
                   >
                     {truncateHash(slice.hash)}
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -403,20 +404,20 @@ export function BurnEventsFeed() {
 
   return (
     <section
-      className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 md:p-7"
+      className="rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] p-5 md:p-7"
       aria-label="$TURBO Buyback & Burn History"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-lg bg-orange-500/20">
-            <Flame className="w-4 h-4 text-orange-400" aria-hidden="true" />
+          <div className="p-1.5 rounded-lg bg-orange-500/15">
+            <Flame className="w-4 h-4 text-orange-500" aria-hidden="true" />
           </div>
           <div>
-            <h3 className="text-base md:text-lg font-bold text-white">
+            <h3 className="text-base md:text-lg font-bold text-[var(--c-text)]">
               Buyback &amp; Burn History
             </h3>
-            <p className="text-xs text-white/40 mt-0.5">
+            <p className="text-xs text-[var(--c-text-muted)] mt-0.5">
               Daily auto-buyback · {rows.length} executions
             </p>
           </div>
@@ -425,7 +426,7 @@ export function BurnEventsFeed() {
           href={BSCSCAN_BURN_VIEW}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-bold text-[var(--c-brand-cyan)] hover:underline transition-colors"
         >
           Verify on-chain
           <ExternalLink className="w-3 h-3" aria-hidden="true" />
@@ -438,16 +439,16 @@ export function BurnEventsFeed() {
       {/* Summary stats */}
       {loaded && data && data.fresh && (
         <div className="grid grid-cols-2 gap-3 mb-5">
-          <div className="rounded-xl bg-white/5 border border-white/5 p-3 text-center">
-            <p className="text-[10px] uppercase tracking-wider text-white/30 mb-1">Total Burned</p>
-            <p className="text-lg font-bold text-orange-300 tabular-nums">
+          <div className="rounded-xl bg-[var(--c-bg)] border border-[var(--c-border)] p-3 text-center">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--c-text-subtle)] mb-1">Total Burned</p>
+            <p className="text-lg font-bold text-orange-600 dark:text-orange-300 tabular-nums">
               {formatAmount(data.totalBurned)}
-              <span className="text-xs text-white/40 ml-1">TURBO</span>
+              <span className="text-xs text-[var(--c-text-subtle)] ml-1">TURBO</span>
             </p>
           </div>
-          <div className="rounded-xl bg-white/5 border border-white/5 p-3 text-center">
-            <p className="text-[10px] uppercase tracking-wider text-white/30 mb-1">Total USDT Spent</p>
-            <p className="text-lg font-bold text-green-400 tabular-nums">
+          <div className="rounded-xl bg-[var(--c-bg)] border border-[var(--c-border)] p-3 text-center">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--c-text-subtle)] mb-1">Total USDT Spent</p>
+            <p className="text-lg font-bold text-emerald-600 dark:text-green-400 tabular-nums">
               {formatUsdt(data.totalUsdtSpent)}
             </p>
           </div>
@@ -465,12 +466,12 @@ export function BurnEventsFeed() {
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-white/40">#</th>
-                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-white/40">Date &amp; Time</th>
-                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-white/40">USDT Spent</th>
-                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-white/40">Tokens Burned</th>
-                  <th className="py-2.5 px-4 text-right text-[10px] font-semibold uppercase tracking-wider text-white/40">Transaction</th>
+                <tr className="border-b border-[var(--c-border-strong)]">
+                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">#</th>
+                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">Date &amp; Time</th>
+                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">USDT Spent</th>
+                  <th className="py-2.5 px-4 text-left text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">Tokens Burned</th>
+                  <th className="py-2.5 px-4 text-right text-[10px] font-semibold uppercase tracking-wider text-[var(--c-text-subtle)]">Transaction</th>
                 </tr>
               </thead>
               <tbody>
@@ -504,10 +505,10 @@ function BurnSkeleton() {
           className="flex items-center justify-between gap-3 py-3"
         >
           <div className="flex-1 min-w-0">
-            <div className="h-4 w-32 rounded bg-white/10 animate-pulse" />
-            <div className="h-3 w-48 rounded bg-white/10 animate-pulse mt-2" />
+            <div className="h-4 w-32 rounded bg-[var(--c-border)] animate-pulse" />
+            <div className="h-3 w-48 rounded bg-[var(--c-border)] animate-pulse mt-2" />
           </div>
-          <div className="h-3 w-16 rounded bg-white/10 animate-pulse" />
+          <div className="h-3 w-16 rounded bg-[var(--c-border)] animate-pulse" />
         </div>
       ))}
     </div>
@@ -516,13 +517,13 @@ function BurnSkeleton() {
 
 function BurnEmpty() {
   return (
-    <div className="py-10 text-center text-sm text-white/40">
+    <div className="py-10 text-center text-sm text-[var(--c-text-muted)]">
       Burn data unavailable.{" "}
       <a
         href={BSCSCAN_BURN_VIEW}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-cyan-400 hover:text-cyan-300 font-bold inline-flex items-center gap-1"
+        className="text-[var(--c-brand-cyan)] hover:underline font-bold inline-flex items-center gap-1"
       >
         View on BscScan
         <ExternalLink className="w-3 h-3" aria-hidden="true" />

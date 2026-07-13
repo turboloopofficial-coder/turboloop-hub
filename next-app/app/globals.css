@@ -924,3 +924,52 @@ body {
   border-radius: 0 0 var(--r-sm) var(--r-sm);
   box-shadow: 0 2px 8px -2px rgba(8,145,178,0.4);
 }
+
+/* ════════════════════════════════════════════════════════════
+   MICRO-INTERACTIONS & ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* Scroll-cue animation for hero scroll indicator */
+@keyframes scroll-cue {
+  0%, 100% { opacity: 0; transform: scaleY(0.4); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-cue { animation: none; }
+}
+
+/* Interactive card lift on hover — subtle and premium */
+.hover-lift {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--s-lg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift:hover { transform: none; }
+}
+
+/* Glow pulse for primary CTA buttons */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: var(--s-brand); }
+  50% { box-shadow: 0 12px 40px -6px rgba(8,145,178,0.55), 0 4px 18px -4px rgba(124,58,237,0.35); }
+}
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-pulse { animation: none; box-shadow: var(--s-brand); }
+}
+
+/* Number ticker flash — brief highlight when a stat updates */
+@keyframes number-flash {
+  0% { color: var(--c-brand-cyan); transform: scale(1.05); }
+  100% { color: inherit; transform: scale(1); }
+}
+.number-flash {
+  animation: number-flash 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}

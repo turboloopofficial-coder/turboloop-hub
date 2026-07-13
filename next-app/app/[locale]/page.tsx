@@ -115,7 +115,16 @@ export default async function LocaleHomePage({ params }: Props) {
       />
 
       {/* HERO */}
-      <section className="relative pt-12 pb-12 md:pt-24 md:pb-20">
+      <section className="relative pt-12 pb-12 md:pt-24 md:pb-20 overflow-hidden">
+        {/* Visual layers */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 hero-grid-bg" />
+          <div className="absolute inset-0 hero-glow" />
+          {/* Floating orbs */}
+          <div className="absolute top-[10%] left-[8%] w-72 h-72 rounded-full bg-cyan-500/10 blur-[80px] float-orb" />
+          <div className="absolute bottom-[15%] right-[10%] w-64 h-64 rounded-full bg-purple-500/10 blur-[80px] float-orb" style={{ animationDelay: '-4s' }} />
+          <div className="absolute top-[50%] right-[30%] w-48 h-48 rounded-full bg-cyan-400/5 blur-[60px] float-orb" style={{ animationDelay: '-8s' }} />
+        </div>
         <Container width="wide">
           <div className="text-center max-w-3xl mx-auto">
             {/* Live status pill */}
@@ -151,7 +160,7 @@ export default async function LocaleHomePage({ params }: Props) {
                 href="https://turboloop.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand glow-pulse hover:shadow-[var(--s-xl)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.985]"
               >
                 {t("launchApp")}
                 <Rocket className="w-4 h-4" aria-hidden="true" />
@@ -186,17 +195,17 @@ export default async function LocaleHomePage({ params }: Props) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block backdrop-blur-sm rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition-[transform,box-shadow] duration-[var(--m-smooth)] ease-[var(--m-standard)] tl-card-glow px-4 py-3 flex items-center gap-3 text-left"
+                  className="group gradient-border-card backdrop-blur-sm rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-1 transition-all duration-300 px-4 py-4 flex items-center gap-3 text-left"
                   style={{
                     background:
-                      "color-mix(in oklab, var(--c-surface) 60%, transparent)",
+                      "color-mix(in oklab, var(--c-surface) 80%, transparent)",
                   }}
                 >
                   <span
-                    className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-brand shadow-[var(--s-brand)]"
+                    className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-cyan-500/10 dark:bg-cyan-400/10 border border-cyan-500/20 dark:border-cyan-400/20"
                     aria-hidden="true"
                   >
-                    <Icon className="w-5 h-5 text-white" />
+                    <Icon className="w-5 h-5 text-[var(--c-brand-cyan)]" />
                   </span>
                   <span className="text-xs font-semibold text-[var(--c-text)] leading-tight">
                     {label}

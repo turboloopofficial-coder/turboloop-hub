@@ -258,7 +258,7 @@ export default function HomePage() {
                 href="https://turboloop.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 text-white bg-brand glow-pulse hover:shadow-[var(--s-xl)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.985]"
               >
                 Launch App
                 <Rocket className="w-4 h-4" aria-hidden="true" />
@@ -304,18 +304,6 @@ export default function HomePage() {
                 Scroll
               </span>
               <span className="block w-[1px] h-8 bg-gradient-to-b from-[var(--c-text-subtle)] to-transparent animate-scroll-cue" />
-              <style>{`
-                @keyframes scroll-cue {
-                  0%, 100% { transform: translateY(0); opacity: 0.7; }
-                  50%      { transform: translateY(8px); opacity: 0.3; }
-                }
-                .animate-scroll-cue {
-                  animation: scroll-cue 1.8s ease-in-out infinite;
-                }
-                @media (prefers-reduced-motion: reduce) {
-                  .animate-scroll-cue { animation: none; }
-                }
-              `}</style>
             </div>
 
             {/* Trust badges — premium glassmorphism with gradient border on hover */}

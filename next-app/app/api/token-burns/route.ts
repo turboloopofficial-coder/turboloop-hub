@@ -26,7 +26,7 @@ export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 const BUYBACKS_URL =
-  "https://turboloop.io/api/proxy/buybacks?limit=20&page=1";
+  "https://turboloop.io/api/proxy/buybacks?limit=100&page=1";
 const CACHE_TTL_MS = 5 * 60_000; // 5 minutes
 
 export interface BurnEvent {

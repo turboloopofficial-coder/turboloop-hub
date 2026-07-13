@@ -10,7 +10,7 @@
 // This gives a transparent, verifiable picture of the real free float.
 
 import { useEffect, useState } from "react";
-import { Lock, Flame, TrendingUp, ExternalLink } from "lucide-react";
+import { Lock, Flame, TrendingUp, ExternalLink, DollarSign } from "lucide-react";
 
 interface TokenVestedData {
   lockedVested: string;
@@ -41,6 +41,17 @@ async function fetchVested(signal?: AbortSignal): Promise<TokenVestedData | null
   }
 }
 
+async function fetchLifetimeUsdt(signal?: AbortSignal): Promise<number | null> {
+  try {
+    const res = await fetch("/api/token-burns", { signal, cache: "no-store" });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.fresh ? (data.totalUsdtSpent ?? null) : null;
+  } catch {
+    return null;
+  }
+}
+
 interface Props {
   className?: string;
 }
@@ -48,6 +59,7 @@ interface Props {
 export function LockedSupplyWidget({ className = "" }: Props) {
   const [data, setData]     = useState<TokenVestedData | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [lifetimeUsdt, setLifetimeUsdt] = useState<number | null>(null);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -61,6 +73,8 @@ export function LockedSupplyWidget({ className = "" }: Props) {
     };
 
     tick();
+    // Also fetch lifetime USDT spent on buybacks
+    fetchLifetimeUsdt(ctrl.signal).then((v) => { if (!cancelled && v !== null) setLifetimeUsdt(v); });
     const id = window.setInterval(tick, POLL_INTERVAL_MS);
     return () => { cancelled = true; ctrl.abort(); window.clearInterval(id); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,6 +160,15 @@ export function LockedSupplyWidget({ className = "" }: Props) {
           <div className="text-sm text-white/40 mt-0.5">
             TURBO{burnedPct !== null ? ` · ${burnedPct}% of supply` : ""}
           </div>
+          {lifetimeUsdt !== null && lifetimeUsdt > 0 && (
+            <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-white/5">
+              <DollarSign className="w-3.5 h-3.5 text-green-400" />
+              <span className="text-sm font-bold text-green-400 tabular-nums">
+                ${lifetimeUsdt.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+              <span className="text-xs text-white/40">USDT spent on buybacks</span>
+            </div>
+          )}
           <p className="text-xs text-white/30 mt-2 leading-relaxed">
             Tokens sent to the dead address — permanently removed from supply via the daily auto-buyback mechanism.
           </p>

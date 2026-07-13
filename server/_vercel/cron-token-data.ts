@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
+import { sql } from "drizzle-orm";
 import { siteSettings } from "../../drizzle/schema";
 
 /**
@@ -165,11 +166,10 @@ async function refreshSupplySnapshot(db: ReturnType<typeof drizzle>): Promise<st
   const bp = parseFloat(((burned / total) * 100).toFixed(2));
   const cp = parseFloat(((circ   / total) * 100).toFixed(2));
 
-  await db.execute(
-    `INSERT INTO supply_snapshots
+  await db.execute(sql`INSERT INTO supply_snapshots
        (snapshot_date, total_supply, locked_vested, burned, circulating,
         locked_pct, burned_pct, circulating_pct, source)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'onchain')
+     VALUES (${snapDate},${total},${locked},${burned},${circ},${lp},${bp},${cp},'onchain')
      ON CONFLICT (snapshot_date) DO UPDATE SET
        total_supply=EXCLUDED.total_supply,
        locked_vested=EXCLUDED.locked_vested,
@@ -178,9 +178,7 @@ async function refreshSupplySnapshot(db: ReturnType<typeof drizzle>): Promise<st
        locked_pct=EXCLUDED.locked_pct,
        burned_pct=EXCLUDED.burned_pct,
        circulating_pct=EXCLUDED.circulating_pct,
-       source=EXCLUDED.source`,
-    [snapDate, total, locked, burned, circ, lp, bp, cp]
-  );
+       source=EXCLUDED.source`);
 
   return `snapshot=${snapDate} circ=${Math.round(circ).toLocaleString("en-US")}`;
 }

@@ -13,7 +13,7 @@
 
 export interface LoopPlan {
   /** Stable URL-safe identifier — used by query params and analytics. */
-  id: "sprint" | "boost" | "power" | "ultimate";
+  id: "sprint" | "boost" | "accelerate" | "power" | "ultimate";
   /** Display name as shown on the dApp. */
   label: string;
   /** Plan duration in days. */
@@ -23,7 +23,7 @@ export interface LoopPlan {
   /** One-line blurb shown under the headline number on cards. */
   blurb: string;
   /** Whether this plan earns $TURBO token rewards in addition to the
-   *  fixed yield. Sprint + Boost do not; Power + Ultimate do. */
+   *  fixed yield. Sprint + Accelerate do not; Power + Ultimate do. */
   tokenEligible: boolean;
 }
 
@@ -38,7 +38,7 @@ export const LOOP_PLANS: LoopPlan[] = [
   },
   {
     id: "boost",
-    label: "Boost",
+    label: "Accelerate",
     days: 14,
     roi: 0.10,
     blurb: "Two-week ramp, double-digit return.",

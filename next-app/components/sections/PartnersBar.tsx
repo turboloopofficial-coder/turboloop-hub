@@ -7,7 +7,7 @@ import { Container } from "@components/ui/Container";
 
 const PARTNERS = [
   {
-    label: "Binance Smart Chain",
+    label: "BNB Smart Chain",
     sublabel: "Network",
     icon: Zap,
     color: "#F0B90B",

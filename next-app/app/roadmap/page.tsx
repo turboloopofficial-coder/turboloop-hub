@@ -46,7 +46,7 @@ const PHASES: Array<{
     title: "Phase 1 — Launch & Foundation",
     timeframe: "Q1 2026",
     items: [
-      "Smart contract deployed on Binance Smart Chain",
+      "Smart contract deployed on BNB Smart Chain",
       "Independent audit by Haze Crypto completed",
       "Ownership renounced on-chain",
       "100% LP locked on-chain — verified on BscScan",

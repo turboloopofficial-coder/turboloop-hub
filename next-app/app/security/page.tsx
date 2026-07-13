@@ -36,7 +36,7 @@ const securityJsonLd = {
       "@id": "https://www.turboloop.tech/security#contract",
       "name": "TurboLoop Smart Contract",
       "applicationCategory": "FinanceApplication",
-      "operatingSystem": "Binance Smart Chain",
+      "operatingSystem": "BNB Smart Chain",
       "url": "https://bscscan.com/address/0xc90e5785632daab9cb61f5050da393090541a76d#code",
       "description": "Immutable, audited DeFi yield farming smart contract on BSC. Ownership permanently renounced. 100% LP locked. Dual-audited by Haze Crypto and SolidityScan.",
       "offers": {

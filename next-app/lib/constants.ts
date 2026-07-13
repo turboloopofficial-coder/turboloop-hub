@@ -37,7 +37,7 @@ export const SECURITY = {
 export const SITE = {
   name: "Turbo Loop",
   tagline: "Sustainable yield. Transparent by design. Open to everyone.",
-  subtitle: "The Complete DeFi Ecosystem | Binance Smart Chain",
+  subtitle: "The Complete DeFi Ecosystem | BNB Smart Chain",
   mainApp: "https://turboloop.io",
   trustQuote: "Turbo Loop does not ask you to trust a team. It asks you to verify the code.",
   // R2 base URL is hardcoded — same bucket as the rest of the app. The

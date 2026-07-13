@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     "fixed ROI DeFi",
     "DeFi yield farming",
     "BSC yield",
-    "Binance Smart Chain yield",
+    "BNB Smart Chain yield",
     "stablecoin yield farming",
     "audited smart contract DeFi",
     "renounced ownership DeFi",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
         url: "https://www.turboloop.tech/api/og-banner?type=launch",
         width: 1200,
         height: 630,
-        alt: "TurboLoop — sustainable DeFi yield on Binance Smart Chain.",
+        alt: "TurboLoop — sustainable DeFi yield on BNB Smart Chain.",
       },
     ],
   },
@@ -211,7 +211,7 @@ const SITE_JSON_LD = {
         "https://www.tiktok.com/@turboloop",
       ],
       description:
-        "TurboLoop — decentralized yield protocol on Binance Smart Chain. Fixed ROI per cycle (Sprint 3% / Boost 10% / Power 24% / Ultimate 54%), 1 USDT minimum, audited and immutable smart contract with ownership permanently renounced.",
+        "TurboLoop — decentralized yield protocol on BNB Smart Chain. Fixed ROI per cycle (Sprint 3% / Boost 10% / Power 24% / Ultimate 54%), 1 USDT minimum, audited and immutable smart contract with ownership permanently renounced.",
       foundingDate: "2026",
     },
     // Primary OG image as a standalone ImageObject entity. Lets Google's
@@ -229,7 +229,7 @@ const SITE_JSON_LD = {
       width: 1200,
       height: 630,
       caption:
-        "TurboLoop — DeFi yield farming on Binance Smart Chain. Up to 54% flat ROI in 60 days.",
+        "TurboLoop — DeFi yield farming on BNB Smart Chain. Up to 54% flat ROI in 60 days.",
       representativeOfPage: true,
     },
     {
@@ -237,7 +237,7 @@ const SITE_JSON_LD = {
       "@id": "https://www.turboloop.tech/#website",
       url: "https://www.turboloop.tech",
       name: "Turbo Loop",
-      description: "The complete DeFi ecosystem on Binance Smart Chain.",
+      description: "The complete DeFi ecosystem on BNB Smart Chain.",
       publisher: { "@id": "https://www.turboloop.tech/#organization" },
       inLanguage: "en",
       potentialAction: {

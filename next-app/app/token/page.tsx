@@ -219,11 +219,11 @@ function buildJsonLd(lang: SupportedLang, circulatingSupply: string) {
         },
         additionalProperty: [
           { "@type": "PropertyValue", name: "Sprint Plan ROI", value: "3% in 7 days" },
-          { "@type": "PropertyValue", name: "Boost Plan ROI", value: "10% in 14 days" },
+          { "@type": "PropertyValue", name: "Accelerate Plan ROI", value: "10% in 14 days" },
           { "@type": "PropertyValue", name: "Power Plan ROI", value: "24% in 30 days" },
           { "@type": "PropertyValue", name: "Ultimate Plan ROI", value: "54% in 60 days" },
           { "@type": "PropertyValue", name: "Minimum Deposit", value: "1 USDT" },
-          { "@type": "PropertyValue", name: "Network", value: "Binance Smart Chain (BSC)" },
+          { "@type": "PropertyValue", name: "Network", value: "BNB Smart Chain (BSC)" },
           { "@type": "PropertyValue", name: "Audit Status", value: "Independently Audited" },
           { "@type": "PropertyValue", name: "LP Lock", value: "100% Locked" },
           { "@type": "PropertyValue", name: "Ownership", value: "Renounced" },

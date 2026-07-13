@@ -66,7 +66,7 @@ const FAQS: FaqGroup[] = [
     items: [
       {
         q: "What is TurboLoop?",
-        a: "TurboLoop is a decentralized yield protocol on Binance Smart Chain. Deposit USDT, choose a Loop Plan (7 to 60 days), and earn fixed returns generated from three real revenue streams: LP rewards on a USDC/USDT stablecoin pair, Turbo Swap trading fees, and Turbo Buy fiat-to-crypto fees. The smart contract is independently audited, ownership is permanently renounced, and 100% of LP tokens are locked on-chain. No admin keys, no backdoors, no upgrade path.",
+        a: "TurboLoop is a decentralized yield protocol on BNB Smart Chain. Deposit USDT, choose a Loop Plan (7 to 60 days), and earn fixed returns generated from three real revenue streams: LP rewards on a USDC/USDT stablecoin pair, Turbo Swap trading fees, and Turbo Buy fiat-to-crypto fees. The smart contract is independently audited, ownership is permanently renounced, and 100% of LP tokens are locked on-chain. No admin keys, no backdoors, no upgrade path.",
       },
       {
         q: "How do I deposit?",
@@ -75,7 +75,7 @@ const FAQS: FaqGroup[] = [
       },
       {
         q: "What is the minimum deposit?",
-        a: "The minimum to enter any Loop Plan is **1 USDT** on the Binance Smart Chain (BSC) network. All 4 plans accept the same minimum and there is no maximum. **Separately**, the minimum to qualify for $TURBO token rewards is **$100 USDT**, and only **Power (30-day)** and **Ultimate (60-day)** deposits qualify — Sprint and Boost earn their standard fixed USDT ROI but no token rewards.",
+        a: "The minimum to enter any Loop Plan is **1 USDT** on the BNB Smart Chain (BSC) network. All 4 plans accept the same minimum and there is no maximum. **Separately**, the minimum to qualify for $TURBO token rewards is **$100 USDT**, and only **Power (30-day)** and **Ultimate (60-day)** deposits qualify — Sprint and Accelerate earn their standard fixed USDT ROI but no token rewards.",
       },
     ],
   },
@@ -171,11 +171,11 @@ const FAQS: FaqGroup[] = [
     items: [
       {
         q: "What is the $TURBO token?",
-        a: "**$TURBO** is the native rewards token of TurboLoop on Binance Smart Chain. Total supply: **1,000,000 TURBO**. It's an extra rewards layer paid on top of your standard Loop Plan yields — depositing earns you both your fixed plan ROI AND $TURBO tokens. 100% fair launch: no team allocation, no insider reserve, LP 100% locked on-chain. [Read the full breakdown](/token).",
+        a: "**$TURBO** is the native rewards token of TurboLoop on BNB Smart Chain. Total supply: **1,000,000 TURBO**. It's an extra rewards layer paid on top of your standard Loop Plan yields — depositing earns you both your fixed plan ROI AND $TURBO tokens. 100% fair launch: no team allocation, no insider reserve, LP 100% locked on-chain. [Read the full breakdown](/token).",
       },
       {
         q: "How do I earn $TURBO tokens from deposits?",
-        a: "Token rewards are available on **Power (30-day)** and **Ultimate (60-day)** plans only. Sprint and Boost don't qualify. Every qualifying deposit of $100 or more earns a percentage of its value back as $TURBO. The percentage scales with deposit size: $100–$499 = 0.80%, $500–$999 = 1.00%, $1,000–$4,999 = 1.20%, $5,000–$9,999 = 1.40%, $10,000–$24,999 = 1.50%, $25,000+ = 1.60%. Token count is fixed at the moment of deposit, calculated against the live market price at that exact time. See your projection in the [calculator](/calculator).",
+        a: "Token rewards are available on **Power (30-day)** and **Ultimate (60-day)** plans only. Sprint and Accelerate don't qualify. Every qualifying deposit of $100 or more earns a percentage of its value back as $TURBO. The percentage scales with deposit size: $100–$499 = 0.80%, $500–$999 = 1.00%, $1,000–$4,999 = 1.20%, $5,000–$9,999 = 1.40%, $10,000–$24,999 = 1.50%, $25,000+ = 1.60%. Token count is fixed at the moment of deposit, calculated against the live market price at that exact time. See your projection in the [calculator](/calculator).",
       },
       {
         q: "What is the reward split between investor and referrer?",

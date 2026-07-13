@@ -252,7 +252,7 @@ export const COMPARISONS: Comparison[] = [
       },
       {
         metric: "Chain",
-        turboloop: "Binance Smart Chain (BSC)",
+        turboloop: "BNB Smart Chain (BSC)",
         competitor: "BSC, Ethereum, Aptos, zkSync, Arbitrum, Base",
         winner: "competitor",
       },
@@ -431,7 +431,7 @@ export const COMPARISONS: Comparison[] = [
     summary:
       "Both protocols live on BSC. Venus is a lending market. TurboLoop is a fixed-term yield protocol. Here's the head-to-head for BSC passive income.",
     intro:
-      "Venus Protocol is the largest lending market on Binance Smart Chain — it lets you supply assets to earn interest and borrow against your collateral. TurboLoop is a different type of protocol: no lending, no borrowing, just fixed-term yield from PancakeSwap V3 liquidity fees. Both live on BSC, both target passive income. Here's how they compare.",
+      "Venus Protocol is the largest lending market on BNB Smart Chain — it lets you supply assets to earn interest and borrow against your collateral. TurboLoop is a different type of protocol: no lending, no borrowing, just fixed-term yield from PancakeSwap V3 liquidity fees. Both live on BSC, both target passive income. Here's how they compare.",
     rows: [
       {
         metric: "Protocol type",

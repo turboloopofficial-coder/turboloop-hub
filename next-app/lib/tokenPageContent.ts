@@ -128,7 +128,7 @@ const en: TokenPageStrings = {
   earn_eyebrow: "Earn on every Power or Ultimate deposit",
   earn_title: "How you earn $TURBO",
   earn_subtitle:
-    "Deposit USDT into a Power (30-day) or Ultimate (60-day) Loop Plan. Get $TURBO on top — a percentage of your deposit value, split 70% to you and 30% to your referrer. Sprint and Boost deposits are not eligible.",
+    "Deposit USDT into a Power (30-day) or Ultimate (60-day) Loop Plan. Get $TURBO on top — a percentage of your deposit value, split 70% to you and 30% to your referrer. Sprint and Accelerate deposits are not eligible.",
   earn_table_col_deposit: "Deposit Amount (USDT)",
   earn_table_col_reward: "Token Reward",
   earn_example_label: "Worked example",
@@ -139,7 +139,7 @@ const en: TokenPageStrings = {
   earn_example_footnote:
     "Token count is fixed at the moment of deposit, calculated against the live market price at that exact time.",
   earn_additive_note:
-    "Token rewards are **additive**. They're paid out on top of your Power or Ultimate Loop Plan yield and don't change your fixed ROI in any way. **Only Power (30-day) and Ultimate (60-day) plans qualify** — Sprint and Boost earn their standard flat USDT ROI but no token rewards. Minimum deposit for token rewards: **$100**.",
+    "Token rewards are **additive**. They're paid out on top of your Power or Ultimate Loop Plan yield and don't change your fixed ROI in any way. **Only Power (30-day) and Ultimate (60-day) plans qualify** — Sprint and Accelerate earn their standard flat USDT ROI but no token rewards. Minimum deposit for token rewards: **$100**.",
   earn_manage_cta: "Manage in App",
   earn_calculator_cta: "Run the numbers",
 
@@ -226,7 +226,7 @@ const de: TokenPageStrings = {
   earn_eyebrow: "Verdiene bei jedem Power- oder Ultimate-Deposit",
   earn_title: "So verdienst du $TURBO",
   earn_subtitle:
-    "Deponiere USDT in einen Power (30 Tage) oder Ultimate (60 Tage) Loop Plan. Erhalte $TURBO obendrauf — ein Prozentsatz deines Deposit-Werts, aufgeteilt 70% an dich und 30% an deinen Referrer. Sprint- und Boost-Deposits sind nicht qualifiziert.",
+    "Deponiere USDT in einen Power (30 Tage) oder Ultimate (60 Tage) Loop Plan. Erhalte $TURBO obendrauf — ein Prozentsatz deines Deposit-Werts, aufgeteilt 70% an dich und 30% an deinen Referrer. Sprint- und Accelerate-Deposits sind nicht qualifiziert.",
   earn_table_col_deposit: "Deposit-Betrag (USDT)",
   earn_table_col_reward: "Token-Reward",
   earn_example_label: "Konkretes Beispiel",
@@ -328,7 +328,7 @@ const hi: TokenPageStrings = {
   earn_eyebrow: "हर Power या Ultimate डिपॉज़िट पर कमाएँ",
   earn_title: "$TURBO कैसे कमाएँ",
   earn_subtitle:
-    "Power (30-day) या Ultimate (60-day) Loop Plan में USDT डिपॉज़िट करें। ऊपर से $TURBO पाएँ — आपकी डिपॉज़िट वैल्यू का एक प्रतिशत, 70% आपको और 30% आपके रेफरर को मिलता है। Sprint और Boost डिपॉज़िट eligible नहीं हैं।",
+    "Power (30-day) या Ultimate (60-day) Loop Plan में USDT डिपॉज़िट करें। ऊपर से $TURBO पाएँ — आपकी डिपॉज़िट वैल्यू का एक प्रतिशत, 70% आपको और 30% आपके रेफरर को मिलता है। Sprint और Accelerate डिपॉज़िट eligible नहीं हैं।",
   earn_table_col_deposit: "डिपॉज़िट राशि (USDT)",
   earn_table_col_reward: "टोकन रिवॉर्ड",
   earn_example_label: "विस्तृत उदाहरण",
@@ -339,7 +339,7 @@ const hi: TokenPageStrings = {
   earn_example_footnote:
     "टोकन की संख्या डिपॉज़िट के क्षण में फिक्स हो जाती है, उस सटीक समय के लाइव मार्केट प्राइस के अनुसार गणना की जाती है।",
   earn_additive_note:
-    "टोकन रिवॉर्ड्स **एडिटिव** हैं। ये आपकी Power या Ultimate Loop Plan यील्ड के ऊपर पे आउट होते हैं और आपके फिक्स्ड ROI को किसी भी तरह नहीं बदलते। **केवल Power (30-day) और Ultimate (60-day) plans qualify करते हैं** — Sprint और Boost अपना स्टैंडर्ड USDT ROI कमाते हैं, लेकिन टोकन रिवॉर्ड्स नहीं। टोकन रिवॉर्ड्स के लिए न्यूनतम डिपॉज़िट: **$100**।",
+    "टोकन रिवॉर्ड्स **एडिटिव** हैं। ये आपकी Power या Ultimate Loop Plan यील्ड के ऊपर पे आउट होते हैं और आपके फिक्स्ड ROI को किसी भी तरह नहीं बदलते। **केवल Power (30-day) और Ultimate (60-day) plans qualify करते हैं** — Sprint और Accelerate अपना स्टैंडर्ड USDT ROI कमाते हैं, लेकिन टोकन रिवॉर्ड्स नहीं। टोकन रिवॉर्ड्स के लिए न्यूनतम डिपॉज़िट: **$100**।",
   earn_manage_cta: "ऐप में प्रबंधित करें",
   earn_calculator_cta: "संख्याएँ देखें",
 
@@ -431,7 +431,7 @@ const id: TokenPageStrings = {
   earn_eyebrow: "Dapatkan di setiap deposit Power atau Ultimate",
   earn_title: "Cara mendapatkan $TURBO",
   earn_subtitle:
-    "Deposit USDT ke Loop Plan Power (30 hari) atau Ultimate (60 hari). Dapatkan $TURBO sebagai bonus — persentase dari nilai deposit, dibagi 70% untukmu dan 30% untuk referrer-mu. Deposit Sprint dan Boost tidak memenuhi syarat.",
+    "Deposit USDT ke Loop Plan Power (30 hari) atau Ultimate (60 hari). Dapatkan $TURBO sebagai bonus — persentase dari nilai deposit, dibagi 70% untukmu dan 30% untuk referrer-mu. Deposit Sprint dan Accelerate tidak memenuhi syarat.",
   earn_table_col_deposit: "Jumlah Deposit (USDT)",
   earn_table_col_reward: "Reward Token",
   earn_example_label: "Contoh konkret",
@@ -442,7 +442,7 @@ const id: TokenPageStrings = {
   earn_example_footnote:
     "Jumlah token dikunci pada saat deposit, dihitung terhadap harga pasar live di waktu itu juga.",
   earn_additive_note:
-    "Reward token bersifat **aditif**. Dibayarkan di atas yield Power atau Ultimate Loop Plan-mu dan tidak mengubah ROI tetap milikmu sedikit pun. **Hanya plan Power (30 hari) dan Ultimate (60 hari) yang memenuhi syarat** — Sprint dan Boost tetap mendapatkan ROI USDT standar mereka tapi tidak ada reward token. Deposit minimum untuk reward token: **$100**.",
+    "Reward token bersifat **aditif**. Dibayarkan di atas yield Power atau Ultimate Loop Plan-mu dan tidak mengubah ROI tetap milikmu sedikit pun. **Hanya plan Power (30 hari) dan Ultimate (60 hari) yang memenuhi syarat** — Sprint dan Accelerate tetap mendapatkan ROI USDT standar mereka tapi tidak ada reward token. Deposit minimum untuk reward token: **$100**.",
   earn_manage_cta: "Kelola di App",
   earn_calculator_cta: "Hitung angkanya",
 

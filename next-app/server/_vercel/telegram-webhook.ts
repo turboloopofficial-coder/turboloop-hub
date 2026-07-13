@@ -431,7 +431,7 @@ Both contracts are renounced and immutable. Full transparency on BscScan!`,
 `Turbo Loop Investment Plans:
 
 🔹 <b>Sprint Loop:</b> 7 days | 3% ROI
-🔹 <b>Boost Loop:</b> 14 days | 10% ROI
+🔹 <b>Accelerate Loop:</b> 14 days | 10% ROI
 🔹 <b>Power Loop:</b> 30 days | 24% ROI
 🔹 <b>Ultimate Loop:</b> 60 days | 54% ROI
 
@@ -610,7 +610,7 @@ Join to ask the team directly — protocol mechanics, live data, Q&amp;A!`,
       const power   = amount * 0.24;
       const ultimate = amount * 0.54;
 
-      return `🧮 <b>Returns on $${fmt(amount)} USDT</b>\n\n⚡ <b>Sprint</b> (7 days) → <b>+$${fmt(sprint)}</b> (3%)\n🚀 <b>Boost</b> (14 days) → <b>+$${fmt(boost)}</b> (10%)\n💪 <b>Power</b> (30 days) → <b>+$${fmt(power)}</b> (24%) + $TURBO\n🏆 <b>Ultimate</b> (60 days) → <b>+$${fmt(ultimate)}</b> (54%) + $TURBO\n\n💡 Power &amp; Ultimate also earn $TURBO token rewards on top!\n📊 <b>Full Calculator:</b> https://turboloop.tech/calculator`;
+      return `🧮 <b>Returns on $${fmt(amount)} USDT</b>\n\n⚡ <b>Sprint</b> (7 days) → <b>+$${fmt(sprint)}</b> (3%)\n🚀 <b>Accelerate</b> (14 days) → <b>+$${fmt(boost)}</b> (10%)\n💪 <b>Power</b> (30 days) → <b>+$${fmt(power)}</b> (24%) + $TURBO\n🏆 <b>Ultimate</b> (60 days) → <b>+$${fmt(ultimate)}</b> (54%) + $TURBO\n\n💡 Power &amp; Ultimate also earn $TURBO token rewards on top!\n📊 <b>Full Calculator:</b> https://turboloop.tech/calculator`;
     },
   },
   {

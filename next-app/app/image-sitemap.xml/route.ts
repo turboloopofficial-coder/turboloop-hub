@@ -56,7 +56,7 @@ const PAGE_IMAGES: Array<{
         url: `${WWW}/api/og-banner?type=launch`,
         title: "TurboLoop — DeFi yield farming on BSC",
         caption:
-          "TurboLoop launch banner. Sustainable ROI protocol on Binance Smart Chain. Up to 54% flat ROI in 60 days.",
+          "TurboLoop launch banner. Sustainable ROI protocol on BNB Smart Chain. Up to 54% flat ROI in 60 days.",
       },
     ],
   },

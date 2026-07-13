@@ -119,7 +119,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed">
-              The complete DeFi ecosystem on Binance Smart Chain. Audited.
+              The complete DeFi ecosystem on BNB Smart Chain. Audited.
               Renounced. Open to everyone.
             </p>
           </div>

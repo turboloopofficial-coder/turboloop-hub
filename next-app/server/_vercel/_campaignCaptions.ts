@@ -396,7 +396,7 @@ export const CAMPAIGN_COPY: Record<string, CampaignCopyEntry> = {
     shareText: "A crypto wallet secures your keys and access to DeFi. turboloop.tech",
   },
   "education-defi/08_Edu_What_Is_BSC.png": {
-    caption: "Binance Smart Chain is a fast, low-fee blockchain compatible with Ethereum tools. \u26a1\n\nIt's popular for DeFi projects that need speed and affordable transactions. \ud83d\udee0\ufe0f\n\nSee how BSC powers efficient yield services and integrations at turboloop.tech",
+    caption: "BNB Smart Chain is a fast, low-fee blockchain compatible with Ethereum tools. \u26a1\n\nIt's popular for DeFi projects that need speed and affordable transactions. \ud83d\udee0\ufe0f\n\nSee how BSC powers efficient yield services and integrations at turboloop.tech",
     shareText: "BSC offers fast, low-cost blockchain transactions. turboloop.tech",
   },
   "education-defi/09_Edu_What_Is_Compound_Interest.png": {
@@ -556,7 +556,7 @@ export const CAMPAIGN_COPY: Record<string, CampaignCopyEntry> = {
     shareText: "Commit to 60 days and enjoy structured returns \u2014 turboloop.tech",
   },
   "hindi-new/08_Hindi_BSC_Secure.png": {
-    caption: "Built on Binance Smart Chain for speed and low costs. \u26a1\ud83d\udd12\n\nSecurity and performance power smooth daily rewards. \ud83d\udee1\ufe0f\n\nCheck the tech behind the service at turboloop.tech",
+    caption: "Built on BNB Smart Chain for speed and low costs. \u26a1\ud83d\udd12\n\nSecurity and performance power smooth daily rewards. \ud83d\udee1\ufe0f\n\nCheck the tech behind the service at turboloop.tech",
     shareText: "Fast, low-cost blockchain infrastructure secures your earnings \u2014 turboloop.tech",
   },
   "hindi-new/09_Hindi_Daily_Rewards.png": {
@@ -1181,7 +1181,7 @@ export const CAMPAIGN_COPY: Record<string, CampaignCopyEntry> = {
   },
   "objection-handler/14_Objection_BSC_Trust.png": {
     caption: "Using BSC? It\u2019s a widely used ecosystem with unique strengths. \ud83d\udc1d\n\nWe select vetted BSC integrations and audited contracts to minimize counterparty risk. Network benefits include low fees and fast transactions. \u26a1\n\nRead about our BSC security choices at turboloop.tech",
-    shareText: "Understand TurboLoop\u2019s Binance Smart Chain integrations and safety at turboloop.tech",
+    shareText: "Understand TurboLoop\u2019s BNB Smart Chain integrations and safety at turboloop.tech",
   },
   "objection-handler/15_Objection_No_Impermanent_Loss.png": {
     caption: "Impermanent loss is a real DeFi factor \u2014 we address it. \u2696\ufe0f\n\nOur strategies focus on stable pairs and hedged positions to limit IL exposure for participants. Details on pair selection are provided. \ud83d\udd12\n\nExplore IL mitigation techniques at turboloop.tech",
@@ -1740,7 +1740,7 @@ export const CAMPAIGN_COPY: Record<string, CampaignCopyEntry> = {
     shareText: "Read TURBO's smart contract audit reports: https://turboloop.tech",
   },
   "token/14_TURBO_BSC_Network.png": {
-    caption: "Built on BSC for low fees and fast confirmation times. \ud83d\udd17\u26a1\n\nBinance Smart Chain lets us deliver performant swaps and efficient staking. \ud83d\udee3\ufe0f\n\nExplore why BSC is a practical choice for TURBO operations. turboloop.tech",
+    caption: "Built on BSC for low fees and fast confirmation times. \ud83d\udd17\u26a1\n\nBNB Smart Chain lets us deliver performant swaps and efficient staking. \ud83d\udee3\ufe0f\n\nExplore why BSC is a practical choice for TURBO operations. turboloop.tech",
     shareText: "Why TURBO operates on BSC for speed and low fees: https://turboloop.tech",
   },
   "token/15_TURBO_Holder_Rewards.png": {
@@ -1785,7 +1785,7 @@ export const CAMPAIGN_COPY: Record<string, CampaignCopyEntry> = {
   },
   "token/25_TURBO_Token_Launch_BSC.png": {
     caption: "Our BSC launch aligned speed, cost-efficiency and wide accessibility. \ud83d\ude80\ud83d\udd17\n\nLaunching on BSC helped us reach active DeFi audiences from day one. \ud83c\udf0d\u26a1\n\nReview the launch details and what it meant for TURBO adoption. turboloop.tech",
-    shareText: "Review TURBO's Binance Smart Chain launch details: https://turboloop.tech",
+    shareText: "Review TURBO's BNB Smart Chain launch details: https://turboloop.tech",
   },
   "token/26_TURBO_Transparent_Protocol.png": {
     caption: "Transparency is a cornerstone \u2014 every on-chain action is auditable. \ud83d\udd0d\ud83e\uddfe\n\nOpen ledgers and public proofs help build trust with the community. \ud83e\udd1d\n\nSee how TURBO keeps protocol operations visible and verifiable. turboloop.tech",

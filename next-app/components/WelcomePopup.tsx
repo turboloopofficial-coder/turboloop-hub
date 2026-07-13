@@ -20,7 +20,7 @@ import { useScrollLock } from "@/hooks/useScrollLock";
 const SESSION_KEY = "turboloop_welcome_seen";
 const TITLE = "Welcome to TurboLoop";
 const MESSAGE = [
-  "Turbo Loop is the complete DeFi ecosystem on Binance Smart Chain — sustainable yield farming, a fiat-to-crypto gateway, decentralized swaps, and a 20-level referral network.",
+  "Turbo Loop is the complete DeFi ecosystem on BNB Smart Chain — sustainable yield farming, a fiat-to-crypto gateway, decentralized swaps, and a 20-level referral network.",
   "Explore the hub to discover cinematic films, in-depth articles, daily community calls in 12+ languages, and ready-to-share creative assets.",
   "Whether you're new to DeFi or an experienced investor, the protocol is designed to be transparent, audited, renounced, and open to everyone.",
 ];

@@ -20,7 +20,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Turbo Loop",
     short_name: "TurboLoop",
     description:
-      "Decentralized yield protocol on Binance Smart Chain. Fixed ROI per cycle from a USDC/USDT stablecoin LP. Audited, ownership renounced, 1 USDT minimum.",
+      "Decentralized yield protocol on BNB Smart Chain. Fixed ROI per cycle from a USDC/USDT stablecoin LP. Audited, ownership renounced, 1 USDT minimum.",
     start_url: "/?utm_source=pwa",
     // `display: standalone` opens TurboLoop in its own window with no
     // browser chrome — feels like a native app. `display_override` is

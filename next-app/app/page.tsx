@@ -141,7 +141,7 @@ const homeJsonLd = {
         "width": 512,
         "height": 512,
       },
-      "description": "TurboLoop is an audited DeFi yield farming protocol on Binance Smart Chain. Earn up to 54% ROI in 60 days from a real USDC/USDT liquidity pool. 100% LP-locked, ownership renounced, 1 USDT minimum.",
+      "description": "TurboLoop is an audited DeFi yield farming protocol on BNB Smart Chain. Earn up to 54% ROI in 60 days from a real USDC/USDT liquidity pool. 100% LP-locked, ownership renounced, 1 USDT minimum.",
       "sameAs": [
         "https://t.me/TurboLoopOfficial",
         "https://twitter.com/TurboLoopDeFi",
@@ -222,7 +222,7 @@ export default function HomePage() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
               <Heading tier="eyebrow" as="span" className="text-emerald-700">
-                Live on Binance Smart Chain
+                Live on BNB Smart Chain
               </Heading>
             </div>
 

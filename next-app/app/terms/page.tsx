@@ -30,7 +30,7 @@ export default function TermsPage() {
           <p>
             These terms cover{" "}
             <strong>TurboLoop.tech</strong> — the marketing hub. The TurboLoop
-            DeFi protocol itself runs on the Binance Smart Chain via an
+            DeFi protocol itself runs on the BNB Smart Chain via an
             immutable, ownership-renounced smart contract. The protocol has
             no terms because it has no operator — it&rsquo;s code.
           </p>

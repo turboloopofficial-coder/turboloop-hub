@@ -108,7 +108,7 @@ This sounds risky — what if there's a bug? — but it's also the highest possi
 ## How to verify a smart contract is real
 
 You don't have to trust anyone. You can verify yourself:
-1. Look up the contract address on a blockchain explorer (e.g. BscScan for Binance Smart Chain)
+1. Look up the contract address on a blockchain explorer (e.g. BscScan for BNB Smart Chain)
 2. Confirm the source code is "Verified" (matches the public code claim)
 3. Check the ownership status — is it renounced? (look for the OwnershipTransferred event with address 0x000...)
 4. Audit reports — has it been reviewed by an independent firm?

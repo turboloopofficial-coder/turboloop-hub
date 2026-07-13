@@ -72,11 +72,11 @@ export function Reveal({
       style={{
         opacity: state === "hidden" ? 0 : 1,
         transform:
-          state === "hidden" ? "translateY(24px)" : "translateY(0)",
+          state === "hidden" ? "translateY(32px)" : "translateY(0)",
         transition:
           state === "hidden"
             ? "none"
-            : "opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1)",
+            : "opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)",
         willChange: state === "hidden" ? "opacity, transform" : "auto",
       }}
     >

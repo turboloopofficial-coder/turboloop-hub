@@ -27,7 +27,7 @@ export async function ProtocolBentoSection() {
   ];
 
   return (
-    <section className="py-12 md:py-20">
+    <section className="section-premium">
       <Container width="default">
         {/* Section header */}
         <div className="mb-8 md:mb-12 text-center max-w-2xl mx-auto">
@@ -62,8 +62,9 @@ export async function ProtocolBentoSection() {
                   <Link
                     key={p.id}
                     href={`/calculator?plan=${p.id}`}
-                    className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--c-border)] bg-[var(--c-bg)] p-4 md:p-5 min-h-[140px] active:scale-[0.98] transition hover:border-[var(--c-brand-cyan)] hover:shadow-[var(--s-md)]"
+                    className={`group relative gradient-border-card flex flex-col rounded-[var(--r-lg)] border border-[var(--c-border)] bg-[var(--c-bg)] p-4 md:p-5 min-h-[140px] active:scale-[0.98] transition-all duration-300 hover:border-[var(--c-brand-cyan)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 ${p.id === 'power' ? 'ring-1 ring-[var(--c-brand-cyan)]/30' : ''}`}
                   >
+                    {p.id === 'power' && <span className="badge-popular">Most Popular</span>}
                     <div className="flex items-baseline justify-between mb-2">
                       <span className="text-sm font-bold text-[var(--c-text)]">{p.label}</span>
                       <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--c-text-subtle)] tabular-nums">{p.days}d</span>
@@ -87,7 +88,7 @@ export async function ProtocolBentoSection() {
           </div>
 
           {/* Block B — Referral Network */}
-          <Link href="/ecosystem/referral-network" className="group flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-md)] hover:border-[var(--c-brand-cyan)] transition">
+          <Link href="/ecosystem/referral-network" className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <Network className="w-7 h-7 text-[var(--c-brand-cyan)] mb-3" aria-hidden="true" />
             <Heading tier="title" as="h3" className="mb-1 text-xl">{t("referral.title")}</Heading>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">{t("referral.subtitle")}</p>
@@ -102,7 +103,7 @@ export async function ProtocolBentoSection() {
           </Link>
 
           {/* Block C — Leadership */}
-          <Link href="/ecosystem/leadership-program" className="group flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-md)] hover:border-[var(--c-brand-cyan)] transition">
+          <Link href="/ecosystem/leadership-program" className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <Crown className="w-7 h-7 text-[var(--c-brand-cyan)] mb-3" aria-hidden="true" />
             <Heading tier="title" as="h3" className="mb-1 text-xl">{t("leadership.title")}</Heading>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">{t("leadership.subtitle")}</p>
@@ -121,24 +122,24 @@ export async function ProtocolBentoSection() {
           </Link>
 
           {/* Block D — Security */}
-          <Link href="/security" className="group flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-md)] hover:border-[var(--c-brand-cyan)] transition">
+          <Link href="/security" className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <ShieldCheck className="w-7 h-7 text-emerald-600 mb-3" aria-hidden="true" />
             <Heading tier="title" as="h3" className="mb-1 text-lg leading-snug">{t("security.title")}</Heading>
             <div className="flex flex-wrap gap-1.5 mb-3 mt-2">
               {[t("security.chip1"), t("security.chip2"), t("security.chip3")].map((c) => (
-                <span key={c} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">{c}</span>
+                <span key={c} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">{c}</span>
               ))}
             </div>
             <p className="text-xs text-[var(--c-text-muted)] mb-4">
               <span className="font-bold text-[var(--c-text)]">{t("security.bounty")}</span>{" "}{t("security.bountyUnclaimed")}
             </p>
-            <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-emerald-700 group-hover:underline">
+            <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-emerald-700 dark:text-emerald-400 group-hover:underline">
               {t("security.cta")} <ArrowRight className="w-4 h-4" />
             </span>
           </Link>
 
           {/* Block E — Films Teaser */}
-          <Link href={`/films/${TEASER_FILM.slug}`} className="group relative flex flex-col rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-md)] hover:border-[var(--c-brand-cyan)] transition">
+          <Link href={`/films/${TEASER_FILM.slug}`} className="group relative flex flex-col rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${TEASER_FILM.posterUrl})` }} aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" aria-hidden="true" />
             <div className="relative mt-auto p-5 md:p-6 text-white flex flex-col">

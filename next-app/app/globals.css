@@ -76,8 +76,8 @@
 
 .dark {
   color-scheme: dark;
-  --c-bg: #0f172a;
-  --c-surface: #1e293b;
+  --c-bg: #0a0e1a;
+  --c-surface: #111827;
   --c-border: rgba(255, 255, 255, 0.08);
   --c-border-strong: rgba(255, 255, 255, 0.16);
   --c-text: #f8fafc;
@@ -97,8 +97,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     color-scheme: dark;
-    --c-bg: #0f172a;
-    --c-surface: #1e293b;
+    --c-bg: #0a0e1a;
+    --c-surface: #111827;
     --c-border: rgba(255, 255, 255, 0.08);
     --c-border-strong: rgba(255, 255, 255, 0.16);
     --c-text: #f8fafc;
@@ -760,4 +760,167 @@ body {
 }
 .prose-blog table td {
   color: var(--c-text-muted);
+}
+
+/* ════════════════════════════════════════════════════════════
+   REDESIGN — Premium visual upgrades (Jul 2026)
+   ════════════════════════════════════════════════════════════ */
+
+/* Hero particle grid background — subtle dot pattern that adds depth */
+.hero-grid-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--c-text-subtle) 0.5px, transparent 0.5px);
+  background-size: 32px 32px;
+  opacity: 0.15;
+}
+.dark .hero-grid-bg {
+  opacity: 0.08;
+}
+
+/* Hero radial glow — large soft gradient behind the hero text */
+.hero-glow {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(8, 145, 178, 0.12) 0%,
+    rgba(124, 58, 237, 0.06) 40%,
+    transparent 70%
+  );
+}
+.dark .hero-glow {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(6, 182, 212, 0.08) 0%,
+    rgba(124, 58, 237, 0.05) 40%,
+    transparent 70%
+  );
+}
+
+/* Gradient border card — used for premium plan cards and feature highlights */
+.gradient-border-card {
+  position: relative;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+}
+.gradient-border-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(8,145,178,0.3), rgba(124,58,237,0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.gradient-border-card:hover::before {
+  opacity: 1;
+}
+
+/* Section spacing — premium generous whitespace */
+.section-premium {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .section-premium {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section-premium {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+  }
+}
+
+/* Floating orb animation — decorative background element */
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(10px, -15px) scale(1.05); }
+  50% { transform: translate(-5px, -25px) scale(1.02); }
+  75% { transform: translate(-15px, -10px) scale(0.98); }
+}
+.float-orb {
+  animation: float-orb 12s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-orb { animation: none; }
+}
+
+/* Stats highlight — large number with gradient text */
+.stat-highlight {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background-image: var(--c-brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Enhanced card surface — subtle inner glow for dark mode */
+.dark .card-enhanced {
+  background: linear-gradient(
+    135deg,
+    rgba(17, 24, 39, 1) 0%,
+    rgba(17, 24, 39, 0.95) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 0 rgba(255,255,255,0.04),
+    var(--s-md);
+}
+.card-enhanced {
+  background: var(--c-surface);
+  box-shadow: var(--s-md);
+}
+
+/* Scroll reveal animation */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal-up {
+  animation: reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up { animation: none; opacity: 1; }
+}
+
+/* Subtle noise texture for light mode depth */
+:root:not(.dark) body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Plan card "Most Popular" badge */
+.badge-popular {
+  position: absolute;
+  top: -1px;
+  right: 12px;
+  padding: 4px 10px;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  background: var(--c-brand-gradient);
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  box-shadow: 0 2px 8px -2px rgba(8,145,178,0.4);
 }

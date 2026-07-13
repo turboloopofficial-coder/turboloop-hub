@@ -48,18 +48,15 @@ export function Card({
   return (
     <Tag
       className={cn(
-        "bg-[var(--c-surface)] rounded-[var(--r-xl)]",
+        "card-enhanced rounded-[var(--r-xl)]",
         elevationClass[elevation],
         paddingClass[padding],
         interactive && [
-          "cursor-pointer transition-[transform,box-shadow]",
-          "duration-[var(--m-smooth)] ease-[var(--m-standard)]",
-          // Deeper lift on hover — feels weightier than the previous
-          // 0.5 nudge, lands at the diffused --s-xl shadow stack so the
-          // card visibly floats off the page.
+          "cursor-pointer gradient-border-card",
+          "transition-all duration-300",
+          // Deeper lift on hover with gradient border reveal
           "hover:-translate-y-1 hover:shadow-[var(--s-xl)]",
           // Brand-gradient halo behind the card on hover/focus.
-          // Definition lives in globals.css; the class only opts in.
           "tl-card-glow",
         ],
         className

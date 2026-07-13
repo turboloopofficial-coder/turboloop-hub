@@ -212,27 +212,37 @@ export default function HomePage() {
       />
 
       {/* HERO */}
-      <section className="relative pt-12 pb-12 md:pt-24 md:pb-20">
+      <section className="relative pt-16 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+        {/* Background layers — grid + radial glow + floating orbs */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 hero-grid-bg" />
+          <div className="absolute inset-0 hero-glow" />
+          {/* Floating orbs — decorative blurred circles */}
+          <div className="absolute top-[10%] left-[8%] w-72 h-72 rounded-full bg-cyan-500/10 blur-[80px] float-orb" />
+          <div className="absolute bottom-[15%] right-[10%] w-64 h-64 rounded-full bg-purple-500/10 blur-[80px] float-orb" style={{ animationDelay: '-4s' }} />
+          <div className="absolute top-[50%] right-[30%] w-48 h-48 rounded-full bg-cyan-400/5 blur-[60px] float-orb" style={{ animationDelay: '-8s' }} />
+        </div>
+
         <Container width="wide">
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="relative text-center max-w-3xl mx-auto">
             {/* Eyebrow live-status pill */}
-            <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
+            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              <Heading tier="eyebrow" as="span" className="text-emerald-700">
+              <Heading tier="eyebrow" as="span" className="text-emerald-600 dark:text-emerald-400">
                 Live on BNB Smart Chain
               </Heading>
             </div>
 
             {/* Hero wordmark — "Turbo Loop" with the brand gradient on "Loop" */}
-            <Heading tier="display" className="mb-5">
+            <Heading tier="display" className="mb-6">
               <span>Turbo </span>
               <span className="text-brand-wide">Loop</span>
             </Heading>
 
-            <p className="text-lg md:text-xl text-[var(--c-text-muted)] mb-9 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-[var(--c-text-muted)] mb-10 leading-relaxed max-w-2xl mx-auto">
               Sustainable yield.{" "}
               <span className="text-[var(--c-text)] font-medium">
                 Transparent by design.
@@ -242,20 +252,20 @@ export default function HomePage() {
               </span>
             </p>
 
-            {/* Primary + secondary CTAs. Stacked on mobile, side-by-side on md+. */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-3">
+            {/* Primary + secondary CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-4">
               <a
                 href="https://turboloop.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.985]"
               >
                 Launch App
                 <Rocket className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
                 href="/films"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] hover:border-[var(--c-border-strong)] transition-all duration-300 active:scale-[0.985] backdrop-blur-sm"
               >
                 Watch the films
               </a>
@@ -268,9 +278,28 @@ export default function HomePage() {
               Or share your story →
             </a>
 
-            {/* Scroll indicator — animated chevron under the hero,
-                visible on tall viewports, hidden after first scroll */}
-            <div className="hidden md:flex flex-col items-center mt-12 text-[var(--c-text-subtle)]">
+            {/* Hero stats row — key numbers at a glance */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 mb-4">
+              <div className="text-center">
+                <div className="stat-highlight">54%</div>
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">Max ROI</div>
+              </div>
+              <div className="text-center">
+                <div className="stat-highlight">$1</div>
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">Min Deposit</div>
+              </div>
+              <div className="text-center">
+                <div className="stat-highlight">4</div>
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">Loop Plans</div>
+              </div>
+              <div className="text-center">
+                <div className="stat-highlight">24/7</div>
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">On-chain</div>
+              </div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="hidden md:flex flex-col items-center mt-10 text-[var(--c-text-subtle)]">
               <span className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-2">
                 Scroll
               </span>
@@ -289,26 +318,24 @@ export default function HomePage() {
               `}</style>
             </div>
 
-            {/* Trust badges — glassmorphism row with brand-gradient icon
-                circles. Each tile lifts on hover (Card + .tl-card-glow
-                via interactive) for the "premium chip" feel. */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
+            {/* Trust badges — premium glassmorphism with gradient border on hover */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-14">
               {TRUST_BADGES.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block backdrop-blur-sm rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 transition-[transform,box-shadow] duration-[var(--m-smooth)] ease-[var(--m-standard)] tl-card-glow px-4 py-3 flex items-center gap-3 text-left"
+                  className="group gradient-border-card backdrop-blur-sm rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-1 transition-all duration-300 px-4 py-4 flex items-center gap-3 text-left"
                   style={{
-                    background: "color-mix(in oklab, var(--c-surface) 60%, transparent)",
+                    background: "color-mix(in oklab, var(--c-surface) 80%, transparent)",
                   }}
                 >
                   <span
-                    className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-brand shadow-[var(--s-brand)]"
+                    className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-cyan-500/10 dark:bg-cyan-400/10 border border-cyan-500/20 dark:border-cyan-400/20"
                     aria-hidden="true"
                   >
-                    <Icon className="w-5 h-5 text-white" />
+                    <Icon className="w-5 h-5 text-[var(--c-brand-cyan)]" />
                   </span>
                   <span className="text-xs font-semibold text-[var(--c-text)] leading-tight">
                     {label}

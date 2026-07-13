@@ -1,5 +1,5 @@
-// SectionDivider — a hairline, brand-tinted, centred horizontal rule
-// used between content-type changes on the homepage. Pure CSS, no JS.
+// SectionDivider — premium gradient hairline between major content sections.
+// Wider than before, with generous vertical spacing for the premium feel.
 
 interface SectionDividerProps {
   className?: string;
@@ -10,7 +10,7 @@ export function SectionDivider({ className }: SectionDividerProps) {
     <div
       role="presentation"
       aria-hidden="true"
-      className={`max-w-xs mx-auto h-px bg-gradient-to-r from-transparent via-[var(--c-brand-cyan)]/30 to-transparent ${
+      className={`my-12 md:my-20 max-w-md mx-auto h-px bg-gradient-to-r from-transparent via-[var(--c-brand-cyan)]/25 to-transparent ${
         className ?? ""
       }`}
     />

@@ -251,9 +251,15 @@ export default async function TokenPage({ searchParams }: PageProps) {
       />
 
       {/* ── A. HERO ──────────────────────────────────────────────── */}
-      <section className="relative pt-12 pb-10 md:pt-20 md:pb-14">
+      <section className="relative pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden">
+        {/* Background visual depth */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 hero-glow" />
+          <div className="absolute top-[15%] right-[5%] w-56 h-56 rounded-full bg-cyan-500/8 blur-[60px] float-orb" />
+          <div className="absolute bottom-[20%] left-[8%] w-48 h-48 rounded-full bg-purple-500/8 blur-[60px] float-orb" style={{ animationDelay: '-5s' }} />
+        </div>
         <Container width="default">
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="relative text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
               <Sparkles className="w-3.5 h-3.5 text-[var(--c-brand-cyan)]" />
               <Heading tier="eyebrow" as="span" className="text-[var(--c-text)]">

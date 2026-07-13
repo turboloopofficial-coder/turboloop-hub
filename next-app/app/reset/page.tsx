@@ -27,7 +27,7 @@ export default function ResetPage() {
         background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)",
       }}
     >
-      <div className="max-w-md w-full text-center text-white">
+      <div className="max-w-md w-full text-center text-[var(--c-text)]">
         <div
           className="w-20 h-20 mx-auto mb-6 rounded-3xl flex items-center justify-center"
           style={{
@@ -59,11 +59,11 @@ export default function ResetPage() {
         >
           Refreshing site data…
         </h1>
-        <p className="text-white/60 leading-relaxed mb-7">
+        <p className="text-[var(--c-text-muted)] leading-relaxed mb-7">
           We&rsquo;re wiping any cached version of TurboLoop on this device
           so you see the latest. Takes ~2 seconds.
         </p>
-        <p className="text-xs text-white/40">
+        <p className="text-xs text-[var(--c-text-subtle)]">
           If this page doesn&rsquo;t redirect on its own, tap Home below.
         </p>
         <div className="mt-6">

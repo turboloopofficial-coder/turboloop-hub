@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function EarnIndexPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white">
+    <main className="min-h-screen bg-[var(--c-bg)] text-[var(--c-text)]">
       <PageHero
         eyebrow="Earning Strategies"
         title="Earn with TurboLoop"
@@ -43,15 +43,15 @@ export default function EarnIndexPage() {
             <Link
               key={page.slug}
               href={`/earn/${page.slug}`}
-              className="group relative rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-emerald-500/40 hover:bg-emerald-500/[0.03] transition-all duration-300"
+              className="group gradient-border-card relative rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)] p-6 hover:border-emerald-500/40 hover:shadow-[var(--s-lg)] transition-all duration-300"
             >
-              <Heading tier="title" className="text-lg mb-2 group-hover:text-emerald-400 transition-colors">
+              <Heading tier="title" className="text-lg mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                 {page.headline}
               </Heading>
               <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">
                 {page.description}
               </p>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-400 group-hover:gap-2 transition-all">
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 group-hover:gap-2 transition-all">
                 Learn more <ArrowRight className="w-3 h-3" />
               </span>
             </Link>

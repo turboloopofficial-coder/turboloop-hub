@@ -77,7 +77,7 @@ export default async function EarnPage({
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white">
+    <main className="min-h-screen bg-[var(--c-bg)] text-[var(--c-text)]">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -124,7 +124,7 @@ export default async function EarnPage({
           </Heading>
           <div className="space-y-4">
             {page.faqs.map((faq, i) => (
-              <Card key={i} className="p-5 bg-white/[0.02] border-white/10">
+              <Card key={i} className="p-5 bg-[var(--c-surface)] border-[var(--c-border)]">
                 <Heading tier="title" className="text-base font-semibold mb-2 text-emerald-400">
                   {faq.question}
                 </Heading>
@@ -177,7 +177,7 @@ export default async function EarnPage({
               <Link
                 key={i}
                 href={link.href}
-                className="inline-flex items-center gap-1 px-4 py-2 rounded-full border border-white/10 text-sm text-[var(--c-text-muted)] hover:border-emerald-500/40 hover:text-emerald-400 transition-all"
+                className="inline-flex items-center gap-1 px-4 py-2 rounded-full border border-[var(--c-border)] text-sm text-[var(--c-text-muted)] hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all"
               >
                 {link.label} <ArrowRight className="w-3 h-3" />
               </Link>

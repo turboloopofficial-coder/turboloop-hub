@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function VsIndexPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white">
+    <main className="min-h-screen bg-[var(--c-bg)] text-[var(--c-text)]">
       <PageHero
         eyebrow="Comparisons"
         title="TurboLoop vs Everything"
@@ -46,18 +46,18 @@ export default function VsIndexPage() {
             <Link
               key={c.slug}
               href={`/vs/${c.slug}`}
-              className="group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-[#7B5EA7]/60 hover:bg-white/10"
+              className="group flex flex-col gap-3 rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)] p-6 transition hover:border-[#7B5EA7]/60 hover:bg-[var(--c-surface)]"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-widest text-[#7B5EA7]">
                   vs {c.competitorName}
                 </span>
-                <ArrowRight className="h-4 w-4 text-white/30 transition group-hover:text-[#7B5EA7]" />
+                <ArrowRight className="h-4 w-4 text-[var(--c-text-subtle)] transition group-hover:text-[#7B5EA7]" />
               </div>
               <Heading as="h2" size="sm" className="leading-snug">
                 {c.heading}
               </Heading>
-              <p className="text-sm text-white/60 line-clamp-2">{c.summary}</p>
+              <p className="text-sm text-[var(--c-text-muted)] line-clamp-2">{c.summary}</p>
             </Link>
           ))}
         </div>

@@ -358,7 +358,7 @@ export default async function TokenPage({ searchParams }: PageProps) {
           <SectionHead
             eyebrow="Deflationary Proof"
             title="Recent Burn Events"
-            subtitle="Every daily buyback &amp; burn is recorded on-chain. Verified, transparent, permanent."
+            subtitle="Every buyback &amp; burn is recorded on-chain. Multiple daily batches for maximum security. Verified, transparent, permanent."
           />
           <BurnEventsFeed />
         </section>

@@ -23,7 +23,7 @@ export function DexScreenerChart() {
 
   return (
     <div
-      className="relative w-full rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] shadow-[var(--s-sm)]"
+      className="relative w-full card-enhanced rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] shadow-[var(--s-md)]"
       style={{ height: "clamp(380px, 65vw, 500px)" }}
     >
       {/* Loading skeleton — shown until iframe fires onLoad */}

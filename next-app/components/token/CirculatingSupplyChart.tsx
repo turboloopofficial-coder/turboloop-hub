@@ -204,11 +204,9 @@ export default function CirculatingSupplyChart() {
 
   return (
     <section
-      className="rounded-2xl p-5 space-y-5"
+      className="card-enhanced rounded-2xl p-5 space-y-5 border border-[var(--c-border)] shadow-[var(--s-md)]"
       style={{
         background: "var(--c-surface)",
-        border: "1px solid var(--c-border)",
-        boxShadow: "var(--s-sm, 0 1px 3px rgba(0,0,0,.06))",
       }}
     >
       {/* Header */}

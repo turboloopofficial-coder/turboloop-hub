@@ -123,7 +123,7 @@ export function TokenSupplyWidget({ className = "" }: TokenSupplyWidgetProps) {
 
   return (
     <section
-      className={`rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-4 sm:p-5 md:p-6 shadow-[var(--s-sm)] ${className}`}
+      className={`card-enhanced rounded-[var(--r-xl)] border border-[var(--c-border)] p-4 sm:p-5 md:p-6 shadow-[var(--s-md)] ${className}`}
       aria-label="$TURBO supply"
     >
       {/* 2-col on mobile → 4-col on md+ */}

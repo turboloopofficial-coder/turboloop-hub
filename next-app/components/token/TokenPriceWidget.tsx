@@ -361,7 +361,7 @@ function Stat({
   srValue?: string;
 }) {
   return (
-    <div className="rounded-[var(--r-lg)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3 py-3 md:px-4 md:py-3.5 shadow-[var(--s-sm)]">
+    <div className="card-enhanced rounded-[var(--r-lg)] border border-[var(--c-border)] px-3 py-3 md:px-4 md:py-3.5 shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition-shadow duration-300">
       <div className="text-[0.625rem] md:text-[0.6875rem] font-bold tracking-[0.18em] uppercase text-[var(--c-text-subtle)] mb-1">
         {label}
       </div>

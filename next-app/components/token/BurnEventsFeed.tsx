@@ -404,7 +404,7 @@ export function BurnEventsFeed() {
 
   return (
     <section
-      className="rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] p-5 md:p-7"
+      className="card-enhanced rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-md)] p-5 md:p-7"
       aria-label="$TURBO Buyback & Burn History"
     >
       {/* Header */}

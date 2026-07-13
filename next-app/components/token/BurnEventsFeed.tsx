@@ -9,18 +9,18 @@
 // Data source: /api/token-burns → turboloop.io/api/proxy/buybacks
 //
 // Display strategy:
-//   • 24hr countdown to next burn event (14:00 UTC daily)
-//   • Progress bar showing X/12 micro-burns completed today
-//   • Burns grouped by calendar day (UTC)
-//   • Day rows show summary (total burned, total spent)
-//   • Expand/collapse ONLY shows individual transaction hashes
+//   • Burns are grouped by calendar day (UTC)
+//   • Each day shows a summary row: total burned, total spent, burn count
+//   • Days are expandable to show individual micro-burn transactions
+//   • Today's group shows a progress indicator instead of a countdown
+//   • A shield badge explains the anti-sandwich protection strategy
 //
 // Responsive design:
 //   • Mobile: compact cards, stacked layout, full-width
 //   • Desktop: spacious rows, inline details, hover states
 
 import { useEffect, useState, useCallback } from "react";
-import { Flame, ExternalLink, ChevronDown, ChevronRight, Shield, Clock } from "lucide-react";
+import { Flame, ExternalLink, ChevronDown, ChevronRight, Shield } from "lucide-react";
 
 // ─── Types ──────────────────────────────────────────────────────
 
@@ -53,7 +53,6 @@ interface DayGroup {
 
 const POLL_INTERVAL_MS = 5 * 60_000;
 const BURNS_PER_DAY = 12; // Expected micro-burns per day
-const BURN_HOUR_UTC = 14; // Burns fire at 14:00 UTC daily
 const BSCSCAN_BURN_VIEW =
   "https://bscscan.com/token/0x64920e7f4f270f302e8b728f69b5a9fc24fda2d3?a=0x000000000000000000000000000000000000dead";
 
@@ -134,27 +133,6 @@ function groupBurnsByDay(burns: BurnEvent[]): DayGroup[] {
   return result;
 }
 
-/** Calculate seconds until next 14:00 UTC */
-function getSecondsUntilNextBurn(): number {
-  const now = new Date();
-  const target = new Date(now);
-  target.setUTCHours(BURN_HOUR_UTC, 0, 0, 0);
-
-  // If we've already passed 14:00 UTC today, target tomorrow
-  if (now >= target) {
-    target.setUTCDate(target.getUTCDate() + 1);
-  }
-
-  return Math.max(0, Math.floor((target.getTime() - now.getTime()) / 1000));
-}
-
-function formatCountdown(totalSeconds: number): string {
-  const h = Math.floor(totalSeconds / 3600);
-  const m = Math.floor((totalSeconds % 3600) / 60);
-  const s = totalSeconds % 60;
-  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
-
 // ─── Fetch ──────────────────────────────────────────────────────
 
 async function fetchBurns(signal?: AbortSignal): Promise<BurnFeedData | null> {
@@ -169,33 +147,9 @@ async function fetchBurns(signal?: AbortSignal): Promise<BurnFeedData | null> {
 
 // ─── Sub-components ─────────────────────────────────────────────
 
-function NextBurnCountdown() {
-  const [seconds, setSeconds] = useState(getSecondsUntilNextBurn());
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setSeconds(getSecondsUntilNextBurn());
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  return (
-    <div className="flex items-center justify-between gap-3 mb-4 px-3 py-2.5 rounded-lg border border-[var(--c-border)] bg-[var(--c-bg)]">
-      <div className="flex items-center gap-2">
-        <Clock className="w-3.5 h-3.5 shrink-0 text-orange-500" aria-hidden="true" />
-        <span className="text-xs text-[var(--c-text-muted)]">
-          Next burn in
-        </span>
-      </div>
-      <span className="text-sm md:text-base font-bold font-mono tabular-nums text-[var(--c-text)]">
-        {formatCountdown(seconds)}
-      </span>
-    </div>
-  );
-}
-
 function TodayProgress({ count }: { count: number }) {
   const progress = Math.min(count / BURNS_PER_DAY, 1);
+  const remaining = Math.max(0, BURNS_PER_DAY - count);
 
   return (
     <div className="flex items-center gap-3 mb-4 px-3 py-2.5 rounded-lg border border-[var(--c-border)] bg-[var(--c-bg)]">
@@ -233,14 +187,14 @@ function AntiSandwichBadge() {
   );
 }
 
-function DayGroupRow({ group }: { group: DayGroup }) {
-  const [expanded, setExpanded] = useState(false);
+function DayGroupRow({ group, defaultExpanded }: { group: DayGroup; defaultExpanded: boolean }) {
+  const [expanded, setExpanded] = useState(defaultExpanded);
 
   const toggle = useCallback(() => setExpanded((v) => !v), []);
 
   return (
     <div className="border border-[var(--c-border)] rounded-xl overflow-hidden mb-3 last:mb-0">
-      {/* Day summary header — always visible, click expands transactions */}
+      {/* Day summary header — always visible */}
       <button
         onClick={toggle}
         className="w-full flex items-center justify-between gap-2 px-3 md:px-4 py-3 bg-[var(--c-bg)] hover:bg-[var(--c-surface)] transition text-left"
@@ -260,7 +214,7 @@ function DayGroupRow({ group }: { group: DayGroup }) {
           </span>
           {group.burns.length > 1 && (
             <span className="text-[10px] font-bold text-[var(--c-text-muted)] bg-[var(--c-surface)] px-1.5 py-0.5 rounded shrink-0">
-              {group.burns.length} txns
+              {group.burns.length} burns
             </span>
           )}
         </div>
@@ -278,7 +232,7 @@ function DayGroupRow({ group }: { group: DayGroup }) {
         </div>
       </button>
 
-      {/* Expanded: individual transaction rows */}
+      {/* Expanded: individual burn rows */}
       {expanded && (
         <ul className="divide-y divide-[var(--c-border)] border-t border-[var(--c-border)]">
           {group.burns.map((b, idx) => (
@@ -438,25 +392,24 @@ export function BurnEventsFeed() {
       {/* Anti-sandwich explanation badge */}
       <AntiSandwichBadge />
 
-      {/* 24hr countdown to next burn */}
-      <NextBurnCountdown />
-
       {/* Today's burn progress */}
       {loaded && todayBurnCount > 0 && (
         <TodayProgress count={todayBurnCount} />
       )}
 
-      {/* Body — grouped by day, all collapsed by default */}
+      {/* Body — grouped by day */}
       {!loaded ? (
         <BurnSkeleton />
       ) : dayGroups.length === 0 ? (
         <BurnEmpty />
       ) : (
         <div>
-          {dayGroups.map((group) => (
+          {dayGroups.map((group, idx) => (
             <DayGroupRow
               key={group.dateKey}
               group={group}
+              // Auto-expand today and yesterday (first 2 groups)
+              defaultExpanded={idx < 2}
             />
           ))}
         </div>

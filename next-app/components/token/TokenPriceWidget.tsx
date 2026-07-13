@@ -229,6 +229,7 @@ export function TokenPriceWidget({
           label="Price"
           value={loaded ? formatPrice(data?.priceUsd ?? null) : "—"}
           emphasis
+          pulse
         />
         <Stat
           label="24h Change"
@@ -353,12 +354,15 @@ function Stat({
   value,
   emphasis,
   srValue,
+  pulse,
 }: {
   label: string;
   value: React.ReactNode;
   emphasis?: boolean;
   /** Optional screen-reader-only override for `value`. */
   srValue?: string;
+  /** Add a subtle heartbeat pulse to the value (for live price). */
+  pulse?: boolean;
 }) {
   return (
     <div className="card-enhanced rounded-[var(--r-lg)] border border-[var(--c-border)] px-3 py-3 md:px-4 md:py-3.5 shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition-shadow duration-300">
@@ -368,7 +372,7 @@ function Stat({
       <div
         className={`tabular-nums font-bold text-[var(--c-text)] ${
           emphasis ? "text-lg md:text-2xl" : "text-sm md:text-lg"
-        }`}
+        }${pulse ? " price-pulse" : ""}`}
       >
         {value}
       </div>

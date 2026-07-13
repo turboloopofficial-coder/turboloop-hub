@@ -255,27 +255,30 @@ export default async function TokenPage({ searchParams }: PageProps) {
         {/* Background visual depth */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 hero-glow" />
-          <div className="absolute top-[15%] right-[5%] w-56 h-56 rounded-full bg-cyan-500/8 blur-[60px] float-orb" />
-          <div className="absolute bottom-[20%] left-[8%] w-48 h-48 rounded-full bg-purple-500/8 blur-[60px] float-orb" style={{ animationDelay: '-5s' }} />
+          <div className="absolute top-[15%] right-[5%] w-56 h-56 rounded-full bg-cyan-500/8 blur-[60px] mesh-blob" />
+          <div className="absolute bottom-[20%] left-[8%] w-48 h-48 rounded-full bg-purple-500/8 blur-[60px] mesh-blob-2" />
+          <div className="absolute top-[50%] right-[30%] w-32 h-32 rounded-full bg-cyan-400/5 blur-[50px] mesh-blob-3" />
         </div>
         <Container width="default">
           <div className="relative text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
+            <div className="hero-animate-1 inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)] backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5 text-[var(--c-brand-cyan)]" />
               <Heading tier="eyebrow" as="span" className="text-[var(--c-text)]">
                 {c.hero_eyebrow}
               </Heading>
             </div>
 
-            <Heading tier="display" className="mb-5">
-              {c.hero_title}
-            </Heading>
+            <div className="hero-animate-2">
+              <Heading tier="display" className="mb-5">
+                {c.hero_title}
+              </Heading>
+            </div>
 
-            <p className="text-lg md:text-xl text-[var(--c-text-muted)] mb-8 leading-relaxed max-w-2xl mx-auto">
+            <p className="hero-animate-3 text-lg md:text-xl text-[var(--c-text-muted)] mb-8 leading-relaxed max-w-2xl mx-auto">
               {c.hero_subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-5">
+            <div className="hero-animate-4 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-5">
               {/* PRIMARY CTA — start an investment, not buy the token.
                   The token is a downstream benefit of the plan, not the
                   thing the user comes here to acquire. */}
@@ -302,7 +305,7 @@ export default async function TokenPage({ searchParams }: PageProps) {
             <TrackedLink
               href={TOKEN_LINKS.bscscanContract}
               event="token_bscscan_clicked"
-              className="inline-flex items-center gap-1.5 text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
+              className="hero-animate-4 inline-flex items-center gap-1.5 text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
             >
               {c.hero_cta_bscscan}
               <ExternalLink className="w-3 h-3" aria-hidden="true" />
@@ -312,7 +315,7 @@ export default async function TokenPage({ searchParams }: PageProps) {
                 primary CTAs. CoinGecko is the largest independent
                 crypto aggregator; an external listing is a verifiable
                 signal we don't control. */}
-            <div className="mt-4 flex justify-center">
+            <div className="hero-animate-5 mt-4 flex justify-center">
               <a
                 href="https://www.coingecko.com/en/coins/turboloop-token"
                 target="_blank"

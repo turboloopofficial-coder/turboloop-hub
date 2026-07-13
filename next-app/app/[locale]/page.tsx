@@ -12,6 +12,9 @@ import { Rocket, ShieldCheck, Lock, UserX, ExternalLink } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Reveal } from "@components/Reveal";
+
+// Game-changing animation components (client island)
+import { AnimatedHero, HeroTypewriter, HeroCounter } from "@components/animations/AnimatedHero";
 import { SectionDivider } from "@components/ui/SectionDivider";
 import { ProtocolBentoSection } from "@components/sections/ProtocolBentoSection";
 import { TokenSpotlightSection } from "@components/sections/TokenSpotlightSection";
@@ -115,87 +118,116 @@ export default async function LocaleHomePage({ params }: Props) {
       />
 
       {/* HERO */}
-      <section className="relative pt-12 pb-12 md:pt-24 md:pb-20 overflow-hidden">
-        {/* Visual layers */}
+      <section className="relative pt-20 pb-20 md:pt-36 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
+        {/* Background layers — particle field + orbital + gradient mesh blobs */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 hero-grid-bg" />
+          <div className="absolute inset-0 hero-grid-bg opacity-50" />
           <div className="absolute inset-0 hero-glow" />
-          {/* Floating orbs */}
-          <div className="absolute top-[10%] left-[8%] w-72 h-72 rounded-full bg-cyan-500/10 blur-[80px] float-orb" />
-          <div className="absolute bottom-[15%] right-[10%] w-64 h-64 rounded-full bg-purple-500/10 blur-[80px] float-orb" style={{ animationDelay: '-4s' }} />
-          <div className="absolute top-[50%] right-[30%] w-48 h-48 rounded-full bg-cyan-400/5 blur-[60px] float-orb" style={{ animationDelay: '-8s' }} />
+          {/* Animated gradient mesh blobs */}
+          <div className="absolute top-[5%] left-[5%] w-[500px] h-[500px] rounded-full bg-cyan-500/8 blur-[100px] mesh-blob" />
+          <div className="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full bg-purple-500/8 blur-[100px] mesh-blob-2" />
+          <div className="absolute top-[40%] left-[50%] w-[300px] h-[300px] rounded-full bg-emerald-500/5 blur-[80px] mesh-blob-3" />
+          {/* Particle constellation + 3D orbital ring (client island) */}
+          <AnimatedHero phrases={[]} />
         </div>
+
         <Container width="wide">
-          <div className="text-center max-w-3xl mx-auto">
-            {/* Live status pill */}
-            <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-sm)]">
+          <div className="relative text-center max-w-3xl mx-auto">
+            {/* Live status pill — staggered entrance */}
+            <div className="hero-animate-1 inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-[var(--c-surface)]/80 border border-[var(--c-border)] shadow-[var(--s-sm)] backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              <Heading tier="eyebrow" as="span" className="text-emerald-700">
+              <Heading tier="eyebrow" as="span" className="text-emerald-600 dark:text-emerald-400">
                 {t("liveStatus")}
               </Heading>
             </div>
 
-            {/* Hero wordmark */}
-            <Heading tier="display" className="mb-5">
-              <span>Turbo </span>
-              <span className="text-brand-wide">Loop</span>
-            </Heading>
+            {/* Hero wordmark — dramatic entrance */}
+            <div className="hero-animate-2">
+              <Heading tier="display" className="mb-6">
+                <span>Turbo </span>
+                <span className="text-brand-wide">Loop</span>
+              </Heading>
+            </div>
 
-            <p className="text-lg md:text-xl text-[var(--c-text-muted)] mb-9 leading-relaxed max-w-2xl mx-auto">
-              {t("heroTaglinePart1")}{" "}
-              <span className="text-[var(--c-text)] font-medium">
-                {t("heroTaglinePart2")}
-              </span>{" "}
-              <span className="text-[var(--c-text)] font-medium">
-                {t("heroTaglinePart3")}
-              </span>
-            </p>
+            {/* Typewriter subtitle */}
+            <div className="hero-animate-3 text-lg md:text-xl text-[var(--c-text-muted)] mb-10 leading-relaxed max-w-2xl mx-auto h-[3.5rem] md:h-[2rem] flex items-center justify-center">
+              <HeroTypewriter
+                phrases={[
+                  `${t("heroTaglinePart1")} ${t("heroTaglinePart2")}`,
+                  `${t("heroTaglinePart3")}`,
+                  "Earn up to 54% ROI in 60 days.",
+                  "Audited. LP-locked. Ownership renounced.",
+                ]}
+                className="text-[var(--c-text)] font-medium"
+              />
+            </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-3">
+            {/* CTAs — staggered */}
+            <div className="hero-animate-4 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center max-w-md sm:max-w-none mx-auto mb-4">
               <a
                 href="https://turboloop.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 text-white bg-brand glow-pulse hover:shadow-[var(--s-xl)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 text-white bg-brand glow-pulse hover:shadow-[var(--s-xl)] hover:scale-[1.02] transition-all duration-300 active:scale-[0.985]"
               >
                 {t("launchApp")}
                 <Rocket className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
                 href="/films"
-                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
+                className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 bg-[var(--c-surface)]/80 text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] hover:border-[var(--c-border-strong)] transition-all duration-300 active:scale-[0.985] backdrop-blur-md"
               >
                 {t("watchFilms")}
               </a>
             </div>
+
             <a
               href="/submit"
-              className="inline-block text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
+              className="hero-animate-4 inline-block text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
             >
               {t("shareStory")}
             </a>
 
+            {/* Hero stats row — animated counters */}
+            <div className="hero-animate-5 grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 mb-4">
+              <div className="text-center p-4 rounded-xl bg-[var(--c-surface)]/50 backdrop-blur-sm border border-[var(--c-border)]/50">
+                <HeroCounter end={54} suffix="%" className="stat-highlight" />
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">Max ROI</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-[var(--c-surface)]/50 backdrop-blur-sm border border-[var(--c-border)]/50">
+                <HeroCounter end={1} prefix="$" className="stat-highlight" />
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">Min Deposit</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-[var(--c-surface)]/50 backdrop-blur-sm border border-[var(--c-border)]/50">
+                <HeroCounter end={4} className="stat-highlight" />
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">Loop Plans</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-[var(--c-surface)]/50 backdrop-blur-sm border border-[var(--c-border)]/50">
+                <div className="stat-highlight">24/7</div>
+                <div className="text-xs font-medium text-[var(--c-text-muted)] mt-1">On-chain</div>
+              </div>
+            </div>
+
             {/* Scroll indicator */}
-            <div className="hidden md:flex flex-col items-center mt-12 text-[var(--c-text-subtle)]">
+            <div className="hero-animate-6 hidden md:flex flex-col items-center mt-10 text-[var(--c-text-subtle)]">
               <span className="text-[0.6875rem] font-bold tracking-[0.2em] uppercase mb-2">
                 {t("scroll")}
               </span>
               <span className="block w-[1px] h-8 bg-gradient-to-b from-[var(--c-text-subtle)] to-transparent animate-scroll-cue" />
             </div>
 
-            {/* Trust badges */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
+            {/* Trust badges — premium glassmorphism */}
+            <div className="hero-animate-6 grid grid-cols-2 md:grid-cols-4 gap-3 mt-14">
               {TRUST_BADGES.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group gradient-border-card backdrop-blur-sm rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-1 transition-all duration-300 px-4 py-4 flex items-center gap-3 text-left"
+                  className="group gradient-border-card backdrop-blur-md rounded-[var(--r-xl)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-lg)] hover:-translate-y-1 transition-all duration-300 px-4 py-4 flex items-center gap-3 text-left"
                   style={{
                     background:
                       "color-mix(in oklab, var(--c-surface) 80%, transparent)",

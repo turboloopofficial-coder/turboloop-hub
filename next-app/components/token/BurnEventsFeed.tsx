@@ -436,15 +436,21 @@ export function BurnEventsFeed() {
       {/* Countdown */}
       <BurnCountdown />
 
-      {/* Summary stats */}
+      {/* Summary stats — with burn pulse glow */}
       {loaded && data && data.fresh && (
         <div className="grid grid-cols-2 gap-3 mb-5">
-          <div className="rounded-xl bg-[var(--c-bg)] border border-[var(--c-border)] p-3 text-center">
-            <p className="text-[10px] uppercase tracking-wider text-[var(--c-text-subtle)] mb-1">Total Burned</p>
-            <p className="text-lg font-bold text-orange-600 dark:text-orange-300 tabular-nums">
-              {formatAmount(data.totalBurned)}
-              <span className="text-xs text-[var(--c-text-subtle)] ml-1">TURBO</span>
-            </p>
+          <div className="relative rounded-xl bg-[var(--c-bg)] border border-[var(--c-border)] p-3 text-center overflow-hidden">
+            {/* Subtle burn glow behind */}
+            <div className="absolute inset-0 rounded-xl animate-burn-pulse pointer-events-none" aria-hidden="true" />
+            <div className="relative">
+              <p className="text-[10px] uppercase tracking-wider text-[var(--c-text-subtle)] mb-1">
+                <span className="fire-particle" aria-hidden="true">🔥</span> Total Burned
+              </p>
+              <p className="text-lg font-bold text-orange-600 dark:text-orange-300 tabular-nums">
+                {formatAmount(data.totalBurned)}
+                <span className="text-xs text-[var(--c-text-subtle)] ml-1">TURBO</span>
+              </p>
+            </div>
           </div>
           <div className="rounded-xl bg-[var(--c-bg)] border border-[var(--c-border)] p-3 text-center">
             <p className="text-[10px] uppercase tracking-wider text-[var(--c-text-subtle)] mb-1">Total USDT Spent</p>

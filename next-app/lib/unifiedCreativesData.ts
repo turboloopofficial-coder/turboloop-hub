@@ -1,5 +1,5 @@
 // ── unifiedCreativesData.ts ─────────────────────────────────────────────────
-// v2.1 — 2026-07-11: added bn (Bangla 193) + tr (Turkish 186) language support
+// v2.2 — 2026-07-14: added ja (174) + pt (173) + ru (173) + vi (171) + tl (186) + ms (10) language support
 // Single source of truth for ALL 1,134+ creatives across three libraries:
 //   1. Legacy branded library (175 images)
 //   2. Language Education Kit (455 images × 7 languages)
@@ -15,7 +15,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr" | "ja" | "pt" | "ru" | "vi" | "tl" | "ms";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -86,6 +86,12 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   tamil:              { from: "#F97316", to: "#7C3AED" },
   bangla:             { from: "#006A4E", to: "#F42A41" },
   turkish:            { from: "#E30A17", to: "#FFFFFF" },
+  ja:                 { from: "#BC002D", to: "#FFFFFF" },
+  pt:                 { from: "#006600", to: "#FFD700" },
+  ru:                 { from: "#0039A6", to: "#D52B1E" },
+  vi:                 { from: "#DA251D", to: "#FFCD00" },
+  tl:                 { from: "#0038A8", to: "#CE1126" },
+  ms:                 { from: "#010066", to: "#CC0001" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -114,6 +120,12 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   tamil:               { label: "Tamil Market", emoji: "🇱🇰", description: "Tamil-language banners for the Tamil-speaking DeFi community." },
   bangla:              { label: "Bangla Market", emoji: "🇧🇩", description: "Bangla-language banners for the Bangladeshi DeFi community." },
   turkish:             { label: "Turkish Market", emoji: "🇹🇷", description: "Turkish-language banners for the Turkish DeFi community." },
+  ja:                  { label: "Japanese Market", emoji: "🇯🇵", description: "Japanese-language banners for the Japanese DeFi community." },
+  pt:                  { label: "Portuguese Market", emoji: "🇧🇷", description: "Portuguese-language banners for the Brazilian and Lusophone DeFi community." },
+  ru:                  { label: "Russian Market", emoji: "🇷🇺", description: "Russian-language banners for the Russian-speaking DeFi community." },
+  vi:                  { label: "Vietnamese Market", emoji: "🇻🇳", description: "Vietnamese-language banners for the Vietnamese DeFi community." },
+  tl:                  { label: "Filipino Market", emoji: "🇵🇭", description: "Filipino-language banners for the Philippine DeFi community." },
+  ms:                  { label: "Malay Market", emoji: "🇲🇾", description: "Malay-language banners for the Malaysian DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -147,6 +159,12 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   ko:                  { label: "지금 시작하기", url: "https://turboloop.tech/apply" },
   la:                  { label: "ເລີ່ມຕົ້ນວັນນີ້", url: "https://turboloop.tech/apply" },
   tamil:               { label: "இன்றே தொடங்குங்கள்", url: "https://turboloop.tech/apply" },
+  ja:                  { label: "今すぐ始める", url: "https://turboloop.tech/apply" },
+  pt:                  { label: "Comece Agora", url: "https://turboloop.tech/apply" },
+  ru:                  { label: "Начать сейчас", url: "https://turboloop.tech/apply" },
+  vi:                  { label: "Bắt Đầu Ngay", url: "https://turboloop.tech/apply" },
+  tl:                  { label: "Magsimula Na", url: "https://turboloop.tech/apply" },
+  ms:                  { label: "Mula Sekarang", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -264,7 +282,13 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "tamil" ? "ta" :
     b.category === "la" ? "lo" :
     b.category === "bangla" ? "bn" :
-    b.category === "turkish" ? "tr" : "en";
+    b.category === "turkish" ? "tr" :
+    b.category === "ja" ? "ja" :
+    b.category === "pt" ? "pt" :
+    b.category === "ru" ? "ru" :
+    b.category === "vi" ? "vi" :
+    b.category === "tl" ? "tl" :
+    b.category === "ms" ? "ms" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,
@@ -301,7 +325,8 @@ function buildCategories(): UnifiedCategoryDef[] {
   // Language-specific category IDs — these are shown in the language filter, not the category filter
   const LANGUAGE_CATEGORY_IDS = new Set([
     "hindi-new", "nigerian", "spanish", "indonesian", "chinese", "italian",
-    "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "bangla", "turkish", "lang-kit",
+    "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "bangla", "turkish",
+    "ja", "pt", "ru", "vi", "tl", "ms", "lang-kit",
   ]);
   // Campaign categories
   const campaignCats: UnifiedCategoryDef[] = Object.entries(CAMPAIGN_LABELS).map(([id, meta]) => ({
@@ -368,6 +393,12 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "ta", label: "தமிழ்", flag: "🇮🇳" },
   { code: "bn", label: "বাংলা", flag: "🇧🇩" },
   { code: "tr", label: "Türkçe", flag: "🇹🇷" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "pt", label: "Português", flag: "🇧🇷" },
+  { code: "ru", label: "Русский", flag: "🇷🇺" },
+  { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
+  { code: "tl", label: "Filipino", flag: "🇵🇭" },
+  { code: "ms", label: "Melayu", flag: "🇲🇾" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

@@ -122,3 +122,4 @@ _r2_upload_staging/
 # Rebuild with: npm run build:api
 .vercel
 .env*
+next-app/*.zip

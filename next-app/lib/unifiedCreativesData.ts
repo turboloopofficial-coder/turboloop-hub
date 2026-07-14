@@ -15,7 +15,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr" | "ja" | "pt" | "ru" | "vi" | "tl" | "ms" | "nl" | "ro" | "el" | "cs" | "hu" | "pl" | "uk" | "te";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr" | "ja" | "pt" | "ru" | "vi" | "tl" | "ms" | "nl" | "ro" | "el" | "cs" | "hu" | "pl" | "uk" | "te" | "mr";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -100,6 +100,7 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   pl:                 { from: "#DC143C", to: "#FFFFFF" },
   uk:                 { from: "#005BBB", to: "#FFD500" },
   te:                 { from: "#FF6B35", to: "#1B4F72" },
+  mr:                 { from: "#FF9933", to: "#138808" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -142,6 +143,7 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   pl:                  { label: "Polish Market", emoji: "🇵🇱", description: "Polish-language banners for the Polish DeFi community." },
   uk:                  { label: "Ukrainian Market", emoji: "🇺🇦", description: "Ukrainian-language banners for the Ukrainian DeFi community." },
   te:                  { label: "Telugu Market", emoji: "🇮🇳", description: "Telugu-language banners for the Telugu DeFi community." },
+  mr:                  { label: "Marathi Market", emoji: "🇮🇳", description: "Marathi-language banners for the Marathi DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -189,6 +191,7 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   pl:                  { label: "Zacznij Teraz", url: "https://turboloop.tech/apply" },
   uk:                  { label: "Почати Зараз", url: "https://turboloop.tech/apply" },
   te:                  { label: "ఇప్పుడు ప్రారంభించు", url: "https://turboloop.tech/apply" },
+  mr:                  { label: "आता सुरू करा", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -320,7 +323,8 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "hu" ? "hu" :
     b.category === "pl" ? "pl" :
     b.category === "uk" ? "uk" :
-    b.category === "te" ? "te" : "en";
+    b.category === "te" ? "te" :
+    b.category === "mr" ? "mr" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,
@@ -358,7 +362,7 @@ function buildCategories(): UnifiedCategoryDef[] {
   const LANGUAGE_CATEGORY_IDS = new Set([
     "hindi-new", "nigerian", "spanish", "indonesian", "chinese", "italian",
     "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "bangla", "turkish",
-    "ja", "pt", "ru", "vi", "tl", "ms", "nl", "ro", "el", "cs", "hu", "pl", "uk", "te", "lang-kit",
+    "ja", "pt", "ru", "vi", "tl", "ms", "nl", "ro", "el", "cs", "hu", "pl", "uk", "te", "mr", "lang-kit",
   ]);
   // Campaign categories
   const campaignCats: UnifiedCategoryDef[] = Object.entries(CAMPAIGN_LABELS).map(([id, meta]) => ({
@@ -439,6 +443,7 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "pl", label: "Polski", flag: "🇵🇱" },
   { code: "uk", label: "Українська", flag: "🇺🇦" },
   { code: "te", label: "తెలుగు", flag: "🇮🇳" },
+  { code: "mr", label: "मराठी", flag: "🇮🇳" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

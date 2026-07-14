@@ -31,9 +31,9 @@ const INITIAL_ITEMS = ALL_UNIFIED_CREATIVES.slice(0, 48);
 
 // ── Metadata ───────────────────────────────────────────────────────────────
 
-const TITLE = "Marketing Hub — 3,800+ Free DeFi Banners in 31 Languages | TurboLoop";
+const TITLE = "Marketing Hub — 3,800+ Free DeFi Banners in 32 Languages | TurboLoop";
 const DESCRIPTION =
-  "Download 3,800+ free DeFi marketing banners. 31 languages, campaign suites, branded educational kit. Free for the TurboLoop community — no attribution required.";
+  "Download 3,800+ free DeFi marketing banners. 32 languages, campaign suites, branded educational kit. Free for the TurboLoop community — no attribution required.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -157,7 +157,7 @@ export default async function CreativesPage() {
             </h2>
             <p className="text-sm text-[var(--c-text-subtle)] leading-relaxed">
               The TurboLoop Marketing Hub is the largest free DeFi marketing resource library, with over{" "}
-              <strong>{TOTAL_CREATIVES.toLocaleString()} free banners</strong> across {TOTAL_CATEGORIES} categories and 31 languages.
+              <strong>{TOTAL_CREATIVES.toLocaleString()} free banners</strong> across {TOTAL_CATEGORIES} categories and 32 languages.
               All images are free to download and share on Telegram, WhatsApp, Twitter/X, and any social platform.
               Categories include passive income lifestyle, $TURBO token education, referral system explainers, DeFi objection handlers,
               regional market banners (Hindi, Nigerian, Spanish, Indonesian, Chinese, Italian, Arabic, Urdu, German, Japanese, Portuguese, Russian, Vietnamese, Filipino, Malay), success stories, DeFi education, urgency and FOMO content,

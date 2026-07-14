@@ -22,7 +22,7 @@ const LOCALE_TO_CREATIVE_LANG: Record<string, CreativeLanguage> = {
   en: "en", hi: "hi", id: "id", fr: "fr", ar: "ar", es: "es",
   de: "de", zh: "zh", it: "it", ur: "ur", pcm: "pcm", th: "th",
   ko: "ko", lo: "lo", ta: "ta", bn: "bn", tr: "tr",
-  ja: "ja", pt: "pt", ru: "ru", vi: "vi", tl: "tl", ms: "ms",
+  ja: "ja", pt: "pt", ru: "ru", vi: "vi", tl: "tl", ms: "ms", nl: "nl",
 };
 
 // First page of items for SSR — avoids serialising all 1,400+ items into HTML.
@@ -31,9 +31,9 @@ const INITIAL_ITEMS = ALL_UNIFIED_CREATIVES.slice(0, 48);
 
 // ── Metadata ───────────────────────────────────────────────────────────────
 
-const TITLE = "Marketing Hub — 3,800+ Free DeFi Banners in 23 Languages | TurboLoop";
+const TITLE = "Marketing Hub — 3,800+ Free DeFi Banners in 24 Languages | TurboLoop";
 const DESCRIPTION =
-  "Download 3,800+ free DeFi marketing banners. 23 languages, campaign suites, branded educational kit. Free for the TurboLoop community — no attribution required.";
+  "Download 3,800+ free DeFi marketing banners. 24 languages, campaign suites, branded educational kit. Free for the TurboLoop community — no attribution required.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -157,7 +157,7 @@ export default async function CreativesPage() {
             </h2>
             <p className="text-sm text-[var(--c-text-subtle)] leading-relaxed">
               The TurboLoop Marketing Hub is the largest free DeFi marketing resource library, with over{" "}
-              <strong>{TOTAL_CREATIVES.toLocaleString()} free banners</strong> across {TOTAL_CATEGORIES} categories and 23 languages.
+              <strong>{TOTAL_CREATIVES.toLocaleString()} free banners</strong> across {TOTAL_CATEGORIES} categories and 24 languages.
               All images are free to download and share on Telegram, WhatsApp, Twitter/X, and any social platform.
               Categories include passive income lifestyle, $TURBO token education, referral system explainers, DeFi objection handlers,
               regional market banners (Hindi, Nigerian, Spanish, Indonesian, Chinese, Italian, Arabic, Urdu, German, Japanese, Portuguese, Russian, Vietnamese, Filipino, Malay), success stories, DeFi education, urgency and FOMO content,

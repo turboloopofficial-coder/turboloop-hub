@@ -15,7 +15,7 @@ import campaignCaptionsRaw from "./campaign-captions.json";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr" | "ja" | "pt" | "ru" | "vi" | "tl" | "ms";
+export type CreativeLanguage = "en" | "hi" | "id" | "fr" | "ar" | "es" | "de" | "zh" | "it" | "ur" | "pcm" | "th" | "ko" | "lo" | "ta" | "bn" | "tr" | "ja" | "pt" | "ru" | "vi" | "tl" | "ms" | "nl";
 
 export type UnifiedCreative = {
   /** Globally unique identifier */
@@ -92,6 +92,7 @@ const CAMPAIGN_ACCENTS: Record<string, { from: string; to: string }> = {
   vi:                 { from: "#DA251D", to: "#FFCD00" },
   tl:                 { from: "#0038A8", to: "#CE1126" },
   ms:                 { from: "#010066", to: "#CC0001" },
+  nl:                 { from: "#FF6600", to: "#21468B" },
 };
 
 const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; description: string }> = {
@@ -126,6 +127,7 @@ const CAMPAIGN_LABELS: Record<string, { label: string; emoji: string; descriptio
   vi:                  { label: "Vietnamese Market", emoji: "🇻🇳", description: "Vietnamese-language banners for the Vietnamese DeFi community." },
   tl:                  { label: "Filipino Market", emoji: "🇵🇭", description: "Filipino-language banners for the Philippine DeFi community." },
   ms:                  { label: "Malay Market", emoji: "🇲🇾", description: "Malay-language banners for the Malaysian DeFi community." },
+  nl:                  { label: "Dutch Market", emoji: "🇳🇱", description: "Dutch-language banners for the Dutch and Belgian DeFi community." },
 };
 
 // Legacy category accent map (from manifest palette.from/to)
@@ -165,6 +167,7 @@ const CTA_MAP: Record<string, { label: string; url: string }> = {
   vi:                  { label: "Bắt Đầu Ngay", url: "https://turboloop.tech/apply" },
   tl:                  { label: "Magsimula Na", url: "https://turboloop.tech/apply" },
   ms:                  { label: "Mula Sekarang", url: "https://turboloop.tech/apply" },
+  nl:                  { label: "Begin Nu", url: "https://turboloop.tech/apply" },
   mythbuster:          { label: "See the Proof", url: "https://turboloop.tech/token" },
   "product-bible":     { label: "Read the Docs", url: "https://turboloop.tech/learn" },
   "monthly-projections":{ label: "Run Your Numbers", url: "https://turboloop.tech/calculator" },
@@ -288,7 +291,8 @@ const campaignItems: UnifiedCreative[] = (campaignManifest as RawCampaignItem[])
     b.category === "ru" ? "ru" :
     b.category === "vi" ? "vi" :
     b.category === "tl" ? "tl" :
-    b.category === "ms" ? "ms" : "en";
+    b.category === "ms" ? "ms" :
+    b.category === "nl" ? "nl" : "en";
   return {
     id: `campaign-${b.category}-${b.filename}`,
     url: b.url,
@@ -326,7 +330,7 @@ function buildCategories(): UnifiedCategoryDef[] {
   const LANGUAGE_CATEGORY_IDS = new Set([
     "hindi-new", "nigerian", "spanish", "indonesian", "chinese", "italian",
     "arabic", "urdu", "german", "thai", "ko", "la", "tamil", "bangla", "turkish",
-    "ja", "pt", "ru", "vi", "tl", "ms", "lang-kit",
+    "ja", "pt", "ru", "vi", "tl", "ms", "nl", "lang-kit",
   ]);
   // Campaign categories
   const campaignCats: UnifiedCategoryDef[] = Object.entries(CAMPAIGN_LABELS).map(([id, meta]) => ({
@@ -399,6 +403,7 @@ export const UNIFIED_LANGUAGES: ReadonlyArray<{ code: CreativeLanguage; label: s
   { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
   { code: "tl", label: "Filipino", flag: "🇵🇭" },
   { code: "ms", label: "Melayu", flag: "🇲🇾" },
+  { code: "nl", label: "Nederlands", flag: "🇳🇱" },
 ];
 
 // ── Totals ─────────────────────────────────────────────────────────────────

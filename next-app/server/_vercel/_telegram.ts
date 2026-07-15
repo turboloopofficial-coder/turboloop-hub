@@ -69,26 +69,30 @@ export async function tgSendPhoto(token: string, msg: TgPhotoMessage): Promise<{
   }
 }
 
-/** Send a video by URL. Telegram will fetch the file from `videoUrl`
- *  server-side and re-host it; supported types: mp4, mov, mkv (Telegram
- *  re-encodes). Same caption + inline keyboard contract as `tgSendPhoto`.
+/** Send a video by downloading it first then uploading as multipart/form-data.
+ *  This avoids Telegram's URL-fetch path which fails for large files (>20 MB)
+ *  and CDN URLs that Telegram's servers cannot reach.
+ *  Same caption + inline keyboard contract as `tgSendPhoto`.
  *  Used by the Omni-Composer when `mediaType='video'`. */
 export async function tgSendVideo(token: string, msg: TgVideoMessage): Promise<{ ok: boolean; error?: string }> {
-  const body: any = {
-    chat_id: msg.chatId,
-    video: msg.videoUrl,
-    caption: msg.caption,
-    parse_mode: msg.parseMode || "HTML",
-    supports_streaming: true,
-  };
   const kb = inlineKeyboard(msg.buttons);
-  if (kb) body.reply_markup = kb;
-
   try {
+    // Download the video binary from R2/CDN and upload as multipart/form-data.
+    // Telegram's URL-fetch path rejects large files (>20 MB) and certain CDN
+    // responses, so we always upload the binary directly.
+    const vidRes = await fetch(msg.videoUrl, { signal: AbortSignal.timeout(300000) });
+    if (!vidRes.ok) throw new Error(`Video fetch failed: ${vidRes.status} ${msg.videoUrl}`);
+    const vidBuf = await vidRes.arrayBuffer();
+    const form = new FormData();
+    form.append("chat_id", msg.chatId);
+    form.append("caption", msg.caption);
+    form.append("parse_mode", msg.parseMode || "HTML");
+    form.append("supports_streaming", "true");
+    if (kb) form.append("reply_markup", JSON.stringify(kb));
+    form.append("video", new Blob([vidBuf], { type: "video/mp4" }), "video.mp4");
     const r = await fetch(`${TG_API}${token}/sendVideo`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: form,
     });
     const data: any = await r.json();
     if (!data?.ok) return { ok: false, error: data?.description || `HTTP ${r.status}` };

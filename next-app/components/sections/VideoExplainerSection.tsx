@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Play, Globe } from "lucide-react";
+import { Play, Globe, ChevronDown } from "lucide-react";
 
 const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos";
 
@@ -11,59 +11,60 @@ const LANGUAGES: {
   code: string;
   label: string;
   nativeLabel: string;
+  flag: string;
   video: string | null;
   thumb: string | null;
 }[] = [
-  { code: "en", label: "English",    nativeLabel: "English",     video: `${R2_BASE}/turboloop-explainer-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`  },
-  { code: "es", label: "Spanish",    nativeLabel: "Español",     video: null, thumb: null },
-  { code: "fr", label: "French",     nativeLabel: "Français",    video: null, thumb: null },
-  { code: "de", label: "German",     nativeLabel: "Deutsch",     video: null, thumb: null },
-  { code: "it", label: "Italian",    nativeLabel: "Italiano",    video: null, thumb: null },
-  { code: "pt", label: "Portuguese", nativeLabel: "Português",   video: null, thumb: null },
-  { code: "ru", label: "Russian",    nativeLabel: "Русский",     video: null, thumb: null },
-  { code: "zh", label: "Chinese",    nativeLabel: "中文",         video: null, thumb: null },
-  { code: "ja", label: "Japanese",   nativeLabel: "日本語",       video: null, thumb: null },
-  { code: "ko", label: "Korean",     nativeLabel: "한국어",       video: null, thumb: null },
-  { code: "ar", label: "Arabic",     nativeLabel: "العربية",     video: null, thumb: null },
-  { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      video: null, thumb: null },
-  { code: "tr", label: "Turkish",    nativeLabel: "Türkçe",      video: null, thumb: null },
-  { code: "vi", label: "Vietnamese", nativeLabel: "Tiếng Việt",  video: null, thumb: null },
-  { code: "id", label: "Indonesian", nativeLabel: "Bahasa Indonesia", video: null, thumb: null },
-  { code: "nl", label: "Dutch",      nativeLabel: "Nederlands",  video: null, thumb: null },
-  { code: "pl", label: "Polish",     nativeLabel: "Polski",      video: null, thumb: null },
-  { code: "sv", label: "Swedish",    nativeLabel: "Svenska",     video: null, thumb: null },
-  { code: "da", label: "Danish",     nativeLabel: "Dansk",       video: null, thumb: null },
-  { code: "fi", label: "Finnish",    nativeLabel: "Suomi",       video: null, thumb: null },
-  { code: "no", label: "Norwegian",  nativeLabel: "Norsk",       video: null, thumb: null },
-  { code: "el", label: "Greek",      nativeLabel: "Ελληνικά",    video: null, thumb: null },
-  { code: "cs", label: "Czech",      nativeLabel: "Čeština",     video: null, thumb: null },
-  { code: "hu", label: "Hungarian",  nativeLabel: "Magyar",      video: null, thumb: null },
-  { code: "ro", label: "Romanian",   nativeLabel: "Română",      video: null, thumb: null },
-  { code: "sk", label: "Slovak",     nativeLabel: "Slovenčina",  video: null, thumb: null },
-  { code: "uk", label: "Ukrainian",  nativeLabel: "Українська",  video: null, thumb: null },
-  { code: "bg", label: "Bulgarian",  nativeLabel: "Български",   video: null, thumb: null },
-  { code: "hr", label: "Croatian",   nativeLabel: "Hrvatski",    video: null, thumb: null },
-  { code: "sr", label: "Serbian",    nativeLabel: "Српски",      video: null, thumb: null },
-  { code: "sl", label: "Slovenian",  nativeLabel: "Slovenščina", video: null, thumb: null },
-  { code: "lt", label: "Lithuanian", nativeLabel: "Lietuvių",    video: null, thumb: null },
-  { code: "lv", label: "Latvian",    nativeLabel: "Latviešu",    video: null, thumb: null },
-  { code: "et", label: "Estonian",   nativeLabel: "Eesti",       video: null, thumb: null },
-  { code: "ms", label: "Malay",      nativeLabel: "Bahasa Melayu", video: null, thumb: null },
-  { code: "tl", label: "Filipino",   nativeLabel: "Filipino",    video: null, thumb: null },
-  { code: "ta", label: "Tamil",      nativeLabel: "தமிழ்",       video: null, thumb: null },
-  { code: "bn", label: "Bengali",    nativeLabel: "বাংলা",       video: null, thumb: null },
-  { code: "ur", label: "Urdu",       nativeLabel: "اردو",        video: null, thumb: null },
-  { code: "fa", label: "Persian",    nativeLabel: "فارسی",       video: null, thumb: null },
-  { code: "he", label: "Hebrew",     nativeLabel: "עברית",       video: null, thumb: null },
-  { code: "sw", label: "Swahili",    nativeLabel: "Kiswahili",   video: null, thumb: null },
-  { code: "am", label: "Amharic",    nativeLabel: "አማርኛ",        video: null, thumb: null },
-  { code: "yo", label: "Yoruba",     nativeLabel: "Yorùbá",      video: null, thumb: null },
-  { code: "zu", label: "Zulu",       nativeLabel: "isiZulu",     video: null, thumb: null },
-  { code: "ig", label: "Igbo",       nativeLabel: "Igbo",        video: null, thumb: null },
-  { code: "ha", label: "Hausa",      nativeLabel: "Hausa",       video: null, thumb: null },
-  { code: "sn", label: "Shona",      nativeLabel: "chiShona",    video: null, thumb: null },
-  { code: "st", label: "Sesotho",    nativeLabel: "Sesotho",     video: null, thumb: null },
-  { code: "xh", label: "Xhosa",      nativeLabel: "isiXhosa",    video: null, thumb: null },
+  { code: "en", label: "English",    nativeLabel: "English",     flag: "🇬🇧", video: `${R2_BASE}/turboloop-explainer-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`  },
+  { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      flag: "🇮🇳", video: null, thumb: null },
+  { code: "es", label: "Spanish",    nativeLabel: "Español",     flag: "🇪🇸", video: null, thumb: null },
+  { code: "fr", label: "French",     nativeLabel: "Français",    flag: "🇫🇷", video: null, thumb: null },
+  { code: "de", label: "German",     nativeLabel: "Deutsch",     flag: "🇩🇪", video: null, thumb: null },
+  { code: "it", label: "Italian",    nativeLabel: "Italiano",    flag: "🇮🇹", video: null, thumb: null },
+  { code: "pt", label: "Portuguese", nativeLabel: "Português",   flag: "🇧🇷", video: null, thumb: null },
+  { code: "ru", label: "Russian",    nativeLabel: "Русский",     flag: "🇷🇺", video: null, thumb: null },
+  { code: "zh", label: "Chinese",    nativeLabel: "中文",         flag: "🇨🇳", video: null, thumb: null },
+  { code: "ja", label: "Japanese",   nativeLabel: "日本語",       flag: "🇯🇵", video: null, thumb: null },
+  { code: "ko", label: "Korean",     nativeLabel: "한국어",       flag: "🇰🇷", video: null, thumb: null },
+  { code: "ar", label: "Arabic",     nativeLabel: "العربية",     flag: "🇸🇦", video: null, thumb: null },
+  { code: "tr", label: "Turkish",    nativeLabel: "Türkçe",      flag: "🇹🇷", video: null, thumb: null },
+  { code: "vi", label: "Vietnamese", nativeLabel: "Tiếng Việt",  flag: "🇻🇳", video: null, thumb: null },
+  { code: "id", label: "Indonesian", nativeLabel: "Bahasa Indonesia", flag: "🇮🇩", video: null, thumb: null },
+  { code: "nl", label: "Dutch",      nativeLabel: "Nederlands",  flag: "🇳🇱", video: null, thumb: null },
+  { code: "pl", label: "Polish",     nativeLabel: "Polski",      flag: "🇵🇱", video: null, thumb: null },
+  { code: "sv", label: "Swedish",    nativeLabel: "Svenska",     flag: "🇸🇪", video: null, thumb: null },
+  { code: "da", label: "Danish",     nativeLabel: "Dansk",       flag: "🇩🇰", video: null, thumb: null },
+  { code: "fi", label: "Finnish",    nativeLabel: "Suomi",       flag: "🇫🇮", video: null, thumb: null },
+  { code: "no", label: "Norwegian",  nativeLabel: "Norsk",       flag: "🇳🇴", video: null, thumb: null },
+  { code: "el", label: "Greek",      nativeLabel: "Ελληνικά",    flag: "🇬🇷", video: null, thumb: null },
+  { code: "cs", label: "Czech",      nativeLabel: "Čeština",     flag: "🇨🇿", video: null, thumb: null },
+  { code: "hu", label: "Hungarian",  nativeLabel: "Magyar",      flag: "🇭🇺", video: null, thumb: null },
+  { code: "ro", label: "Romanian",   nativeLabel: "Română",      flag: "🇷🇴", video: null, thumb: null },
+  { code: "sk", label: "Slovak",     nativeLabel: "Slovenčina",  flag: "🇸🇰", video: null, thumb: null },
+  { code: "uk", label: "Ukrainian",  nativeLabel: "Українська",  flag: "🇺🇦", video: null, thumb: null },
+  { code: "bg", label: "Bulgarian",  nativeLabel: "Български",   flag: "🇧🇬", video: null, thumb: null },
+  { code: "hr", label: "Croatian",   nativeLabel: "Hrvatski",    flag: "🇭🇷", video: null, thumb: null },
+  { code: "sr", label: "Serbian",    nativeLabel: "Српски",      flag: "🇷🇸", video: null, thumb: null },
+  { code: "sl", label: "Slovenian",  nativeLabel: "Slovenščina", flag: "🇸🇮", video: null, thumb: null },
+  { code: "lt", label: "Lithuanian", nativeLabel: "Lietuvių",    flag: "🇱🇹", video: null, thumb: null },
+  { code: "lv", label: "Latvian",    nativeLabel: "Latviešu",    flag: "🇱🇻", video: null, thumb: null },
+  { code: "et", label: "Estonian",   nativeLabel: "Eesti",       flag: "🇪🇪", video: null, thumb: null },
+  { code: "ms", label: "Malay",      nativeLabel: "Bahasa Melayu", flag: "🇲🇾", video: null, thumb: null },
+  { code: "tl", label: "Filipino",   nativeLabel: "Filipino",    flag: "🇵🇭", video: null, thumb: null },
+  { code: "ta", label: "Tamil",      nativeLabel: "தமிழ்",       flag: "🇮🇳", video: null, thumb: null },
+  { code: "bn", label: "Bengali",    nativeLabel: "বাংলা",       flag: "🇧🇩", video: null, thumb: null },
+  { code: "ur", label: "Urdu",       nativeLabel: "اردو",        flag: "🇵🇰", video: null, thumb: null },
+  { code: "fa", label: "Persian",    nativeLabel: "فارسی",       flag: "🇮🇷", video: null, thumb: null },
+  { code: "he", label: "Hebrew",     nativeLabel: "עברית",       flag: "🇮🇱", video: null, thumb: null },
+  { code: "sw", label: "Swahili",    nativeLabel: "Kiswahili",   flag: "🇰🇪", video: null, thumb: null },
+  { code: "am", label: "Amharic",    nativeLabel: "አማርኛ",        flag: "🇪🇹", video: null, thumb: null },
+  { code: "yo", label: "Yoruba",     nativeLabel: "Yorùbá",      flag: "🇳🇬", video: null, thumb: null },
+  { code: "zu", label: "Zulu",       nativeLabel: "isiZulu",     flag: "🇿🇦", video: null, thumb: null },
+  { code: "ig", label: "Igbo",       nativeLabel: "Igbo",        flag: "🇳🇬", video: null, thumb: null },
+  { code: "ha", label: "Hausa",      nativeLabel: "Hausa",       flag: "🇳🇬", video: null, thumb: null },
+  { code: "sn", label: "Shona",      nativeLabel: "chiShona",    flag: "🇿🇼", video: null, thumb: null },
+  { code: "st", label: "Sesotho",    nativeLabel: "Sesotho",     flag: "🇿🇦", video: null, thumb: null },
+  { code: "xh", label: "Xhosa",      nativeLabel: "isiXhosa",    flag: "🇿🇦", video: null, thumb: null },
 ];
 
 const ENGLISH = LANGUAGES[0];
@@ -73,10 +74,12 @@ export function VideoExplainerSection() {
   const [selectedLang, setSelectedLang] = useState(ENGLISH);
   const [showPicker, setShowPicker] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
 
   const activeVideo = selectedLang.video ?? ENGLISH.video!;
   const activeThumb = selectedLang.thumb ?? ENGLISH.thumb!;
   const isAvailable = (lang: typeof LANGUAGES[0]) => lang.video !== null;
+  const availableCount = LANGUAGES.filter(isAvailable).length;
 
   const handleLangSelect = (lang: typeof LANGUAGES[0]) => {
     setSelectedLang(lang);
@@ -95,38 +98,39 @@ export function VideoExplainerSection() {
     setStarted(true);
   };
 
-  const availableCount = LANGUAGES.filter(isAvailable).length;
-
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-radial from-cyan-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl" />
+    <section className="relative py-16 md:py-24 bg-[#080c14] overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[400px] bg-purple-500/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Heading */}
-        <div className="text-center mb-10 md:mb-14">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* ── Heading ─────────────────────────────────────────────── */}
+        <div className="text-center mb-8 md:mb-12">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
             Deep Dive
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
             See How TurboLoop Works
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             A 20-minute breakdown covering security audits, smart contract architecture,
             and how your USDT earns fixed returns on BNB Smart Chain.
           </p>
         </div>
 
-        {/* Video Player */}
-        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-500/10 bg-black/50 backdrop-blur-sm">
-          {/* Aspect ratio container */}
-          <div className="relative aspect-video">
+        {/* ── Video Card ──────────────────────────────────────────── */}
+        <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/60 bg-[#0d1220]">
+
+          {/* Video area */}
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
             <video
               ref={videoRef}
               key={activeVideo}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover bg-black"
               poster={activeThumb}
               preload="none"
               muted
@@ -139,73 +143,82 @@ export function VideoExplainerSection() {
 
             {/* Play overlay */}
             {!started && (
-              <div
-                className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/30 transition-all hover:bg-black/20"
+              <button
                 onClick={handlePlay}
+                aria-label="Play video"
+                className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/40 hover:bg-black/30 transition-colors group"
               >
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-cyan-500/90 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-cyan-500/30 transition-transform hover:scale-110">
-                  <Play className="w-8 h-8 md:w-10 md:h-10 text-white ml-1" fill="white" />
-                </div>
-              </div>
+                <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-cyan-500 shadow-xl shadow-cyan-500/40 group-hover:scale-105 transition-transform">
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white ml-1" fill="white" />
+                </span>
+              </button>
             )}
 
-            {/* Language badge (top-right corner of video) */}
-            <div className="absolute top-3 right-3 z-10">
+            {/* Language selector — top right of video */}
+            <div className="absolute top-3 right-3 z-20" ref={pickerRef}>
               <button
-                onClick={() => { setShowPicker((v) => !v); }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 border border-white/20 text-xs text-white backdrop-blur-sm hover:bg-black/80 transition-colors"
+                onClick={() => setShowPicker((v) => !v)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/70 border border-white/15 text-xs text-white backdrop-blur-md hover:bg-black/90 transition-all"
               >
-                <Globe className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{selectedLang.nativeLabel}</span>
-                {!isAvailable(selectedLang) && (
-                  <span className="ml-1 text-gray-500 text-[10px]">(EN)</span>
-                )}
+                <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <span className="max-w-[80px] truncate">{selectedLang.flag} {selectedLang.nativeLabel}</span>
+                <ChevronDown className={`w-3 h-3 text-gray-400 shrink-0 transition-transform ${showPicker ? "rotate-180" : ""}`} />
               </button>
 
-              {/* Language picker dropdown */}
+              {/* Dropdown */}
               {showPicker && (
-                <div className="absolute top-full right-0 mt-2 w-56 max-h-72 overflow-y-auto rounded-xl bg-gray-900/95 border border-white/10 shadow-2xl backdrop-blur-sm z-20">
-                  <div className="px-3 py-2 border-b border-white/10">
-                    <p className="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">
-                      {availableCount} of {LANGUAGES.length} languages available
+                <div className="absolute top-full right-0 mt-2 w-60 max-h-72 overflow-y-auto rounded-xl bg-[#0d1220] border border-white/10 shadow-2xl z-30">
+                  <div className="sticky top-0 px-3 py-2 bg-[#0d1220] border-b border-white/10">
+                    <p className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">
+                      {availableCount} of {LANGUAGES.length} available · more coming soon
                     </p>
                   </div>
-                  {LANGUAGES.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => handleLangSelect(lang)}
-                      className={`w-full flex items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/5 ${
-                        selectedLang.code === lang.code ? "text-cyan-400 bg-cyan-500/10" : "text-gray-300"
-                      }`}
-                    >
-                      <span>{lang.nativeLabel}</span>
-                      <span className="text-xs text-gray-500">{lang.label}</span>
-                      {!isAvailable(lang) && (
-                        <span className="ml-auto text-[10px] text-gray-600 italic">soon</span>
-                      )}
-                    </button>
-                  ))}
+                  {LANGUAGES.map((lang) => {
+                    const available = isAvailable(lang);
+                    const active = selectedLang.code === lang.code;
+                    return (
+                      <button
+                        key={lang.code}
+                        onClick={() => handleLangSelect(lang)}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors text-left
+                          ${active ? "bg-cyan-500/10 text-cyan-400" : "text-gray-300 hover:bg-white/5"}
+                          ${!available ? "opacity-50" : ""}
+                        `}
+                      >
+                        <span className="text-base leading-none">{lang.flag}</span>
+                        <span className="flex-1 truncate">{lang.nativeLabel}</span>
+                        {!available && (
+                          <span className="text-[10px] text-gray-600 italic shrink-0">soon</span>
+                        )}
+                        {active && available && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
           </div>
 
-          {/* Bottom info bar */}
-          <div className="px-6 py-4 bg-white/5 border-t border-white/5 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-sm text-gray-400">20 min • Full HD</span>
+          {/* ── Bottom info bar ──────────────────────────────────── */}
+          <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white/[0.03] border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
+              <span className="text-sm text-gray-400">
+                {selectedLang.video ? `${selectedLang.nativeLabel} dub` : "English"} · 20 min · Full HD
+              </span>
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-500">
-              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">SolidityScan 99.99</span>
-              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">HazeCrypto Audited</span>
+              <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">SolidityScan 99.99</span>
+              <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">HazeCrypto Audited</span>
             </div>
           </div>
         </div>
 
-        {/* Language availability note */}
+        {/* ── Footnote ────────────────────────────────────────────── */}
         <p className="text-center text-xs text-gray-600 mt-4">
-          Dubbed versions in {LANGUAGES.length - 1} languages coming soon via AI voice localisation.
+          AI-dubbed versions in {LANGUAGES.length - 1} languages — rolling out now.
         </p>
       </div>
     </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Play, Globe, ChevronDown } from "lucide-react";
+import { Play, Globe, ChevronDown, Download } from "lucide-react";
 
 const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos";
 
@@ -212,6 +212,15 @@ export function VideoExplainerSection() {
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">SolidityScan 99.99</span>
               <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">HazeCrypto Audited</span>
+              <a
+                href={activeVideo}
+                download={`TurboLoop-Explainer-${selectedLang.label}.mp4`}
+                className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
+                title={`Download ${selectedLang.label} version`}
+              >
+                <Download className="w-3 h-3" />
+                <span>Download</span>
+              </a>
             </div>
           </div>
         </div>

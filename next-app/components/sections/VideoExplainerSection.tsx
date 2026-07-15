@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Play, Pause, Volume2, VolumeX, Maximize } from "lucide-react";
+import { Play } from "lucide-react";
 
 const VIDEO_URL =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-explainer-ar.mp4";
@@ -9,33 +9,14 @@ const THUMBNAIL_URL =
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-explainer-ar-thumb.jpg";
 
 export function VideoExplainerSection() {
-  const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(true);
+  const [started, setStarted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlay = () => {
     if (!videoRef.current) return;
-    if (playing) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-      setMuted(false);
-      videoRef.current.muted = false;
-    }
-    setPlaying(!playing);
-  };
-
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !muted;
-    setMuted(!muted);
-  };
-
-  const handleFullscreen = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.requestFullscreen) {
-      videoRef.current.requestFullscreen();
-    }
+    videoRef.current.play();
+    videoRef.current.muted = false;
+    setStarted(true);
   };
 
   return (
@@ -61,7 +42,7 @@ export function VideoExplainerSection() {
         </div>
 
         {/* Video Player */}
-        <div className="relative group rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-500/10 bg-black/50 backdrop-blur-sm">
+        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-500/10 bg-black/50 backdrop-blur-sm">
           {/* Aspect ratio container */}
           <div className="relative aspect-video">
             <video
@@ -69,15 +50,16 @@ export function VideoExplainerSection() {
               className="absolute inset-0 w-full h-full object-cover"
               poster={THUMBNAIL_URL}
               preload="none"
-              muted={muted}
+              muted
               playsInline
-              onEnded={() => setPlaying(false)}
+              controls={started}
+              controlsList="nodownload"
             >
               <source src={VIDEO_URL} type="video/mp4" />
             </video>
 
-            {/* Play overlay (shown when not playing) */}
-            {!playing && (
+            {/* Play overlay (shown before user starts playback) */}
+            {!started && (
               <div
                 className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/30 transition-all hover:bg-black/20"
                 onClick={handlePlay}
@@ -87,42 +69,13 @@ export function VideoExplainerSection() {
                 </div>
               </div>
             )}
-
-            {/* Controls bar (shown when playing) */}
-            {playing && (
-              <div
-                className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={handlePlay}
-                    className="text-white hover:text-cyan-400 transition-colors"
-                  >
-                    <Pause className="w-6 h-6" />
-                  </button>
-                  <button
-                    onClick={toggleMute}
-                    className="text-white hover:text-cyan-400 transition-colors"
-                  >
-                    {muted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
-                  </button>
-                  <div className="flex-1" />
-                  <button
-                    onClick={handleFullscreen}
-                    className="text-white hover:text-cyan-400 transition-colors"
-                  >
-                    <Maximize className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Bottom info bar */}
           <div className="px-6 py-4 bg-white/5 border-t border-white/5 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-sm text-gray-400">Arabic • 20 min • Full HD</span>
+              <span className="text-sm text-gray-400">20 min • Full HD</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">SolidityScan 99.99</span>

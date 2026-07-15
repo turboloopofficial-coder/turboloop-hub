@@ -107,7 +107,7 @@ const VideoExplainerSection = dynamic(
     import("@components/sections/VideoExplainerSection").then(m => ({
       default: m.VideoExplainerSection,
     })),
-  { ssr: false }
+  { ssr: true }
 );
 
 const TRUST_BADGES = [

@@ -25,6 +25,7 @@ import { ZoomLiveSection } from "@components/sections/ZoomLiveSection";
 import { NewsletterSection } from "@components/sections/NewsletterSection";
 import { HomeBlogSection } from "@components/sections/HomeBlogSection";
 import { CreativeExplorerSection } from "@components/sections/CreativeExplorerSection";
+import { VideoExplainerSection } from "@components/sections/VideoExplainerSection";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -253,6 +254,9 @@ export default async function LocaleHomePage({ params }: Props) {
       <Reveal>
         <ProtocolBentoSection />
       </Reveal>
+      <SectionDivider />
+      {/* Video Explainer — deep dive into how TurboLoop works */}
+      <VideoExplainerSection />
       <SectionDivider />
       <Reveal>
         <TokenSpotlightSection />

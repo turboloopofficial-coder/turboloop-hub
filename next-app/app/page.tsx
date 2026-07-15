@@ -102,6 +102,13 @@ const TokenSpotlightSection = dynamic(
     })),
   { ssr: true }
 );
+const VideoExplainerSection = dynamic(
+  () =>
+    import("@components/sections/VideoExplainerSection").then(m => ({
+      default: m.VideoExplainerSection,
+    })),
+  { ssr: false }
+);
 
 const TRUST_BADGES = [
   {
@@ -361,8 +368,10 @@ export default function HomePage() {
         <ProtocolBentoSection />
       </Reveal>
 
+            <SectionDivider />
+      {/* 2b. Video Explainer — deep dive into how TurboLoop works */}
+      <VideoExplainerSection />
       <SectionDivider />
-
       {/* 3. $TURBO Token Spotlight — additive bonus, properly elevated */}
       <Reveal>
         <TokenSpotlightSection />

@@ -82,6 +82,7 @@ export function VideoExplainerSection() {
   const availableCount = LANGUAGES.filter(isAvailable).length;
 
   const handleLangSelect = (lang: typeof LANGUAGES[0]) => {
+    if (!isAvailable(lang)) return; // ignore clicks on unavailable languages
     setSelectedLang(lang);
     setShowPicker(false);
     setStarted(false);

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Play, Globe, ChevronDown, Download } from "lucide-react";
+import Image from "next/image";
 
 const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos";
 
@@ -74,7 +75,6 @@ export function VideoExplainerSection() {
   const [selectedLang, setSelectedLang] = useState(ENGLISH);
   const [showPicker, setShowPicker] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const pickerRef = useRef<HTMLDivElement>(null);
 
   const activeVideo = selectedLang.video ?? ENGLISH.video!;
   const activeThumb = selectedLang.thumb ?? ENGLISH.thumb!;
@@ -85,18 +85,22 @@ export function VideoExplainerSection() {
     setSelectedLang(lang);
     setShowPicker(false);
     setStarted(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.load();
-    }
   };
 
-  const handlePlay = () => {
-    if (!videoRef.current) return;
-    videoRef.current.play();
-    videoRef.current.muted = false;
-    setStarted(true);
-  };
+  const handlePlay = useCallback(async () => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    try {
+      // Start muted (required by autoplay policy), then unmute once playing
+      vid.muted = true;
+      await vid.play();
+      vid.muted = false;
+      setStarted(true);
+    } catch {
+      // Fallback: show native controls so user can interact directly
+      setStarted(true);
+    }
+  }, []);
 
   return (
     <section className="relative py-16 md:py-24 bg-[#080c14] overflow-hidden">
@@ -125,23 +129,37 @@ export function VideoExplainerSection() {
         {/* ── Video Card ──────────────────────────────────────────── */}
         <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/60 bg-[#0d1220]">
 
-          {/* Video area */}
+          {/* Video area — 16:9 aspect ratio wrapper */}
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+
+            {/* Thumbnail shown before play */}
+            {!started && (
+              <div className="absolute inset-0 w-full h-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={activeThumb}
+                  alt={`${selectedLang.label} explainer thumbnail`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+
+            {/* Native video element — always in DOM so src loads */}
             <video
               ref={videoRef}
               key={activeVideo}
-              className="absolute inset-0 w-full h-full object-cover bg-black"
-              poster={activeThumb}
-              preload="none"
-              muted
+              className={`absolute inset-0 w-full h-full object-cover bg-black ${started ? "opacity-100" : "opacity-0"}`}
+              preload="metadata"
               playsInline
               controls={started}
               controlsList="nodownload"
+              onEnded={() => setStarted(false)}
             >
               <source src={activeVideo} type="video/mp4" />
+              Your browser does not support HTML5 video.
             </video>
 
-            {/* Play overlay */}
+            {/* Play overlay — shown when not started */}
             {!started && (
               <button
                 onClick={handlePlay}
@@ -155,7 +173,7 @@ export function VideoExplainerSection() {
             )}
 
             {/* Language selector — top right of video */}
-            <div className="absolute top-3 right-3 z-20" ref={pickerRef}>
+            <div className="absolute top-3 right-3 z-20">
               <button
                 onClick={() => setShowPicker((v) => !v)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/70 border border-white/15 text-xs text-white backdrop-blur-md hover:bg-black/90 transition-all"
@@ -182,8 +200,9 @@ export function VideoExplainerSection() {
                         onClick={() => handleLangSelect(lang)}
                         className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors text-left
                           ${active ? "bg-cyan-500/10 text-cyan-400" : "text-gray-300 hover:bg-white/5"}
-                          ${!available ? "opacity-50" : ""}
+                          ${!available ? "opacity-50 cursor-default" : ""}
                         `}
+                        disabled={!available}
                       >
                         <span className="text-base leading-none">{lang.flag}</span>
                         <span className="flex-1 truncate">{lang.nativeLabel}</span>
@@ -206,7 +225,7 @@ export function VideoExplainerSection() {
             <div className="flex items-center gap-2.5">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
               <span className="text-sm text-gray-400">
-                {selectedLang.video ? `${selectedLang.nativeLabel} dub` : "English"} · 20 min · Full HD
+                {selectedLang.label} · 20 min · Full HD
               </span>
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-500">

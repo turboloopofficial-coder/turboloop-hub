@@ -16,7 +16,7 @@ const LANGUAGES: {
   thumb: string | null;
 }[] = [
   { code: "en", label: "English",    nativeLabel: "English",     flag: "🇬🇧", video: `${R2_BASE}/turboloop-explainer-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`  },
-  { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      flag: "🇮🇳", video: null, thumb: null },
+  { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      flag: "🇮🇳", video: `${R2_BASE}/turboloop-explainer-hi.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`  },
   { code: "es", label: "Spanish",    nativeLabel: "Español",     flag: "🇪🇸", video: null, thumb: null },
   { code: "fr", label: "French",     nativeLabel: "Français",    flag: "🇫🇷", video: null, thumb: null },
   { code: "de", label: "German",     nativeLabel: "Deutsch",     flag: "🇩🇪", video: null, thumb: null },

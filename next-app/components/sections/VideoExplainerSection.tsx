@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { Play, Globe, ChevronDown, Download } from "lucide-react";
+import { Play, Globe, ChevronDown, Download, Youtube } from "lucide-react";
 import Image from "next/image";
 
 const R2_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos";
 
 // Language registry — add a `video` URL once a dubbed version is ready on R2.
 // If `video` is null the player falls back to the English source.
+// `youtubeUrl` links to the same-language sped-up version on YouTube.
 const LANGUAGES: {
   code: string;
   label: string;
@@ -15,57 +16,59 @@ const LANGUAGES: {
   flag: string;
   video: string | null;
   thumb: string | null;
+  youtubeUrl: string | null;
 }[] = [
-  { code: "en", label: "English",    nativeLabel: "English",     flag: "🇬🇧", video: `${R2_BASE}/turboloop-explainer-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`  },
-  { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      flag: "🇮🇳", video: `${R2_BASE}/turboloop-explainer-hi.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`  },
-  { code: "es", label: "Spanish",    nativeLabel: "Español",     flag: "🇪🇸", video: null, thumb: null },
-  { code: "fr", label: "French",     nativeLabel: "Français",    flag: "🇫🇷", video: null, thumb: null },
-  { code: "de", label: "German",     nativeLabel: "Deutsch",     flag: "🇩🇪", video: null, thumb: null },
-  { code: "it", label: "Italian",    nativeLabel: "Italiano",    flag: "🇮🇹", video: null, thumb: null },
-  { code: "pt", label: "Portuguese", nativeLabel: "Português",   flag: "🇧🇷", video: null, thumb: null },
-  { code: "ru", label: "Russian",    nativeLabel: "Русский",     flag: "🇷🇺", video: null, thumb: null },
-  { code: "zh", label: "Chinese",    nativeLabel: "中文",         flag: "🇨🇳", video: null, thumb: null },
-  { code: "ja", label: "Japanese",   nativeLabel: "日本語",       flag: "🇯🇵", video: null, thumb: null },
-  { code: "ko", label: "Korean",     nativeLabel: "한국어",       flag: "🇰🇷", video: null, thumb: null },
-  { code: "ar", label: "Arabic",     nativeLabel: "العربية",     flag: "🇸🇦", video: null, thumb: null },
-  { code: "tr", label: "Turkish",    nativeLabel: "Türkçe",      flag: "🇹🇷", video: null, thumb: null },
-  { code: "vi", label: "Vietnamese", nativeLabel: "Tiếng Việt",  flag: "🇻🇳", video: null, thumb: null },
-  { code: "id", label: "Indonesian", nativeLabel: "Bahasa Indonesia", flag: "🇮🇩", video: null, thumb: null },
-  { code: "nl", label: "Dutch",      nativeLabel: "Nederlands",  flag: "🇳🇱", video: null, thumb: null },
-  { code: "pl", label: "Polish",     nativeLabel: "Polski",      flag: "🇵🇱", video: null, thumb: null },
-  { code: "sv", label: "Swedish",    nativeLabel: "Svenska",     flag: "🇸🇪", video: null, thumb: null },
-  { code: "da", label: "Danish",     nativeLabel: "Dansk",       flag: "🇩🇰", video: null, thumb: null },
-  { code: "fi", label: "Finnish",    nativeLabel: "Suomi",       flag: "🇫🇮", video: null, thumb: null },
-  { code: "no", label: "Norwegian",  nativeLabel: "Norsk",       flag: "🇳🇴", video: null, thumb: null },
-  { code: "el", label: "Greek",      nativeLabel: "Ελληνικά",    flag: "🇬🇷", video: null, thumb: null },
-  { code: "cs", label: "Czech",      nativeLabel: "Čeština",     flag: "🇨🇿", video: null, thumb: null },
-  { code: "hu", label: "Hungarian",  nativeLabel: "Magyar",      flag: "🇭🇺", video: null, thumb: null },
-  { code: "ro", label: "Romanian",   nativeLabel: "Română",      flag: "🇷🇴", video: null, thumb: null },
-  { code: "sk", label: "Slovak",     nativeLabel: "Slovenčina",  flag: "🇸🇰", video: null, thumb: null },
-  { code: "uk", label: "Ukrainian",  nativeLabel: "Українська",  flag: "🇺🇦", video: null, thumb: null },
-  { code: "bg", label: "Bulgarian",  nativeLabel: "Български",   flag: "🇧🇬", video: null, thumb: null },
-  { code: "hr", label: "Croatian",   nativeLabel: "Hrvatski",    flag: "🇭🇷", video: null, thumb: null },
-  { code: "sr", label: "Serbian",    nativeLabel: "Српски",      flag: "🇷🇸", video: null, thumb: null },
-  { code: "sl", label: "Slovenian",  nativeLabel: "Slovenščina", flag: "🇸🇮", video: null, thumb: null },
-  { code: "lt", label: "Lithuanian", nativeLabel: "Lietuvių",    flag: "🇱🇹", video: null, thumb: null },
-  { code: "lv", label: "Latvian",    nativeLabel: "Latviešu",    flag: "🇱🇻", video: null, thumb: null },
-  { code: "et", label: "Estonian",   nativeLabel: "Eesti",       flag: "🇪🇪", video: null, thumb: null },
-  { code: "ms", label: "Malay",      nativeLabel: "Bahasa Melayu", flag: "🇲🇾", video: null, thumb: null },
-  { code: "tl", label: "Filipino",   nativeLabel: "Filipino",    flag: "🇵🇭", video: null, thumb: null },
-  { code: "ta", label: "Tamil",      nativeLabel: "தமிழ்",       flag: "🇮🇳", video: null, thumb: null },
-  { code: "bn", label: "Bengali",    nativeLabel: "বাংলা",       flag: "🇧🇩", video: null, thumb: null },
-  { code: "ur", label: "Urdu",       nativeLabel: "اردو",        flag: "🇵🇰", video: null, thumb: null },
-  { code: "fa", label: "Persian",    nativeLabel: "فارسی",       flag: "🇮🇷", video: null, thumb: null },
-  { code: "he", label: "Hebrew",     nativeLabel: "עברית",       flag: "🇮🇱", video: null, thumb: null },
-  { code: "sw", label: "Swahili",    nativeLabel: "Kiswahili",   flag: "🇰🇪", video: null, thumb: null },
-  { code: "am", label: "Amharic",    nativeLabel: "አማርኛ",        flag: "🇪🇹", video: null, thumb: null },
-  { code: "yo", label: "Yoruba",     nativeLabel: "Yorùbá",      flag: "🇳🇬", video: null, thumb: null },
-  { code: "zu", label: "Zulu",       nativeLabel: "isiZulu",     flag: "🇿🇦", video: null, thumb: null },
-  { code: "ig", label: "Igbo",       nativeLabel: "Igbo",        flag: "🇳🇬", video: null, thumb: null },
-  { code: "ha", label: "Hausa",      nativeLabel: "Hausa",       flag: "🇳🇬", video: null, thumb: null },
-  { code: "sn", label: "Shona",      nativeLabel: "chiShona",    flag: "🇿🇼", video: null, thumb: null },
-  { code: "st", label: "Sesotho",    nativeLabel: "Sesotho",     flag: "🇿🇦", video: null, thumb: null },
-  { code: "xh", label: "Xhosa",      nativeLabel: "isiXhosa",    flag: "🇿🇦", video: null, thumb: null },
+  { code: "en", label: "English",    nativeLabel: "English",     flag: "🇬🇧", video: `${R2_BASE}/turboloop-explainer-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg" },
+  { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      flag: "🇮🇳", video: `${R2_BASE}/turboloop-explainer-hi.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/3ekAuG5MREY" },
+  { code: "th", label: "Thai",       nativeLabel: "ภาษาไทย",     flag: "🇹🇭", video: `${R2_BASE}/turboloop-explainer-th.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/IdlosvrEgTo" },
+  { code: "es", label: "Spanish",    nativeLabel: "Español",     flag: "🇪🇸", video: null, thumb: null, youtubeUrl: null },
+  { code: "fr", label: "French",     nativeLabel: "Français",    flag: "🇫🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "de", label: "German",     nativeLabel: "Deutsch",     flag: "🇩🇪", video: null, thumb: null, youtubeUrl: null },
+  { code: "it", label: "Italian",    nativeLabel: "Italiano",    flag: "🇮🇹", video: null, thumb: null, youtubeUrl: null },
+  { code: "pt", label: "Portuguese", nativeLabel: "Português",   flag: "🇧🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "ru", label: "Russian",    nativeLabel: "Русский",     flag: "🇷🇺", video: null, thumb: null, youtubeUrl: null },
+  { code: "zh", label: "Chinese",    nativeLabel: "中文",         flag: "🇨🇳", video: null, thumb: null, youtubeUrl: null },
+  { code: "ja", label: "Japanese",   nativeLabel: "日本語",       flag: "🇯🇵", video: null, thumb: null, youtubeUrl: null },
+  { code: "ko", label: "Korean",     nativeLabel: "한국어",       flag: "🇰🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "ar", label: "Arabic",     nativeLabel: "العربية",     flag: "🇸🇦", video: null, thumb: null, youtubeUrl: null },
+  { code: "tr", label: "Turkish",    nativeLabel: "Türkçe",      flag: "🇹🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "vi", label: "Vietnamese", nativeLabel: "Tiếng Việt",  flag: "🇻🇳", video: null, thumb: null, youtubeUrl: null },
+  { code: "id", label: "Indonesian", nativeLabel: "Bahasa Indonesia", flag: "🇮🇩", video: null, thumb: null, youtubeUrl: null },
+  { code: "nl", label: "Dutch",      nativeLabel: "Nederlands",  flag: "🇳🇱", video: null, thumb: null, youtubeUrl: null },
+  { code: "pl", label: "Polish",     nativeLabel: "Polski",      flag: "🇵🇱", video: null, thumb: null, youtubeUrl: null },
+  { code: "sv", label: "Swedish",    nativeLabel: "Svenska",     flag: "🇸🇪", video: null, thumb: null, youtubeUrl: null },
+  { code: "da", label: "Danish",     nativeLabel: "Dansk",       flag: "🇩🇰", video: null, thumb: null, youtubeUrl: null },
+  { code: "fi", label: "Finnish",    nativeLabel: "Suomi",       flag: "🇫🇮", video: null, thumb: null, youtubeUrl: null },
+  { code: "no", label: "Norwegian",  nativeLabel: "Norsk",       flag: "🇳🇴", video: null, thumb: null, youtubeUrl: null },
+  { code: "el", label: "Greek",      nativeLabel: "Ελληνικά",    flag: "🇬🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "cs", label: "Czech",      nativeLabel: "Čeština",     flag: "🇨🇿", video: null, thumb: null, youtubeUrl: null },
+  { code: "hu", label: "Hungarian",  nativeLabel: "Magyar",      flag: "🇭🇺", video: null, thumb: null, youtubeUrl: null },
+  { code: "ro", label: "Romanian",   nativeLabel: "Română",      flag: "🇷🇴", video: null, thumb: null, youtubeUrl: null },
+  { code: "sk", label: "Slovak",     nativeLabel: "Slovenčina",  flag: "🇸🇰", video: null, thumb: null, youtubeUrl: null },
+  { code: "uk", label: "Ukrainian",  nativeLabel: "Українська",  flag: "🇺🇦", video: null, thumb: null, youtubeUrl: null },
+  { code: "bg", label: "Bulgarian",  nativeLabel: "Български",   flag: "🇧🇬", video: null, thumb: null, youtubeUrl: null },
+  { code: "hr", label: "Croatian",   nativeLabel: "Hrvatski",    flag: "🇭🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "sr", label: "Serbian",    nativeLabel: "Српски",      flag: "🇷🇸", video: null, thumb: null, youtubeUrl: null },
+  { code: "sl", label: "Slovenian",  nativeLabel: "Slovenščina", flag: "🇸🇮", video: null, thumb: null, youtubeUrl: null },
+  { code: "lt", label: "Lithuanian", nativeLabel: "Lietuvių",    flag: "🇱🇹", video: null, thumb: null, youtubeUrl: null },
+  { code: "lv", label: "Latvian",    nativeLabel: "Latviešu",    flag: "🇱🇻", video: null, thumb: null, youtubeUrl: null },
+  { code: "et", label: "Estonian",   nativeLabel: "Eesti",       flag: "🇪🇪", video: null, thumb: null, youtubeUrl: null },
+  { code: "ms", label: "Malay",      nativeLabel: "Bahasa Melayu", flag: "🇲🇾", video: null, thumb: null, youtubeUrl: null },
+  { code: "tl", label: "Filipino",   nativeLabel: "Filipino",    flag: "🇵🇭", video: null, thumb: null, youtubeUrl: null },
+  { code: "ta", label: "Tamil",      nativeLabel: "தமிழ்",       flag: "🇮🇳", video: null, thumb: null, youtubeUrl: null },
+  { code: "bn", label: "Bengali",    nativeLabel: "বাংলা",       flag: "🇧🇩", video: null, thumb: null, youtubeUrl: null },
+  { code: "ur", label: "Urdu",       nativeLabel: "اردو",        flag: "🇵🇰", video: null, thumb: null, youtubeUrl: null },
+  { code: "fa", label: "Persian",    nativeLabel: "فارسی",       flag: "🇮🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "he", label: "Hebrew",     nativeLabel: "עברית",       flag: "🇮🇱", video: null, thumb: null, youtubeUrl: null },
+  { code: "sw", label: "Swahili",    nativeLabel: "Kiswahili",   flag: "🇰🇪", video: null, thumb: null, youtubeUrl: null },
+  { code: "am", label: "Amharic",    nativeLabel: "አማርኛ",        flag: "🇪🇹", video: null, thumb: null, youtubeUrl: null },
+  { code: "yo", label: "Yoruba",     nativeLabel: "Yorùbá",      flag: "🇳🇬", video: null, thumb: null, youtubeUrl: null },
+  { code: "zu", label: "Zulu",       nativeLabel: "isiZulu",     flag: "🇿🇦", video: null, thumb: null, youtubeUrl: null },
+  { code: "ig", label: "Igbo",       nativeLabel: "Igbo",        flag: "🇳🇬", video: null, thumb: null, youtubeUrl: null },
+  { code: "ha", label: "Hausa",      nativeLabel: "Hausa",       flag: "🇳🇬", video: null, thumb: null, youtubeUrl: null },
+  { code: "sn", label: "Shona",      nativeLabel: "chiShona",    flag: "🇿🇼", video: null, thumb: null, youtubeUrl: null },
+  { code: "st", label: "Sesotho",    nativeLabel: "Sesotho",     flag: "🇿🇦", video: null, thumb: null, youtubeUrl: null },
+  { code: "xh", label: "Xhosa",      nativeLabel: "isiXhosa",    flag: "🇿🇦", video: null, thumb: null, youtubeUrl: null },
 ];
 
 const ENGLISH = LANGUAGES[0];
@@ -78,6 +81,7 @@ export function VideoExplainerSection() {
 
   const activeVideo = selectedLang.video ?? ENGLISH.video!;
   const activeThumb = selectedLang.thumb ?? ENGLISH.thumb!;
+  const activeYoutubeUrl = selectedLang.youtubeUrl ?? ENGLISH.youtubeUrl;
   const isAvailable = (lang: typeof LANGUAGES[0]) => lang.video !== null;
   const availableCount = LANGUAGES.filter(isAvailable).length;
 
@@ -232,6 +236,18 @@ export function VideoExplainerSection() {
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">SolidityScan 99.99</span>
               <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">HazeCrypto Audited</span>
+              {activeYoutubeUrl && (
+                <a
+                  href={activeYoutubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-colors"
+                  title={`Watch ${selectedLang.label} version on YouTube`}
+                >
+                  <Youtube className="w-3 h-3" />
+                  <span>YouTube</span>
+                </a>
+              )}
               <a
                 href={activeVideo}
                 download={`TurboLoop-Explainer-${selectedLang.label}.mp4`}

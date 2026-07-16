@@ -96,6 +96,8 @@ export function VideoExplainerSection() {
     const vid = videoRef.current;
     if (!vid) return;
     try {
+      // Ensure the current source is loaded before playing
+      vid.load();
       // Start muted (required by autoplay policy), then unmute once playing
       vid.muted = true;
       await vid.play();
@@ -105,7 +107,7 @@ export function VideoExplainerSection() {
       // Fallback: show native controls so user can interact directly
       setStarted(true);
     }
-  }, []);
+  }, [activeVideo]);
 
   return (
     <section className="relative py-16 md:py-24 bg-[#080c14] overflow-hidden">
@@ -153,16 +155,14 @@ export function VideoExplainerSection() {
             <video
               ref={videoRef}
               key={activeVideo}
+              src={activeVideo}
               className={`absolute inset-0 w-full h-full object-cover bg-black ${started ? "opacity-100" : "opacity-0"}`}
               preload="metadata"
               playsInline
               controls={started}
               controlsList="nodownload"
               onEnded={() => setStarted(false)}
-            >
-              <source src={activeVideo} type="video/mp4" />
-              Your browser does not support HTML5 video.
-            </video>
+            />
 
             {/* Play overlay — shown when not started */}
             {!started && (

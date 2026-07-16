@@ -82,7 +82,7 @@ const LANGUAGES: {
   { code: "si", label: "Sinhala",     nativeLabel: "සිංහල",       flag: "🇱🇰", video: null, thumb: null, youtubeUrl: null },
   { code: "ne", label: "Nepali",      nativeLabel: "नेपाली",      flag: "🇳🇵", video: null, thumb: null, youtubeUrl: null },
   { code: "pa", label: "Punjabi",     nativeLabel: "ਪੰਜਾਬੀ",      flag: "🇮🇳", video: null, thumb: null, youtubeUrl: null },
-  { code: "lo", label: "Lao",         nativeLabel: "ລາວ",         flag: "🇱🇦", video: null, thumb: null, youtubeUrl: null },
+  { code: "lo", label: "Lao",         nativeLabel: "ລາວ",         flag: "🇱🇦", video: `${R2_BASE}/turboloop-explainer-lo.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
 ];
 
 const ENGLISH = LANGUAGES[0];

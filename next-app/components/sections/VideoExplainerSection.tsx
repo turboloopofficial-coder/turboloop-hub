@@ -75,7 +75,7 @@ const LANGUAGES: {
   { code: "st", label: "Sesotho",    nativeLabel: "Sesotho",     flag: "🇿🇦", video: null, thumb: null, youtubeUrl: null },
   { code: "xh", label: "Xhosa",      nativeLabel: "isiXhosa",    flag: "🇿🇦", video: null, thumb: null, youtubeUrl: null },
   { code: "az", label: "Azerbaijani", nativeLabel: "Azərbaycan",  flag: "🇦🇿", video: `${R2_BASE}/turboloop-explainer-az.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
-  { code: "kk", label: "Kazakh",      nativeLabel: "Қазақша",     flag: "🇰🇿", video: null, thumb: null, youtubeUrl: null },
+  { code: "kk", label: "Kazakh",      nativeLabel: "Қазақша",     flag: "🇰🇿", video: `${R2_BASE}/turboloop-explainer-kk.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
   { code: "uz", label: "Uzbek",       nativeLabel: "O'zbek",      flag: "🇺🇿", video: null, thumb: null, youtubeUrl: null },
   { code: "my", label: "Burmese",     nativeLabel: "မြန်မာဘာသာ",  flag: "🇲🇲", video: null, thumb: null, youtubeUrl: null },
   { code: "km", label: "Khmer",       nativeLabel: "ភាសាខ្មែរ",   flag: "🇰🇭", video: null, thumb: null, youtubeUrl: null },

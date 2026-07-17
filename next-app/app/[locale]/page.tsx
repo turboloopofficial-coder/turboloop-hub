@@ -256,7 +256,7 @@ export default async function LocaleHomePage({ params }: Props) {
       </Reveal>
       <SectionDivider />
       {/* Video Explainer — deep dive into how TurboLoop works */}
-      <VideoExplainerSection />
+      <VideoExplainerSection defaultLocale={locale} />
       <SectionDivider />
       <Reveal>
         <TokenSpotlightSection />

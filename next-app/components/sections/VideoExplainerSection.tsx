@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import { Play, Globe, ChevronDown, Download, Youtube } from "lucide-react";
 import Image from "next/image";
 
@@ -87,9 +87,49 @@ const LANGUAGES: {
 
 const ENGLISH = LANGUAGES[0];
 
-export function VideoExplainerSection() {
+/**
+ * Map from next-intl locale codes (used in URL paths) → video language codes
+ * in the LANGUAGES array above.
+ *
+ * Most locales match 1:1 (e.g. "hi" → "hi"). Special cases:
+ *  - "zh"  → "zh"   (Chinese; DB code is "cn" but video code is "zh")
+ *  - "ar"  → "ar"   (Arabic; DB code is "sa")
+ *  - "ur"  → "ur"   (Urdu; DB code is "pk")
+ *  - "ko"  → "ko"   (Korean; DB codes are "ko"/"kr", video code is "ko")
+ *  - "lo"  → "lo"   (Lao; DB codes are "lo"/"la", video code is "lo")
+ *  - "pcm" → null   (Nigerian Pidgin — no video, falls back to English)
+ */
+const LOCALE_TO_VIDEO_CODE: Record<string, string | null> = {
+  en: "en", hi: "hi", th: "th", de: "de", fr: "fr", es: "es",
+  it: "it", pt: "pt", ru: "ru", zh: "zh", ja: "ja", ko: "ko",
+  ar: "ar", tr: "tr", vi: "vi", id: "id", nl: "nl", pl: "pl",
+  sv: "sv", da: "da", fi: "fi", no: "no", el: "el", cs: "cs",
+  hu: "hu", ro: "ro", sk: "sk", uk: "uk", bg: "bg", hr: "hr",
+  sr: "sr", sl: "sl", lt: "lt", lv: "lv", et: "et", ms: "ms",
+  tl: "tl", ta: "ta", bn: "bn", te: "te", mr: "mr", gu: "gu",
+  kn: "kn", ml: "ml", ur: "ur", fa: "fa", he: "he", sw: "sw",
+  am: "am", yo: "yo", zu: "zu", ig: "ig", ha: "ha", sn: "sn",
+  st: "st", xh: "xh", az: "az", kk: "kk", uz: "uz", my: "my",
+  km: "km", si: "si", ne: "ne", pa: "pa", lo: "lo",
+  // Special cases
+  pcm: null, // Nigerian Pidgin — no video yet
+};
+
+/**
+ * Resolve the initial language entry from a next-intl locale string.
+ * Returns the matching LANGUAGES entry if it has a video, otherwise ENGLISH.
+ */
+function resolveInitialLang(locale?: string): typeof LANGUAGES[0] {
+  if (!locale || locale === "en") return ENGLISH;
+  const videoCode = LOCALE_TO_VIDEO_CODE[locale] ?? null;
+  if (!videoCode) return ENGLISH;
+  const match = LANGUAGES.find(l => l.code === videoCode && l.video !== null);
+  return match ?? ENGLISH;
+}
+
+export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
   const [started, setStarted] = useState(false);
-  const [selectedLang, setSelectedLang] = useState(ENGLISH);
+  const [selectedLang, setSelectedLang] = useState(() => resolveInitialLang(defaultLocale));
   const [showPicker, setShowPicker] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -134,7 +174,7 @@ export function VideoExplainerSection() {
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Heading ─────────────────────────────────────────────── */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
             Deep Dive
           </span>

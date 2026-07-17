@@ -29,7 +29,7 @@ const LANGUAGES: {
   { code: "ru", label: "Russian",    nativeLabel: "Русский",     flag: "🇷🇺", video: null, thumb: null, youtubeUrl: null },
   { code: "zh", label: "Chinese",    nativeLabel: "中文",         flag: "🇨🇳", video: `${R2_BASE}/turboloop-explainer-zh.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
   { code: "ja", label: "Japanese",   nativeLabel: "日本語",       flag: "🇯🇵", video: `${R2_BASE}/turboloop-explainer-ja.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
-  { code: "ko", label: "Korean",     nativeLabel: "한국어",       flag: "🇰🇷", video: null, thumb: null, youtubeUrl: null },
+  { code: "ko", label: "Korean",     nativeLabel: "한국어",       flag: "🇰🇷", video: `${R2_BASE}/videos/turboloop-explainer-ko.mp4`, thumb: null, youtubeUrl: null },
   { code: "ar", label: "Arabic",     nativeLabel: "العربية",     flag: "🇸🇦", video: `${R2_BASE}/turboloop-explainer-ar.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
   { code: "tr", label: "Turkish",    nativeLabel: "Türkçe",      flag: "🇹🇷", video: `${R2_BASE}/turboloop-explainer-tr.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: "https://youtu.be/RaI8UUK-REg" },
   { code: "vi", label: "Vietnamese", nativeLabel: "Tiếng Việt",  flag: "🇻🇳", video: `${R2_BASE}/turboloop-explainer-vi.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },

@@ -12,7 +12,8 @@ export type LanguageCode =
   | "ms" | "fa" | "uk" | "pl" | "sw" | "ha" | "yo" | "az"
   | "uz" | "kk" | "ne" | "si" | "te" | "mr" | "gu" | "kn"
   | "ml" | "pa" | "my" | "km" | "am" | "ro" | "nl" | "el"
-  | "cs" | "hu" | "he";
+  | "cs" | "hu" | "he"
+  | "bg" | "da" | "et" | "fi" | "hr" | "lt" | "lv" | "no" | "sk" | "sl" | "sr" | "sv" | "zu";
 
 export interface LanguageConfig {
   /** The 2-letter DB code used internally (e.g., "en", "hi", "kr") */
@@ -343,6 +344,84 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     bcp47: "he-il", slugSuffix: "-he", telegramChannel: null,
     rssTitle: "Turbo Loop — מערכת",
     rssDescription: "מאמרים מעמיקים על DeFi, תשואה, אבטחה והמתמטיקה מאחורי TurboLoop."
+  },
+  bg: {
+    code: "bg", locale: "bg", name: "Bulgarian", nativeName: "Български", flag: "🇧🇬",
+    bcp47: "bg-bg", slugSuffix: "-bg", telegramChannel: null,
+    rssTitle: "Turbo Loop — Редакция",
+    rssDescription: "Задълбочени статии за DeFi, доходност, сигурност и математиката зад TurboLoop."
+  },
+  da: {
+    code: "da", locale: "da", name: "Danish", nativeName: "Dansk", flag: "🇩🇰",
+    bcp47: "da-dk", slugSuffix: "-da", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redaktion",
+    rssDescription: "Dybdegående artikler om DeFi, afkast, sikkerhed og matematikken bag TurboLoop."
+  },
+  et: {
+    code: "et", locale: "et", name: "Estonian", nativeName: "Eesti", flag: "🇪🇪",
+    bcp47: "et-ee", slugSuffix: "-et", telegramChannel: null,
+    rssTitle: "Turbo Loop — Toimetus",
+    rssDescription: "Põhjalikud artiklid DeFi, tootluse, turvalisuse ja TurboLoopi taga oleva matemaatika kohta."
+  },
+  fi: {
+    code: "fi", locale: "fi", name: "Finnish", nativeName: "Suomi", flag: "🇫🇮",
+    bcp47: "fi-fi", slugSuffix: "-fi", telegramChannel: null,
+    rssTitle: "Turbo Loop — Toimitus",
+    rssDescription: "Syvälliset artikkelit DeFistä, tuotoista, turvallisuudesta ja TurboLoopin takana olevasta matematiikasta."
+  },
+  hr: {
+    code: "hr", locale: "hr", name: "Croatian", nativeName: "Hrvatski", flag: "🇭🇷",
+    bcp47: "hr-hr", slugSuffix: "-hr", telegramChannel: null,
+    rssTitle: "Turbo Loop — Uredništvo",
+    rssDescription: "Detaljni članci o DeFi-ju, prinosima, sigurnosti i matematici iza TurboLoopa."
+  },
+  lt: {
+    code: "lt", locale: "lt", name: "Lithuanian", nativeName: "Lietuvių", flag: "🇱🇹",
+    bcp47: "lt-lt", slugSuffix: "-lt", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redakcija",
+    rssDescription: "Išsamūs straipsniai apie DeFi, pajamingumą, saugumą ir matematiką už TurboLoop."
+  },
+  lv: {
+    code: "lv", locale: "lv", name: "Latvian", nativeName: "Latviešu", flag: "🇱🇻",
+    bcp47: "lv-lv", slugSuffix: "-lv", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redakcija",
+    rssDescription: "Padziļināti raksti par DeFi, ienesīgumu, drošību un matemātiku aiz TurboLoop."
+  },
+  no: {
+    code: "no", locale: "no", name: "Norwegian", nativeName: "Norsk", flag: "🇳🇴",
+    bcp47: "no-no", slugSuffix: "-no", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redaksjon",
+    rssDescription: "Dyptgående artikler om DeFi, avkastning, sikkerhet og matematikken bak TurboLoop."
+  },
+  sk: {
+    code: "sk", locale: "sk", name: "Slovak", nativeName: "Slovenčina", flag: "🇸🇰",
+    bcp47: "sk-sk", slugSuffix: "-sk", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redakcia",
+    rssDescription: "Podrobné články o DeFi, výnosoch, bezpečnosti a matematike za TurboLoop."
+  },
+  sl: {
+    code: "sl", locale: "sl", name: "Slovenian", nativeName: "Slovenščina", flag: "🇸🇮",
+    bcp47: "sl-si", slugSuffix: "-sl", telegramChannel: null,
+    rssTitle: "Turbo Loop — Uredništvo",
+    rssDescription: "Poglobljeni članki o DeFi, donosnosti, varnosti in matematiki za TurboLoop."
+  },
+  sr: {
+    code: "sr", locale: "sr", name: "Serbian", nativeName: "Српски", flag: "🇷🇸",
+    bcp47: "sr-rs", slugSuffix: "-sr", telegramChannel: null,
+    rssTitle: "Turbo Loop — Редакција",
+    rssDescription: "Детаљни чланци о DeFi-ју, приносима, безбедности и математици иза TurboLoop-а."
+  },
+  sv: {
+    code: "sv", locale: "sv", name: "Swedish", nativeName: "Svenska", flag: "🇸🇪",
+    bcp47: "sv-se", slugSuffix: "-sv", telegramChannel: null,
+    rssTitle: "Turbo Loop — Redaktion",
+    rssDescription: "Djupgående artiklar om DeFi, avkastning, säkerhet och matematiken bakom TurboLoop."
+  },
+  zu: {
+    code: "zu", locale: "zu", name: "Zulu", nativeName: "isiZulu", flag: "🇿🇦",
+    bcp47: "zu-za", slugSuffix: "-zu", telegramChannel: null,
+    rssTitle: "Turbo Loop — Uhlelo",
+    rssDescription: "Izindatshana ezijulile mayelana ne-DeFi, inzuzo, ukuphepha kanye nezibalo ezimuva kwe-TurboLoop."
   }
 };
 
@@ -351,9 +430,10 @@ export const LANGUAGE_ORDER: LanguageCode[] = [
   "en", "fr", "es", "pt", "de", "it", "nl", "ro", "el", "cs", "hu", "pl", "ru", "uk",
   "hi", "ta", "bn", "te", "mr", "gu", "kn", "ml", "pa", "ne", "si",
   "th", "vi", "ja", "ms", "tl", "km", "my", "id",
-  "kr", "ko", "la", "lo", "cn", "sa", "pk",
+  "kr", "la", "cn", "sa", "pk",
   "tr", "az", "uz", "kk", "fa", "he",
-  "sw", "ha", "yo", "am", "ng"
+  "sw", "ha", "yo", "am", "ng",
+  "bg", "da", "et", "fi", "hr", "lt", "lv", "no", "sk", "sl", "sr", "sv", "zu"
   ];
 
 /** Helper to get the base hreflang (e.g., "en-us" -> "en") */

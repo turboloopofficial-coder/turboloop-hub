@@ -50,7 +50,7 @@ const LANGUAGES: {
   { code: "hr", label: "Croatian",   nativeLabel: "Hrvatski",    flag: "🇭🇷", video: `${R2_BASE}/videos/turboloop-explainer-hr.mp4`, thumb: null, youtubeUrl: null },
   { code: "sr", label: "Serbian",    nativeLabel: "Српски",      flag: "🇷🇸", video: null, thumb: null, youtubeUrl: null },
   { code: "sl", label: "Slovenian",  nativeLabel: "Slovenščina", flag: "🇸🇮", video: null, thumb: null, youtubeUrl: null },
-  { code: "lt", label: "Lithuanian", nativeLabel: "Lietuvių",    flag: "🇱🇹", video: null, thumb: null, youtubeUrl: null },
+  { code: "lt", label: "Lithuanian", nativeLabel: "Lietuvių",    flag: "🇱🇹", video: `${R2_BASE}/videos/turboloop-explainer-lt.mp4`, thumb: null, youtubeUrl: null },
   { code: "lv", label: "Latvian",    nativeLabel: "Latviešu",    flag: "🇱🇻", video: null, thumb: null, youtubeUrl: null },
   { code: "et", label: "Estonian",   nativeLabel: "Eesti",       flag: "🇪🇪", video: `${R2_BASE}/videos/turboloop-explainer-et.mp4`, thumb: null, youtubeUrl: null },
   { code: "ms", label: "Malay",      nativeLabel: "Bahasa Melayu", flag: "🇲🇾", video: `${R2_BASE}/turboloop-explainer-ms.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },

@@ -68,7 +68,7 @@ const LANGUAGES: {
   { code: "sw", label: "Swahili",    nativeLabel: "Kiswahili",   flag: "🇰🇪", video: `${R2_BASE}/turboloop-explainer-sw.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
   { code: "am", label: "Amharic",    nativeLabel: "አማርኛ",        flag: "🇪🇹", video: `${R2_BASE}/videos/turboloop-explainer-am.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
   { code: "yo", label: "Yoruba",     nativeLabel: "Yorùbá",      flag: "🇳🇬", video: null, thumb: null, youtubeUrl: null },
-  { code: "zu", label: "Zulu",       nativeLabel: "isiZulu",     flag: "🇿🇦", video: null, thumb: null, youtubeUrl: null },
+  { code: "zu", label: "Zulu",       nativeLabel: "isiZulu",     flag: "🇿🇦", video: `${R2_BASE}/videos/turboloop-explainer-zu.mp4`, thumb: null, youtubeUrl: null },
   { code: "ig", label: "Igbo",       nativeLabel: "Igbo",        flag: "🇳🇬", video: null, thumb: null, youtubeUrl: null },
   { code: "ha", label: "Hausa",      nativeLabel: "Hausa",       flag: "🇳🇬", video: null, thumb: null, youtubeUrl: null },
   { code: "sn", label: "Shona",      nativeLabel: "chiShona",    flag: "🇿🇼", video: null, thumb: null, youtubeUrl: null },

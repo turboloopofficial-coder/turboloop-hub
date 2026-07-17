@@ -46,7 +46,7 @@ const LANGUAGES: {
   { code: "ro", label: "Romanian",   nativeLabel: "Română",      flag: "🇷🇴", video: `${R2_BASE}/turboloop-explainer-ro.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
   { code: "sk", label: "Slovak",     nativeLabel: "Slovenčina",  flag: "🇸🇰", video: null, thumb: null, youtubeUrl: null },
   { code: "uk", label: "Ukrainian",  nativeLabel: "Українська",  flag: "🇺🇦", video: `${R2_BASE}/turboloop-explainer-uk.mp4`, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: null },
-  { code: "bg", label: "Bulgarian",  nativeLabel: "Български",   flag: "🇧🇬", video: null, thumb: null, youtubeUrl: null },
+  { code: "bg", label: "Bulgarian",  nativeLabel: "Български",   flag: "🇧🇬", video: `${R2_BASE}/videos/turboloop-explainer-bg.mp4`, thumb: null, youtubeUrl: null },
   { code: "hr", label: "Croatian",   nativeLabel: "Hrvatski",    flag: "🇭🇷", video: null, thumb: null, youtubeUrl: null },
   { code: "sr", label: "Serbian",    nativeLabel: "Српски",      flag: "🇷🇸", video: null, thumb: null, youtubeUrl: null },
   { code: "sl", label: "Slovenian",  nativeLabel: "Slovenščina", flag: "🇸🇮", video: null, thumb: null, youtubeUrl: null },

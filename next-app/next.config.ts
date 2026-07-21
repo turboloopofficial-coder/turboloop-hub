@@ -151,10 +151,10 @@ const config: NextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               // Google Analytics tracking pixel + R2 assets
               "img-src 'self' data: blob: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://*.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com",
-              "media-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://www.youtube.com",
+              "media-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://www.youtube.com https://www.youtube-nocookie.com",
               // GA4 beacon + BscScan API for contract verification
               "connect-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://api.turboloop.tech https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.bscscan.com",
-              "frame-src 'self' https://www.youtube.com https://youtube.com https://player.vimeo.com https://www.googletagmanager.com https://dexscreener.com",
+              "frame-src 'self' https://www.youtube.com https://youtube.com https://www.youtube-nocookie.com https://youtube-nocookie.com https://player.vimeo.com https://www.googletagmanager.com https://dexscreener.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

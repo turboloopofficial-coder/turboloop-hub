@@ -1,0 +1,301 @@
+{
+  "media_id": "16513daf-c764-4824-972a-084b58fd4830",
+  "source_url": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-en.mp4",
+  "projects": {
+    "hi": {
+      "project_id": "e69c1047-16f1-46f3-a4f8-fcd0acfdc052",
+      "status": "submitted",
+      "dst_lang": "hi-in"
+    },
+    "th": {
+      "project_id": "8070b403-1157-4570-895c-459680080548",
+      "status": "submitted",
+      "dst_lang": "th-th"
+    },
+    "es": {
+      "project_id": "cd2a90c8-eea3-41ad-b870-762b703b3f33",
+      "status": "submitted",
+      "dst_lang": "es-es"
+    },
+    "fr": {
+      "project_id": "5be54ddb-96f0-4434-9352-db2ac79ab523",
+      "status": "submitted",
+      "dst_lang": "fr-fr"
+    },
+    "de": {
+      "project_id": "b356437e-e8fa-46b7-a48c-de1c1607b599",
+      "status": "submitted",
+      "dst_lang": "de-de"
+    },
+    "it": {
+      "project_id": "a5e90368-6249-4075-a8d5-8a540d6c98e0",
+      "status": "submitted",
+      "dst_lang": "it-it"
+    },
+    "pt": {
+      "project_id": "5f2ffd92-2170-4421-be37-cac769378a46",
+      "status": "submitted",
+      "dst_lang": "pt-br"
+    },
+    "zh": {
+      "project_id": "7746dddf-eeed-4298-bd1e-f5ba287a892c",
+      "status": "submitted",
+      "dst_lang": "zh-cn"
+    },
+    "ja": {
+      "project_id": "b7664958-ae4d-4f1b-bd5f-b0b37af1c78e",
+      "status": "submitted",
+      "dst_lang": "ja-jp"
+    },
+    "ar": {
+      "project_id": "eb690fb9-a459-4c04-b98a-8cea0877e10b",
+      "status": "submitted",
+      "dst_lang": "ar-sa"
+    },
+    "tr": {
+      "project_id": "0cc3a347-91ab-46d3-8c75-553fb79e6caa",
+      "status": "submitted",
+      "dst_lang": "tr-tr"
+    },
+    "vi": {
+      "project_id": "f0c1d92c-5660-44f2-aa31-9f73317ae8e3",
+      "status": "submitted",
+      "dst_lang": "vi-vn"
+    },
+    "id": {
+      "project_id": "d231001e-a288-4e57-93e8-03d9f493eb92",
+      "status": "submitted",
+      "dst_lang": "id-id"
+    },
+    "nl": {
+      "project_id": "a45391a6-07af-4d8a-97c2-7497da8fec20",
+      "status": "submitted",
+      "dst_lang": "nl-nl"
+    },
+    "pl": {
+      "project_id": "cb7ce752-9958-4d0b-8640-23236725c005",
+      "status": "submitted",
+      "dst_lang": "pl-pl"
+    },
+    "el": {
+      "project_id": "00dd62fd-9620-436c-8d5e-e466364ace95",
+      "status": "submitted",
+      "dst_lang": "el-gr"
+    },
+    "cs": {
+      "project_id": "c98861b8-bb92-4c22-a59f-53e98ef704bb",
+      "status": "submitted",
+      "dst_lang": "cs-cz"
+    },
+    "hu": {
+      "project_id": "00349975-cef1-44fd-b687-fb7640f18d07",
+      "status": "submitted",
+      "dst_lang": "hu-hu"
+    },
+    "ro": {
+      "project_id": "f3928fbb-6d5c-43cf-b10b-03fe51f52c30",
+      "status": "submitted",
+      "dst_lang": "ro-ro"
+    },
+    "uk": {
+      "project_id": "4a398df8-db31-49c9-9abf-ec0020ec0f14",
+      "status": "submitted",
+      "dst_lang": "uk-ua"
+    },
+    "ms": {
+      "project_id": "66b55d8e-24d6-47e8-afd1-e966295b72af",
+      "status": "submitted",
+      "dst_lang": "ms-my"
+    },
+    "tl": {
+      "project_id": "3245174f-6e44-4783-a923-d2fd5c5b5dc0",
+      "status": "submitted",
+      "dst_lang": "tl-ph"
+    },
+    "ta": {
+      "project_id": "bfd511b7-9a24-42f3-9d60-0aa260ce9f16",
+      "status": "submitted",
+      "dst_lang": "ta-in"
+    },
+    "bn": {
+      "project_id": "6d03c9f3-463e-44c6-b0a1-16b660163945",
+      "status": "submitted",
+      "dst_lang": "bn-bd"
+    },
+    "te": {
+      "project_id": "db116d40-9bc3-469c-acbe-3bbfb895e15f",
+      "status": "submitted",
+      "dst_lang": "te-in"
+    },
+    "mr": {
+      "project_id": "021c6880-e881-41af-8512-9f497a381a87",
+      "status": "submitted",
+      "dst_lang": "mr-in"
+    },
+    "gu": {
+      "project_id": "a48b247f-ed4b-419a-82ef-8bd00c0862b3",
+      "status": "submitted",
+      "dst_lang": "gu-in"
+    },
+    "kn": {
+      "project_id": "71f0a354-06cd-4c68-a8fa-26554904ca84",
+      "status": "submitted",
+      "dst_lang": "kn-in"
+    },
+    "ml": {
+      "project_id": "b528efb1-3f2e-4b44-9d88-07272db9f26f",
+      "status": "submitted",
+      "dst_lang": "ml-in"
+    },
+    "ur": {
+      "project_id": "fa115958-5b21-4e91-a241-68e40afd19a8",
+      "status": "submitted",
+      "dst_lang": "ur-pk"
+    },
+    "fa": {
+      "project_id": "0e13afd7-823e-4f15-b625-dfae90a14795",
+      "status": "submitted",
+      "dst_lang": "fa-ir"
+    },
+    "he": {
+      "project_id": "dfd44b83-ce1f-44dd-ab82-89c92fa160b4",
+      "status": "submitted",
+      "dst_lang": "he-il"
+    },
+    "sw": {
+      "project_id": "87576bd9-10e8-40b0-b15e-12b6ea2a7c32",
+      "status": "submitted",
+      "dst_lang": "sw-ke"
+    },
+    "az": {
+      "project_id": "a858c3af-047e-48d2-8266-fca23fbf405b",
+      "status": "submitted",
+      "dst_lang": "az-az"
+    },
+    "kk": {
+      "project_id": "4addf412-bdc5-4f5e-8cbd-4cb1d33f5adb",
+      "status": "submitted",
+      "dst_lang": "kk-kz"
+    },
+    "uz": {
+      "project_id": "1fbca5ba-1ad8-4071-8df8-a81e5d74977a",
+      "status": "submitted",
+      "dst_lang": "uz-uz"
+    },
+    "my": {
+      "project_id": "d8b2f247-9878-454c-80a6-7ee4f4274e8f",
+      "status": "submitted",
+      "dst_lang": "my-mm"
+    },
+    "km": {
+      "project_id": "dc54dd35-37ef-43c6-b98b-29a31df63e23",
+      "status": "submitted",
+      "dst_lang": "km-kh"
+    },
+    "si": {
+      "project_id": "8debc7ec-63a6-4cc8-aace-77e4ca797550",
+      "status": "submitted",
+      "dst_lang": "si-lk"
+    },
+    "ne": {
+      "project_id": "2dcc07e5-8767-44ac-9256-67b7ad8b41aa",
+      "status": "submitted",
+      "dst_lang": "ne-np"
+    },
+    "pa": {
+      "project_id": "abe1bbf6-3a84-40e1-9d1e-026033e2880c",
+      "status": "submitted",
+      "dst_lang": "pa-in"
+    },
+    "lo": {
+      "project_id": "88f8b04f-2ac7-476c-9952-242857b650d9",
+      "status": "submitted",
+      "dst_lang": "lo-la"
+    },
+    "ru": {
+      "project_id": "b6c40987-4dc7-492e-ae02-9f29b00057fe",
+      "status": "submitted",
+      "dst_lang": "ru-ru"
+    },
+    "ko": {
+      "project_id": "f9206150-59f2-4db4-a540-de05344e4bd6",
+      "status": "submitted",
+      "dst_lang": "ko-kr"
+    },
+    "sv": {
+      "project_id": "a48b5b98-3db4-423a-b345-a9769d947674",
+      "status": "submitted",
+      "dst_lang": "sv-se"
+    },
+    "da": {
+      "project_id": "818918b9-5e1c-4df5-9414-8f78424d5072",
+      "status": "submitted",
+      "dst_lang": "da-dk"
+    },
+    "fi": {
+      "project_id": "6220ca69-68f8-43c9-aab6-53bfd510a714",
+      "status": "submitted",
+      "dst_lang": "fi-fi"
+    },
+    "no": {
+      "project_id": "29d0446f-9532-4d20-a910-7d8db40a475d",
+      "status": "submitted",
+      "dst_lang": "nb-no"
+    },
+    "sk": {
+      "project_id": "001814d4-dd46-457e-aac4-0b6cea7c05b9",
+      "status": "submitted",
+      "dst_lang": "sk-sk"
+    },
+    "bg": {
+      "project_id": "31d62fd9-d22d-4c34-b1a4-b9bdef84f671",
+      "status": "submitted",
+      "dst_lang": "bg-bg"
+    },
+    "hr": {
+      "project_id": "c5db1925-4c7b-4c2a-a393-0da27a53ebd4",
+      "status": "submitted",
+      "dst_lang": "hr-hr"
+    },
+    "sr": {
+      "project_id": "b75330c0-77e4-4aea-9f60-8613bb6502f8",
+      "status": "submitted",
+      "dst_lang": "sr-rs"
+    },
+    "sl": {
+      "project_id": "c4beceff-bb99-4820-a3d4-7a135c8fad29",
+      "status": "submitted",
+      "dst_lang": "sl-si"
+    },
+    "lt": {
+      "project_id": "53fcac96-a330-4844-90b3-e7832ac2009b",
+      "status": "submitted",
+      "dst_lang": "lt-lt"
+    },
+    "lv": {
+      "project_id": "2c4ce4ef-12a9-4d09-a93c-3e02948c07ef",
+      "status": "submitted",
+      "dst_lang": "lv-lv"
+    },
+    "et": {
+      "project_id": "2a0053b6-5742-4efa-b477-ce37705a8aa3",
+      "status": "submitted",
+      "dst_lang": "et-ee"
+    },
+    "am": {
+      "project_id": "8a4dd808-504d-47da-a36b-9a0a2de32c63",
+      "status": "submitted",
+      "dst_lang": "am-et"
+    },
+    "zu": {
+      "project_id": "f4de11e6-6dae-4873-a70a-92b1f863be28",
+      "status": "submitted",
+      "dst_lang": "zu-za"
+    },
+    "pcm": {
+      "project_id": null,
+      "status": "failed",
+      "data": "{'detail': 'Translation language is not supported.', 'status': 'project_translation_language_not_supported_error', 'status_code': 400}"
+    }
+  }
+}

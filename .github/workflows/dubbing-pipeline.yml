@@ -1,0 +1,76 @@
+name: Dubbing Pipeline — Auto-Download & Deploy
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions UI
+    inputs:
+      dry_run:
+        description: 'Dry run (no uploads or commits)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  dubbing-pipeline:
+    name: Poll Rask → Download → Upload R2 → Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    permissions:
+      contents: write  # needed to commit and push TSX changes
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install --quiet requests boto3
+
+      - name: Run dubbing pipeline
+        id: pipeline
+        env:
+          RASK_CLIENT_ID:     ${{ secrets.RASK_CLIENT_ID }}
+          RASK_CLIENT_SECRET: ${{ secrets.RASK_CLIENT_SECRET }}
+          R2_ACCESS_KEY:      ${{ secrets.R2_ACCESS_KEY }}
+          R2_SECRET_KEY:      ${{ secrets.R2_SECRET_KEY }}
+          R2_ENDPOINT:        ${{ secrets.R2_ENDPOINT }}
+        run: |
+          DRY_RUN_FLAG=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            DRY_RUN_FLAG="--dry-run"
+          fi
+          python3 .github/scripts/dubbing_pipeline.py $DRY_RUN_FLAG
+
+      - name: Commit and push TSX changes
+        if: steps.pipeline.outputs.tsx_changed == 'true'
+        run: |
+          git config user.name  "TurboLoop Bot"
+          git config user.email "turbo.loop.official@gmail.com"
+          git add next-app/components/sections/VideoExplainerSection.tsx
+          PROCESSED="${{ steps.pipeline.outputs.total_processed }}"
+          git commit -m "feat: auto-add ep2 dubs for ${PROCESSED} language(s) [skip ci]"
+          git push origin main
+
+      - name: Log pipeline summary
+        if: always()
+        run: |
+          echo "=== Pipeline Summary ==="
+          if [ -f pipeline_summary.json ]; then
+            cat pipeline_summary.json
+          else
+            echo "No summary file found"
+          fi
+          echo "TSX changed: ${{ steps.pipeline.outputs.tsx_changed }}"
+          echo "Languages processed: ${{ steps.pipeline.outputs.total_processed }}"

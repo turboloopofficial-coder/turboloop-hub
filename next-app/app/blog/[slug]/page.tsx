@@ -113,10 +113,12 @@ export async function generateMetadata({
   const url = `${CANONICAL_HOST}/blog/${post.slug}`;
 
   // Pull translation siblings so we can emit hreflang alternates. One
-  // fetch covers every post — cheaper than a per-translation lookup
-  // since `api.blogPosts()` is already cached via ISR (5 min).
-  const allPosts = await api.blogPosts();
-  const group = blogTranslationGroup(post, allPosts);
+  // fetch covers every post — cheaper than a per-translation lookup.
+  // Use blogPostsList() (no content field, ~6 MB) instead of blogPosts()
+  // (52 MB) to stay under Next.js's 2 MB data-cache limit. BlogPostSummary
+  // is BlogPost without `content`, so it has all fields needed for hreflang.
+  const allPosts = await api.blogPostsList();
+  const group = blogTranslationGroup(post, allPosts as Parameters<typeof blogTranslationGroup>[1]);
   const languages = buildLanguageAlternates(group);
 
   // SEO title/description fall back to the editorial title/excerpt when

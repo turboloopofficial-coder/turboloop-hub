@@ -20,26 +20,22 @@ export function UnifiedBannerCard({ item }: Props) {
   const [downloading, setDownloading] = useState(false);
 
   // ── Download ───────────────────────────────────────────────────────────
-  const handleDownload = useCallback(async () => {
+  const handleDownload = useCallback(() => {
     if (downloading) return;
     setDownloading(true);
     try {
-      const res = await fetch(item.url);
-      const blob = await res.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.style.display = "none";
+      // Route through same-origin proxy — Android Chrome saves to gallery
       const ext = item.url.split(".").pop()?.split("?")[0] ?? "png";
       const name = item.id.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
-      a.href = blobUrl;
-      a.download = `turboloop-${name}.${ext}`;
+      const filename = `turboloop-${name}.${ext}`;
+      const proxyUrl = `/api/download?url=${encodeURIComponent(item.url)}&filename=${encodeURIComponent(filename)}`;
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = proxyUrl;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
-      // Delay revoke — mobile browsers process the click asynchronously
-      window.setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1500);
+      window.setTimeout(() => { if (a.parentNode) document.body.removeChild(a); }, 500);
     } catch {
       window.open(item.url, "_blank", "noopener,noreferrer");
     } finally {

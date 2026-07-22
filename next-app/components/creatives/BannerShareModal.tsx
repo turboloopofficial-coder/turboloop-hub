@@ -193,23 +193,19 @@ export function BannerShareModal({ banner, language = "english", onClose }: Prop
     setTimeout(() => setCopied(false), 2000);
   }, [fullShareText]);
 
-  const handleDownload = useCallback(async () => {
+  const handleDownload = useCallback(() => {
     setDownloading(true);
     try {
-      const res  = await fetch(banner.url);
-      const blob = await res.blob();
-      const blobUrl = URL.createObjectURL(blob);
+      // Route through same-origin proxy — Android Chrome saves to gallery
+      const filename = banner.url.split("/").pop() ?? "turboloop-banner.png";
+      const proxyUrl = `/api/download?url=${encodeURIComponent(banner.url)}&filename=${encodeURIComponent(filename)}`;
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = blobUrl;
-      a.download = banner.url.split("/").pop() ?? "turboloop-banner.png";
+      a.href = proxyUrl;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
-      // Delay revoke — mobile browsers process the click asynchronously
-      window.setTimeout(() => {
-        URL.revokeObjectURL(blobUrl);
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1500);
+      window.setTimeout(() => { if (a.parentNode) document.body.removeChild(a); }, 500);
     } catch {
       window.open(banner.url, "_blank");
     } finally {

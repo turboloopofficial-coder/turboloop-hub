@@ -16,6 +16,80 @@
       "maxDuration": 300
     }
   },
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/:locale(fr|es|pt|de|it|nl|ro|el|cs|hu|pl|ru|uk|hi|ta|bn|te|mr|gu|kn|ml|pa|ne|si|th|vi|ja|ms|tl|km|my|id|ko|lo|zh|ar|ur|tr|az|uz|kk|fa|he|sw|ha|yo|am|pcm|bg|da|et|fi|hr|lt|lv|no|sk|sl|sr|sv|zu)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/blog",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/token",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/careers",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=300, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/reels",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/creatives",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/films/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=300, stale-while-revalidate=3600"
+        }
+      ]
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/blog-translate",

@@ -184,6 +184,32 @@ const config: NextConfig = {
           },
         ],
       },
+      // PERF FIX (Jul 2026): Override Next.js's default private/no-cache for
+      // dynamic (ƒ) pages. The homepage and localized pages are content-only
+      // (no user-specific HTML) so they're safe to cache at the CDN edge.
+      // s-maxage=60: Vercel CDN caches for 60 seconds.
+      // stale-while-revalidate=3600: serve stale while revalidating for 1 hour.
+      // This works in tandem with the middleware fix (NextResponse.next() for /)
+      // to allow Vercel to serve the homepage from CDN cache.
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=60, stale-while-revalidate=3600",
+          },
+        ],
+      },
+      // Localized homepages (/fr, /es, /ar, etc.) — same content for all users
+      {
+        source: "/:locale(fr|es|pt|de|it|nl|ro|el|cs|hu|pl|ru|uk|hi|ta|bn|te|mr|gu|kn|ml|pa|ne|si|th|vi|ja|ms|tl|km|my|id|ko|lo|zh|ar|ur|tr|az|uz|kk|fa|he|sw|ha|yo|am|pcm|bg|da|et|fi|hr|lt|lv|no|sk|sl|sr|sv|zu)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=60, stale-while-revalidate=3600",
+          },
+        ],
+      },
     ];
   },
 };

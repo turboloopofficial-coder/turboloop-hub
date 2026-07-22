@@ -195,6 +195,15 @@ const homeJsonLd = {
   ],
 };
 
+// generateStaticParams tells Next.js to pre-render this page at build time.
+// Without it, the page is ƒ (dynamic serverless function) even with revalidate=60,
+// because next-intl's getRequestConfig calls headers() on every request.
+// Returning [{}] (one empty params object) pre-renders / as a static page
+// with ISR (●), allowing Vercel CDN to cache and serve it from the edge.
+export function generateStaticParams() {
+  return [{}];
+}
+
 export const revalidate = 60;
 
 export default function HomePage() {

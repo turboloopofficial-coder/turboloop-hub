@@ -95,18 +95,17 @@ export function ReelGalleryCard({ reel }: ReelGalleryCardProps) {
       }
     }
 
-    // Fallback — download file via proxy + copy caption.
-    // Route through /api/download so Android Chrome saves to gallery
-    // (cross-origin blob URLs are silently ignored on Android).
+    // Fallback — download file directly + copy caption.
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+    // so Android Chrome saves to gallery without needing a proxy.
     let downloaded = false;
     let copied = false;
 
     try {
       const filename = filenameFromUrl(reel.videoUrl);
-      const proxyUrl = `/api/download?url=${encodeURIComponent(reel.videoUrl)}&filename=${encodeURIComponent(filename)}`;
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = proxyUrl;
+      a.href = reel.videoUrl;
       a.download = filename;
       document.body.appendChild(a);
       a.click();
@@ -149,12 +148,12 @@ export function ReelGalleryCard({ reel }: ReelGalleryCardProps) {
     e.preventDefault();
     e.stopPropagation();
     if (busy) return;
-    // Route through same-origin proxy so Android Chrome saves to gallery
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+    // so Android Chrome saves to gallery without needing a proxy.
     const filename = filenameFromUrl(reel.videoUrl);
-    const proxyUrl = `/api/download?url=${encodeURIComponent(reel.videoUrl)}&filename=${encodeURIComponent(filename)}`;
     const a = document.createElement("a");
     a.style.display = "none";
-    a.href = proxyUrl;
+    a.href = reel.videoUrl;
     a.download = filename;
     document.body.appendChild(a);
     a.click();

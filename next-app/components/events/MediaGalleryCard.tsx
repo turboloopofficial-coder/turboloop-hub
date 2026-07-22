@@ -103,18 +103,17 @@ export function MediaGalleryCard({
       }
     }
 
-    // Step 2 — download via proxy + copy caption as a combined fallback.
-    // Route through /api/download so Android Chrome saves to gallery
-    // (cross-origin blob URLs are silently ignored on Android).
+    // Step 2 — download directly + copy caption as a combined fallback.
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+    // so Android Chrome saves to gallery without needing a proxy.
     let downloaded = false;
     let copied = false;
 
     try {
       const filename = filenameFromUrl(item.url);
-      const proxyUrl = `/api/download?url=${encodeURIComponent(item.url)}&filename=${encodeURIComponent(filename)}`;
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = proxyUrl;
+      a.href = item.url;
       a.download = filename;
       document.body.appendChild(a);
       a.click();
@@ -157,12 +156,12 @@ export function MediaGalleryCard({
     e.preventDefault();
     e.stopPropagation();
     if (busy) return;
-    // Route through same-origin proxy so Android Chrome saves to gallery
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+    // so Android Chrome saves to gallery without needing a proxy.
     const filename = filenameFromUrl(item.url);
-    const proxyUrl = `/api/download?url=${encodeURIComponent(item.url)}&filename=${encodeURIComponent(filename)}`;
     const a = document.createElement("a");
     a.style.display = "none";
-    a.href = proxyUrl;
+    a.href = item.url;
     a.download = filename;
     document.body.appendChild(a);
     a.click();

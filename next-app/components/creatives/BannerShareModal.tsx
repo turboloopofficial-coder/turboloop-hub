@@ -196,12 +196,12 @@ export function BannerShareModal({ banner, language = "english", onClose }: Prop
   const handleDownload = useCallback(() => {
     setDownloading(true);
     try {
-      // Route through same-origin proxy — Android Chrome saves to gallery
+      // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+      // so Android Chrome saves to gallery without needing a proxy.
       const filename = banner.url.split("/").pop() ?? "turboloop-banner.png";
-      const proxyUrl = `/api/download?url=${encodeURIComponent(banner.url)}&filename=${encodeURIComponent(filename)}`;
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = proxyUrl;
+      a.href = banner.url;
       a.download = filename;
       document.body.appendChild(a);
       a.click();

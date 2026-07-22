@@ -68,20 +68,16 @@ export function CampaignBannerCard({ item, catLabel }: Props) {
     let copied = false;
 
     try {
-      const response = await fetch(item.url);
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
+      // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+      // so Android Chrome saves to gallery without needing a proxy.
+      const filename = safeFilename(item);
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = blobUrl;
-      a.download = safeFilename(item);
+      a.href = item.url;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
-      // Delay revoke so mobile browsers finish the download
-      window.setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1500);
+      window.setTimeout(() => { if (a.parentNode) document.body.removeChild(a); }, 500);
       downloaded = true;
     } catch {
       // Network error — skip download
@@ -100,25 +96,16 @@ export function CampaignBannerCard({ item, catLabel }: Props) {
     }
   };
 
-  const handleDownload = async () => {
-    try {
-      const res = await fetch(item.url);
-      const blob = await res.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = blobUrl;
-      a.download = safeFilename(item);
-      document.body.appendChild(a);
-      a.click();
-      // Delay revoke — mobile browsers process the click asynchronously
-      window.setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1500);
-    } catch {
-      window.open(item.url, "_blank", "noopener,noreferrer");
-    }
+  const handleDownload = () => {
+    const filename = safeFilename(item);
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = item.url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.setTimeout(() => { if (a.parentNode) document.body.removeChild(a); }, 500);
   };
 
   const openImage = () => {

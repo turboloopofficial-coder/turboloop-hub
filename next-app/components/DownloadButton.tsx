@@ -50,12 +50,11 @@ export function DownloadButton({
     setBusy(true);
     const ext = extension ?? inferExt(url);
     const filename = safeFilename(title, ext);
-    // Route through same-origin proxy so Android Chrome saves to gallery.
-    // Cross-origin blob URLs are silently ignored on Android Chrome.
-    const proxyUrl = `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+    // so Android Chrome saves to gallery without needing a proxy.
     const a = document.createElement("a");
     a.style.display = "none";
-    a.href = proxyUrl;
+    a.href = url;
     a.download = filename;
     document.body.appendChild(a);
     a.click();

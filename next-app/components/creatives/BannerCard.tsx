@@ -22,7 +22,9 @@
 //    sharing just a URL preview defeats the entire point of the share
 //    button — that's what triggered this rewrite.
 //
-//  - Download: forces an attachment download via blob → temporary <a>.
+//  - Download: uses direct R2 URL (Content-Disposition: attachment set on R2 objects)
+//    receives Content-Disposition: attachment and saves to gallery.
+//    The blob-URL trick is unreliable on Android for cross-origin assets.
 
 import { useState } from "react";
 import Image from "next/image";
@@ -112,25 +114,21 @@ export function BannerCard({
     let copied = false;
 
     try {
-      const response = await fetch(banner.url);
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
+      // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+      // so Android Chrome saves to gallery without needing a proxy.
+      const filename = safeFilename(banner);
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = blobUrl;
-      a.download = safeFilename(banner);
+      a.href = banner.url;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
-      // Mobile browsers process the click async — wait before revoking
-      // or some implementations cancel the download mid-stream.
       window.setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
         if (a.parentNode) document.body.removeChild(a);
-      }, 1000);
+      }, 500);
       downloaded = true;
     } catch {
-      // Cross-origin or network glitch — fall through; we'll pop the
-      // image in a new tab as a last resort below.
+      // Fallback: open the image in a new tab
     }
 
     try {
@@ -168,29 +166,22 @@ export function BannerCard({
     }
   };
 
-  const handleDownload = async (e: React.MouseEvent) => {
+  const handleDownload = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
-    try {
-      const response = await fetch(banner.url);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = url;
-      a.download = safeFilename(banner);
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      haptic("success");
-    } catch (err) {
-      // Cross-origin or network glitch — fall back to opening the URL
-      // so the user at least gets the file via right-click → save.
-      console.error("Download failed:", err);
-      window.open(banner.url, "_blank", "noopener,noreferrer");
-    }
+    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
+    // so Android Chrome saves to gallery without needing a proxy.
+    const filename = safeFilename(banner);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = banner.url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.setTimeout(() => {
+      if (a.parentNode) document.body.removeChild(a);
+    }, 500);
+    haptic("success");
   };
 
   // Open the full image in a new tab. Used by the image area's onClick

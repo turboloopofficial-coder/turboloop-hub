@@ -29,4 +29,15 @@ export const routing = defineRouting({
   // English gets no prefix: turboloop.tech/ (not turboloop.tech/en/)
   // All other locales get a prefix: turboloop.tech/th/, turboloop.tech/ko/, etc.
   localePrefix: "as-needed",
+
+  // PERF FIX (Jul 2026): Disable the NEXT_LOCALE cookie entirely.
+  // next-intl sets this cookie on EVERY response by default. Any response
+  // that sets a cookie gets Cache-Control: private, no-cache from Vercel,
+  // which means every request hits a cold serverless function (was causing
+  // 10-13s homepage load times). Locale state is managed via URL prefix
+  // (e.g. /th/, /ar/) and our custom NEXT_LOCALE cookie in middleware.ts
+  // (which is only set when the locale actually changes). This is cleaner
+  // and CDN-friendly — the vast majority of requests (English homepage)
+  // now get no cookie mutation and can be served from CDN cache.
+  localeCookie: false,
 });

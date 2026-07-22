@@ -197,8 +197,30 @@ export function middleware(request: NextRequest) {
     return applyCacheClear(request, NextResponse.next());
   }
 
-  // Run next-intl locale routing for the localized pages
-  // (homepage /, /calculator, /faq, /apply, /token and their locale variants)
+  // PERF FIX: For the English root path (/ with no locale prefix), skip
+  // intlMiddleware entirely and return NextResponse.next() directly.
+  //
+  // Why this matters: intlMiddleware always returns a new NextResponse (even
+  // for "passthrough" cases). Vercel treats any middleware that returns a new
+  // response object as dynamic — meaning the page can never be served from
+  // CDN cache. By returning NextResponse.next() for the default English path,
+  // Vercel can serve the ISR-cached page directly from the edge.
+  //
+  // This is safe because:
+  // - English is the defaultLocale with localePrefix: "as-needed"
+  // - / always serves English content (app/page.tsx)
+  // - Non-English users are redirected to /fr/, /ar/ etc. by the isLocalePrefix
+  //   block above (which reads the NEXT_LOCALE cookie)
+  // - The only case we skip: user has a non-English NEXT_LOCALE cookie but is
+  //   visiting / — in that case we still need to redirect them.
+  const localeCookieForRoot = request.cookies.get("NEXT_LOCALE")?.value;
+  if (!localeCookieForRoot || localeCookieForRoot === "en") {
+    // Pure English request — no locale routing needed, allow CDN to cache
+    return applyCacheClear(request, NextResponse.next());
+  }
+
+  // Non-English user visiting a localized page (e.g. /calculator, /faq)
+  // without a locale prefix — let next-intl handle the redirect.
   const response = intlMiddleware(request);
   // Strip unchanged NEXT_LOCALE cookie from next-intl to allow CDN caching
   const intlLocale = response.cookies.get("NEXT_LOCALE")?.value;

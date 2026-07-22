@@ -287,6 +287,10 @@ export const api = {
    *  Next.js's 2 MB data-cache limit. Use this on the /blog index page.
    *  Individual post pages should use blogPost(slug) instead. */
   blogPostsList: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsList"),
+  /** Homepage-optimised: top 5 posts per language (~75 posts total).
+   *  Use this instead of blogPostsList on the homepage to avoid the
+   *  4 MB RSC payload. Revalidates every 5 minutes (same as blogPostsList). */
+  blogPostsHomepage: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsHomepage", undefined, { revalidate: 300 }),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
   videos: () => fetchTRPC<Video[]>("content.videos"),

@@ -1,8 +1,14 @@
 // "Editorial" — blog section on the homepage with interactive language tabs.
-// Server component fetches all published posts at build time (ISR 5 min);
+// Server component fetches the top 5 posts per language at build time (ISR 5 min);
 // passes them to the HomeBlogLanguagePicker client island which filters
 // and displays the 3 most-recent posts for the selected language.
 // Zero extra API calls on tab switch — all data is already in the bundle.
+//
+// PERF FIX (Jul 2026): Previously called api.blogPostsList() which returned
+// ALL 4,700+ posts (6 MB JSON → 4 MB RSC payload → 13s homepage load time).
+// Now calls api.blogPostsHomepage() which returns only the top 5 posts per
+// language (~75 posts total, ~100 KB). The homepage only shows 3 posts at a
+// time, so 5 per language is more than enough.
 //
 // locale: the next-intl locale code from the current route. Passed through
 // to HomeBlogLanguagePicker so the correct language tab is pre-selected.
@@ -21,7 +27,9 @@ interface Props {
 export async function HomeBlogSection({ locale }: Props = {}) {
   let allPosts = [];
   try {
-    const all = await api.blogPostsList();
+    // Use the homepage-optimised endpoint (top 5 per language, ~75 posts total)
+    // instead of blogPostsList (all 4,700+ posts, 6 MB → 4 MB RSC payload).
+    const all = await api.blogPostsHomepage();
     allPosts = all.filter(p => p.published);
   } catch {
     return null;

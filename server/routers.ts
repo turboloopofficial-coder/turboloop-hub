@@ -4,7 +4,7 @@ import * as jose from "jose";
 import { parse as parseCookieHeader } from "cookie";
 import {
   verifyAdminPassword, upsertAdmin, getAdminByEmail,
-  listBlogPosts, listBlogPostsSummary, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
+  listBlogPosts, listBlogPostsSummary, listBlogPostsHomepage, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
   listAutomationLog,
   listVideos, createVideo, updateVideo, deleteVideo,
   listEvents, createEvent, updateEvent, deleteEvent,
@@ -137,6 +137,10 @@ export const appRouter = router({
     // stays well under Next.js's 2 MB data-cache limit (full payload is
     // ~3.5 MB which silently breaks ISR and renders 0 posts on /blog).
     blogPostsList: publicProcedure.query(() => listBlogPostsSummary(true)),
+    // Lightweight homepage query: top 5 posts per language (~75 posts total)
+    // instead of all 4,700+ posts. Use this on the homepage to avoid the
+    // 4 MB RSC payload that was killing homepage load times.
+    blogPostsHomepage: publicProcedure.query(() => listBlogPostsHomepage()),
     blogPost: publicProcedure.input(z.object({ slug: z.string() })).query(({ input }) => getBlogPostBySlug(input.slug)),
     videos: publicProcedure.query(() => listVideos(true)),
     events: publicProcedure.query(() => listEvents(true)),

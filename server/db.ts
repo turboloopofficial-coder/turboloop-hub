@@ -138,6 +138,51 @@ export async function listBlogPostsSummary(publishedOnly = true) {
   return db.select(cols).from(blogPosts).orderBy(desc(blogPosts.createdAt));
 }
 
+// Homepage-optimised query: returns the 5 most-recent posts for each
+// blog language. This caps the payload at ~75 posts (~100 KB) instead of
+// returning all 4,700+ posts (6 MB) just to show 3 posts on the homepage.
+// The homepage only ever displays 3 posts at a time — fetching 5 per language
+// gives a small buffer for filtering without the massive data overhead.
+export async function listBlogPostsHomepage() {
+  const db = getDb();
+  const cols = {
+    id: blogPosts.id,
+    title: blogPosts.title,
+    slug: blogPosts.slug,
+    excerpt: blogPosts.excerpt,
+    coverImage: blogPosts.coverImage,
+    published: blogPosts.published,
+    language: blogPosts.language,
+    translationOf: blogPosts.translationOf,
+    tags: blogPosts.tags,
+    authorName: blogPosts.authorName,
+    authorUrl: blogPosts.authorUrl,
+    seoTitle: blogPosts.seoTitle,
+    seoDescription: blogPosts.seoDescription,
+    readingTimeMin: blogPosts.readingTimeMin,
+    scheduledPublishAt: blogPosts.scheduledPublishAt,
+    createdAt: blogPosts.createdAt,
+    updatedAt: blogPosts.updatedAt,
+  } as const;
+  // Fetch the most-recent 500 published posts (ordered by date).
+  // Then group by language client-side and keep top 5 per language.
+  // 500 rows × ~1 KB avg = ~500 KB — far better than 4,700 rows × ~1 KB = 4.7 MB.
+  const all = await db
+    .select(cols)
+    .from(blogPosts)
+    .where(eq(blogPosts.published, true))
+    .orderBy(desc(blogPosts.createdAt))
+    .limit(500);
+  // Group by language, keep top 5 per language
+  const byLang: Record<string, typeof all> = {};
+  for (const post of all) {
+    const lang = post.language ?? "en";
+    if (!byLang[lang]) byLang[lang] = [];
+    if (byLang[lang].length < 5) byLang[lang].push(post);
+  }
+  return Object.values(byLang).flat();
+}
+
 export async function getBlogPostBySlug(slug: string) {
   const db = getDb();
   const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);

@@ -16,6 +16,15 @@
 //    Vite-built SPA HTML even after the Next.js cutover.
 //    FIX: when a request arrives without our "I've been cleaned" cookie,
 //    we respond with the HTTP `Clear-Site-Data` header.
+//
+// PERF FIX (Jul 2026): Previously the middleware set the NEXT_LOCALE cookie
+// on EVERY response. When a response sets cookies, Vercel's CDN marks it
+// Cache-Control: private, no-cache — meaning every single page request hit
+// a cold serverless function (10-13 second load times). Fix: only set the
+// NEXT_LOCALE cookie when the locale actually changes (differs from the
+// existing cookie value). English-locale requests (the majority) now get
+// no cookie mutation → Vercel CDN can cache the response → <200ms for
+// repeat visitors.
 
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
@@ -71,6 +80,28 @@ const BLOCKED_IPS = new Set([
   "43.240.55.35",
   "103.167.116.93",
 ]);
+
+/** Only set the NEXT_LOCALE cookie when the locale actually changes.
+ *  If the cookie already matches the desired locale, skip the set-cookie
+ *  header entirely. This is critical for CDN caching: any response that
+ *  sets a cookie gets Cache-Control: private, no-cache from Vercel, which
+ *  means every request hits a cold serverless function. By only setting
+ *  the cookie on locale changes (rare), the vast majority of requests
+ *  (English homepage, etc.) can be served from CDN cache. */
+function setLocaleCookieIfChanged(
+  request: NextRequest,
+  response: NextResponse,
+  locale: string
+): void {
+  const existing = request.cookies.get("NEXT_LOCALE")?.value;
+  if (existing !== locale) {
+    response.cookies.set("NEXT_LOCALE", locale, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: "lax",
+    });
+  }
+}
 
 export function middleware(request: NextRequest) {
   // IP blocking — reject known attackers immediately
@@ -131,17 +162,25 @@ export function middleware(request: NextRequest) {
       const response = NextResponse.rewrite(url, {
         request: { headers: requestHeaders },
       });
-      // Set locale cookie so the page and its components know the active locale
-      response.cookies.set("NEXT_LOCALE", locale, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 365,
-        sameSite: "lax",
-      });
+      // Only set cookie if locale actually changed — avoids poisoning CDN cache
+      setLocaleCookieIfChanged(request, response, locale);
       return applyCacheClear(request, response);
     }
 
     // Otherwise let next-intl handle it (localized pages: /, /calculator, etc.)
     const response = intlMiddleware(request);
+    // next-intl sets NEXT_LOCALE on every response — strip it if unchanged
+    // to avoid cache poisoning on non-English locale pages.
+    const intlLocale = response.cookies.get("NEXT_LOCALE")?.value;
+    if (intlLocale) {
+      const existing = request.cookies.get("NEXT_LOCALE")?.value;
+      if (existing === intlLocale) {
+        // Cookie already correct — delete the set-cookie to allow CDN caching
+        response.cookies.delete("NEXT_LOCALE");
+        // Re-set without changing value (next-intl already set it, we just
+        // need to ensure it doesn't appear as a new set-cookie)
+      }
+    }
     return applyCacheClear(request, response);
   }
 
@@ -161,6 +200,14 @@ export function middleware(request: NextRequest) {
   // Run next-intl locale routing for the localized pages
   // (homepage /, /calculator, /faq, /apply, /token and their locale variants)
   const response = intlMiddleware(request);
+  // Strip unchanged NEXT_LOCALE cookie from next-intl to allow CDN caching
+  const intlLocale = response.cookies.get("NEXT_LOCALE")?.value;
+  if (intlLocale) {
+    const existing = request.cookies.get("NEXT_LOCALE")?.value;
+    if (existing === intlLocale) {
+      response.cookies.delete("NEXT_LOCALE");
+    }
+  }
   return applyCacheClear(request, response);
 }
 

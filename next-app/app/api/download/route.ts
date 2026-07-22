@@ -29,13 +29,17 @@ export const runtime = "edge";
 
 const ALLOWED_HOST = "pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
+const ALLOWED_EXTS = new Set(["mp4", "png", "jpg", "jpeg", "webp", "gif", "avif", "svg"]);
+
 function safeFilename(input: string | null): string {
   if (!input) return "turboloop-download.mp4";
   // Allow letters/numbers/dot/dash/underscore. Strip everything else.
   // Cap length at 120 chars.
   const cleaned = input.replace(/[^A-Za-z0-9._-]/g, "-").slice(0, 120);
-  // Make sure it ends in .mp4 (we currently only serve mp4 here)
-  return cleaned.endsWith(".mp4") ? cleaned : `${cleaned}.mp4`;
+  // Preserve the original extension if it's in the allowed list;
+  // otherwise default to .mp4 (for video files with no extension).
+  const ext = cleaned.split(".").pop()?.toLowerCase() ?? "";
+  return ALLOWED_EXTS.has(ext) ? cleaned : `${cleaned}.mp4`;
 }
 
 export async function GET(request: Request): Promise<Response> {

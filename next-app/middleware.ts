@@ -215,8 +215,21 @@ export function middleware(request: NextRequest) {
   //   visiting / — in that case we still need to redirect them.
   const localeCookieForRoot = request.cookies.get("NEXT_LOCALE")?.value;
   if (!localeCookieForRoot || localeCookieForRoot === "en") {
-    // Pure English request — no locale routing needed, allow CDN to cache
-    return applyCacheClear(request, NextResponse.next());
+    // Pure English request — no locale routing needed, allow CDN to cache.
+    // Explicitly set Cache-Control on the response to override Next.js's
+    // default private/no-cache for dynamic (ƒ) pages. Middleware response
+    // headers are applied AFTER the page renders, so they override Next.js.
+    const cacheableResponse = applyCacheClear(request, NextResponse.next());
+    // Only set public cache-control if we're NOT setting a cookie
+    // (setting a cookie would make the response user-specific and uncacheable)
+    const isSettingCookie = !request.cookies.get(CLEAN_COOKIE) && !isBot(request);
+    if (!isSettingCookie) {
+      cacheableResponse.headers.set(
+        "Cache-Control",
+        "public, s-maxage=60, stale-while-revalidate=3600"
+      );
+    }
+    return cacheableResponse;
   }
 
   // Non-English user visiting a localized page (e.g. /calculator, /faq)

@@ -163,7 +163,7 @@ export default async function BlogIndex({ searchParams }: { searchParams: Promis
         <BlogLanguageTabs
           active={activeLang}
           counts={counts}
-          total={allPublished.length}
+          total={Object.values(counts).reduce((sum, n) => sum + (n ?? 0), 0)}
         />
 
         {/* Featured (most recent) */}

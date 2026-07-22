@@ -26,16 +26,20 @@ export function UnifiedBannerCard({ item }: Props) {
     try {
       const res = await fetch(item.url);
       const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
+      const blobUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
+      a.style.display = "none";
       const ext = item.url.split(".").pop()?.split("?")[0] ?? "png";
       const name = item.id.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
-      a.href = url;
+      a.href = blobUrl;
       a.download = `turboloop-${name}.${ext}`;
       document.body.appendChild(a);
       a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      // Delay revoke — mobile browsers process the click asynchronously
+      window.setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+        if (a.parentNode) document.body.removeChild(a);
+      }, 1500);
     } catch {
       window.open(item.url, "_blank", "noopener,noreferrer");
     } finally {

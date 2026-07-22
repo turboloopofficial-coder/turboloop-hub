@@ -39,32 +39,64 @@ export function CampaignBannerCard({ item, catLabel }: Props) {
   const accent = CATEGORY_ACCENT[item.category] ?? { from: "#06B6D4", to: "#7C3AED" };
 
   const handleShare = async () => {
-    const shareText = `${item.title}\n\n${item.description}\n\n🔗 https://turboloop.tech/creatives/${item.category}`;
-    if (typeof navigator !== "undefined" && navigator.share) {
+    // Clean share text — caption + turboloop.io link only, never the raw R2 URL
+    const shareText = `${item.title}\n\n${item.description}\n\n🔗 https://turboloop.io`;
+    const canWebShare =
+      typeof navigator !== "undefined" &&
+      typeof navigator.share === "function";
+
+    // ── Step 1: Try Web Share with image file directly (no canShare gate) ──
+    // Some Android browsers misreport canShare even when share with files works.
+    if (canWebShare) {
       try {
-        // Fetch the image as a blob so we can share the actual file
         const res = await fetch(item.url);
-        const blob = await res.blob();
-        const file = new File([blob], safeFilename(item), { type: blob.type });
-        if (navigator.canShare?.({ files: [file] })) {
+        if (res.ok) {
+          const blob = await res.blob();
+          const file = new File([blob], safeFilename(item), { type: blob.type || "image/png" });
           await navigator.share({ files: [file], text: shareText });
-          return;
+          return; // ← happy path
         }
-      } catch {
-        // Fall through to text-only share
-      }
-      try {
-        await navigator.share({ text: shareText, url: item.url });
-        return;
-      } catch {
-        // Fall through to clipboard
+      } catch (err: any) {
+        if (err?.name === "AbortError") return; // user dismissed sheet
+        // Fall through to Step 2
       }
     }
-    // Clipboard fallback
+
+    // ── Step 2: Download image + copy caption to clipboard ──
+    // User gets both pieces ready to paste/attach manually in WhatsApp/Telegram.
+    let downloaded = false;
+    let copied = false;
+
     try {
-      await navigator.clipboard.writeText(`${shareText}\n${item.url}`);
+      const response = await fetch(item.url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = blobUrl;
+      a.download = safeFilename(item);
+      document.body.appendChild(a);
+      a.click();
+      // Delay revoke so mobile browsers finish the download
+      window.setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+        if (a.parentNode) document.body.removeChild(a);
+      }, 1500);
+      downloaded = true;
     } catch {
-      // Silent fail
+      // Network error — skip download
+    }
+
+    try {
+      // Caption only — no R2 URL appended
+      await navigator.clipboard.writeText(shareText);
+      copied = true;
+    } catch {
+      // Clipboard blocked
+    }
+
+    if (!downloaded && !copied) {
+      window.open(item.url, "_blank", "noopener,noreferrer");
     }
   };
 
@@ -72,14 +104,18 @@ export function CampaignBannerCard({ item, catLabel }: Props) {
     try {
       const res = await fetch(item.url);
       const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
+      const blobUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
+      a.style.display = "none";
+      a.href = blobUrl;
       a.download = safeFilename(item);
       document.body.appendChild(a);
       a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      // Delay revoke — mobile browsers process the click asynchronously
+      window.setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+        if (a.parentNode) document.body.removeChild(a);
+      }, 1500);
     } catch {
       window.open(item.url, "_blank", "noopener,noreferrer");
     }

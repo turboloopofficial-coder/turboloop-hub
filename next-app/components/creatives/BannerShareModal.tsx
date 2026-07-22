@@ -79,7 +79,9 @@ function buildPlatformUrl(platform: string, text: string, imageUrl: string): str
   const imgEnc  = encodeURIComponent(imageUrl);
   switch (platform) {
     case "telegram":  return `https://t.me/share/url?url=${imgEnc}&text=${encoded}`;
-    case "whatsapp":  return `https://wa.me/?text=${encoded}%20${imgEnc}`;
+    // WhatsApp: text only — do NOT append the R2 image URL as it shows as a raw link in chat.
+    // The actual image is shared via the native Web Share API (file attachment) above.
+    case "whatsapp":  return `https://wa.me/?text=${encoded}`;
     case "twitter":   return `https://twitter.com/intent/tweet?text=${encoded}&url=${imgEnc}`;
     case "facebook":  return `https://www.facebook.com/sharer/sharer.php?u=${imgEnc}&quote=${encoded}`;
     default:          return "#";
@@ -196,10 +198,18 @@ export function BannerShareModal({ banner, language = "english", onClose }: Prop
     try {
       const res  = await fetch(banner.url);
       const blob = await res.blob();
-      const a    = document.createElement("a");
-      a.href     = URL.createObjectURL(blob);
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = blobUrl;
       a.download = banner.url.split("/").pop() ?? "turboloop-banner.png";
+      document.body.appendChild(a);
       a.click();
+      // Delay revoke — mobile browsers process the click asynchronously
+      window.setTimeout(() => {
+        URL.revokeObjectURL(blobUrl);
+        if (a.parentNode) document.body.removeChild(a);
+      }, 1500);
     } catch {
       window.open(banner.url, "_blank");
     } finally {
@@ -407,16 +417,40 @@ export function BannerShareModal({ banner, language = "english", onClose }: Prop
 
             {/* ── Share with image ── */}
             <button
-              onClick={() => {
-                const text = fullShareText;
-                if (typeof navigator !== "undefined" && navigator.share) {
-                  navigator.share({ text, url: banner.url }).catch(() => {});
-                } else {
-                  window.open(
-                    buildPlatformUrl("telegram", selectedCaption || storedCaption, banner.url),
-                    "_blank"
-                  );
+              onClick={async () => {
+                const text = selectedCaption || storedCaption;
+                const canWebShare =
+                  typeof navigator !== "undefined" &&
+                  typeof navigator.share === "function";
+
+                if (canWebShare) {
+                  // Try to share the actual image file (not just a URL link)
+                  try {
+                    const res = await fetch(banner.url);
+                    if (res.ok) {
+                      const blob = await res.blob();
+                      const filename = banner.filename ?? banner.url.split("/").pop() ?? "turboloop-banner.png";
+                      const file = new File([blob], filename, { type: blob.type || "image/png" });
+                      await navigator.share({ files: [file], text });
+                      return;
+                    }
+                  } catch (err: any) {
+                    if (err?.name === "AbortError") return; // user dismissed
+                    // Fall through to text-only share
+                  }
+                  // Fallback: text-only share (no raw R2 URL — caption + turboloop.io only)
+                  try {
+                    await navigator.share({ text });
+                    return;
+                  } catch {
+                    // Fall through to Telegram
+                  }
                 }
+                // Desktop / no Web Share API — open Telegram share
+                window.open(
+                  buildPlatformUrl("telegram", text, banner.url),
+                  "_blank"
+                );
               }}
               className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
               style={{

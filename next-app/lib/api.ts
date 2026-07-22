@@ -291,6 +291,16 @@ export const api = {
    *  Use this instead of blogPostsList on the homepage to avoid the
    *  4 MB RSC payload. Revalidates every 5 minutes (same as blogPostsList). */
   blogPostsHomepage: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsHomepage", undefined, { revalidate: 300 }),
+  /** Per-language filtered query: returns posts for a single language only.
+   *  Use this on the /blog index page instead of blogPostsList to avoid
+   *  fetching all 4,700+ posts (6 MB, 7-13s). Each language is ~50-200 KB
+   *  and is CDN-cached independently (s-maxage=300). */
+  blogPostsByLanguage: (input: { language: string }) =>
+    fetchTRPC<BlogPostSummary[]>("content.blogPostsByLanguage", input, { revalidate: 300 }),
+  /** Language counts: returns [{ language, count }] for all published posts.
+   *  Tiny aggregation (~200 bytes) used by blog tab chips. CDN-cached 5 min. */
+  blogPostsCounts: () =>
+    fetchTRPC<{ language: string | null; count: number }[]>("content.blogPostsCounts", undefined, { revalidate: 300 }),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
   videos: () => fetchTRPC<Video[]>("content.videos"),

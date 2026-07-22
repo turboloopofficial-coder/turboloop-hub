@@ -183,6 +183,51 @@ export async function listBlogPostsHomepage() {
   return Object.values(byLang).flat();
 }
 
+// Per-language filtered query: returns posts for a single language only.
+// Used by the blog index page to avoid fetching all 4,700+ posts.
+// Each language has ~50-200 posts, so the payload is 50-200 KB instead of 6 MB.
+export async function listBlogPostsSummaryByLanguage(language: string) {
+  const db = getDb();
+  const cols = {
+    id: blogPosts.id,
+    title: blogPosts.title,
+    slug: blogPosts.slug,
+    excerpt: blogPosts.excerpt,
+    coverImage: blogPosts.coverImage,
+    published: blogPosts.published,
+    language: blogPosts.language,
+    translationOf: blogPosts.translationOf,
+    tags: blogPosts.tags,
+    authorName: blogPosts.authorName,
+    authorUrl: blogPosts.authorUrl,
+    seoTitle: blogPosts.seoTitle,
+    seoDescription: blogPosts.seoDescription,
+    readingTimeMin: blogPosts.readingTimeMin,
+    scheduledPublishAt: blogPosts.scheduledPublishAt,
+    createdAt: blogPosts.createdAt,
+    updatedAt: blogPosts.updatedAt,
+  } as const;
+  publishOverdueBlogs().catch((e) => console.error("[publishOverdueBlogs]", e));
+  return db
+    .select(cols)
+    .from(blogPosts)
+    .where(and(eq(blogPosts.published, true), eq(blogPosts.language, language)))
+    .orderBy(desc(blogPosts.createdAt));
+}
+
+// Language counts query: returns [{ language, count }] for all published posts.
+// Used by the blog tab chips to show post counts without fetching all post data.
+// This is a tiny aggregation query (~200 bytes response).
+export async function getBlogPostsLanguageCounts() {
+  const db = getDb();
+  const rows = await db
+    .select({ language: blogPosts.language, count: sql<number>`cast(count(*) as int)` })
+    .from(blogPosts)
+    .where(eq(blogPosts.published, true))
+    .groupBy(blogPosts.language);
+  return rows;
+}
+
 export async function getBlogPostBySlug(slug: string) {
   const db = getDb();
   const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);

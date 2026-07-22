@@ -4,7 +4,7 @@ import * as jose from "jose";
 import { parse as parseCookieHeader } from "cookie";
 import {
   verifyAdminPassword, upsertAdmin, getAdminByEmail,
-  listBlogPosts, listBlogPostsSummary, listBlogPostsHomepage, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
+  listBlogPosts, listBlogPostsSummary, listBlogPostsSummaryByLanguage, getBlogPostsLanguageCounts, listBlogPostsHomepage, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
   listAutomationLog,
   listVideos, createVideo, updateVideo, deleteVideo,
   listEvents, createEvent, updateEvent, deleteEvent,
@@ -137,6 +137,16 @@ export const appRouter = router({
     // stays well under Next.js's 2 MB data-cache limit (full payload is
     // ~3.5 MB which silently breaks ISR and renders 0 posts on /blog).
     blogPostsList: publicProcedure.query(() => listBlogPostsSummary(true)),
+    // Per-language filtered query: returns posts for a single language only.
+    // The blog index page uses this instead of blogPostsList (all 4,700 posts)
+    // to avoid the 6 MB payload that was causing 7-13s load times on /blog.
+    // Each language response is ~50-200 KB and is CDN-cached independently.
+    blogPostsByLanguage: publicProcedure
+      .input(z.object({ language: z.string() }))
+      .query(({ input }) => listBlogPostsSummaryByLanguage(input.language)),
+    // Language counts only: returns { language: string, count: number }[]
+    // Used by the blog tab chips to show post counts without fetching all posts.
+    blogPostsCounts: publicProcedure.query(() => getBlogPostsLanguageCounts()),
     // Lightweight homepage query: top 5 posts per language (~75 posts total)
     // instead of all 4,700+ posts. Use this on the homepage to avoid the
     // 4 MB RSC payload that was killing homepage load times.

@@ -30,6 +30,8 @@ const CACHEABLE_QUERY_PATHS = new Set([
   // every 5 minutes. With CDN caching (s-maxage=300), the Lambda is
   // only invoked once per 5 minutes per cache region.
   "content.blogPostsList",
+  "content.blogPostsByLanguage",
+  "content.blogPostsCounts",
   "content.blogPostsHomepage",
   "content.videos",
   "content.events",

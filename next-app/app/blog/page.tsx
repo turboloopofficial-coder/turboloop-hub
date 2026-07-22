@@ -78,32 +78,29 @@ export default async function BlogIndex({ searchParams }: { searchParams: Promis
         ? langParam
         : "en";
 
-  // Wrap in try/catch so a transient API failure renders an empty blog
-  // rather than crashing the page and causing Next.js to inject noindex.
-  // Use the listing-safe endpoint (no `content` field) to stay under
-  // Next.js's 2 MB data-cache limit. The full blogPosts() response is
-  // ~3.5 MB and silently breaks ISR, causing the page to show 0 posts.
-  let allPublished: BlogPostSummary[] = [];
+  // Perf fix (2026-07-22): instead of fetching all 4,700+ posts (6 MB, 7-13s),
+  // we now make two small targeted requests:
+  //   1. blogPostsCounts — tiny aggregation (~200 bytes) for tab chip counts
+  //   2. blogPostsByLanguage — posts for the active language only (~50-200 KB)
+  // Both are CDN-cached for 5 min (s-maxage=300) so repeat visitors get <100ms.
+  let posts: BlogPostSummary[] = [];
+  const counts: Partial<Record<BlogLanguage, number>> = {};
   try {
-    allPublished = await api
-      .blogPostsList()
-      .then(p => p.filter(post => post.published));
+    const [langCounts, langPosts] = await Promise.all([
+      api.blogPostsCounts(),
+      activeLang
+        ? api.blogPostsByLanguage({ language: activeLang })
+        : api.blogPostsList().then(p => p.filter(post => post.published)),
+    ]);
+    // Build counts map from the aggregation result
+    for (const row of langCounts) {
+      if (row.language) counts[row.language as BlogLanguage] = row.count;
+    }
+    posts = langPosts;
   } catch {
     // API unavailable — render empty state, do NOT crash.
-    allPublished = [];
+    posts = [];
   }
-
-  // Per-language counts for the tab chips — computed against the full
-  // published set, not the filtered view, so each chip always shows the
-  // true catalogue size regardless of which tab is active.
-  const counts: Partial<Record<BlogLanguage, number>> = {};
-  for (const l of BLOG_LANGUAGES) {
-    counts[l.code] = allPublished.filter(p => p.language === l.code).length;
-  }
-
-  const posts = activeLang
-    ? allPublished.filter(p => p.language === activeLang)
-    : allPublished;
 
   // Newest-first ordering by intended publish date when present, falling
   // back to createdAt for posts without a schedule.

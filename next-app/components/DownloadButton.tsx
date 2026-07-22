@@ -45,35 +45,26 @@ export function DownloadButton({
 }: DownloadButtonProps) {
   const [busy, setBusy] = useState(false);
 
-  const onClick = async () => {
+  const onClick = () => {
     if (busy) return;
     setBusy(true);
     const ext = extension ?? inferExt(url);
     const filename = safeFilename(title, ext);
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const blob = await res.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = blobUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      // Free the blob after the browser has a chance to read it.
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
-      haptic("success");
-      showToast("Download started", "success");
-    } catch (err: any) {
-      // Cross-origin blob fetch blocked? Fall back to opening in new tab —
-      // browser will handle the download via Content-Disposition if set,
-      // or otherwise show the file inline (less ideal but not broken).
-      window.open(url, "_blank", "noopener,noreferrer");
-      showToast("Opening in new tab", "info");
-    } finally {
-      setBusy(false);
-    }
+    // Route through same-origin proxy so Android Chrome saves to gallery.
+    // Cross-origin blob URLs are silently ignored on Android Chrome.
+    const proxyUrl = `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = proxyUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.setTimeout(() => {
+      if (a.parentNode) document.body.removeChild(a);
+    }, 1000);
+    haptic("success");
+    showToast("Download started", "success");
+    setBusy(false);
   };
 
   const cls =

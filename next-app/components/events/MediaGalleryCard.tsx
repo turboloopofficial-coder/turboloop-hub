@@ -103,22 +103,22 @@ export function MediaGalleryCard({
       }
     }
 
-    // Step 2 — download + copy caption as a combined fallback.
+    // Step 2 — download via proxy + copy caption as a combined fallback.
+    // Route through /api/download so Android Chrome saves to gallery
+    // (cross-origin blob URLs are silently ignored on Android).
     let downloaded = false;
     let copied = false;
 
     try {
-      const res = await fetch(item.url);
-      const blob = await res.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
+      const filename = filenameFromUrl(item.url);
+      const proxyUrl = `/api/download?url=${encodeURIComponent(item.url)}&filename=${encodeURIComponent(filename)}`;
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = blobUrl;
-      a.download = filenameFromUrl(item.url);
+      a.href = proxyUrl;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       window.setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
         if (a.parentNode) document.body.removeChild(a);
       }, 1000);
       downloaded = true;
@@ -153,31 +153,23 @@ export function MediaGalleryCard({
     setBusy("");
   }
 
-  async function handleDownload(e: React.MouseEvent) {
+  function handleDownload(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
     if (busy) return;
-    setBusy("download");
-
-    try {
-      const res = await fetch(item.url);
-      const blob = await res.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = blobUrl;
-      a.download = filenameFromUrl(item.url);
-      document.body.appendChild(a);
-      a.click();
-      window.setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1000);
-      haptic("success");
-    } catch {
-      window.open(item.url, "_blank", "noopener,noreferrer");
-    }
-    setBusy("");
+    // Route through same-origin proxy so Android Chrome saves to gallery
+    const filename = filenameFromUrl(item.url);
+    const proxyUrl = `/api/download?url=${encodeURIComponent(item.url)}&filename=${encodeURIComponent(filename)}`;
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = proxyUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.setTimeout(() => {
+      if (a.parentNode) document.body.removeChild(a);
+    }, 1000);
+    haptic("success");
   }
 
   return (

@@ -24,6 +24,13 @@ const CORS_ALLOWED_ORIGINS = [
 const CACHEABLE_QUERY_PATHS = new Set([
   "content.blogPosts",
   "content.blogPost",
+  // Listing endpoints — added 2026-07-22 to enable CDN caching.
+  // These were missing from the set, causing every blog page request
+  // to hit the Lambda + Neon even though the data changes at most
+  // every 5 minutes. With CDN caching (s-maxage=300), the Lambda is
+  // only invoked once per 5 minutes per cache region.
+  "content.blogPostsList",
+  "content.blogPostsHomepage",
   "content.videos",
   "content.events",
   "content.leaderboard",
@@ -65,7 +72,11 @@ function getApp(): Express {
           return {
             headers: {
               "Cache-Control":
-                "public, s-maxage=60, stale-while-revalidate=600",
+                // 5-min CDN cache (matches Next.js revalidate=300).
+                // stale-while-revalidate=600 means CDN serves stale for
+                // up to 10 min while refreshing in background — users
+                // never wait for a cold Lambda + Neon round-trip.
+                "public, s-maxage=300, stale-while-revalidate=600",
             },
           };
         }

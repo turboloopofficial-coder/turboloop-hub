@@ -15,6 +15,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, RefreshCw, Check, Download, Copy, ExternalLink, Share2 } from "lucide-react";
 import captionsData from "@lib/campaign-captions.json";
+import { downloadFile } from "@lib/downloadFile";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -193,21 +194,13 @@ export function BannerShareModal({ banner, language = "english", onClose }: Prop
     setTimeout(() => setCopied(false), 2000);
   }, [fullShareText]);
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     setDownloading(true);
     try {
-      // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-      // so Android Chrome saves to gallery without needing a proxy.
+      // fetch → blob → same-origin object URL (works on Android Chrome)
+      // Falls back to proxy if CORS fails, then opens in new tab.
       const filename = banner.url.split("/").pop() ?? "turboloop-banner.png";
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = banner.url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.setTimeout(() => { if (a.parentNode) document.body.removeChild(a); }, 500);
-    } catch {
-      window.open(banner.url, "_blank");
+      await downloadFile(banner.url, filename);
     } finally {
       setDownloading(false);
     }

@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Share2, Download, ExternalLink } from "lucide-react";
 import type { UnifiedCreative } from "@lib/unifiedCreativesData";
 import { ShareModal } from "./ShareModal";
+import { downloadFile } from "@lib/downloadFile";
 
 interface Props {
   item: UnifiedCreative;
@@ -20,24 +21,16 @@ export function UnifiedBannerCard({ item }: Props) {
   const [downloading, setDownloading] = useState(false);
 
   // ── Download ───────────────────────────────────────────────────────────
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     if (downloading) return;
     setDownloading(true);
     try {
-      // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-      // so Android Chrome saves to gallery without needing a proxy.
+      // fetch → blob → same-origin object URL (works on Android Chrome)
+      // Falls back to proxy if CORS fails, then opens in new tab.
       const ext = item.url.split(".").pop()?.split("?")[0] ?? "png";
       const name = item.id.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
       const filename = `turboloop-${name}.${ext}`;
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = item.url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.setTimeout(() => { if (a.parentNode) document.body.removeChild(a); }, 500);
-    } catch {
-      window.open(item.url, "_blank", "noopener,noreferrer");
+      await downloadFile(item.url, filename);
     } finally {
       setDownloading(false);
     }

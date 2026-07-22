@@ -20,6 +20,7 @@ import { Share2, Download, Loader2 } from "lucide-react";
 import { showToast } from "@components/Toast";
 import { haptic } from "@lib/haptic";
 import type { EventPhoto, EventVideo } from "@lib/eventsData";
+import { downloadFile } from "@lib/downloadFile";
 
 type MediaItem =
   | (EventPhoto & { type: "photo" })
@@ -103,24 +104,16 @@ export function MediaGalleryCard({
       }
     }
 
-    // Step 2 — download directly + copy caption as a combined fallback.
-    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-    // so Android Chrome saves to gallery without needing a proxy.
+    // Step 2 — download + copy caption as a combined fallback.
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
     let downloaded = false;
     let copied = false;
 
     try {
       const filename = filenameFromUrl(item.url);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = item.url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.setTimeout(() => {
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1000);
-      downloaded = true;
+      const result = await downloadFile(item.url, filename);
+      downloaded = result === "blob" || result === "proxy";
     } catch {}
 
     try {
@@ -156,18 +149,10 @@ export function MediaGalleryCard({
     e.preventDefault();
     e.stopPropagation();
     if (busy) return;
-    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-    // so Android Chrome saves to gallery without needing a proxy.
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
     const filename = filenameFromUrl(item.url);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = item.url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    window.setTimeout(() => {
-      if (a.parentNode) document.body.removeChild(a);
-    }, 1000);
+    downloadFile(item.url, filename);
     haptic("success");
   }
 

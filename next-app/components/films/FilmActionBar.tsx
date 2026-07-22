@@ -18,9 +18,9 @@
 // Both buttons are big enough for mobile (44×44 minimum tap target).
 
 "use client";
-
 import { useState } from "react";
 import { Share2, Download, Check } from "lucide-react";
+import { downloadFile } from "@lib/downloadFile";
 
 interface FilmActionBarProps {
   /** Public URL of the film detail page — used by the share action. */
@@ -82,7 +82,11 @@ export function FilmActionBar({
     );
   }
 
-  const proxyHref = `/api/download?url=${encodeURIComponent(downloadUrl)}&filename=${encodeURIComponent(downloadFilename + ".mp4")}`;
+  function handleDownload() {
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
+    downloadFile(downloadUrl, `${downloadFilename}.mp4`);
+  }
 
   return (
     <div className="flex flex-wrap gap-3">
@@ -105,15 +109,15 @@ export function FilmActionBar({
         )}
       </button>
 
-      <a
-        href={proxyHref}
-        download={`${downloadFilename}.mp4`}
+      <button
+        type="button"
+        onClick={handleDownload}
         className="inline-flex items-center gap-2 px-5 h-12 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:border-[var(--c-brand-cyan)] active:scale-[0.985] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--c-bg)]"
         aria-label="Download this film as MP4"
       >
         <Download className="w-4 h-4" />
         Download
-      </a>
+      </button>
     </div>
   );
 }

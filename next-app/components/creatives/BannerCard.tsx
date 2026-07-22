@@ -32,6 +32,7 @@ import { Download, Share2 } from "lucide-react";
 import { CreativeBanner, bannerShareText } from "@lib/creativesData";
 import { showToast } from "@components/Toast";
 import { haptic } from "@lib/haptic";
+import { downloadFile } from "@lib/downloadFile";
 
 function safeFilename(banner: CreativeBanner): string {
   // banner.original is the source PNG name (e.g. "monthly-en-50.png").
@@ -114,21 +115,12 @@ export function BannerCard({
     let copied = false;
 
     try {
-      // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-      // so Android Chrome saves to gallery without needing a proxy.
-      const filename = safeFilename(banner);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = banner.url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.setTimeout(() => {
-        if (a.parentNode) document.body.removeChild(a);
-      }, 500);
-      downloaded = true;
+      // fetch → blob → same-origin object URL (works on Android Chrome)
+      // Falls back to proxy if CORS fails, then opens in new tab.
+      const result = await downloadFile(banner.url, safeFilename(banner));
+      downloaded = result === "blob" || result === "proxy";
     } catch {
-      // Fallback: open the image in a new tab
+      // Network error — skip download
     }
 
     try {
@@ -169,18 +161,9 @@ export function BannerCard({
   const handleDownload = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-    // so Android Chrome saves to gallery without needing a proxy.
-    const filename = safeFilename(banner);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = banner.url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    window.setTimeout(() => {
-      if (a.parentNode) document.body.removeChild(a);
-    }, 500);
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
+    downloadFile(banner.url, safeFilename(banner));
     haptic("success");
   };
 

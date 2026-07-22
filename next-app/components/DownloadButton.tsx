@@ -1,14 +1,17 @@
 "use client";
 
 // DownloadButton — fetches a file as a blob and triggers a real
-// "Save as..." prompt with a clean filename. Without this, clicking a
-// raw R2 .mp4 URL opens the video inline in the browser instead of
-// downloading.
+// "Save as..." prompt with a clean filename.
+//
+// Uses the fetch → blob → same-origin object URL pattern which works on
+// Android Chrome. A plain <a href="R2_URL" download> is ignored by Chrome
+// for cross-origin URLs — it navigates instead of downloading.
 
 import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { showToast } from "./Toast";
 import { haptic } from "@lib/haptic";
+import { downloadFile } from "@lib/downloadFile";
 
 interface DownloadButtonProps {
   /** Direct file URL (R2 .mp4 / .pdf / etc.) */
@@ -45,25 +48,20 @@ export function DownloadButton({
 }: DownloadButtonProps) {
   const [busy, setBusy] = useState(false);
 
-  const onClick = () => {
+  const onClick = async () => {
     if (busy) return;
     setBusy(true);
-    const ext = extension ?? inferExt(url);
-    const filename = safeFilename(title, ext);
-    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-    // so Android Chrome saves to gallery without needing a proxy.
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    window.setTimeout(() => {
-      if (a.parentNode) document.body.removeChild(a);
-    }, 1000);
-    haptic("success");
-    showToast("Download started", "success");
-    setBusy(false);
+    try {
+      const ext = extension ?? inferExt(url);
+      const filename = safeFilename(title, ext);
+      // fetch → blob → same-origin object URL (works on Android Chrome)
+      // Falls back to proxy if CORS fails, then opens in new tab.
+      await downloadFile(url, filename);
+      haptic("success");
+      showToast("Download started", "success");
+    } finally {
+      setBusy(false);
+    }
   };
 
   const cls =

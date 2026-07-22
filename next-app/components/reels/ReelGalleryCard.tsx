@@ -17,6 +17,7 @@ import { showToast } from "@components/Toast";
 import { haptic } from "@lib/haptic";
 import type { ReelTrack } from "@lib/reelsData";
 import { dispatchNudgeEvent } from "@components/notifications/SmartNotifications";
+import { downloadFile } from "@lib/downloadFile";
 
 const LANG_LABEL: Record<ReelTrack["lang"], string> = {
   en: "EN", th: "TH", ko: "KO", lo: "LO", hi: "HI", ta: "TA",
@@ -95,24 +96,16 @@ export function ReelGalleryCard({ reel }: ReelGalleryCardProps) {
       }
     }
 
-    // Fallback — download file directly + copy caption.
-    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-    // so Android Chrome saves to gallery without needing a proxy.
+    // Fallback — download file + copy caption.
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
     let downloaded = false;
     let copied = false;
 
     try {
       const filename = filenameFromUrl(reel.videoUrl);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = reel.videoUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.setTimeout(() => {
-        if (a.parentNode) document.body.removeChild(a);
-      }, 1000);
-      downloaded = true;
+      const result = await downloadFile(reel.videoUrl, filename);
+      downloaded = result === "blob" || result === "proxy";
     } catch {}
 
     try {
@@ -148,18 +141,10 @@ export function ReelGalleryCard({ reel }: ReelGalleryCardProps) {
     e.preventDefault();
     e.stopPropagation();
     if (busy) return;
-    // Direct R2 URL — Content-Disposition: attachment is set on the R2 object,
-    // so Android Chrome saves to gallery without needing a proxy.
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
     const filename = filenameFromUrl(reel.videoUrl);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = reel.videoUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    window.setTimeout(() => {
-      if (a.parentNode) document.body.removeChild(a);
-    }, 1000);
+    downloadFile(reel.videoUrl, filename);
     haptic("success");
   }
 

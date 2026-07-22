@@ -18,13 +18,13 @@
 // hover is the consistent design language.
 
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Play, Share2, Download, Check } from "lucide-react";
 import { NewBadge } from "@components/ui/NewBadge";
 import { shouldShowNewBadge, type DbReel } from "@lib/reelsApi";
+import { downloadFile } from "@lib/downloadFile";
 
 interface ReelCardProps {
   reel: DbReel;
@@ -34,12 +34,16 @@ export function ReelCard({ reel }: ReelCardProps) {
   const [copied, setCopied] = useState(false);
   const detailUrl = `https://www.turboloop.tech/reels/${reel.slug}`;
   const showNew = shouldShowNewBadge(reel);
-  // Download proxy works only for R2-hosted reels (where we have a
+  // handleDownload only fires for R2-hosted reels (where we have a
   // direct mp4 URL). YouTube-only reels skip the download path —
   // their "share" still works via the Share button below.
-  const proxyHref = reel.directUrl
-    ? `/api/download?url=${encodeURIComponent(reel.directUrl)}&filename=${encodeURIComponent(reel.slug + ".mp4")}`
-    : "";
+  function handleDownload(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (!reel.directUrl) return;
+    // fetch → blob → same-origin object URL (works on Android Chrome)
+    // Falls back to proxy if CORS fails, then opens in new tab.
+    downloadFile(reel.directUrl, `${reel.slug}.mp4`);
+  }
 
   async function handleShare(e: React.MouseEvent) {
     e.preventDefault();
@@ -166,16 +170,17 @@ export function ReelCard({ reel }: ReelCardProps) {
               </>
             )}
           </button>
-          <a
-            href={proxyHref}
-            download={`${reel.slug}.mp4`}
-            onClick={e => e.stopPropagation()}
-            className="inline-flex items-center justify-center gap-1.5 flex-1 h-9 rounded-full text-xs font-bold bg-[var(--c-bg)] text-[var(--c-text)] border border-[var(--c-border)] hover:border-[var(--c-brand-cyan)] active:scale-[0.985] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)]"
-            aria-label={`Download ${reel.title}`}
-          >
-            <Download className="w-3.5 h-3.5" />
-            Save
-          </a>
+          {reel.directUrl && (
+            <button
+              type="button"
+              onClick={handleDownload}
+              className="inline-flex items-center justify-center gap-1.5 flex-1 h-9 rounded-full text-xs font-bold bg-[var(--c-bg)] text-[var(--c-text)] border border-[var(--c-border)] hover:border-[var(--c-brand-cyan)] active:scale-[0.985] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand-cyan)]"
+              aria-label={`Download ${reel.title}`}
+            >
+              <Download className="w-3.5 h-3.5" />
+              Save
+            </button>
+          )}
         </div>
       </div>
     </div>

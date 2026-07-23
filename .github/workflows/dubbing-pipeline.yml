@@ -58,7 +58,7 @@ jobs:
         run: |
           git config user.name  "TurboLoop Bot"
           git config user.email "turbo.loop.official@gmail.com"
-          git add next-app/components/sections/VideoExplainerSection.tsx
+          git add next-app/lib/videoLanguages.ts
           PROCESSED="${{ steps.pipeline.outputs.total_processed }}"
           git commit -m "feat: auto-add ep2 dubs for ${PROCESSED} language(s) [skip ci]"
           git push origin main

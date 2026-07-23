@@ -49,7 +49,7 @@ R2_BUCKET      = "turboloop-assets"
 R2_PUBLIC_BASE = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev"
 
 # Path to the TSX file (relative to repo root, where this script runs from)
-TSX_PATH = Path("next-app/components/sections/VideoExplainerSection.tsx")
+TSX_PATH = Path("next-app/lib/videoLanguages.ts")
 
 # ─── Episode Configuration ────────────────────────────────────────────────────
 # Each episode has:

@@ -23,7 +23,19 @@ import {
 import { LANGUAGE_ORDER } from "@lib/languages";
 import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
-export const revalidate = 300; // 5 min
+export const revalidate = 300; // 5 min ISR
+
+// Pre-render all language variants at build time so Vercel CDN can cache them.
+// Without generateStaticParams, next-intl's getRequestConfig calls headers() on
+// every request, opting the page into dynamic rendering (no CDN cache).
+// We pre-render /blog (English default) and /blog?lang=<code> for all languages.
+export function generateStaticParams() {
+  // Return one entry per language code. Next.js will pre-render
+  // /blog?lang=en, /blog?lang=hi, /blog?lang=ar, etc. at build time.
+  // The ?lang=all variant is intentionally excluded — it loads 4,700 posts
+  // and would make builds very slow.
+  return LANGUAGE_ORDER.map(code => ({ lang: code }));
+}
 
 const BLOG_OG_TITLE = "DeFi Blog & Editorial — Yield Farming Insights | TurboLoop";
 const BLOG_OG_DESC =

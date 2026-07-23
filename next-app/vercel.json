@@ -101,7 +101,7 @@
     },
     {
       "path": "/api/warmup",
-      "schedule": "*/5 * * * *"
+      "schedule": "*/30 * * * *"
     }
   ]
 }

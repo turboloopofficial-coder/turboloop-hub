@@ -69,33 +69,57 @@ export async function tgSendPhoto(token: string, msg: TgPhotoMessage): Promise<{
   }
 }
 
-/** Send a video by downloading it first then uploading as multipart/form-data.
- *  This avoids Telegram's URL-fetch path which fails for large files (>20 MB)
- *  and CDN URLs that Telegram's servers cannot reach.
+/** Send a video by passing the URL directly to Telegram's sendVideo API.
+ *  Telegram fetches the file from R2 directly — this avoids downloading
+ *  the entire video through the Vercel function, which was causing massive
+ *  bandwidth charges (Fast Origin Transfer + Fast Data Transfer).
+ *
+ *  Telegram supports URL-based video sending for files up to 20 MB natively.
+ *  For larger files, Telegram will still fetch from the URL if it's publicly
+ *  accessible (R2 public bucket). Falls back to multipart upload if URL send fails.
+ *
  *  Same caption + inline keyboard contract as `tgSendPhoto`.
  *  Used by the Omni-Composer when `mediaType='video'`. */
 export async function tgSendVideo(token: string, msg: TgVideoMessage): Promise<{ ok: boolean; error?: string }> {
   const kb = inlineKeyboard(msg.buttons);
   try {
-    // Download the video binary from R2/CDN and upload as multipart/form-data.
-    // Telegram's URL-fetch path rejects large files (>20 MB) and certain CDN
-    // responses, so we always upload the binary directly.
-    const vidRes = await fetch(msg.videoUrl, { signal: AbortSignal.timeout(300000) });
-    if (!vidRes.ok) throw new Error(`Video fetch failed: ${vidRes.status} ${msg.videoUrl}`);
-    const vidBuf = await vidRes.arrayBuffer();
-    const form = new FormData();
-    form.append("chat_id", msg.chatId);
-    form.append("caption", msg.caption);
-    form.append("parse_mode", msg.parseMode || "HTML");
-    form.append("supports_streaming", "true");
-    if (kb) form.append("reply_markup", JSON.stringify(kb));
-    form.append("video", new Blob([vidBuf], { type: "video/mp4" }), "video.mp4");
+    // COST OPTIMISATION: Pass the R2 URL directly to Telegram.
+    // Telegram's servers fetch the video from R2 — no bandwidth through Vercel.
+    // This eliminates the massive Fast Origin Transfer + Fast Data Transfer charges
+    // that occurred when we downloaded the full video binary through the function.
+    const body: Record<string, unknown> = {
+      chat_id: msg.chatId,
+      video: msg.videoUrl,
+      caption: msg.caption,
+      parse_mode: msg.parseMode || "HTML",
+      supports_streaming: true,
+    };
+    if (kb) body.reply_markup = kb;
     const r = await fetch(`${TG_API}${token}/sendVideo`, {
       method: "POST",
-      body: form,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
     const data: any = await r.json();
-    if (!data?.ok) return { ok: false, error: data?.description || `HTTP ${r.status}` };
+    if (!data?.ok) {
+      // Fallback: if URL-based send fails (e.g. Telegram can't reach R2),
+      // download through Vercel and upload as multipart. This is the old
+      // expensive path — only used as a last resort.
+      console.warn(`[tgSendVideo] URL send failed (${data?.description}), falling back to binary upload`);
+      const vidRes = await fetch(msg.videoUrl, { signal: AbortSignal.timeout(300000) });
+      if (!vidRes.ok) throw new Error(`Video fetch failed: ${vidRes.status} ${msg.videoUrl}`);
+      const vidBuf = await vidRes.arrayBuffer();
+      const form = new FormData();
+      form.append("chat_id", msg.chatId);
+      form.append("caption", msg.caption);
+      form.append("parse_mode", msg.parseMode || "HTML");
+      form.append("supports_streaming", "true");
+      if (kb) form.append("reply_markup", JSON.stringify(kb));
+      form.append("video", new Blob([vidBuf], { type: "video/mp4" }), "video.mp4");
+      const r2 = await fetch(`${TG_API}${token}/sendVideo`, { method: "POST", body: form });
+      const data2: any = await r2.json();
+      if (!data2?.ok) return { ok: false, error: data2?.description || `HTTP ${r2.status}` };
+    }
     return { ok: true };
   } catch (err: any) {
     return { ok: false, error: String(err?.message || err) };

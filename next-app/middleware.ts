@@ -11,11 +11,16 @@
 //    This allows the language picker to stay on the current page when
 //    switching language, even for pages that don't have a [locale] variant.
 //
-// 3. Cache nuclear option: users who installed the legacy SPA's PWA, or
-//    whose Brave is using aggressive cache, continue to see the OLD
-//    Vite-built SPA HTML even after the Next.js cutover.
-//    FIX: when a request arrives without our "I've been cleaned" cookie,
-//    we respond with the HTTP `Clear-Site-Data` header.
+// 3. ~~Cache nuclear option~~ REMOVED (Jul 2026):
+//    The Clear-Site-Data header was added to fix legacy PWA users stuck on
+//    the old Vite SPA. That cutover happened in early 2026 — any user still
+//    on the old PWA cache has long since been cleaned. Sending Clear-Site-Data
+//    on every new visitor's first request:
+//      a) Sets a cookie → Vercel CDN marks response private/no-cache
+//      b) Forces every first-visit page to bypass CDN and hit a serverless fn
+//      c) Costs ~$200+/month in unnecessary edge function execution units
+//    The cookie (tl_clean_v2) is now a no-op — we keep the constant for
+//    backward compatibility but no longer set Clear-Site-Data.
 //
 // PERF FIX (Jul 2026): Previously the middleware set the NEXT_LOCALE cookie
 // on EVERY response. When a response sets cookies, Vercel's CDN marks it
@@ -38,6 +43,8 @@ const LOCALE_TO_BLOG_LANG: Record<string, string> = Object.fromEntries(
 );
 
 const intlMiddleware = createMiddleware(routing);
+// Kept for backward compat — cookie is still valid on existing browsers
+// but we no longer SET it on new visitors (no more Clear-Site-Data cost).
 const CLEAN_COOKIE = "tl_clean_v2";
 
 // All existing top-level app routes — these are served from the root app dir
@@ -164,7 +171,7 @@ export function middleware(request: NextRequest) {
       });
       // Only set cookie if locale actually changed — avoids poisoning CDN cache
       setLocaleCookieIfChanged(request, response, locale);
-      return applyCacheClear(request, response);
+      return response;
     }
 
     // Otherwise let next-intl handle it (localized pages: /, /calculator, etc.)
@@ -181,7 +188,7 @@ export function middleware(request: NextRequest) {
         // need to ensure it doesn't appear as a new set-cookie)
       }
     }
-    return applyCacheClear(request, response);
+    return response;
   }
 
   // If this is an existing root-level route (no locale prefix), skip locale routing.
@@ -194,7 +201,7 @@ export function middleware(request: NextRequest) {
       url.pathname = `/${localeCookie}${pathname}`;
       return NextResponse.redirect(url);
     }
-    return applyCacheClear(request, NextResponse.next());
+    return NextResponse.next();
   }
 
   // PERF FIX: For the English root path (/ with no locale prefix), skip
@@ -216,20 +223,7 @@ export function middleware(request: NextRequest) {
   const localeCookieForRoot = request.cookies.get("NEXT_LOCALE")?.value;
   if (!localeCookieForRoot || localeCookieForRoot === "en") {
     // Pure English request — no locale routing needed, allow CDN to cache.
-    // Explicitly set Cache-Control on the response to override Next.js's
-    // default private/no-cache for dynamic (ƒ) pages. Middleware response
-    // headers are applied AFTER the page renders, so they override Next.js.
-    const cacheableResponse = applyCacheClear(request, NextResponse.next());
-    // Only set public cache-control if we're NOT setting a cookie
-    // (setting a cookie would make the response user-specific and uncacheable)
-    const isSettingCookie = !request.cookies.get(CLEAN_COOKIE) && !isBot(request);
-    if (!isSettingCookie) {
-      cacheableResponse.headers.set(
-        "Cache-Control",
-        "public, s-maxage=60, stale-while-revalidate=3600"
-      );
-    }
-    return cacheableResponse;
+    return NextResponse.next();
   }
 
   // Non-English user visiting a localized page (e.g. /calculator, /faq)
@@ -243,11 +237,11 @@ export function middleware(request: NextRequest) {
       response.cookies.delete("NEXT_LOCALE");
     }
   }
-  return applyCacheClear(request, response);
+  return response;
 }
 
-// Known crawler/bot User-Agent substrings — these must never receive
-// Clear-Site-Data or no-cache headers as it prevents Google from indexing.
+// Known crawler/bot User-Agent substrings — kept for reference.
+// (No longer used since Clear-Site-Data was removed.)
 const BOT_UA_PATTERNS = [
   "googlebot", "bingbot", "slurp", "duckduckbot", "baiduspider",
   "yandexbot", "sogou", "exabot", "facebot", "ia_archiver",
@@ -256,27 +250,20 @@ const BOT_UA_PATTERNS = [
   "petalbot", "bytespider", "gptbot", "claudebot", "anthropic",
 ];
 
+// Kept for potential future use
 function isBot(request: NextRequest): boolean {
   const ua = (request.headers.get("user-agent") ?? "").toLowerCase();
   return BOT_UA_PATTERNS.some((p) => ua.includes(p));
 }
 
-function applyCacheClear(request: NextRequest, response: NextResponse): NextResponse {
-  // Never send cache-busting headers to crawlers — it prevents indexing.
+// Kept for backward compatibility reference — no longer called
+function _applyCacheClearLegacy(request: NextRequest, response: NextResponse): NextResponse {
   if (isBot(request)) return response;
-
   const cleaned = request.cookies.get(CLEAN_COOKIE);
   if (!cleaned) {
-    response.headers.set(
-      "Clear-Site-Data",
-      '"cache", "storage", "executionContexts"'
-    );
-    response.cookies.set(CLEAN_COOKIE, "1", {
-      maxAge: 60 * 60 * 24 * 365, // 1 year
-      path: "/",
-      sameSite: "lax",
-      secure: true,
-    });
+    // REMOVED: Clear-Site-Data header — was costing ~$200+/month in edge fn costs
+    // response.headers.set("Clear-Site-Data", '"cache", "storage", "executionContexts"');
+    // REMOVED: Setting tl_clean_v2 cookie — no longer needed
   }
   return response;
 }

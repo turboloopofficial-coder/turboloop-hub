@@ -4,11 +4,21 @@
 // Receives all posts pre-fetched by the server component (HomeBlogSection)
 // and filters them client-side — zero extra API calls, instant tab switching.
 //
-// initialLocale: the next-intl locale code from the current route (e.g. "th",
-// "ko"). Used to pre-select the matching blog language tab on first render.
-// Once the user clicks a tab, their choice is fully in control.
+// Language default priority:
+//   1. initialLocale prop (from [locale] route, e.g. /hi → "hi")
+//   2. NEXT_LOCALE cookie (set by the global language picker)
+//   3. "en" fallback
+//
+// Reading the cookie client-side (useEffect) keeps the homepage statically
+// rendered (no cookies() call in the server component = ISR caching preserved).
+// There may be a brief flash of English before switching to the user's language
+// on first paint, but this is imperceptible in practice.
+//
+// realCounts: map of { lang → total posts in DB } fetched by the server via
+// blogPostsCounts(). Used to show real totals (e.g. "Hindi 177") instead
+// of the preview count (always ≤5 since we only pre-fetch 5 per language).
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -60,6 +70,19 @@ const LOCALE_TO_BLOG_LANG: Record<string, BlogLanguage> = {
   pk: "pk",
 };
 
+/** Read the NEXT_LOCALE cookie from document.cookie */
+function getLocaleCookie(): string | null {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie.match(/(?:^|;\s*)NEXT_LOCALE=([^;]+)/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+/** Resolve a locale string to a BlogLanguage DB code */
+function localeToBlogLang(locale: string | null | undefined): BlogLanguage | null {
+  if (!locale) return null;
+  return LOCALE_TO_BLOG_LANG[locale] ?? null;
+}
+
 interface Props {
   /** All published posts across all languages — pre-fetched by the server. */
   allPosts: BlogPostSummary[];
@@ -70,23 +93,33 @@ interface Props {
    * when the locale route changes so the initial selection resets.
    */
   initialLocale?: string;
+  /**
+   * Real post counts per language from the DB (blogPostsCounts endpoint).
+   * Keys are DB language codes (e.g. "hi", "kr", "sa").
+   * Used to show real totals (e.g. "Hindi 177") in the tab chips instead
+   * of the preview count (always ≤5 since we only pre-fetch 5 per language).
+   */
+  realCounts?: Record<string, number>;
 }
 
-export function HomeBlogLanguagePicker({ allPosts, initialLocale }: Props) {
-  // Derive the initial language from the locale, falling back to "en".
-  // Using the value directly in useState (not via useEffect) means it is
-  // only evaluated once at mount — which is exactly what we want.
-  // The parent passes key={locale} so the component remounts on locale change.
+export function HomeBlogLanguagePicker({ allPosts, initialLocale, realCounts = {} }: Props) {
+  // Derive the initial language from the locale prop, falling back to "en".
+  // This is the SSR/static value — cookie is applied client-side in useEffect.
   const initialLang: BlogLanguage =
-    (initialLocale ? LOCALE_TO_BLOG_LANG[initialLocale] : undefined) ?? "en";
+    localeToBlogLang(initialLocale) ?? "en";
 
   const [activeLang, setActiveLang] = useState<BlogLanguage>(initialLang);
 
-  // Count per language for the tab chips
-  const counts: Partial<Record<BlogLanguage, number>> = {};
-  for (const lang of BLOG_LANGUAGES) {
-    counts[lang.code] = allPosts.filter(p => p.language === lang.code).length;
-  }
+  // On mount: if no explicit locale was passed (root / page), read the
+  // NEXT_LOCALE cookie so the blog section matches the user's selected language.
+  useEffect(() => {
+    if (initialLocale) return; // locale route already handled by the prop
+    const cookieLang = localeToBlogLang(getLocaleCookie());
+    if (cookieLang && cookieLang !== activeLang) {
+      setActiveLang(cookieLang);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 3 most-recent posts for the active language
   const posts = allPosts
@@ -107,7 +140,8 @@ export function HomeBlogLanguagePicker({ allPosts, initialLocale }: Props) {
       >
         {BLOG_LANGUAGES.map(lang => {
           const isActive = activeLang === lang.code;
-          const count = counts[lang.code];
+          // Use real DB count if available, else fall back to preview count
+          const count = realCounts[lang.code] ?? allPosts.filter(p => p.language === lang.code).length;
           return (
             <button
               key={lang.code}

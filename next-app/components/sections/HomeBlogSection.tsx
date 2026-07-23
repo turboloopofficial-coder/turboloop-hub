@@ -10,6 +10,10 @@
 // language (~75 posts total, ~100 KB). The homepage only shows 3 posts at a
 // time, so 5 per language is more than enough.
 //
+// COUNTS FIX (Jul 2026): Also fetches api.blogPostsCounts() — a tiny
+// aggregation query (~200 bytes) — so the language tabs show real totals
+// (e.g. "Hindi 177") instead of the preview count (always 5).
+//
 // locale: the next-intl locale code from the current route. Passed through
 // to HomeBlogLanguagePicker so the correct language tab is pre-selected.
 // The picker is keyed by locale so it remounts cleanly on locale change.
@@ -26,11 +30,19 @@ interface Props {
 
 export async function HomeBlogSection({ locale }: Props = {}) {
   let allPosts = [];
+  let realCounts: Record<string, number> = {};
   try {
     // Use the homepage-optimised endpoint (top 5 per language, ~75 posts total)
     // instead of blogPostsList (all 4,700+ posts, 6 MB → 4 MB RSC payload).
-    const all = await api.blogPostsHomepage();
+    const [all, counts] = await Promise.all([
+      api.blogPostsHomepage(),
+      api.blogPostsCounts(),
+    ]);
     allPosts = all.filter(p => p.published);
+    // Convert [{language, count}] array to {lang: count} map
+    for (const row of counts) {
+      if (row.language) realCounts[row.language] = row.count;
+    }
   } catch {
     return null;
   }
@@ -57,6 +69,7 @@ export async function HomeBlogSection({ locale }: Props = {}) {
           key={locale ?? "en"}
           allPosts={allPosts}
           initialLocale={locale}
+          realCounts={realCounts}
         />
       </Container>
     </section>

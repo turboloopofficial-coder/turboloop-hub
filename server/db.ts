@@ -234,6 +234,31 @@ export async function getBlogPostBySlug(slug: string) {
   return result[0] || undefined;
 }
 
+// Translation-group query: returns all published siblings for a given root post ID.
+// Used by the blog [slug] page to emit hreflang alternates without fetching all 4,700 posts.
+// A "root" post is the English original; translations point to it via translationOf.
+// This query returns ~1-60 rows (one per language) instead of 4,700 — ~10 KB vs 6 MB.
+export async function getBlogPostSiblings(rootId: number) {
+  const db = getDb();
+  const cols = {
+    id: blogPosts.id,
+    slug: blogPosts.slug,
+    language: blogPosts.language,
+    translationOf: blogPosts.translationOf,
+    published: blogPosts.published,
+  } as const;
+  // Fetch the root post itself + all posts that point to it as a translation
+  return db
+    .select(cols)
+    .from(blogPosts)
+    .where(
+      and(
+        eq(blogPosts.published, true),
+        or(eq(blogPosts.id, rootId), eq(blogPosts.translationOf, rootId))
+      )
+    );
+}
+
 export async function createBlogPost(post: InsertBlogPost) {
   const db = getDb();
   const result = await db.insert(blogPosts).values(sanitiseBlogFields(post)).returning();

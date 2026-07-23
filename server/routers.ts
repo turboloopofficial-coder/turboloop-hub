@@ -4,7 +4,7 @@ import * as jose from "jose";
 import { parse as parseCookieHeader } from "cookie";
 import {
   verifyAdminPassword, upsertAdmin, getAdminByEmail,
-  listBlogPosts, listBlogPostsSummary, listBlogPostsSummaryByLanguage, getBlogPostsLanguageCounts, listBlogPostsHomepage, getBlogPostBySlug, createBlogPost, updateBlogPost, deleteBlogPost,
+  listBlogPosts, listBlogPostsSummary, listBlogPostsSummaryByLanguage, getBlogPostsLanguageCounts, listBlogPostsHomepage, getBlogPostBySlug, getBlogPostSiblings, createBlogPost, updateBlogPost, deleteBlogPost,
   listAutomationLog,
   listVideos, createVideo, updateVideo, deleteVideo,
   listEvents, createEvent, updateEvent, deleteEvent,
@@ -152,6 +152,12 @@ export const appRouter = router({
     // 4 MB RSC payload that was killing homepage load times.
     blogPostsHomepage: publicProcedure.query(() => listBlogPostsHomepage()),
     blogPost: publicProcedure.input(z.object({ slug: z.string() })).query(({ input }) => getBlogPostBySlug(input.slug)),
+    // Tiny translation-group query: returns only the sibling slugs/languages for
+    // a given root post ID. Used by the blog [slug] page to emit hreflang alternates
+    // without fetching all 4,700 posts (6 MB). Returns ~1-60 rows (~10 KB).
+    blogPostSiblings: publicProcedure
+      .input(z.object({ rootId: z.number().int().positive() }))
+      .query(({ input }) => getBlogPostSiblings(input.rootId)),
     videos: publicProcedure.query(() => listVideos(true)),
     events: publicProcedure.query(() => listEvents(true)),
     leaderboard: publicProcedure.query(() => listLeaderboard()),

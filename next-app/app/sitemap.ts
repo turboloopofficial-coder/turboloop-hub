@@ -21,7 +21,7 @@ import {
   api,
   blogTranslationGroup,
   HREFLANG_BY_LANG,
-  type BlogPost,
+  type BlogPostSummary,
 } from "@lib/api";
 import { LOCALES } from "@lib/i18n/routing";
 
@@ -33,7 +33,7 @@ const LOCALIZED_PAGES = ["", "/calculator", "/faq", "/apply", "/token"];
 
 const BASE = "https://www.turboloop.tech";
 
-export const revalidate = 300; // 5 min, matches api.blogPosts() ISR
+export const revalidate = 300; // 5 min, matches api.blogPostsList() ISR
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -167,14 +167,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // SERP and consolidates link signals across the group.
   let blog: MetadataRoute.Sitemap = [];
   try {
-    const posts = await api.blogPosts();
+    // Use blogPostsList() (summary, no content field, ~6 MB) instead of blogPosts() (52 MB).
+    // The sitemap only needs slug, language, translationOf, updatedAt, published — no content.
+    const posts = await api.blogPostsList();
     const publishedById = new Map(
       posts.filter(p => p.published).map(p => [p.id, p])
     );
     blog = posts
       .filter(p => p.published)
       .map(p => {
-        const group = blogTranslationGroup(p, posts);
+        const group = blogTranslationGroup(p, posts as ReadonlyArray<BlogPostSummary & { content: string }>);
         const languages: Record<string, string> = {};
         for (const sib of group) {
           if (!publishedById.has(sib.id)) continue;

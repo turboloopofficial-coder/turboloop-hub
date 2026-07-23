@@ -10,6 +10,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import {
@@ -20,7 +21,7 @@ import {
   type BlogLanguage,
   type BlogPostSummary,
 } from "@lib/api";
-import { LANGUAGE_ORDER } from "@lib/languages";
+import { LANGUAGE_ORDER, LANGUAGES } from "@lib/languages";
 import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
 export const revalidate = 300; // 5 min
@@ -68,15 +69,37 @@ function isBlogLanguage(v: string | undefined): v is BlogLanguage {
 export default async function BlogIndex({ searchParams }: { searchParams: Promise<{ lang?: string | string[] }> }) {
   const { lang } = await searchParams;
   const langParam = Array.isArray(lang) ? lang[0] : lang;
-  // Default `/blog` to English. `?lang=all` is the explicit opt-in
-  // for the mixed view — keeps newcomers from landing on a Hindi or
-  // German excerpt as their first impression of the editorial surface.
+
+  // Determine the default language from the x-locale header (set by middleware
+  // from the NEXT_LOCALE cookie). This means a user who has selected Hindi
+  // in the language switcher will see Hindi posts when they visit /blog directly,
+  // without needing to go through /hi/blog first.
+  // The middleware redirects non-English users to /[locale]/blog which injects
+  // ?lang=<code> — but this header fallback handles edge cases (e.g. direct /blog
+  // visits from users with a NEXT_LOCALE cookie that the middleware didn't catch).
+  let headerLang: BlogLanguage = "en";
+  try {
+    const hdrs = await headers();
+    const xLocale = hdrs.get("x-locale");
+    if (xLocale) {
+      // Convert locale code (e.g. "hi", "ar") to blog language code via LANGUAGES map
+      const langEntry = Object.values(LANGUAGES).find(l => l.locale === xLocale || l.code === xLocale);
+      if (langEntry && isBlogLanguage(langEntry.code)) {
+        headerLang = langEntry.code;
+      }
+    }
+  } catch {
+    // headers() throws outside of a request context (e.g. static generation) — safe to ignore.
+  }
+
+  // Priority: explicit ?lang param > x-locale header > "en" fallback
+  // ?lang=all is the explicit opt-in for the mixed view.
   const activeLang: BlogLanguage | null =
     langParam === "all"
       ? null
       : isBlogLanguage(langParam)
         ? langParam
-        : "en";
+        : headerLang;
 
   // Perf fix (2026-07-22): instead of fetching all 4,700+ posts (6 MB, 7-13s),
   // we now make two small targeted requests:

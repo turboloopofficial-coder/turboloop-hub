@@ -303,6 +303,16 @@ export const api = {
     fetchTRPC<{ language: string | null; count: number }[]>("content.blogPostsCounts", undefined, { revalidate: 300 }),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
+  /** Tiny translation-group query: returns only the sibling slugs/languages for
+   *  a given root post ID. Used by the blog [slug] page to emit hreflang alternates
+   *  without fetching all 4,700 posts (6 MB). Returns ~1-60 rows (~10 KB).
+   *  CDN-cached for 5 minutes — translation groups rarely change. */
+  blogPostSiblings: (rootId: number) =>
+    fetchTRPC<{ id: number; slug: string; language: string; translationOf: number | null; published: boolean }[]>(
+      "content.blogPostSiblings",
+      { rootId },
+      { revalidate: 300 }
+    ),
   videos: () => fetchTRPC<Video[]>("content.videos"),
   presentations: () => fetchTRPC<Presentation[]>("content.presentations"),
   leaderboard: () =>

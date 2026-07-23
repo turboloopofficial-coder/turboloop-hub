@@ -43,13 +43,20 @@ import {
   blogCoverUrl,
   blogDisplayDate,
   blogOgBannerUrl,
-  blogTranslationGroup,
   HREFLANG_BY_LANG,
   type BlogPost,
 } from "@lib/api";
+import { LANGUAGES } from "@lib/languages";
 
 export const revalidate = 300;
-export const dynamic = 'force-dynamic'; // render on-demand; api.turboloop.tech is unreliable at build time
+// ISR: blog posts are cached for 5 minutes at the CDN edge.
+// force-dynamic was previously set because api.turboloop.tech was unreliable at
+// build time — but that caused every blog post request to bypass CDN and hit a
+// cold serverless function. With revalidate=300 and error handling in
+// getPostOr404, ISR failures are isolated to the revalidation cycle and don't
+// affect cached responses. Use /api/revalidate-blog for instant cache busting.
+// Cost saving: ~$50+/month in edge function execution units.
+export const dynamicParams = true; // posts created after deploy still render on first hit
 
 // Canonical URLs use www. — the apex (turboloop.tech) issues a Vercel
 // platform 307 to www.turboloop.tech BEFORE Next.js middleware runs.
@@ -81,24 +88,22 @@ async function getPostOr404(slug: string): Promise<BlogPost> {
 }
 
 /** Build the `alternates.languages` map for `Metadata` from the
- *  translation group. Each entry maps a hreflang code to its absolute
- *  URL. Includes the post itself implicitly (Next.js handles it via
- *  `canonical`), but listing every translation explicitly is fine —
- *  Google deduplicates. Returns an empty object when the post is a
- *  monolingual original with no siblings (most posts today). */
+ *  translation siblings returned by the new blogPostSiblings endpoint.
+ *  Each entry maps a hreflang code to its absolute URL.
+ *  Returns an empty object when the post has no siblings (monolingual). */
 function buildLanguageAlternates(
-  group: BlogPost[]
+  siblings: { id: number; slug: string; language: string; translationOf: number | null; published: boolean }[]
 ): Record<string, string> {
   const out: Record<string, string> = {};
-  for (const sibling of group) {
+  for (const sibling of siblings) {
     if (!sibling.published) continue;
-    const hreflang = HREFLANG_BY_LANG[sibling.language] ?? sibling.language;
+    const hreflang = HREFLANG_BY_LANG[sibling.language as keyof typeof HREFLANG_BY_LANG] ?? sibling.language;
     out[hreflang] = `${CANONICAL_HOST}/blog/${sibling.slug}`;
   }
   // x-default → the English original (the canonical entry point for any
   // visitor whose locale isn't explicitly served). Falls back to the
   // post itself if no EN sibling exists.
-  const en = group.find(g => g.language === "en" && g.published);
+  const en = siblings.find(g => g.language === "en" && g.published);
   if (en) out["x-default"] = `${CANONICAL_HOST}/blog/${en.slug}`;
   return out;
 }
@@ -117,9 +122,18 @@ export async function generateMetadata({
   // Use blogPostsList() (no content field, ~6 MB) instead of blogPosts()
   // (52 MB) to stay under Next.js's 2 MB data-cache limit. BlogPostSummary
   // is BlogPost without `content`, so it has all fields needed for hreflang.
-  const allPosts = await api.blogPostsList();
-  const group = blogTranslationGroup(post, allPosts as Parameters<typeof blogTranslationGroup>[1]);
-  const languages = buildLanguageAlternates(group);
+  // Use the new blogPostSiblings endpoint instead of fetching all 4,700 posts.
+  // This returns only the ~1-60 siblings for this post's translation group (~10 KB vs 6 MB).
+  // The rootId is either the post's own ID (if it's the EN original) or translationOf.
+  const rootId = post.translationOf ?? post.id;
+  let siblings: { id: number; slug: string; language: string; translationOf: number | null; published: boolean }[] = [];
+  try {
+    siblings = await api.blogPostSiblings(rootId);
+  } catch {
+    // Fallback: no hreflang alternates if the siblings endpoint fails.
+    siblings = [];
+  }
+  const languages = buildLanguageAlternates(siblings);
 
   // SEO title/description fall back to the editorial title/excerpt when
   // no override is set. The hard cap keeps the `<title>` tag under
@@ -157,6 +171,9 @@ export async function generateMetadata({
         },
       ],
     },
+    keywords: post.tags && post.tags.length > 0
+      ? post.tags.join(", ")
+      : undefined,
     twitter: {
       card: "summary_large_image",
       title: seoTitle,
@@ -165,14 +182,13 @@ export async function generateMetadata({
     },
   };
 }
-
+/** Map language code → BCP-47 OG locale (e.g. "hi" → "hi_IN").
+ *  Derived from languages.ts so it covers all 50+ supported languages. */
 function ogLocaleFor(lang: string): string {
-  switch (lang) {
-    case "de": return "de_DE";
-    case "hi": return "hi_IN";
-    case "id": return "id_ID";
-    default:   return "en_US";
-  }
+  // Look up the bcp47 field from languages.ts and convert to OG format (en-US → en_US)
+  const config = Object.values(LANGUAGES).find(l => l.code === lang);
+  if (config?.bcp47) return config.bcp47.replace("-", "_");
+  return "en_US";
 }
 
 function formatDate(iso: string) {

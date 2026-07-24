@@ -149,8 +149,8 @@ const config: NextConfig = {
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live https://va.vercel-scripts.com https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              // Google Analytics tracking pixel + R2 assets
-              "img-src 'self' data: blob: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://*.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com",
+              // Google Analytics tracking pixel + R2 assets + flagcdn.com (country flags on leaderboard)
+              "img-src 'self' data: blob: https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://*.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com https://flagcdn.com",
               "media-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://www.youtube.com https://www.youtube-nocookie.com",
               // GA4 beacon + BscScan API for contract verification
               "connect-src 'self' https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev https://api.turboloop.tech https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.bscscan.com",

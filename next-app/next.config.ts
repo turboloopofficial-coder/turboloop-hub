@@ -119,6 +119,33 @@ const config: NextConfig = {
         destination: "/creatives/:path*",
         permanent: true,
       },
+      // /whitepaper — commonly linked URL that was never a real route.
+      // Redirect to /token which contains the full tokenomics & protocol docs.
+      {
+        source: "/whitepaper",
+        destination: "/token",
+        permanent: true,
+      },
+      // /ranks — commonly searched URL for the rank/leadership structure.
+      // Redirect to /earn which covers the full rewards & rank system.
+      {
+        source: "/ranks",
+        destination: "/earn",
+        permanent: true,
+      },
+      // /about — no dedicated about page; redirect to homepage.
+      {
+        source: "/about",
+        destination: "/",
+        permanent: true,
+      },
+      // /dashboard/* — these are app.turboloop.io routes, not hub routes.
+      // Redirect to the main app domain so users land in the right place.
+      {
+        source: "/dashboard/:path*",
+        destination: "https://turboloop.io/dashboard/:path*",
+        permanent: false,
+      },
     ];
   },
   async headers() {

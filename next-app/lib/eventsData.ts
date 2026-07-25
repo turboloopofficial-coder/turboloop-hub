@@ -142,7 +142,20 @@ export const PAST_EVENTS: PastEvent[] = [
 ];
 
 export const UPCOMING_EVENTS: UpcomingEvent[] = [
-  // Real — Port Harcourt business launch dinner.
+  // MEGA EVENT — Port Harcourt 1st Mega TurboLoop Event, August 15 2026
+  {
+    id: "ue-ph-mega-2026-08",
+    title: "1st Mega TurboLoop Event — Port Harcourt",
+    location:
+      "Sweet Spirit Hotel, Along Stadium Road, Rumuomasi, Port Harcourt",
+    flag: "🇳🇬",
+    date: "Sat, Aug 15, 2026 · 11:00 AM Prompt",
+    hostName: "TurboLoop Nigeria",
+    coAttendCount: 0,
+    registrationUrl: "https://t.me/TurboLoop_Official",
+    imageUrl: `${R2}/events/port-harcourt-mega-event-flyer.jpg`,
+  },
+  // Past — Port Harcourt business launch dinner (May 2026).
   {
     id: "ue-ph-2026-05",
     title: "Business Launch Dinner — Port Harcourt",

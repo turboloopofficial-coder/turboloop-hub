@@ -12,6 +12,7 @@ import { useCallback, useMemo, useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Share2, ChevronRight, X } from "lucide-react";
+import { useCurrentLocale, localizeHref } from "@lib/i18n/useLocaleHref";
 import manifest from "../../public/campaigns-manifest.json";
 import { BannerShareModal } from "@components/creatives/BannerShareModal";
 
@@ -270,6 +271,7 @@ function TabPill({ id, label, flag, count, active, onClick }: {
 export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: string } = {}) {
   const pillsRef = useRef<HTMLDivElement>(null);
   const [shareTarget, setShareTarget] = useState<BannerItem | null>(null);
+  const locale = useCurrentLocale();
 
   // Derive the initial language from the locale prop (runs once at mount)
   const initialLangId = useMemo(() => {
@@ -429,7 +431,7 @@ export function CreativeExplorerSection({ defaultLocale }: { defaultLocale?: str
           {/* CTA */}
           <div className="mt-8 text-center">
             <Link
-              href={activeTab?.href ?? "/creatives"}
+              href={localizeHref(activeTab?.href ?? "/creatives", locale)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white transition-all hover:scale-105 active:scale-95"
               style={{ background: "var(--c-brand-gradient)", boxShadow: "var(--s-brand)" }}
             >

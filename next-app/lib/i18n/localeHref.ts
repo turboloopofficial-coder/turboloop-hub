@@ -2,6 +2,7 @@
 // No "use client" — safe to import in both server and client components.
 // Hooks (useLocaleHref, useCurrentLocale) remain in useLocaleHref.ts.
 import { LOCALES, type Locale } from "./routing";
+export type { Locale };
 
 /**
  * Extract the current locale from a URL pathname.

@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, LOCALE_LABELS, type Locale } from "@lib/i18n/routing";
+import { localizeHref } from "@lib/i18n/localeHref";
 import type { Metadata } from "next";
 import { Rocket, ShieldCheck, Lock, UserX, ExternalLink } from "lucide-react";
 import { Container } from "@components/ui/Container";
@@ -178,7 +179,7 @@ export default async function LocaleHomePage({ params }: Props) {
                 <Rocket className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
-                href="/films"
+                href={localizeHref("/films", locale)}
                 className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] h-[54px] text-base px-8 bg-[var(--c-surface)]/80 text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] hover:border-[var(--c-border-strong)] transition-all duration-300 active:scale-[0.985] backdrop-blur-md"
               >
                 {t("watchFilms")}
@@ -186,7 +187,7 @@ export default async function LocaleHomePage({ params }: Props) {
             </div>
 
             <a
-              href="/submit"
+              href={localizeHref("/submit", locale)}
               className="hero-animate-4 inline-block text-sm text-[var(--c-text-muted)] hover:text-[var(--c-brand-cyan)] underline decoration-[var(--c-border)] underline-offset-4 transition"
             >
               {t("shareStory")}

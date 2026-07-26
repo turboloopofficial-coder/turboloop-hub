@@ -22,6 +22,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { useCurrentLocale, localizeHref } from "@lib/i18n/useLocaleHref";
 import { Card } from "@components/ui/Card";
 import {
   BLOG_LANGUAGES,
@@ -103,6 +104,8 @@ interface Props {
 }
 
 export function HomeBlogLanguagePicker({ allPosts, initialLocale, realCounts = {} }: Props) {
+  // Get current locale for href prefixing
+  const locale = useCurrentLocale();
   // Derive the initial language from the locale prop, falling back to "en".
   // This is the SSR/static value — cookie is applied client-side in useEffect.
   const initialLang: BlogLanguage =
@@ -186,7 +189,7 @@ export function HomeBlogLanguagePicker({ allPosts, initialLocale, realCounts = {
             return (
               <Link
                 key={post.id}
-                href={`/blog/${post.slug}`}
+                href={localizeHref(`/blog/${post.slug}`, locale)}
                 className="group block"
               >
                 <Card
@@ -236,7 +239,7 @@ export function HomeBlogLanguagePicker({ allPosts, initialLocale, realCounts = {
       {/* "All articles" CTA — links to the active language on /blog */}
       <div className="mt-8 flex justify-center">
         <Link
-          href={`/blog?lang=${activeLang}`}
+          href={localizeHref(`/blog?lang=${activeLang}`, locale)}
           className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
         >
           All {BLOG_LANGUAGES.find(l => l.code === activeLang)?.label ?? ""} articles

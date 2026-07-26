@@ -10,7 +10,7 @@ import { Play } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { getFilm } from "@lib/cinematicUniverse";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 
 // Single source of truth lives in cinematicUniverse.ts — the previous
 // hardcoded films-posters/* path was a 404 on R2 (the actual key is under

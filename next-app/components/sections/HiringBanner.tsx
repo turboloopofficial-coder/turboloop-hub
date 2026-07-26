@@ -14,7 +14,7 @@
 // component decides internally whether to render.
 
 import Link from "next/link";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";

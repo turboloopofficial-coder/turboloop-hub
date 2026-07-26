@@ -14,7 +14,7 @@
 // Server component — only the price ticker is a client island.
 
 import Link from "next/link";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { ArrowRight, Gift, Flame, ShieldCheck } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";

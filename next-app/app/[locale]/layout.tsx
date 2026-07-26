@@ -94,6 +94,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       {children}
+      <Footer locale={locale} />
     </NextIntlClientProvider>
   );
 }

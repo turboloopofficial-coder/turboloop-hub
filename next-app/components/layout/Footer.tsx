@@ -8,7 +8,7 @@
 // them by habit anyway.
 
 import Link from "next/link";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { Container } from "@components/ui/Container";
 import { Brand } from "@components/Brand";
 import { SECURITY } from "@lib/constants";

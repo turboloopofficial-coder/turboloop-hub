@@ -10,7 +10,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { COUNTRY_DATA } from "@lib/constants";

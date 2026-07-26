@@ -8,7 +8,7 @@
 // CTA instead of a blank grid.
 
 import { Container } from "@components/ui/Container";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { TESTIMONIALS, type Testimonial } from "@lib/testimonialsData";

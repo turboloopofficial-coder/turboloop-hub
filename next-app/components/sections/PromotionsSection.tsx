@@ -4,7 +4,7 @@
 // are the two paid programs we built /apply for.
 
 import { Trophy, Star, Mic } from "lucide-react";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";

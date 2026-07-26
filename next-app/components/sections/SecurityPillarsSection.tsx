@@ -1,6 +1,6 @@
 // "Trustless by Design" — fully i18n via next-intl getTranslations.
 import { ShieldCheck, Lock, CheckCircle2, EyeOff, Award } from "lucide-react";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";

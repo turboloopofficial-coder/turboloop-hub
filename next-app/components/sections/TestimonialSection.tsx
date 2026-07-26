@@ -1,6 +1,6 @@
 // TestimonialSection — single curated testimonial, fully i18n via next-intl.
 import { getTranslations } from "next-intl/server";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";

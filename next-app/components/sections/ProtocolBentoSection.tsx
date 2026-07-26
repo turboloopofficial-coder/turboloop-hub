@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { LOOP_PLANS, formatRoi } from "@lib/loopPlans";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 
 const TEASER_FILM = {
   slug: "what-is-turboloop",

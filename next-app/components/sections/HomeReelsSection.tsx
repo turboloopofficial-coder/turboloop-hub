@@ -21,7 +21,7 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ReelCard } from "@components/reels/ReelCard";
 import { fetchAllReels } from "@lib/reelsApi";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 
 export async function HomeReelsSection({ locale = "en" }: { locale?: string }) {
   const loc = locale as Locale;

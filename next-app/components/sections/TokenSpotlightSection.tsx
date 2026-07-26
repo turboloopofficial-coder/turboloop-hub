@@ -11,7 +11,7 @@
 // (already self-contained inside TokenPriceWidget).
 
 import Link from "next/link";
-import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
+import { localizeHref, type Locale } from "@lib/i18n/localeHref";
 import { ArrowRight, Flame, Sparkles } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";

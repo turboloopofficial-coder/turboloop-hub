@@ -14,6 +14,7 @@
 // Server component — only the price ticker is a client island.
 
 import Link from "next/link";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { ArrowRight, Gift, Flame, ShieldCheck } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
@@ -25,7 +26,8 @@ import { TOKEN, BUYBACK } from "@lib/tokenFacts";
 // owns the upper homepage; this section lives later in the flow and
 // frames $TURBO as "your existing 30/60-day investment just got
 // better" — additive, not the headline.
-export function TokenSection() {
+export function TokenSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   return (
     <section className="py-12 md:py-20 relative">
       <Container width="default">
@@ -71,7 +73,7 @@ export function TokenSection() {
 
         <div className="text-center">
           <Link
-            href="/token"
+            href={localizeHref("/token", loc)}
             className="inline-flex items-center gap-2 px-6 h-12 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
           >
             See your token bonus

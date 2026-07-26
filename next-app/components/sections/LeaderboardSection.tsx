@@ -10,6 +10,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { COUNTRY_DATA } from "@lib/constants";
@@ -61,7 +62,8 @@ async function loadLeaderboard(): Promise<LeaderboardRow[]> {
   }
 }
 
-export async function LeaderboardSection() {
+export async function LeaderboardSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const all = await loadLeaderboard();
   const top = all.slice(0, 10);
   const max = top[0]?.score ?? 100;
@@ -116,7 +118,7 @@ export async function LeaderboardSection() {
             </p>
           </div>
           <Link
-            href="/community"
+            href={localizeHref("/community", loc)}
             className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
           >
             See all communities

@@ -8,6 +8,7 @@
 // Server component, no client JS.
 
 import { Container } from "@components/ui/Container";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";
 import { Star, Users2, ArrowUpRight } from "lucide-react";
@@ -29,7 +30,8 @@ const CREATOR_TIERS = [
   { views: "1,000,000", payout: "$1,000" },
 ] as const;
 
-export function ProgramsSection() {
+export function ProgramsSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   return (
     <section className="py-12 md:py-16">
       <Container width="default">
@@ -207,7 +209,7 @@ export function ProgramsSection() {
                 Apply via Telegram →
               </a>
               <a
-                href="/careers"
+                href={localizeHref("/careers", loc)}
                 className="inline-flex items-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] transition active:scale-[0.985]"
               >
                 Open roles

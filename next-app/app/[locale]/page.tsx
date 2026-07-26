@@ -252,21 +252,21 @@ export default async function LocaleHomePage({ params }: Props) {
 
       {/* All other sections are shared (not yet translated) */}
       <Reveal>
-        <ProtocolBentoSection />
+        <ProtocolBentoSection locale={locale} />
       </Reveal>
       <SectionDivider />
       {/* Video Explainer — deep dive into how TurboLoop works */}
       <VideoExplainerSection defaultLocale={locale} />
       <SectionDivider />
       <Reveal>
-        <TokenSpotlightSection />
+        <TokenSpotlightSection locale={locale} />
       </Reveal>
       <SectionDivider />
       <Reveal>
         <NumbersSection />
       </Reveal>
       <Reveal>
-        <TestimonialSection />
+        <TestimonialSection locale={locale} />
       </Reveal>
       <Reveal>
         <HomeGlobalReelsSection defaultLang={locale as import("@lib/reelsData").ReelLang} />

@@ -115,7 +115,7 @@ const COUNTRIES = [
   "🇮🇹 Italy", "🇪🇸 Spain", "🇨🇦 Canada", "🌍 Other",
 ];
 
-export default function ApplyPage() {
+export default function ApplyPage({ locale = "en" }: { locale?: string }) {
   const [program, setProgram] = useState<Program>("creator_apply");
   const [name, setName] = useState("");
   // Structured contact (WhatsApp required, others optional). Replaces
@@ -192,7 +192,7 @@ export default function ApplyPage() {
       {/* Programs explainer — tier table + Community Partner card.
           Renders above the form so visitors can read what they're
           applying for, then scroll to the form (anchored at #apply). */}
-      <ProgramsSection />
+      <ProgramsSection locale={locale} />
 
       <section id="apply" className="scroll-mt-24">
       <Container width="narrow">

@@ -21,8 +21,10 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { ReelCard } from "@components/reels/ReelCard";
 import { fetchAllReels } from "@lib/reelsApi";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 
-export async function HomeReelsSection() {
+export async function HomeReelsSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const reels = await fetchAllReels();
   if (reels.length === 0) return null;
 
@@ -75,7 +77,7 @@ export async function HomeReelsSection() {
             </p>
           </div>
           <Link
-            href="/library"
+            href={localizeHref("/library", loc)}
             className="hidden md:inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
           >
             See all reels →
@@ -97,7 +99,7 @@ export async function HomeReelsSection() {
           ))}
           {reels.length > visibleReels.length && (
             <Link
-              href="/library"
+              href={localizeHref("/library", loc)}
               className="shrink-0 snap-start rounded-[var(--r-xl)] overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] hover:border-[var(--c-brand-cyan)] active:scale-[0.985] transition flex flex-col items-center justify-center text-center p-6"
               style={{ width: "min(260px, 75vw)" }}
             >
@@ -123,7 +125,7 @@ export async function HomeReelsSection() {
 
       <Container width="wide" className="md:hidden mt-3">
         <Link
-          href="/library"
+          href={localizeHref("/library", loc)}
           className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--c-brand-cyan)]"
         >
           See all reels

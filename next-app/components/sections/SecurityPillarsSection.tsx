@@ -1,5 +1,6 @@
 // "Trustless by Design" — fully i18n via next-intl getTranslations.
 import { ShieldCheck, Lock, CheckCircle2, EyeOff, Award } from "lucide-react";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
@@ -7,7 +8,8 @@ import { Card } from "@components/ui/Card";
 import { Reveal } from "@components/Reveal";
 import { SECURITY } from "@lib/constants";
 
-export async function SecurityPillarsSection() {
+export async function SecurityPillarsSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const t = await getTranslations("security");
 
   const PILLARS = [
@@ -56,7 +58,7 @@ export async function SecurityPillarsSection() {
         </div>
         <div className="mt-10 text-center">
           <a
-            href="/security"
+            href={localizeHref("/security", loc)}
             className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:bg-[var(--c-bg)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
           >
             {t("fullBreakdown")} →

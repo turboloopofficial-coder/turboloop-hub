@@ -32,5 +32,5 @@ export default async function LocaleApplyPage({ params }: Props) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) redirect("/apply");
   const { default: ApplyPage } = await import("../../apply/page");
-  return <ApplyPage />;
+  return <ApplyPage locale={locale} />;
 }

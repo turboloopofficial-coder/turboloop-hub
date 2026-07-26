@@ -8,6 +8,7 @@
 // them by habit anyway.
 
 import Link from "next/link";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Container } from "@components/ui/Container";
 import { Brand } from "@components/Brand";
 import { SECURITY } from "@lib/constants";
@@ -66,7 +67,8 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
   },
 ];
 
-export function Footer() {
+export function Footer({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const year = new Date().getFullYear();
   return (
     <footer
@@ -97,7 +99,7 @@ export function Footer() {
             {PRIMARY_SECTIONS.map(s => (
               <li key={s.href}>
                 <Link
-                  href={s.href}
+                  href={localizeHref(s.href, loc)}
                   className="text-sm font-bold text-[var(--c-text)] hover:text-[var(--c-brand-cyan)] transition-colors tracking-tight"
                 >
                   {s.label}
@@ -134,7 +136,7 @@ export function Footer() {
                   <li key={item.label}>
                     {item.external ? (
                       <a
-                        href={item.href}
+                        href={item.external ? item.href : localizeHref(item.href, loc)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-[var(--c-text-muted)] hover:text-[var(--c-text)] transition-colors"
@@ -143,7 +145,7 @@ export function Footer() {
                       </a>
                     ) : (
                       <Link
-                        href={item.href}
+                        href={item.external ? item.href : localizeHref(item.href, loc)}
                         className="text-sm text-[var(--c-text-muted)] hover:text-[var(--c-text)] transition-colors"
                       >
                         {item.label}
@@ -160,10 +162,10 @@ export function Footer() {
         <div className="border-t border-[var(--c-border)] py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-[var(--c-text-subtle)]">
           <span>© {year} TurboLoop. All on-chain, all the time.</span>
           <div className="flex gap-5">
-            <Link href="/privacy" className="hover:text-[var(--c-text)] transition-colors">
+            <Link href={localizeHref("/privacy", loc)} className="hover:text-[var(--c-text)] transition-colors">
               Privacy
             </Link>
-            <Link href="/terms" className="hover:text-[var(--c-text)] transition-colors">
+            <Link href={localizeHref("/terms", loc)} className="hover:text-[var(--c-text)] transition-colors">
               Terms
             </Link>
             <a

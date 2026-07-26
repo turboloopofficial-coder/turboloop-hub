@@ -10,6 +10,7 @@ import { Play } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { getFilm } from "@lib/cinematicUniverse";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 
 // Single source of truth lives in cinematicUniverse.ts — the previous
 // hardcoded films-posters/* path was a 404 on R2 (the actual key is under
@@ -20,7 +21,7 @@ const POSTER_URL =
   FILM?.posterUrl ??
   "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/cinematic-thumbs/what-is-turboloop.jpg";
 
-export function FilmsTeaserSection() {
+export function FilmsTeaserSection({ locale = "en" }: { locale?: string }) {
   return (
     <section className="py-12 md:py-20">
       <Container width="default">
@@ -35,7 +36,7 @@ export function FilmsTeaserSection() {
         </div>
 
         <a
-          href="/films/what-is-turboloop"
+          href={localizeHref("/films/what-is-turboloop", locale as Locale)}
           className="group relative block w-full rounded-[var(--r-2xl)] overflow-hidden shadow-[var(--s-lg)] hover:shadow-[var(--s-xl)] transition-shadow active:scale-[0.99]"
           style={{ aspectRatio: "16 / 9" }}
         >

@@ -4,6 +4,7 @@
 // are the two paid programs we built /apply for.
 
 import { Trophy, Star, Mic } from "lucide-react";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";
@@ -31,7 +32,8 @@ const PROGRAMS = [
   },
 ];
 
-export function PromotionsSection() {
+export function PromotionsSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   return (
     <section className="py-16 md:py-24">
       <Container width="default">
@@ -88,7 +90,7 @@ export function PromotionsSection() {
             </p>
           </div>
           <a
-            href="/promotions"
+            href={localizeHref("/promotions", loc)}
             className="mt-5 md:mt-0 inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985] flex-shrink-0"
           >
             Read the rules →

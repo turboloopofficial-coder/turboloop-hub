@@ -1,10 +1,12 @@
 // TestimonialSection — single curated testimonial, fully i18n via next-intl.
 import { getTranslations } from "next-intl/server";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { Card } from "@components/ui/Card";
 
-export async function TestimonialSection() {
+export async function TestimonialSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const t = await getTranslations("testimonial");
 
   return (
@@ -45,7 +47,7 @@ export async function TestimonialSection() {
 
           <div className="mt-6 pt-5 border-t border-[var(--c-border)]">
             <a
-              href="/community"
+              href={localizeHref("/community", loc)}
               className="text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
             >
               {t("readMore")} →

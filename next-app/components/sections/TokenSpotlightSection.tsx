@@ -11,13 +11,15 @@
 // (already self-contained inside TokenPriceWidget).
 
 import Link from "next/link";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { ArrowRight, Flame, Sparkles } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { TokenPriceWidget } from "@components/token/TokenPriceWidget";
 import { DEPOSIT_TIERS, TOKEN } from "@lib/tokenFacts";
 
-export function TokenSpotlightSection() {
+export function TokenSpotlightSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   return (
     <section className="py-12 md:py-20">
       <Container width="default">
@@ -108,7 +110,7 @@ export function TokenSpotlightSection() {
             <ArrowRight className="w-4 h-4" />
           </a>
           <Link
-            href="/token"
+            href={localizeHref("/token", loc)}
             className="inline-flex items-center justify-center gap-2 font-bold rounded-[var(--r-lg)] min-h-[48px] h-[52px] text-base px-7 bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] hover:shadow-[var(--s-md)] transition active:scale-[0.985]"
           >
             Learn about ${TOKEN.symbol}

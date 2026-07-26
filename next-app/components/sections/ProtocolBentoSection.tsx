@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { LOOP_PLANS, formatRoi } from "@lib/loopPlans";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 
 const TEASER_FILM = {
   slug: "what-is-turboloop",
@@ -13,8 +14,9 @@ const TEASER_FILM = {
     "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/cinematic/posters/what-is-turboloop.png",
 };
 
-export async function ProtocolBentoSection() {
+export async function ProtocolBentoSection({ locale = "en" }: { locale?: string }) {
   const t = await getTranslations("protocol");
+  const loc = locale as Locale;
 
   const LEADERSHIP_RANKS = [
     t("leadership.ranks.partner"),
@@ -61,7 +63,7 @@ export async function ProtocolBentoSection() {
                 {LOOP_PLANS.map((p) => (
                   <Link
                     key={p.id}
-                    href={`/calculator?plan=${p.id}`}
+                    href={localizeHref(`/calculator?plan=${p.id}`, loc)}
                     className={`group relative gradient-border-card flex flex-col rounded-[var(--r-lg)] border border-[var(--c-border)] bg-[var(--c-bg)] p-4 md:p-5 min-h-[140px] active:scale-[0.98] transition-all duration-300 hover:border-[var(--c-brand-cyan)] hover:shadow-[var(--s-lg)] hover:-translate-y-0.5 ${p.id === 'power' ? 'ring-1 ring-[var(--c-brand-cyan)]/30' : ''}`}
                   >
                     {p.id === 'power' && <span className="badge-popular">Most Popular</span>}
@@ -81,14 +83,14 @@ export async function ProtocolBentoSection() {
                   </Link>
                 ))}
               </div>
-              <Link href="/calculator" className="mt-5 md:mt-6 inline-flex items-center gap-1.5 min-h-[48px] text-sm font-bold text-[var(--c-brand-cyan)] hover:underline">
+              <Link href={localizeHref("/calculator", loc)} className="mt-5 md:mt-6 inline-flex items-center gap-1.5 min-h-[48px] text-sm font-bold text-[var(--c-brand-cyan)] hover:underline">
                 {t("plans.calculateReturn")} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
           {/* Block B — Referral Network */}
-          <Link href="/ecosystem/referral-network" className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
+          <Link href={localizeHref("/ecosystem/referral-network", loc)} className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <Network className="w-7 h-7 text-[var(--c-brand-cyan)] mb-3" aria-hidden="true" />
             <Heading tier="title" as="h3" className="mb-1 text-xl">{t("referral.title")}</Heading>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">{t("referral.subtitle")}</p>
@@ -103,7 +105,7 @@ export async function ProtocolBentoSection() {
           </Link>
 
           {/* Block C — Leadership */}
-          <Link href="/ecosystem/leadership-program" className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
+          <Link href={localizeHref("/ecosystem/leadership-program", loc)} className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[200px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <Crown className="w-7 h-7 text-[var(--c-brand-cyan)] mb-3" aria-hidden="true" />
             <Heading tier="title" as="h3" className="mb-1 text-xl">{t("leadership.title")}</Heading>
             <p className="text-sm text-[var(--c-text-muted)] leading-relaxed mb-4">{t("leadership.subtitle")}</p>
@@ -122,7 +124,7 @@ export async function ProtocolBentoSection() {
           </Link>
 
           {/* Block D — Security */}
-          <Link href="/security" className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
+          <Link href={localizeHref("/security", loc)} className="group gradient-border-card flex flex-col rounded-[var(--r-xl)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 md:p-6 shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <ShieldCheck className="w-7 h-7 text-emerald-600 mb-3" aria-hidden="true" />
             <Heading tier="title" as="h3" className="mb-1 text-lg leading-snug">{t("security.title")}</Heading>
             <div className="flex flex-wrap gap-1.5 mb-3 mt-2">
@@ -139,7 +141,7 @@ export async function ProtocolBentoSection() {
           </Link>
 
           {/* Block E — Films Teaser */}
-          <Link href={`/films/${TEASER_FILM.slug}`} className="group relative flex flex-col rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
+          <Link href={localizeHref(`/films/${TEASER_FILM.slug}`, loc)} className="group relative flex flex-col rounded-[var(--r-xl)] overflow-hidden border border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--s-sm)] min-h-[180px] hover:shadow-[var(--s-lg)] hover:border-[var(--c-brand-cyan)] hover:-translate-y-0.5 transition-all duration-300">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${TEASER_FILM.posterUrl})` }} aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" aria-hidden="true" />
             <div className="relative mt-auto p-5 md:p-6 text-white flex flex-col">

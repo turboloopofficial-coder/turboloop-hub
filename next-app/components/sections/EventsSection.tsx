@@ -19,6 +19,7 @@
 // shows a stale link.
 
 import { useEffect, useMemo, useState } from "react";
+import { useLocaleHref } from "@lib/i18n/useLocaleHref";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
@@ -374,6 +375,7 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
 /* ─── EventsSection (default export) ────────────────────────────────── */
 
 export function EventsSection() {
+  const localizeHref = useLocaleHref();
   const t = useTranslations("events");
   const SESSION_TYPES = [
     {
@@ -507,7 +509,7 @@ export function EventsSection() {
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
             <a
-              href="/apply"
+              href={localizeHref("/apply")}
               className="inline-flex items-center justify-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] transition active:scale-[0.985]"
             >
               <Mic className="w-4 h-4" />

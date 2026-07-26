@@ -14,6 +14,7 @@
 // component decides internally whether to render.
 
 import Link from "next/link";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
@@ -59,7 +60,8 @@ function subtitleForRoles(roles: JobVacancy[]): string {
   return "Competitive stipends for hosting weekly community calls in your language. We provide the deck and the support — you bring the room.";
 }
 
-export async function HiringBanner() {
+export async function HiringBanner({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const roles = await api.openCareers();
 
   // No open roles → hide the section entirely. The homepage layout
@@ -100,14 +102,14 @@ export async function HiringBanner() {
               role-specific listings. */}
           <div className="flex flex-wrap gap-2 mt-4 md:mt-0 flex-shrink-0">
             <Link
-              href="/apply"
+              href={localizeHref("/apply", loc)}
               className="inline-flex items-center gap-2 px-5 h-11 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985]"
             >
               Apply now
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/careers"
+              href={localizeHref("/careers", loc)}
               className="inline-flex items-center gap-2 px-4 h-11 rounded-[var(--r-lg)] text-sm font-bold bg-[var(--c-surface)] text-[var(--c-text)] border border-[var(--c-border)] shadow-[var(--s-sm)] transition active:scale-[0.985]"
             >
               See {roles.length === 1 ? "role" : "roles"}

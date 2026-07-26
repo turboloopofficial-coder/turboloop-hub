@@ -26,6 +26,7 @@ import { ConsentBanner } from "@components/analytics/ConsentBanner";
 import { SmartNotifications } from "@components/notifications/SmartNotifications";
 import { ChatWidget } from "@components/chatbot/ChatWidget";
 import { LocaleHtmlLang } from "@components/layout/LocaleHtmlLang";
+import { getLocale } from "next-intl/server";
 
 // Build-time check: only emit the GA bootstrap (consent defaults + Script
 // tags + banner) when the measurement ID is actually configured. Avoids
@@ -310,11 +311,12 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -480,7 +482,7 @@ export default function RootLayout({
           <LocaleHtmlLang />
           <Navbar />
           <div id="main-content">{children}</div>
-          <Footer />
+          <Footer locale={locale} />
           <MobileBottomCTA />
           <CommandPalette />
           <WelcomePopup />

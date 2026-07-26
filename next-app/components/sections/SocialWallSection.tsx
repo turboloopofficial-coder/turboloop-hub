@@ -8,6 +8,7 @@
 // CTA instead of a blank grid.
 
 import { Container } from "@components/ui/Container";
+import { localizeHref, type Locale } from "@lib/i18n/useLocaleHref";
 import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { TESTIMONIALS, type Testimonial } from "@lib/testimonialsData";
@@ -59,7 +60,8 @@ async function loadCreatorVoices(): Promise<Testimonial[]> {
   }
 }
 
-export async function SocialWallSection() {
+export async function SocialWallSection({ locale = "en" }: { locale?: string }) {
+  const loc = locale as Locale;
   const [videos, voices] = await Promise.all([
     loadVideos(),
     loadCreatorVoices(),
@@ -120,7 +122,7 @@ export async function SocialWallSection() {
                 Our Creators Worldwide
               </Heading>
               <a
-                href="/community"
+                href={localizeHref("/community", loc)}
                 className="text-sm font-bold text-[var(--c-brand-cyan)] hover:underline"
               >
                 See all →

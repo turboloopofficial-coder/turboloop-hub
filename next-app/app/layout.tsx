@@ -15,7 +15,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Navbar } from "@components/layout/Navbar";
 import { NavProgressBar } from "@components/layout/NavProgressBar";
-import { Footer } from "@components/layout/Footer";
+import { FooterWrapper } from "@components/layout/FooterWrapper";
 import { MobileBottomCTA } from "@components/layout/MobileBottomCTA";
 import { ToastProvider } from "@components/Toast";
 import { CommandPalette } from "@components/CommandPalette";
@@ -480,7 +480,7 @@ export default function RootLayout({
           <LocaleHtmlLang />
           <Navbar />
           <div id="main-content">{children}</div>
-          <Footer locale="en" />
+          <FooterWrapper />
           <MobileBottomCTA />
           <CommandPalette />
           <WelcomePopup />

@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { routing, LOCALE_LABELS, type Locale } from "@lib/i18n/routing";
+import { Footer } from "@components/layout/Footer";
 
 type Props = {
   children: React.ReactNode;

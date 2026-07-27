@@ -79,6 +79,68 @@ function computeParts(
   return { live, h, m, s };
 }
 
+/** One-time event countdown — counts down to a fixed UTC timestamp in ms. */
+export function OneTimeCountdown({
+  targetUtcMs,
+  durationMin,
+}: {
+  targetUtcMs: number;
+  durationMin: number;
+}) {
+  const [parts, setParts] = useState<CountdownParts | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const tick = () => {
+      if (cancelled) return;
+      const now = Date.now();
+      const diffMs = targetUtcMs - now;
+      const endMs = targetUtcMs + durationMin * 60_000;
+      const live = diffMs <= 0 && now < endMs;
+      const positive = Math.max(0, diffMs);
+      const h = Math.floor(positive / 3_600_000);
+      const m = Math.floor((positive % 3_600_000) / 60_000);
+      const s = Math.floor((positive % 60_000) / 1000);
+      setParts({ live, h, m, s });
+    };
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, [targetUtcMs, durationMin]);
+
+  if (!parts) {
+    return (
+      <div className="font-mono text-2xl font-bold tabular-nums text-[var(--c-text)]" aria-hidden="true">
+        --:--:--
+      </div>
+    );
+  }
+
+  if (parts.live) {
+    return (
+      <div className="inline-flex items-center gap-2">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+        </span>
+        <span className="text-2xl font-heading font-bold text-emerald-700">Live now</span>
+      </div>
+    );
+  }
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const days = Math.floor(parts.h / 24);
+  const hours = parts.h % 24;
+  return (
+    <div className="font-mono text-2xl font-bold tabular-nums text-[var(--c-text)]">
+      {days > 0 ? `${days}d ` : ""}{pad(hours)}:{pad(parts.m)}:{pad(parts.s)}
+    </div>
+  );
+}
+
 export function ZoomCountdown({ startUtcMin, durationMin, daysOfWeek }: ZoomCountdownProps) {
   // We mount with `null` to defer first render — server HTML stays empty
   // until hydration so we never ship a stale countdown that flashes

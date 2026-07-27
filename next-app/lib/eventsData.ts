@@ -142,6 +142,18 @@ export const PAST_EVENTS: PastEvent[] = [
 ];
 
 export const UPCOMING_EVENTS: UpcomingEvent[] = [
+  // SPECIAL EVENT — Germany Community Zoom, July 30 2026
+  {
+    id: "ue-germany-zoom-2026-07",
+    title: "TurboLoop Deutschland — Erster Community-Zoom",
+    location: "Online (Zoom)",
+    flag: "🇩🇪",
+    date: "Thu, Jul 30, 2026 · 21:00 Uhr CEST (19:00 UTC)",
+    hostName: "TurboLoop DACH",
+    coAttendCount: 0,
+    registrationUrl: "https://us06web.zoom.us/j/89879779242?pwd=ebIpowaHOb7mhI0laFOEM07OK33sXP.1",
+    imageUrl: `${R2}/thumbnails/turboloop-germany-zoom-flyer.jpg`,
+  },
   // MEGA EVENT — Port Harcourt 1st Mega TurboLoop Event, August 15 2026
   {
     id: "ue-ph-mega-2026-08",

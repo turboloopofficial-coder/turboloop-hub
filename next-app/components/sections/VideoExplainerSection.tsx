@@ -1,15 +1,15 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VideoExplainerSection — Homepage video section with Episode 1 + Episode 2
+// VideoExplainerSection — Homepage video section with Episode 1 + Episode 2 + Episode 3
 //
 // ⚠️  ALL LANGUAGE/EPISODE DATA lives in:
 //       next-app/lib/videoLanguages.ts
-//     Edit that file to add languages, YouTube links, or ep2 video URLs.
+//     Edit that file to add languages, YouTube links, or ep2/ep3 video URLs.
 //     DO NOT copy the LANGUAGES array back into this file.
 //
-// ⚠️  DO NOT remove the Episode 2 block at the bottom of this component.
-//     It is a permanent feature. See videoLanguages.ts for data.
+// ⚠️  DO NOT remove the Episode 2 or Episode 3 blocks at the bottom of this component.
+//     They are permanent features. See videoLanguages.ts for data.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useRef, useCallback } from "react";
@@ -32,7 +32,7 @@ function VideoPlayer({
   episode,
 }: {
   defaultLocale?: string;
-  episode: "ep1" | "ep2";
+  episode: "ep1" | "ep2" | "ep3";
 }) {
   const [started, setStarted] = useState(false);
   const [selectedLang, setSelectedLang] = useState(() => resolveInitialLang(defaultLocale));
@@ -40,9 +40,9 @@ function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const getVideo = (lang: VideoLanguage) =>
-    episode === "ep1" ? lang.video : lang.ep2video;
+    episode === "ep1" ? lang.video : episode === "ep2" ? lang.ep2video : lang.ep3video;
   const getYoutubeUrl = (lang: VideoLanguage) =>
-    episode === "ep1" ? lang.youtubeUrl : lang.ep2youtubeUrl;
+    episode === "ep1" ? lang.youtubeUrl : episode === "ep2" ? lang.ep2youtubeUrl : lang.ep3youtubeUrl;
 
   const activeVideo = getVideo(selectedLang) ?? getVideo(ENGLISH)!;
   const activeThumb = selectedLang.thumb ?? ENGLISH.thumb!;
@@ -71,7 +71,7 @@ function VideoPlayer({
     }
   }, [activeVideo]);
 
-  const duration = episode === "ep1" ? "20 min" : "21 min";
+  const duration = episode === "ep1" ? "20 min" : episode === "ep2" ? "21 min" : "15 min";
 
   return (
     <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/60 bg-[#0d1220]">
@@ -184,7 +184,7 @@ function VideoPlayer({
           )}
           <a
             href={activeVideo}
-            download={`TurboLoop-${episode === "ep1" ? "Explainer" : "Podcast-Ep2"}-${selectedLang.label}.mp4`}
+            download={`TurboLoop-${episode === "ep1" ? "Explainer" : episode === "ep2" ? "Podcast-Ep2" : "Podcast-Ep3"}-${selectedLang.label}.mp4`}
             className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
             title={`Download ${selectedLang.label} version`}
           >
@@ -238,7 +238,7 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
           <div className="flex-1 h-px bg-white/[0.06]" />
         </div>
 
-        {/* ── Episode 2 — DO NOT REMOVE ─────────────────────────────── */}
+                {/* ── Episode 2 — DO NOT REMOVE ─────────────────────────────── */}
         <div>
           <div className="text-center mb-8 sm:mb-10">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-4">
@@ -257,7 +257,31 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
             AI-dubbed versions in {LANGUAGES.filter(l => l.ep2video !== null).length} languages — rolling out now.
           </p>
         </div>
-
+        {/* ── Divider ───────────────────────────────────────────────── */}
+        <div className="flex items-center gap-4">
+          <div className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-xs text-gray-600 uppercase tracking-widest font-semibold">Turbo Podcast</span>
+          <div className="flex-1 h-px bg-white/[0.06]" />
+        </div>
+        {/* ── Episode 3 — DO NOT REMOVE ─────────────────────────────── */}
+        <div>
+          <div className="text-center mb-8 sm:mb-10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
+              Turbo Podcast · Episode 3
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
+              How &amp; Why TurboLoop Can Be Useful for ALL Classes of People?
+            </h2>
+            <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              CEO Dave breaks down how TurboLoop&apos;s fixed-yield protocol works for everyone —
+              from first-time crypto users to experienced investors across every income level.
+            </p>
+          </div>
+          <VideoPlayer defaultLocale={defaultLocale} episode="ep3" />
+          <p className="text-center text-xs text-gray-600 mt-4">
+            AI-dubbed versions in {LANGUAGES.filter(l => l.ep3video !== null).length} languages — rolling out now.
+          </p>
+        </div>
       </div>
     </section>
   );

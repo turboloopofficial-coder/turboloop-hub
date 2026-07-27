@@ -36,7 +36,7 @@ export async function ZoomLiveSection() {
             dateLabel="Donnerstag, 30. Juli 2026"
             link="https://us06web.zoom.us/j/89879779242?pwd=ebIpowaHOb7mhI0laFOEM07OK33sXP.1"
             // Jul 30 2026 19:00 UTC in milliseconds
-            targetUtcMs={1753902000000}
+            targetUtcMs={1785438000000}
             durationMin={120}
           />
         </div>

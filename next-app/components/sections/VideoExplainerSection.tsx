@@ -13,7 +13,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useRef, useCallback } from "react";
-import { Play, Globe, ChevronDown, Download, Youtube } from "lucide-react";
+import { Play, Globe, ChevronDown, Download, Youtube, Share2 } from "lucide-react";
 import { LANGUAGES, ENGLISH, LOCALE_TO_VIDEO_CODE, type VideoLanguage } from "@/lib/videoLanguages";
 
 function resolveInitialLang(locale?: string): VideoLanguage {
@@ -160,37 +160,61 @@ function VideoPlayer({
       </div>
 
       {/* Bottom info bar */}
-      <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white/[0.03] border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2.5">
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
-          <span className="text-sm text-gray-400">
-            {selectedLang.label} · {duration} · Full HD
-          </span>
+      <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white/[0.03] border-t border-white/[0.06] flex flex-col gap-2.5">
+        {/* Row 1: language + duration + audit badges */}
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
+            <span className="text-sm text-gray-400">
+              {selectedLang.label} · {duration} · Full HD
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">SolidityScan 99.99</span>
+            <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">HazeCrypto Audited</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2 text-xs text-gray-500">
-          <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">SolidityScan 99.99</span>
-          <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08]">HazeCrypto Audited</span>
+        {/* Row 2: action buttons — always fully visible */}
+        <div className="flex flex-wrap items-center gap-2 text-xs">
           {activeYoutubeUrl && (
             <a
               href={activeYoutubeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-colors"
               title={`Watch ${selectedLang.label} version on YouTube`}
             >
-              <Youtube className="w-3 h-3" />
+              <Youtube className="w-3.5 h-3.5" />
               <span>YouTube</span>
             </a>
           )}
           <a
             href={activeVideo}
             download={`TurboLoop-${episode === "ep1" ? "Explainer" : episode === "ep2" ? "Podcast-Ep2" : "Podcast-Ep3"}-${selectedLang.label}.mp4`}
-            className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
             title={`Download ${selectedLang.label} version`}
           >
-            <Download className="w-3 h-3" />
+            <Download className="w-3.5 h-3.5" />
             <span>Download</span>
           </a>
+          <button
+            onClick={() => {
+              const text = `🎬 Watch TurboLoop — ${selectedLang.label} version`
+                + (activeYoutubeUrl ? `\n▶️ YouTube: ${activeYoutubeUrl}` : "")
+                + `\n⬇️ Download: ${activeVideo}`
+                + "\n\nLearn more: https://turboloop.tech";
+              if (navigator.share) {
+                navigator.share({ title: "TurboLoop", text }).catch(() => {});
+              } else {
+                navigator.clipboard.writeText(text).then(() => alert("Links copied to clipboard!")).catch(() => {});
+              }
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 transition-colors"
+            title="Share this video"
+          >
+            <Share2 className="w-3.5 h-3.5" />
+            <span>Share</span>
+          </button>
         </div>
       </div>
     </div>

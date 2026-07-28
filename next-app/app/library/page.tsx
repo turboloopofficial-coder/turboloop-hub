@@ -187,6 +187,14 @@ export default async function LibraryPage() {
                 {presentations.length} decks · {totalLanguages || 15} languages.
               </Heading>
             </div>
+            <a
+              href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/presentations/TurboLoop-Presentations-All-Languages.zip"
+              download
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--r-md)] bg-[var(--c-brand-cyan)] text-white font-semibold text-sm hover:opacity-90 transition shrink-0"
+            >
+              <Download className="w-4 h-4" />
+              Download All (ZIP · 49 languages)
+            </a>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {presentations.map(pres => {

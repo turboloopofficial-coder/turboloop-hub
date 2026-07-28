@@ -199,10 +199,20 @@ function VideoPlayer({
           </a>
           <button
             onClick={() => {
-              const text = `🎬 Watch TurboLoop — ${selectedLang.label} version`
-                + (activeYoutubeUrl ? `\n▶️ YouTube: ${activeYoutubeUrl}` : "")
-                + `\n⬇️ Download: ${activeVideo}`
-                + "\n\nLearn more: https://turboloop.tech";
+              const epTitle = episode === "ep1"
+                ? "Your Bank is Lying to You — TurboLoop Explained"
+                : episode === "ep2"
+                ? "Is TurboLoop Legit? CEO Answers 19 Tough Questions"
+                : "Why TurboLoop is the Best DeFi Strategy for ALL Investors";
+              const epDesc = episode === "ep1"
+                ? "A 20-min cinematic breakdown of how TurboLoop earns 54% APY on BNB Smart Chain — dual-audited, LP locked, and open to anyone with $1 USDT."
+                : episode === "ep2"
+                ? "CEO Dave goes on record answering the hardest questions about security, audits, smart contract architecture, and long-term sustainability."
+                : "A deep dive into why TurboLoop's 3-stream income model works for beginners and experienced DeFi investors alike.";
+              const text = `🎬 ${epTitle}\n\n${epDesc}\n\n🌍 Now available in ${selectedLang.label}`
+                + (activeYoutubeUrl ? `\n\n▶️ Watch on YouTube:\n${activeYoutubeUrl}` : "")
+                + `\n\n⬇️ Download (${selectedLang.label}):\n${activeVideo}`
+                + "\n\n🔗 turboloop.tech";
               if (navigator.share) {
                 navigator.share({ title: "TurboLoop", text }).catch(() => {});
               } else {

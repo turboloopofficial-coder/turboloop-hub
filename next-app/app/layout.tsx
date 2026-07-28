@@ -71,6 +71,16 @@ export const metadata: Metadata = {
     "crypto passive income 2025",
     "how to earn yield on USDT",
     "LP yield farming BSC",
+    // Podcast / video discovery terms
+    "TurboLoop podcast",
+    "TurboLoop explained",
+    "TurboLoop legit",
+    "is TurboLoop a scam",
+    "DeFi podcast 2025",
+    "crypto passive income podcast",
+    "DeFi explained video",
+    "yield farming tutorial",
+    "BSC DeFi tutorial",
   ],
   openGraph: {
     type: "website",

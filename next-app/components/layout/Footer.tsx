@@ -44,6 +44,7 @@ const FOOTER_LINKS: Array<{ heading: string; items: Array<{ label: string; href:
     heading: "Community",
     items: [
       { label: "Films", href: "/films" },
+      { label: "Podcast", href: "/podcast" },
       { label: "Blog", href: "/blog" },
       { label: "Submit Story", href: "/submit" },
       { label: "Apply to Earn", href: "/apply" },

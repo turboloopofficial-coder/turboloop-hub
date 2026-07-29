@@ -312,6 +312,34 @@ export default function PodcastPage() {
     return sum + (isNaN(mins) ? 0 : mins);
   }, 0);
   const [activeEp, setActiveEp] = useState<string>(EPISODES[0]?.id ?? "ep1");
+  const [stickyVisible, setStickyVisible] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // Show sticky nav once user scrolls past the hero
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setStickyVisible(!entry.isIntersecting),
+      { threshold: 0, rootMargin: "-80px 0px 0px 0px" }
+    );
+    if (heroRef.current) observer.observe(heroRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Update activeEp as user scrolls through episodes
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    EPISODES.forEach(ep => {
+      const el = document.getElementById(ep.id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveEp(ep.id); },
+        { threshold: 0.2 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
 
   const scrollToEp = (id: string) => {
     setActiveEp(id);
@@ -322,8 +350,39 @@ export default function PodcastPage() {
 
   return (
     <main className="min-h-screen bg-[#080c14] text-white">
+
+      {/* ── Sticky Episode Nav — appears after scrolling past hero ──── */}
+      <div
+        className={`fixed top-[var(--nav-height,64px)] left-0 right-0 z-40 transition-all duration-300 ${
+          stickyVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="bg-[#080c14]/95 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/40">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center gap-1 h-12 overflow-x-auto scrollbar-none">
+            {EPISODES.map(ep => {
+              const isActive = activeEp === ep.id;
+              const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
+              return (
+                <button
+                  key={ep.id}
+                  onClick={() => scrollToEp(ep.id)}
+                  className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    isActive
+                      ? `${badgeColors.bg} ${badgeColors.text} border ${badgeColors.border}`
+                      : "text-gray-500 hover:text-gray-300 hover:bg-white/[0.05]"
+                  }`}
+                >
+                  <span>Ep {ep.number}</span>
+                  <span className="hidden sm:inline opacity-70">· {ep.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       {/* ── Hero ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-20">
+      <section ref={heroRef} className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-20">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-cyan-500/[0.07] rounded-full blur-[140px]" />
           <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-purple-500/[0.05] rounded-full blur-[120px]" />
@@ -469,10 +528,16 @@ export default function PodcastPage() {
               Launch App →
             </a>
             <Link
-              href="/library"
+              href="/calculator"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-cyan-500/30 text-cyan-400 font-semibold text-sm hover:bg-cyan-500/10 transition"
+            >
+              💰 Calculate My Returns
+            </Link>
+            <Link
+              href="/films"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-gray-300 font-semibold text-sm hover:bg-white/[0.05] transition"
             >
-              Download Presentation
+              🎬 Watch Films
             </Link>
           </div>
         </section>

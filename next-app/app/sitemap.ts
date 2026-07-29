@@ -71,6 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/roadmap",
     "/calculator",
     "/reels",
+    "/podcast",
     "/privacy",
     "/terms",
     "/my-submissions",
@@ -82,8 +83,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ? new Date(STABLE_PAGE_DATES[path])
       : now,
     changeFrequency:
-      path === "" ? "daily" : path === "/blog" ? "weekly" : "monthly",
-    priority: path === "" ? 1.0 : path === "/blog" ? 0.9 : 0.7,
+      path === "" ? "daily" : path === "/blog" || path === "/podcast" ? "weekly" : "monthly",
+    priority: path === "" ? 1.0 : path === "/blog" ? 0.9 : path === "/podcast" ? 0.85 : 0.7,
   }));
   // Earn programmatic SEO sub-pages
   const earnPages: MetadataRoute.Sitemap = [

@@ -23,7 +23,26 @@ import { desc, eq } from "drizzle-orm";
 
 export const runtime = "nodejs";
 
+// Rate limiter: max 3 submissions per IP per 10 minutes
+const LR_RATE_MAP = new Map<string, { count: number; resetAt: number }>();
+
 export async function POST(req: NextRequest) {
+  // Rate limiting by IP
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const now = Date.now();
+  const entry = LR_RATE_MAP.get(ip);
+  if (entry && now < entry.resetAt) {
+    if (entry.count >= 3) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait before submitting again." },
+        { status: 429 }
+      );
+    }
+    entry.count++;
+  } else {
+    LR_RATE_MAP.set(ip, { count: 1, resetAt: now + 10 * 60_000 });
+  }
+
   try {
     const body = await req.json();
     const { languageName, languageCode, nativeName, flag, requesterName, requesterTelegram, reason } = body;
@@ -34,6 +53,18 @@ export async function POST(req: NextRequest) {
         { error: "Missing required fields: languageName, languageCode, nativeName, flag" },
         { status: 400 }
       );
+    }
+
+    // Validate input lengths to prevent DB abuse
+    if (
+      String(languageName).length > 100 ||
+      String(nativeName).length > 100 ||
+      String(flag).length > 10 ||
+      (requesterName && String(requesterName).length > 100) ||
+      (requesterTelegram && String(requesterTelegram).length > 100) ||
+      (reason && String(reason).length > 1000)
+    ) {
+      return NextResponse.json({ error: "Input too long" }, { status: 400 });
     }
 
     // Validate language code format (2-3 chars)

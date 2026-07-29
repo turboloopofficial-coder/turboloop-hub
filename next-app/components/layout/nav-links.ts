@@ -25,7 +25,7 @@ export const PROTOCOL_LINKS = [
 
 export const WATCH_LINKS = [
   { label: "Films",      href: "/films",   description: "4 seasons · 20 cinematic episodes",    emoji: "🎬" },
-  { label: "Podcast",    href: "/podcast", description: "CEO Dave · 3 episodes · 56 min",        emoji: "🎙️" },
+  { label: "Podcast",    href: "/podcast", description: "CEO Dave · 4 episodes · 67 min",        emoji: "🎙️" },
   { label: "Reels",      href: "/reels",   description: "Short tutorials and highlights",       emoji: "📱" },
   { label: "Library",    href: "/library", description: "Presentations in 49 languages",        emoji: "📂" },
   { label: "Blog",       href: "/blog",    description: "Editorial deep dives · EN default",    emoji: "✍️" },

@@ -239,11 +239,10 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {EPISODES.map((ep, idx) => {
+                {EPISODES.map((ep, idx) => {
           const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
           const availableCount = LANGUAGES.filter(l => (l.episodes[ep.id]?.video ?? null) !== null).length;
           const isFirst = idx === 0;
-
           return (
             <div key={ep.id}>
               {/* Divider between episodes */}
@@ -254,7 +253,6 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
                   <div className="flex-1 h-px bg-white/[0.06]" />
                 </div>
               )}
-
               <div id={ep.id}>
                 <div className="text-center mb-8 sm:mb-10">
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase ${badgeColors.bg} ${badgeColors.text} border ${badgeColors.border} mb-4`}>
@@ -275,6 +273,18 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
             </div>
           );
         })}
+
+        {/* Cross-link CTA to the full Podcast page */}
+        <div className="text-center pt-4 pb-2">
+          <a
+            href="/podcast"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400/60 transition-all duration-200"
+          >
+            <span>🎙️</span>
+            <span>View all {EPISODES.length} episodes on the Podcast page</span>
+            <span className="opacity-60">→</span>
+          </a>
+        </div>
       </div>
     </section>
   );

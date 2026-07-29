@@ -77,7 +77,36 @@ export async function GET() {
   );
 }
 
+// Simple in-memory rate limiter — max 5 POST requests per IP per minute.
+// Edge runtime: each edge replica has its own memory, so this is a
+// per-replica limit. Good enough to stop naive abuse without Redis.
+const RATE_MAP = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60_000;
+
 export async function POST(req: NextRequest) {
+  // Rate limiting by IP
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const now = Date.now();
+  const entry = RATE_MAP.get(ip);
+  if (entry && now < entry.resetAt) {
+    if (entry.count >= RATE_LIMIT) {
+      return NextResponse.json(
+        { error: "Too many requests" },
+        { status: 429 }
+      );
+    }
+    entry.count++;
+  } else {
+    RATE_MAP.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+  }
+  // Clean up old entries periodically (1% chance per request)
+  if (Math.random() < 0.01) {
+    for (const [k, v] of RATE_MAP) {
+      if (now > v.resetAt) RATE_MAP.delete(k);
+    }
+  }
   try {
     const body = await req.json();
     const locale = body?.locale;

@@ -2,7 +2,8 @@
 
 // ─────────────────────────────────────────────────────────────────────────────
 // /podcast — TurboLoop CEO Podcast
-// A premium, cinematic, standalone podcast page featuring all episodes.
+// Shows ALL episodes simultaneously. Each episode has its own language picker
+// and uses the correct per-language ep2thumb / ep3thumb thumbnail.
 // Episode data is driven from videoLanguages.ts — no duplication.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -10,7 +11,7 @@ import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import {
   Play, Globe, ChevronDown, Download, Youtube, Share2,
-  Mic, Clock, Languages, Lock, ChevronRight, Sparkles,
+  Mic, Clock, Languages, Lock, Sparkles,
 } from "lucide-react";
 import { LANGUAGES, ENGLISH, type VideoLanguage } from "@/lib/videoLanguages";
 
@@ -28,9 +29,9 @@ const EPISODES = [
     duration: "20 min",
     topics: ["Security Audits", "Smart Contracts", "54% APY", "LP Locked", "BNB Smart Chain", "USDT Yield"],
     quote: "\"The code is immutable. The returns are fixed. The auditors verified it. What else do you need?\"",
-    thumb: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/turboloop-explainer-en-thumb.jpg",
-    getVideo: (l: VideoLanguage) => l.video,
-    getYoutube: (l: VideoLanguage) => l.youtubeUrl,
+    getVideo:    (l: VideoLanguage) => l.video,
+    getYoutube:  (l: VideoLanguage) => l.youtubeUrl,
+    getThumb:    (l: VideoLanguage) => l.thumb ?? ENGLISH.thumb!,
     getLangCount: () => LANGUAGES.filter(l => l.video !== null).length,
   },
   {
@@ -45,9 +46,9 @@ const EPISODES = [
     duration: "21 min",
     topics: ["CEO AMA", "Revenue Model", "On-Chain Proof", "$100K Bounty", "Community Q&A", "Sustainability"],
     quote: "\"Ask me anything. I have nothing to hide — because the blockchain has nothing to hide.\"",
-    thumb: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/turboloop-explainer-en-thumb.jpg",
-    getVideo: (l: VideoLanguage) => l.ep2video,
-    getYoutube: (l: VideoLanguage) => l.ep2youtubeUrl,
+    getVideo:    (l: VideoLanguage) => l.ep2video,
+    getYoutube:  (l: VideoLanguage) => l.ep2youtubeUrl,
+    getThumb:    (l: VideoLanguage) => l.ep2thumb ?? l.thumb ?? ENGLISH.ep2thumb ?? ENGLISH.thumb!,
     getLangCount: () => LANGUAGES.filter(l => l.ep2video !== null).length,
   },
   {
@@ -62,9 +63,9 @@ const EPISODES = [
     duration: "15 min",
     topics: ["3-Stream Income", "Beginner Friendly", "All Income Levels", "Global Access", "Passive Income", "DeFi Strategy"],
     quote: "\"You don't need to understand blockchain. You need to understand compound interest.\"",
-    thumb: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/turboloop-explainer-en-thumb.jpg",
-    getVideo: (l: VideoLanguage) => l.ep3video,
-    getYoutube: (l: VideoLanguage) => l.ep3youtubeUrl,
+    getVideo:    (l: VideoLanguage) => l.ep3video,
+    getYoutube:  (l: VideoLanguage) => l.ep3youtubeUrl,
+    getThumb:    (l: VideoLanguage) => l.ep3thumb ?? l.thumb ?? ENGLISH.ep3thumb ?? ENGLISH.thumb!,
     getLangCount: () => LANGUAGES.filter(l => l.ep3video !== null).length,
   },
 ] as const;
@@ -81,16 +82,16 @@ function badgeClasses(color: string) {
 // ─── Inline VideoPlayer ──────────────────────────────────────────────────────
 function PodcastPlayer({ epId }: { epId: EpisodeId }) {
   const ep = EPISODES.find(e => e.id === epId)!;
-  const [started, setStarted] = useState(false);
+  const [started, setStarted]         = useState(false);
   const [selectedLang, setSelectedLang] = useState<VideoLanguage>(ENGLISH);
-  const [showPicker, setShowPicker] = useState(false);
+  const [showPicker, setShowPicker]   = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const activeVideo = ep.getVideo(selectedLang) ?? ep.getVideo(ENGLISH)!;
+  const activeVideo   = ep.getVideo(selectedLang)   ?? ep.getVideo(ENGLISH)!;
   const activeYoutube = ep.getYoutube(selectedLang) ?? ep.getYoutube(ENGLISH);
-  const activeThumb = selectedLang.thumb ?? ENGLISH.thumb!;
-  const isAvailable = (l: VideoLanguage) => ep.getVideo(l) !== null;
-  const available = LANGUAGES.filter(isAvailable);
+  const activeThumb   = ep.getThumb(selectedLang);
+  const isAvailable   = (l: VideoLanguage) => ep.getVideo(l) !== null;
+  const available     = LANGUAGES.filter(isAvailable);
 
   const handlePlay = useCallback(async () => {
     const vid = videoRef.current;
@@ -137,7 +138,11 @@ function PodcastPlayer({ epId }: { epId: EpisodeId }) {
               className="absolute inset-0 flex items-center justify-center group"
               aria-label="Play video"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cyan-500 flex items-center justify-center shadow-[0_0_40px_rgba(6,182,212,0.5)] group-hover:scale-110 group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)] transition-all duration-300">
+              <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
+                ep.badgeColor === "purple"
+                  ? "bg-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.5)] group-hover:shadow-[0_0_60px_rgba(168,85,247,0.7)]"
+                  : "bg-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.5)] group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)]"
+              }`}>
                 <Play className="w-7 h-7 sm:w-9 sm:h-9 text-white fill-white ml-1" />
               </div>
             </button>
@@ -171,7 +176,13 @@ function PodcastPlayer({ epId }: { epId: EpisodeId }) {
                 return (
                   <button
                     key={lang.code}
-                    onClick={() => { if (avail) { setSelectedLang(lang); setShowPicker(false); setStarted(false); } }}
+                    onClick={() => {
+                      if (avail) {
+                        setSelectedLang(lang);
+                        setShowPicker(false);
+                        setStarted(false);
+                      }
+                    }}
                     disabled={!avail}
                     className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm text-left transition ${
                       avail
@@ -187,6 +198,12 @@ function PodcastPlayer({ epId }: { epId: EpisodeId }) {
               })}
             </div>
           )}
+        </div>
+        {/* Episode badge overlay */}
+        <div className="absolute top-3 left-3 z-10">
+          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${badgeClasses(ep.badgeColor)}`}>
+            EP {ep.num}
+          </span>
         </div>
       </div>
 
@@ -232,23 +249,78 @@ function PodcastPlayer({ epId }: { epId: EpisodeId }) {
             <span>Share</span>
           </button>
         </div>
+        <p className="text-xs text-gray-600">
+          AI-dubbed in {available.length} language{available.length !== 1 ? "s" : ""} — rolling out now.
+        </p>
       </div>
     </div>
   );
 }
 
+// ─── Single episode section ──────────────────────────────────────────────────
+function EpisodeSection({ ep }: { ep: typeof EPISODES[number] }) {
+  return (
+    <section id={ep.id} className="scroll-mt-24">
+      {/* Episode header */}
+      <div className="mb-6">
+        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border mb-4 ${badgeClasses(ep.badgeColor)}`}>
+          {ep.badge}
+        </span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2 leading-tight">
+          {ep.title}
+        </h2>
+        <p className="text-gray-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+          {ep.description}
+        </p>
+      </div>
+
+      {/* Player */}
+      <PodcastPlayer epId={ep.id} />
+
+      {/* Details row */}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Topics */}
+        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+          <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Topics Covered</h3>
+          <div className="flex flex-wrap gap-2">
+            {ep.topics.map(topic => (
+              <span
+                key={topic}
+                className={`px-3 py-1 rounded-full text-xs font-semibold border ${
+                  ep.badgeColor === "purple"
+                    ? "bg-purple-500/10 text-purple-300 border-purple-500/20"
+                    : "bg-cyan-500/10 text-cyan-300 border-cyan-500/20"
+                }`}
+              >
+                {topic}
+              </span>
+            ))}
+          </div>
+        </div>
+        {/* Quote */}
+        <div className={`rounded-xl border p-5 relative overflow-hidden ${
+          ep.badgeColor === "purple"
+            ? "border-purple-500/20 bg-purple-500/[0.05]"
+            : "border-cyan-500/20 bg-cyan-500/[0.05]"
+        }`}>
+          <div className={`absolute top-3 left-4 text-5xl font-black opacity-10 leading-none ${
+            ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
+          }`}>"</div>
+          <p className={`relative z-10 text-sm sm:text-base font-medium leading-relaxed italic mt-3 ${
+            ep.badgeColor === "purple" ? "text-purple-100" : "text-cyan-100"
+          }`}>
+            {ep.quote}
+          </p>
+          <p className="mt-3 text-xs text-gray-500 font-semibold uppercase tracking-widest">— CEO Dave</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Main page ───────────────────────────────────────────────────────────────
 export default function PodcastPage() {
-  const [activeEp, setActiveEp] = useState<EpisodeId>("ep1");
-  const playerRef = useRef<HTMLDivElement>(null);
-  const activeEpData = EPISODES.find(e => e.id === activeEp)!;
-
-  const handleSelectEp = (id: EpisodeId) => {
-    setActiveEp(id);
-    setTimeout(() => {
-      playerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
-  };
+  const totalLangs = LANGUAGES.filter(l => l.video !== null).length;
 
   return (
     <main className="min-h-screen bg-[#080c14] text-white">
@@ -303,7 +375,7 @@ export default function PodcastPage() {
             <div className="w-px h-4 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
               <Languages className="w-4 h-4 text-cyan-500" />
-              <span><strong className="text-white">{LANGUAGES.filter(l => l.video !== null).length}+</strong> Languages</span>
+              <span><strong className="text-white">{totalLangs}+</strong> Languages</span>
             </div>
             <div className="w-px h-4 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
@@ -311,195 +383,58 @@ export default function PodcastPage() {
               <span><strong className="text-white">AI-Dubbed</strong> Every Episode</span>
             </div>
           </div>
+
+          {/* Quick-jump links */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
+            {EPISODES.map(ep => (
+              <a
+                key={ep.id}
+                href={`#${ep.id}`}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold transition-all ${
+                  ep.badgeColor === "purple"
+                    ? "border-purple-500/30 text-purple-400 hover:bg-purple-500/10"
+                    : "border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
+                }`}
+              >
+                <span className="opacity-60">Ep {ep.num}</span>
+                <span>{ep.title}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-16">
+      {/* ── All Episodes ──────────────────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-20">
 
-        {/* ── Episode selector cards ────────────────────────────────────── */}
-        <section>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {EPISODES.map(ep => {
-              const isActive = activeEp === ep.id;
-              const langCount = ep.getLangCount();
-              return (
-                <button
-                  key={ep.id}
-                  onClick={() => handleSelectEp(ep.id)}
-                  className={`relative text-left rounded-2xl border p-5 transition-all duration-300 group ${
-                    isActive
-                      ? ep.badgeColor === "purple"
-                        ? "border-purple-500/50 bg-purple-500/[0.08] shadow-[0_0_30px_rgba(168,85,247,0.15)]"
-                        : "border-cyan-500/50 bg-cyan-500/[0.08] shadow-[0_0_30px_rgba(6,182,212,0.15)]"
-                      : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
-                  }`}
-                >
-                  {/* Active indicator */}
-                  {isActive && (
-                    <div className={`absolute top-3 right-3 w-2 h-2 rounded-full animate-pulse ${
-                      ep.badgeColor === "purple" ? "bg-purple-400" : "bg-cyan-400"
-                    }`} />
-                  )}
-                  {/* Episode number */}
-                  <div className={`text-xs font-bold tracking-widest uppercase mb-3 ${
-                    isActive
-                      ? ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
-                      : "text-gray-600"
-                  }`}>
-                    Episode {ep.num}
-                  </div>
-                  {/* Title */}
-                  <div className="font-bold text-white text-base leading-snug mb-2 group-hover:text-white transition-colors">
-                    {ep.title}
-                  </div>
-                  <div className="text-xs text-gray-500 mb-4 leading-relaxed line-clamp-2">
-                    {ep.subtitle}
-                  </div>
-                  {/* Meta */}
-                  <div className="flex items-center gap-3 text-xs text-gray-600">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {ep.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Languages className="w-3 h-3" />
-                      {langCount} lang{langCount !== 1 ? "s" : ""}
-                    </span>
-                  </div>
-                  {/* Play indicator */}
-                  {isActive && (
-                    <div className={`mt-4 flex items-center gap-1.5 text-xs font-semibold ${
-                      ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
-                    }`}>
-                      <Play className="w-3 h-3 fill-current" />
-                      Now Playing
-                    </div>
-                  )}
-                </button>
-              );
-            })}
+        {EPISODES.map((ep, i) => (
+          <div key={ep.id}>
+            {i > 0 && (
+              <div className="flex items-center gap-4 mb-12">
+                <div className="flex-1 h-px bg-white/[0.06]" />
+                <span className="text-xs text-gray-600 uppercase tracking-widest font-semibold">Episode {ep.num}</span>
+                <div className="flex-1 h-px bg-white/[0.06]" />
+              </div>
+            )}
+            <EpisodeSection ep={ep} />
           </div>
-        </section>
+        ))}
 
-        {/* ── Video player ─────────────────────────────────────────────── */}
-        <section ref={playerRef} className="scroll-mt-24">
-          {/* Episode header */}
-          <div className="mb-8">
-            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border mb-4 ${badgeClasses(activeEpData.badgeColor)}`}>
-              {activeEpData.badge}
+        {/* Coming Soon */}
+        <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 flex items-center gap-4 opacity-50">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white/[0.03] shrink-0">
+            <Lock className="w-5 h-5 text-gray-600" />
+          </div>
+          <div>
+            <div className="font-semibold text-gray-500 text-sm">Episode 4</div>
+            <div className="text-xs text-gray-700 mt-0.5">Coming Soon — Stay tuned</div>
+          </div>
+          <div className="ml-auto">
+            <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-gray-600 font-semibold uppercase tracking-wider">
+              Coming Soon
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3 leading-tight">
-              {activeEpData.title}
-            </h2>
-            <p className="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
-              {activeEpData.description}
-            </p>
           </div>
-          <PodcastPlayer key={activeEp} epId={activeEp} />
-          <p className="text-center text-xs text-gray-600 mt-4">
-            AI-dubbed versions in {activeEpData.getLangCount()} languages — rolling out now.
-          </p>
-        </section>
-
-        {/* ── Episode details panel ─────────────────────────────────────── */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Topics */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
-            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Topics Covered</h3>
-            <div className="flex flex-wrap gap-2">
-              {activeEpData.topics.map(topic => (
-                <span
-                  key={topic}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold border ${
-                    activeEpData.badgeColor === "purple"
-                      ? "bg-purple-500/10 text-purple-300 border-purple-500/20"
-                      : "bg-cyan-500/10 text-cyan-300 border-cyan-500/20"
-                  }`}
-                >
-                  {topic}
-                </span>
-              ))}
-            </div>
-          </div>
-          {/* Quote */}
-          <div className={`rounded-2xl border p-6 relative overflow-hidden ${
-            activeEpData.badgeColor === "purple"
-              ? "border-purple-500/20 bg-purple-500/[0.05]"
-              : "border-cyan-500/20 bg-cyan-500/[0.05]"
-          }`}>
-            <div className={`absolute top-4 left-5 text-6xl font-black opacity-10 leading-none ${
-              activeEpData.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
-            }`}>"</div>
-            <p className={`relative z-10 text-base sm:text-lg font-medium leading-relaxed italic mt-4 ${
-              activeEpData.badgeColor === "purple" ? "text-purple-100" : "text-cyan-100"
-            }`}>
-              {activeEpData.quote}
-            </p>
-            <p className="mt-4 text-xs text-gray-500 font-semibold uppercase tracking-widest">— CEO Dave</p>
-          </div>
-        </section>
-
-        {/* ── All episodes strip ────────────────────────────────────────── */}
-        <section>
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex-1 h-px bg-white/[0.06]" />
-            <span className="text-xs text-gray-600 uppercase tracking-widest font-semibold">All Episodes</span>
-            <div className="flex-1 h-px bg-white/[0.06]" />
-          </div>
-          <div className="space-y-3">
-            {EPISODES.map(ep => {
-              const isActive = activeEp === ep.id;
-              return (
-                <button
-                  key={ep.id}
-                  onClick={() => handleSelectEp(ep.id)}
-                  className={`w-full flex items-center gap-4 p-4 rounded-xl border text-left transition-all ${
-                    isActive
-                      ? ep.badgeColor === "purple"
-                        ? "border-purple-500/40 bg-purple-500/[0.06]"
-                        : "border-cyan-500/40 bg-cyan-500/[0.06]"
-                      : "border-white/[0.05] bg-white/[0.02] hover:border-white/[0.10] hover:bg-white/[0.04]"
-                  }`}
-                >
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-                    isActive
-                      ? ep.badgeColor === "purple" ? "bg-purple-500/20" : "bg-cyan-500/20"
-                      : "bg-white/[0.05]"
-                  }`}>
-                    {isActive
-                      ? <Play className={`w-4 h-4 fill-current ${ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"}`} />
-                      : <span className="text-gray-500 text-sm font-bold">{ep.num}</span>
-                    }
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-white text-sm leading-snug">{ep.title}</div>
-                    <div className="text-xs text-gray-500 mt-0.5">{ep.subtitle}</div>
-                  </div>
-                  <div className="flex items-center gap-3 text-xs text-gray-600 shrink-0">
-                    <span>{ep.duration}</span>
-                    <span>{ep.getLangCount()} langs</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </div>
-                </button>
-              );
-            })}
-            {/* Coming Soon */}
-            <div className="w-full flex items-center gap-4 p-4 rounded-xl border border-white/[0.04] bg-white/[0.01] opacity-50 cursor-not-allowed">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-white/[0.03]">
-                <Lock className="w-4 h-4 text-gray-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-gray-500 text-sm leading-snug">Episode 4</div>
-                <div className="text-xs text-gray-700 mt-0.5">Coming Soon — Stay tuned</div>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-gray-600 font-semibold uppercase tracking-wider">
-                  Coming Soon
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
 
         {/* ── CTA strip ────────────────────────────────────────────────── */}
         <section className="rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/[0.07] to-purple-500/[0.05] p-8 text-center">

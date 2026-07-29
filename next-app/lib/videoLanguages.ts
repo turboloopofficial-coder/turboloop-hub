@@ -47,10 +47,14 @@ export interface VideoLanguage {
   ep2youtubeUrl: string | null;
   /** Episode 3 YouTube link */
   ep3youtubeUrl: string | null;
+  /** Episode 2 thumbnail URL — null means use default thumb */
+  ep2thumb?: string | null;
+  /** Episode 3 thumbnail URL — null means use default thumb */
+  ep3thumb?: string | null;
 }
 
 export const LANGUAGES: VideoLanguage[] = [
-  { code: "en", label: "English",    nativeLabel: "English",     flag: "🇬🇧", video: `${R2_BASE}/turboloop-explainer-en.mp4`,  ep2video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-en.mp4`,  ep3video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg", ep2youtubeUrl: "https://youtu.be/cKm_XQpK4NI", ep3youtubeUrl: "https://youtu.be/08dLfBMf2JM" },
+  { code: "en", label: "English",    nativeLabel: "English",     flag: "🇬🇧", video: `${R2_BASE}/turboloop-explainer-en.mp4`,  ep2video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-en.mp4`,  ep3video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-en.mp4`,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg", ep2youtubeUrl: "https://youtu.be/cKm_XQpK4NI", ep3youtubeUrl: "https://youtu.be/08dLfBMf2JM", ep2thumb: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/images/turboloop-ep2-thumbnail.jpg", ep3thumb: "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/images/turboloop-ep3-thumbnail.jpg" },
   { code: "hi", label: "Hindi",      nativeLabel: "हिन्दी",      flag: "🇮🇳", video: `${R2_BASE}/turboloop-explainer-hi.mp4`,  ep2video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-hi.mp4`,  ep3video: null,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/X0p28uy2yeI", ep2youtubeUrl: "https://youtu.be/JPhXsw3mLS4", ep3youtubeUrl: null },
   { code: "th", label: "Thai",       nativeLabel: "ภาษาไทย",     flag: "🇹🇭", video: `${R2_BASE}/turboloop-explainer-th.mp4`,  ep2video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-th.mp4`,  ep3video: null,  thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`,  youtubeUrl: "https://youtu.be/IdlosvrEgTo", ep2youtubeUrl: "https://youtu.be/LisPrhmrG2g", ep3youtubeUrl: null },
   { code: "es", label: "Spanish",    nativeLabel: "Español",     flag: "🇪🇸", video: `${R2_BASE}/turboloop-explainer-es.mp4`, ep2video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-es.mp4`,  ep3video: null, thumb: `${R2_BASE}/turboloop-explainer-en-thumb.jpg`, youtubeUrl: "https://youtu.be/GF2FTTuMy5U", ep2youtubeUrl: "https://youtu.be/FBq7GB9AaeI", ep3youtubeUrl: null },

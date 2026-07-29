@@ -45,7 +45,10 @@ function VideoPlayer({
     episode === "ep1" ? lang.youtubeUrl : episode === "ep2" ? lang.ep2youtubeUrl : lang.ep3youtubeUrl;
 
   const activeVideo = getVideo(selectedLang) ?? getVideo(ENGLISH)!;
-  const activeThumb = selectedLang.thumb ?? ENGLISH.thumb!;
+  const activeThumb =
+    episode === "ep2" ? (selectedLang.ep2thumb ?? ENGLISH.ep2thumb ?? selectedLang.thumb ?? ENGLISH.thumb!)
+    : episode === "ep3" ? (selectedLang.ep3thumb ?? ENGLISH.ep3thumb ?? selectedLang.thumb ?? ENGLISH.thumb!)
+    : (selectedLang.thumb ?? ENGLISH.thumb!);
   const activeYoutubeUrl = getYoutubeUrl(selectedLang) ?? getYoutubeUrl(ENGLISH);
   const isAvailable = (lang: VideoLanguage) => getVideo(lang) !== null;
   const availableCount = LANGUAGES.filter(isAvailable).length;

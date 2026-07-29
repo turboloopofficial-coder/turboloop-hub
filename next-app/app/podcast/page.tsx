@@ -92,19 +92,18 @@ function PodcastPlayer({
 
   const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
 
-  const handlePlay = useCallback(async () => {
+  // When started becomes true the <video> element mounts — auto-play it
+  useEffect(() => {
+    if (!started) return;
     const vid = videoRef.current;
     if (!vid) return;
-    try {
-      vid.load();
-      vid.muted = true;
-      await vid.play();
-      vid.muted = false;
-      setStarted(true);
-    } catch {
-      setStarted(true);
-    }
-  }, [activeVideo]);
+    vid.muted = true;
+    vid.play().then(() => { vid.muted = false; }).catch(() => { vid.muted = false; });
+  }, [started]);
+
+  const handlePlay = useCallback(() => {
+    setStarted(true);
+  }, []);
 
   const { saveLanguage } = useLanguagePreference();
 

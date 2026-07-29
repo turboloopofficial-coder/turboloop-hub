@@ -264,7 +264,7 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
           </div>
           <VideoPlayer defaultLocale={defaultLocale} episode="ep1" />
           <p className="text-center text-xs text-gray-600 mt-4">
-            AI-dubbed versions in {LANGUAGES.filter(l => l.video !== null).length} languages — rolling out now.
+            English Original · AI-Dubbed in {LANGUAGES.filter(l => l.video !== null).length} languages — rolling out now.
           </p>
         </div>
 
@@ -291,7 +291,7 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
           </div>
           <VideoPlayer defaultLocale={defaultLocale} episode="ep2" />
           <p className="text-center text-xs text-gray-600 mt-4">
-            AI-dubbed versions in {LANGUAGES.filter(l => l.ep2video !== null).length} languages — rolling out now.
+            English Original · AI-Dubbed in {LANGUAGES.filter(l => l.ep2video !== null).length} languages — rolling out now.
           </p>
         </div>
         {/* ── Divider ───────────────────────────────────────────────── */}
@@ -316,7 +316,7 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
           </div>
           <VideoPlayer defaultLocale={defaultLocale} episode="ep3" />
           <p className="text-center text-xs text-gray-600 mt-4">
-            AI-dubbed versions in {LANGUAGES.filter(l => l.ep3video !== null).length} languages — rolling out now.
+            English Original · AI-Dubbed in {LANGUAGES.filter(l => l.ep3video !== null).length} languages — rolling out now.
           </p>
         </div>
       </div>

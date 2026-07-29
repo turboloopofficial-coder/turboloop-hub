@@ -293,7 +293,7 @@ function PodcastPlayer({
           </button>
         </div>
         <p className="text-xs text-gray-600">
-          AI-dubbed in {available.length} language{available.length !== 1 ? "s" : ""} — rolling out now.
+          English Original · AI-Dubbed in {available.length} language{available.length !== 1 ? "s" : ""} — rolling out now.
         </p>
       </div>
     </div>
@@ -430,7 +430,7 @@ export default function PodcastPage() {
             <div className="w-px h-4 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-cyan-500" />
-              <span><strong className="text-white">AI-Dubbed</strong> Every Episode</span>
+              <span><strong className="text-white">English Original</strong> · AI-Dubbed</span>
             </div>
           </div>
 

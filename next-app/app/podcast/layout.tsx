@@ -45,16 +45,20 @@ const podcastJsonLd = {
       "name": "Your Bank is Lying to You — TurboLoop Explained",
       "description":
         "A 20-minute cinematic breakdown covering security audits, smart contract architecture, and how your USDT earns fixed returns on BNB Smart Chain. CEO Dave explains the full TurboLoop protocol from first principles.",
-      "thumbnailUrl": `${R2}/turboloop-explainer-en-thumb.jpg`,
-      "contentUrl": `${R2}/turboloop-explainer-en.mp4`,
+      "thumbnailUrl": `${R2}/videos/turboloop-explainer-en-thumb.jpg`,
+      "contentUrl": `${R2}/videos/turboloop-explainer-en.mp4`,
       "embedUrl": "https://www.youtube.com/watch?v=LFViES_Qbzg",
       "duration": "PT20M",
-      "uploadDate": "2025-01-01",
-      "datePublished": "2025-01-01",
+      "uploadDate": "2026-01-01",
+      "datePublished": "2026-01-01",
       "inLanguage": "en",
       "availableLanguage": [
-        "en", "ar", "de", "es", "fr", "hi", "id", "it", "ja", "ko",
-        "pt", "ru", "th", "tr", "vi", "zh"
+        "en", "ar", "az", "bn", "cs", "da", "de", "el", "es", "et", "fa",
+        "fi", "fr", "gu", "he", "hi", "hr", "hu", "id", "it", "ja", "kk",
+        "km", "kn", "ko", "lo", "lt", "lv", "ml", "mr", "ms", "my", "ne",
+        "nl", "no", "pa", "pl", "pt", "ro", "ru", "si", "sk", "sl", "sr",
+        "sv", "sw", "ta", "te", "th", "tl", "tr", "uk", "ur", "uz", "vi",
+        "zh", "zu"
       ],
       "publisher": { "@id": "https://www.turboloop.tech/#organization" },
       "author": {
@@ -76,11 +80,11 @@ const podcastJsonLd = {
       "description":
         "CEO Dave goes on record answering the hardest community questions about revenue sustainability, smart contract security, on-chain verification, and the $100K bug bounty challenge. No scripts, no filters.",
       "thumbnailUrl": `${R2}/images/turboloop-ep2-thumbnail.jpg`,
-      "contentUrl": `${R2}/turboloop-ep2-en.mp4`,
+      "contentUrl": `${R2}/videos/turboloop-ep2-en.mp4`,
       "embedUrl": "https://www.youtube.com/watch?v=cKm_XQpK4NI",
       "duration": "PT21M",
-      "uploadDate": "2026-01-01",
-      "datePublished": "2026-01-01",
+      "uploadDate": "2026-03-01",
+      "datePublished": "2026-03-01",
       "inLanguage": "en",
       "availableLanguage": [
         "en", "ar", "de", "es", "fr", "hi", "it", "ja", "pt", "th", "tr", "zh"
@@ -105,11 +109,11 @@ const podcastJsonLd = {
       "description":
         "CEO Dave breaks down how TurboLoop's 3-stream income model works for everyone — from first-time crypto users to experienced investors across every income level and background.",
       "thumbnailUrl": `${R2}/images/turboloop-ep3-thumbnail.jpg`,
-      "contentUrl": `${R2}/turboloop-ep3-en.mp4`,
+      "contentUrl": `${R2}/videos/turboloop-ep3-en.mp4`,
       "embedUrl": "https://www.youtube.com/watch?v=08dLfBMf2JM",
       "duration": "PT15M",
-      "uploadDate": "2026-04-01",
-      "datePublished": "2026-04-01",
+      "uploadDate": "2026-05-01",
+      "datePublished": "2026-05-01",
       "inLanguage": "en",
       "availableLanguage": ["en", "ar", "de", "fr", "it", "pt"],
       "publisher": { "@id": "https://www.turboloop.tech/#organization" },

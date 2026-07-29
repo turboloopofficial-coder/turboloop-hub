@@ -50,7 +50,7 @@ export const podcastMetadata: Metadata = {
         alt: "TurboLoop CEO Podcast — 3 Episodes, 65 Languages, No Scripts",
       },
     ],
-    type: "website",
+    type: "video.other",
   },
   twitter: {
     card: "summary_large_image",

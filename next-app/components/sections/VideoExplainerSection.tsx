@@ -52,7 +52,11 @@ function VideoPlayer({
   const [started, setStarted] = useState(false);
   const [selectedLang, setSelectedLang] = useState(() => resolveInitialLang(defaultLocale));
   const [showPicker, setShowPicker] = useState(false);
+  const [thumbLoaded, setThumbLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Reset thumb loaded state when thumbnail changes
+  useEffect(() => { setThumbLoaded(false); }, [activeThumb]);
 
   const getEpData = (lang: VideoLanguage) => lang.episodes[epId] ?? null;
   const isAvailable = (lang: VideoLanguage) => (getEpData(lang)?.video ?? null) !== null;
@@ -105,12 +109,19 @@ function VideoPlayer({
       <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
         {!started && (
           <div className="absolute inset-0 w-full h-full">
+            {/* Skeleton shimmer — shows while thumbnail loads */}
+            {!thumbLoaded && (
+              <div className="absolute inset-0 bg-[#0d1220] overflow-hidden">
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+              </div>
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={activeThumb}
               src={activeThumb}
               alt={`${selectedLang.label} ${episodeConfig.title} thumbnail`}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-opacity duration-500 ${thumbLoaded ? "opacity-100" : "opacity-0"}`}
+              onLoad={() => setThumbLoaded(true)}
             />
           </div>
         )}

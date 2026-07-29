@@ -65,18 +65,20 @@ function PodcastPlayer({
   defaultLocale: string;
 }) {
   const epId = ep.id;
-  const [started, setStarted]           = useState(false);
+    const [started, setStarted]           = useState(false);
   const [selectedLang, setSelectedLang] = useState<VideoLanguage>(() =>
     resolveInitialLang(defaultLocale, epId)
   );
   const [showPicker, setShowPicker]     = useState(false);
+  const [thumbLoaded, setThumbLoaded]   = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
   // Re-resolve when defaultLocale changes (e.g. SSR hydration)
   useEffect(() => {
     setSelectedLang(resolveInitialLang(defaultLocale, epId));
     setStarted(false);
   }, [defaultLocale, epId]);
+  // Reset thumb loaded state when thumbnail changes
+  useEffect(() => { setThumbLoaded(false); }, [activeThumb]);
 
   const getEpData = (lang: VideoLanguage) => lang.episodes[epId] ?? null;
   const isAvailable = (l: VideoLanguage) => (getEpData(l)?.video ?? null) !== null;
@@ -142,11 +144,18 @@ function PodcastPlayer({
       <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
         {!started && (
           <div className="absolute inset-0">
+            {/* Skeleton shimmer while thumbnail loads */}
+            {!thumbLoaded && (
+              <div className="absolute inset-0 bg-[#0d1220] overflow-hidden">
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+              </div>
+            )}
             <img
               key={activeThumb}
               src={activeThumb}
               alt={ep.title}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-opacity duration-500 ${thumbLoaded ? "opacity-100" : "opacity-0"}`}
+              onLoad={() => setThumbLoaded(true)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <button

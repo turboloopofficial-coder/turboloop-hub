@@ -26,12 +26,12 @@
     "ai": "^6.0.184",
     "archiver": "^8.0.0",
     "clsx": "^2.1.1",
-    "drizzle-orm": "^0.44.5",
+    "drizzle-orm": "^0.45.2",
     "fflate": "^0.8.3",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.453.0",
     "marked": "^18.0.3",
-    "next": "^15.1.6",
+    "next": "^15.5.22",
     "next-intl": "^4.13.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
@@ -48,10 +48,16 @@
     "@types/node": "^24.7.0",
     "@types/react": "^19.2.1",
     "@types/react-dom": "^19.2.1",
-    "eslint": "^9",
+    "eslint": "^10.8.0",
     "eslint-config-next": "^15.1.6",
-    "postcss": "^8.4.47",
+    "postcss": "^8.5.24",
     "tailwindcss": "^4.1.14",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "brace-expansion": ">=1.1.16",
+      "js-yaml": ">=4.3.0"
+    }
   }
 }

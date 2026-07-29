@@ -150,12 +150,15 @@ function PodcastPlayer({
                 <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
               </div>
             )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={activeThumb}
               src={activeThumb}
               alt={ep.title}
               className={`w-full h-full object-cover transition-opacity duration-500 ${thumbLoaded ? "opacity-100" : "opacity-0"}`}
               onLoad={() => setThumbLoaded(true)}
+              // @ts-expect-error fetchpriority is valid HTML but not yet in React types
+              fetchpriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <button
@@ -190,6 +193,9 @@ function PodcastPlayer({
         <div className="absolute top-3 right-3 z-10">
           <button
             onClick={() => setShowPicker(p => !p)}
+            aria-label={`Change language — currently ${selectedLang.label}`}
+            aria-expanded={showPicker}
+            aria-haspopup="listbox"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-white text-xs font-medium hover:bg-black/80 transition"
           >
             <Globe className="w-3.5 h-3.5" />
@@ -205,6 +211,9 @@ function PodcastPlayer({
                     key={lang.code}
                     onClick={() => handleLangSelect(lang)}
                     disabled={!avail}
+                    aria-label={`${avail ? "Watch in" : "Coming soon:"} ${lang.label}`}
+                    role="option"
+                    aria-selected={selectedLang.code === lang.code}
                     className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm text-left transition ${
                       avail
                         ? "hover:bg-white/[0.06] text-white cursor-pointer"
@@ -258,6 +267,7 @@ function PodcastPlayer({
           </a>
           <button
             onClick={handleShare}
+            aria-label={`Share ${ep.title} in ${selectedLang.label}`}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 transition-colors"
           >
             <Share2 className="w-3.5 h-3.5" />

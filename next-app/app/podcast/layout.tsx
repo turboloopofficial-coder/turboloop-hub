@@ -19,6 +19,25 @@ const podcastJsonLd = {
       "inLanguage": "en",
       "dateModified": "2026-07-27",
     },
+    // BreadcrumbList — helps Google show breadcrumbs in SERPs for /podcast
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.turboloop.tech/podcast#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.turboloop.tech/",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "CEO Podcast",
+          "item": "https://www.turboloop.tech/podcast",
+        },
+      ],
+    },
     // Episode 1 — VideoObject with full metadata
     {
       "@type": "VideoObject",

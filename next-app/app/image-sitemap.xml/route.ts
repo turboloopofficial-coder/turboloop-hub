@@ -21,12 +21,10 @@ const BASE = "https://www.turboloop.tech";
 const WWW = "https://www.turboloop.tech";
 const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
-// ISR for the image sitemap. Same revalidate cadence as the blog
-// listing — 5 minutes is short enough that newly-published posts
-// show up in the image sitemap within one cron tick, long enough
-// that we don't refetch the post catalogue on every crawler hit.
-// Removed force-dynamic — ISR with revalidate=300 is sufficient and allows CDN caching.
-// force-dynamic was causing every sitemap crawl to hit a serverless function.
+// force-dynamic: this route fetches blog posts from the external API at request time.
+// During static build the external API can time out (>60s), so we skip static
+// generation and serve this route as a serverless function with ISR caching.
+export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 // Per-page image bundles. `loc` is the page that hosts the image;
@@ -263,6 +261,38 @@ const PAGE_IMAGES: Array<{
         title: "TurboLoop roadmap",
         caption:
           "TurboLoop development roadmap. Phases: smart contract → audit → platform launch → global expansion → cross-chain.",
+      },
+    ],
+  },
+  // ── Podcast page — all 4 episode thumbnails (English) ────────────────────
+  // Added 2026-07-29: Ep1 was already indexed via /videos path;
+  // Ep2, Ep3, Ep4 thumbnails were missing — now explicitly declared.
+  {
+    loc: `${BASE}/podcast`,
+    images: [
+      {
+        url: `${R2}/videos/turboloop-explainer-en-thumb.jpg`,
+        title: "TurboLoop CEO Podcast — Episode 1: Your Bank is Lying to You",
+        caption:
+          "TurboLoop CEO Dave explains the full protocol in 20 minutes: security audits, smart contract architecture, and fixed USDT yield on BNB Smart Chain.",
+      },
+      {
+        url: `${R2}/thumbnails/ep2/ep2_thumb_en.jpg`,
+        title: "TurboLoop CEO Podcast — Episode 2: Is TurboLoop Legit?",
+        caption:
+          "CEO Dave answers 19 tough community questions about TurboLoop — revenue sustainability, smart contract security, and the $100K bug bounty challenge. No scripts.",
+      },
+      {
+        url: `${R2}/thumbnails/ep3/ep3_thumb_en.jpg`,
+        title: "TurboLoop CEO Podcast — Episode 3: The TurboShield Deep Dive",
+        caption:
+          "CEO Dave explains TurboShield — TurboLoop's on-chain insurance mechanism protecting depositors. AI-dubbed in 65 languages.",
+      },
+      {
+        url: `${R2}/thumbnails/ep4/ep4_thumb_en.jpg`,
+        title: "TurboLoop CEO Podcast — Episode 4: TurboShield Explained",
+        caption:
+          "CEO Dave breaks down TurboShield — how on-chain insurance works in DeFi. AI-dubbed in 65 languages. Part of the TurboLoop CEO Podcast series.",
       },
     ],
   },

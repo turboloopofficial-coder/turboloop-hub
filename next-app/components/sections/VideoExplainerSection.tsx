@@ -122,6 +122,9 @@ function VideoPlayer({
               alt={`${selectedLang.label} ${episodeConfig.title} thumbnail`}
               className={`w-full h-full object-cover transition-opacity duration-500 ${thumbLoaded ? "opacity-100" : "opacity-0"}`}
               onLoad={() => setThumbLoaded(true)}
+              // fetchpriority=high hints the browser to prioritise this LCP image
+              // @ts-expect-error fetchpriority is valid HTML but not yet in React types
+              fetchpriority="high"
             />
           </div>
         )}
@@ -154,6 +157,9 @@ function VideoPlayer({
         <div className="absolute top-3 right-3 z-20">
           <button
             onClick={() => setShowPicker((v) => !v)}
+            aria-label={`Change language — currently ${selectedLang.nativeLabel}`}
+            aria-expanded={showPicker}
+            aria-haspopup="listbox"
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/70 border border-white/15 text-xs text-white backdrop-blur-md hover:bg-black/90 transition-all"
           >
             <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
@@ -175,6 +181,9 @@ function VideoPlayer({
                   <button
                     key={lang.code}
                     onClick={() => handleLangSelect(lang)}
+                    aria-label={`${available ? "Watch in" : "Coming soon:"} ${lang.nativeLabel}`}
+                    role="option"
+                    aria-selected={active}
                     className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors text-left
                       ${active ? `${badgeColors.bg} ${badgeColors.text}` : "text-gray-300 hover:bg-white/5"}
                       ${!available ? "opacity-50 cursor-default" : ""}
@@ -243,6 +252,7 @@ function VideoPlayer({
                 navigator.clipboard.writeText(text).then(() => alert("Links copied to clipboard!")).catch(() => {});
               }
             }}
+            aria-label={`Share ${episodeConfig.title} in ${selectedLang.label}`}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 transition-colors"
           >
             <Share2 className="w-3.5 h-3.5" />

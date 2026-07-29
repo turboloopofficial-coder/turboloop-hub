@@ -1,5 +1,17 @@
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  '@swc/core': set this to true or false
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
+  '@parcel/watcher': true
+  '@swc/core': true
+  sharp: true
+  unrs-resolver: true
+
+# Security overrides — force patched versions of transitive dependencies
+# that have known high-severity CVEs. Updated 2026-07-29.
+overrides:
+  # brace-expansion DoS — affects eslint-config-next and archiver>readdir-glob chains
+  brace-expansion: '>=1.1.16'
+  # minimatch — force version that uses patched brace-expansion
+  minimatch: '>=9.0.5'
+  # readdir-glob — force version that uses patched minimatch (archiver chain)
+  readdir-glob: '>=3.0.0'
+  # js-yaml YAML merge-key chains quadratic CPU
+  js-yaml: '>=4.3.0'

@@ -419,6 +419,17 @@ export default function RootLayout({
           href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev"
           crossOrigin="anonymous"
         />
+        {/* Preload the Ep1 English thumbnail — it is the LCP image on the
+            homepage VideoExplainerSection for first-time visitors. Telling
+            the browser to fetch it early (before the JS bundle parses and
+            sets the <img> src) shaves ~300-600 ms off LCP on mobile. */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-explainer-en-thumb.jpg"
+          // @ts-expect-error fetchpriority is valid HTML but not in React types
+          fetchpriority="high"
+        />
         {/* flagcdn.com — flag images on /community and /social-wall.
             DNS-only (not full preconnect) because flag PNGs are tiny
             and below-fold; we just want to skip the cold DNS hop when

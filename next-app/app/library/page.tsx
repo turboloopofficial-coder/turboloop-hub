@@ -220,6 +220,8 @@ export default async function LibraryPage() {
                         src={getFlagUrl(langCode, 20)}
                         alt={`${pres.language} flag`}
                         loading="lazy"
+                        width={16}
+                        height={12}
                         className="w-4 h-3 object-cover rounded-sm"
                       />
                       <span className="text-xs text-[var(--c-text-muted)]">

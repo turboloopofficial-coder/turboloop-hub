@@ -34,6 +34,8 @@ import {
   ArrowUpRight,
   Info,
   Gift,
+  Users,
+  Zap,
 } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
@@ -298,6 +300,25 @@ export default function CalculatorPage() {
           "Token reward projection for Power and Ultimate plans",
           "Vesting rank breakdown",
           "Deposit preset chips and slider",
+        ],
+      },
+      // BreadcrumbList — helps Google show breadcrumbs in SERPs
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.turboloop.tech/calculator#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.turboloop.tech/",
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Yield Calculator",
+            "item": "https://www.turboloop.tech/calculator",
+          },
         ],
       },
     ],
@@ -751,8 +772,29 @@ export default function CalculatorPage() {
           </div>
         </div>
 
+        {/* Urgency / social proof strip */}
+        <div className="mt-8 md:mt-10 rounded-[var(--r-xl)] bg-gradient-to-r from-cyan-500/10 via-cyan-400/5 to-transparent border border-cyan-500/20 px-5 py-4 flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex items-center gap-3 flex-1">
+            <div className="w-9 h-9 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center flex-shrink-0">
+              <Users className="w-4 h-4 text-cyan-400" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-[var(--c-text)]">8,000+ investors are already earning</p>
+              <p className="text-xs text-[var(--c-text-muted)] mt-0.5">Your projected returns are waiting on-chain. Start with as little as $1 USDT.</p>
+            </div>
+          </div>
+          <a
+            href="https://turboloop.io?utm_source=turboloop_tech&utm_medium=calculator&utm_campaign=urgency_cta"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 h-10 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985] flex-shrink-0"
+          >
+            <Zap className="w-4 h-4" />
+            Start Earning Now
+          </a>
+        </div>
         {/* CTAs */}
-        <div className="mt-8 md:mt-10 flex flex-wrap gap-3 justify-center">
+        <div className="mt-4 flex flex-wrap gap-3 justify-center">
           <a
             href="https://turboloop.io?utm_source=turboloop_tech&utm_medium=calculator&utm_campaign=open_dapp"
             target="_blank"

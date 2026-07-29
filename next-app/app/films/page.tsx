@@ -62,6 +62,25 @@ const filmsJsonLd = {
       "inLanguage": ["en", "de", "hi", "id"],
       "isAccessibleForFree": true,
     },
+    // BreadcrumbList — helps Google show breadcrumbs in SERPs
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.turboloop.tech/films#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.turboloop.tech/",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Films",
+          "item": "https://www.turboloop.tech/films",
+        },
+      ],
+    },
   ],
 };
 
@@ -337,6 +356,28 @@ export default async function FilmsPage({ searchParams }: { searchParams: Promis
           </section>
         );
       })}
+      {/* Cross-link CTA to the CEO Podcast page */}
+      <section className="py-10 md:py-14 border-t border-[var(--c-border)]">
+        <Container width="wide">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-[var(--r-xl)] bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] px-6 py-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-2xl" aria-hidden="true">🎤</span>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-[var(--c-text)]">CEO Podcast — 4 Episodes · 67 min · 65 Languages</p>
+                <p className="text-xs text-[var(--c-text-muted)] mt-0.5">CEO Dave answers the hardest questions about TurboLoop. No scripts, no filters.</p>
+              </div>
+            </div>
+            <Link
+              href="/podcast"
+              className="inline-flex items-center gap-2 px-5 h-10 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985] flex-shrink-0"
+            >
+              Watch CEO Podcast →
+            </Link>
+          </div>
+        </Container>
+      </section>
     </main>
   );
 }

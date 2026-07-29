@@ -77,17 +77,18 @@ function PodcastPlayer({
     setSelectedLang(resolveInitialLang(defaultLocale, epId));
     setStarted(false);
   }, [defaultLocale, epId]);
-  // Reset thumb loaded state when thumbnail changes
-  useEffect(() => { setThumbLoaded(false); }, [activeThumb]);
 
+  // Derived values — must be declared BEFORE any useEffect that references them
   const getEpData = (lang: VideoLanguage) => lang.episodes[epId] ?? null;
   const isAvailable = (l: VideoLanguage) => (getEpData(l)?.video ?? null) !== null;
-
   const activeEpData  = getEpData(selectedLang)?.video ? getEpData(selectedLang)! : getEpData(ENGLISH)!;
   const activeVideo   = activeEpData.video ?? "";
   const activeYoutube = activeEpData.youtubeUrl ?? null;
   const activeThumb   = activeEpData.thumb ?? getEpData(ENGLISH)?.thumb ?? "";
   const available     = LANGUAGES.filter(isAvailable);
+
+  // Reset thumb loaded state when thumbnail changes
+  useEffect(() => { setThumbLoaded(false); }, [activeThumb]);
 
   const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
 

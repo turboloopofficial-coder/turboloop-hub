@@ -55,16 +55,16 @@ function VideoPlayer({
   const [thumbLoaded, setThumbLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Reset thumb loaded state when thumbnail changes
-  useEffect(() => { setThumbLoaded(false); }, [activeThumb]);
-
+  // Derived values — must be declared BEFORE any useEffect that references them
   const getEpData = (lang: VideoLanguage) => lang.episodes[epId] ?? null;
   const isAvailable = (lang: VideoLanguage) => (getEpData(lang)?.video ?? null) !== null;
-
   const activeEpData = getEpData(selectedLang)?.video ? getEpData(selectedLang)! : getEpData(ENGLISH)!;
   const activeVideo = activeEpData.video!;
   const activeThumb = activeEpData.thumb ?? getEpData(ENGLISH)?.thumb ?? ENGLISH.episodes.ep1?.thumb ?? "";
   const activeYoutubeUrl = activeEpData.youtubeUrl ?? getEpData(ENGLISH)?.youtubeUrl ?? null;
+
+  // Reset thumb loaded state when thumbnail changes
+  useEffect(() => { setThumbLoaded(false); }, [activeThumb]);
   const availableCount = LANGUAGES.filter(isAvailable).length;
 
   const badgeColors = BADGE_COLORS[episodeConfig.badgeColor] ?? BADGE_COLORS.cyan;

@@ -1,11 +1,14 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// /podcast — TurboLoop CEO Podcast
-// Shows ALL episodes simultaneously.
-// • Each episode has its own language picker — defaults to global site locale
-// • Thumbnails change reactively when language is switched
-// • Episode selector cards at top for quick navigation
+// /podcast — TurboLoop CEO Podcast Page
+//
+// ✅  FULLY DATA-DRIVEN — no hardcoded episode blocks.
+//     To add a new episode: edit next-app/lib/episodes.config.ts only.
+//     This page loops over EPISODES automatically.
+//
+// ✅  Language data lives in: next-app/lib/videoLanguages.ts
+//     Episode video data is accessed via: lang.episodes[epId]
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useRef, useCallback, useEffect } from "react";
@@ -18,110 +21,27 @@ import {
 import {
   LANGUAGES, ENGLISH, LOCALE_TO_VIDEO_CODE, type VideoLanguage,
 } from "@/lib/videoLanguages";
+import { EPISODES, BADGE_COLORS, type EpisodeConfig } from "@/lib/episodes.config";
 
 // ─── Resolve initial language from URL locale ────────────────────────────────
-function resolveInitialLang(locale: string, requireEp: "ep1" | "ep2" | "ep3" | "ep4"): VideoLanguage {
+function resolveInitialLang(locale: string, epId: string): VideoLanguage {
   if (!locale || locale === "en") return ENGLISH;
   const code = LOCALE_TO_VIDEO_CODE[locale] ?? null;
   if (!code) return ENGLISH;
   const match = LANGUAGES.find(l => l.code === code);
   if (!match) return ENGLISH;
-  // For ep2/ep3/ep4, only use the locale lang if that episode is available; otherwise fall back to English
-  if (requireEp === "ep2" && !match.ep2video) return ENGLISH;
-  if (requireEp === "ep3" && !match.ep3video) return ENGLISH;
-  if (requireEp === "ep4" && !(match as any).ep4video) return ENGLISH;
+  // Only use the locale lang if that episode is available; otherwise fall back to English
+  if (!(match.episodes[epId]?.video)) return ENGLISH;
   return match;
 }
 
 // ─── Extract locale from pathname (/ar/podcast → "ar", /podcast → "en") ─────
 function localeFromPathname(pathname: string): string {
   const parts = pathname.split("/").filter(Boolean);
-  if (parts.length >= 2 && parts[1] === "podcast") return parts[0]; // /ar/podcast
-  if (parts.length === 1 && parts[0] === "podcast") return "en";     // /podcast
-  if (parts.length >= 1 && parts[0] !== "podcast") return parts[0]; // /ar
+  if (parts.length >= 2 && parts[1] === "podcast") return parts[0];
+  if (parts.length === 1 && parts[0] === "podcast") return "en";
+  if (parts.length >= 1 && parts[0] !== "podcast") return parts[0];
   return "en";
-}
-
-// ─── Episode metadata ────────────────────────────────────────────────────────
-const EPISODES = [
-  {
-    id: "ep1" as const,
-    num: 1,
-    badge: "Deep Dive · Episode 1",
-    badgeColor: "cyan" as const,
-    title: "Your Bank is Lying to You",
-    subtitle: "TurboLoop Explained",
-    description:
-      "A 20-minute cinematic breakdown covering security audits, smart contract architecture, and how your USDT earns fixed returns on BNB Smart Chain — dual-audited, LP locked, and open to anyone with $1 USDT.",
-    duration: "20 min",
-    topics: ["Security Audits", "Smart Contracts", "54% APY", "LP Locked", "BNB Smart Chain", "USDT Yield"],
-    quote: "\"The code is immutable. The returns are fixed. The auditors verified it. What else do you need?\"",
-    getVideo:     (l: VideoLanguage) => l.video,
-    getYoutube:   (l: VideoLanguage) => l.youtubeUrl,
-    getThumb:     (l: VideoLanguage) => l.thumb ?? ENGLISH.thumb ?? "",
-    getLangCount: () => LANGUAGES.filter(l => l.video !== null).length,
-  },
-  {
-    id: "ep2" as const,
-    num: 2,
-    badge: "Turbo Podcast · Episode 2",
-    badgeColor: "purple" as const,
-    title: "Is TurboLoop Legit?",
-    subtitle: "CEO Answers 19 Tough Questions",
-    description:
-      "CEO Dave goes on record answering the hardest community questions about revenue sustainability, smart contract security, on-chain verification, and the $100K bug bounty challenge.",
-    duration: "21 min",
-    topics: ["CEO AMA", "Revenue Model", "On-Chain Proof", "$100K Bounty", "Community Q&A", "Sustainability"],
-    quote: "\"Ask me anything. I have nothing to hide — because the blockchain has nothing to hide.\"",
-    getVideo:     (l: VideoLanguage) => l.ep2video,
-    getYoutube:   (l: VideoLanguage) => l.ep2youtubeUrl,
-    getThumb:     (l: VideoLanguage) => l.ep2thumb ?? ENGLISH.ep2thumb ?? l.thumb ?? ENGLISH.thumb ?? "",
-    getLangCount: () => LANGUAGES.filter(l => l.ep2video !== null).length,
-  },
-  {
-    id: "ep3" as const,
-    num: 3,
-    badge: "Turbo Podcast · Episode 3",
-    badgeColor: "cyan" as const,
-    title: "DeFi for ALL Investors",
-    subtitle: "Why TurboLoop Works for Everyone",
-    description:
-      "CEO Dave breaks down how TurboLoop's 3-stream income model works for everyone — from first-time crypto users to experienced investors across every income level and background.",
-    duration: "15 min",
-    topics: ["3-Stream Income", "Beginner Friendly", "All Income Levels", "Global Access", "Passive Income", "DeFi Strategy"],
-    quote: "\"You don't need to understand blockchain. You need to understand compound interest.\"",
-    getVideo:     (l: VideoLanguage) => l.ep3video,
-    getYoutube:   (l: VideoLanguage) => l.ep3youtubeUrl,
-    getThumb:     (l: VideoLanguage) => l.ep3thumb ?? ENGLISH.ep3thumb ?? l.thumb ?? ENGLISH.thumb ?? "",
-    getLangCount: () => LANGUAGES.filter(l => l.ep3video !== null).length,
-  },
-  {
-    id: "ep4" as const,
-    num: 4,
-    badge: "Turbo Podcast · Episode 4",
-    badgeColor: "gold" as const,
-    title: "TurboShield Explained",
-    subtitle: "Your DeFi Insurance, On-Chain",
-    description:
-      "CEO Dave reveals how TurboShield — TurboLoop's on-chain insurance layer — protects 8,000+ investors from smart contract risk, market volatility, and protocol failures.",
-    duration: "11 min",
-    topics: ["TurboShield", "On-Chain Insurance", "Risk Protection", "Smart Contracts", "Investor Safety", "DeFi Security"],
-    quote: "\"TurboShield isn't a promise. It's a smart contract. The code protects you — not our word.\"",
-    getVideo:     (l: VideoLanguage) => (l as any).ep4video ?? null,
-    getYoutube:   (l: VideoLanguage) => (l as any).ep4youtubeUrl ?? null,
-    getThumb:     (l: VideoLanguage) => (l as any).ep4thumb ?? (ENGLISH as any).ep4thumb ?? l.thumb ?? ENGLISH.thumb ?? "",
-    getLangCount: () => LANGUAGES.filter(l => (l as any).ep4video !== null).length,
-  },
-] as const;
-
-type EpisodeId = "ep1" | "ep2" | "ep3" | "ep4";
-type Episode = typeof EPISODES[number];
-
-// ─── Badge colour helper ─────────────────────────────────────────────────────
-function badgeClasses(color: "cyan" | "purple" | "gold") {
-  if (color === "purple") return "bg-purple-500/10 text-purple-400 border-purple-500/20";
-  if (color === "gold") return "bg-yellow-500/10 text-yellow-400 border-yellow-500/20";
-  return "bg-cyan-500/10 text-cyan-400 border-cyan-500/20";
 }
 
 // ─── PodcastPlayer ───────────────────────────────────────────────────────────
@@ -129,28 +49,33 @@ function PodcastPlayer({
   ep,
   defaultLocale,
 }: {
-  ep: Episode;
+  ep: EpisodeConfig;
   defaultLocale: string;
 }) {
+  const epId = ep.id;
   const [started, setStarted]           = useState(false);
   const [selectedLang, setSelectedLang] = useState<VideoLanguage>(() =>
-    resolveInitialLang(defaultLocale, ep.id)
+    resolveInitialLang(defaultLocale, epId)
   );
   const [showPicker, setShowPicker]     = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Re-resolve when defaultLocale changes (e.g. SSR hydration)
   useEffect(() => {
-    setSelectedLang(resolveInitialLang(defaultLocale, ep.id));
+    setSelectedLang(resolveInitialLang(defaultLocale, epId));
     setStarted(false);
-  }, [defaultLocale, ep.id]);
+  }, [defaultLocale, epId]);
 
-  const activeVideo   = ep.getVideo(selectedLang)   ?? ep.getVideo(ENGLISH) ?? "";
-  const activeYoutube = ep.getYoutube(selectedLang) ?? ep.getYoutube(ENGLISH);
-  // Compute thumb reactively from selectedLang — this is the key fix
-  const activeThumb   = ep.getThumb(selectedLang);
-  const isAvailable   = (l: VideoLanguage) => ep.getVideo(l) !== null;
+  const getEpData = (lang: VideoLanguage) => lang.episodes[epId] ?? null;
+  const isAvailable = (l: VideoLanguage) => (getEpData(l)?.video ?? null) !== null;
+
+  const activeEpData  = getEpData(selectedLang)?.video ? getEpData(selectedLang)! : getEpData(ENGLISH)!;
+  const activeVideo   = activeEpData.video ?? "";
+  const activeYoutube = activeEpData.youtubeUrl ?? null;
+  const activeThumb   = activeEpData.thumb ?? getEpData(ENGLISH)?.thumb ?? "";
   const available     = LANGUAGES.filter(isAvailable);
+
+  const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
 
   const handlePlay = useCallback(async () => {
     const vid = videoRef.current;
@@ -174,9 +99,8 @@ function PodcastPlayer({
   };
 
   const handleShare = () => {
-    const epTitle = ep.title + " — " + ep.subtitle;
     const text =
-      `🎬 ${epTitle}\n\n${ep.description}\n\n🌍 Now available in ${selectedLang.label}` +
+      `🎬 ${ep.title} — ${ep.subtitle}\n\n${ep.description}\n\n🌍 Now available in ${selectedLang.label}` +
       (activeYoutube ? `\n\n▶️ Watch on YouTube:\n${activeYoutube}` : "") +
       `\n\n⬇️ Download (${selectedLang.label}):\n${activeVideo}` +
       "\n\n🔗 turboloop.tech/podcast";
@@ -186,6 +110,16 @@ function PodcastPlayer({
       navigator.clipboard.writeText(text).then(() => alert("Links copied!")).catch(() => {});
     }
   };
+
+  // Play button color from badge color
+  const playBtnClass =
+    ep.badgeColor === "violet"  ? "bg-violet-500 shadow-[0_0_40px_rgba(139,92,246,0.5)] group-hover:shadow-[0_0_60px_rgba(139,92,246,0.7)]" :
+    ep.badgeColor === "amber"   ? "bg-amber-500 shadow-[0_0_40px_rgba(245,158,11,0.5)] group-hover:shadow-[0_0_60px_rgba(245,158,11,0.7)]" :
+    ep.badgeColor === "emerald" ? "bg-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.5)] group-hover:shadow-[0_0_60px_rgba(16,185,129,0.7)]" :
+    ep.badgeColor === "rose"    ? "bg-rose-500 shadow-[0_0_40px_rgba(244,63,94,0.5)] group-hover:shadow-[0_0_60px_rgba(244,63,94,0.7)]" :
+    ep.badgeColor === "blue"    ? "bg-blue-500 shadow-[0_0_40px_rgba(59,130,246,0.5)] group-hover:shadow-[0_0_60px_rgba(59,130,246,0.7)]" :
+    ep.badgeColor === "pink"    ? "bg-pink-500 shadow-[0_0_40px_rgba(236,72,153,0.5)] group-hover:shadow-[0_0_60px_rgba(236,72,153,0.7)]" :
+    "bg-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.5)] group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)]";
 
   return (
     <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/60 bg-[#0d1220]">
@@ -205,13 +139,7 @@ function PodcastPlayer({
               className="absolute inset-0 flex items-center justify-center group"
               aria-label="Play video"
             >
-              <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
-                ep.badgeColor === "purple"
-                  ? "bg-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.5)] group-hover:shadow-[0_0_60px_rgba(168,85,247,0.7)]"
-                  : ep.badgeColor === "gold"
-                  ? "bg-yellow-500 shadow-[0_0_40px_rgba(234,179,8,0.5)] group-hover:shadow-[0_0_60px_rgba(234,179,8,0.7)]"
-                  : "bg-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.5)] group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)]"
-              }`}>
+              <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${playBtnClass}`}>
                 <Play className="w-7 h-7 sm:w-9 sm:h-9 text-white fill-white ml-1" />
               </div>
             </button>
@@ -230,8 +158,8 @@ function PodcastPlayer({
         )}
         {/* Episode badge overlay */}
         <div className="absolute top-3 left-3 z-10">
-          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${badgeClasses(ep.badgeColor)}`}>
-            EP {ep.num}
+          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${badgeColors.bg} ${badgeColors.text} ${badgeColors.border}`}>
+            EP {ep.number}
           </span>
         </div>
         {/* Language selector pill */}
@@ -298,7 +226,7 @@ function PodcastPlayer({
           )}
           <a
             href={activeVideo}
-            download={`TurboLoop-Podcast-Ep${ep.num}-${selectedLang.label}.mp4`}
+            download={`TurboLoop-Podcast-Ep${ep.number}-${selectedLang.label}.mp4`}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
           >
             <Download className="w-3.5 h-3.5" />
@@ -325,14 +253,16 @@ function EpisodeSection({
   ep,
   defaultLocale,
 }: {
-  ep: Episode;
+  ep: EpisodeConfig;
   defaultLocale: string;
 }) {
+  const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
+
   return (
     <section id={ep.id} className="scroll-mt-24">
       <div className="mb-6">
-        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border mb-4 ${badgeClasses(ep.badgeColor)}`}>
-          {ep.badge}
+        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border mb-4 ${badgeColors.bg} ${badgeColors.text} ${badgeColors.border}`}>
+          {ep.badgeLabel}
         </span>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2 leading-tight">
           {ep.title}
@@ -352,11 +282,7 @@ function EpisodeSection({
             {ep.topics.map(topic => (
               <span
                 key={topic}
-                className={`px-3 py-1 rounded-full text-xs font-semibold border ${
-                  ep.badgeColor === "purple"
-                    ? "bg-purple-500/10 text-purple-300 border-purple-500/20"
-                    : "bg-cyan-500/10 text-cyan-300 border-cyan-500/20"
-                }`}
+                className={`px-3 py-1 rounded-full text-xs font-semibold border ${badgeColors.bg} ${badgeColors.text} ${badgeColors.border}`}
               >
                 {topic}
               </span>
@@ -364,18 +290,10 @@ function EpisodeSection({
           </div>
         </div>
         {/* Quote */}
-        <div className={`rounded-xl border p-5 relative overflow-hidden ${
-          ep.badgeColor === "purple"
-            ? "border-purple-500/20 bg-purple-500/[0.05]"
-            : "border-cyan-500/20 bg-cyan-500/[0.05]"
-        }`}>
-          <div className={`absolute top-3 left-4 text-5xl font-black opacity-10 leading-none ${
-            ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
-          }`}>"</div>
-          <p className={`relative z-10 text-sm sm:text-base font-medium leading-relaxed italic mt-3 ${
-            ep.badgeColor === "purple" ? "text-purple-100" : "text-cyan-100"
-          }`}>
-            {ep.quote}
+        <div className={`rounded-xl border p-5 relative overflow-hidden ${badgeColors.border} ${badgeColors.bg}`}>
+          <div className={`absolute top-3 left-4 text-5xl font-black opacity-10 leading-none ${badgeColors.text}`}>"</div>
+          <p className={`relative z-10 text-sm sm:text-base font-medium leading-relaxed italic mt-3 ${badgeColors.text}`}>
+            &ldquo;{ep.quote}&rdquo;
           </p>
           <p className="mt-3 text-xs text-gray-500 font-semibold uppercase tracking-widest">— CEO Dave</p>
         </div>
@@ -388,10 +306,14 @@ function EpisodeSection({
 export default function PodcastPage() {
   const pathname   = usePathname();
   const locale     = localeFromPathname(pathname ?? "");
-  const totalLangs = LANGUAGES.filter(l => l.video !== null).length;
-  const [activeEp, setActiveEp] = useState<EpisodeId>("ep1");
+  const totalLangs = LANGUAGES.filter(l => l.episodes.ep1?.video !== null).length;
+  const totalRuntime = EPISODES.reduce((sum, ep) => {
+    const mins = parseInt(ep.duration);
+    return sum + (isNaN(mins) ? 0 : mins);
+  }, 0);
+  const [activeEp, setActiveEp] = useState<string>(EPISODES[0]?.id ?? "ep1");
 
-  const scrollToEp = (id: EpisodeId) => {
+  const scrollToEp = (id: string) => {
     setActiveEp(id);
     setTimeout(() => {
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -429,18 +351,18 @@ export default function PodcastPage() {
             <span className="text-white">Just Truth.</span>
           </h1>
           <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
-            The definitive DeFi podcast series — where TurboLoop's CEO answers the questions
+            The definitive DeFi podcast series — where TurboLoop&apos;s CEO answers the questions
             your bank hopes you never ask.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 mb-10">
             <div className="flex items-center gap-1.5">
               <Mic className="w-4 h-4 text-cyan-500" />
-              <span><strong className="text-white">3</strong> Episodes</span>
+              <span><strong className="text-white">{EPISODES.length}</strong> Episodes</span>
             </div>
             <div className="w-px h-4 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
               <Clock className="w-4 h-4 text-cyan-500" />
-              <span><strong className="text-white">56 min</strong> Total Runtime</span>
+              <span><strong className="text-white">{totalRuntime} min</strong> Total Runtime</span>
             </div>
             <div className="w-px h-4 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
@@ -454,34 +376,31 @@ export default function PodcastPage() {
             </div>
           </div>
 
-          {/* ── Episode selector cards ──────────────────────────────── */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          {/* ── Episode selector cards — auto-generated from EPISODES ── */}
+          <div className={`grid grid-cols-1 gap-4 max-w-4xl mx-auto ${
+            EPISODES.length <= 3 ? "sm:grid-cols-3" :
+            EPISODES.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" :
+            "sm:grid-cols-2 lg:grid-cols-3"
+          }`}>
             {EPISODES.map(ep => {
               const isActive = activeEp === ep.id;
-              const langCount = ep.getLangCount();
+              const langCount = LANGUAGES.filter(l => (l.episodes[ep.id]?.video ?? null) !== null).length;
+              const badgeColors = BADGE_COLORS[ep.badgeColor] ?? BADGE_COLORS.cyan;
               return (
                 <button
                   key={ep.id}
                   onClick={() => scrollToEp(ep.id)}
                   className={`relative text-left rounded-2xl border p-5 transition-all duration-300 group ${
                     isActive
-                      ? ep.badgeColor === "purple"
-                        ? "border-purple-500/50 bg-purple-500/[0.08] shadow-[0_0_30px_rgba(168,85,247,0.15)]"
-                        : "border-cyan-500/50 bg-cyan-500/[0.08] shadow-[0_0_30px_rgba(6,182,212,0.15)]"
+                      ? `${badgeColors.border.replace("/20", "/50")} ${badgeColors.bg} shadow-[0_0_30px_rgba(0,0,0,0.3)]`
                       : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
                   }`}
                 >
                   {isActive && (
-                    <div className={`absolute top-3 right-3 w-2 h-2 rounded-full animate-pulse ${
-                      ep.badgeColor === "purple" ? "bg-purple-400" : "bg-cyan-400"
-                    }`} />
+                    <div className={`absolute top-3 right-3 w-2 h-2 rounded-full animate-pulse ${badgeColors.text.replace("text-", "bg-")}`} />
                   )}
-                  <div className={`text-xs font-bold tracking-widest uppercase mb-3 ${
-                    isActive
-                      ? ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
-                      : "text-gray-600"
-                  }`}>
-                    Episode {ep.num}
+                  <div className={`text-xs font-bold tracking-widest uppercase mb-3 ${isActive ? badgeColors.text : "text-gray-600"}`}>
+                    Episode {ep.number}
                   </div>
                   <div className="font-bold text-white text-base leading-snug mb-2">
                     {ep.title}
@@ -500,9 +419,7 @@ export default function PodcastPage() {
                     </span>
                   </div>
                   {isActive && (
-                    <div className={`mt-4 flex items-center gap-1.5 text-xs font-semibold ${
-                      ep.badgeColor === "purple" ? "text-purple-400" : "text-cyan-400"
-                    }`}>
+                    <div className={`mt-4 flex items-center gap-1.5 text-xs font-semibold ${badgeColors.text}`}>
                       <Play className="w-3 h-3 fill-current" />
                       Jump to Episode
                     </div>
@@ -514,37 +431,20 @@ export default function PodcastPage() {
         </div>
       </section>
 
-      {/* ── All Episodes ──────────────────────────────────────────────── */}
+      {/* ── All Episodes — auto-generated from EPISODES ───────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-20">
-
         {EPISODES.map((ep, i) => (
           <div key={ep.id}>
             {i > 0 && (
               <div className="flex items-center gap-4 mb-12">
                 <div className="flex-1 h-px bg-white/[0.06]" />
-                <span className="text-xs text-gray-600 uppercase tracking-widest font-semibold">Episode {ep.num}</span>
+                <span className="text-xs text-gray-600 uppercase tracking-widest font-semibold">Episode {ep.number}</span>
                 <div className="flex-1 h-px bg-white/[0.06]" />
               </div>
             )}
             <EpisodeSection ep={ep} defaultLocale={locale} />
           </div>
         ))}
-
-        {/* Coming Soon */}
-        <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 flex items-center gap-4 opacity-50">
-          <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white/[0.03] shrink-0">
-            <Lock className="w-5 h-5 text-gray-600" />
-          </div>
-          <div>
-            <div className="font-semibold text-gray-500 text-sm">Episode 4</div>
-            <div className="text-xs text-gray-700 mt-0.5">Coming Soon — Stay tuned</div>
-          </div>
-          <div className="ml-auto">
-            <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-gray-600 font-semibold uppercase tracking-wider">
-              Coming Soon
-            </span>
-          </div>
-        </div>
 
         {/* ── CTA strip ────────────────────────────────────────────────── */}
         <section className="rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/[0.07] to-purple-500/[0.05] p-8 text-center">
@@ -576,7 +476,6 @@ export default function PodcastPage() {
             </Link>
           </div>
         </section>
-
       </div>
     </main>
   );

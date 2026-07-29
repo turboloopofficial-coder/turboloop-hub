@@ -1,7 +1,7 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VideoExplainerSection — Homepage video section with Episode 1 + Episode 2 + Episode 3
+// VideoExplainerSection — Homepage video section with Episode 1 + Episode 2 + Episode 3 + Episode 4
 //
 // ⚠️  ALL LANGUAGE/EPISODE DATA lives in:
 //       next-app/lib/videoLanguages.ts
@@ -32,7 +32,7 @@ function VideoPlayer({
   episode,
 }: {
   defaultLocale?: string;
-  episode: "ep1" | "ep2" | "ep3";
+  episode: "ep1" | "ep2" | "ep3" | "ep4";
 }) {
   const [started, setStarted] = useState(false);
   const [selectedLang, setSelectedLang] = useState(() => resolveInitialLang(defaultLocale));
@@ -40,14 +40,21 @@ function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const getVideo = (lang: VideoLanguage) =>
-    episode === "ep1" ? lang.video : episode === "ep2" ? lang.ep2video : lang.ep3video;
+    episode === "ep1" ? lang.video
+    : episode === "ep2" ? lang.ep2video
+    : episode === "ep3" ? lang.ep3video
+    : lang.ep4video ?? null;
   const getYoutubeUrl = (lang: VideoLanguage) =>
-    episode === "ep1" ? lang.youtubeUrl : episode === "ep2" ? lang.ep2youtubeUrl : lang.ep3youtubeUrl;
+    episode === "ep1" ? lang.youtubeUrl
+    : episode === "ep2" ? lang.ep2youtubeUrl
+    : episode === "ep3" ? lang.ep3youtubeUrl
+    : lang.ep4youtubeUrl ?? null;
 
   const activeVideo = getVideo(selectedLang) ?? getVideo(ENGLISH)!;
   const activeThumb =
     episode === "ep2" ? (selectedLang.ep2thumb ?? ENGLISH.ep2thumb ?? selectedLang.thumb ?? ENGLISH.thumb!)
     : episode === "ep3" ? (selectedLang.ep3thumb ?? ENGLISH.ep3thumb ?? selectedLang.thumb ?? ENGLISH.thumb!)
+    : episode === "ep4" ? (selectedLang.ep4thumb ?? ENGLISH.ep4thumb ?? selectedLang.thumb ?? ENGLISH.thumb!)
     : (selectedLang.thumb ?? ENGLISH.thumb!);
   const activeYoutubeUrl = getYoutubeUrl(selectedLang) ?? getYoutubeUrl(ENGLISH);
   const isAvailable = (lang: VideoLanguage) => getVideo(lang) !== null;
@@ -74,7 +81,7 @@ function VideoPlayer({
     }
   }, [activeVideo]);
 
-  const duration = episode === "ep1" ? "20 min" : episode === "ep2" ? "21 min" : "15 min";
+  const duration = episode === "ep1" ? "20 min" : episode === "ep2" ? "21 min" : episode === "ep3" ? "15 min" : "11 min";
 
   return (
     <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/60 bg-[#0d1220]">
@@ -193,7 +200,7 @@ function VideoPlayer({
           )}
           <a
             href={activeVideo}
-            download={`TurboLoop-${episode === "ep1" ? "Explainer" : episode === "ep2" ? "Podcast-Ep2" : "Podcast-Ep3"}-${selectedLang.label}.mp4`}
+            download={`TurboLoop-${episode === "ep1" ? "Explainer" : episode === "ep2" ? "Podcast-Ep2" : episode === "ep3" ? "Podcast-Ep3" : "Podcast-Ep4"}-${selectedLang.label}.mp4`}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
             title={`Download ${selectedLang.label} version`}
           >
@@ -317,6 +324,31 @@ export function VideoExplainerSection({ defaultLocale }: { defaultLocale?: strin
           <VideoPlayer defaultLocale={defaultLocale} episode="ep3" />
           <p className="text-center text-xs text-gray-600 mt-4">
             English Original · AI-Dubbed in {LANGUAGES.filter(l => l.ep3video !== null).length} languages — rolling out now.
+          </p>
+        </div>
+        {/* ── Divider ───────────────────────────────────────────────── */}
+        <div className="flex items-center gap-4">
+          <div className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-xs text-gray-600 uppercase tracking-widest font-semibold">Turbo Podcast</span>
+          <div className="flex-1 h-px bg-white/[0.06]" />
+        </div>
+        {/* ── Episode 4 — DO NOT REMOVE ─────────────────────────────── */}
+        <div>
+          <div className="text-center mb-8 sm:mb-10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-4">
+              Turbo Podcast · Episode 4
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
+              TurboShield Explained — Your DeFi Insurance, On-Chain
+            </h2>
+            <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              CEO Dave reveals how TurboShield — TurboLoop&apos;s on-chain insurance layer — protects
+              8,000+ investors from smart contract risk, market volatility, and protocol failures.
+            </p>
+          </div>
+          <VideoPlayer defaultLocale={defaultLocale} episode="ep4" />
+          <p className="text-center text-xs text-gray-600 mt-4">
+            English Original · AI-Dubbed in {LANGUAGES.filter(l => l.ep4video !== null).length} languages — rolling out now.
           </p>
         </div>
       </div>

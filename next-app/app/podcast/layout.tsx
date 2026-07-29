@@ -12,12 +12,12 @@ const podcastJsonLd = {
       "@type": "WebPage",
       "@id": "https://www.turboloop.tech/podcast#webpage",
       "url": "https://www.turboloop.tech/podcast",
-      "name": "TurboLoop CEO Podcast — DeFi Explained by Dave | 4 Episodes · 65 Languages",
+      "name": "TurboLoop CEO Podcast — DeFi Explained by Dave | 3 Episodes · 65 Languages",
       "description":
-        "Watch CEO Dave answer the hardest questions about TurboLoop — security audits, smart contract architecture, TurboShield on-chain insurance, and why 8,000+ users trust the protocol. 4 episodes · 67 minutes · AI-dubbed in 65 languages.",
+        "Watch CEO Dave answer the hardest questions about TurboLoop — security audits, smart contract architecture, and why 8,000+ users trust the protocol. 3 episodes · 56 minutes · AI-dubbed in 65 languages.",
       "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
       "inLanguage": "en",
-      "dateModified": "2026-07-27",
+      "dateModified": "2026-07-29",
     },
     // BreadcrumbList — helps Google show breadcrumbs in SERPs for /podcast
     {
@@ -124,40 +124,14 @@ const podcastJsonLd = {
         "TurboLoop income model", "crypto for all investors", "BSC yield strategy"
       ],
     },
-    // Episode 4 — VideoObject
-    {
-      "@type": "VideoObject",
-      "@id": "https://www.turboloop.tech/podcast#ep4",
-      "name": "TurboShield Explained — Your DeFi Insurance, On-Chain",
-      "description":
-        "CEO Dave reveals how TurboShield protects 8,000+ investors with on-chain insurance built directly into the TurboLoop smart contract. No promises — just code.",
-      "thumbnailUrl": `${R2}/images/turboloop-ep4-thumbnail.jpg`,
-      "contentUrl": `${R2}/turboloop-ep4-en.mp4`,
-      "embedUrl": "https://www.youtube.com/watch?v=yL3fjbJkaEM",
-      "duration": "PT11M",
-      "uploadDate": "2026-07-27",
-      "datePublished": "2026-07-27",
-      "inLanguage": "en",
-      "availableLanguage": ["en"],
-      "publisher": { "@id": "https://www.turboloop.tech/#organization" },
-      "author": {
-        "@type": "Person",
-        "name": "Dave",
-        "jobTitle": "CEO",
-        "worksFor": { "@id": "https://www.turboloop.tech/#organization" },
-      },
-      "keywords": [
-        "TurboShield", "DeFi insurance", "on-chain insurance",
-        "smart contract protection", "DeFi security", "TurboLoop shield"
-      ],
-    },
+    // ── Ep4 hidden 2026-07-29 — restore VideoObject + episodeList entry when ready ──
     // PodcastSeries entity — ties all episodes together
     {
       "@type": "PodcastSeries",
       "@id": "https://www.turboloop.tech/podcast#series",
       "name": "TurboLoop CEO Podcast",
       "description":
-        "CEO Dave answers the hardest questions about TurboLoop — no scripts, no filters. 4 episodes covering DeFi security, yield strategies, TurboShield insurance, and the full protocol architecture.",
+        "CEO Dave answers the hardest questions about TurboLoop — no scripts, no filters. 3 episodes covering DeFi security, yield strategies, and the full protocol architecture.",
       "url": "https://www.turboloop.tech/podcast",
       "image": `${R2}/images/turboloop-ep2-thumbnail.jpg`,
       "author": {
@@ -168,12 +142,11 @@ const podcastJsonLd = {
       },
       "publisher": { "@id": "https://www.turboloop.tech/#organization" },
       "inLanguage": "en",
-      "numberOfEpisodes": 4,
+      "numberOfEpisodes": 3,
       "episodeList": [
         { "@id": "https://www.turboloop.tech/podcast#ep1" },
         { "@id": "https://www.turboloop.tech/podcast#ep2" },
         { "@id": "https://www.turboloop.tech/podcast#ep3" },
-        { "@id": "https://www.turboloop.tech/podcast#ep4" },
       ],
     },
   ],

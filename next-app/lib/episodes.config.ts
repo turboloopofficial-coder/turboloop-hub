@@ -100,24 +100,25 @@ export const EPISODES: EpisodeConfig[] = [
     raskPrefix: "TurboLoop Ep3",
     thumbFolder: "thumbnails/ep3",
   },
-  {
-    id: "ep4",
-    number: 4,
-    title: "TurboShield Explained",
-    subtitle: "Your DeFi Insurance, On-Chain",
-    description:
-      "CEO Dave reveals how TurboShield — TurboLoop's on-chain insurance layer — protects 8,000+ investors from smart contract risk, market volatility, and protocol failures.",
-    duration: "11 min",
-    badgeLabel: "Turbo Podcast · Episode 4",
-    badgeColor: "amber",
-    topics: ["TurboShield", "On-Chain Insurance", "Risk Protection", "Smart Contracts", "Investor Safety", "DeFi Security"],
-    quote: "TurboShield isn't a promise. It's a smart contract. The code protects you — not our word.",
-    r2Prefix: "turboloop-ep4",
-    youtubeId: "yL3fjbJkaEM",
-    speedUp: true,
-    raskPrefix: "TurboLoop Ep4",
-    thumbFolder: "thumbnails/ep4",
-  },
+  // ── Ep4 hidden 2026-07-29 — uncomment to re-enable when ready to launch ──────────
+  // {
+  //   id: "ep4",
+  //   number: 4,
+  //   title: "TurboShield Explained",
+  //   subtitle: "Your DeFi Insurance, On-Chain",
+  //   description:
+  //     "CEO Dave reveals how TurboShield — TurboLoop's on-chain insurance layer — protects 8,000+ investors from smart contract risk, market volatility, and protocol failures.",
+  //   duration: "11 min",
+  //   badgeLabel: "Turbo Podcast · Episode 4",
+  //   badgeColor: "amber",
+  //   topics: ["TurboShield", "On-Chain Insurance", "Risk Protection", "Smart Contracts", "Investor Safety", "DeFi Security"],
+  //   quote: "TurboShield isn't a promise. It's a smart contract. The code protects you — not our word.",
+  //   r2Prefix: "turboloop-ep4",
+  //   youtubeId: "yL3fjbJkaEM",
+  //   speedUp: true,
+  //   raskPrefix: "TurboLoop Ep4",
+  //   thumbFolder: "thumbnails/ep4",
+  // },
 
   // ─────────────────────────────────────────────────────────────────────────
   // ADD NEW EPISODES HERE ↓

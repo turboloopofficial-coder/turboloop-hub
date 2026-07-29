@@ -288,12 +288,8 @@ const PAGE_IMAGES: Array<{
         caption:
           "CEO Dave explains TurboShield — TurboLoop's on-chain insurance mechanism protecting depositors. AI-dubbed in 65 languages.",
       },
-      {
-        url: `${R2}/thumbnails/ep4/ep4_thumb_en.jpg`,
-        title: "TurboLoop CEO Podcast — Episode 4: TurboShield Explained",
-        caption:
-          "CEO Dave breaks down TurboShield — how on-chain insurance works in DeFi. AI-dubbed in 65 languages. Part of the TurboLoop CEO Podcast series.",
-      },
+      // Ep4 hidden 2026-07-29 — restore when ready to launch
+      // { url: `${R2}/thumbnails/ep4/ep4_thumb_en.jpg`, title: "TurboLoop CEO Podcast — Episode 4: TurboShield Explained", caption: "CEO Dave breaks down TurboShield — how on-chain insurance works in DeFi. AI-dubbed in 65 languages." },
     ],
   },
 ];

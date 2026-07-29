@@ -11,12 +11,26 @@
 //     Do not copy LANGUAGES into this file.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Play, Globe, ChevronDown, Download, Youtube, Share2 } from "lucide-react";
 import { LANGUAGES, ENGLISH, LOCALE_TO_VIDEO_CODE, type VideoLanguage } from "@/lib/videoLanguages";
 import { EPISODES, BADGE_COLORS, type EpisodeConfig } from "@/lib/episodes.config";
+import { useLanguagePreference } from "@/hooks/useLanguagePreference";
+
+const STORAGE_KEY = "turboloop_lang";
 
 function resolveInitialLang(locale?: string): VideoLanguage {
+  // 1. Check localStorage first (user's explicit previous choice)
+  if (typeof window !== "undefined") {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const match = LANGUAGES.find(l => l.code === saved);
+        if (match) return match;
+      }
+    } catch { /* ignore */ }
+  }
+  // 2. Fall back to URL locale
   if (!locale || locale === "en") return ENGLISH;
   const videoCode = LOCALE_TO_VIDEO_CODE[locale] ?? null;
   if (!videoCode) return ENGLISH;
@@ -51,9 +65,12 @@ function VideoPlayer({
 
   const badgeColors = BADGE_COLORS[episodeConfig.badgeColor] ?? BADGE_COLORS.cyan;
 
+  const { saveLanguage } = useLanguagePreference();
+
   const handleLangSelect = (lang: VideoLanguage) => {
     if (!isAvailable(lang)) return;
     setSelectedLang(lang);
+    saveLanguage(lang.code); // persist across pages
     setShowPicker(false);
     setStarted(false);
   };

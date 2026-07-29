@@ -20,15 +20,16 @@ import {
 } from "@/lib/videoLanguages";
 
 // ─── Resolve initial language from URL locale ────────────────────────────────
-function resolveInitialLang(locale: string, requireEp: "ep1" | "ep2" | "ep3"): VideoLanguage {
+function resolveInitialLang(locale: string, requireEp: "ep1" | "ep2" | "ep3" | "ep4"): VideoLanguage {
   if (!locale || locale === "en") return ENGLISH;
   const code = LOCALE_TO_VIDEO_CODE[locale] ?? null;
   if (!code) return ENGLISH;
   const match = LANGUAGES.find(l => l.code === code);
   if (!match) return ENGLISH;
-  // For ep2/ep3, only use the locale lang if that episode is available; otherwise fall back to English
+  // For ep2/ep3/ep4, only use the locale lang if that episode is available; otherwise fall back to English
   if (requireEp === "ep2" && !match.ep2video) return ENGLISH;
   if (requireEp === "ep3" && !match.ep3video) return ENGLISH;
+  if (requireEp === "ep4" && !(match as any).ep4video) return ENGLISH;
   return match;
 }
 
@@ -94,16 +95,33 @@ const EPISODES = [
     getThumb:     (l: VideoLanguage) => l.ep3thumb ?? ENGLISH.ep3thumb ?? l.thumb ?? ENGLISH.thumb ?? "",
     getLangCount: () => LANGUAGES.filter(l => l.ep3video !== null).length,
   },
+  {
+    id: "ep4" as const,
+    num: 4,
+    badge: "Turbo Podcast · Episode 4",
+    badgeColor: "gold" as const,
+    title: "TurboShield Explained",
+    subtitle: "Your DeFi Insurance, On-Chain",
+    description:
+      "CEO Dave reveals how TurboShield — TurboLoop's on-chain insurance layer — protects 8,000+ investors from smart contract risk, market volatility, and protocol failures.",
+    duration: "11 min",
+    topics: ["TurboShield", "On-Chain Insurance", "Risk Protection", "Smart Contracts", "Investor Safety", "DeFi Security"],
+    quote: "\"TurboShield isn't a promise. It's a smart contract. The code protects you — not our word.\"",
+    getVideo:     (l: VideoLanguage) => (l as any).ep4video ?? null,
+    getYoutube:   (l: VideoLanguage) => (l as any).ep4youtubeUrl ?? null,
+    getThumb:     (l: VideoLanguage) => (l as any).ep4thumb ?? (ENGLISH as any).ep4thumb ?? l.thumb ?? ENGLISH.thumb ?? "",
+    getLangCount: () => LANGUAGES.filter(l => (l as any).ep4video !== null).length,
+  },
 ] as const;
 
-type EpisodeId = "ep1" | "ep2" | "ep3";
+type EpisodeId = "ep1" | "ep2" | "ep3" | "ep4";
 type Episode = typeof EPISODES[number];
 
 // ─── Badge colour helper ─────────────────────────────────────────────────────
-function badgeClasses(color: "cyan" | "purple") {
-  return color === "purple"
-    ? "bg-purple-500/10 text-purple-400 border-purple-500/20"
-    : "bg-cyan-500/10 text-cyan-400 border-cyan-500/20";
+function badgeClasses(color: "cyan" | "purple" | "gold") {
+  if (color === "purple") return "bg-purple-500/10 text-purple-400 border-purple-500/20";
+  if (color === "gold") return "bg-yellow-500/10 text-yellow-400 border-yellow-500/20";
+  return "bg-cyan-500/10 text-cyan-400 border-cyan-500/20";
 }
 
 // ─── PodcastPlayer ───────────────────────────────────────────────────────────
@@ -190,6 +208,8 @@ function PodcastPlayer({
               <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
                 ep.badgeColor === "purple"
                   ? "bg-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.5)] group-hover:shadow-[0_0_60px_rgba(168,85,247,0.7)]"
+                  : ep.badgeColor === "gold"
+                  ? "bg-yellow-500 shadow-[0_0_40px_rgba(234,179,8,0.5)] group-hover:shadow-[0_0_60px_rgba(234,179,8,0.7)]"
                   : "bg-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.5)] group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)]"
               }`}>
                 <Play className="w-7 h-7 sm:w-9 sm:h-9 text-white fill-white ml-1" />

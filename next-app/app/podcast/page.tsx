@@ -202,8 +202,12 @@ function PodcastPlayer({
             <span>{selectedLang.flag} {selectedLang.label}</span>
             <ChevronDown className="w-3 h-3 opacity-60" />
           </button>
+          {/* aria-live: screen readers announce language change without moving focus */}
+          <div aria-live="polite" aria-atomic="true" className="sr-only">
+            Now watching in {selectedLang.label}
+          </div>
           {showPicker && (
-            <div className="absolute top-full right-0 mt-2 w-52 max-h-64 overflow-y-auto rounded-xl bg-[#0d1220] border border-white/10 shadow-2xl z-20">
+            <div role="listbox" aria-label="Select language" className="absolute top-full right-0 mt-2 w-52 max-h-64 overflow-y-auto rounded-xl bg-[#0d1220] border border-white/10 shadow-2xl z-20">
               {LANGUAGES.map(lang => {
                 const avail = isAvailable(lang);
                 return (
@@ -400,6 +404,8 @@ export default function PodcastPage() {
                 <button
                   key={ep.id}
                   onClick={() => scrollToEp(ep.id)}
+                  aria-pressed={isActive}
+                  aria-label={`Jump to Episode ${ep.number}: ${ep.title}`}
                   className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
                     isActive
                       ? `${badgeColors.bg} ${badgeColors.text} border ${badgeColors.border}`
@@ -483,6 +489,8 @@ export default function PodcastPage() {
                 <button
                   key={ep.id}
                   onClick={() => scrollToEp(ep.id)}
+                  aria-pressed={isActive}
+                  aria-label={`Episode ${ep.number}: ${ep.title} — ${ep.subtitle}`}
                   className={`relative text-left rounded-2xl border p-5 transition-all duration-300 group ${
                     isActive
                       ? `${badgeColors.border.replace("/20", "/50")} ${badgeColors.bg} shadow-[0_0_30px_rgba(0,0,0,0.3)]`

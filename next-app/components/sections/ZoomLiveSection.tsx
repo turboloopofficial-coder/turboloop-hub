@@ -8,22 +8,76 @@ import { ZOOM_EN, ZOOM_HI, ZOOM_TH, ZOOM_TH_AM, ZOOM_AF, type ZoomSession } from
 import { ZoomCountdown, OneTimeCountdown } from "./ZoomLiveCountdown";
 import { LocalZoomTime } from "./LocalZoomTime";
 
+// English fallback strings — used by the root homepage (app/page.tsx) which
+// must be statically rendered (no headers() call). The [locale] pages call
+// getTranslations instead and pass the resolved strings.
+const EN_STRINGS = {
+  eyebrow: "Live Right Now",
+  title: "The community is",
+  titleHighlight: "live right now.",
+  subtitle: "Real people, real answers. Every day.",
+  labelEnglish: "English",
+  labelHindi: "Hindi / Urdu",
+  dailyFree: "Daily · Free",
+  when: "When",
+  nextCallIn: "Next call in",
+  joinNow: "Join now",
+  labelThaiMorning: "Thai Morning",
+  labelThaiEvening: "Thai Evening",
+  labelAfrican: "African",
+  monWedSat: "Mon · Wed · Sat · Free",
+  satOnly: "Saturday only · Free",
+  sunTueThu: "Sun · Tue · Thu · Free",
+};
+
+type ZoomStrings = typeof EN_STRINGS;
+
+// ── Static variant ─────────────────────────────────────────────────────────
+// Used by app/page.tsx (English root). No async, no headers() — allows ISR.
+export function ZoomLiveSectionStatic() {
+  return <ZoomLiveSectionInner strings={EN_STRINGS} />;
+}
+
+// ── Async variant ──────────────────────────────────────────────────────────
+// Used by app/[locale]/page.tsx (translated locales). Calls getTranslations.
 export async function ZoomLiveSection() {
   const t = await getTranslations("zoom");
+  const strings: ZoomStrings = {
+    eyebrow: t("eyebrow"),
+    title: t("title"),
+    titleHighlight: t("titleHighlight"),
+    subtitle: t("subtitle"),
+    labelEnglish: t("labelEnglish"),
+    labelHindi: t("labelHindi"),
+    dailyFree: t("dailyFree"),
+    when: t("when"),
+    nextCallIn: t("nextCallIn"),
+    joinNow: t("joinNow"),
+    labelThaiMorning: t("labelThaiMorning"),
+    labelThaiEvening: t("labelThaiEvening"),
+    labelAfrican: t("labelAfrican"),
+    monWedSat: t("monWedSat"),
+    satOnly: t("satOnly"),
+    sunTueThu: t("sunTueThu"),
+  };
+  return <ZoomLiveSectionInner strings={strings} />;
+}
 
+// ── Shared inner component ─────────────────────────────────────────────────
+function ZoomLiveSectionInner({ strings: s }: { strings: ZoomStrings }) {
   return (
     <section className="py-12 md:py-20">
       <Container width="default">
         <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
           <Heading tier="eyebrow" className="text-[var(--c-brand-cyan)] mb-3 inline-block">
-            {t("eyebrow")}
+            {s.eyebrow}
           </Heading>
           <Heading tier="h1" as="h2" className="mb-3">
-            {t("title")}{" "}
-            <span className="text-brand-wide">{t("titleHighlight")}</span>
+            {s.title}{" "}
+            <span className="text-brand-wide">{s.titleHighlight}</span>
           </Heading>
           <p className="text-base md:text-lg text-[var(--c-text-muted)] leading-relaxed">
-            {t("subtitle")}
+            {s.subtitle}
           </p>
         </div>
         {/* Special Event: Germany Community Zoom — one-time, Jul 30 2026 21:00 CEST (19:00 UTC) */}
@@ -44,49 +98,49 @@ export async function ZoomLiveSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto mb-4 md:mb-5">
           <ZoomCard
             session={ZOOM_EN}
-            accentLabel={t("labelEnglish")}
-            dailyFree={t("dailyFree")}
-            when={t("when")}
-            nextCallIn={t("nextCallIn")}
-            joinNow={t("joinNow")}
+            accentLabel={s.labelEnglish}
+            dailyFree={s.dailyFree}
+            when={s.when}
+            nextCallIn={s.nextCallIn}
+            joinNow={s.joinNow}
           />
           <ZoomCard
             session={ZOOM_HI}
-            accentLabel={t("labelHindi")}
-            dailyFree={t("dailyFree")}
-            when={t("when")}
-            nextCallIn={t("nextCallIn")}
-            joinNow={t("joinNow")}
+            accentLabel={s.labelHindi}
+            dailyFree={s.dailyFree}
+            when={s.when}
+            nextCallIn={s.nextCallIn}
+            joinNow={s.joinNow}
           />
         </div>
         {/* Row 2: Thai Morning + Thai Evening */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto mb-4 md:mb-5">
           <ZoomCard
             session={ZOOM_TH_AM}
-            accentLabel={t("labelThaiMorning")}
-            dailyFree={t("satOnly")}
-            when={t("when")}
-            nextCallIn={t("nextCallIn")}
-            joinNow={t("joinNow")}
+            accentLabel={s.labelThaiMorning}
+            dailyFree={s.satOnly}
+            when={s.when}
+            nextCallIn={s.nextCallIn}
+            joinNow={s.joinNow}
           />
           <ZoomCard
             session={ZOOM_TH}
-            accentLabel={t("labelThaiEvening")}
-            dailyFree={t("sunTueThu")}
-            when={t("when")}
-            nextCallIn={t("nextCallIn")}
-            joinNow={t("joinNow")}
+            accentLabel={s.labelThaiEvening}
+            dailyFree={s.sunTueThu}
+            when={s.when}
+            nextCallIn={s.nextCallIn}
+            joinNow={s.joinNow}
           />
         </div>
         {/* Row 3: African Community Call — Mon/Wed/Sat */}
         <div className="max-w-5xl mx-auto">
           <ZoomCard
             session={ZOOM_AF}
-            accentLabel={t("labelAfrican")}
-            dailyFree={t("monWedSat")}
-            when={t("when")}
-            nextCallIn={t("nextCallIn")}
-            joinNow={t("joinNow")}
+            accentLabel={s.labelAfrican}
+            dailyFree={s.monWedSat}
+            when={s.when}
+            nextCallIn={s.nextCallIn}
+            joinNow={s.joinNow}
           />
         </div>
       </Container>

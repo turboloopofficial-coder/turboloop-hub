@@ -24,6 +24,7 @@
 // bar (in the layout), and the small countdown ticker inside ZoomLive.
 
 import dynamic from "next/dynamic";
+import { setRequestLocale } from "next-intl/server";
 import { ShieldCheck, Lock, CheckCircle2, Globe2, Rocket } from "lucide-react";
 import { Container } from "@components/ui/Container";
 import { Card } from "@components/ui/Card";
@@ -49,7 +50,9 @@ const HomeGlobalReelsSection = dynamic(
 const ZoomLiveSection = dynamic(
   () =>
     import("@components/sections/ZoomLiveSection").then(m => ({
-      default: m.ZoomLiveSection,
+      // Use the static variant (no getTranslations / headers() call) so the
+      // English root homepage can be ISR-cached at the Vercel edge.
+      default: m.ZoomLiveSectionStatic,
     })),
   { ssr: true }
 );
@@ -248,7 +251,11 @@ export function generateStaticParams() {
 
 export const revalidate = 60;
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Tell next-intl this page is always English — prevents getRequestConfig
+  // from calling headers() to detect the locale, which would make the page
+  // dynamic and prevent Vercel CDN from caching it.
+  setRequestLocale("en");
   return (
     <main className="relative">
       <script

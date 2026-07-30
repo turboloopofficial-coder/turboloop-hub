@@ -111,47 +111,14 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   };
 }
 
-/** Server-side fetch of the upstream circulating-supply endpoint. Runs
- *  at request/ISR time so the JSON-LD payload that lands in the HTML
- *  body reflects the live circulating supply rather than a hardcoded
- *  1,000,000 total. We always return a formatted string — falls back
- *  to the hardcoded total on upstream failure so the schema.org block
- *  never goes missing. The client-side <TokenSupplyWidget /> hits its
- *  own /api/token-supply route for the visible widget; this call here
- *  is just for crawlers. */
-async function fetchCirculatingSupplyForJsonLd(): Promise<string> {
-  const FALLBACK = TOKEN.totalSupplyFormatted;
-  try {
-    const res = await fetch(
-      "https://turboloop.io/api/token/circulating-supply",
-      {
-        // Note: AbortSignal.timeout() is a dynamic API in Next.js 15 that
-        // opts the page out of static rendering. Removed in favour of the
-        // built-in fetch timeout (Next.js will cancel the fetch if the
-        // serverless function times out). The ISR revalidate below ensures
-        // the value stays fresh.
-        // Tie into Next.js ISR so the JSON-LD value re-revalidates on
-        // the same 60s cadence as the rest of the page.
-        next: { revalidate: 60 },
-        headers: { Accept: "application/json" },
-      }
-    );
-    if (!res.ok) return FALLBACK;
-    const json = (await res.json()) as {
-      data?: { circulatingSupply?: number | string };
-      circulatingSupply?: number | string;
-    };
-    const raw = json.data?.circulatingSupply ?? json.circulatingSupply;
-    if (raw === undefined || raw === null) return FALLBACK;
-    const n =
-      typeof raw === "number"
-        ? raw
-        : Number(String(raw).replace(/[,\s]/g, ""));
-    if (!Number.isFinite(n)) return FALLBACK;
-    return Math.round(n).toLocaleString("en-US");
-  } catch {
-    return FALLBACK;
-  }
+/** Returns the circulating supply for the JSON-LD payload.
+ *  Uses the hardcoded value from tokenFacts.ts (the source of truth for
+ *  static content). The live value is shown to human readers via the
+ *  client-side <TokenSupplyWidget /> which hits /api/token-supply.
+ *  This avoids an external fetch at render time which would opt the page
+ *  out of static rendering (private, no-cache) even with force-static. */
+function fetchCirculatingSupplyForJsonLd(): string {
+  return TOKEN.totalSupplyFormatted;
 }
 
 // Schema.org structured data — Product is the right vocabulary for a
@@ -249,7 +216,7 @@ export default async function TokenPage({ searchParams }: PageProps) {
   // Live circulating supply for the JSON-LD payload. Fallback to the
   // hardcoded total supply if the upstream is unavailable so the
   // structured-data block never goes missing.
-  const circulatingSupply = await fetchCirculatingSupplyForJsonLd();
+  const circulatingSupply = fetchCirculatingSupplyForJsonLd();
   const jsonLd = buildJsonLd(lang, circulatingSupply);
 
   return (

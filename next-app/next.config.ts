@@ -238,6 +238,25 @@ const config: NextConfig = {
           },
         ],
       },
+      // Content pages — statically rendered, safe to cache at CDN edge.
+      // Each page has its own revalidate period set via export const revalidate.
+      // The s-maxage here must be <= the page's revalidate to avoid serving stale.
+      {
+        source: "/films",
+        headers: [{ key: "Cache-Control", value: "public, s-maxage=300, stale-while-revalidate=3600" }],
+      },
+      {
+        source: "/library",
+        headers: [{ key: "Cache-Control", value: "public, s-maxage=60, stale-while-revalidate=3600" }],
+      },
+      {
+        source: "/security",
+        headers: [{ key: "Cache-Control", value: "public, s-maxage=3600, stale-while-revalidate=86400" }],
+      },
+      {
+        source: "/token",
+        headers: [{ key: "Cache-Control", value: "public, s-maxage=60, stale-while-revalidate=3600" }],
+      },
     ];
   },
 };

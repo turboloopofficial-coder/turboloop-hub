@@ -57,6 +57,11 @@ import {
 } from "@lib/tokenPageContent";
 
 export const revalidate = 60;
+// force-static tells Next.js to statically render this page even though it
+// reads searchParams. Without this, await searchParams opts the page into
+// dynamic rendering (private, no-cache). With force-static + revalidate=60,
+// the page is ISR-cached and searchParams resolves at request time.
+export const dynamic = 'force-static';
 
 const CANONICAL = "https://www.turboloop.tech/token";
 const OG_IMAGE = "https://www.turboloop.tech/api/og-banner?type=token";

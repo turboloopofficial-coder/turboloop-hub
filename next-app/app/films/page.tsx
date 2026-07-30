@@ -36,7 +36,7 @@ import { Container } from "@components/ui/Container";
 import { Heading } from "@components/ui/Heading";
 import { FilmCard, FilmCardSkeleton } from "@components/films/FilmCard";
 import { getPageLocale } from "@lib/getPageLocale";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 300; // 5 min ISR
 
@@ -147,6 +147,10 @@ function isLang(v: string | undefined): v is FilmLang {
 }
 
 export default async function FilmsPage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {
+  // setRequestLocale('en') must be called before getTranslations so that
+  // next-intl resolves the locale from the set value instead of reading
+  // headers(), which would make this page dynamic (private, no-cache).
+  setRequestLocale('en');
   const locale = await getPageLocale();
   const t = await getTranslations({ locale, namespace: "films" });
   const { lang } = await searchParams;

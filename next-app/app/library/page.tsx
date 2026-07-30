@@ -19,7 +19,7 @@ import { api } from "@lib/api";
 import { LANGUAGE_FLAGS, getFlagUrl } from "@lib/constants";
 import { FILMS } from "@lib/cinematicUniverse";
 import { getPageLocale } from "@lib/getPageLocale";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 60; // 1 minute — so new presentations appear quickly
 
@@ -53,6 +53,10 @@ function slugFromUrl(videoUrl: string): string | null {
 }
 
 export default async function LibraryPage() {
+  // setRequestLocale('en') must be called before getTranslations so that
+  // next-intl resolves the locale from the set value instead of reading
+  // headers(), which would make this page dynamic (private, no-cache).
+  setRequestLocale('en');
   const locale = await getPageLocale();
   const t = await getTranslations({ locale, namespace: "library" });
   const [presentations, videos] = await Promise.all([

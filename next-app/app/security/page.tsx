@@ -17,7 +17,7 @@ import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { SECURITY } from "@lib/constants";
 import { getPageLocale } from "@lib/getPageLocale";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 // ─── JSON-LD structured data ────────────────────────────────────────────────
 const securityJsonLd = {
@@ -162,6 +162,10 @@ const PILLARS: Pillar[] = [
 ];
 
 export default async function SecurityPage() {
+  // setRequestLocale('en') must be called before getTranslations so that
+  // next-intl resolves the locale from the set value instead of reading
+  // headers(), which would make this page dynamic (private, no-cache).
+  setRequestLocale('en');
   const locale = await getPageLocale();
   const t = await getTranslations({ locale, namespace: "security" });
   return (

@@ -108,7 +108,7 @@ export const LANGUAGES: VideoLanguage[] = [
   }},
   { code: "ru", label: "Russian",     nativeLabel: "Русский",          flag: "🇷🇺", episodes: {
     ep1: { video: `${R2_BASE}/turboloop-explainer-ru.mp4`,  youtubeUrl: "https://youtu.be/RJd3C8Vypp8",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
-    ep2: N, ep3: N, ep4: N, ep5: N,
+    ep2: N, ep3: { video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-ru.mp4`, youtubeUrl: "https://youtu.be/iYDrj9CN6KY", thumb: `${R2_PUB}/videos/turboloop-ep3-en-thumb.jpg` }, ep4: N, ep5: N,
   }},
   { code: "zh", label: "Chinese",     nativeLabel: "中文",              flag: "🇨🇳", episodes: {
     ep1: { video: `${R2_BASE}/turboloop-explainer-zh.mp4`,  youtubeUrl: "https://youtu.be/IMgyKrwpvdg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },

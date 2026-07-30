@@ -1,30 +1,29 @@
 "use client";
 
-// ExitIntentCapture — captures email leads when desktop users move to leave.
+// ExitIntentCapture — shows Telegram channel & group CTA when desktop users move to leave.
 //
 // Trigger: mouse leaves viewport from the top (exit intent signal).
 // Only fires once per session. Only on desktop (>768px).
-// Shows a lightweight modal with email input + CTA.
-// Stores email in localStorage for the newsletter system to pick up.
-// Fires GA4 event on show and on submit.
+// Shows a lightweight modal with Telegram Channel + Group buttons.
+// Fires GA4 event on show and on click.
 
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { X, Zap, ArrowRight } from "lucide-react";
+import { X, Zap, Users, Megaphone } from "lucide-react";
 
 const SESSION_KEY = "turboloop_exit_intent_shown";
-const STORAGE_KEY = "turboloop_exit_email";
+
+const TELEGRAM_CHANNEL = "https://t.me/TurboLoop_Official";
+const TELEGRAM_GROUP = "https://t.me/TurboLoop_Chat";
 
 function gtag(...args: unknown[]) {
-  if (typeof window !== "undefined" && window.gtag) {
-    window.gtag(...args);
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag(...args);
   }
 }
 
 export function ExitIntentCapture() {
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [mounted, setMounted] = useState(false);
   const firedRef = useRef(false);
 
@@ -63,19 +62,11 @@ export function ExitIntentCapture() {
 
   const handleClose = () => setOpen(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes("@")) return;
-    // Store email
-    try {
-      localStorage.setItem(STORAGE_KEY, email);
-    } catch {}
-    // Fire GA4 event
-    gtag("event", "exit_intent_email_captured", {
+  const handleClick = (target: "channel" | "group") => {
+    gtag("event", "exit_intent_telegram_click", {
       page_path: window.location.pathname,
+      telegram_target: target,
     });
-    setSubmitted(true);
-    setTimeout(() => setOpen(false), 2000);
   };
 
   if (!mounted || !open) return null;
@@ -103,7 +94,7 @@ export function ExitIntentCapture() {
           onClick={e => e.stopPropagation()}
           className="relative rounded-2xl overflow-hidden"
           style={{
-            width: "min(400px, calc(100vw - 2rem))",
+            width: "min(420px, calc(100vw - 2rem))",
             background: "var(--c-surface, #ffffff)",
             border: "1px solid var(--c-border, rgba(15,23,42,0.08))",
             boxShadow: "0 25px 80px rgba(0,0,0,0.2)",
@@ -111,7 +102,7 @@ export function ExitIntentCapture() {
           }}
         >
           {/* Gradient bar */}
-          <div className="h-1.5" style={{ background: "linear-gradient(90deg, #7C3AED, #0891B2)" }} />
+          <div className="h-1.5" style={{ background: "linear-gradient(90deg, #0088cc, #7C3AED)" }} />
 
           {/* Close */}
           <button
@@ -123,58 +114,72 @@ export function ExitIntentCapture() {
           </button>
 
           <div className="px-6 py-7">
-            {!submitted ? (
-              <>
-                <div className="flex items-center gap-2 mb-4">
-                  <Zap className="w-5 h-5 text-[var(--c-brand-cyan)]" />
-                  <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "var(--c-brand-cyan)" }}>
-                    Before you go
-                  </span>
+            <div className="flex items-center gap-2 mb-4">
+              <Zap className="w-5 h-5 text-[#0088cc]" />
+              <span className="text-xs font-bold uppercase tracking-wider" style={{ color: "#0088cc" }}>
+                Before you go
+              </span>
+            </div>
+            <h3
+              id="exit-title"
+              className="text-lg font-bold mb-2"
+              style={{ color: "var(--c-text, #0f172a)" }}
+            >
+              Join the TurboLoop Community
+            </h3>
+            <p className="text-sm mb-5" style={{ color: "var(--c-text-muted, #64748B)" }}>
+              6,900+ investors get daily yield updates, market alerts, and exclusive strategies on Telegram.
+            </p>
+
+            <div className="flex flex-col gap-3">
+              {/* Channel Button */}
+              <a
+                href={TELEGRAM_CHANNEL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => handleClick("channel")}
+                className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-white font-bold text-sm transition hover:opacity-90 hover:scale-[1.02]"
+                style={{ background: "linear-gradient(135deg, #0088cc, #0066aa)" }}
+              >
+                <Megaphone className="w-5 h-5 flex-shrink-0" />
+                <div className="flex-1">
+                  <div>Join Channel</div>
+                  <div className="text-[11px] font-normal opacity-80">Daily updates, alerts & strategies</div>
                 </div>
-                <h3
-                  id="exit-title"
-                  className="text-lg font-bold mb-2"
-                  style={{ color: "var(--c-text, #0f172a)" }}
-                >
-                  Get weekly DeFi yield insights
-                </h3>
-                <p className="text-sm mb-5" style={{ color: "var(--c-text-muted, #64748B)" }}>
-                  Join 6,900+ investors getting market updates, new plan alerts, and exclusive strategies.
-                </p>
-                <form onSubmit={handleSubmit} className="flex gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    required
-                    className="flex-1 px-4 h-11 rounded-lg border text-sm outline-none focus:ring-2 focus:ring-[var(--c-brand-cyan)]"
-                    style={{
-                      background: "var(--c-bg, #f7f8fc)",
-                      borderColor: "var(--c-border, rgba(15,23,42,0.08))",
-                      color: "var(--c-text, #0f172a)",
-                    }}
-                  />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-1 px-4 h-11 rounded-lg text-sm font-bold text-white"
-                    style={{ background: "var(--c-brand-gradient, linear-gradient(135deg, #0891B2, #7C3AED))" }}
-                  >
-                    Join <ArrowRight className="w-4 h-4" />
-                  </button>
-                </form>
-                <p className="text-[11px] mt-3" style={{ color: "var(--c-text-muted, #94a3b8)" }}>
-                  No spam. Unsubscribe anytime. We respect your inbox.
-                </p>
-              </>
-            ) : (
-              <div className="text-center py-4">
-                <div className="text-3xl mb-2">🎉</div>
-                <p className="text-sm font-bold" style={{ color: "var(--c-text, #0f172a)" }}>
-                  Welcome aboard! Check your inbox soon.
-                </p>
-              </div>
-            )}
+                <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                </svg>
+              </a>
+
+              {/* Group Button */}
+              <a
+                href={TELEGRAM_GROUP}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => handleClick("group")}
+                className="flex items-center gap-3 px-4 py-3.5 rounded-xl font-bold text-sm transition hover:opacity-90 hover:scale-[1.02]"
+                style={{
+                  background: "var(--c-bg, #f1f5f9)",
+                  color: "var(--c-text, #0f172a)",
+                  border: "1px solid var(--c-border, rgba(15,23,42,0.1))",
+                }}
+              >
+                <Users className="w-5 h-5 flex-shrink-0 text-[#7C3AED]" />
+                <div className="flex-1">
+                  <div>Join Community Group</div>
+                  <div className="text-[11px] font-normal" style={{ color: "var(--c-text-muted, #64748B)" }}>
+                    Chat with other investors & ask questions
+                  </div>
+                </div>
+                <svg className="w-5 h-5 flex-shrink-0 text-[#0088cc]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                </svg>
+              </a>
+            </div>
+
+            <p className="text-[11px] mt-4 text-center" style={{ color: "var(--c-text-muted, #94a3b8)" }}>
+              Free forever. No spam. Real community.
+            </p>
           </div>
         </div>
       </div>

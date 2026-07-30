@@ -269,7 +269,7 @@ export const LANGUAGES: VideoLanguage[] = [
   }},
   { code: "sw", label: "Swahili",     nativeLabel: "Kiswahili",         flag: "🇰🇪", episodes: {
     ep1: { video: `${R2_BASE}/turboloop-explainer-sw.mp4`,  youtubeUrl: "https://youtu.be/Mz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
-    ep2: N, ep3: N, ep4: N, ep5: N,
+    ep2: N, ep3: { video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-sw.mp4`, youtubeUrl: "https://youtu.be/Es5sXYv2gkk", thumb: `${R2_PUB}/videos/turboloop-ep3-en-thumb.jpg` }, ep4: N, ep5: N,
   }},
   { code: "am", label: "Amharic",     nativeLabel: "አማርኛ",              flag: "🇪🇹", episodes: {
     ep1: { video: `${R2_BASE}/turboloop-explainer-am.mp4`,  youtubeUrl: "https://youtu.be/Nz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },

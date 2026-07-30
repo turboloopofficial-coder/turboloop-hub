@@ -120,6 +120,25 @@ export const EPISODES: EpisodeConfig[] = [
   //   thumbFolder: "thumbnails/ep4",
   // },
 
+  {
+    id: "ep5",
+    number: 5,
+    title: "Global Expansion & Africa Launch",
+    subtitle: "From Germany to Lagos — TurboLoop Goes Worldwide",
+    description:
+      "Global Ambassador Dave takes you on a journey across continents — introducing the new German community presenter, recapping the historic Lagos soft launch event, and announcing the first Mega TurboLoop Event in Port Harcourt, Nigeria.",
+    duration: "10 min",
+    badgeLabel: "Turbo Podcast · Episode 5",
+    badgeColor: "emerald",
+    topics: ["Global Expansion", "German Community", "Africa Launch", "Lagos Event", "Port Harcourt", "Borderless DeFi"],
+    quote: "Turbo Loop deserves to be known by everyone — and everyone deserves to know Turbo Loop exists.",
+    r2Prefix: "turboloop-ep5",
+    youtubeId: "DrgrLpMqUDM",
+    speedUp: true,
+    raskPrefix: null,
+    thumbFolder: "thumbnails/ep5",
+  },
+
   // ─────────────────────────────────────────────────────────────────────────
   // ADD NEW EPISODES HERE ↓
   // Copy the block above, increment the number, fill in the details.

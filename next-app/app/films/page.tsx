@@ -39,6 +39,10 @@ import { getPageLocale } from "@lib/getPageLocale";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 300; // 5 min ISR
+// force-static: films uses await searchParams for the ?lang= filter.
+// In Next.js 15, reading searchParams opts the page into dynamic rendering
+// (private, no-cache). force-static + revalidate=300 gives ISR caching.
+export const dynamic = 'force-static';
 
 // ─── JSON-LD structured data ────────────────────────────────────────────────
 const filmsJsonLd = {

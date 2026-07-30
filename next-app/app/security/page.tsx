@@ -19,6 +19,8 @@ import { SECURITY } from "@lib/constants";
 import { getPageLocale } from "@lib/getPageLocale";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+export const revalidate = 3600; // 1 hour — security page is mostly static content
+
 // ─── JSON-LD structured data ────────────────────────────────────────────────
 const securityJsonLd = {
   "@context": "https://schema.org",

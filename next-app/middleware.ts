@@ -76,6 +76,11 @@ const EXISTING_ROUTES = new Set([
   "feed",
   "sitemap.xml",
   "robots.txt",
+  // Token page — must be in EXISTING_ROUTES so middleware returns
+  // NextResponse.next() instead of calling intlMiddleware (which always
+  // creates a new response object, making Vercel treat the page as dynamic
+  // and preventing CDN caching).
+  "token",
 ]);
 
 // ─── BLOCKED IPs (known attackers from Jul 10, 2026 brute-force attempt) ───

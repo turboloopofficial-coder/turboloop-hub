@@ -125,7 +125,11 @@ async function fetchCirculatingSupplyForJsonLd(): Promise<string> {
     const res = await fetch(
       "https://turboloop.io/api/token/circulating-supply",
       {
-        signal: AbortSignal.timeout(5000),
+        // Note: AbortSignal.timeout() is a dynamic API in Next.js 15 that
+        // opts the page out of static rendering. Removed in favour of the
+        // built-in fetch timeout (Next.js will cancel the fetch if the
+        // serverless function times out). The ISR revalidate below ensures
+        // the value stays fresh.
         // Tie into Next.js ISR so the JSON-LD value re-revalidates on
         // the same 60s cadence as the rest of the page.
         next: { revalidate: 60 },

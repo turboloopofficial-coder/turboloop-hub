@@ -12,9 +12,9 @@ const podcastJsonLd = {
       "@type": "WebPage",
       "@id": "https://www.turboloop.tech/podcast#webpage",
       "url": "https://www.turboloop.tech/podcast",
-      "name": "TurboLoop CEO Podcast — DeFi Explained by Dave | 3 Episodes · 65 Languages",
+      "name": "TurboLoop Global Ambassador Podcast — DeFi Explained by Dave | 3 Episodes · 65 Languages",
       "description":
-        "Watch CEO Dave answer the hardest questions about TurboLoop — security audits, smart contract architecture, and why 8,000+ users trust the protocol. 3 episodes · 56 minutes · AI-dubbed in 65 languages.",
+        "Watch Global Ambassador Dave answer the hardest questions about TurboLoop — security audits, smart contract architecture, and why 8,000+ users trust the protocol. 3 episodes · 56 minutes · AI-dubbed in 65 languages.",
       "isPartOf": { "@id": "https://www.turboloop.tech/#website" },
       "inLanguage": "en",
       "dateModified": "2026-07-29",
@@ -33,7 +33,7 @@ const podcastJsonLd = {
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "CEO Podcast",
+          "name": "Global Ambassador Podcast",
           "item": "https://www.turboloop.tech/podcast",
         },
       ],
@@ -44,7 +44,7 @@ const podcastJsonLd = {
       "@id": "https://www.turboloop.tech/podcast#ep1",
       "name": "Your Bank is Lying to You — TurboLoop Explained",
       "description":
-        "A 20-minute cinematic breakdown covering security audits, smart contract architecture, and how your USDT earns fixed returns on BNB Smart Chain. CEO Dave explains the full TurboLoop protocol from first principles.",
+        "A 20-minute cinematic breakdown covering security audits, smart contract architecture, and how your USDT earns fixed returns on BNB Smart Chain. Global Ambassador Dave explains the full TurboLoop protocol from first principles.",
       "thumbnailUrl": `${R2}/videos/turboloop-explainer-en-thumb.jpg`,
       "contentUrl": `${R2}/videos/turboloop-explainer-en.mp4`,
       "embedUrl": "https://www.youtube.com/watch?v=LFViES_Qbzg",
@@ -64,7 +64,7 @@ const podcastJsonLd = {
       "author": {
         "@type": "Person",
         "name": "Dave",
-        "jobTitle": "CEO",
+        "jobTitle": "Global Ambassador",
         "worksFor": { "@id": "https://www.turboloop.tech/#organization" },
       },
       "keywords": [
@@ -76,9 +76,9 @@ const podcastJsonLd = {
     {
       "@type": "VideoObject",
       "@id": "https://www.turboloop.tech/podcast#ep2",
-      "name": "Is TurboLoop Legit? CEO Answers 19 Tough Questions",
+      "name": "Is TurboLoop Legit? Global Ambassador Answers 19 Tough Questions",
       "description":
-        "CEO Dave goes on record answering the hardest community questions about revenue sustainability, smart contract security, on-chain verification, and the $100K bug bounty challenge. No scripts, no filters.",
+        "Global Ambassador Dave goes on record answering the hardest community questions about revenue sustainability, smart contract security, on-chain verification, and the $100K bug bounty challenge. No scripts, no filters.",
       "thumbnailUrl": `${R2}/images/turboloop-ep2-thumbnail.jpg`,
       "contentUrl": `${R2}/videos/turboloop-ep2-en.mp4`,
       "embedUrl": "https://www.youtube.com/watch?v=cKm_XQpK4NI",
@@ -93,21 +93,21 @@ const podcastJsonLd = {
       "author": {
         "@type": "Person",
         "name": "Dave",
-        "jobTitle": "CEO",
+        "jobTitle": "Global Ambassador",
         "worksFor": { "@id": "https://www.turboloop.tech/#organization" },
       },
       "keywords": [
         "is TurboLoop legit", "TurboLoop review", "TurboLoop AMA",
-        "DeFi security", "smart contract audit", "TurboLoop CEO"
+        "DeFi security", "smart contract audit", "TurboLoop Global Ambassador"
       ],
     },
     // Episode 3 — VideoObject
     {
       "@type": "VideoObject",
       "@id": "https://www.turboloop.tech/podcast#ep3",
-      "name": "Best DeFi Strategy for ALL Investors — CEO Dave Explains",
+      "name": "Best DeFi Strategy for ALL Investors — Global Ambassador Dave Explains",
       "description":
-        "CEO Dave breaks down how TurboLoop's 3-stream income model works for everyone — from first-time crypto users to experienced investors across every income level and background.",
+        "Global Ambassador Dave breaks down how TurboLoop's 3-stream income model works for everyone — from first-time crypto users to experienced investors across every income level and background.",
       "thumbnailUrl": `${R2}/images/turboloop-ep3-thumbnail.jpg`,
       "contentUrl": `${R2}/videos/turboloop-ep3-en.mp4`,
       "embedUrl": "https://www.youtube.com/watch?v=08dLfBMf2JM",
@@ -120,7 +120,7 @@ const podcastJsonLd = {
       "author": {
         "@type": "Person",
         "name": "Dave",
-        "jobTitle": "CEO",
+        "jobTitle": "Global Ambassador",
         "worksFor": { "@id": "https://www.turboloop.tech/#organization" },
       },
       "keywords": [
@@ -133,15 +133,15 @@ const podcastJsonLd = {
     {
       "@type": "PodcastSeries",
       "@id": "https://www.turboloop.tech/podcast#series",
-      "name": "TurboLoop CEO Podcast",
+      "name": "TurboLoop Global Ambassador Podcast",
       "description":
-        "CEO Dave answers the hardest questions about TurboLoop — no scripts, no filters. 3 episodes covering DeFi security, yield strategies, and the full protocol architecture.",
+        "Global Ambassador Dave answers the hardest questions about TurboLoop — no scripts, no filters. 3 episodes covering DeFi security, yield strategies, and the full protocol architecture.",
       "url": "https://www.turboloop.tech/podcast",
       "image": `${R2}/images/turboloop-ep2-thumbnail.jpg`,
       "author": {
         "@type": "Person",
         "name": "Dave",
-        "jobTitle": "CEO",
+        "jobTitle": "Global Ambassador",
         "worksFor": { "@id": "https://www.turboloop.tech/#organization" },
       },
       "publisher": { "@id": "https://www.turboloop.tech/#organization" },

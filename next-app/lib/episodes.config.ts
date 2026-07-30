@@ -31,7 +31,7 @@ export interface EpisodeConfig {
   badgeColor: "cyan" | "violet" | "amber" | "emerald" | "rose" | "blue" | "pink";
   /** Topics shown as pills */
   topics: string[];
-  /** Pull quote from CEO */
+  /** Pull quote from Global Ambassador */
   quote: string;
   /** R2 filename prefix for English video, e.g. "turboloop-explainer" or "turboloop-ep2" */
   r2Prefix: string;
@@ -68,13 +68,13 @@ export const EPISODES: EpisodeConfig[] = [
     id: "ep2",
     number: 2,
     title: "Is TurboLoop Legit?",
-    subtitle: "CEO Answers 19 Tough Questions",
+    subtitle: "Global Ambassador Answers 19 Tough Questions",
     description:
-      "CEO Dave goes on record answering the hardest community questions about revenue sustainability, smart contract security, on-chain verification, and the $100K bug bounty challenge.",
+      "Global Ambassador Dave goes on record answering the hardest community questions about revenue sustainability, smart contract security, on-chain verification, and the $100K bug bounty challenge.",
     duration: "21 min",
     badgeLabel: "Turbo Podcast · Episode 2",
     badgeColor: "cyan",
-    topics: ["CEO AMA", "Revenue Model", "On-Chain Proof", "$100K Bounty", "Community Q&A", "Sustainability"],
+    topics: ["Global Ambassador AMA", "Revenue Model", "On-Chain Proof", "$100K Bounty", "Community Q&A", "Sustainability"],
     quote: "Ask me anything. I have nothing to hide — because the blockchain has nothing to hide.",
     r2Prefix: "turboloop-ep2",
     youtubeId: "cKm_XQpK4NI",
@@ -88,7 +88,7 @@ export const EPISODES: EpisodeConfig[] = [
     title: "DeFi for ALL Investors",
     subtitle: "Why TurboLoop Works for Everyone",
     description:
-      "CEO Dave breaks down how TurboLoop's 3-stream income model works for everyone — from first-time crypto users to experienced investors across every income level and background.",
+      "Global Ambassador Dave breaks down how TurboLoop's 3-stream income model works for everyone — from first-time crypto users to experienced investors across every income level and background.",
     duration: "15 min",
     badgeLabel: "Turbo Podcast · Episode 3",
     badgeColor: "violet",
@@ -107,7 +107,7 @@ export const EPISODES: EpisodeConfig[] = [
   //   title: "TurboShield Explained",
   //   subtitle: "Your DeFi Insurance, On-Chain",
   //   description:
-  //     "CEO Dave reveals how TurboShield — TurboLoop's on-chain insurance layer — protects 8,000+ investors from smart contract risk, market volatility, and protocol failures.",
+  //     "Global Ambassador Dave reveals how TurboShield — TurboLoop's on-chain insurance layer — protects 8,000+ investors from smart contract risk, market volatility, and protocol failures.",
   //   duration: "11 min",
   //   badgeLabel: "Turbo Podcast · Episode 4",
   //   badgeColor: "amber",

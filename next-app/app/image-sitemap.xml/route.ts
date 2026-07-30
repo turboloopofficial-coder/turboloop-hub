@@ -272,24 +272,24 @@ const PAGE_IMAGES: Array<{
     images: [
       {
         url: `${R2}/videos/turboloop-explainer-en-thumb.jpg`,
-        title: "TurboLoop CEO Podcast — Episode 1: Your Bank is Lying to You",
+        title: "TurboLoop Global Ambassador Podcast — Episode 1: Your Bank is Lying to You",
         caption:
-          "TurboLoop CEO Dave explains the full protocol in 20 minutes: security audits, smart contract architecture, and fixed USDT yield on BNB Smart Chain.",
+          "TurboLoop Global Ambassador Dave explains the full protocol in 20 minutes: security audits, smart contract architecture, and fixed USDT yield on BNB Smart Chain.",
       },
       {
         url: `${R2}/thumbnails/ep2/ep2_thumb_en.jpg`,
-        title: "TurboLoop CEO Podcast — Episode 2: Is TurboLoop Legit?",
+        title: "TurboLoop Global Ambassador Podcast — Episode 2: Is TurboLoop Legit?",
         caption:
-          "CEO Dave answers 19 tough community questions about TurboLoop — revenue sustainability, smart contract security, and the $100K bug bounty challenge. No scripts.",
+          "Global Ambassador Dave answers 19 tough community questions about TurboLoop — revenue sustainability, smart contract security, and the $100K bug bounty challenge. No scripts.",
       },
       {
         url: `${R2}/thumbnails/ep3/ep3_thumb_en.jpg`,
-        title: "TurboLoop CEO Podcast — Episode 3: The TurboShield Deep Dive",
+        title: "TurboLoop Global Ambassador Podcast — Episode 3: The TurboShield Deep Dive",
         caption:
-          "CEO Dave explains TurboShield — TurboLoop's on-chain insurance mechanism protecting depositors. AI-dubbed in 65 languages.",
+          "Global Ambassador Dave explains TurboShield — TurboLoop's on-chain insurance mechanism protecting depositors. AI-dubbed in 65 languages.",
       },
       // Ep4 hidden 2026-07-29 — restore when ready to launch
-      // { url: `${R2}/thumbnails/ep4/ep4_thumb_en.jpg`, title: "TurboLoop CEO Podcast — Episode 4: TurboShield Explained", caption: "CEO Dave breaks down TurboShield — how on-chain insurance works in DeFi. AI-dubbed in 65 languages." },
+      // { url: `${R2}/thumbnails/ep4/ep4_thumb_en.jpg`, title: "TurboLoop Global Ambassador Podcast — Episode 4: TurboShield Explained", caption: "Global Ambassador Dave breaks down TurboShield — how on-chain insurance works in DeFi. AI-dubbed in 65 languages." },
     ],
   },
 ];

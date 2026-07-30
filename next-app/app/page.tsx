@@ -212,15 +212,15 @@ const homeJsonLd = {
     {
       "@type": "VideoObject",
       "@id": "https://www.turboloop.tech/#podcast-ep2",
-      "name": "Is TurboLoop Legit? CEO Answers 19 Tough DeFi Questions",
-      "description": "Is TurboLoop a scam or the best DeFi protocol of 2025? CEO Dave answers 19 tough questions about security, audits, and sustainable yield on BSC.",
+      "name": "Is TurboLoop Legit? Global Ambassador Answers 19 Tough DeFi Questions",
+      "description": "Is TurboLoop a scam or the best DeFi protocol of 2025? Global Ambassador Dave answers 19 tough questions about security, audits, and sustainable yield on BSC.",
       "thumbnailUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-explainer-en-thumb.jpg",
       "uploadDate": "2026-07-01T00:00:00Z",
       "duration": "PT21M",
       "contentUrl": "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep2-en.mp4",
       "embedUrl": "https://www.youtube.com/embed/cKm_XQpK4NI",
       "publisher": { "@id": "https://www.turboloop.tech/#organization" },
-      "keywords": "TurboLoop, DeFi AMA, Crypto Audit, Yield Farming, BSC, CEO Interview",
+      "keywords": "TurboLoop, DeFi AMA, Crypto Audit, Yield Farming, BSC, Global Ambassador Interview",
       "inLanguage": ["en", "pt", "ja", "tr", "de", "fr", "it", "ar", "zh", "es", "th", "hi"],
     },
     {

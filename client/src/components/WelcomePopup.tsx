@@ -27,11 +27,29 @@ export default function WelcomePopup() {
     if (isLoadingTitle || isLoadingMessage) return;
     // Only show once per session
     const seen = sessionStorage.getItem("turboloop_welcome_seen");
-    if (!seen) {
-      // Small delay so the page loads first
-      const timer = setTimeout(() => setOpen(true), 800);
-      return () => clearTimeout(timer);
-    }
+    if (seen) return;
+
+    // IMPROVED: Show popup only after user has engaged (scrolled 30% OR 15s elapsed)
+    // This prevents immediate friction for new visitors and reduces bounce rate.
+    let triggered = false;
+    const trigger = () => {
+      if (triggered) return;
+      triggered = true;
+      setOpen(true);
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(fallbackTimer);
+    };
+    const onScroll = () => {
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrollPercent > 0.3) trigger();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Fallback: show after 15s even if user hasn't scrolled (they're reading hero)
+    const fallbackTimer = setTimeout(trigger, 15000);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(fallbackTimer);
+    };
   }, [isLoadingTitle, isLoadingMessage]);
 
   const handleClose = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// /podcast — TurboLoop CEO Podcast Page
+// /podcast — TurboLoop Global Ambassador Podcast Page
 //
 // ✅  FULLY DATA-DRIVEN — no hardcoded episode blocks.
 //     To add a new episode: edit next-app/lib/episodes.config.ts only.
@@ -333,7 +333,7 @@ function EpisodeSection({
           <p className={`relative z-10 text-sm sm:text-base font-medium leading-relaxed italic mt-3 ${badgeColors.text}`}>
             &ldquo;{ep.quote}&rdquo;
           </p>
-          <p className="mt-3 text-xs text-gray-500 font-semibold uppercase tracking-widest">— CEO Dave</p>
+          <p className="mt-3 text-xs text-gray-500 font-semibold uppercase tracking-widest">— Global Ambassador Dave</p>
         </div>
       </div>
     </section>
@@ -441,7 +441,7 @@ export default function PodcastPage() {
             <span>The TurboLoop Podcast</span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] mb-6">
-            <span className="text-white">CEO Dave.</span>
+            <span className="text-white">Global Ambassador Dave.</span>
             <br />
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               No Filters. No Scripts.
@@ -450,7 +450,7 @@ export default function PodcastPage() {
             <span className="text-white">Just Truth.</span>
           </h1>
           <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
-            The definitive DeFi podcast series — where TurboLoop&apos;s CEO answers the questions
+            The definitive DeFi podcast series — where TurboLoop&apos;s Global Ambassador answers the questions
             your bank hopes you never ask.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 mb-10">

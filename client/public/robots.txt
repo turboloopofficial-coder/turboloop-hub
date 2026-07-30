@@ -1,6 +1,53 @@
+# TurboLoop Marketing Hub — Robots.txt
+# Updated: July 2026
+
+# Allow all crawlers full access to public content
 User-agent: *
 Allow: /
+Allow: /blog/
+Allow: /learn/
+Allow: /ecosystem/
+Allow: /vs/
+Allow: /films/
+Allow: /community/
+Allow: /security/
+Allow: /promotions/
+Allow: /library/
+Allow: /faq/
+Allow: /creatives/
+Allow: /roadmap/
+
+# Block admin and API routes
 Disallow: /admin/
 Disallow: /api/
+Disallow: /my-submissions/
 
+# Block utility pages from indexing
+Disallow: /offline
+Disallow: /404
+
+# Googlebot-specific: allow JS/CSS for rendering
+User-agent: Googlebot
+Allow: /*.js$
+Allow: /*.css$
+Allow: /api/og-banner
+Allow: /api/og
+
+# Sitemap location
 Sitemap: https://turboloop.tech/sitemap.xml
+
+# RSS Feed
+# https://turboloop.tech/rss.xml
+
+# Crawl-delay for less important bots (saves server resources)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 30
+
+# Host directive (legacy but some crawlers still use it)
+Host: https://turboloop.tech

@@ -4,14 +4,14 @@ import type { Metadata } from "next";
 const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 
 export const podcastMetadata: Metadata = {
-  title: "TurboLoop CEO Podcast — DeFi Explained by Dave | 3 Episodes · 65 Languages",
+  title: "TurboLoop Global Ambassador Podcast — DeFi Explained by Dave | 3 Episodes · 65 Languages",
   description:
-    "Watch CEO Dave answer the hardest questions about TurboLoop — security audits, smart contract architecture, and why 8,000+ users trust the protocol. 3 episodes · 56 minutes · AI-dubbed in 65 languages.",
+    "Watch Global Ambassador Dave answer the hardest questions about TurboLoop — security audits, smart contract architecture, and why 8,000+ users trust the protocol. 3 episodes · 56 minutes · AI-dubbed in 65 languages.",
   keywords: [
     // Brand + podcast
     "TurboLoop podcast",
-    "TurboLoop CEO podcast",
-    "TurboLoop CEO Dave",
+    "TurboLoop Global Ambassador podcast",
+    "TurboLoop Global Ambassador Dave",
     "TurboLoop explained",
     "is TurboLoop legit",
     "TurboLoop AMA",
@@ -36,9 +36,9 @@ export const podcastMetadata: Metadata = {
     "crypto podcast 65 languages",
   ],
   openGraph: {
-    title: "TurboLoop CEO Podcast — No Filters. No Scripts. Just Truth.",
+    title: "TurboLoop Global Ambassador Podcast — No Filters. No Scripts. Just Truth.",
     description:
-      "CEO Dave answers the hardest questions about TurboLoop. 3 episodes · 56 min · AI-dubbed in 65 languages. Watch free.",
+      "Global Ambassador Dave answers the hardest questions about TurboLoop. 3 episodes · 56 min · AI-dubbed in 65 languages. Watch free.",
     url: "https://www.turboloop.tech/podcast",
     siteName: "TurboLoop",
     images: [
@@ -47,16 +47,16 @@ export const podcastMetadata: Metadata = {
         url: `${R2}/images/turboloop-ep2-thumbnail.jpg`,
         width: 1280,
         height: 720,
-        alt: "TurboLoop CEO Podcast — 3 Episodes, 65 Languages, No Scripts",
+        alt: "TurboLoop Global Ambassador Podcast — 3 Episodes, 65 Languages, No Scripts",
       },
     ],
     type: "video.other",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TurboLoop CEO Podcast — No Filters. No Scripts. Just Truth.",
+    title: "TurboLoop Global Ambassador Podcast — No Filters. No Scripts. Just Truth.",
     description:
-      "CEO Dave answers the hardest questions about TurboLoop. 3 episodes · 56 min · AI-dubbed in 65 languages. Watch free.",
+      "Global Ambassador Dave answers the hardest questions about TurboLoop. 3 episodes · 56 min · AI-dubbed in 65 languages. Watch free.",
     images: [`${R2}/images/turboloop-ep2-thumbnail.jpg`],
   },
   alternates: {

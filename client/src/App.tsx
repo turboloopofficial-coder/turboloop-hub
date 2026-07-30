@@ -9,9 +9,12 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import PageLoader from "./components/PageLoader";
 import NavProgressBar from "./components/NavProgressBar";
-import AnalyticsTracker from "./components/AnalyticsTracker";
+import AnalyticsTrackerEnhanced from "./components/AnalyticsTrackerEnhanced";
 import InstallPrompt from "./components/InstallPrompt";
 import MobileCTABar from "./components/MobileCTABar";
+import LocaleDetector from "./components/LocaleDetector";
+import PushNotificationPrompt from "./components/PushNotificationPrompt";
+import ExitIntentCapture from "./components/ExitIntentCapture";
 
 // Heavy pages — code-split so they don't bloat the homepage bundle
 const FeedPage = lazy(() => import("./pages/FeedPage"));
@@ -137,10 +140,13 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <NavProgressBar />
-          <AnalyticsTracker />
+          <AnalyticsTrackerEnhanced />
           <Router />
           <MobileCTABar />
           <InstallPrompt />
+          <LocaleDetector />
+          <PushNotificationPrompt />
+          <ExitIntentCapture />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

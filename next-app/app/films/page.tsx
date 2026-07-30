@@ -363,7 +363,7 @@ export default async function FilmsPage({ searchParams }: { searchParams: Promis
           </section>
         );
       })}
-      {/* Cross-link CTA to the CEO Podcast page */}
+      {/* Cross-link CTA to the Global Ambassador Podcast page */}
       <section className="py-10 md:py-14 border-t border-[var(--c-border)]">
         <Container width="wide">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-[var(--r-xl)] bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--s-md)] px-6 py-6">
@@ -372,15 +372,15 @@ export default async function FilmsPage({ searchParams }: { searchParams: Promis
                 <span className="text-2xl" aria-hidden="true">🎤</span>
               </div>
               <div>
-                <p className="text-sm font-bold text-[var(--c-text)]">CEO Podcast — 4 Episodes · 67 min · 65 Languages</p>
-                <p className="text-xs text-[var(--c-text-muted)] mt-0.5">CEO Dave answers the hardest questions about TurboLoop. No scripts, no filters.</p>
+                <p className="text-sm font-bold text-[var(--c-text)]">Global Ambassador Podcast — 4 Episodes · 67 min · 65 Languages</p>
+                <p className="text-xs text-[var(--c-text-muted)] mt-0.5">Global Ambassador Dave answers the hardest questions about TurboLoop. No scripts, no filters.</p>
               </div>
             </div>
             <Link
               href="/podcast"
               className="inline-flex items-center gap-2 px-5 h-10 rounded-[var(--r-lg)] text-sm font-bold text-white bg-brand shadow-[var(--s-brand)] hover:shadow-[var(--s-xl)] transition active:scale-[0.985] flex-shrink-0"
             >
-              Watch CEO Podcast →
+              Watch Global Ambassador Podcast →
             </Link>
           </div>
         </Container>

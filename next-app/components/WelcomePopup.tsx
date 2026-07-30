@@ -1,17 +1,15 @@
 "use client";
 
-// WelcomePopup — restored from legacy SPA (a22abb3 client/src/components
-// /WelcomePopup.tsx). Was lost during the Vite → Next.js migration.
+// WelcomePopup — scroll-based trigger for better UX.
 //
-// Sizing fix per audit: width: min(420px, calc(100vw - 2rem)),
-// max-height: calc(100vh - 4rem), internal scroll if content overflows.
-// Tested at 320 / 375 / 414 / 768 px.
+// Trigger logic: shows when user scrolls 30% of the page OR after 15 seconds,
+// whichever comes first. This ensures engaged users see it at the right moment
+// instead of being interrupted immediately on load.
 //
-// Behavior: appears 800 ms after first session visit, sets a session
-// flag on close so it never re-appears in the same browsing session.
-// No framer-motion (CSS keyframe entrance keeps the bundle slim).
+// Suppressed on /creatives (users already engaged with banner library).
+// Sets sessionStorage flag on close so it never re-appears in the same session.
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Sparkles, X, ExternalLink } from "lucide-react";
@@ -25,34 +23,63 @@ const MESSAGE = [
   "Whether you're new to DeFi or an experienced investor, the protocol is designed to be transparent, audited, renounced, and open to everyone.",
 ];
 
+const SCROLL_THRESHOLD = 0.30; // 30% of page
+const TIME_THRESHOLD = 15000;  // 15 seconds
+
 export function WelcomePopup() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const triggerPopup = useCallback(() => {
+    setOpen(true);
+  }, []);
+
   useEffect(() => {
     setMounted(true);
-    // Suppress the popup on the creatives hub — users there are already
-    // engaged with the banner library and don't need an intro modal.
+    // Suppress on creatives hub
     if (pathname?.startsWith("/creatives")) return;
-    let cancelled = false;
-    let timer: ReturnType<typeof setTimeout> | null = null;
+    // Already seen this session
     try {
       if (sessionStorage.getItem(SESSION_KEY)) return;
     } catch {}
-    // Increased from 800ms → 2000ms so users can start interacting before
-    // the popup appears.
-    timer = setTimeout(() => {
-      if (!cancelled) setOpen(true);
-    }, 2000);
+
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let triggered = false;
+
+    const handleTrigger = () => {
+      if (triggered || cancelled) return;
+      triggered = true;
+      triggerPopup();
+      // Clean up
+      if (timer) clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    // Scroll-based trigger: fire when user scrolls 30% of page
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0 && scrollTop / docHeight >= SCROLL_THRESHOLD) {
+        handleTrigger();
+      }
+    };
+
+    // Time-based fallback: fire after 15 seconds regardless
+    timer = setTimeout(handleTrigger, TIME_THRESHOLD);
+
+    // Listen for scroll
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
       cancelled = true;
       if (timer) clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [pathname, triggerPopup]);
 
-  // Lock body scroll while open — uses counter-based hook so multiple
-  // concurrent modals can't fight each other and leave scroll locked.
+  // Lock body scroll while open
   useScrollLock(open);
 
   useEffect(() => {
@@ -98,7 +125,6 @@ export function WelcomePopup() {
           onClick={e => e.stopPropagation()}
           className="relative rounded-2xl overflow-hidden"
           style={{
-            // Audit-mandated sizing: works at 320 / 375 / 414 / 768.
             width: "min(420px, calc(100vw - 2rem))",
             maxHeight: "calc(100vh - 4rem)",
             background: "var(--c-surface, #ffffff)",
@@ -116,7 +142,7 @@ export function WelcomePopup() {
             }}
           />
 
-          {/* Close button — top right, 44×44 hit area */}
+          {/* Close button */}
           <button
             onClick={handleClose}
             type="button"

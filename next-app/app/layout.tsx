@@ -26,6 +26,9 @@ import { ConsentBanner } from "@components/analytics/ConsentBanner";
 import { SmartNotifications } from "@components/notifications/SmartNotifications";
 import { ChatWidget } from "@components/chatbot/ChatWidget";
 import { LocaleHtmlLang } from "@components/layout/LocaleHtmlLang";
+import { EnhancedTracker } from "@components/analytics/EnhancedTracker";
+import { LocaleDetector } from "@components/LocaleDetector";
+import { ExitIntentCapture } from "@components/ExitIntentCapture";
 
 // Build-time check: only emit the GA bootstrap (consent defaults + Script
 // tags + banner) when the measurement ID is actually configured. Avoids
@@ -518,6 +521,9 @@ export default function RootLayout({
         {/* Analytics last so the gtag.js fetch never blocks first paint.
             Renders nothing if NEXT_PUBLIC_GA_MEASUREMENT_ID isn't set. */}
         <GoogleAnalytics />
+        <EnhancedTracker />
+        <LocaleDetector />
+        <ExitIntentCapture />
       </body>
     </html>
   );

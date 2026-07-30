@@ -74,42 +74,37 @@ function pickLang(s: string | undefined): SupportedLang {
   return isSupportedLang(s) ? s : "en";
 }
 
-export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const { lang: langParam } = await searchParams;
-  const lang = pickLang(langParam);
-  const content = TOKEN_PAGE_CONTENT[lang];
-  const canonical =
-    lang === "en" ? CANONICAL : `${CANONICAL}?lang=${lang}`;
-  const title = `$${TOKEN.symbol} — ${content.hero_title} | ${TOKEN.network}`;
-  const desc = content.hero_subtitle;
-  return {
-    title,
-    description: desc,
-    alternates: {
-      canonical,
-      languages: {
-        en: CANONICAL,
-        de: `${CANONICAL}?lang=de`,
-        hi: `${CANONICAL}?lang=hi`,
-        id: `${CANONICAL}?lang=id`,
-        "x-default": CANONICAL,
-      },
+// generateMetadata must NOT read searchParams — doing so makes the page
+// dynamic (ƒ) even with force-static, because Next.js 15 evaluates metadata
+// before the static rendering decision. We use English metadata for all
+// variants; the per-language content is rendered in the page component.
+export const metadata: Metadata = {
+  title: `$${TOKEN.symbol} — ${TOKEN_PAGE_CONTENT.en.hero_title} | ${TOKEN.network}`,
+  description: TOKEN_PAGE_CONTENT.en.hero_subtitle,
+  alternates: {
+    canonical: CANONICAL,
+    languages: {
+      en: CANONICAL,
+      de: `${CANONICAL}?lang=de`,
+      hi: `${CANONICAL}?lang=hi`,
+      id: `${CANONICAL}?lang=id`,
+      "x-default": CANONICAL,
     },
-    openGraph: {
-      title,
-      description: desc,
-      url: canonical,
-      type: "website",
-      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: title }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description: desc,
-      images: [OG_IMAGE],
-    },
-  };
-}
+  },
+  openGraph: {
+    title: `$${TOKEN.symbol} — ${TOKEN_PAGE_CONTENT.en.hero_title} | ${TOKEN.network}`,
+    description: TOKEN_PAGE_CONTENT.en.hero_subtitle,
+    url: CANONICAL,
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: `$${TOKEN.symbol} — ${TOKEN_PAGE_CONTENT.en.hero_title} | ${TOKEN.network}` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `$${TOKEN.symbol} — ${TOKEN_PAGE_CONTENT.en.hero_title} | ${TOKEN.network}`,
+    description: TOKEN_PAGE_CONTENT.en.hero_subtitle,
+    images: [OG_IMAGE],
+  },
+};
 
 /** Returns the circulating supply for the JSON-LD payload.
  *  Uses the hardcoded value from tokenFacts.ts (the source of truth for

@@ -16,7 +16,6 @@ import { Card } from "@components/ui/Card";
 import { Heading } from "@components/ui/Heading";
 import { PageHero } from "@components/layout/PageHero";
 import { SECURITY } from "@lib/constants";
-import { getPageLocale } from "@lib/getPageLocale";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 3600; // 1 hour — security page is mostly static content
@@ -164,12 +163,12 @@ const PILLARS: Pillar[] = [
 ];
 
 export default async function SecurityPage() {
-  // setRequestLocale('en') must be called before getTranslations so that
-  // next-intl resolves the locale from the set value instead of reading
-  // headers(), which would make this page dynamic (private, no-cache).
+  // Root-level pages always render English. setRequestLocale('en') tells
+  // next-intl to use 'en' without reading headers() (which would make the
+  // page dynamic). We also pass locale:'en' directly to getTranslations
+  // so it never falls back to reading headers() either.
   setRequestLocale('en');
-  const locale = await getPageLocale();
-  const t = await getTranslations({ locale, namespace: "security" });
+  const t = await getTranslations({ locale: 'en', namespace: "security" });
   return (
     <main className="relative pb-12 md:pb-20">
       <script

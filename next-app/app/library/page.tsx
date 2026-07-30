@@ -18,7 +18,6 @@ import { PageHero } from "@components/layout/PageHero";
 import { api } from "@lib/api";
 import { LANGUAGE_FLAGS, getFlagUrl } from "@lib/constants";
 import { FILMS } from "@lib/cinematicUniverse";
-import { getPageLocale } from "@lib/getPageLocale";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 60; // 1 minute — so new presentations appear quickly
@@ -53,12 +52,12 @@ function slugFromUrl(videoUrl: string): string | null {
 }
 
 export default async function LibraryPage() {
-  // setRequestLocale('en') must be called before getTranslations so that
-  // next-intl resolves the locale from the set value instead of reading
-  // headers(), which would make this page dynamic (private, no-cache).
+  // Root-level pages always render English. setRequestLocale('en') tells
+  // next-intl to use 'en' without reading headers() (which would make the
+  // page dynamic). We also pass locale:'en' directly to getTranslations
+  // so it never falls back to reading headers() either.
   setRequestLocale('en');
-  const locale = await getPageLocale();
-  const t = await getTranslations({ locale, namespace: "library" });
+  const t = await getTranslations({ locale: 'en', namespace: "library" });
   const [presentations, videos] = await Promise.all([
     api.presentations(),
     api.videos(),

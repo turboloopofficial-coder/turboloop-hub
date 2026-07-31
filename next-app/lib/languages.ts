@@ -70,7 +70,7 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     rssDescription: "บทความเชิงลึกเกี่ยวกับ DeFi, ผลตอบแทน, ความปลอดภัย และคณิตศาสตร์เบื้องหลัง TurboLoop."
   },
   ko: {
-    code: "ko", locale: "ko", name: "Korean (alt)", nativeName: "한국어 (alt)", flag: "🇰🇷",
+    code: "ko", locale: "ko", name: "Korean", nativeName: "한국어", flag: "🇰🇷",
     bcp47: "ko-kr", slugSuffix: "-ko", telegramChannel: null,
     rssTitle: "Turbo Loop — 에디토리얼",
     rssDescription: "DeFi, 수익, 보안 및 TurboLoop의 수학에 관한 심층 기사."
@@ -82,7 +82,7 @@ export const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     rssDescription: "DeFi, 수익, 보안 및 TurboLoop의 수학에 관한 심층 기사."
   },
   lo: {
-    code: "lo", locale: "lo", name: "Lao (alt)", nativeName: "ພາສາລາວ (alt)", flag: "🇱🇦",
+    code: "lo", locale: "lo", name: "Lao", nativeName: "ພາສາລາວ", flag: "🇱🇦",
     bcp47: "lo-la", slugSuffix: "-lo", telegramChannel: null,
     rssTitle: "Turbo Loop — ບົດບັນນາທິການ",
     rssDescription: "ບົດຄວາມລະອຽດກ່ຽວກັບ DeFi, ຜົນຕອບແທນ, ຄວາມປອດໄພ ແລະ ຄະນິດສາດທີ່ຢູ່ເບື້ອງຼັງ TurboLoop."

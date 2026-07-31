@@ -1,0 +1,13 @@
+name = "turboloop-cron-trigger"
+main = "index.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+account_id = "68826d73a0ff6068b5a37bb3ded7e980"
+
+# Cron triggers — replaces Vercel's built-in cron scheduler
+# This runs every 5 minutes, which matches the existing Vercel cron schedule
+[triggers]
+crons = ["*/5 * * * *"]
+
+# No KV, R2, or D1 bindings needed — this worker only makes HTTP calls

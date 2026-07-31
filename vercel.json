@@ -47,19 +47,5 @@
       "memory": 256,
       "maxDuration": 10
     }
-  },
-  "crons": [
-    {
-      "path": "/api/cron/master",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/publish-blog",
-      "schedule": "0 4 * * *"
-    },
-    {
-      "path": "/api/cron/token-data",
-      "schedule": "*/5 * * * *"
-    }
-  ]
+  }
 }

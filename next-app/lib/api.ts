@@ -286,7 +286,7 @@ export const api = {
   /** Listing-safe endpoint: omits `content` so the payload stays under
    *  Next.js's 2 MB data-cache limit. Use this on the /blog index page.
    *  Individual post pages should use blogPost(slug) instead. */
-  blogPostsList: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsList"),
+  blogPostsList: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsList", undefined, { revalidate: 3600 }),
   /** Homepage-optimised: top 5 posts per language (~75 posts total).
    *  Use this instead of blogPostsList on the homepage to avoid the
    *  4 MB RSC payload. Revalidates every 5 minutes (same as blogPostsList). */

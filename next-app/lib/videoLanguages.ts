@@ -160,163 +160,163 @@ export const LANGUAGES: VideoLanguage[] = [
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "fi", label: "Finnish",     nativeLabel: "Suomi",             flag: "🇫🇮", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-fi.mp4`,  youtubeUrl: "https://youtu.be/yPYSvjkNFCk",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-fi.mp4`,  youtubeUrl: "https://youtu.be/f6wE6U7aaBU",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "no", label: "Norwegian",   nativeLabel: "Norsk",             flag: "🇳🇴", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-no.mp4`,  youtubeUrl: "https://youtu.be/TaKLLCVqPSA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-no.mp4`,  youtubeUrl: "https://youtu.be/7l22-r-QRPQ",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "el", label: "Greek",       nativeLabel: "Ελληνικά",          flag: "🇬🇷", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-el.mp4`,  youtubeUrl: "https://youtu.be/7sPBwXfHKlI",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-el.mp4`,  youtubeUrl: "https://youtu.be/YEU6w6KGLHk",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "cs", label: "Czech",       nativeLabel: "Čeština",           flag: "🇨🇿", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-cs.mp4`,  youtubeUrl: "https://youtu.be/jWCcBFqkGOA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-cs.mp4`,  youtubeUrl: "https://youtu.be/c-x4cz0xtNY",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "hu", label: "Hungarian",   nativeLabel: "Magyar",            flag: "🇭🇺", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-hu.mp4`,  youtubeUrl: "https://youtu.be/Hy8DKJL5CYA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-hu.mp4`,  youtubeUrl: "https://youtu.be/BYsAnRvdFO8",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "ro", label: "Romanian",    nativeLabel: "Română",            flag: "🇷🇴", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ro.mp4`,  youtubeUrl: "https://youtu.be/TjFpGp0Jkpg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ro.mp4`,  youtubeUrl: "https://youtu.be/s9xcxGsCq3k",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "sk", label: "Slovak",      nativeLabel: "Slovenčina",        flag: "🇸🇰", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-sk.mp4`,  youtubeUrl: "https://youtu.be/KNbBJD1CXAE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-sk.mp4`,  youtubeUrl: "https://youtu.be/BNrPkTVNoOk",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "uk", label: "Ukrainian",   nativeLabel: "Українська",        flag: "🇺🇦", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-uk.mp4`,  youtubeUrl: "https://youtu.be/Gy1CKgNGCiQ",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-uk.mp4`,  youtubeUrl: "https://youtu.be/IK7ME7HlCF8",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "bg", label: "Bulgarian",   nativeLabel: "Български",         flag: "🇧🇬", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-bg.mp4`,  youtubeUrl: "https://youtu.be/Nqb-0Oa2kYI",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-bg.mp4`,  youtubeUrl: "https://youtu.be/eeaBDI6mimM",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "hr", label: "Croatian",    nativeLabel: "Hrvatski",          flag: "🇭🇷", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-hr.mp4`,  youtubeUrl: "https://youtu.be/nFWYzpBqpQk",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-hr.mp4`,  youtubeUrl: "https://youtu.be/-bwJmtH4ma8",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "sr", label: "Serbian",     nativeLabel: "Српски",            flag: "🇷🇸", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-sr.mp4`,  youtubeUrl: "https://youtu.be/MQBqoVzBfHg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-sr.mp4`,  youtubeUrl: "https://youtu.be/-ChmY8iT_6s",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "sl", label: "Slovenian",   nativeLabel: "Slovenščina",       flag: "🇸🇮", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-sl.mp4`,  youtubeUrl: "https://youtu.be/VcGDPHHiMRg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-sl.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "lt", label: "Lithuanian",  nativeLabel: "Lietuvių",          flag: "🇱🇹", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-lt.mp4`,  youtubeUrl: "https://youtu.be/6XbgRQJXVbI",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-lt.mp4`,  youtubeUrl: "https://youtu.be/uh-qClc3A7g",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "lv", label: "Latvian",     nativeLabel: "Latviešu",          flag: "🇱🇻", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-lv.mp4`,  youtubeUrl: "https://youtu.be/Ry-nrJJIaRQ",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-lv.mp4`,  youtubeUrl: "https://youtu.be/-1Ctmy43gHE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "et", label: "Estonian",    nativeLabel: "Eesti",             flag: "🇪🇪", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-et.mp4`,  youtubeUrl: "https://youtu.be/Zy4LmJXBgHE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-et.mp4`,  youtubeUrl: "https://youtu.be/GiHONYbtrIw",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "ms", label: "Malay",       nativeLabel: "Bahasa Melayu",     flag: "🇲🇾", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ms.mp4`,  youtubeUrl: "https://youtu.be/Oc6ViMjWMaE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ms.mp4`,  youtubeUrl: "https://youtu.be/jOlIx0piPwE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: { video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-ms.mp4`, youtubeUrl: "https://youtu.be/XOlSn_e2dnI", thumb: `${R2_PUB}/videos/turboloop-ep3-en-thumb.jpg` }, ep4: N, ep5: N,
   }},
   { code: "tl", label: "Filipino",    nativeLabel: "Filipino",          flag: "🇵🇭", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-tl.mp4`,  youtubeUrl: "https://youtu.be/PN2GgdqJmkA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-tl.mp4`,  youtubeUrl: "https://youtu.be/hVgtYRVMSYo",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "ta", label: "Tamil",       nativeLabel: "தமிழ்",             flag: "🇮🇳", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ta.mp4`,  youtubeUrl: "https://youtu.be/Yv2GJmWxkxE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ta.mp4`,  youtubeUrl: "https://youtu.be/jk-56qXOSDc",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "bn", label: "Bangla",      nativeLabel: "বাংলা",             flag: "🇧🇩", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-bn.mp4`,  youtubeUrl: "https://youtu.be/Kz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-bn.mp4`,  youtubeUrl: "https://youtu.be/hf558S_88z0",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "te", label: "Telugu",      nativeLabel: "తెలుగు",            flag: "🇮🇳", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-te.mp4`,  youtubeUrl: "https://youtu.be/EFJYhXFJjhE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-te.mp4`,  youtubeUrl: "https://youtu.be/NT9VQ5xSVPA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "mr", label: "Marathi",     nativeLabel: "मराठी",             flag: "🇮🇳", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-mr.mp4`,  youtubeUrl: "https://youtu.be/Wr2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-mr.mp4`,  youtubeUrl: "https://youtu.be/1qxrYD-FNmo",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "gu", label: "Gujarati",    nativeLabel: "ગુજરાતી",           flag: "🇮🇳", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-gu.mp4`,  youtubeUrl: "https://youtu.be/Gz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-gu.mp4`,  youtubeUrl: "https://youtu.be/ubKnk_KiHbE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "kn", label: "Kannada",     nativeLabel: "ಕನ್ನಡ",             flag: "🇮🇳", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-kn.mp4`,  youtubeUrl: "https://youtu.be/Hz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-kn.mp4`,  youtubeUrl: "https://youtu.be/9MeB1weV1Ug",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "ml", label: "Malayalam",   nativeLabel: "മലയാളം",            flag: "🇮🇳", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ml.mp4`,  youtubeUrl: "https://youtu.be/Iz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ml.mp4`,  youtubeUrl: "https://youtu.be/_g_5AKLPqzs",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "ur", label: "Urdu",        nativeLabel: "اردو",              flag: "🇵🇰", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ur.mp4`,  youtubeUrl: "https://youtu.be/Jz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ur.mp4`,  youtubeUrl: "https://youtu.be/VN_R65mgyyU",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: { video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-ur.mp4`, youtubeUrl: "https://youtu.be/WwMvNnOkMLQ", thumb: `${R2_PUB}/videos/turboloop-ep3-en-thumb.jpg` }, ep4: N, ep5: N,
   }},
   { code: "fa", label: "Persian",     nativeLabel: "فارسی",             flag: "🇮🇷", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-fa.mp4`,  youtubeUrl: "https://youtu.be/Kz2kJxMVAMF",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-fa.mp4`,  youtubeUrl: "https://youtu.be/ikS5FO7D1eU",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "he", label: "Hebrew",      nativeLabel: "עברית",             flag: "🇮🇱", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-he.mp4`,  youtubeUrl: "https://youtu.be/Lz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-he.mp4`,  youtubeUrl: "https://youtu.be/QD5Ctj5yPLE",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "sw", label: "Swahili",     nativeLabel: "Kiswahili",         flag: "🇰🇪", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-sw.mp4`,  youtubeUrl: "https://youtu.be/Mz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-sw.mp4`,  youtubeUrl: "https://youtu.be/lferGVzrDgY",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: { video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-sw.mp4`, youtubeUrl: "https://youtu.be/Es5sXYv2gkk", thumb: `${R2_PUB}/videos/turboloop-ep3-en-thumb.jpg` }, ep4: N, ep5: N,
   }},
   { code: "am", label: "Amharic",     nativeLabel: "አማርኛ",              flag: "🇪🇹", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-am.mp4`,  youtubeUrl: "https://youtu.be/Nz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-am.mp4`,  youtubeUrl: "https://youtu.be/85jxzJR00Hs",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "yo", label: "Yoruba",      nativeLabel: "Yorùbá",            flag: "🇳🇬", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-yo.mp4`,  youtubeUrl: "https://youtu.be/Oz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-yo.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "zu", label: "Zulu",        nativeLabel: "isiZulu",           flag: "🇿🇦", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-zu.mp4`,  youtubeUrl: "https://youtu.be/Pz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-zu.mp4`,  youtubeUrl: "https://youtu.be/Ho_dPu1uL1k",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: { video: `https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/videos/turboloop-ep3-zu.mp4`, youtubeUrl: "https://youtu.be/p7mXj8bhnhU", thumb: `${R2_PUB}/videos/turboloop-ep3-en-thumb.jpg` }, ep4: N, ep5: N,
   }},
   { code: "ig", label: "Igbo",        nativeLabel: "Igbo",              flag: "🇳🇬", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ig.mp4`,  youtubeUrl: "https://youtu.be/Qz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ig.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "ha", label: "Hausa",       nativeLabel: "Hausa",             flag: "🇳🇬", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-ha.mp4`,  youtubeUrl: "https://youtu.be/Rz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-ha.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "sn", label: "Shona",       nativeLabel: "Shona",             flag: "🇿🇼", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-sn.mp4`,  youtubeUrl: "https://youtu.be/Sz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-sn.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "st", label: "Sesotho",     nativeLabel: "Sesotho",           flag: "🇱🇸", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-st.mp4`,  youtubeUrl: "https://youtu.be/Tz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-st.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "xh", label: "Xhosa",       nativeLabel: "isiXhosa",          flag: "🇿🇦", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-xh.mp4`,  youtubeUrl: "https://youtu.be/Uz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-xh.mp4`,  youtubeUrl: "https://youtu.be/LFViES_Qbzg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "az", label: "Azerbaijani", nativeLabel: "Azərbaycan",        flag: "🇦🇿", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-az.mp4`,  youtubeUrl: "https://youtu.be/Vz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-az.mp4`,  youtubeUrl: "https://youtu.be/7fBj0OA7OQA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "kk", label: "Kazakh",      nativeLabel: "Қазақша",           flag: "🇰🇿", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-kk.mp4`,  youtubeUrl: "https://youtu.be/Wz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-kk.mp4`,  youtubeUrl: "https://youtu.be/6aAnMuf5wZ0",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "uz", label: "Uzbek",       nativeLabel: "Oʻzbekcha",         flag: "🇺🇿", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-uz.mp4`,  youtubeUrl: "https://youtu.be/Xz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-uz.mp4`,  youtubeUrl: "https://youtu.be/ZIkhITW8jkg",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "my", label: "Burmese",     nativeLabel: "မြန်မာ",            flag: "🇲🇲", episodes: {
-    ep1: { video: `${R2_BASE}/turboloop-explainer-my.mp4`,  youtubeUrl: "https://youtu.be/Yz2kJxMVAME",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
+    ep1: { video: `${R2_BASE}/turboloop-explainer-my.mp4`,  youtubeUrl: "https://youtu.be/hoGpuRboFnA",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },
     ep2: N, ep3: N, ep4: N, ep5: N,
   }},
   { code: "km", label: "Khmer",       nativeLabel: "ភាសាខ្មែរ",         flag: "🇰🇭", episodes: {

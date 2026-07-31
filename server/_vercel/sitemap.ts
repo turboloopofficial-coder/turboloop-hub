@@ -119,7 +119,20 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
 
     // Blog posts (published only) — with per-blog OG image
-    const publishedPosts = await db.select().from(blogPosts).where(eq(blogPosts.published, true));
+    // PERF: select only the columns needed for the sitemap (slug, title, coverImage,
+    // updatedAt, scheduledPublishAt, createdAt) instead of SELECT * which pulls
+    // the full content field (~52 MB) on every sitemap request.
+    const publishedPosts = await db
+      .select({
+        slug: blogPosts.slug,
+        title: blogPosts.title,
+        coverImage: blogPosts.coverImage,
+        updatedAt: blogPosts.updatedAt,
+        scheduledPublishAt: blogPosts.scheduledPublishAt,
+        createdAt: blogPosts.createdAt,
+      })
+      .from(blogPosts)
+      .where(eq(blogPosts.published, true));
     for (const p of publishedPosts) {
       // Use scheduled_publish_at as lastmod if present (real publish date), else updated/created
       const lastmodDate = p.updatedAt || p.scheduledPublishAt || p.createdAt;

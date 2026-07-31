@@ -132,7 +132,30 @@ export const appRouter = router({
   }),
 
   content: router({
-    blogPosts: publicProcedure.query(() => listBlogPosts(true)),
+    // ⚠️  DEPRECATED — DO NOT CALL FROM CLIENT COMPONENTS.
+    // This procedure returns ALL columns including the full `content` field
+    // (~52 MB for 4,700+ posts). Calling it from the browser caused 23,218 GB
+    // of Neon network transfer and a $2,271 bill in July 2026.
+    //
+    // Use instead:
+    //   trpc.content.blogPostsList        — all posts, no content field (~6 MB)
+    //   trpc.content.blogPostsByLanguage  — single language, no content (~50-200 KB)
+    //   trpc.content.blogPostsHomepage    — top 5 per language (~75 posts)
+    //   trpc.content.blogPost             — single post WITH content (by slug)
+    //
+    // The only legitimate server-side callers are: admin panel, RSS feed,
+    // sitemap generation, and the blog-translate cron job.
+    blogPosts: publicProcedure.query(async ({ ctx }) => {
+      // Log a warning every time this is called so spikes are visible in Vercel logs
+      const caller = (ctx as any)?.req?.headers?.['x-forwarded-for'] ||
+                     (ctx as any)?.req?.headers?.['referer'] || 'unknown';
+      console.warn(
+        `[PERF WARNING] content.blogPosts called — returns full content (~52 MB). ` +
+        `Caller: ${caller}. ` +
+        `Use blogPostsList / blogPostsByLanguage / blogPostsHomepage instead.`
+      );
+      return listBlogPosts(true);
+    }),
     // Listing-safe endpoint: omits the `content` field so the response
     // stays well under Next.js's 2 MB data-cache limit (full payload is
     // ~3.5 MB which silently breaks ISR and renders 0 posts on /blog).

@@ -187,6 +187,48 @@ Set in Vercel project settings for prod; in `.env` locally (gitignored).
 - **Vite chunk splitting**: heavy libs (mermaid, shiki, react-syntax-highlighter, radix, framer-motion, lucide, trpc, markdown stack) are manually chunked in `vite.config.ts` so the homepage stays light. Adding a new heavy dep that's only used on one page? Consider adding a chunk rule.
 - **No README.md**: per repo state. Don't create one unless asked. This file is the entry point.
 
+## ⚠️  Performance Rules — Neon Network Transfer (READ BEFORE ADDING ANY DB QUERY)
+
+In July 2026, a single misused tRPC endpoint caused **23,218 GB of Neon network transfer** and a **$2,271 bill** in one month. These rules are mandatory.
+
+### BANNED: `trpc.content.blogPosts.useQuery()` in client components
+
+This procedure runs `SELECT * FROM blog_posts` which returns the full `content` field for every post. With 4,700+ posts at ~11 KB each, **every call returns ~52 MB**. It was called 646,511 times in July 2026.
+
+**Never call `content.blogPosts` from any client-side component.** Use these instead:
+
+| Endpoint | When to use | Approx. size |
+|---|---|---|
+| `content.blogPostsList` | All posts, no content field | ~6 MB |
+| `content.blogPostsByLanguage` | Single language tab | ~50–200 KB |
+| `content.blogPostsHomepage` | Homepage preview (top 5/lang) | ~75 KB |
+| `content.blogPost({ slug })` | Single post page (full content) | ~15 KB |
+
+`content.blogPosts` is only for **server-side** callers: admin panel, RSS, sitemap, cron jobs.
+
+### BANNED: `db.select()` (SELECT *) on large tables
+
+Never use `.select()` without a column list on `blogPosts`, `videos`, or any table that has a large text/JSON column. Always enumerate the columns you actually need:
+
+```ts
+// ❌ WRONG — pulls 52 MB on every call
+const posts = await db.select().from(blogPosts).where(...);
+
+// ✅ RIGHT — pulls only what you need
+const posts = await db
+  .select({ slug: blogPosts.slug, title: blogPosts.title })
+  .from(blogPosts)
+  .where(...);
+```
+
+### Monitoring
+
+- Neon spending alert is set to **$50/month** — emails `devdady@proton.me` at $40 and $50.
+- Any call to `content.blogPosts` logs a `[PERF WARNING]` to Vercel function logs.
+- Check Neon console → Project → Monitoring → Query History if the bill spikes.
+
+---
+
 ## Deployment Protocol — direct push to main
 
 This repo runs in **fully-autonomous mode**: Claude pushes directly to `main`, no PR required. Vercel auto-deploys on push (~90s). To compensate for skipping PR review, **every push must run the full pre-push verification protocol below**. This is non-negotiable — never push broken code.

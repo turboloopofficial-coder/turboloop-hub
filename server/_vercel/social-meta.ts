@@ -94,8 +94,15 @@ async function metaForPath(path: string): Promise<Meta> {
     if (blogMatch) {
       const slug = decodeURIComponent(blogMatch[1]);
       const db = getDb();
+      // PERF: select only the columns needed for OG meta — do NOT use
+      // .select() (SELECT *) which pulls the full content field unnecessarily.
       const rows = await db
-        .select()
+        .select({
+          title: blogPosts.title,
+          excerpt: blogPosts.excerpt,
+          coverImage: blogPosts.coverImage,
+          createdAt: blogPosts.createdAt,
+        })
         .from(blogPosts)
         .where(eq(blogPosts.slug, slug))
         .limit(1);

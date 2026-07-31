@@ -34,7 +34,9 @@ export default function ActivityTicker() {
     return () => clearTimeout(t);
   }, []);
 
-  const { data: blogPosts } = trpc.content.blogPosts.useQuery(undefined, { enabled });
+  // PERF FIX: use blogPostsList (no `content` field, ~6 MB) instead of
+  // blogPosts (full content, ~52 MB). ActivityTicker only needs title/createdAt.
+  const { data: blogPosts } = trpc.content.blogPostsList.useQuery(undefined, { enabled });
   const { data: videos } = trpc.content.videos.useQuery(undefined, { enabled });
   const { data: presentations } = trpc.content.presentations.useQuery(undefined, { enabled });
   const { data: events } = trpc.content.events.useQuery(undefined, { enabled });

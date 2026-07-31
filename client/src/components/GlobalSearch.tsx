@@ -38,8 +38,12 @@ export default function GlobalSearch({ open, onClose }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [, navigate] = useLocation();
 
-  // Pull live blog posts + reels from tRPC and merge into the search index
-  const { data: blogPosts } = trpc.content.blogPosts.useQuery(undefined, {
+  // Pull live blog posts + reels from tRPC and merge into the search index.
+  // PERF FIX: use blogPostsList (no `content` field, ~6 MB) instead of
+  // blogPosts (full content, ~52 MB). Search uses only title + excerpt + first
+  // 2000 chars of content — excerpt covers most cases; content is now absent
+  // but the search quality impact is minimal vs the $2k/month Neon bill.
+  const { data: blogPosts } = trpc.content.blogPostsList.useQuery(undefined, {
     enabled: open,
   });
   const { data: videos } = trpc.content.videos.useQuery(undefined, {

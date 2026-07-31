@@ -31,7 +31,9 @@ export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
   const slug = params?.slug || "";
   const { data: post, isLoading } = trpc.content.blogPost.useQuery({ slug });
-  const { data: allPosts } = trpc.content.blogPosts.useQuery();
+  // PERF FIX: use blogPostsList (no `content` field) instead of blogPosts
+  // (full content, ~52 MB). Related posts only need slug/title/excerpt/coverImage.
+  const { data: allPosts } = trpc.content.blogPostsList.useQuery();
 
   const related = (allPosts ?? []).filter(p => p.slug !== slug).slice(0, 3);
 

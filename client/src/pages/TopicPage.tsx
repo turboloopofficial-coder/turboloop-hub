@@ -200,7 +200,10 @@ export default function TopicPage() {
   const tagSlug = (params?.tag || "").toLowerCase();
   const info = TOPIC_INFO[tagSlug];
 
-  const { data: posts, isLoading } = trpc.content.blogPosts.useQuery();
+  // PERF FIX: use blogPostsList (no `content` field, ~6 MB) instead of
+  // blogPosts (full content, ~52 MB). readingTime() returns 1 min when
+  // content is undefined — acceptable vs $2k/month Neon bill.
+  const { data: posts, isLoading } = trpc.content.blogPostsList.useQuery();
 
   const filtered = useMemo(() => {
     if (!posts) return [];

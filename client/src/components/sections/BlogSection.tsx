@@ -347,7 +347,10 @@ function CompactCard({ post }: { post: any }) {
 }
 
 export default function BlogSection() {
-  const { data: posts } = trpc.content.blogPosts.useQuery();
+  // PERF FIX: use blogPostsList (no `content` field, ~6 MB) instead of
+  // blogPosts (full content, ~52 MB). readingTime() handles content=undefined
+  // gracefully by returning 1 min. This section only shows title/excerpt/image.
+  const { data: posts } = trpc.content.blogPostsList.useQuery();
 
   // Sort by display date (newest publish-date first)
   const sortedPosts = posts

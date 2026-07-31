@@ -120,8 +120,11 @@ function CoverArt({
 export default function FeedPage() {
   const { data: videos, isLoading: videosLoading } =
     trpc.content.videos.useQuery();
+  // PERF FIX: use blogPostsList (no `content` field, ~6 MB) instead of
+  // blogPosts (full content, ~52 MB). Feed search falls back to title+excerpt
+  // when content is absent — acceptable trade-off vs $2k/month Neon bill.
   const { data: posts, isLoading: postsLoading } =
-    trpc.content.blogPosts.useQuery();
+    trpc.content.blogPostsList.useQuery();
   const isLoading = videosLoading || postsLoading;
   const [filter, setFilter] = useState<ContentType>("all");
   const [search, setSearch] = useState("");

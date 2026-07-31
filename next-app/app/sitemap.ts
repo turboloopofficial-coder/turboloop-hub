@@ -33,7 +33,7 @@ const LOCALIZED_PAGES = ["", "/calculator", "/faq", "/apply", "/token"];
 
 const BASE = "https://www.turboloop.tech";
 
-export const revalidate = 300; // 5 min, matches api.blogPostsList() ISR
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

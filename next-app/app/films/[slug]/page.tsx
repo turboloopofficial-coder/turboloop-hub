@@ -46,7 +46,7 @@ import {
 } from "@lib/filmsApi";
 import { SEASONS, FILMS as S1_FILMS } from "@lib/cinematicUniverse";
 
-export const revalidate = 300;
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 export const dynamicParams = true;
 
 const CANONICAL_HOST = "https://www.turboloop.tech";

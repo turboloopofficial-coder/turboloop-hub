@@ -56,7 +56,7 @@ import {
   type SupportedLang,
 } from "@lib/tokenPageContent";
 
-export const revalidate = 60;
+export const revalidate = 300; // 5 min ISR — token price data, keep fresher than blog
 // force-static tells Next.js to statically render this page even though it
 // reads searchParams. Without this, await searchParams opts the page into
 // dynamic rendering (private, no-cache). With force-static + revalidate=60,

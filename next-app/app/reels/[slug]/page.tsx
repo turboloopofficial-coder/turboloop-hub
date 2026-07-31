@@ -20,7 +20,7 @@ import { VideoObjectJsonLd } from "@components/seo/StructuredData";
 import { fetchAllReels, shouldShowNewBadge } from "@lib/reelsApi";
 import { ReelPlayer } from "./ReelPlayer";
 
-export const revalidate = 300;
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 export const dynamicParams = true;
 
 export async function generateStaticParams() {

@@ -48,7 +48,7 @@ import {
 } from "@lib/api";
 import { LANGUAGES } from "@lib/languages";
 
-export const revalidate = 300;
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 // ISR: blog posts are cached for 5 minutes at the CDN edge.
 // force-dynamic was previously set because api.turboloop.tech was unreliable at
 // build time — but that caused every blog post request to bypass CDN and hit a

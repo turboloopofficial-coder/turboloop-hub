@@ -22,7 +22,7 @@ import { fetchAllReels, shouldShowNewBadge } from "@lib/reelsApi";
 import { getPageLocale } from "@lib/getPageLocale";
 import { getTranslations } from "next-intl/server";
 
-export const revalidate = 300;
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 
 const TITLE = "Reels — TurboLoop";
 const DESC =

@@ -23,7 +23,7 @@ import { getTranslations } from "next-intl/server";
 
 // ISR — admins can publish/close roles without redeploy. 5 min is the
 // same cadence as /blog and /films.
-export const revalidate = 300;
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 
 const OG_TITLE =
   "Careers — Join the TurboLoop Presenter Team | Remote Positions";

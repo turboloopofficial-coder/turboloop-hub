@@ -25,7 +25,7 @@ const R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
 // During static build the external API can time out (>60s), so we skip static
 // generation and serve this route as a serverless function with ISR caching.
 export const dynamic = "force-dynamic";
-export const revalidate = 300;
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 
 // Per-page image bundles. `loc` is the page that hosts the image;
 // `images` are the brand-canonical images for that page. Captions are

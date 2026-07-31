@@ -23,7 +23,7 @@ import {
 import { LANGUAGE_ORDER } from "@lib/languages";
 import { BlogLanguageTabs } from "@components/blog/BlogLanguageTabs";
 
-export const revalidate = 300; // 5 min ISR
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 
 // Pre-render all language variants at build time so Vercel CDN can cache them.
 // Without generateStaticParams, next-intl's getRequestConfig calls headers() on

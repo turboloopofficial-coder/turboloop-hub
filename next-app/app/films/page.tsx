@@ -37,7 +37,7 @@ import { Heading } from "@components/ui/Heading";
 import { FilmCard, FilmCardSkeleton } from "@components/films/FilmCard";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const revalidate = 300; // 5 min ISR
+export const revalidate = 3600; // 1 hour ISR — reduced from 300s
 // force-static: films uses await searchParams for the ?lang= filter.
 // In Next.js 15, reading searchParams opts the page into dynamic rendering
 // (private, no-cache). force-static + revalidate=300 gives ISR caching.

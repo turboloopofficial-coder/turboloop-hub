@@ -290,17 +290,17 @@ export const api = {
   /** Homepage-optimised: top 5 posts per language (~75 posts total).
    *  Use this instead of blogPostsList on the homepage to avoid the
    *  4 MB RSC payload. Revalidates every 5 minutes (same as blogPostsList). */
-  blogPostsHomepage: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsHomepage", undefined, { revalidate: 300 }),
+  blogPostsHomepage: () => fetchTRPC<BlogPostSummary[]>("content.blogPostsHomepage", undefined, { revalidate: 3600 }),
   /** Per-language filtered query: returns posts for a single language only.
    *  Use this on the /blog index page instead of blogPostsList to avoid
    *  fetching all 4,700+ posts (6 MB, 7-13s). Each language is ~50-200 KB
    *  and is CDN-cached independently (s-maxage=300). */
   blogPostsByLanguage: (input: { language: string }) =>
-    fetchTRPC<BlogPostSummary[]>("content.blogPostsByLanguage", input, { revalidate: 300 }),
+    fetchTRPC<BlogPostSummary[]>("content.blogPostsByLanguage", input, { revalidate: 3600 }),
   /** Language counts: returns [{ language, count }] for all published posts.
    *  Tiny aggregation (~200 bytes) used by blog tab chips. CDN-cached 5 min. */
   blogPostsCounts: () =>
-    fetchTRPC<{ language: string | null; count: number }[]>("content.blogPostsCounts", undefined, { revalidate: 300 }),
+    fetchTRPC<{ language: string | null; count: number }[]>("content.blogPostsCounts", undefined, { revalidate: 3600 }),
   blogPost: (slug: string) =>
     fetchTRPC<BlogPost>("content.blogPost", { slug }),
   /** Tiny translation-group query: returns only the sibling slugs/languages for
@@ -311,7 +311,7 @@ export const api = {
     fetchTRPC<{ id: number; slug: string; language: string; translationOf: number | null; published: boolean }[]>(
       "content.blogPostSiblings",
       { rootId },
-      { revalidate: 300 }
+      { revalidate: 3600 }
     ),
   videos: () => fetchTRPC<Video[]>("content.videos"),
   presentations: () => fetchTRPC<Presentation[]>("content.presentations"),

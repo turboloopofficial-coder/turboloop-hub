@@ -249,7 +249,7 @@ export function generateStaticParams() {
   return [{}];
 }
 
-export const revalidate = 60;
+export const revalidate = 3600; // 1 hour ISR — reduced from 60s to cut Vercel function invocations ~98%
 
 export default async function HomePage() {
   // Tell next-intl this page is always English — prevents getRequestConfig

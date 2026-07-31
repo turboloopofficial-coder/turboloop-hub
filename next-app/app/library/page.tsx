@@ -20,7 +20,7 @@ import { LANGUAGE_FLAGS, getFlagUrl } from "@lib/constants";
 import { FILMS } from "@lib/cinematicUniverse";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const revalidate = 60; // 1 minute — so new presentations appear quickly
+export const revalidate = 3600; // 1 hour ISR — reduced from 60s
 
 export const metadata: Metadata = {
   title: "Content Library — Films, Reels & Presentations | TurboLoop",

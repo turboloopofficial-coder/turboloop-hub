@@ -12,8 +12,8 @@
 // `isInWindow(15, 0)`).
 
 export interface ZoomSession {
-  /** "en" | "hi" | "af" | "th" — used for banner palette + cron de-dup keys */
-  lang: "en" | "hi" | "af" | "th";
+  /** "en" | "hi" | "af" | "th" | "de" — used for banner palette + cron de-dup keys */
+  lang: "en" | "hi" | "af" | "th" | "de";
   /** Marketing title for the countdown card */
   title: string;
   /** One-line tease shown under the title */
@@ -140,7 +140,24 @@ export const ZOOM_TH: ZoomSession = {
   frequencyLabel: "Sun · Tue · Thu · Free",
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH];
+// ── German Community-Starter Call ───────────────────────────────────────────
+// One-time event: Sunday Aug 2 2026 · 21:30 Uhr Berlin (19:30 UTC)
+export const ZOOM_DE: ZoomSession = {
+  lang: "de",
+  platform: "zoom",
+  title: "TurboLoop Deutschland — Community-Starter Call",
+  description:
+    "Sonntag, 02.08.2026. Vorstellung, Dashboard-Erklärung, Erfahrungen & offene Fragerunde. Gemeinsam. Transparent. Informiert.",
+  link: "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1",
+  passcode: "577845",
+  timeLabel: "🇩🇪 21:30 Uhr (Berlin) · Sonntag, 02.08.2026",
+  startUtcMin: 19 * 60 + 30, // 19:30 UTC = 21:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [0], // Sunday only
+  frequencyLabel: "Sonntag, 02.08.2026 · Einmalig · Kostenlos",
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH, ZOOM_DE];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side

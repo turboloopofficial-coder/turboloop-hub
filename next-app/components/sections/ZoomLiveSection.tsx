@@ -80,17 +80,17 @@ function ZoomLiveSectionInner({ strings: s }: { strings: ZoomStrings }) {
             {s.subtitle}
           </p>
         </div>
-        {/* Special Event: Germany Community Zoom — one-time, Jul 30 2026 21:00 CEST (19:00 UTC) */}
+        {/* Special Event: Germany Community-Starter Call — one-time, Aug 2 2026 21:30 CEST (19:30 UTC) */}
         {/* Auto-hides after the event ends (2h duration) */}
         <div className="max-w-5xl mx-auto mb-4 md:mb-5">
           <OneTimeEventCard
-            title="🇩🇪 TurboLoop Deutschland — Community-Zoom"
-            description="Erster offizieller deutschsprachiger TurboLoop-Community-Zoom. Fragen willkommen — kein Druck, nur Informationen."
-            timeLabel="🇩🇪 21:00 Uhr CEST · 🇬🇧 20:00 BST · 🇦🇪 23:00 GST · 🇺🇸 3:00 PM EDT"
-            dateLabel="Donnerstag, 30. Juli 2026"
-            link="https://us06web.zoom.us/j/89879779242?pwd=ebIpowaHOb7mhI0laFOEM07OK33sXP.1"
-            // Jul 30 2026 19:00 UTC in milliseconds
-            targetUtcMs={1785438000000}
+            title="🇩🇪 TurboLoop Deutschland — Community-Starter Call"
+            description="Offizieller Community-Starter Call. Vorstellung, Dashboard-Erklärung, Erfahrungen & offene Fragerunde. Gemeinsam. Transparent. Informiert."
+            timeLabel="🇩🇪 21:30 Uhr CEST · 🇬🇧 20:30 BST · 🇦🇪 23:30 GST · 🇺🇸 3:30 PM EDT"
+            dateLabel="Sonntag, 02. August 2026"
+            link="https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1"
+            // Aug 2 2026 19:30 UTC in milliseconds
+            targetUtcMs={1785699000000}
             durationMin={120}
           />
         </div>

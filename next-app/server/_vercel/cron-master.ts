@@ -1439,25 +1439,16 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
     // ============ 5c. GERMAN ZOOM (Zoom) — one-time Sunday Aug 2 2026 · 19:30 UTC (21:30 Berlin) ============
     // T-60: 18:30 UTC, T-30: 19:00 UTC, T-15: 19:15 UTC, LIVE: 19:30 UTC
-    // Sends to TELEGRAM_GERMAN_CHAT only (not main channel)
+    // Broadcasts to ALL channels (main EN channel + group) via tgBroadcastPhoto
     {
       const utcDayDE = new Date().getUTCDay(); // 0=Sun
       const isDeDay = utcDayDE === 0; // Sunday only
       const ZOOM_DE_LINK = "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1";
       const ZOOM_DE_PASS = "577845";
-      const ZOOM_DE_TIME = "🇩🇪 21:30 Uhr (Berlin) \u00b7 Sonntag, 02.08.2026";
-      const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
-      const token = process.env.TELEGRAM_BOT_TOKEN;
-      // Helper to send only to German chat
+      const ZOOM_DE_TIME = "🇩🇪 21:30 Uhr (Berlin) · Sonntag, 02.08.2026";
+      // Helper: broadcast to all TG channels via tgBroadcastPhoto (same as EN/HI/AF zoom reminders)
       async function sendDeZoomAlert(tier: import("./_messagePools").ZoomTier): Promise<void> {
-        const { zoomReminderCaption } = await import("./_messagePools");
-        const caption = zoomReminderCaption({ lang: "de", tier, meetingLink: ZOOM_DE_LINK, passcode: ZOOM_DE_PASS, timeLabel: ZOOM_DE_TIME });
-        if (!token || !germanChat) return;
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id: germanChat, text: caption, parse_mode: "HTML", disable_web_page_preview: true }),
-        });
+        await sendZoomReminder("de", tier, ZOOM_DE_LINK, ZOOM_DE_PASS, ZOOM_DE_TIME);
       }
       // T-60
       try {

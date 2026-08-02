@@ -257,7 +257,7 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
                 <div className="flex flex-wrap gap-x-5 gap-y-2">
                   <span className="inline-flex items-center gap-2">
                     <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                    {session.lang === "en" ? t("english") : session.lang === "th" ? "ภาษาไทย" : session.lang === "af" ? "African" : t("hindiUrdu")}
+                    {session.lang === "en" ? t("english") : session.lang === "th" ? "ภาษาไทย" : session.lang === "af" ? "African" : session.lang === "de" ? "Deutsch" : t("hindiUrdu")}
                   </span>
                   {session.passcode && (
                     <span className="inline-flex items-center gap-2">
@@ -283,7 +283,7 @@ function ZoomCountdown({ session, t }: { session: ZoomSession; t: ReturnType<typ
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-                  {session.lang === "en" ? t("english") : session.lang === "th" ? "ภาษาไทย" : session.lang === "af" ? "African" : t("hindiUrdu")}
+                  {session.lang === "en" ? t("english") : session.lang === "th" ? "ภาษาไทย" : session.lang === "af" ? "African" : session.lang === "de" ? "Deutsch" : t("hindiUrdu")}
                 </span>
                 {session.passcode && (
                   <span className="inline-flex items-center gap-2">

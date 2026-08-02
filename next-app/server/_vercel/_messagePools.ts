@@ -406,7 +406,7 @@ DeFi seekhna ho ya strategy refine karni ho — yahan dono milega. Free, sabke l
 Number, math, contract — jo kuch bhi confuse karta hai, aaj poochiye. Real time, real answers.`,
 ];
 
-export type ZoomLang = "en" | "hi" | "af" | "th";
+export type ZoomLang = "en" | "hi" | "af" | "th" | "de";
 export type ZoomTier = "T30" | "T60" | "T15" | "LIVE";
 
 // ── English T-60 pool (1 hour before) ─────────────────────────────────────
@@ -662,11 +662,34 @@ const TH_LIVE = [
 ห้องเปิดแล้ว เจอกันข้างใน
 🇹🇭 ประเทศไทย · Google Meet`,
 ];
+// ── German Community Zoom message pools ─────────────────────────────────────
+const DE_T60 = [
+  `<b>Community-Starter Call — in 60 Minuten</b>
+🇩🇪 Der offizielle TurboLoop Deutschland Zoom beginnt in 1 Stunde!\nVorstellung, Dashboard-Erklärung und offene Fragerunde.\n🇩🇪 TurboLoop Deutschland`,
+  `<b>60 Minuten noch — Community-Starter Call</b>\n🇩🇪 Bereite dich vor! Der TurboLoop Deutschland Call startet in 60 Minuten.\nBring deine Fragen mit — wir antworten live.\n🇩🇪 TurboLoop Deutschland`,
+  `<b>Noch eine Stunde — TurboLoop Deutschland</b>\n🇩🇪 Der Community-Starter Call beginnt in 60 Minuten. Sei dabei!\nGemeinsam. Transparent. Informiert.\n🇩🇪 TurboLoop Deutschland`,
+];
+const DE_T30 = [
+  `<b>Community-Starter Call — in 30 Minuten</b>\n🇩🇪 Noch 30 Minuten bis zum offiziellen TurboLoop Deutschland Zoom!\nDashboard-Einblick, Erfahrungen und Fragerunde live.\n🇩🇪 TurboLoop Deutschland`,
+  `<b>30 Minuten noch — TurboLoop Deutschland Call</b>\n🇩🇪 Der Raum öffnet in 30 Minuten. Bring interessierte Freunde mit!\nKomm rein. Stell Fragen. Werde Teil der Bewegung.\n🇩🇪 TurboLoop Deutschland`,
+  `<b>Halbzeit — TurboLoop Deutschland</b>\n🇩🇪 Noch 30 Minuten bis zum Community-Starter Call. Mach dich bereit!\nGemeinsam. Transparent. Informiert.\n🇩🇪 TurboLoop Deutschland`,
+];
+const DE_T15 = [
+  `<b>Community-Starter Call — in 15 Minuten</b>\n🇩🇪 Fast Zeit! Der TurboLoop Deutschland Zoom startet in 15 Minuten.\nKlick jetzt auf den Link und tritt bei!\n🇩🇪 TurboLoop Deutschland`,
+  `<b>15 Minuten noch — TurboLoop Deutschland</b>\n🇩🇪 Letzte Chance! Der Community Call beginnt in 15 Minuten.\nSei dabei — Fragen willkommen.\n🇩🇪 TurboLoop Deutschland`,
+  `<b>Fast da — TurboLoop Deutschland Call</b>\n🇩🇪 Noch 15 Minuten. Tritt jetzt dem Zoom bei!\nGemeinsam. Transparent. Informiert.\n🇩🇪 TurboLoop Deutschland`,
+];
+const DE_LIVE = [
+  `🔴 <b>Community-Starter Call — WIR SIND LIVE!</b>\n🇩🇪 Der offizielle TurboLoop Deutschland Zoom ist jetzt geöffnet!\nKlick auf den Link und tritt jetzt bei.\n🇩🇪 TurboLoop Deutschland`,
+  `🔴 <b>LIVE — TurboLoop Deutschland Community Call</b>\n🇩🇪 Der Raum ist offen. Tritt jetzt bei!\nKomm rein. Stell Fragen. Werde Teil der Bewegung.\n🇩🇪 TurboLoop Deutschland`,
+  `🔴 <b>Wir sind live — TurboLoop Deutschland</b>\n🇩🇪 Community-Starter Call läuft jetzt. Tritt sofort bei!\nGemeinsam. Transparent. Informiert.\n🇩🇪 TurboLoop Deutschland`,
+];
 const POOLS: Record<ZoomLang, Record<ZoomTier, string[]>> = {
   en: { T60: EN_T60, T30: EN_T30, T15: EN_T10, LIVE: EN_LIVE },
   hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE },
   af: { T60: AF_T60, T30: AF_T30, T15: AF_T10, LIVE: AF_LIVE },
   th: { T60: TH_T60, T30: TH_T30, T15: TH_T10, LIVE: TH_LIVE },
+  de: { T60: DE_T60, T30: DE_T30, T15: DE_T15, LIVE: DE_LIVE },
 };
 
 // ── 4-Month Celebration overlay (July 8 2026 only) ──────────────────────────

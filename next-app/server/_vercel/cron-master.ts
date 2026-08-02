@@ -982,6 +982,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const forceZoomAfT30 = forceSet.has("zoom:af:T30");
     const forceZoomAfT10 = forceSet.has("zoom:af:T10");
     const forceZoomAfT0  = forceSet.has("zoom:af:T0");
+    const forceZoomDeT60 = forceSet.has("zoom:de:T60");
+    const forceZoomDeT30 = forceSet.has("zoom:de:T30");
+    const forceZoomDeT15 = forceSet.has("zoom:de:T15");
+    const forceZoomDeT0  = forceSet.has("zoom:de:T0");
     const forceCampaignLifestyle   = forceSet.has("campaign:lifestyle");
     const forceCampaignToken        = forceSet.has("campaign:token");
     const forceCampaignReferral     = forceSet.has("campaign:referral");
@@ -1431,6 +1435,73 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       } catch (err) {
         await markError(db, "zoom:th:pm:T0", err).catch(() => {});
         log.push(`❌ zoom:th:pm:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+    // ============ 5c. GERMAN ZOOM (Zoom) — one-time Sunday Aug 2 2026 · 19:30 UTC (21:30 Berlin) ============
+    // T-60: 18:30 UTC, T-30: 19:00 UTC, T-15: 19:15 UTC, LIVE: 19:30 UTC
+    // Sends to TELEGRAM_GERMAN_CHAT only (not main channel)
+    {
+      const utcDayDE = new Date().getUTCDay(); // 0=Sun
+      const isDeDay = utcDayDE === 0; // Sunday only
+      const ZOOM_DE_LINK = "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1";
+      const ZOOM_DE_PASS = "577845";
+      const ZOOM_DE_TIME = "🇩🇪 21:30 Uhr (Berlin) \u00b7 Sonntag, 02.08.2026";
+      const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      // Helper to send only to German chat
+      async function sendDeZoomAlert(tier: import("./_messagePools").ZoomTier): Promise<void> {
+        const { zoomReminderCaption } = await import("./_messagePools");
+        const caption = zoomReminderCaption({ lang: "de", tier, meetingLink: ZOOM_DE_LINK, passcode: ZOOM_DE_PASS, timeLabel: ZOOM_DE_TIME });
+        if (!token || !germanChat) return;
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: germanChat, text: caption, parse_mode: "HTML", disable_web_page_preview: true }),
+        });
+      }
+      // T-60
+      try {
+        if ((isDeDay || forceZoomDeT60) && (isInWindow(18, 30) || isMissedToday(18, 30) || forceZoomDeT60) && (forceZoomDeT60 || !(await hasFiredToday(db, "zoom:de:T60")))) {
+          await sendDeZoomAlert("T60");
+          await markFired(db, "zoom:de:T60");
+          log.push("🇩🇪 DE Zoom T-60 sent");
+        }
+      } catch (err) {
+        await markError(db, "zoom:de:T60", err).catch(() => {});
+        log.push(`❌ zoom:de:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      // T-30
+      try {
+        if ((isDeDay || forceZoomDeT30) && (isInWindow(19, 0) || isMissedToday(19, 0) || forceZoomDeT30) && (forceZoomDeT30 || !(await hasFiredToday(db, "zoom:de:T30")))) {
+          await sendDeZoomAlert("T30");
+          await markFired(db, "zoom:de:T30");
+          log.push("🇩🇪 DE Zoom T-30 sent");
+        }
+      } catch (err) {
+        await markError(db, "zoom:de:T30", err).catch(() => {});
+        log.push(`❌ zoom:de:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      // T-15
+      try {
+        if ((isDeDay || forceZoomDeT15) && (isInWindow(19, 15) || isMissedToday(19, 15) || forceZoomDeT15) && (forceZoomDeT15 || !(await hasFiredToday(db, "zoom:de:T15")))) {
+          await sendDeZoomAlert("T15");
+          await markFired(db, "zoom:de:T15");
+          log.push("🇩🇪 DE Zoom T-15 sent");
+        }
+      } catch (err) {
+        await markError(db, "zoom:de:T15", err).catch(() => {});
+        log.push(`❌ zoom:de:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      // LIVE
+      try {
+        if ((isDeDay || forceZoomDeT0) && (isInWindow(19, 30) || isMissedToday(19, 30) || forceZoomDeT0) && (forceZoomDeT0 || !(await hasFiredToday(db, "zoom:de:T0")))) {
+          await sendDeZoomAlert("LIVE");
+          await markFired(db, "zoom:de:T0");
+          log.push("🇩🇪 DE Zoom LIVE sent");
+        }
+      } catch (err) {
+        await markError(db, "zoom:de:T0", err).catch(() => {});
+        log.push(`❌ zoom:de:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
     // ============ 6. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============

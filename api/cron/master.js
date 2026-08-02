@@ -33,7 +33,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// node_modules/.pnpm/@neondatabase+serverless@0.10.4/node_modules/@neondatabase/serverless/index.mjs
+// node_modules/@neondatabase/serverless/index.mjs
 var serverless_exports = {};
 __export(serverless_exports, {
   Client: () => _n,
@@ -401,7 +401,7 @@ function $c(r5, e5) {
 }
 var io, Ce, so, oo, ao, uo, co, a, z, I, se, Tn, Te, O, _, Bn, Ln, Kn, S, x, E, w, y, m, p, ge, He, zo, Ge, si, U, Ve, oi, Wt, Ht, $t, Vt, li, pi, mi, wi, Ai, Ti, Ri, Mi, Xe, et, tt, ji, ir, sr, or, ar, ur, lu, cr, Wi, lr, hr, Hi, Ki, Zi, Xi, wt, ts, Bu, rs, ns, mr, ss, bt, ls, ys, ws, gs, ms, v, _e, St, Xr, bs, xs, Es, As, hn, Cs, Ts, pn, Fs, Us, Os, Ic, Ns, qs, Ws, Vs, En, It, Bt, Zs, Js, Pt, pe, zs, Wc, to, Qe, An, _n, Cn, eo, export_ClientBase, export_Connection, export_DatabaseError, export_Query, export_defaults, export_types;
 var init_serverless = __esm({
-  "node_modules/.pnpm/@neondatabase+serverless@0.10.4/node_modules/@neondatabase/serverless/index.mjs"() {
+  "node_modules/@neondatabase/serverless/index.mjs"() {
     io = Object.create;
     Ce = Object.defineProperty;
     so = Object.getOwnPropertyDescriptor;
@@ -5442,7 +5442,7 @@ var init_serverless = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/entity.js
+// node_modules/drizzle-orm/entity.js
 function is(value, type) {
   if (!value || typeof value !== "object") {
     return false;
@@ -5468,16 +5468,16 @@ function is(value, type) {
 }
 var entityKind, hasOwnEntityKind;
 var init_entity = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/entity.js"() {
+  "node_modules/drizzle-orm/entity.js"() {
     entityKind = Symbol.for("drizzle:entityKind");
     hasOwnEntityKind = Symbol.for("drizzle:hasOwnEntityKind");
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/logger.js
+// node_modules/drizzle-orm/logger.js
 var ConsoleLogWriter, DefaultLogger, NoopLogger;
 var init_logger = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/logger.js"() {
+  "node_modules/drizzle-orm/logger.js"() {
     init_entity();
     ConsoleLogWriter = class {
       static [entityKind] = "ConsoleLogWriter";
@@ -5511,10 +5511,10 @@ var init_logger = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/query-promise.js
+// node_modules/drizzle-orm/query-promise.js
 var QueryPromise;
 var init_query_promise = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/query-promise.js"() {
+  "node_modules/drizzle-orm/query-promise.js"() {
     init_entity();
     QueryPromise = class {
       static [entityKind] = "QueryPromise";
@@ -5541,10 +5541,10 @@ var init_query_promise = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/column.js
+// node_modules/drizzle-orm/column.js
 var Column;
 var init_column = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/column.js"() {
+  "node_modules/drizzle-orm/column.js"() {
     init_entity();
     Column = class {
       constructor(table, config) {
@@ -5598,10 +5598,10 @@ var init_column = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/column-builder.js
+// node_modules/drizzle-orm/column-builder.js
 var ColumnBuilder;
 var init_column_builder = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/column-builder.js"() {
+  "node_modules/drizzle-orm/column-builder.js"() {
     init_entity();
     ColumnBuilder = class {
       static [entityKind] = "ColumnBuilder";
@@ -5707,18 +5707,18 @@ var init_column_builder = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/table.utils.js
+// node_modules/drizzle-orm/table.utils.js
 var TableName;
 var init_table_utils = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/table.utils.js"() {
+  "node_modules/drizzle-orm/table.utils.js"() {
     TableName = Symbol.for("drizzle:Name");
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/foreign-keys.js
+// node_modules/drizzle-orm/pg-core/foreign-keys.js
 var ForeignKeyBuilder, ForeignKey;
 var init_foreign_keys = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/foreign-keys.js"() {
+  "node_modules/drizzle-orm/pg-core/foreign-keys.js"() {
     init_entity();
     init_table_utils();
     ForeignKeyBuilder = class {
@@ -5779,22 +5779,22 @@ var init_foreign_keys = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/tracing-utils.js
+// node_modules/drizzle-orm/tracing-utils.js
 function iife(fn, ...args) {
   return fn(...args);
 }
 var init_tracing_utils = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/tracing-utils.js"() {
+  "node_modules/drizzle-orm/tracing-utils.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/unique-constraint.js
+// node_modules/drizzle-orm/pg-core/unique-constraint.js
 function uniqueKeyName(table, columns) {
   return `${table[TableName]}_${columns.join("_")}_unique`;
 }
 var UniqueConstraintBuilder, UniqueOnConstraintBuilder, UniqueConstraint;
 var init_unique_constraint = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/unique-constraint.js"() {
+  "node_modules/drizzle-orm/pg-core/unique-constraint.js"() {
     init_entity();
     init_table_utils();
     UniqueConstraintBuilder = class {
@@ -5845,7 +5845,7 @@ var init_unique_constraint = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/utils/array.js
+// node_modules/drizzle-orm/pg-core/utils/array.js
 function parsePgArrayValue(arrayString, startFrom, inQuotes) {
   for (let i5 = startFrom; i5 < arrayString.length; i5++) {
     const char2 = arrayString[i5];
@@ -5921,14 +5921,14 @@ function makePgArray(array) {
   }).join(",")}}`;
 }
 var init_array = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/utils/array.js"() {
+  "node_modules/drizzle-orm/pg-core/utils/array.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/common.js
+// node_modules/drizzle-orm/pg-core/columns/common.js
 var PgColumnBuilder, PgColumn, ExtraConfigColumn, IndexedColumn, PgArrayBuilder, PgArray;
 var init_common = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/common.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/common.js"() {
     init_column_builder();
     init_column();
     init_entity();
@@ -6121,7 +6121,7 @@ var init_common = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/enum.js
+// node_modules/drizzle-orm/pg-core/columns/enum.js
 function isPgEnum(obj) {
   return !!obj && typeof obj === "function" && isPgEnumSym in obj && obj[isPgEnumSym] === true;
 }
@@ -6154,7 +6154,7 @@ function pgEnumObjectWithSchema(enumName, values, schema) {
 }
 var PgEnumObjectColumnBuilder, PgEnumObjectColumn, isPgEnumSym, PgEnumColumnBuilder, PgEnumColumn;
 var init_enum = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/enum.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/enum.js"() {
     init_entity();
     init_common();
     PgEnumObjectColumnBuilder = class extends PgColumnBuilder {
@@ -6213,10 +6213,10 @@ var init_enum = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/subquery.js
+// node_modules/drizzle-orm/subquery.js
 var Subquery, WithSubquery;
 var init_subquery = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/subquery.js"() {
+  "node_modules/drizzle-orm/subquery.js"() {
     init_entity();
     Subquery = class {
       static [entityKind] = "Subquery";
@@ -6240,18 +6240,18 @@ var init_subquery = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/version.js
+// node_modules/drizzle-orm/version.js
 var version;
 var init_version = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/version.js"() {
+  "node_modules/drizzle-orm/version.js"() {
     version = "0.44.7";
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/tracing.js
+// node_modules/drizzle-orm/tracing.js
 var otel, rawTracer, tracer;
 var init_tracing = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/tracing.js"() {
+  "node_modules/drizzle-orm/tracing.js"() {
     init_tracing_utils();
     init_version();
     tracer = {
@@ -6288,15 +6288,15 @@ var init_tracing = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/view-common.js
+// node_modules/drizzle-orm/view-common.js
 var ViewBaseConfig;
 var init_view_common = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/view-common.js"() {
+  "node_modules/drizzle-orm/view-common.js"() {
     ViewBaseConfig = Symbol.for("drizzle:ViewBaseConfig");
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/table.js
+// node_modules/drizzle-orm/table.js
 function getTableName(table) {
   return table[TableName];
 }
@@ -6305,7 +6305,7 @@ function getTableUniqueName(table) {
 }
 var Schema, Columns, ExtraConfigColumns, OriginalName, BaseName, IsAlias, ExtraConfigBuilder, IsDrizzleTable, Table;
 var init_table = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/table.js"() {
+  "node_modules/drizzle-orm/table.js"() {
     init_entity();
     init_table_utils();
     Schema = Symbol.for("drizzle:Schema");
@@ -6365,7 +6365,7 @@ var init_table = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/sql.js
+// node_modules/drizzle-orm/sql/sql.js
 function isSQLWrapper(value) {
   return value !== null && value !== void 0 && typeof value.getSQL === "function";
 }
@@ -6415,7 +6415,7 @@ function fillPlaceholders(params, values) {
 }
 var FakePrimitiveParam, StringChunk, SQL, Name, noopDecoder, noopEncoder, noopMapper, Param, Placeholder, IsDrizzleView, View;
 var init_sql = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/sql.js"() {
+  "node_modules/drizzle-orm/sql/sql.js"() {
     init_entity();
     init_enum();
     init_subquery();
@@ -6771,7 +6771,7 @@ var init_sql = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/alias.js
+// node_modules/drizzle-orm/alias.js
 function aliasedTable(table, tableAlias) {
   return new Proxy(table, new TableAliasProxyHandler(tableAlias, false));
 }
@@ -6800,7 +6800,7 @@ function mapColumnsInSQLToAlias(query, alias) {
 }
 var ColumnAliasProxyHandler, TableAliasProxyHandler, RelationTableAliasProxyHandler;
 var init_alias = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/alias.js"() {
+  "node_modules/drizzle-orm/alias.js"() {
     init_column();
     init_entity();
     init_sql();
@@ -6877,10 +6877,10 @@ var init_alias = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/selection-proxy.js
+// node_modules/drizzle-orm/selection-proxy.js
 var SelectionProxyHandler;
 var init_selection_proxy = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/selection-proxy.js"() {
+  "node_modules/drizzle-orm/selection-proxy.js"() {
     init_alias();
     init_column();
     init_entity();
@@ -6956,7 +6956,7 @@ var init_selection_proxy = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/utils.js
+// node_modules/drizzle-orm/utils.js
 function mapResultRow(columns, row, joinsNotNullableMap) {
   const nullifyMap = {};
   const result = columns.reduce(
@@ -7105,7 +7105,7 @@ function isConfig(data) {
 }
 var textDecoder;
 var init_utils = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/utils.js"() {
+  "node_modules/drizzle-orm/utils.js"() {
     init_column();
     init_entity();
     init_sql();
@@ -7116,10 +7116,10 @@ var init_utils = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/int.common.js
+// node_modules/drizzle-orm/pg-core/columns/int.common.js
 var PgIntColumnBaseBuilder;
 var init_int_common = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/int.common.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/int.common.js"() {
     init_entity();
     init_common();
     PgIntColumnBaseBuilder = class extends PgColumnBuilder {
@@ -7162,7 +7162,7 @@ var init_int_common = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/bigint.js
+// node_modules/drizzle-orm/pg-core/columns/bigint.js
 function bigint(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (config.mode === "number") {
@@ -7172,7 +7172,7 @@ function bigint(a6, b5) {
 }
 var PgBigInt53Builder, PgBigInt53, PgBigInt64Builder, PgBigInt64;
 var init_bigint = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/bigint.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/bigint.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7225,7 +7225,7 @@ var init_bigint = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/bigserial.js
+// node_modules/drizzle-orm/pg-core/columns/bigserial.js
 function bigserial(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (config.mode === "number") {
@@ -7235,7 +7235,7 @@ function bigserial(a6, b5) {
 }
 var PgBigSerial53Builder, PgBigSerial53, PgBigSerial64Builder, PgBigSerial64;
 var init_bigserial = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/bigserial.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/bigserial.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7293,13 +7293,13 @@ var init_bigserial = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/boolean.js
+// node_modules/drizzle-orm/pg-core/columns/boolean.js
 function boolean(name) {
   return new PgBooleanBuilder(name ?? "");
 }
 var PgBooleanBuilder, PgBoolean;
 var init_boolean = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/boolean.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/boolean.js"() {
     init_entity();
     init_common();
     PgBooleanBuilder = class extends PgColumnBuilder {
@@ -7321,14 +7321,14 @@ var init_boolean = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/char.js
+// node_modules/drizzle-orm/pg-core/columns/char.js
 function char(a6, b5 = {}) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgCharBuilder(name, config);
 }
 var PgCharBuilder, PgChar;
 var init_char = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/char.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/char.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7358,13 +7358,13 @@ var init_char = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/cidr.js
+// node_modules/drizzle-orm/pg-core/columns/cidr.js
 function cidr(name) {
   return new PgCidrBuilder(name ?? "");
 }
 var PgCidrBuilder, PgCidr;
 var init_cidr = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/cidr.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/cidr.js"() {
     init_entity();
     init_common();
     PgCidrBuilder = class extends PgColumnBuilder {
@@ -7386,7 +7386,7 @@ var init_cidr = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/custom.js
+// node_modules/drizzle-orm/pg-core/columns/custom.js
 function customType(customTypeParams) {
   return (a6, b5) => {
     const { name, config } = getColumnNameAndConfig(a6, b5);
@@ -7395,7 +7395,7 @@ function customType(customTypeParams) {
 }
 var PgCustomColumnBuilder, PgCustomColumn;
 var init_custom = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/custom.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/custom.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7438,10 +7438,10 @@ var init_custom = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/date.common.js
+// node_modules/drizzle-orm/pg-core/columns/date.common.js
 var PgDateColumnBaseBuilder;
 var init_date_common = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/date.common.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/date.common.js"() {
     init_entity();
     init_sql();
     init_common();
@@ -7454,7 +7454,7 @@ var init_date_common = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/date.js
+// node_modules/drizzle-orm/pg-core/columns/date.js
 function date(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (config?.mode === "date") {
@@ -7464,7 +7464,7 @@ function date(a6, b5) {
 }
 var PgDateBuilder, PgDate, PgDateStringBuilder, PgDateString;
 var init_date = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/date.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/date.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7513,13 +7513,13 @@ var init_date = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/double-precision.js
+// node_modules/drizzle-orm/pg-core/columns/double-precision.js
 function doublePrecision(name) {
   return new PgDoublePrecisionBuilder(name ?? "");
 }
 var PgDoublePrecisionBuilder, PgDoublePrecision;
 var init_double_precision = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/double-precision.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/double-precision.js"() {
     init_entity();
     init_common();
     PgDoublePrecisionBuilder = class extends PgColumnBuilder {
@@ -7550,13 +7550,13 @@ var init_double_precision = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/inet.js
+// node_modules/drizzle-orm/pg-core/columns/inet.js
 function inet(name) {
   return new PgInetBuilder(name ?? "");
 }
 var PgInetBuilder, PgInet;
 var init_inet = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/inet.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/inet.js"() {
     init_entity();
     init_common();
     PgInetBuilder = class extends PgColumnBuilder {
@@ -7578,13 +7578,13 @@ var init_inet = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/integer.js
+// node_modules/drizzle-orm/pg-core/columns/integer.js
 function integer(name) {
   return new PgIntegerBuilder(name ?? "");
 }
 var PgIntegerBuilder, PgInteger;
 var init_integer = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/integer.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/integer.js"() {
     init_entity();
     init_common();
     init_int_common();
@@ -7613,14 +7613,14 @@ var init_integer = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/interval.js
+// node_modules/drizzle-orm/pg-core/columns/interval.js
 function interval(a6, b5 = {}) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgIntervalBuilder(name, config);
 }
 var PgIntervalBuilder, PgInterval;
 var init_interval = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/interval.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/interval.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7648,13 +7648,13 @@ var init_interval = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/json.js
+// node_modules/drizzle-orm/pg-core/columns/json.js
 function json(name) {
   return new PgJsonBuilder(name ?? "");
 }
 var PgJsonBuilder, PgJson;
 var init_json = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/json.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/json.js"() {
     init_entity();
     init_common();
     PgJsonBuilder = class extends PgColumnBuilder {
@@ -7692,13 +7692,13 @@ var init_json = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/jsonb.js
+// node_modules/drizzle-orm/pg-core/columns/jsonb.js
 function jsonb(name) {
   return new PgJsonbBuilder(name ?? "");
 }
 var PgJsonbBuilder, PgJsonb;
 var init_jsonb = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/jsonb.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/jsonb.js"() {
     init_entity();
     init_common();
     PgJsonbBuilder = class extends PgColumnBuilder {
@@ -7736,7 +7736,7 @@ var init_jsonb = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/line.js
+// node_modules/drizzle-orm/pg-core/columns/line.js
 function line(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (!config?.mode || config.mode === "tuple") {
@@ -7746,7 +7746,7 @@ function line(a6, b5) {
 }
 var PgLineBuilder, PgLineTuple, PgLineABCBuilder, PgLineABC;
 var init_line = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/line.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/line.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7805,13 +7805,13 @@ var init_line = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/macaddr.js
+// node_modules/drizzle-orm/pg-core/columns/macaddr.js
 function macaddr(name) {
   return new PgMacaddrBuilder(name ?? "");
 }
 var PgMacaddrBuilder, PgMacaddr;
 var init_macaddr = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/macaddr.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/macaddr.js"() {
     init_entity();
     init_common();
     PgMacaddrBuilder = class extends PgColumnBuilder {
@@ -7833,13 +7833,13 @@ var init_macaddr = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/macaddr8.js
+// node_modules/drizzle-orm/pg-core/columns/macaddr8.js
 function macaddr8(name) {
   return new PgMacaddr8Builder(name ?? "");
 }
 var PgMacaddr8Builder, PgMacaddr8;
 var init_macaddr8 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/macaddr8.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/macaddr8.js"() {
     init_entity();
     init_common();
     PgMacaddr8Builder = class extends PgColumnBuilder {
@@ -7861,7 +7861,7 @@ var init_macaddr8 = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/numeric.js
+// node_modules/drizzle-orm/pg-core/columns/numeric.js
 function numeric(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   const mode = config?.mode;
@@ -7869,7 +7869,7 @@ function numeric(a6, b5) {
 }
 var PgNumericBuilder, PgNumeric, PgNumericNumberBuilder, PgNumericNumber, PgNumericBigIntBuilder, PgNumericBigInt;
 var init_numeric = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/numeric.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/numeric.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -7986,7 +7986,7 @@ var init_numeric = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/point.js
+// node_modules/drizzle-orm/pg-core/columns/point.js
 function point(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (!config?.mode || config.mode === "tuple") {
@@ -7996,7 +7996,7 @@ function point(a6, b5) {
 }
 var PgPointTupleBuilder, PgPointTuple, PgPointObjectBuilder, PgPointObject;
 var init_point = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/point.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/point.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8061,7 +8061,7 @@ var init_point = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/postgis_extension/utils.js
+// node_modules/drizzle-orm/pg-core/columns/postgis_extension/utils.js
 function hexToBytes(hex) {
   const bytes = [];
   for (let c5 = 0; c5 < hex.length; c5 += 2) {
@@ -8100,11 +8100,11 @@ function parseEWKB(hex) {
   throw new Error("Unsupported geometry type");
 }
 var init_utils2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/postgis_extension/utils.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/postgis_extension/utils.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/postgis_extension/geometry.js
+// node_modules/drizzle-orm/pg-core/columns/postgis_extension/geometry.js
 function geometry(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (!config?.mode || config.mode === "tuple") {
@@ -8114,7 +8114,7 @@ function geometry(a6, b5) {
 }
 var PgGeometryBuilder, PgGeometry, PgGeometryObjectBuilder, PgGeometryObject;
 var init_geometry = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/postgis_extension/geometry.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/postgis_extension/geometry.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8173,13 +8173,13 @@ var init_geometry = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/real.js
+// node_modules/drizzle-orm/pg-core/columns/real.js
 function real(name) {
   return new PgRealBuilder(name ?? "");
 }
 var PgRealBuilder, PgReal;
 var init_real = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/real.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/real.js"() {
     init_entity();
     init_common();
     PgRealBuilder = class extends PgColumnBuilder {
@@ -8211,13 +8211,13 @@ var init_real = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/serial.js
+// node_modules/drizzle-orm/pg-core/columns/serial.js
 function serial(name) {
   return new PgSerialBuilder(name ?? "");
 }
 var PgSerialBuilder, PgSerial;
 var init_serial = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/serial.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/serial.js"() {
     init_entity();
     init_common();
     PgSerialBuilder = class extends PgColumnBuilder {
@@ -8241,13 +8241,13 @@ var init_serial = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/smallint.js
+// node_modules/drizzle-orm/pg-core/columns/smallint.js
 function smallint(name) {
   return new PgSmallIntBuilder(name ?? "");
 }
 var PgSmallIntBuilder, PgSmallInt;
 var init_smallint = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/smallint.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/smallint.js"() {
     init_entity();
     init_common();
     init_int_common();
@@ -8276,13 +8276,13 @@ var init_smallint = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/smallserial.js
+// node_modules/drizzle-orm/pg-core/columns/smallserial.js
 function smallserial(name) {
   return new PgSmallSerialBuilder(name ?? "");
 }
 var PgSmallSerialBuilder, PgSmallSerial;
 var init_smallserial = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/smallserial.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/smallserial.js"() {
     init_entity();
     init_common();
     PgSmallSerialBuilder = class extends PgColumnBuilder {
@@ -8309,14 +8309,14 @@ var init_smallserial = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/text.js
+// node_modules/drizzle-orm/pg-core/columns/text.js
 function text(a6, b5 = {}) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgTextBuilder(name, config);
 }
 var PgTextBuilder, PgText;
 var init_text = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/text.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/text.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8341,14 +8341,14 @@ var init_text = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/time.js
+// node_modules/drizzle-orm/pg-core/columns/time.js
 function time(a6, b5 = {}) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgTimeBuilder(name, config.withTimezone ?? false, config.precision);
 }
 var PgTimeBuilder, PgTime;
 var init_time = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/time.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/time.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8384,7 +8384,7 @@ var init_time = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/timestamp.js
+// node_modules/drizzle-orm/pg-core/columns/timestamp.js
 function timestamp(a6, b5 = {}) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   if (config?.mode === "string") {
@@ -8394,7 +8394,7 @@ function timestamp(a6, b5 = {}) {
 }
 var PgTimestampBuilder, PgTimestamp, PgTimestampStringBuilder, PgTimestampString;
 var init_timestamp = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/timestamp.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/timestamp.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8463,13 +8463,13 @@ var init_timestamp = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/uuid.js
+// node_modules/drizzle-orm/pg-core/columns/uuid.js
 function uuid(name) {
   return new PgUUIDBuilder(name ?? "");
 }
 var PgUUIDBuilder, PgUUID;
 var init_uuid = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/uuid.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/uuid.js"() {
     init_entity();
     init_sql();
     init_common();
@@ -8498,14 +8498,14 @@ var init_uuid = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/varchar.js
+// node_modules/drizzle-orm/pg-core/columns/varchar.js
 function varchar(a6, b5 = {}) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgVarcharBuilder(name, config);
 }
 var PgVarcharBuilder, PgVarchar;
 var init_varchar = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/varchar.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/varchar.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8535,14 +8535,14 @@ var init_varchar = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/bit.js
+// node_modules/drizzle-orm/pg-core/columns/vector_extension/bit.js
 function bit(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgBinaryVectorBuilder(name, config);
 }
 var PgBinaryVectorBuilder, PgBinaryVector;
 var init_bit = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/bit.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/vector_extension/bit.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8570,14 +8570,14 @@ var init_bit = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/halfvec.js
+// node_modules/drizzle-orm/pg-core/columns/vector_extension/halfvec.js
 function halfvec(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgHalfVectorBuilder(name, config);
 }
 var PgHalfVectorBuilder, PgHalfVector;
 var init_halfvec = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/halfvec.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/vector_extension/halfvec.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8611,14 +8611,14 @@ var init_halfvec = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/sparsevec.js
+// node_modules/drizzle-orm/pg-core/columns/vector_extension/sparsevec.js
 function sparsevec(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgSparseVectorBuilder(name, config);
 }
 var PgSparseVectorBuilder, PgSparseVector;
 var init_sparsevec = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/sparsevec.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/vector_extension/sparsevec.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8646,14 +8646,14 @@ var init_sparsevec = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/vector.js
+// node_modules/drizzle-orm/pg-core/columns/vector_extension/vector.js
 function vector(a6, b5) {
   const { name, config } = getColumnNameAndConfig(a6, b5);
   return new PgVectorBuilder(name, config);
 }
 var PgVectorBuilder, PgVector;
 var init_vector = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/vector_extension/vector.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/vector_extension/vector.js"() {
     init_entity();
     init_utils();
     init_common();
@@ -8687,7 +8687,7 @@ var init_vector = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/all.js
+// node_modules/drizzle-orm/pg-core/columns/all.js
 function getPgColumnBuilders() {
   return {
     bigint,
@@ -8725,7 +8725,7 @@ function getPgColumnBuilders() {
   };
 }
 var init_all = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/all.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/all.js"() {
     init_bigint();
     init_bigserial();
     init_boolean();
@@ -8761,7 +8761,7 @@ var init_all = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/table.js
+// node_modules/drizzle-orm/pg-core/table.js
 function pgTableWithSchema(name, columns, extraConfig, schema, baseName = name) {
   const rawTable = new PgTable(name, schema, baseName);
   const parsedColumns = typeof columns === "function" ? columns(getPgColumnBuilders()) : columns;
@@ -8797,7 +8797,7 @@ function pgTableWithSchema(name, columns, extraConfig, schema, baseName = name) 
 }
 var InlineForeignKeys, EnableRLS, PgTable, pgTable;
 var init_table2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/table.js"() {
+  "node_modules/drizzle-orm/pg-core/table.js"() {
     init_entity();
     init_table();
     init_all();
@@ -8825,10 +8825,10 @@ var init_table2 = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/checks.js
+// node_modules/drizzle-orm/pg-core/checks.js
 var CheckBuilder, Check;
 var init_checks = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/checks.js"() {
+  "node_modules/drizzle-orm/pg-core/checks.js"() {
     init_entity();
     CheckBuilder = class {
       constructor(name, value) {
@@ -8855,9 +8855,9 @@ var init_checks = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/index.js
+// node_modules/drizzle-orm/pg-core/columns/index.js
 var init_columns = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/columns/index.js"() {
+  "node_modules/drizzle-orm/pg-core/columns/index.js"() {
     init_bigint();
     init_bigserial();
     init_boolean();
@@ -8896,10 +8896,10 @@ var init_columns = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/indexes.js
+// node_modules/drizzle-orm/pg-core/indexes.js
 var IndexBuilderOn, IndexBuilder, Index;
 var init_indexes = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/indexes.js"() {
+  "node_modules/drizzle-orm/pg-core/indexes.js"() {
     init_sql();
     init_entity();
     init_columns();
@@ -9010,10 +9010,10 @@ var init_indexes = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/policies.js
+// node_modules/drizzle-orm/pg-core/policies.js
 var PgPolicy;
 var init_policies = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/policies.js"() {
+  "node_modules/drizzle-orm/pg-core/policies.js"() {
     init_entity();
     PgPolicy = class {
       constructor(name, config) {
@@ -9042,10 +9042,10 @@ var init_policies = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/primary-keys.js
+// node_modules/drizzle-orm/pg-core/primary-keys.js
 var PrimaryKeyBuilder, PrimaryKey;
 var init_primary_keys = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/primary-keys.js"() {
+  "node_modules/drizzle-orm/pg-core/primary-keys.js"() {
     init_entity();
     init_table2();
     PrimaryKeyBuilder = class {
@@ -9079,15 +9079,15 @@ var init_primary_keys = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/view-common.js
+// node_modules/drizzle-orm/pg-core/view-common.js
 var PgViewConfig;
 var init_view_common2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/view-common.js"() {
+  "node_modules/drizzle-orm/pg-core/view-common.js"() {
     PgViewConfig = Symbol.for("drizzle:PgViewConfig");
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/casing.js
+// node_modules/drizzle-orm/casing.js
 function toSnakeCase(input) {
   const words = input.replace(/['\u2019]/g, "").match(/[\da-z]+|[A-Z]+(?![a-z])|[A-Z][\da-z]+/g) ?? [];
   return words.map((word) => word.toLowerCase()).join("_");
@@ -9104,7 +9104,7 @@ function noopCase(input) {
 }
 var CasingCache;
 var init_casing = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/casing.js"() {
+  "node_modules/drizzle-orm/casing.js"() {
     init_entity();
     init_table();
     CasingCache = class {
@@ -9146,10 +9146,10 @@ var init_casing = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/errors.js
+// node_modules/drizzle-orm/errors.js
 var DrizzleError, DrizzleQueryError, TransactionRollbackError;
 var init_errors = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/errors.js"() {
+  "node_modules/drizzle-orm/errors.js"() {
     init_entity();
     DrizzleError = class extends Error {
       static [entityKind] = "DrizzleError";
@@ -9179,7 +9179,7 @@ params: ${params}`);
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/expressions/conditions.js
+// node_modules/drizzle-orm/sql/expressions/conditions.js
 function bindIfParam(value, column) {
   if (isDriverValueEncoder(column) && !isSQLWrapper(value) && !is(value, Param) && !is(value, Placeholder) && !is(value, Column) && !is(value, Table) && !is(value, View)) {
     return new Param(value, column);
@@ -9277,7 +9277,7 @@ function notIlike(column, value) {
 }
 var eq, ne, gt, gte, lt, lte;
 var init_conditions = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/expressions/conditions.js"() {
+  "node_modules/drizzle-orm/sql/expressions/conditions.js"() {
     init_column();
     init_entity();
     init_table();
@@ -9303,7 +9303,7 @@ var init_conditions = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/expressions/select.js
+// node_modules/drizzle-orm/sql/expressions/select.js
 function asc(column) {
   return sql`${column} asc`;
 }
@@ -9311,20 +9311,20 @@ function desc(column) {
   return sql`${column} desc`;
 }
 var init_select = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/expressions/select.js"() {
+  "node_modules/drizzle-orm/sql/expressions/select.js"() {
     init_sql();
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/expressions/index.js
+// node_modules/drizzle-orm/sql/expressions/index.js
 var init_expressions = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/expressions/index.js"() {
+  "node_modules/drizzle-orm/sql/expressions/index.js"() {
     init_conditions();
     init_select();
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/relations.js
+// node_modules/drizzle-orm/relations.js
 function getOperators() {
   return {
     and,
@@ -9534,7 +9534,7 @@ function mapRelationalRow(tablesConfig, tableConfig, row, buildQueryResultSelect
 }
 var Relation, Relations, One, Many;
 var init_relations = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/relations.js"() {
+  "node_modules/drizzle-orm/relations.js"() {
     init_table();
     init_column();
     init_entity();
@@ -9596,39 +9596,39 @@ var init_relations = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/functions/aggregate.js
+// node_modules/drizzle-orm/sql/functions/aggregate.js
 var init_aggregate = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/functions/aggregate.js"() {
+  "node_modules/drizzle-orm/sql/functions/aggregate.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/functions/vector.js
+// node_modules/drizzle-orm/sql/functions/vector.js
 var init_vector2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/functions/vector.js"() {
+  "node_modules/drizzle-orm/sql/functions/vector.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/functions/index.js
+// node_modules/drizzle-orm/sql/functions/index.js
 var init_functions = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/functions/index.js"() {
+  "node_modules/drizzle-orm/sql/functions/index.js"() {
     init_aggregate();
     init_vector2();
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/index.js
+// node_modules/drizzle-orm/sql/index.js
 var init_sql2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/sql/index.js"() {
+  "node_modules/drizzle-orm/sql/index.js"() {
     init_expressions();
     init_functions();
     init_sql();
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/view-base.js
+// node_modules/drizzle-orm/pg-core/view-base.js
 var PgViewBase;
 var init_view_base = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/view-base.js"() {
+  "node_modules/drizzle-orm/pg-core/view-base.js"() {
     init_entity();
     init_sql();
     PgViewBase = class extends View {
@@ -9637,10 +9637,10 @@ var init_view_base = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/dialect.js
+// node_modules/drizzle-orm/pg-core/dialect.js
 var PgDialect;
 var init_dialect = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/dialect.js"() {
+  "node_modules/drizzle-orm/pg-core/dialect.js"() {
     init_alias();
     init_casing();
     init_column();
@@ -10751,10 +10751,10 @@ var init_dialect = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/query-builders/query-builder.js
+// node_modules/drizzle-orm/query-builders/query-builder.js
 var TypedQueryBuilder;
 var init_query_builder = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/query-builders/query-builder.js"() {
+  "node_modules/drizzle-orm/query-builders/query-builder.js"() {
     init_entity();
     TypedQueryBuilder = class {
       static [entityKind] = "TypedQueryBuilder";
@@ -10766,7 +10766,7 @@ var init_query_builder = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/select.js
+// node_modules/drizzle-orm/pg-core/query-builders/select.js
 function createSetOperator(type, isAll) {
   return (leftSelect, rightSelect, ...restSelects) => {
     const setOperators = [rightSelect, ...restSelects].map((select) => ({
@@ -10786,7 +10786,7 @@ function createSetOperator(type, isAll) {
 }
 var PgSelectBuilder, PgSelectQueryBuilderBase, PgSelectBase, getPgSetOperators, union, unionAll, intersect, intersectAll, except, exceptAll;
 var init_select2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/select.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/select.js"() {
     init_entity();
     init_view_base();
     init_query_builder();
@@ -11600,10 +11600,10 @@ var init_select2 = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/query-builder.js
+// node_modules/drizzle-orm/pg-core/query-builders/query-builder.js
 var QueryBuilder;
 var init_query_builder2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/query-builder.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/query-builder.js"() {
     init_entity();
     init_dialect();
     init_selection_proxy();
@@ -11697,7 +11697,7 @@ var init_query_builder2 = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/view.js
+// node_modules/drizzle-orm/pg-core/view.js
 function pgViewWithSchema(name, selection, schema) {
   if (selection) {
     return new ManualViewBuilder(name, selection, schema);
@@ -11712,7 +11712,7 @@ function pgMaterializedViewWithSchema(name, selection, schema) {
 }
 var DefaultViewBuilderCore, ViewBuilder, ManualViewBuilder, MaterializedViewBuilderCore, MaterializedViewBuilder, ManualMaterializedViewBuilder, PgView, PgMaterializedViewConfig, PgMaterializedView;
 var init_view = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/view.js"() {
+  "node_modules/drizzle-orm/pg-core/view.js"() {
     init_entity();
     init_selection_proxy();
     init_utils();
@@ -11946,7 +11946,7 @@ var init_view = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/utils.js
+// node_modules/drizzle-orm/pg-core/utils.js
 function extractUsedTable(table) {
   if (is(table, PgTable)) {
     return [table[Schema] ? `${table[Schema]}.${table[Table.Symbol.BaseName]}` : table[Table.Symbol.BaseName]];
@@ -11960,7 +11960,7 @@ function extractUsedTable(table) {
   return [];
 }
 var init_utils3 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/utils.js"() {
+  "node_modules/drizzle-orm/pg-core/utils.js"() {
     init_entity();
     init_table2();
     init_sql();
@@ -11969,10 +11969,10 @@ var init_utils3 = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/delete.js
+// node_modules/drizzle-orm/pg-core/query-builders/delete.js
 var PgDeleteBase;
 var init_delete = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/delete.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/delete.js"() {
     init_entity();
     init_query_promise();
     init_selection_proxy();
@@ -12077,10 +12077,10 @@ var init_delete = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/insert.js
+// node_modules/drizzle-orm/pg-core/query-builders/insert.js
 var PgInsertBuilder, PgInsertBase;
 var init_insert = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/insert.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/insert.js"() {
     init_entity();
     init_query_promise();
     init_selection_proxy();
@@ -12284,10 +12284,10 @@ var init_insert = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/refresh-materialized-view.js
+// node_modules/drizzle-orm/pg-core/query-builders/refresh-materialized-view.js
 var PgRefreshMaterializedView;
 var init_refresh_materialized_view = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/refresh-materialized-view.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/refresh-materialized-view.js"() {
     init_entity();
     init_query_promise();
     init_tracing();
@@ -12346,16 +12346,16 @@ var init_refresh_materialized_view = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/select.types.js
+// node_modules/drizzle-orm/pg-core/query-builders/select.types.js
 var init_select_types = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/select.types.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/select.types.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/update.js
+// node_modules/drizzle-orm/pg-core/query-builders/update.js
 var PgUpdateBuilder, PgUpdateBase;
 var init_update = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/update.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/update.js"() {
     init_entity();
     init_table2();
     init_query_promise();
@@ -12579,9 +12579,9 @@ var init_update = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/index.js
+// node_modules/drizzle-orm/pg-core/query-builders/index.js
 var init_query_builders = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/index.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/index.js"() {
     init_delete();
     init_insert();
     init_query_builder2();
@@ -12592,10 +12592,10 @@ var init_query_builders = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/count.js
+// node_modules/drizzle-orm/pg-core/query-builders/count.js
 var PgCountBuilder;
 var init_count = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/count.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/count.js"() {
     init_entity();
     init_sql();
     PgCountBuilder = class _PgCountBuilder extends SQL {
@@ -12650,10 +12650,10 @@ var init_count = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/query.js
+// node_modules/drizzle-orm/pg-core/query-builders/query.js
 var RelationalQueryBuilder, PgRelationalQuery;
 var init_query = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/query.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/query.js"() {
     init_entity();
     init_query_promise();
     init_relations();
@@ -12772,10 +12772,10 @@ var init_query = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/raw.js
+// node_modules/drizzle-orm/pg-core/query-builders/raw.js
 var PgRaw;
 var init_raw = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/query-builders/raw.js"() {
+  "node_modules/drizzle-orm/pg-core/query-builders/raw.js"() {
     init_entity();
     init_query_promise();
     PgRaw = class extends QueryPromise {
@@ -12808,10 +12808,10 @@ var init_raw = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/db.js
+// node_modules/drizzle-orm/pg-core/db.js
 var PgDatabase;
 var init_db = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/db.js"() {
+  "node_modules/drizzle-orm/pg-core/db.js"() {
     init_entity();
     init_query_builders();
     init_selection_proxy();
@@ -13101,7 +13101,7 @@ var init_db = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/cache/core/cache.js
+// node_modules/drizzle-orm/cache/core/cache.js
 async function hashQuery(sql2, params) {
   const dataToHash = `${sql2}-${JSON.stringify(params)}`;
   const encoder = new TextEncoder();
@@ -13113,7 +13113,7 @@ async function hashQuery(sql2, params) {
 }
 var Cache, NoopCache;
 var init_cache = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/cache/core/cache.js"() {
+  "node_modules/drizzle-orm/cache/core/cache.js"() {
     init_entity();
     Cache = class {
       static [entityKind] = "Cache";
@@ -13134,16 +13134,16 @@ var init_cache = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/alias.js
+// node_modules/drizzle-orm/pg-core/alias.js
 var init_alias2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/alias.js"() {
+  "node_modules/drizzle-orm/pg-core/alias.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/roles.js
+// node_modules/drizzle-orm/pg-core/roles.js
 var PgRole;
 var init_roles = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/roles.js"() {
+  "node_modules/drizzle-orm/pg-core/roles.js"() {
     init_entity();
     PgRole = class {
       constructor(name, config) {
@@ -13171,13 +13171,13 @@ var init_roles = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/sequence.js
+// node_modules/drizzle-orm/pg-core/sequence.js
 function pgSequenceWithSchema(name, options, schema) {
   return new PgSequence(name, options, schema);
 }
 var PgSequence;
 var init_sequence = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/sequence.js"() {
+  "node_modules/drizzle-orm/pg-core/sequence.js"() {
     init_entity();
     PgSequence = class {
       constructor(seqName, seqOptions, schema) {
@@ -13190,10 +13190,10 @@ var init_sequence = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/schema.js
+// node_modules/drizzle-orm/pg-core/schema.js
 var PgSchema;
 var init_schema = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/schema.js"() {
+  "node_modules/drizzle-orm/pg-core/schema.js"() {
     init_entity();
     init_sql();
     init_enum();
@@ -13234,10 +13234,10 @@ var init_schema = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/session.js
+// node_modules/drizzle-orm/pg-core/session.js
 var PgPreparedQuery, PgSession, PgTransaction;
 var init_session = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/session.js"() {
+  "node_modules/drizzle-orm/pg-core/session.js"() {
     init_cache();
     init_entity();
     init_errors();
@@ -13405,22 +13405,22 @@ var init_session = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/subquery.js
+// node_modules/drizzle-orm/pg-core/subquery.js
 var init_subquery2 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/subquery.js"() {
+  "node_modules/drizzle-orm/pg-core/subquery.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/utils/index.js
+// node_modules/drizzle-orm/pg-core/utils/index.js
 var init_utils4 = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/utils/index.js"() {
+  "node_modules/drizzle-orm/pg-core/utils/index.js"() {
     init_array();
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/index.js
+// node_modules/drizzle-orm/pg-core/index.js
 var init_pg_core = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/pg-core/index.js"() {
+  "node_modules/drizzle-orm/pg-core/index.js"() {
     init_alias2();
     init_checks();
     init_columns();
@@ -13445,15 +13445,15 @@ var init_pg_core = __esm({
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/operations.js
+// node_modules/drizzle-orm/operations.js
 var init_operations = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/operations.js"() {
+  "node_modules/drizzle-orm/operations.js"() {
   }
 });
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/index.js
+// node_modules/drizzle-orm/index.js
 var init_drizzle_orm = __esm({
-  "node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/index.js"() {
+  "node_modules/drizzle-orm/index.js"() {
     init_alias();
     init_column_builder();
     init_column();
@@ -13475,6 +13475,7 @@ var init_drizzle_orm = __esm({
 var schema_exports = {};
 __export(schema_exports, {
   adminCredentials: () => adminCredentials,
+  auditLog: () => auditLog,
   blogPosts: () => blogPosts,
   chatConversations: () => chatConversations,
   chatMessages: () => chatMessages,
@@ -13501,7 +13502,7 @@ __export(schema_exports, {
   videoCategoryEnum: () => videoCategoryEnum,
   videos: () => videos
 });
-var videoCategoryEnum, eventStatusEnum, roadmapStatusEnum, scheduledPostStatusEnum, scheduledPostScheduleTypeEnum, scheduledPostMediaTypeEnum, adminCredentials, blogPosts, videos, events, countryLeaderboard, promotions, roadmapPhases, presentations, siteSettings, newsletterSignups, contentSubmissionStatusEnum, contentSubmissions, eventApplicationStatusEnum, eventApplications, socialWallVideos, chatConversations, chatMessages, vacancyStatusEnum, jobVacancies, scheduledPosts;
+var videoCategoryEnum, eventStatusEnum, roadmapStatusEnum, scheduledPostStatusEnum, scheduledPostScheduleTypeEnum, scheduledPostMediaTypeEnum, adminCredentials, blogPosts, videos, events, countryLeaderboard, promotions, roadmapPhases, presentations, siteSettings, newsletterSignups, contentSubmissionStatusEnum, contentSubmissions, eventApplicationStatusEnum, eventApplications, socialWallVideos, chatConversations, chatMessages, vacancyStatusEnum, jobVacancies, scheduledPosts, auditLog;
 var init_schema2 = __esm({
   "drizzle/schema.ts"() {
     "use strict";
@@ -13860,20 +13861,30 @@ var init_schema2 = __esm({
       createdAt: timestamp("created_at").defaultNow().notNull(),
       updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => /* @__PURE__ */ new Date())
     });
+    auditLog = pgTable("audit_log", {
+      id: serial("id").primaryKey(),
+      action: varchar("action", { length: 100 }).notNull(),
+      actor: varchar("actor", { length: 320 }),
+      ipAddress: varchar("ip_address", { length: 45 }),
+      targetType: varchar("target_type", { length: 50 }),
+      targetId: varchar("target_id", { length: 100 }),
+      details: text("details"),
+      createdAt: timestamp("created_at").defaultNow().notNull()
+    });
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/types.js
+// node_modules/cron-parser/dist/fields/types.js
 var require_types = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/types.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/types.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronField.js
+// node_modules/cron-parser/dist/fields/CronField.js
 var require_CronField = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronField.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronField.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronField = void 0;
@@ -14084,9 +14095,9 @@ var require_CronField = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronDayOfMonth.js
+// node_modules/cron-parser/dist/fields/CronDayOfMonth.js
 var require_CronDayOfMonth = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronDayOfMonth.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronDayOfMonth.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronDayOfMonth = void 0;
@@ -14129,9 +14140,9 @@ var require_CronDayOfMonth = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronDayOfWeek.js
+// node_modules/cron-parser/dist/fields/CronDayOfWeek.js
 var require_CronDayOfWeek = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronDayOfWeek.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronDayOfWeek.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronDayOfWeek = void 0;
@@ -14181,9 +14192,9 @@ var require_CronDayOfWeek = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronHour.js
+// node_modules/cron-parser/dist/fields/CronHour.js
 var require_CronHour = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronHour.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronHour.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronHour = void 0;
@@ -14222,9 +14233,9 @@ var require_CronHour = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronMinute.js
+// node_modules/cron-parser/dist/fields/CronMinute.js
 var require_CronMinute = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronMinute.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronMinute.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronMinute = void 0;
@@ -14263,9 +14274,9 @@ var require_CronMinute = __commonJS({
   }
 });
 
-// node_modules/.pnpm/luxon@3.7.2/node_modules/luxon/build/node/luxon.js
+// node_modules/luxon/build/node/luxon.js
 var require_luxon = __commonJS({
-  "node_modules/.pnpm/luxon@3.7.2/node_modules/luxon/build/node/luxon.js"(exports2) {
+  "node_modules/luxon/build/node/luxon.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     var LuxonError = class extends Error {
@@ -21024,9 +21035,9 @@ var require_luxon = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronDate.js
+// node_modules/cron-parser/dist/CronDate.js
 var require_CronDate = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronDate.js"(exports2) {
+  "node_modules/cron-parser/dist/CronDate.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronDate = exports2.DAYS_IN_MONTH = exports2.DateMathOp = exports2.TimeUnit = void 0;
@@ -21529,9 +21540,9 @@ var require_CronDate = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronMonth.js
+// node_modules/cron-parser/dist/fields/CronMonth.js
 var require_CronMonth = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronMonth.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronMonth.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronMonth = void 0;
@@ -21574,9 +21585,9 @@ var require_CronMonth = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronSecond.js
+// node_modules/cron-parser/dist/fields/CronSecond.js
 var require_CronSecond = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/CronSecond.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/CronSecond.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronSecond = void 0;
@@ -21615,9 +21626,9 @@ var require_CronSecond = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/index.js
+// node_modules/cron-parser/dist/fields/index.js
 var require_fields = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/fields/index.js"(exports2) {
+  "node_modules/cron-parser/dist/fields/index.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? (function(o2, m4, k5, k22) {
       if (k22 === void 0) k22 = k5;
@@ -21647,9 +21658,9 @@ var require_fields = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronFieldCollection.js
+// node_modules/cron-parser/dist/CronFieldCollection.js
 var require_CronFieldCollection = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronFieldCollection.js"(exports2) {
+  "node_modules/cron-parser/dist/CronFieldCollection.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronFieldCollection = void 0;
@@ -21996,9 +22007,9 @@ var require_CronFieldCollection = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronExpression.js
+// node_modules/cron-parser/dist/CronExpression.js
 var require_CronExpression = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronExpression.js"(exports2) {
+  "node_modules/cron-parser/dist/CronExpression.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronExpression = exports2.LOOPS_LIMIT_EXCEEDED_ERROR_MESSAGE = exports2.TIME_SPAN_OUT_OF_BOUNDS_ERROR_MESSAGE = void 0;
@@ -22469,9 +22480,9 @@ var require_CronExpression = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/utils/random.js
+// node_modules/cron-parser/dist/utils/random.js
 var require_random = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/utils/random.js"(exports2) {
+  "node_modules/cron-parser/dist/utils/random.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.seededRandom = seededRandom;
@@ -22498,9 +22509,9 @@ var require_random = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronExpressionParser.js
+// node_modules/cron-parser/dist/CronExpressionParser.js
 var require_CronExpressionParser = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronExpressionParser.js"(exports2) {
+  "node_modules/cron-parser/dist/CronExpressionParser.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CronExpressionParser = exports2.DayOfWeek = exports2.Months = exports2.CronUnit = exports2.PredefinedExpressions = void 0;
@@ -22866,9 +22877,9 @@ var require_CronExpressionParser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronFileParser.js
+// node_modules/cron-parser/dist/CronFileParser.js
 var require_CronFileParser = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/CronFileParser.js"(exports2) {
+  "node_modules/cron-parser/dist/CronFileParser.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? (function(o2, m4, k5, k22) {
       if (k22 === void 0) k22 = k5;
@@ -22980,9 +22991,9 @@ var require_CronFileParser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/index.js
+// node_modules/cron-parser/dist/index.js
 var require_dist = __commonJS({
-  "node_modules/.pnpm/cron-parser@5.5.0/node_modules/cron-parser/dist/index.js"(exports2) {
+  "node_modules/cron-parser/dist/index.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? (function(o2, m4, k5, k22) {
       if (k22 === void 0) k22 = k5;
@@ -23028,10 +23039,10 @@ var require_dist = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/emitWarningIfUnsupportedVersion.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/emitWarningIfUnsupportedVersion.js
 var state, emitWarningIfUnsupportedVersion;
 var init_emitWarningIfUnsupportedVersion = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/emitWarningIfUnsupportedVersion.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/emitWarningIfUnsupportedVersion.js"() {
     state = {
       warningEmitted: false
     };
@@ -23059,10 +23070,10 @@ More information can be found at: https://a.co/c895JFp`);
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/longPollMiddleware.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/longPollMiddleware.js
 var longPollMiddleware, longPollMiddlewareOptions, getLongPollPlugin;
 var init_longPollMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/longPollMiddleware.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/longPollMiddleware.js"() {
     longPollMiddleware = () => (next, context) => async (args) => {
       context.__retryLongPoll = true;
       return next(args);
@@ -23081,7 +23092,7 @@ var init_longPollMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/setCredentialFeature.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/setCredentialFeature.js
 function setCredentialFeature(credentials, feature, value) {
   if (!credentials.$source) {
     credentials.$source = {};
@@ -23090,23 +23101,23 @@ function setCredentialFeature(credentials, feature, value) {
   return credentials;
 }
 var init_setCredentialFeature = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/setCredentialFeature.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/setCredentialFeature.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/isStreamingPayload/isStreamingPayload.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/isStreamingPayload/isStreamingPayload.js
 var import_node_stream, isStreamingPayload;
 var init_isStreamingPayload = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/isStreamingPayload/isStreamingPayload.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/isStreamingPayload/isStreamingPayload.js"() {
     import_node_stream = require("node:stream");
     isStreamingPayload = (request) => request?.body instanceof import_node_stream.Readable || typeof ReadableStream !== "undefined" && request?.body instanceof ReadableStream;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/middleware-stack/MiddlewareStack.js
+// node_modules/@smithy/core/dist-es/submodules/client/middleware-stack/MiddlewareStack.js
 var getAllAliases, getMiddlewareNameWithAliases, constructStack, stepWeights, priorityWeights;
 var init_MiddlewareStack = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/middleware-stack/MiddlewareStack.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/middleware-stack/MiddlewareStack.js"() {
     getAllAliases = (name, aliases) => {
       const _aliases = [];
       if (name) {
@@ -23373,9 +23384,9 @@ var init_MiddlewareStack = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+types@4.14.4/node_modules/@smithy/types/dist-cjs/index.js
+// node_modules/@smithy/types/dist-cjs/index.js
 var require_dist_cjs = __commonJS({
-  "node_modules/.pnpm/@smithy+types@4.14.4/node_modules/@smithy/types/dist-cjs/index.js"(exports2) {
+  "node_modules/@smithy/types/dist-cjs/index.js"(exports2) {
     "use strict";
     exports2.HttpAuthLocation = void 0;
     (function(HttpAuthLocation) {
@@ -23460,16 +23471,16 @@ var require_dist_cjs = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/getSmithyContext.js
+// node_modules/@smithy/core/dist-es/submodules/transport/getSmithyContext.js
 var import_types, getSmithyContext;
 var init_getSmithyContext = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/getSmithyContext.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/getSmithyContext.js"() {
     import_types = __toESM(require_dist_cjs());
     getSmithyContext = (context) => context[import_types.SMITHY_CONTEXT_KEY] || (context[import_types.SMITHY_CONTEXT_KEY] = {});
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/httpRequest.js
+// node_modules/@smithy/core/dist-es/submodules/transport/httpRequest.js
 function cloneQuery(query) {
   return Object.keys(query).reduce((carry, paramName) => {
     const param = query[paramName];
@@ -23481,7 +23492,7 @@ function cloneQuery(query) {
 }
 var HttpRequest;
 var init_httpRequest = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/httpRequest.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/httpRequest.js"() {
     HttpRequest = class _HttpRequest {
       method;
       protocol;
@@ -23531,10 +23542,10 @@ var init_httpRequest = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/httpResponse.js
+// node_modules/@smithy/core/dist-es/submodules/transport/httpResponse.js
 var HttpResponse;
 var init_httpResponse = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/httpResponse.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/httpResponse.js"() {
     HttpResponse = class {
       statusCode;
       reason;
@@ -23556,10 +23567,10 @@ var init_httpResponse = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/isValidHostLabel.js
+// node_modules/@smithy/core/dist-es/submodules/transport/isValidHostLabel.js
 var VALID_HOST_LABEL_REGEX, isValidHostLabel;
 var init_isValidHostLabel = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/isValidHostLabel.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/isValidHostLabel.js"() {
     VALID_HOST_LABEL_REGEX = new RegExp(`^(?!.*-$)(?!-)[a-zA-Z0-9-]{1,63}$`);
     isValidHostLabel = (value, allowSubDomains = false) => {
       if (!allowSubDomains) {
@@ -23576,20 +23587,20 @@ var init_isValidHostLabel = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/isValidHostname.js
+// node_modules/@smithy/core/dist-es/submodules/transport/isValidHostname.js
 function isValidHostname(hostname) {
   const hostPattern = /^[a-z0-9][a-z0-9\.\-]*[a-z0-9]$/;
   return hostPattern.test(hostname);
 }
 var init_isValidHostname = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/isValidHostname.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/isValidHostname.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/normalizeProvider.js
+// node_modules/@smithy/core/dist-es/submodules/transport/normalizeProvider.js
 var normalizeProvider;
 var init_normalizeProvider = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/normalizeProvider.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/normalizeProvider.js"() {
     normalizeProvider = (input) => {
       if (typeof input === "function")
         return input;
@@ -23599,7 +23610,7 @@ var init_normalizeProvider = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/parseQueryString.js
+// node_modules/@smithy/core/dist-es/submodules/transport/parseQueryString.js
 function parseQueryString(querystring) {
   const query = {};
   querystring = querystring.replace(/^\?/, "");
@@ -23622,14 +23633,14 @@ function parseQueryString(querystring) {
   return query;
 }
 var init_parseQueryString = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/parseQueryString.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/parseQueryString.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/parseUrl.js
+// node_modules/@smithy/core/dist-es/submodules/transport/parseUrl.js
 var parseUrl;
 var init_parseUrl = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/parseUrl.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/parseUrl.js"() {
     init_parseQueryString();
     parseUrl = (url) => {
       if (typeof url === "string") {
@@ -23651,10 +23662,10 @@ var init_parseUrl = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/toEndpointV1.js
+// node_modules/@smithy/core/dist-es/submodules/transport/toEndpointV1.js
 var toEndpointV1;
 var init_toEndpointV1 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/toEndpointV1.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/toEndpointV1.js"() {
     init_parseUrl();
     toEndpointV1 = (endpoint) => {
       if (typeof endpoint === "object") {
@@ -23675,9 +23686,9 @@ var init_toEndpointV1 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/index.js
+// node_modules/@smithy/core/dist-es/submodules/transport/index.js
 var init_transport = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/transport/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/transport/index.js"() {
     init_getSmithyContext();
     init_httpRequest();
     init_httpResponse();
@@ -23690,28 +23701,28 @@ var init_transport = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidFunction.js
+// node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidFunction.js
 var invalidFunction;
 var init_invalidFunction = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidFunction.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidFunction.js"() {
     invalidFunction = (message) => () => {
       throw new Error(message);
     };
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidProvider.js
+// node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidProvider.js
 var invalidProvider;
 var init_invalidProvider = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidProvider.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidProvider.js"() {
     invalidProvider = (message) => () => Promise.reject(message);
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/circularReplacer.js
+// node_modules/@smithy/core/dist-es/submodules/client/util-waiter/circularReplacer.js
 var getCircularReplacer;
 var init_circularReplacer = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/circularReplacer.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/util-waiter/circularReplacer.js"() {
     getCircularReplacer = () => {
       const seen = /* @__PURE__ */ new WeakSet();
       return (key, value) => {
@@ -23727,20 +23738,20 @@ var init_circularReplacer = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/sleep.js
+// node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/sleep.js
 var sleep;
 var init_sleep = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/sleep.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/sleep.js"() {
     sleep = (seconds) => {
       return new Promise((resolve) => setTimeout(resolve, seconds * 1e3));
     };
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/waiter.js
+// node_modules/@smithy/core/dist-es/submodules/client/util-waiter/waiter.js
 var waiterServiceDefaults, WaiterState, checkExceptions;
 var init_waiter = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/waiter.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/util-waiter/waiter.js"() {
     init_circularReplacer();
     waiterServiceDefaults = {
       minDelay: 2,
@@ -23776,10 +23787,10 @@ var init_waiter = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/poller.js
+// node_modules/@smithy/core/dist-es/submodules/client/util-waiter/poller.js
 var runPolling, checkWarn403, createMessageFromResponse, exponentialBackoffWithJitter, randomInRange;
 var init_poller = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/poller.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/util-waiter/poller.js"() {
     init_circularReplacer();
     init_sleep();
     init_waiter();
@@ -23868,10 +23879,10 @@ var init_poller = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/validate.js
+// node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/validate.js
 var validateWaiterOptions;
 var init_validate = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/validate.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/util-waiter/utils/validate.js"() {
     validateWaiterOptions = (options) => {
       if (options.maxWaitTime <= 0) {
         throw new Error(`WaiterConfiguration.maxWaitTime must be greater than 0`);
@@ -23888,10 +23899,10 @@ var init_validate = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/createWaiter.js
+// node_modules/@smithy/core/dist-es/submodules/client/util-waiter/createWaiter.js
 var abortTimeout, createWaiter;
 var init_createWaiter = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/createWaiter.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/util-waiter/createWaiter.js"() {
     init_poller();
     init_validate();
     init_waiter();
@@ -23942,10 +23953,10 @@ var init_createWaiter = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client.js
 var Client;
 var init_client = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client.js"() {
     init_MiddlewareStack();
     Client = class {
       config;
@@ -23996,10 +24007,10 @@ var init_client = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/deref.js
+// node_modules/@smithy/core/dist-es/submodules/schema/deref.js
 var deref;
 var init_deref = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/deref.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/deref.js"() {
     deref = (schemaRef) => {
       if (typeof schemaRef === "function") {
         return schemaRef();
@@ -24009,10 +24020,10 @@ var init_deref = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/operation.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/operation.js
 var operation;
 var init_operation = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/operation.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/operation.js"() {
     operation = (namespace, name, traits, input, output) => ({
       name,
       namespace,
@@ -24023,10 +24034,10 @@ var init_operation = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js
 var schemaDeserializationMiddleware, findHeader;
 var init_schemaDeserializationMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js"() {
     init_transport();
     init_operation();
     schemaDeserializationMiddleware = (config) => (next, context) => async (args) => {
@@ -24090,10 +24101,10 @@ var init_schemaDeserializationMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js
 var schemaSerializationMiddleware;
 var init_schemaSerializationMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js"() {
     init_transport();
     init_operation();
     schemaSerializationMiddleware = (config) => (next, context) => async (args) => {
@@ -24113,7 +24124,7 @@ var init_schemaSerializationMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/middleware/getSchemaSerdePlugin.js
+// node_modules/@smithy/core/dist-es/submodules/schema/middleware/getSchemaSerdePlugin.js
 function getSchemaSerdePlugin(config) {
   return {
     applyToStack: (commandStack) => {
@@ -24125,7 +24136,7 @@ function getSchemaSerdePlugin(config) {
 }
 var deserializerMiddlewareOption, serializerMiddlewareOption;
 var init_getSchemaSerdePlugin = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/middleware/getSchemaSerdePlugin.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/middleware/getSchemaSerdePlugin.js"() {
     init_schemaDeserializationMiddleware();
     init_schemaSerializationMiddleware();
     deserializerMiddlewareOption = {
@@ -24143,10 +24154,10 @@ var init_getSchemaSerdePlugin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/Schema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/Schema.js
 var Schema2;
 var init_Schema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/Schema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/Schema.js"() {
     Schema2 = class {
       name;
       namespace;
@@ -24170,10 +24181,10 @@ var init_Schema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/ListSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/ListSchema.js
 var ListSchema, list;
 var init_ListSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/ListSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/ListSchema.js"() {
     init_Schema();
     ListSchema = class _ListSchema extends Schema2 {
       static symbol = Symbol.for("@smithy/lis");
@@ -24191,10 +24202,10 @@ var init_ListSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/MapSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/MapSchema.js
 var MapSchema, map;
 var init_MapSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/MapSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/MapSchema.js"() {
     init_Schema();
     MapSchema = class _MapSchema extends Schema2 {
       static symbol = Symbol.for("@smithy/map");
@@ -24214,10 +24225,10 @@ var init_MapSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/OperationSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/OperationSchema.js
 var OperationSchema, op;
 var init_OperationSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/OperationSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/OperationSchema.js"() {
     init_Schema();
     OperationSchema = class _OperationSchema extends Schema2 {
       static symbol = Symbol.for("@smithy/ope");
@@ -24237,10 +24248,10 @@ var init_OperationSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/StructureSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/StructureSchema.js
 var StructureSchema, struct;
 var init_StructureSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/StructureSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/StructureSchema.js"() {
     init_Schema();
     StructureSchema = class _StructureSchema extends Schema2 {
       static symbol = Symbol.for("@smithy/str");
@@ -24260,10 +24271,10 @@ var init_StructureSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/ErrorSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/ErrorSchema.js
 var ErrorSchema, error;
 var init_ErrorSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/ErrorSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/ErrorSchema.js"() {
     init_Schema();
     init_StructureSchema();
     ErrorSchema = class _ErrorSchema extends StructureSchema {
@@ -24282,7 +24293,7 @@ var init_ErrorSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/translateTraits.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/translateTraits.js
 function translateTraits(indicator) {
   if (typeof indicator === "object") {
     return indicator;
@@ -24310,12 +24321,12 @@ function translateTraits(indicator) {
 }
 var traitsCache;
 var init_translateTraits = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/translateTraits.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/translateTraits.js"() {
     traitsCache = [];
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/NormalizedSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/NormalizedSchema.js
 function member(memberSchema, memberName) {
   if (memberSchema instanceof NormalizedSchema) {
     return Object.assign(memberSchema, {
@@ -24328,7 +24339,7 @@ function member(memberSchema, memberName) {
 }
 var anno, simpleSchemaCacheN, simpleSchemaCacheS, NormalizedSchema, isMemberSchema, isStaticSchema;
 var init_NormalizedSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/NormalizedSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/NormalizedSchema.js"() {
     init_deref();
     init_translateTraits();
     anno = {
@@ -24604,10 +24615,10 @@ var init_NormalizedSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/SimpleSchema.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/SimpleSchema.js
 var SimpleSchema, sim, simAdapter;
 var init_SimpleSchema = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/SimpleSchema.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/SimpleSchema.js"() {
     init_Schema();
     SimpleSchema = class _SimpleSchema extends Schema2 {
       static symbol = Symbol.for("@smithy/sim");
@@ -24631,10 +24642,10 @@ var init_SimpleSchema = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/sentinels.js
+// node_modules/@smithy/core/dist-es/submodules/schema/schemas/sentinels.js
 var SCHEMA;
 var init_sentinels = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/schemas/sentinels.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/schemas/sentinels.js"() {
     SCHEMA = {
       BLOB: 21,
       STREAMING_BLOB: 42,
@@ -24654,10 +24665,10 @@ var init_sentinels = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/TypeRegistry.js
+// node_modules/@smithy/core/dist-es/submodules/schema/TypeRegistry.js
 var TypeRegistry;
 var init_TypeRegistry = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/TypeRegistry.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/TypeRegistry.js"() {
     TypeRegistry = class _TypeRegistry {
       namespace;
       schemas;
@@ -24762,7 +24773,7 @@ var init_TypeRegistry = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/index.js
+// node_modules/@smithy/core/dist-es/submodules/schema/index.js
 var schema_exports2 = {};
 __export(schema_exports2, {
   ErrorSchema: () => ErrorSchema,
@@ -24794,7 +24805,7 @@ __export(schema_exports2, {
   translateTraits: () => translateTraits
 });
 var init_schema3 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/schema/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/schema/index.js"() {
     init_deref();
     init_getSchemaSerdePlugin();
     init_ListSchema();
@@ -24812,7 +24823,7 @@ var init_schema3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/schemaLogFilter.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/schemaLogFilter.js
 function schemaLogFilter(schema, data) {
   if (data == null) {
     return data;
@@ -24845,16 +24856,16 @@ function schemaLogFilter(schema, data) {
 }
 var SENSITIVE_STRING;
 var init_schemaLogFilter = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/schemaLogFilter.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/schemaLogFilter.js"() {
     init_schema3();
     SENSITIVE_STRING = "***SensitiveInformation***";
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/command.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/command.js
 var import_types2, Command, ClassBuilder;
 var init_command = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/command.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/command.js"() {
     import_types2 = __toESM(require_dist_cjs());
     init_MiddlewareStack();
     init_schemaLogFilter();
@@ -24990,18 +25001,18 @@ var init_command = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/constants.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/constants.js
 var SENSITIVE_STRING2;
 var init_constants = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/constants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/constants.js"() {
     SENSITIVE_STRING2 = "***SensitiveInformation***";
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/create-aggregated-client.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/create-aggregated-client.js
 var createAggregatedClient;
 var init_create_aggregated_client = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/create-aggregated-client.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/create-aggregated-client.js"() {
     createAggregatedClient = (commands5, Client2, options) => {
       for (const [command, CommandCtor] of Object.entries(commands5)) {
         const methodImpl = async function(args, optionsOrCb, cb) {
@@ -25050,10 +25061,10 @@ var init_create_aggregated_client = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/exceptions.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/exceptions.js
 var ServiceException, decorateServiceException;
 var init_exceptions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/exceptions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/exceptions.js"() {
     ServiceException = class _ServiceException extends Error {
       $fault;
       $response;
@@ -25102,10 +25113,10 @@ var init_exceptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/default-error-handler.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/default-error-handler.js
 var throwDefaultError, withBaseException, deserializeMetadata;
 var init_default_error_handler = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/default-error-handler.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/default-error-handler.js"() {
     init_exceptions();
     throwDefaultError = ({ output, parsedBody, exceptionCtor, errorCode }) => {
       const $metadata = deserializeMetadata(output);
@@ -25131,10 +25142,10 @@ var init_default_error_handler = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/defaults-mode.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/defaults-mode.js
 var loadConfigsForDefaultMode;
 var init_defaults_mode = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/defaults-mode.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/defaults-mode.js"() {
     loadConfigsForDefaultMode = (mode) => {
       switch (mode) {
         case "standard":
@@ -25164,10 +25175,10 @@ var init_defaults_mode = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/emitWarningIfUnsupportedVersion.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/emitWarningIfUnsupportedVersion.js
 var warningEmitted, emitWarningIfUnsupportedVersion2;
 var init_emitWarningIfUnsupportedVersion2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/emitWarningIfUnsupportedVersion.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/emitWarningIfUnsupportedVersion.js"() {
     warningEmitted = false;
     emitWarningIfUnsupportedVersion2 = (version2) => {
       if (version2 && !warningEmitted && parseInt(version2.substring(1, version2.indexOf("."))) < 16) {
@@ -25177,10 +25188,10 @@ var init_emitWarningIfUnsupportedVersion2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/checksum.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/checksum.js
 var import_types3, knownAlgorithms, getChecksumConfiguration, resolveChecksumRuntimeConfig;
 var init_checksum = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/checksum.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/checksum.js"() {
     import_types3 = __toESM(require_dist_cjs());
     knownAlgorithms = Object.values(import_types3.AlgorithmId);
     getChecksumConfiguration = (runtimeConfig) => {
@@ -25231,10 +25242,10 @@ var init_checksum = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/retry.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/retry.js
 var getRetryConfiguration, resolveRetryRuntimeConfig;
 var init_retry = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/retry.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/retry.js"() {
     getRetryConfiguration = (runtimeConfig) => {
       return {
         setRetryStrategy(retryStrategy) {
@@ -25253,10 +25264,10 @@ var init_retry = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/defaultExtensionConfiguration.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/defaultExtensionConfiguration.js
 var getDefaultExtensionConfiguration, getDefaultClientConfiguration, resolveDefaultRuntimeConfig;
 var init_defaultExtensionConfiguration = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/defaultExtensionConfiguration.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/defaultExtensionConfiguration.js"() {
     init_checksum();
     init_retry();
     getDefaultExtensionConfiguration = (runtimeConfig) => {
@@ -25269,18 +25280,18 @@ var init_defaultExtensionConfiguration = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-array-if-single-item.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-array-if-single-item.js
 var getArrayIfSingleItem;
 var init_get_array_if_single_item = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-array-if-single-item.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-array-if-single-item.js"() {
     getArrayIfSingleItem = (mayBeArray) => Array.isArray(mayBeArray) ? mayBeArray : [mayBeArray];
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-value-from-text-node.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-value-from-text-node.js
 var getValueFromTextNode;
 var init_get_value_from_text_node = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-value-from-text-node.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-value-from-text-node.js"() {
     getValueFromTextNode = (obj) => {
       const textNodeName = "#text";
       for (const key in obj) {
@@ -25295,20 +25306,20 @@ var init_get_value_from_text_node = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/is-serializable-header-value.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/is-serializable-header-value.js
 var isSerializableHeaderValue;
 var init_is_serializable_header_value = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/is-serializable-header-value.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/is-serializable-header-value.js"() {
     isSerializableHeaderValue = (value) => {
       return value != null;
     };
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/NoOpLogger.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/NoOpLogger.js
 var NoOpLogger;
 var init_NoOpLogger = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/NoOpLogger.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/NoOpLogger.js"() {
     NoOpLogger = class {
       trace() {
       }
@@ -25324,7 +25335,7 @@ var init_NoOpLogger = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/object-mapping.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/object-mapping.js
 function map2(arg0, arg1, arg2) {
   let target;
   let filter;
@@ -25353,7 +25364,7 @@ function map2(arg0, arg1, arg2) {
 }
 var convertMap, take, mapWithFilter, applyInstruction, nonNullish, pass;
 var init_object_mapping = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/object-mapping.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/object-mapping.js"() {
     convertMap = (target) => {
       const output = {};
       for (const [k5, v2] of Object.entries(target || {})) {
@@ -25417,10 +25428,10 @@ var init_object_mapping = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/ser-utils.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/ser-utils.js
 var serializeFloat, serializeDateTime;
 var init_ser_utils = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/ser-utils.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/ser-utils.js"() {
     serializeFloat = (value) => {
       if (value !== value) {
         return "NaN";
@@ -25438,10 +25449,10 @@ var init_ser_utils = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/serde-json.js
+// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/serde-json.js
 var _json;
 var init_serde_json = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/smithy-client/serde-json.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/smithy-client/serde-json.js"() {
     _json = (obj) => {
       if (obj == null) {
         return {};
@@ -25464,7 +25475,7 @@ var init_serde_json = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/index.js
+// node_modules/@smithy/core/dist-es/submodules/client/index.js
 var client_exports = {};
 __export(client_exports, {
   AlgorithmId: () => import_types3.AlgorithmId,
@@ -25507,7 +25518,7 @@ __export(client_exports, {
   withBaseException: () => withBaseException
 });
 var init_client2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/client/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/client/index.js"() {
     init_MiddlewareStack();
     init_transport();
     init_transport();
@@ -25537,18 +25548,18 @@ var init_client2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/is-array-buffer/is-array-buffer.js
+// node_modules/@smithy/core/dist-es/submodules/serde/is-array-buffer/is-array-buffer.js
 var isArrayBuffer;
 var init_is_array_buffer = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/is-array-buffer/is-array-buffer.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/is-array-buffer/is-array-buffer.js"() {
     isArrayBuffer = (arg) => typeof ArrayBuffer === "function" && arg instanceof ArrayBuffer || Object.prototype.toString.call(arg) === "[object ArrayBuffer]";
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-buffer-from/buffer-from.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-buffer-from/buffer-from.js
 var fromArrayBuffer, fromString;
 var init_buffer_from = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-buffer-from/buffer-from.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-buffer-from/buffer-from.js"() {
     init_is_array_buffer();
     fromArrayBuffer = (input, offset = 0, length = input.byteLength - offset) => {
       if (!isArrayBuffer(input)) {
@@ -25565,10 +25576,10 @@ var init_buffer_from = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.js
 var BASE64_REGEX, fromBase64;
 var init_fromBase64 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.js"() {
     init_buffer_from();
     BASE64_REGEX = /^[A-Za-z0-9+/]*={0,2}$/;
     fromBase64 = (input) => {
@@ -25584,10 +25595,10 @@ var init_fromBase64 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.js
 var fromUtf8;
 var init_fromUtf8 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.js"() {
     init_buffer_from();
     fromUtf8 = (input) => {
       const buf = fromString(input, "utf8");
@@ -25596,10 +25607,10 @@ var init_fromUtf8 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.js
 var toBase64;
 var init_toBase64 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.js"() {
     init_buffer_from();
     init_fromUtf8();
     toBase64 = (_input) => {
@@ -25617,7 +25628,7 @@ var init_toBase64 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/blob/Uint8ArrayBlobAdapter.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/blob/Uint8ArrayBlobAdapter.js
 function bindUint8ArrayBlobAdapter(toUtf83, fromUtf83, toBase643, fromBase643) {
   return class Uint8ArrayBlobAdapter2 extends Uint8Array {
     static fromString(source, encoding = "utf-8") {
@@ -25642,14 +25653,14 @@ function bindUint8ArrayBlobAdapter(toUtf83, fromUtf83, toBase643, fromBase643) {
   };
 }
 var init_Uint8ArrayBlobAdapter = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/blob/Uint8ArrayBlobAdapter.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/blob/Uint8ArrayBlobAdapter.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.js
 var toUtf8;
 var init_toUtf8 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.js"() {
     init_buffer_from();
     toUtf8 = (input) => {
       if (typeof input === "string") {
@@ -25663,7 +25674,7 @@ var init_toUtf8 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/uuid/v4.js
+// node_modules/@smithy/core/dist-es/submodules/serde/uuid/v4.js
 function bindV4(getRandomValues2) {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return () => crypto.randomUUID();
@@ -25678,23 +25689,23 @@ function bindV4(getRandomValues2) {
 }
 var decimalToHex;
 var init_v4 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/uuid/v4.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/uuid/v4.js"() {
     decimalToHex = Array.from({ length: 256 }, (_2, i5) => i5.toString(16).padStart(2, "0"));
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/copyDocumentWithTransform.js
+// node_modules/@smithy/core/dist-es/submodules/serde/copyDocumentWithTransform.js
 var copyDocumentWithTransform;
 var init_copyDocumentWithTransform = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/copyDocumentWithTransform.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/copyDocumentWithTransform.js"() {
     copyDocumentWithTransform = (source, schemaRef, transform = (_2) => _2) => source;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/parse-utils.js
+// node_modules/@smithy/core/dist-es/submodules/serde/parse-utils.js
 var parseBoolean, expectBoolean, expectNumber, MAX_FLOAT, expectFloat32, expectLong, expectInt, expectInt32, expectShort, expectByte, expectSizedInt, castInt, expectNonNull, expectObject, expectString, expectUnion, strictParseDouble, strictParseFloat, strictParseFloat32, NUMBER_REGEX, parseNumber, limitedParseDouble, handleFloat, limitedParseFloat, limitedParseFloat32, parseFloatString, strictParseLong, strictParseInt, strictParseInt32, strictParseShort, strictParseByte, stackTraceWarning, logger;
 var init_parse_utils = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/parse-utils.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/parse-utils.js"() {
     parseBoolean = (value) => {
       switch (value) {
         case "true":
@@ -25927,7 +25938,7 @@ var init_parse_utils = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/date-utils.js
+// node_modules/@smithy/core/dist-es/submodules/serde/date-utils.js
 function dateToUtcString(date3) {
   const year2 = date3.getUTCFullYear();
   const month = date3.getUTCMonth();
@@ -25944,7 +25955,7 @@ function dateToUtcString(date3) {
 }
 var DAYS, MONTHS, RFC3339, parseRfc3339DateTime, RFC3339_WITH_OFFSET, parseRfc3339DateTimeWithOffset, IMF_FIXDATE, RFC_850_DATE, ASC_TIME, parseRfc7231DateTime, parseEpochTimestamp, buildDate, parseTwoDigitYear, FIFTY_YEARS_IN_MILLIS, adjustRfc850Year, parseMonthByShortName, DAYS_IN_MONTH, validateDayOfMonth, isLeapYear, parseDateValue, parseMilliseconds, parseOffsetToMilliseconds, stripLeadingZeroes;
 var init_date_utils = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/date-utils.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/date-utils.js"() {
     init_parse_utils();
     DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -26119,10 +26130,10 @@ var init_date_utils = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/lazy-json.js
+// node_modules/@smithy/core/dist-es/submodules/serde/lazy-json.js
 var LazyJsonString;
 var init_lazy_json = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/lazy-json.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/lazy-json.js"() {
     LazyJsonString = function LazyJsonString2(val) {
       const str = Object.assign(new String(val), {
         deserializeJSON() {
@@ -26149,7 +26160,7 @@ var init_lazy_json = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/quote-header.js
+// node_modules/@smithy/core/dist-es/submodules/serde/quote-header.js
 function quoteHeader(part) {
   if (part.includes(",") || part.includes('"')) {
     part = `"${part.replace(/"/g, '\\"')}"`;
@@ -26157,11 +26168,11 @@ function quoteHeader(part) {
   return part;
 }
 var init_quote_header = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/quote-header.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/quote-header.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/schema-serde-lib/schema-date-utils.js
+// node_modules/@smithy/core/dist-es/submodules/serde/schema-serde-lib/schema-date-utils.js
 function range(v2, min, max) {
   const _v = Number(v2);
   if (_v < min || _v > max) {
@@ -26170,7 +26181,7 @@ function range(v2, min, max) {
 }
 var ddd, mmm, time2, date2, year, RFC3339_WITH_OFFSET2, IMF_FIXDATE2, RFC_850_DATE2, ASC_TIME2, months, _parseEpochTimestamp, _parseRfc3339DateTimeWithOffset, _parseRfc7231DateTime;
 var init_schema_date_utils = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/schema-serde-lib/schema-date-utils.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/schema-serde-lib/schema-date-utils.js"() {
     ddd = `(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?:[ne|u?r]?s?day)?`;
     mmm = `(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)`;
     time2 = `(\\d?\\d):(\\d{2}):(\\d{2})(?:\\.(\\d+))?`;
@@ -26265,7 +26276,7 @@ var init_schema_date_utils = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/split-every.js
+// node_modules/@smithy/core/dist-es/submodules/serde/split-every.js
 function splitEvery(value, delimiter, numDelimiters) {
   if (numDelimiters <= 0 || !Number.isInteger(numDelimiters)) {
     throw new Error("Invalid number of delimiters (" + numDelimiters + ") for splitEvery.");
@@ -26293,14 +26304,14 @@ function splitEvery(value, delimiter, numDelimiters) {
   return compoundSegments;
 }
 var init_split_every = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/split-every.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/split-every.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/split-header.js
+// node_modules/@smithy/core/dist-es/submodules/serde/split-header.js
 var splitHeader;
 var init_split_header = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/split-header.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/split-header.js"() {
     splitHeader = (value) => {
       const z2 = value.length;
       const values = [];
@@ -26341,13 +26352,13 @@ var init_split_header = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/value/NumericValue.js
+// node_modules/@smithy/core/dist-es/submodules/serde/value/NumericValue.js
 function nv(input) {
   return new NumericValue(String(input), "bigDecimal");
 }
 var format, NumericValue;
 var init_NumericValue = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/value/NumericValue.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/value/NumericValue.js"() {
     format = /^-?\d*(\.\d+)?$/;
     NumericValue = class _NumericValue {
       string;
@@ -26373,7 +26384,7 @@ var init_NumericValue = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-hex-encoding/hex-encoding.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-hex-encoding/hex-encoding.js
 function fromHex(encoded) {
   if (encoded.length % 2 !== 0) {
     throw new Error("Hex encoded strings must have an even number length");
@@ -26398,7 +26409,7 @@ function toHex(bytes) {
 }
 var SHORT_TO_HEX, HEX_TO_SHORT;
 var init_hex_encoding = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-hex-encoding/hex-encoding.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-hex-encoding/hex-encoding.js"() {
     SHORT_TO_HEX = {};
     HEX_TO_SHORT = {};
     for (let i5 = 0; i5 < 256; i5++) {
@@ -26412,10 +26423,10 @@ var init_hex_encoding = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-body-length/calculateBodyLength.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-body-length/calculateBodyLength.js
 var import_node_fs, calculateBodyLength;
 var init_calculateBodyLength = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-body-length/calculateBodyLength.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-body-length/calculateBodyLength.js"() {
     import_node_fs = require("node:fs");
     calculateBodyLength = (body) => {
       if (!body) {
@@ -26441,10 +26452,10 @@ var init_calculateBodyLength = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUint8Array.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUint8Array.js
 var toUint8Array;
 var init_toUint8Array = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUint8Array.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUint8Array.js"() {
     init_fromUtf8();
     toUint8Array = (data) => {
       if (typeof data === "string") {
@@ -26458,10 +26469,10 @@ var init_toUint8Array = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/deserializerMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/deserializerMiddleware.js
 var deserializerMiddleware, findHeader2;
 var init_deserializerMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/deserializerMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/deserializerMiddleware.js"() {
     init_transport();
     deserializerMiddleware = (options, deserializer) => (next, context) => async (args) => {
       const { response } = await next(args);
@@ -26519,10 +26530,10 @@ var init_deserializerMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/ProviderError.js
+// node_modules/@smithy/core/dist-es/submodules/config/property-provider/ProviderError.js
 var ProviderError;
 var init_ProviderError = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/ProviderError.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/property-provider/ProviderError.js"() {
     ProviderError = class _ProviderError extends Error {
       name = "ProviderError";
       tryNextLink;
@@ -26548,10 +26559,10 @@ var init_ProviderError = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/CredentialsProviderError.js
+// node_modules/@smithy/core/dist-es/submodules/config/property-provider/CredentialsProviderError.js
 var CredentialsProviderError;
 var init_CredentialsProviderError = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/CredentialsProviderError.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/property-provider/CredentialsProviderError.js"() {
     init_ProviderError();
     CredentialsProviderError = class _CredentialsProviderError extends ProviderError {
       name = "CredentialsProviderError";
@@ -26563,10 +26574,10 @@ var init_CredentialsProviderError = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/TokenProviderError.js
+// node_modules/@smithy/core/dist-es/submodules/config/property-provider/TokenProviderError.js
 var TokenProviderError;
 var init_TokenProviderError = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/TokenProviderError.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/property-provider/TokenProviderError.js"() {
     init_ProviderError();
     TokenProviderError = class _TokenProviderError extends ProviderError {
       name = "TokenProviderError";
@@ -26578,10 +26589,10 @@ var init_TokenProviderError = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/chain.js
+// node_modules/@smithy/core/dist-es/submodules/config/property-provider/chain.js
 var chain;
 var init_chain = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/chain.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/property-provider/chain.js"() {
     init_ProviderError();
     chain = (...providers) => async () => {
       if (providers.length === 0) {
@@ -26605,18 +26616,18 @@ var init_chain = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/fromValue.js
+// node_modules/@smithy/core/dist-es/submodules/config/property-provider/fromValue.js
 var fromValue;
 var init_fromValue = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/fromValue.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/property-provider/fromValue.js"() {
     fromValue = (staticValue) => () => Promise.resolve(staticValue);
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/memoize.js
+// node_modules/@smithy/core/dist-es/submodules/config/property-provider/memoize.js
 var memoize;
 var init_memoize = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/property-provider/memoize.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/property-provider/memoize.js"() {
     memoize = (provider, isExpired, requiresRefresh) => {
       let resolved;
       let pending;
@@ -26664,10 +26675,10 @@ var init_memoize = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/booleanSelector.js
+// node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/booleanSelector.js
 var booleanSelector;
 var init_booleanSelector = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/booleanSelector.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/booleanSelector.js"() {
     booleanSelector = (obj, key, type) => {
       if (!(key in obj))
         return void 0;
@@ -26680,10 +26691,10 @@ var init_booleanSelector = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/numberSelector.js
+// node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/numberSelector.js
 var numberSelector;
 var init_numberSelector = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/numberSelector.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/numberSelector.js"() {
     numberSelector = (obj, key, type) => {
       if (!(key in obj))
         return void 0;
@@ -26696,10 +26707,10 @@ var init_numberSelector = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/types.js
+// node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/types.js
 var SelectorType;
 var init_types = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/types.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/util-config-provider/types.js"() {
     (function(SelectorType2) {
       SelectorType2["ENV"] = "env";
       SelectorType2["CONFIG"] = "shared config entry";
@@ -26707,10 +26718,10 @@ var init_types = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getHomeDir.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getHomeDir.js
 var import_node_os, import_node_path, homeDirCache, getHomeDirCacheKey, getHomeDir;
 var init_getHomeDir = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getHomeDir.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getHomeDir.js"() {
     import_node_os = require("node:os");
     import_node_path = require("node:path");
     homeDirCache = {};
@@ -26736,20 +26747,20 @@ var init_getHomeDir = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getProfileName.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getProfileName.js
 var ENV_PROFILE, DEFAULT_PROFILE, getProfileName;
 var init_getProfileName = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getProfileName.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getProfileName.js"() {
     ENV_PROFILE = "AWS_PROFILE";
     DEFAULT_PROFILE = "default";
     getProfileName = (init) => init.profile || process.env[ENV_PROFILE] || DEFAULT_PROFILE;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFilepath.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFilepath.js
 var import_node_crypto, import_node_path2, getSSOTokenFilepath;
 var init_getSSOTokenFilepath = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFilepath.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFilepath.js"() {
     import_node_crypto = require("node:crypto");
     import_node_path2 = require("node:path");
     init_getHomeDir();
@@ -26761,10 +26772,10 @@ var init_getSSOTokenFilepath = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFromFile.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFromFile.js
 var import_promises, tokenIntercept, getSSOTokenFromFile;
 var init_getSSOTokenFromFile = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFromFile.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSSOTokenFromFile.js"() {
     import_promises = require("node:fs/promises");
     init_getSSOTokenFilepath();
     tokenIntercept = {};
@@ -26779,18 +26790,18 @@ var init_getSSOTokenFromFile = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/constants.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/constants.js
 var CONFIG_PREFIX_SEPARATOR;
 var init_constants2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/constants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/constants.js"() {
     CONFIG_PREFIX_SEPARATOR = ".";
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigData.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigData.js
 var import_types4, getConfigData;
 var init_getConfigData = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigData.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigData.js"() {
     import_types4 = __toESM(require_dist_cjs());
     init_constants2();
     getConfigData = (data) => Object.entries(data).filter(([key]) => {
@@ -26810,10 +26821,10 @@ var init_getConfigData = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigFilepath.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigFilepath.js
 var import_node_path3, ENV_CONFIG_PATH, getConfigFilepath;
 var init_getConfigFilepath = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigFilepath.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getConfigFilepath.js"() {
     import_node_path3 = require("node:path");
     init_getHomeDir();
     ENV_CONFIG_PATH = "AWS_CONFIG_FILE";
@@ -26821,10 +26832,10 @@ var init_getConfigFilepath = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getCredentialsFilepath.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getCredentialsFilepath.js
 var import_node_path4, ENV_CREDENTIALS_PATH, getCredentialsFilepath;
 var init_getCredentialsFilepath = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getCredentialsFilepath.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getCredentialsFilepath.js"() {
     import_node_path4 = require("node:path");
     init_getHomeDir();
     ENV_CREDENTIALS_PATH = "AWS_SHARED_CREDENTIALS_FILE";
@@ -26832,10 +26843,10 @@ var init_getCredentialsFilepath = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseIni.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseIni.js
 var import_types5, prefixKeyRegex, profileNameBlockList, parseIni;
 var init_parseIni = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseIni.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseIni.js"() {
     import_types5 = __toESM(require_dist_cjs());
     init_constants2();
     prefixKeyRegex = /^([\w-]+)\s(["'])?([\w-@\+\.%:/]+)\2$/;
@@ -26888,10 +26899,10 @@ var init_parseIni = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/readFile.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/readFile.js
 var import_promises2, filePromises, fileIntercept, readFile2;
 var init_readFile = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/readFile.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/readFile.js"() {
     import_promises2 = require("node:fs/promises");
     filePromises = {};
     fileIntercept = {};
@@ -26907,10 +26918,10 @@ var init_readFile = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSharedConfigFiles.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSharedConfigFiles.js
 var import_node_path5, swallowError, loadSharedConfigFiles;
 var init_loadSharedConfigFiles = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSharedConfigFiles.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSharedConfigFiles.js"() {
     import_node_path5 = require("node:path");
     init_getConfigData();
     init_getConfigFilepath();
@@ -26948,20 +26959,20 @@ var init_loadSharedConfigFiles = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSsoSessionData.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSsoSessionData.js
 var import_types6, getSsoSessionData;
 var init_getSsoSessionData = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSsoSessionData.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/getSsoSessionData.js"() {
     import_types6 = __toESM(require_dist_cjs());
     init_loadSharedConfigFiles();
     getSsoSessionData = (data) => Object.entries(data).filter(([key]) => key.startsWith(import_types6.IniSectionType.SSO_SESSION + CONFIG_PREFIX_SEPARATOR)).reduce((acc, [key, value]) => ({ ...acc, [key.substring(key.indexOf(CONFIG_PREFIX_SEPARATOR) + 1)]: value }), {});
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSsoSessionData.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSsoSessionData.js
 var swallowError2, loadSsoSessionData;
 var init_loadSsoSessionData = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSsoSessionData.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/loadSsoSessionData.js"() {
     init_getConfigFilepath();
     init_getSsoSessionData();
     init_parseIni();
@@ -26971,10 +26982,10 @@ var init_loadSsoSessionData = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/mergeConfigFiles.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/mergeConfigFiles.js
 var mergeConfigFiles;
 var init_mergeConfigFiles = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/mergeConfigFiles.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/mergeConfigFiles.js"() {
     mergeConfigFiles = (...files) => {
       const merged = {};
       for (const file of files) {
@@ -26991,10 +27002,10 @@ var init_mergeConfigFiles = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseKnownFiles.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseKnownFiles.js
 var parseKnownFiles;
 var init_parseKnownFiles = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseKnownFiles.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/parseKnownFiles.js"() {
     init_loadSharedConfigFiles();
     init_mergeConfigFiles();
     parseKnownFiles = async (init) => {
@@ -27004,10 +27015,10 @@ var init_parseKnownFiles = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/externalDataInterceptor.js
+// node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/externalDataInterceptor.js
 var externalDataInterceptor;
 var init_externalDataInterceptor = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/externalDataInterceptor.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/shared-ini-file-loader/externalDataInterceptor.js"() {
     init_getSSOTokenFromFile();
     init_readFile();
     externalDataInterceptor = {
@@ -27027,7 +27038,7 @@ var init_externalDataInterceptor = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/getSelectorName.js
+// node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/getSelectorName.js
 function getSelectorName(functionString) {
   try {
     const constants = new Set(Array.from(functionString.match(/([A-Z_]){3,}/g) ?? []));
@@ -27040,14 +27051,14 @@ function getSelectorName(functionString) {
   }
 }
 var init_getSelectorName = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/getSelectorName.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/getSelectorName.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromEnv.js
+// node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromEnv.js
 var fromEnv;
 var init_fromEnv = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromEnv.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromEnv.js"() {
     init_CredentialsProviderError();
     init_getSelectorName();
     fromEnv = (envVarSelector, options) => async () => {
@@ -27064,10 +27075,10 @@ var init_fromEnv = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromSharedConfigFiles.js
+// node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromSharedConfigFiles.js
 var fromSharedConfigFiles;
 var init_fromSharedConfigFiles = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromSharedConfigFiles.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromSharedConfigFiles.js"() {
     init_CredentialsProviderError();
     init_getProfileName();
     init_loadSharedConfigFiles();
@@ -27092,20 +27103,20 @@ var init_fromSharedConfigFiles = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromStatic.js
+// node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromStatic.js
 var isFunction, fromStatic;
 var init_fromStatic = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromStatic.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/fromStatic.js"() {
     init_fromValue();
     isFunction = (func) => typeof func === "function";
     fromStatic = (defaultValue) => isFunction(defaultValue) ? async () => await defaultValue() : fromValue(defaultValue);
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/configLoader.js
+// node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/configLoader.js
 var loadConfig;
 var init_configLoader = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/configLoader.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/node-config-provider/configLoader.js"() {
     init_chain();
     init_memoize();
     init_fromEnv();
@@ -27119,10 +27130,10 @@ var init_configLoader = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js
 var ENV_USE_DUALSTACK_ENDPOINT, CONFIG_USE_DUALSTACK_ENDPOINT, DEFAULT_USE_DUALSTACK_ENDPOINT, NODE_USE_DUALSTACK_ENDPOINT_CONFIG_OPTIONS, nodeDualstackConfigSelectors;
 var init_NodeUseDualstackEndpointConfigOptions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js"() {
     init_booleanSelector();
     init_types();
     ENV_USE_DUALSTACK_ENDPOINT = "AWS_USE_DUALSTACK_ENDPOINT";
@@ -27141,10 +27152,10 @@ var init_NodeUseDualstackEndpointConfigOptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseFipsEndpointConfigOptions.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseFipsEndpointConfigOptions.js
 var ENV_USE_FIPS_ENDPOINT, CONFIG_USE_FIPS_ENDPOINT, DEFAULT_USE_FIPS_ENDPOINT, NODE_USE_FIPS_ENDPOINT_CONFIG_OPTIONS, nodeFipsConfigSelectors;
 var init_NodeUseFipsEndpointConfigOptions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseFipsEndpointConfigOptions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/NodeUseFipsEndpointConfigOptions.js"() {
     init_booleanSelector();
     init_types();
     ENV_USE_FIPS_ENDPOINT = "AWS_USE_FIPS_ENDPOINT";
@@ -27163,10 +27174,10 @@ var init_NodeUseFipsEndpointConfigOptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveCustomEndpointsConfig.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveCustomEndpointsConfig.js
 var resolveCustomEndpointsConfig;
 var init_resolveCustomEndpointsConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveCustomEndpointsConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveCustomEndpointsConfig.js"() {
     init_client2();
     resolveCustomEndpointsConfig = (input) => {
       const { tls, endpoint, urlParser, useDualstackEndpoint } = input;
@@ -27180,10 +27191,10 @@ var init_resolveCustomEndpointsConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/utils/getEndpointFromRegion.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/utils/getEndpointFromRegion.js
 var getEndpointFromRegion;
 var init_getEndpointFromRegion = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/utils/getEndpointFromRegion.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/utils/getEndpointFromRegion.js"() {
     getEndpointFromRegion = async (input) => {
       const { tls = true } = input;
       const region = await input.region();
@@ -27202,10 +27213,10 @@ var init_getEndpointFromRegion = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveEndpointsConfig.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveEndpointsConfig.js
 var resolveEndpointsConfig;
 var init_resolveEndpointsConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveEndpointsConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/endpointsConfig/resolveEndpointsConfig.js"() {
     init_client2();
     init_getEndpointFromRegion();
     resolveEndpointsConfig = (input) => {
@@ -27221,10 +27232,10 @@ var init_resolveEndpointsConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/config.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/config.js
 var REGION_ENV_NAME, REGION_INI_NAME, NODE_REGION_CONFIG_OPTIONS, NODE_REGION_CONFIG_FILE_OPTIONS;
 var init_config = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/config.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/config.js"() {
     REGION_ENV_NAME = "AWS_REGION";
     REGION_INI_NAME = "region";
     NODE_REGION_CONFIG_OPTIONS = {
@@ -27240,10 +27251,10 @@ var init_config = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/checkRegion.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/checkRegion.js
 var validRegions, checkRegion;
 var init_checkRegion = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/checkRegion.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/checkRegion.js"() {
     init_transport();
     validRegions = /* @__PURE__ */ new Set();
     checkRegion = (region, check = isValidHostLabel) => {
@@ -27260,27 +27271,27 @@ var init_checkRegion = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/isFipsRegion.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/isFipsRegion.js
 var isFipsRegion;
 var init_isFipsRegion = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/isFipsRegion.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/isFipsRegion.js"() {
     isFipsRegion = (region) => typeof region === "string" && (region.startsWith("fips-") || region.endsWith("-fips"));
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/getRealRegion.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/getRealRegion.js
 var getRealRegion;
 var init_getRealRegion = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/getRealRegion.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/getRealRegion.js"() {
     init_isFipsRegion();
     getRealRegion = (region) => isFipsRegion(region) ? ["fips-aws-global", "aws-fips"].includes(region) ? "us-east-1" : region.replace(/fips-(dkr-|prod-)?|-fips/, "") : region;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/resolveRegionConfig.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/resolveRegionConfig.js
 var resolveRegionConfig;
 var init_resolveRegionConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/resolveRegionConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/resolveRegionConfig.js"() {
     init_checkRegion();
     init_getRealRegion();
     init_isFipsRegion();
@@ -27308,34 +27319,34 @@ var init_resolveRegionConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getHostnameFromVariants.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getHostnameFromVariants.js
 var getHostnameFromVariants;
 var init_getHostnameFromVariants = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getHostnameFromVariants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getHostnameFromVariants.js"() {
     getHostnameFromVariants = (variants = [], { useFipsEndpoint, useDualstackEndpoint }) => variants.find(({ tags }) => useFipsEndpoint === tags.includes("fips") && useDualstackEndpoint === tags.includes("dualstack"))?.hostname;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedHostname.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedHostname.js
 var getResolvedHostname;
 var init_getResolvedHostname = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedHostname.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedHostname.js"() {
     getResolvedHostname = (resolvedRegion, { regionHostname, partitionHostname }) => regionHostname ? regionHostname : partitionHostname ? partitionHostname.replace("{region}", resolvedRegion) : void 0;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedPartition.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedPartition.js
 var getResolvedPartition;
 var init_getResolvedPartition = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedPartition.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedPartition.js"() {
     getResolvedPartition = (region, { partitionHash }) => Object.keys(partitionHash || {}).find((key) => partitionHash[key].regions.includes(region)) ?? "aws";
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedSigningRegion.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedSigningRegion.js
 var getResolvedSigningRegion;
 var init_getResolvedSigningRegion = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedSigningRegion.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getResolvedSigningRegion.js"() {
     getResolvedSigningRegion = (hostname, { signingRegion, regionRegex, useFipsEndpoint }) => {
       if (signingRegion) {
         return signingRegion;
@@ -27350,10 +27361,10 @@ var init_getResolvedSigningRegion = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getRegionInfo.js
+// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getRegionInfo.js
 var getRegionInfo;
 var init_getRegionInfo = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getRegionInfo.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionInfo/getRegionInfo.js"() {
     init_getHostnameFromVariants();
     init_getResolvedHostname();
     init_getResolvedPartition();
@@ -27386,10 +27397,10 @@ var init_getRegionInfo = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/constants.js
+// node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/constants.js
 var AWS_EXECUTION_ENV, AWS_REGION_ENV, AWS_DEFAULT_REGION_ENV, ENV_IMDS_DISABLED, DEFAULTS_MODE_OPTIONS, IMDS_REGION_PATH;
 var init_constants3 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/constants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/constants.js"() {
     AWS_EXECUTION_ENV = "AWS_EXECUTION_ENV";
     AWS_REGION_ENV = "AWS_REGION";
     AWS_DEFAULT_REGION_ENV = "AWS_DEFAULT_REGION";
@@ -27399,10 +27410,10 @@ var init_constants3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/defaultsModeConfig.js
+// node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/defaultsModeConfig.js
 var AWS_DEFAULTS_MODE_ENV, AWS_DEFAULTS_MODE_CONFIG, NODE_DEFAULTS_MODE_CONFIG_OPTIONS;
 var init_defaultsModeConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/defaultsModeConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/defaultsModeConfig.js"() {
     AWS_DEFAULTS_MODE_ENV = "AWS_DEFAULTS_MODE";
     AWS_DEFAULTS_MODE_CONFIG = "defaults_mode";
     NODE_DEFAULTS_MODE_CONFIG_OPTIONS = {
@@ -27417,10 +27428,10 @@ var init_defaultsModeConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/resolveDefaultsModeConfig.js
+// node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/resolveDefaultsModeConfig.js
 var resolveDefaultsModeConfig, resolveNodeDefaultsModeAuto, inferPhysicalRegion, getImdsEndpoint, imdsHttpGet;
 var init_resolveDefaultsModeConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/resolveDefaultsModeConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/resolveDefaultsModeConfig.js"() {
     init_config();
     init_configLoader();
     init_memoize();
@@ -27520,7 +27531,7 @@ var init_resolveDefaultsModeConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/index.js
+// node_modules/@smithy/core/dist-es/submodules/config/index.js
 var config_exports = {};
 __export(config_exports, {
   CONFIG_PREFIX_SEPARATOR: () => CONFIG_PREFIX_SEPARATOR,
@@ -27567,7 +27578,7 @@ __export(config_exports, {
   resolveRegionConfig: () => resolveRegionConfig
 });
 var init_config2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/config/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/config/index.js"() {
     init_ProviderError();
     init_CredentialsProviderError();
     init_TokenProviderError();
@@ -27600,10 +27611,10 @@ var init_config2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointUrlConfig.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointUrlConfig.js
 var ENV_ENDPOINT_URL, CONFIG_ENDPOINT_URL, getEndpointUrlConfig;
 var init_getEndpointUrlConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointUrlConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointUrlConfig.js"() {
     init_config2();
     ENV_ENDPOINT_URL = "AWS_ENDPOINT_URL";
     CONFIG_ENDPOINT_URL = "endpoint_url";
@@ -27638,20 +27649,20 @@ var init_getEndpointUrlConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.js
 var getEndpointFromConfig;
 var init_getEndpointFromConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.js"() {
     init_config2();
     init_getEndpointUrlConfig();
     getEndpointFromConfig = async (serviceId) => loadConfig(getEndpointUrlConfig(serviceId ?? ""))();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/s3.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/s3.js
 var resolveParamsForS3, DOMAIN_PATTERN, IP_ADDRESS_PATTERN, DOTS_PATTERN, isDnsCompatibleBucketName, isArnBucketName;
 var init_s3 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/s3.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/s3.js"() {
     resolveParamsForS3 = async (endpointParams) => {
       const bucket = endpointParams?.Bucket || "";
       if (typeof endpointParams.Bucket === "string") {
@@ -27686,17 +27697,17 @@ var init_s3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/index.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/index.js
 var init_service_customizations = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/index.js"() {
     init_s3();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/createConfigValueProvider.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/createConfigValueProvider.js
 var createConfigValueProvider;
 var init_createConfigValueProvider = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/createConfigValueProvider.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/createConfigValueProvider.js"() {
     createConfigValueProvider = (configKey, canonicalEndpointParamKey, config, isClientContextParam = false) => {
       const configProvider = async () => {
         let configValue;
@@ -27749,14 +27760,14 @@ var init_createConfigValueProvider = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/toEndpointV1.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/toEndpointV1.js
 var init_toEndpointV12 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/toEndpointV1.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/toEndpointV1.js"() {
     init_transport();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js
 function bindGetEndpointFromInstructions(getEndpointFromConfig2) {
   return async (commandInput, instructionsSupplier, clientConfig, context) => {
     if (!clientConfig.isCustomEndpoint) {
@@ -27790,7 +27801,7 @@ function bindGetEndpointFromInstructions(getEndpointFromConfig2) {
 }
 var resolveParams;
 var init_getEndpointFromInstructions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js"() {
     init_service_customizations();
     init_createConfigValueProvider();
     init_toEndpointV12();
@@ -27827,7 +27838,7 @@ var init_getEndpointFromInstructions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/endpointMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/endpointMiddleware.js
 function setFeature(context, feature, value) {
   if (!context.__smithy_context) {
     context.__smithy_context = { features: {} };
@@ -27873,13 +27884,13 @@ function bindEndpointMiddleware(getEndpointFromConfig2) {
   };
 }
 var init_endpointMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/endpointMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/endpointMiddleware.js"() {
     init_client2();
     init_getEndpointFromInstructions();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/getEndpointPlugin.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/getEndpointPlugin.js
 function bindGetEndpointPlugin(getEndpointFromConfig2) {
   const endpointMiddleware2 = bindEndpointMiddleware(getEndpointFromConfig2);
   return (config, instructions) => ({
@@ -27893,7 +27904,7 @@ function bindGetEndpointPlugin(getEndpointFromConfig2) {
 }
 var serializerMiddlewareOption2, endpointMiddlewareOptions;
 var init_getEndpointPlugin = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/getEndpointPlugin.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/getEndpointPlugin.js"() {
     init_endpointMiddleware();
     serializerMiddlewareOption2 = {
       name: "serializerMiddleware",
@@ -27912,7 +27923,7 @@ var init_getEndpointPlugin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointConfig.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointConfig.js
 function bindResolveEndpointConfig(getEndpointFromConfig2) {
   return (input) => {
     const tls = input.tls ?? true;
@@ -27937,16 +27948,16 @@ function bindResolveEndpointConfig(getEndpointFromConfig2) {
   };
 }
 var init_resolveEndpointConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointConfig.js"() {
     init_transport();
     init_toEndpointV12();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/bdd/BinaryDecisionDiagram.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/bdd/BinaryDecisionDiagram.js
 var BinaryDecisionDiagram;
 var init_BinaryDecisionDiagram = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/bdd/BinaryDecisionDiagram.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/bdd/BinaryDecisionDiagram.js"() {
     BinaryDecisionDiagram = class _BinaryDecisionDiagram {
       nodes;
       root;
@@ -27965,10 +27976,10 @@ var init_BinaryDecisionDiagram = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/cache/EndpointCache.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/cache/EndpointCache.js
 var EndpointCache;
 var init_EndpointCache = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/cache/EndpointCache.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/cache/EndpointCache.js"() {
     EndpointCache = class {
       capacity;
       data = /* @__PURE__ */ new Map();
@@ -28022,10 +28033,10 @@ var init_EndpointCache = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointError.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointError.js
 var EndpointError;
 var init_EndpointError = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointError.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointError.js"() {
     EndpointError = class extends Error {
       constructor(message) {
         super(message);
@@ -28035,45 +28046,45 @@ var init_EndpointError = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointFunctions.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointFunctions.js
 var init_EndpointFunctions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointFunctions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointFunctions.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointRuleObject.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointRuleObject.js
 var init_EndpointRuleObject = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointRuleObject.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointRuleObject.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/ErrorRuleObject.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/ErrorRuleObject.js
 var init_ErrorRuleObject = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/ErrorRuleObject.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/ErrorRuleObject.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/RuleSetObject.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/RuleSetObject.js
 var init_RuleSetObject = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/RuleSetObject.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/RuleSetObject.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/TreeRuleObject.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/TreeRuleObject.js
 var init_TreeRuleObject = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/TreeRuleObject.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/TreeRuleObject.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/shared.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/shared.js
 var init_shared = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/shared.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/shared.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/index.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/index.js
 var init_types2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/index.js"() {
     init_EndpointError();
     init_EndpointFunctions();
     init_EndpointRuleObject();
@@ -28084,15 +28095,15 @@ var init_types2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/debugId.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/debugId.js
 var debugId;
 var init_debugId = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/debugId.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/debugId.js"() {
     debugId = "endpoints";
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/toDebugString.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/toDebugString.js
 function toDebugString(input) {
   if (typeof input !== "object" || input == null) {
     return input;
@@ -28106,35 +28117,35 @@ function toDebugString(input) {
   return JSON.stringify(input, null, 2);
 }
 var init_toDebugString = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/toDebugString.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/toDebugString.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/index.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/index.js
 var init_debug = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/index.js"() {
     init_debugId();
     init_toDebugString();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/customEndpointFunctions.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/customEndpointFunctions.js
 var customEndpointFunctions;
 var init_customEndpointFunctions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/customEndpointFunctions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/customEndpointFunctions.js"() {
     customEndpointFunctions = {};
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/booleanEquals.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/booleanEquals.js
 var booleanEquals;
 var init_booleanEquals = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/booleanEquals.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/booleanEquals.js"() {
     booleanEquals = (value1, value2) => value1 === value2;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/coalesce.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/coalesce.js
 function coalesce(...args) {
   for (const arg of args) {
     if (arg != null) {
@@ -28144,14 +28155,14 @@ function coalesce(...args) {
   return void 0;
 }
 var init_coalesce = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/coalesce.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/coalesce.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttrPathList.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttrPathList.js
 var getAttrPathList;
 var init_getAttrPathList = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttrPathList.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttrPathList.js"() {
     init_types2();
     getAttrPathList = (path) => {
       const parts = path.split(".");
@@ -28179,10 +28190,10 @@ var init_getAttrPathList = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttr.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttr.js
 var getAttr;
 var init_getAttr = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttr.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttr.js"() {
     init_types2();
     init_getAttrPathList();
     getAttr = (value, path) => getAttrPathList(path).reduce((acc, index) => {
@@ -28197,44 +28208,44 @@ var init_getAttr = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isSet.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isSet.js
 var isSet;
 var init_isSet = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isSet.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isSet.js"() {
     isSet = (value) => value != null;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/ite.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/ite.js
 function ite(condition, trueValue, falseValue) {
   return condition ? trueValue : falseValue;
 }
 var init_ite = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/ite.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/ite.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/not.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/not.js
 var not2;
 var init_not = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/not.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/not.js"() {
     not2 = (value) => !value;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isIpAddress.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isIpAddress.js
 var IP_V4_REGEX, isIpAddress;
 var init_isIpAddress = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isIpAddress.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isIpAddress.js"() {
     IP_V4_REGEX = new RegExp(`^(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}$`);
     isIpAddress = (value) => IP_V4_REGEX.test(value) || value.startsWith("[") && value.endsWith("]");
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/parseURL.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/parseURL.js
 var import_types12, DEFAULT_PORTS, parseURL;
 var init_parseURL = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/parseURL.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/parseURL.js"() {
     import_types12 = __toESM(require_dist_cjs());
     init_isIpAddress();
     DEFAULT_PORTS = {
@@ -28285,7 +28296,7 @@ var init_parseURL = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/split.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/split.js
 function split(value, delimiter, limit) {
   if (limit === 1) {
     return [value];
@@ -28300,22 +28311,22 @@ function split(value, delimiter, limit) {
   return parts.slice(0, limit - 1).concat(parts.slice(1).join(delimiter));
 }
 var init_split = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/split.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/split.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/stringEquals.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/stringEquals.js
 var stringEquals;
 var init_stringEquals = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/stringEquals.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/stringEquals.js"() {
     stringEquals = (value1, value2) => value1 === value2;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/substring.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/substring.js
 var substring;
 var init_substring = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/substring.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/substring.js"() {
     substring = (input, start, stop, reverse) => {
       if (input == null || start >= stop || input.length < stop || /[^\u0000-\u007f]/.test(input)) {
         return null;
@@ -28328,17 +28339,17 @@ var init_substring = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/uriEncode.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/uriEncode.js
 var uriEncode;
 var init_uriEncode = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/uriEncode.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/uriEncode.js"() {
     uriEncode = (value) => encodeURIComponent(value).replace(/[!*'()]/g, (c5) => `%${c5.charCodeAt(0).toString(16).toUpperCase()}`);
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/index.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/index.js
 var init_lib = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/index.js"() {
     init_booleanEquals();
     init_coalesce();
     init_getAttr();
@@ -28354,10 +28365,10 @@ var init_lib = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/endpointFunctions.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/endpointFunctions.js
 var endpointFunctions;
 var init_endpointFunctions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/endpointFunctions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/endpointFunctions.js"() {
     init_lib();
     endpointFunctions = {
       booleanEquals,
@@ -28376,10 +28387,10 @@ var init_endpointFunctions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateTemplate.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateTemplate.js
 var evaluateTemplate;
 var init_evaluateTemplate = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateTemplate.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateTemplate.js"() {
     init_lib();
     evaluateTemplate = (template, options) => {
       const evaluatedTemplateArr = [];
@@ -28415,20 +28426,20 @@ var init_evaluateTemplate = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getReferenceValue.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getReferenceValue.js
 var getReferenceValue;
 var init_getReferenceValue = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getReferenceValue.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getReferenceValue.js"() {
     getReferenceValue = ({ ref }, options) => {
       return options.referenceRecord[ref] ?? options.endpointParams[ref];
     };
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateExpression.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateExpression.js
 var evaluateExpression, callFunction, group;
 var init_evaluateExpression = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateExpression.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateExpression.js"() {
     init_types2();
     init_customEndpointFunctions();
     init_endpointFunctions();
@@ -28475,17 +28486,17 @@ var init_evaluateExpression = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/callFunction.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/callFunction.js
 var init_callFunction = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/callFunction.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/callFunction.js"() {
     init_evaluateExpression();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateCondition.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateCondition.js
 var evaluateCondition;
 var init_evaluateCondition = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateCondition.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateCondition.js"() {
     init_debug();
     init_types2();
     init_callFunction();
@@ -28505,10 +28516,10 @@ var init_evaluateCondition = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointHeaders.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointHeaders.js
 var getEndpointHeaders;
 var init_getEndpointHeaders = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointHeaders.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointHeaders.js"() {
     init_types2();
     init_evaluateExpression();
     getEndpointHeaders = (headers, options) => Object.entries(headers ?? {}).reduce((acc, [headerKey, headerVal]) => {
@@ -28524,10 +28535,10 @@ var init_getEndpointHeaders = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointProperties.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointProperties.js
 var getEndpointProperties, getEndpointProperty, group2;
 var init_getEndpointProperties = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointProperties.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointProperties.js"() {
     init_types2();
     init_evaluateTemplate();
     getEndpointProperties = (properties, options) => Object.entries(properties).reduce((acc, [propertyKey, propertyVal]) => {
@@ -28559,10 +28570,10 @@ var init_getEndpointProperties = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointUrl.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointUrl.js
 var getEndpointUrl;
 var init_getEndpointUrl = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointUrl.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointUrl.js"() {
     init_types2();
     init_evaluateExpression();
     getEndpointUrl = (endpointUrl, options) => {
@@ -28580,10 +28591,10 @@ var init_getEndpointUrl = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/decideEndpoint.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/decideEndpoint.js
 var RESULT, decideEndpoint;
 var init_decideEndpoint = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/decideEndpoint.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/decideEndpoint.js"() {
     init_types2();
     init_evaluateCondition();
     init_evaluateExpression();
@@ -28629,10 +28640,10 @@ var init_decideEndpoint = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateConditions.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateConditions.js
 var evaluateConditions;
 var init_evaluateConditions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateConditions.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateConditions.js"() {
     init_debug();
     init_evaluateCondition();
     evaluateConditions = (conditions = [], options) => {
@@ -28662,10 +28673,10 @@ var init_evaluateConditions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateEndpointRule.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateEndpointRule.js
 var evaluateEndpointRule;
 var init_evaluateEndpointRule = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateEndpointRule.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateEndpointRule.js"() {
     init_debug();
     init_evaluateConditions();
     init_getEndpointHeaders();
@@ -28695,10 +28706,10 @@ var init_evaluateEndpointRule = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateErrorRule.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateErrorRule.js
 var evaluateErrorRule;
 var init_evaluateErrorRule = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateErrorRule.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateErrorRule.js"() {
     init_types2();
     init_evaluateConditions();
     init_evaluateExpression();
@@ -28717,10 +28728,10 @@ var init_evaluateErrorRule = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateRules.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateRules.js
 var evaluateRules, evaluateTreeRule, group3;
 var init_evaluateRules = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateRules.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateRules.js"() {
     init_types2();
     init_evaluateConditions();
     init_evaluateEndpointRule();
@@ -28761,18 +28772,18 @@ var init_evaluateRules = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/index.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/index.js
 var init_utils5 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/index.js"() {
     init_customEndpointFunctions();
     init_evaluateRules();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/resolveEndpoint.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/resolveEndpoint.js
 var resolveEndpoint;
 var init_resolveEndpoint = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/resolveEndpoint.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/resolveEndpoint.js"() {
     init_debug();
     init_types2();
     init_utils5();
@@ -28798,10 +28809,10 @@ var init_resolveEndpoint = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointRequiredConfig.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointRequiredConfig.js
 var resolveEndpointRequiredConfig;
 var init_resolveEndpointRequiredConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointRequiredConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointRequiredConfig.js"() {
     resolveEndpointRequiredConfig = (input) => {
       const { endpoint } = input;
       if (endpoint === void 0) {
@@ -28814,7 +28825,7 @@ var init_resolveEndpointRequiredConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/index.js
+// node_modules/@smithy/core/dist-es/submodules/endpoints/index.js
 var endpoints_exports = {};
 __export(endpoints_exports, {
   BinaryDecisionDiagram: () => BinaryDecisionDiagram,
@@ -28837,7 +28848,7 @@ __export(endpoints_exports, {
 });
 var getEndpointFromInstructions, resolveEndpointConfig, endpointMiddleware, getEndpointPlugin;
 var init_endpoints = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/endpoints/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/index.js"() {
     init_getEndpointFromConfig();
     init_getEndpointFromInstructions();
     init_endpointMiddleware();
@@ -28863,10 +28874,10 @@ var init_endpoints = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serializerMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serializerMiddleware.js
 var serializerMiddleware;
 var init_serializerMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serializerMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serializerMiddleware.js"() {
     init_endpoints();
     serializerMiddleware = (options, serializer) => (next, context) => async (args) => {
       const endpointConfig = options;
@@ -28883,7 +28894,7 @@ var init_serializerMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serdePlugin.js
+// node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serdePlugin.js
 function getSerdePlugin(config, serializer, deserializer) {
   return {
     applyToStack: (commandStack) => {
@@ -28894,7 +28905,7 @@ function getSerdePlugin(config, serializer, deserializer) {
 }
 var deserializerMiddlewareOption2, serializerMiddlewareOption3;
 var init_serdePlugin = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serdePlugin.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/middleware-serde/serdePlugin.js"() {
     init_deserializerMiddleware();
     init_serializerMiddleware();
     deserializerMiddlewareOption2 = {
@@ -28912,7 +28923,7 @@ var init_serdePlugin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/hash-node/hash-node.js
+// node_modules/@smithy/core/dist-es/submodules/serde/hash-node/hash-node.js
 function castSourceData(toCast, encoding) {
   if (Buffer.isBuffer(toCast)) {
     return toCast;
@@ -28927,7 +28938,7 @@ function castSourceData(toCast, encoding) {
 }
 var import_node_crypto2, Hash;
 var init_hash_node = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/hash-node/hash-node.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/hash-node/hash-node.js"() {
     import_node_crypto2 = require("node:crypto");
     init_buffer_from();
     init_toUint8Array();
@@ -28953,10 +28964,10 @@ var init_hash_node = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.js
 var import_node_stream2, ChecksumStream;
 var init_ChecksumStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.js"() {
     import_node_stream2 = require("node:stream");
     init_toBase64();
     ChecksumStream = class extends import_node_stream2.Duplex {
@@ -29016,10 +29027,10 @@ var init_ChecksumStream = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-type-check.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-type-check.js
 var isReadableStream, isBlob;
 var init_stream_type_check = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-type-check.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-type-check.js"() {
     isReadableStream = (stream) => typeof ReadableStream === "function" && (stream?.constructor?.name === ReadableStream.name || stream instanceof ReadableStream);
     isBlob = (blob) => {
       return typeof Blob === "function" && (blob?.constructor?.name === Blob.name || blob instanceof Blob);
@@ -29027,18 +29038,18 @@ var init_stream_type_check = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.browser.js
 var fromUtf82;
 var init_fromUtf8_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.browser.js"() {
     fromUtf82 = (input) => new TextEncoder().encode(input);
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/constants-for-browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/constants-for-browser.js
 var chars, alphabetByEncoding, alphabetByValue, bitsPerLetter, bitsPerByte, maxLetterValue;
 var init_constants_for_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/constants-for-browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-base64/constants-for-browser.js"() {
     chars = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/`;
     alphabetByEncoding = Object.entries(chars).reduce((acc, [i5, c5]) => {
       acc[c5] = Number(i5);
@@ -29051,7 +29062,7 @@ var init_constants_for_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.browser.js
 function toBase642(_input) {
   let input;
   if (typeof _input === "string") {
@@ -29083,16 +29094,16 @@ function toBase642(_input) {
   return str;
 }
 var init_toBase64_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.browser.js"() {
     init_fromUtf8_browser();
     init_constants_for_browser();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.browser.js
 var ReadableStreamRef, ChecksumStream2;
 var init_ChecksumStream_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.browser.js"() {
     ReadableStreamRef = typeof ReadableStream === "function" ? ReadableStream : function() {
     };
     ChecksumStream2 = class extends ReadableStreamRef {
@@ -29100,10 +29111,10 @@ var init_ChecksumStream_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.browser.js
 var createChecksumStream;
 var init_createChecksumStream_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.browser.js"() {
     init_toBase64_browser();
     init_stream_type_check();
     init_ChecksumStream_browser();
@@ -29141,7 +29152,7 @@ var init_createChecksumStream_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.js
 function createChecksumStream2(init) {
   if (typeof ReadableStream === "function" && isReadableStream(init.source)) {
     return createChecksumStream(init);
@@ -29149,17 +29160,17 @@ function createChecksumStream2(init) {
   return new ChecksumStream(init);
 }
 var init_createChecksumStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.js"() {
     init_stream_type_check();
     init_ChecksumStream();
     init_createChecksumStream_browser();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/ByteArrayCollector.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/ByteArrayCollector.js
 var ByteArrayCollector;
 var init_ByteArrayCollector = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/ByteArrayCollector.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/ByteArrayCollector.js"() {
     ByteArrayCollector = class {
       allocByteArray;
       byteLength = 0;
@@ -29195,7 +29206,7 @@ var init_ByteArrayCollector = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.browser.js
 function createBufferedReadableStream(upstream, size, logger2) {
   const reader = upstream.getReader();
   let streamBufferingLoggedWarning = false;
@@ -29287,12 +29298,12 @@ function modeOf(chunk, allowBuffer = true) {
   return -1;
 }
 var init_createBufferedReadable_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.browser.js"() {
     init_ByteArrayCollector();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.js
 function createBufferedReadable(upstream, size, logger2) {
   if (isReadableStream(upstream)) {
     return createBufferedReadableStream(upstream, size, logger2);
@@ -29348,7 +29359,7 @@ function createBufferedReadable(upstream, size, logger2) {
 }
 var import_node_stream3;
 var init_createBufferedReadable = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.js"() {
     import_node_stream3 = require("node:stream");
     init_ByteArrayCollector();
     init_createBufferedReadable_browser();
@@ -29356,10 +29367,10 @@ var init_createBufferedReadable = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.browser.js
 var getAwsChunkedEncodingStream;
 var init_getAwsChunkedEncodingStream_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.browser.js"() {
     getAwsChunkedEncodingStream = (readableStream, options) => {
       const { base64Encoder, bodyLengthChecker, checksumAlgorithmFn, checksumLocationName, streamHasher } = options;
       const checksumRequired = base64Encoder !== void 0 && bodyLengthChecker !== void 0 && checksumAlgorithmFn !== void 0 && checksumLocationName !== void 0 && streamHasher !== void 0;
@@ -29390,7 +29401,7 @@ ${value}\r
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.js
 function getAwsChunkedEncodingStream2(stream, options) {
   const readable = stream;
   const readableStream = stream;
@@ -29430,14 +29441,14 @@ function getAwsChunkedEncodingStream2(stream, options) {
 }
 var import_node_stream4;
 var init_getAwsChunkedEncodingStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.js"() {
     import_node_stream4 = require("node:stream");
     init_getAwsChunkedEncodingStream_browser();
     init_stream_type_check();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.browser.js
 async function headStream(stream, bytes) {
   let byteLengthCounter = 0;
   const chunks = [];
@@ -29469,14 +29480,14 @@ async function headStream(stream, bytes) {
   return collected;
 }
 var init_headStream_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.browser.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.js
 var import_node_stream5, headStream2, Collector;
 var init_headStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/headStream.js"() {
     import_node_stream5 = require("node:stream");
     init_headStream_browser();
     init_stream_type_check();
@@ -29518,10 +29529,10 @@ var init_headStream = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.browser.js
 var toUtf82;
 var init_toUtf8_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.browser.js"() {
     toUtf82 = (input) => {
       if (typeof input === "string") {
         return input;
@@ -29534,10 +29545,10 @@ var init_toUtf8_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.browser.js
 var fromBase642;
 var init_fromBase64_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.browser.js"() {
     init_constants_for_browser();
     fromBase642 = (input) => {
       let totalByteLength = input.length / 4 * 3;
@@ -29575,7 +29586,7 @@ var init_fromBase64_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.browser.js
 async function collectBlob(blob) {
   const base64 = await readToBase64(blob);
   const arrayBuffer = fromBase642(base64);
@@ -29621,7 +29632,7 @@ function readToBase64(blob) {
 }
 var streamCollector;
 var init_stream_collector_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.browser.js"() {
     init_fromBase64_browser();
     streamCollector = async (stream) => {
       if (typeof Blob === "function" && stream instanceof Blob || stream.constructor?.name === "Blob") {
@@ -29635,10 +29646,10 @@ var init_stream_collector_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.browser.js
 var ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED, sdkStreamMixin, isBlobInstance;
 var init_sdk_stream_mixin_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.browser.js"() {
     init_toBase64_browser();
     init_hex_encoding();
     init_toUtf8_browser();
@@ -29699,7 +29710,7 @@ var init_sdk_stream_mixin_browser = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.js
 async function collectReadableStream(stream) {
   const chunks = [];
   const reader = stream.getReader();
@@ -29723,7 +29734,7 @@ async function collectReadableStream(stream) {
 }
 var import_node_stream6, Collector2, isReadableStreamInstance, streamCollector2;
 var init_stream_collector = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.js"() {
     import_node_stream6 = require("node:stream");
     Collector2 = class extends import_node_stream6.Writable {
       bufferedBytes = [];
@@ -29754,10 +29765,10 @@ var init_stream_collector = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.js
 var import_node_stream7, ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED2, sdkStreamMixin2;
 var init_sdk_stream_mixin = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.js"() {
     import_node_stream7 = require("node:stream");
     init_buffer_from();
     init_sdk_stream_mixin_browser();
@@ -29809,7 +29820,7 @@ var init_sdk_stream_mixin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.browser.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.browser.js
 async function splitStream(stream) {
   if (typeof stream.stream === "function") {
     stream = stream.stream();
@@ -29818,11 +29829,11 @@ async function splitStream(stream) {
   return readableStream.tee();
 }
 var init_splitStream_browser = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.browser.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.browser.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.js
+// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.js
 async function splitStream2(stream) {
   if (isReadableStream(stream) || isBlob(stream)) {
     return splitStream(stream);
@@ -29835,14 +29846,14 @@ async function splitStream2(stream) {
 }
 var import_node_stream8;
 var init_splitStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/util-stream/splitStream.js"() {
     import_node_stream8 = require("node:stream");
     init_splitStream_browser();
     init_stream_type_check();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/index.js
+// node_modules/@smithy/core/dist-es/submodules/serde/index.js
 var serde_exports = {};
 __export(serde_exports, {
   ChecksumStream: () => ChecksumStream,
@@ -29918,7 +29929,7 @@ __export(serde_exports, {
 });
 var import_node_crypto3, Uint8ArrayBlobAdapter, _getRandomValues, v4, generateIdempotencyToken;
 var init_serde = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/serde/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/serde/index.js"() {
     import_node_crypto3 = require("node:crypto");
     init_fromBase64();
     init_toBase64();
@@ -29960,10 +29971,10 @@ var init_serde = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js
 var collectBody;
 var init_collect_stream_body = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js"() {
     init_serde();
     collectBody = async (streamBody = new Uint8Array(), context) => {
       if (streamBody instanceof Uint8Array) {
@@ -29978,21 +29989,21 @@ var init_collect_stream_body = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/extended-encode-uri-component.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/extended-encode-uri-component.js
 function extendedEncodeURIComponent(str) {
   return encodeURIComponent(str).replace(/[!'()*]/g, function(c5) {
     return "%" + c5.charCodeAt(0).toString(16).toUpperCase();
   });
 }
 var init_extended_encode_uri_component = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/extended-encode-uri-component.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/extended-encode-uri-component.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/SerdeContext.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/SerdeContext.js
 var SerdeContext;
 var init_SerdeContext = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/SerdeContext.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/SerdeContext.js"() {
     SerdeContext = class {
       serdeContext;
       setSerdeContext(serdeContext) {
@@ -30002,7 +30013,7 @@ var init_SerdeContext = __esm({
   }
 });
 
-// node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs
+// node_modules/tslib/tslib.es6.mjs
 var tslib_es6_exports = {};
 __export(tslib_es6_exports, {
   __addDisposableResource: () => __addDisposableResource,
@@ -30441,7 +30452,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 }
 var extendStatics, __assign, __createBinding, __setModuleDefault, ownKeys, _SuppressedError, tslib_es6_default;
 var init_tslib_es6 = __esm({
-  "node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs"() {
+  "node_modules/tslib/tslib.es6.mjs"() {
     extendStatics = function(d5, b5) {
       extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d6, b6) {
         d6.__proto__ = b6;
@@ -30527,9 +30538,9 @@ var init_tslib_es6 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+is-array-buffer@2.2.0/node_modules/@smithy/is-array-buffer/dist-cjs/index.js
+// node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer/dist-cjs/index.js
 var require_dist_cjs2 = __commonJS({
-  "node_modules/.pnpm/@smithy+is-array-buffer@2.2.0/node_modules/@smithy/is-array-buffer/dist-cjs/index.js"(exports2, module2) {
+  "node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer/dist-cjs/index.js"(exports2, module2) {
     var __defProp2 = Object.defineProperty;
     var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
     var __getOwnPropNames2 = Object.getOwnPropertyNames;
@@ -30557,9 +30568,9 @@ var require_dist_cjs2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@smithy+util-buffer-from@2.2.0/node_modules/@smithy/util-buffer-from/dist-cjs/index.js
+// node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from/dist-cjs/index.js
 var require_dist_cjs3 = __commonJS({
-  "node_modules/.pnpm/@smithy+util-buffer-from@2.2.0/node_modules/@smithy/util-buffer-from/dist-cjs/index.js"(exports2, module2) {
+  "node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from/dist-cjs/index.js"(exports2, module2) {
     var __defProp2 = Object.defineProperty;
     var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
     var __getOwnPropNames2 = Object.getOwnPropertyNames;
@@ -30601,9 +30612,9 @@ var require_dist_cjs3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@smithy+util-utf8@2.3.0/node_modules/@smithy/util-utf8/dist-cjs/index.js
+// node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-cjs/index.js
 var require_dist_cjs4 = __commonJS({
-  "node_modules/.pnpm/@smithy+util-utf8@2.3.0/node_modules/@smithy/util-utf8/dist-cjs/index.js"(exports2, module2) {
+  "node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-cjs/index.js"(exports2, module2) {
     var __defProp2 = Object.defineProperty;
     var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
     var __getOwnPropNames2 = Object.getOwnPropertyNames;
@@ -30655,9 +30666,9 @@ var require_dist_cjs4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/convertToBuffer.js
+// node_modules/@aws-crypto/util/build/main/convertToBuffer.js
 var require_convertToBuffer = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/convertToBuffer.js"(exports2) {
+  "node_modules/@aws-crypto/util/build/main/convertToBuffer.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.convertToBuffer = void 0;
@@ -30680,9 +30691,9 @@ var require_convertToBuffer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/isEmptyData.js
+// node_modules/@aws-crypto/util/build/main/isEmptyData.js
 var require_isEmptyData = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/isEmptyData.js"(exports2) {
+  "node_modules/@aws-crypto/util/build/main/isEmptyData.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.isEmptyData = void 0;
@@ -30696,9 +30707,9 @@ var require_isEmptyData = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/numToUint8.js
+// node_modules/@aws-crypto/util/build/main/numToUint8.js
 var require_numToUint8 = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/numToUint8.js"(exports2) {
+  "node_modules/@aws-crypto/util/build/main/numToUint8.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.numToUint8 = void 0;
@@ -30714,9 +30725,9 @@ var require_numToUint8 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/uint32ArrayFrom.js
+// node_modules/@aws-crypto/util/build/main/uint32ArrayFrom.js
 var require_uint32ArrayFrom = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/uint32ArrayFrom.js"(exports2) {
+  "node_modules/@aws-crypto/util/build/main/uint32ArrayFrom.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.uint32ArrayFrom = void 0;
@@ -30736,9 +30747,9 @@ var require_uint32ArrayFrom = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/index.js
+// node_modules/@aws-crypto/util/build/main/index.js
 var require_main = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+util@5.2.0/node_modules/@aws-crypto/util/build/main/index.js"(exports2) {
+  "node_modules/@aws-crypto/util/build/main/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.uint32ArrayFrom = exports2.numToUint8 = exports2.isEmptyData = exports2.convertToBuffer = void 0;
@@ -30761,9 +30772,9 @@ var require_main = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+crc32@5.2.0/node_modules/@aws-crypto/crc32/build/main/aws_crc32.js
+// node_modules/@aws-crypto/crc32/build/main/aws_crc32.js
 var require_aws_crc32 = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+crc32@5.2.0/node_modules/@aws-crypto/crc32/build/main/aws_crc32.js"(exports2) {
+  "node_modules/@aws-crypto/crc32/build/main/aws_crc32.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.AwsCrc32 = void 0;
@@ -30798,9 +30809,9 @@ var require_aws_crc32 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+crc32@5.2.0/node_modules/@aws-crypto/crc32/build/main/index.js
+// node_modules/@aws-crypto/crc32/build/main/index.js
 var require_main2 = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+crc32@5.2.0/node_modules/@aws-crypto/crc32/build/main/index.js"(exports2) {
+  "node_modules/@aws-crypto/crc32/build/main/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.AwsCrc32 = exports2.Crc32 = exports2.crc32 = void 0;
@@ -31107,7 +31118,7 @@ var require_main2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/Int64.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/Int64.js
 function negate(bytes) {
   for (let i5 = 0; i5 < 8; i5++) {
     bytes[i5] ^= 255;
@@ -31120,7 +31131,7 @@ function negate(bytes) {
 }
 var Int64;
 var init_Int64 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/Int64.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/Int64.js"() {
     init_serde();
     Int64 = class _Int64 {
       bytes;
@@ -31158,10 +31169,10 @@ var init_Int64 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/HeaderMarshaller.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/HeaderMarshaller.js
 var HeaderMarshaller, HEADER_VALUE_TYPE, BOOLEAN_TAG, BYTE_TAG, SHORT_TAG, INT_TAG, LONG_TAG, BINARY_TAG, STRING_TAG, TIMESTAMP_TAG, UUID_TAG, UUID_PATTERN;
 var init_HeaderMarshaller = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/HeaderMarshaller.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/HeaderMarshaller.js"() {
     init_serde();
     init_Int64();
     HeaderMarshaller = class {
@@ -31348,7 +31359,7 @@ var init_HeaderMarshaller = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/splitMessage.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/splitMessage.js
 function splitMessage({ byteLength, byteOffset, buffer }) {
   if (byteLength < MINIMUM_MESSAGE_LENGTH) {
     throw new Error("Provided message too short to accommodate event stream message overhead");
@@ -31376,7 +31387,7 @@ function splitMessage({ byteLength, byteOffset, buffer }) {
 }
 var import_crc32, PRELUDE_MEMBER_LENGTH, PRELUDE_LENGTH, CHECKSUM_LENGTH, MINIMUM_MESSAGE_LENGTH;
 var init_splitMessage = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/splitMessage.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/splitMessage.js"() {
     import_crc32 = __toESM(require_main2());
     PRELUDE_MEMBER_LENGTH = 4;
     PRELUDE_LENGTH = PRELUDE_MEMBER_LENGTH * 2;
@@ -31385,10 +31396,10 @@ var init_splitMessage = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/EventStreamCodec.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/EventStreamCodec.js
 var import_crc322, EventStreamCodec;
 var init_EventStreamCodec = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/EventStreamCodec.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/EventStreamCodec.js"() {
     import_crc322 = __toESM(require_main2());
     init_HeaderMarshaller();
     init_splitMessage();
@@ -31457,10 +31468,10 @@ var init_EventStreamCodec = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageDecoderStream.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageDecoderStream.js
 var MessageDecoderStream;
 var init_MessageDecoderStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageDecoderStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageDecoderStream.js"() {
     MessageDecoderStream = class {
       options;
       constructor(options) {
@@ -31479,10 +31490,10 @@ var init_MessageDecoderStream = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageEncoderStream.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageEncoderStream.js
 var MessageEncoderStream;
 var init_MessageEncoderStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageEncoderStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageEncoderStream.js"() {
     MessageEncoderStream = class {
       options;
       constructor(options) {
@@ -31504,10 +31515,10 @@ var init_MessageEncoderStream = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageDecoderStream.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageDecoderStream.js
 var SmithyMessageDecoderStream;
 var init_SmithyMessageDecoderStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageDecoderStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageDecoderStream.js"() {
     SmithyMessageDecoderStream = class {
       options;
       constructor(options) {
@@ -31528,10 +31539,10 @@ var init_SmithyMessageDecoderStream = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageEncoderStream.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageEncoderStream.js
 var SmithyMessageEncoderStream;
 var init_SmithyMessageEncoderStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageEncoderStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageEncoderStream.js"() {
     SmithyMessageEncoderStream = class {
       options;
       constructor(options) {
@@ -31550,7 +31561,7 @@ var init_SmithyMessageEncoderStream = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getChunkedStream.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getChunkedStream.js
 function getChunkedStream(source) {
   let currentMessageTotalLength = 0;
   let currentMessagePendingLength = 0;
@@ -31616,11 +31627,11 @@ function getChunkedStream(source) {
   };
 }
 var init_getChunkedStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getChunkedStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getChunkedStream.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getUnmarshalledStream.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getUnmarshalledStream.js
 function getUnmarshalledStream(source, options) {
   const messageUnmarshaller = getMessageUnmarshaller(options.deserializer, options.toUtf8);
   return {
@@ -31666,14 +31677,14 @@ function getMessageUnmarshaller(deserializer, toUtf83) {
   };
 }
 var init_getUnmarshalledStream = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getUnmarshalledStream.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getUnmarshalledStream.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/EventStreamMarshaller.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/EventStreamMarshaller.js
 var EventStreamMarshaller, eventStreamSerdeProvider;
 var init_EventStreamMarshaller = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/EventStreamMarshaller.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/EventStreamMarshaller.js"() {
     init_EventStreamCodec();
     init_MessageDecoderStream();
     init_MessageEncoderStream();
@@ -31707,7 +31718,7 @@ var init_EventStreamMarshaller = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/EventStreamMarshaller.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/EventStreamMarshaller.js
 async function* readableToIterable(readStream) {
   let streamEnded = false;
   let generationEnded = false;
@@ -31736,7 +31747,7 @@ async function* readableToIterable(readStream) {
 }
 var import_node_stream9, EventStreamMarshaller2, eventStreamSerdeProvider2;
 var init_EventStreamMarshaller2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/EventStreamMarshaller.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/EventStreamMarshaller.js"() {
     import_node_stream9 = require("node:stream");
     init_EventStreamMarshaller();
     EventStreamMarshaller2 = class {
@@ -31759,10 +31770,10 @@ var init_EventStreamMarshaller2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/utils.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/utils.js
 var readableStreamToIterable, iterableToReadableStream;
 var init_utils6 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/utils.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/utils.js"() {
     readableStreamToIterable = (readableStream) => ({
       [Symbol.asyncIterator]: async function* () {
         const reader = readableStream.getReader();
@@ -31793,20 +31804,20 @@ var init_utils6 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-config-resolver/EventStreamSerdeConfig.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-config-resolver/EventStreamSerdeConfig.js
 var resolveEventStreamSerdeConfig;
 var init_EventStreamSerdeConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-config-resolver/EventStreamSerdeConfig.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-config-resolver/EventStreamSerdeConfig.js"() {
     resolveEventStreamSerdeConfig = (input) => Object.assign(input, {
       eventStreamMarshaller: input.eventStreamSerdeProvider(input)
     });
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js
 var EventStreamSerde;
 var init_EventStreamSerde = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js"() {
     init_serde();
     EventStreamSerde = class {
       marshaller;
@@ -32053,7 +32064,7 @@ var init_EventStreamSerde = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/index.js
+// node_modules/@smithy/core/dist-es/submodules/event-streams/index.js
 var event_streams_exports = {};
 __export(event_streams_exports, {
   EventStreamCodec: () => EventStreamCodec,
@@ -32076,7 +32087,7 @@ __export(event_streams_exports, {
   universalEventStreamSerdeProvider: () => eventStreamSerdeProvider
 });
 var init_event_streams = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/event-streams/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/event-streams/index.js"() {
     init_EventStreamCodec();
     init_HeaderMarshaller();
     init_Int64();
@@ -32094,10 +32105,10 @@ var init_event_streams = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js
 var HttpProtocol;
 var init_HttpProtocol = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js"() {
     init_schema3();
     init_transport();
     init_SerdeContext();
@@ -32242,10 +32253,10 @@ var init_HttpProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js
 var HttpBindingProtocol;
 var init_HttpBindingProtocol = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js"() {
     init_schema3();
     init_serde();
     init_transport();
@@ -32517,10 +32528,10 @@ var init_HttpBindingProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js
 var RpcProtocol;
 var init_RpcProtocol = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js"() {
     init_schema3();
     init_transport();
     init_HttpProtocol();
@@ -32614,10 +32625,10 @@ var init_RpcProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/resolve-path.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/resolve-path.js
 var resolvedPath;
 var init_resolve_path = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/resolve-path.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/resolve-path.js"() {
     init_extended_encode_uri_component();
     resolvedPath = (resolvedPath2, input, memberName, labelValueProvider, uriLabel, isGreedyLabel) => {
       if (input != null && input[memberName] !== void 0) {
@@ -32634,13 +32645,13 @@ var init_resolve_path = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/requestBuilder.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/requestBuilder.js
 function requestBuilder(input, context) {
   return new RequestBuilder(input, context);
 }
 var RequestBuilder;
 var init_requestBuilder = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/requestBuilder.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/requestBuilder.js"() {
     init_transport();
     init_resolve_path();
     RequestBuilder = class {
@@ -32710,7 +32721,7 @@ var init_requestBuilder = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/determineTimestampFormat.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/serde/determineTimestampFormat.js
 function determineTimestampFormat(ns2, settings) {
   if (settings.timestampFormat.useTrait) {
     if (ns2.isTimestampSchema() && (ns2.getSchema() === 5 || ns2.getSchema() === 6 || ns2.getSchema() === 7)) {
@@ -32722,14 +32733,14 @@ function determineTimestampFormat(ns2, settings) {
   return bindingFormat ?? settings.timestampFormat.default;
 }
 var init_determineTimestampFormat = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/determineTimestampFormat.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/serde/determineTimestampFormat.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js
 var FromStringShapeDeserializer;
 var init_FromStringShapeDeserializer = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js"() {
     init_schema3();
     init_serde();
     init_SerdeContext();
@@ -32797,10 +32808,10 @@ var init_FromStringShapeDeserializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js
 var HttpInterceptingShapeDeserializer;
 var init_HttpInterceptingShapeDeserializer = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js"() {
     init_schema3();
     init_serde();
     init_SerdeContext();
@@ -32845,10 +32856,10 @@ var init_HttpInterceptingShapeDeserializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js
 var ToStringShapeSerializer;
 var init_ToStringShapeSerializer = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js"() {
     init_schema3();
     init_serde();
     init_SerdeContext();
@@ -32941,10 +32952,10 @@ var init_ToStringShapeSerializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeSerializer.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeSerializer.js
 var HttpInterceptingShapeSerializer;
 var init_HttpInterceptingShapeSerializer = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeSerializer.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeSerializer.js"() {
     init_schema3();
     init_ToStringShapeSerializer();
     HttpInterceptingShapeSerializer = class {
@@ -32981,10 +32992,10 @@ var init_HttpInterceptingShapeSerializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Field.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Field.js
 var import_types22, Field;
 var init_Field = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Field.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Field.js"() {
     import_types22 = __toESM(require_dist_cjs());
     Field = class {
       name;
@@ -33014,10 +33025,10 @@ var init_Field = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Fields.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Fields.js
 var Fields;
 var init_Fields = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Fields.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/Fields.js"() {
     Fields = class {
       entries = {};
       encoding;
@@ -33041,10 +33052,10 @@ var init_Fields = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/extensions/httpExtensionConfiguration.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/extensions/httpExtensionConfiguration.js
 var getHttpHandlerExtensionConfiguration, resolveHttpHandlerRuntimeConfig;
 var init_httpExtensionConfiguration = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/extensions/httpExtensionConfiguration.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/extensions/httpExtensionConfiguration.js"() {
     getHttpHandlerExtensionConfiguration = (runtimeConfig) => {
       return {
         setHttpHandler(handler2) {
@@ -33069,7 +33080,7 @@ var init_httpExtensionConfiguration = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/middleware-content-length/contentLengthMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/middleware-content-length/contentLengthMiddleware.js
 function contentLengthMiddleware(bodyLengthChecker) {
   return (next) => async (args) => {
     const request = args.request;
@@ -33094,7 +33105,7 @@ function contentLengthMiddleware(bodyLengthChecker) {
 }
 var CONTENT_LENGTH_HEADER, contentLengthMiddlewareOptions, getContentLengthPlugin;
 var init_contentLengthMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/middleware-content-length/contentLengthMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/middleware-content-length/contentLengthMiddleware.js"() {
     init_transport();
     CONTENT_LENGTH_HEADER = "content-length";
     contentLengthMiddlewareOptions = {
@@ -33111,25 +33122,25 @@ var init_contentLengthMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri.js
 var escapeUri, hexEncode;
 var init_escape_uri = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri.js"() {
     escapeUri = (uri) => encodeURIComponent(uri).replace(/[!'()*]/g, hexEncode);
     hexEncode = (c5) => `%${c5.charCodeAt(0).toString(16).toUpperCase()}`;
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri-path.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri-path.js
 var escapeUriPath;
 var init_escape_uri_path = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri-path.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri-path.js"() {
     init_escape_uri();
     escapeUriPath = (uri) => uri.split("/").map(escapeUri).join("/");
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/querystring-builder/buildQueryString.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/querystring-builder/buildQueryString.js
 function buildQueryString(query) {
   const parts = [];
   for (let key of Object.keys(query).sort()) {
@@ -33150,12 +33161,12 @@ function buildQueryString(query) {
   return parts.join("&");
 }
 var init_buildQueryString = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/querystring-builder/buildQueryString.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/querystring-builder/buildQueryString.js"() {
     init_escape_uri();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/index.js
+// node_modules/@smithy/core/dist-es/submodules/protocols/index.js
 var protocols_exports = {};
 __export(protocols_exports, {
   Field: () => Field,
@@ -33189,7 +33200,7 @@ __export(protocols_exports, {
   resolvedPath: () => resolvedPath
 });
 var init_protocols = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/protocols/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/protocols/index.js"() {
     init_collect_stream_body();
     init_extended_encode_uri_component();
     init_HttpBindingProtocol();
@@ -33218,10 +33229,10 @@ var init_protocols = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/constants.js
+// node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/constants.js
 var CLOCK_SKEW_ERROR_CODES, THROTTLING_ERROR_CODES, TRANSIENT_ERROR_CODES, TRANSIENT_ERROR_STATUS_CODES, NODEJS_TIMEOUT_ERROR_CODES, NODEJS_NETWORK_ERROR_CODES;
 var init_constants4 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/constants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/constants.js"() {
     CLOCK_SKEW_ERROR_CODES = [
       "AuthFailure",
       "InvalidSignatureException",
@@ -33253,13 +33264,13 @@ var init_constants4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/service-error-classification.js
+// node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/service-error-classification.js
 function isNodeJsHttp2TransientError(error2) {
   return error2.code === "ERR_HTTP2_STREAM_ERROR" && error2.message.includes("NGHTTP2_REFUSED_STREAM");
 }
 var isRetryableByTrait, isClockSkewError, isClockSkewCorrectedError, isBrowserNetworkError, isThrottlingError, isTransientError, isServerError;
 var init_service_error_classification = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/service-error-classification.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/service-error-classification.js"() {
     init_constants4();
     isRetryableByTrait = (error2) => error2?.$retryable !== void 0;
     isClockSkewError = (error2) => CLOCK_SKEW_ERROR_CODES.includes(error2.name);
@@ -33293,10 +33304,10 @@ var init_service_error_classification = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/constants.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/constants.js
 var DEFAULT_RETRY_DELAY_BASE, MAXIMUM_RETRY_DELAY, THROTTLING_RETRY_DELAY_BASE, INITIAL_RETRY_TOKENS, RETRY_COST, TIMEOUT_RETRY_COST, NO_RETRY_INCREMENT, INVOCATION_ID_HEADER, REQUEST_HEADER;
 var init_constants5 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/constants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/constants.js"() {
     DEFAULT_RETRY_DELAY_BASE = 100;
     MAXIMUM_RETRY_DELAY = 20 * 1e3;
     THROTTLING_RETRY_DELAY_BASE = 500;
@@ -33309,7 +33320,7 @@ var init_constants5 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/parseRetryAfterHeader.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/parseRetryAfterHeader.js
 function parseRetryAfterHeader(response, logger2) {
   if (!HttpResponse.isInstance(response)) {
     return;
@@ -33353,16 +33364,16 @@ function getRetryAfterHint(response, logger2) {
   return parseRetryAfterHeader(response, logger2);
 }
 var init_parseRetryAfterHeader = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/parseRetryAfterHeader.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/parseRetryAfterHeader.js"() {
     init_protocols();
     init_serde();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/util.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/util.js
 var asSdkError;
 var init_util = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/util.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/util.js"() {
     asSdkError = (error2) => {
       if (error2 instanceof Error)
         return error2;
@@ -33375,7 +33386,7 @@ var init_util = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retryMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retryMiddleware.js
 function bindRetryMiddleware(isStreamingPayload2) {
   return (options) => (next, context) => async (args) => {
     let retryStrategy = await options.retryStrategy();
@@ -33445,7 +33456,7 @@ function bindGetRetryPlugin(isStreamingPayload2) {
 }
 var cooldown, isRetryStrategyV2, getRetryErrorInfo, getRetryErrorType, retryMiddlewareOptions;
 var init_retryMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retryMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retryMiddleware.js"() {
     init_client2();
     init_protocols();
     init_serde();
@@ -33485,13 +33496,13 @@ var init_retryMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRateLimiter.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRateLimiter.js
 var DefaultRateLimiter;
 var init_DefaultRateLimiter = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRateLimiter.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRateLimiter.js"() {
     init_service_error_classification();
     DefaultRateLimiter = class _DefaultRateLimiter {
-      static setTimeoutFn = (fn, delay) => setTimeout(fn, delay);
+      static setTimeoutFn = setTimeout;
       beta;
       minCapacity;
       minFillRate;
@@ -33602,10 +33613,10 @@ var init_DefaultRateLimiter = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/retries-2026-config.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/retries-2026-config.js
 var Retry;
 var init_retries_2026_config = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/retries-2026-config.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/retries-2026-config.js"() {
     Retry = class _Retry {
       static v2026 = typeof process !== "undefined" && process.env?.SMITHY_NEW_RETRIES_2026 === "true";
       static delay() {
@@ -33627,10 +33638,10 @@ var init_retries_2026_config = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryBackoffStrategy.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryBackoffStrategy.js
 var DefaultRetryBackoffStrategy;
 var init_DefaultRetryBackoffStrategy = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryBackoffStrategy.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryBackoffStrategy.js"() {
     init_constants5();
     init_retries_2026_config();
     DefaultRetryBackoffStrategy = class {
@@ -33648,10 +33659,10 @@ var init_DefaultRetryBackoffStrategy = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryToken.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryToken.js
 var DefaultRetryToken;
 var init_DefaultRetryToken = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryToken.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryToken.js"() {
     init_constants5();
     DefaultRetryToken = class {
       delay;
@@ -33683,10 +33694,10 @@ var init_DefaultRetryToken = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/config.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/config.js
 var RETRY_MODES, DEFAULT_MAX_ATTEMPTS, DEFAULT_RETRY_MODE;
 var init_config3 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/config.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/config.js"() {
     (function(RETRY_MODES2) {
       RETRY_MODES2["STANDARD"] = "standard";
       RETRY_MODES2["ADAPTIVE"] = "adaptive";
@@ -33696,10 +33707,10 @@ var init_config3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/StandardRetryStrategy.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/StandardRetryStrategy.js
 var refusal, StandardRetryStrategy;
 var init_StandardRetryStrategy = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/StandardRetryStrategy.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/StandardRetryStrategy.js"() {
     init_DefaultRetryBackoffStrategy();
     init_DefaultRetryToken();
     init_config3();
@@ -33796,10 +33807,10 @@ var init_StandardRetryStrategy = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/AdaptiveRetryStrategy.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/AdaptiveRetryStrategy.js
 var AdaptiveRetryStrategy;
 var init_AdaptiveRetryStrategy = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/AdaptiveRetryStrategy.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/AdaptiveRetryStrategy.js"() {
     init_DefaultRateLimiter();
     init_StandardRetryStrategy();
     init_config3();
@@ -33837,10 +33848,10 @@ var init_AdaptiveRetryStrategy = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/ConfiguredRetryStrategy.js
+// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/ConfiguredRetryStrategy.js
 var ConfiguredRetryStrategy;
 var init_ConfiguredRetryStrategy = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/util-retry/ConfiguredRetryStrategy.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/util-retry/ConfiguredRetryStrategy.js"() {
     init_StandardRetryStrategy();
     init_retries_2026_config();
     ConfiguredRetryStrategy = class extends StandardRetryStrategy {
@@ -33861,10 +33872,10 @@ var init_ConfiguredRetryStrategy = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/defaultRetryQuota.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/defaultRetryQuota.js
 var getDefaultRetryQuota;
 var init_defaultRetryQuota = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/defaultRetryQuota.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/defaultRetryQuota.js"() {
     init_constants5();
     getDefaultRetryQuota = (initialRetryTokens, options) => {
       const MAX_CAPACITY = initialRetryTokens;
@@ -33895,19 +33906,19 @@ var init_defaultRetryQuota = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/delayDecider.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/delayDecider.js
 var defaultDelayDecider;
 var init_delayDecider = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/delayDecider.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/delayDecider.js"() {
     init_constants5();
     defaultDelayDecider = (delayBase, attempts) => Math.floor(Math.min(MAXIMUM_RETRY_DELAY, Math.random() * 2 ** attempts * delayBase));
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/retryDecider.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/retryDecider.js
 var defaultRetryDecider;
 var init_retryDecider = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/retryDecider.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/retryDecider.js"() {
     init_service_error_classification();
     defaultRetryDecider = (error2) => {
       if (!error2) {
@@ -33918,10 +33929,10 @@ var init_retryDecider = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/StandardRetryStrategy.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/StandardRetryStrategy.js
 var StandardRetryStrategy2, getDelayFromRetryAfterHeader;
 var init_StandardRetryStrategy2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/StandardRetryStrategy.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/StandardRetryStrategy.js"() {
     init_protocols();
     init_serde();
     init_service_error_classification();
@@ -34011,17 +34022,17 @@ var init_StandardRetryStrategy2 = __esm({
       const retryAfter = response.headers[retryAfterHeaderName];
       const retryAfterSeconds = Number(retryAfter);
       if (!Number.isNaN(retryAfterSeconds))
-        return Math.min(retryAfterSeconds * 1e3, 2e4);
+        return retryAfterSeconds * 1e3;
       const retryAfterDate = new Date(retryAfter);
-      return Math.min(retryAfterDate.getTime() - Date.now(), 2e4);
+      return retryAfterDate.getTime() - Date.now();
     };
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/AdaptiveRetryStrategy.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/AdaptiveRetryStrategy.js
 var AdaptiveRetryStrategy2;
 var init_AdaptiveRetryStrategy2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/AdaptiveRetryStrategy.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retry-pre-sra-deprecated/AdaptiveRetryStrategy.js"() {
     init_DefaultRateLimiter();
     init_config3();
     init_StandardRetryStrategy2();
@@ -34047,10 +34058,10 @@ var init_AdaptiveRetryStrategy2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/configurations.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/configurations.js
 var ENV_MAX_ATTEMPTS, CONFIG_MAX_ATTEMPTS, NODE_MAX_ATTEMPT_CONFIG_OPTIONS, resolveRetryConfig, ENV_RETRY_MODE, CONFIG_RETRY_MODE, NODE_RETRY_MODE_CONFIG_OPTIONS;
 var init_configurations = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/configurations.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/configurations.js"() {
     init_client2();
     init_AdaptiveRetryStrategy();
     init_StandardRetryStrategy();
@@ -34115,10 +34126,10 @@ var init_configurations = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/omitRetryHeadersMiddleware.js
+// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/omitRetryHeadersMiddleware.js
 var omitRetryHeadersMiddleware, omitRetryHeadersMiddlewareOptions, getOmitRetryHeadersPlugin;
 var init_omitRetryHeadersMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/omitRetryHeadersMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/omitRetryHeadersMiddleware.js"() {
     init_protocols();
     init_constants5();
     omitRetryHeadersMiddleware = () => (next) => async (args) => {
@@ -34144,7 +34155,7 @@ var init_omitRetryHeadersMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/index.js
+// node_modules/@smithy/core/dist-es/submodules/retry/index.js
 var retry_exports = {};
 __export(retry_exports, {
   AdaptiveRetryStrategy: () => AdaptiveRetryStrategy,
@@ -34193,7 +34204,7 @@ __export(retry_exports, {
 });
 var retryMiddleware, getRetryPlugin;
 var init_retry2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/retry/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/retry/index.js"() {
     init_isStreamingPayload();
     init_retryMiddleware();
     init_service_error_classification();
@@ -34217,7 +34228,7 @@ var init_retry2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/setFeature.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/setFeature.js
 function setFeature2(context, feature, value) {
   if (!context.__aws_sdk_context) {
     context.__aws_sdk_context = {
@@ -34229,13 +34240,13 @@ function setFeature2(context, feature, value) {
   context.__aws_sdk_context.features[feature] = value;
 }
 var init_setFeature = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/setFeature.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/setFeature.js"() {
     init_retry2();
     Retry.v2026 ||= typeof process === "object" && process.env?.AWS_NEW_RETRIES_2026 === "true";
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/setTokenFeature.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/setTokenFeature.js
 function setTokenFeature(token, feature, value) {
   if (!token.$source) {
     token.$source = {};
@@ -34244,17 +34255,17 @@ function setTokenFeature(token, feature, value) {
   return token;
 }
 var init_setTokenFeature = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/setTokenFeature.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/setTokenFeature.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-host-header/hostHeaderMiddleware.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-host-header/hostHeaderMiddleware.js
 function resolveHostHeaderConfig(input) {
   return input;
 }
 var hostHeaderMiddleware, hostHeaderMiddlewareOptions, getHostHeaderPlugin;
 var init_hostHeaderMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-host-header/hostHeaderMiddleware.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-host-header/hostHeaderMiddleware.js"() {
     init_protocols();
     hostHeaderMiddleware = (options) => (next) => async (args) => {
       if (!HttpRequest.isInstance(args.request))
@@ -34287,10 +34298,10 @@ var init_hostHeaderMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-logger/loggerMiddleware.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-logger/loggerMiddleware.js
 var loggerMiddleware, loggerMiddlewareOptions, getLoggerPlugin;
 var init_loggerMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-logger/loggerMiddleware.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-logger/loggerMiddleware.js"() {
     loggerMiddleware = () => (next, context) => async (args) => {
       try {
         const response = await next(args);
@@ -34335,10 +34346,10 @@ var init_loggerMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/configuration.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/configuration.js
 var recursionDetectionMiddlewareOptions;
 var init_configuration = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/configuration.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/configuration.js"() {
     recursionDetectionMiddlewareOptions = {
       step: "build",
       tags: ["RECURSION_DETECTION"],
@@ -34349,10 +34360,10 @@ var init_configuration = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws+lambda-invoke-store@0.2.4/node_modules/@aws/lambda-invoke-store/dist-es/invoke-store.js
+// node_modules/@aws/lambda-invoke-store/dist-es/invoke-store.js
 var PROTECTED_KEYS, NO_GLOBAL_AWS_LAMBDA, InvokeStoreBase, InvokeStoreSingle, InvokeStoreMulti, InvokeStore;
 var init_invoke_store = __esm({
-  "node_modules/.pnpm/@aws+lambda-invoke-store@0.2.4/node_modules/@aws/lambda-invoke-store/dist-es/invoke-store.js"() {
+  "node_modules/@aws/lambda-invoke-store/dist-es/invoke-store.js"() {
     PROTECTED_KEYS = {
       REQUEST_ID: Symbol.for("_AWS_LAMBDA_REQUEST_ID"),
       X_RAY_TRACE_ID: Symbol.for("_AWS_LAMBDA_X_RAY_TRACE_ID"),
@@ -34464,10 +34475,10 @@ var init_invoke_store = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/recursionDetectionMiddleware.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/recursionDetectionMiddleware.js
 var TRACE_ID_HEADER_NAME, ENV_LAMBDA_FUNCTION_NAME, ENV_TRACE_ID, recursionDetectionMiddleware;
 var init_recursionDetectionMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/recursionDetectionMiddleware.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/recursionDetectionMiddleware.js"() {
     init_invoke_store();
     init_protocols();
     TRACE_ID_HEADER_NAME = "X-Amzn-Trace-Id";
@@ -34499,10 +34510,10 @@ var init_recursionDetectionMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/getRecursionDetectionPlugin.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/getRecursionDetectionPlugin.js
 var getRecursionDetectionPlugin;
 var init_getRecursionDetectionPlugin = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/getRecursionDetectionPlugin.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/getRecursionDetectionPlugin.js"() {
     init_configuration();
     init_recursionDetectionMiddleware();
     getRecursionDetectionPlugin = (options) => ({
@@ -34513,10 +34524,10 @@ var init_getRecursionDetectionPlugin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/resolveAuthOptions.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/resolveAuthOptions.js
 var resolveAuthOptions;
 var init_resolveAuthOptions = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/resolveAuthOptions.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/resolveAuthOptions.js"() {
     resolveAuthOptions = (candidateAuthOptions, authSchemePreference) => {
       if (!authSchemePreference || authSchemePreference.length === 0) {
         return candidateAuthOptions;
@@ -34540,7 +34551,7 @@ var init_resolveAuthOptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js
 function convertHttpAuthSchemesToMap(httpAuthSchemes) {
   const map3 = /* @__PURE__ */ new Map();
   for (const scheme of httpAuthSchemes) {
@@ -34550,7 +34561,7 @@ function convertHttpAuthSchemesToMap(httpAuthSchemes) {
 }
 var httpAuthSchemeMiddleware;
 var init_httpAuthSchemeMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js"() {
     init_client2();
     init_resolveAuthOptions();
     httpAuthSchemeMiddleware = (config, mwOptions) => (next, context) => async (args) => {
@@ -34589,10 +34600,10 @@ var init_httpAuthSchemeMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js
 var httpAuthSchemeEndpointRuleSetMiddlewareOptions, getHttpAuthSchemeEndpointRuleSetPlugin;
 var init_getHttpAuthSchemeEndpointRuleSetPlugin = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js"() {
     init_httpAuthSchemeMiddleware();
     httpAuthSchemeEndpointRuleSetMiddlewareOptions = {
       step: "serialize",
@@ -34613,10 +34624,10 @@ var init_getHttpAuthSchemeEndpointRuleSetPlugin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js
 var httpAuthSchemeMiddlewareOptions, getHttpAuthSchemePlugin;
 var init_getHttpAuthSchemePlugin = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js"() {
     init_httpAuthSchemeMiddleware();
     httpAuthSchemeMiddlewareOptions = {
       step: "serialize",
@@ -34637,19 +34648,19 @@ var init_getHttpAuthSchemePlugin = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/index.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/index.js
 var init_middleware_http_auth_scheme = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/index.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/index.js"() {
     init_httpAuthSchemeMiddleware();
     init_getHttpAuthSchemeEndpointRuleSetPlugin();
     init_getHttpAuthSchemePlugin();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/httpSigningMiddleware.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/httpSigningMiddleware.js
 var defaultErrorHandler, defaultSuccessHandler, httpSigningMiddleware;
 var init_httpSigningMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/httpSigningMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/httpSigningMiddleware.js"() {
     init_client2();
     init_protocols();
     defaultErrorHandler = (signingProperties) => (error2) => {
@@ -34677,10 +34688,10 @@ var init_httpSigningMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/getHttpSigningMiddleware.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/getHttpSigningMiddleware.js
 var httpSigningMiddlewareOptions, getHttpSigningPlugin;
 var init_getHttpSigningMiddleware = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/getHttpSigningMiddleware.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/getHttpSigningMiddleware.js"() {
     init_httpSigningMiddleware();
     httpSigningMiddlewareOptions = {
       step: "finalizeRequest",
@@ -34699,18 +34710,18 @@ var init_getHttpSigningMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/index.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/index.js
 var init_middleware_http_signing = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/index.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/index.js"() {
     init_httpSigningMiddleware();
     init_getHttpSigningMiddleware();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/normalizeProvider.js
+// node_modules/@smithy/core/dist-es/normalizeProvider.js
 var normalizeProvider2;
 var init_normalizeProvider2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/normalizeProvider.js"() {
+  "node_modules/@smithy/core/dist-es/normalizeProvider.js"() {
     normalizeProvider2 = (input) => {
       if (typeof input === "function")
         return input;
@@ -34720,7 +34731,7 @@ var init_normalizeProvider2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/pagination/createPaginator.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/pagination/createPaginator.js
 function createPaginator(ClientCtor, CommandCtor, inputTokenName, outputTokenName, pageSizeTokenName) {
   return async function* paginateOperation(config, input, ...additionalArguments) {
     const _input = input;
@@ -34747,7 +34758,7 @@ function createPaginator(ClientCtor, CommandCtor, inputTokenName, outputTokenNam
 }
 var makePagedClientRequest, get;
 var init_createPaginator = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/pagination/createPaginator.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/pagination/createPaginator.js"() {
     makePagedClientRequest = async (CommandCtor, client, input, withCommand = (_2) => _2, ...args) => {
       let command = new CommandCtor(input);
       command = withCommand(command) ?? command;
@@ -34767,7 +34778,7 @@ var init_createPaginator = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/setFeature.js
+// node_modules/@smithy/core/dist-es/setFeature.js
 function setFeature3(context, feature, value) {
   if (!context.__smithy_context) {
     context.__smithy_context = {
@@ -34779,14 +34790,14 @@ function setFeature3(context, feature, value) {
   context.__smithy_context.features[feature] = value;
 }
 var init_setFeature2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/setFeature.js"() {
+  "node_modules/@smithy/core/dist-es/setFeature.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/DefaultIdentityProviderConfig.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/DefaultIdentityProviderConfig.js
 var DefaultIdentityProviderConfig;
 var init_DefaultIdentityProviderConfig = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/DefaultIdentityProviderConfig.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/DefaultIdentityProviderConfig.js"() {
     DefaultIdentityProviderConfig = class {
       authSchemes = /* @__PURE__ */ new Map();
       constructor(config) {
@@ -34804,10 +34815,10 @@ var init_DefaultIdentityProviderConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js
 var import_types23, HttpApiKeyAuthSigner;
 var init_httpApiKeyAuth = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js"() {
     init_protocols();
     import_types23 = __toESM(require_dist_cjs());
     HttpApiKeyAuthSigner = class {
@@ -34838,10 +34849,10 @@ var init_httpApiKeyAuth = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js
 var HttpBearerAuthSigner;
 var init_httpBearerAuth = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js"() {
     init_protocols();
     HttpBearerAuthSigner = class {
       async sign(httpRequest, identity, signingProperties) {
@@ -34856,10 +34867,10 @@ var init_httpBearerAuth = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/noAuth.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/noAuth.js
 var NoAuthSigner;
 var init_noAuth = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/noAuth.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/noAuth.js"() {
     NoAuthSigner = class {
       async sign(httpRequest, identity, signingProperties) {
         return httpRequest;
@@ -34868,19 +34879,19 @@ var init_noAuth = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/index.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/index.js
 var init_httpAuthSchemes = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/index.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/index.js"() {
     init_httpApiKeyAuth();
     init_httpBearerAuth();
     init_noAuth();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/memoizeIdentityProvider.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/memoizeIdentityProvider.js
 var createIsIdentityExpiredFunction, EXPIRATION_MS, isIdentityExpired, doesIdentityRequireRefresh, memoizeIdentityProvider;
 var init_memoizeIdentityProvider = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/memoizeIdentityProvider.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/memoizeIdentityProvider.js"() {
     createIsIdentityExpiredFunction = (expirationMs) => function isIdentityExpired2(identity) {
       return doesIdentityRequireRefresh(identity) && identity.expiration.getTime() - Date.now() < expirationMs;
     };
@@ -34938,16 +34949,16 @@ var init_memoizeIdentityProvider = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/index.js
+// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/index.js
 var init_util_identity_and_auth = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/index.js"() {
+  "node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/index.js"() {
     init_DefaultIdentityProviderConfig();
     init_httpAuthSchemes();
     init_memoizeIdentityProvider();
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/index.js
+// node_modules/@smithy/core/dist-es/index.js
 var dist_es_exports = {};
 __export(dist_es_exports, {
   DefaultIdentityProviderConfig: () => DefaultIdentityProviderConfig,
@@ -34974,7 +34985,7 @@ __export(dist_es_exports, {
   setFeature: () => setFeature3
 });
 var init_dist_es = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/index.js"() {
+  "node_modules/@smithy/core/dist-es/index.js"() {
     init_transport();
     init_middleware_http_auth_scheme();
     init_middleware_http_signing();
@@ -34986,7 +34997,7 @@ var init_dist_es = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/configurations.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/configurations.js
 function isValidUserAgentAppId(appId) {
   if (appId === void 0) {
     return true;
@@ -35014,24 +35025,24 @@ function resolveUserAgentConfig(input) {
 }
 var DEFAULT_UA_APP_ID;
 var init_configurations2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/configurations.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/configurations.js"() {
     init_dist_es();
     DEFAULT_UA_APP_ID = void 0;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partitions.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partitions.js
 var partitionsInfo;
 var init_partitions = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partitions.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partitions.js"() {
     partitionsInfo = { "partitions": [{ "id": "aws", "outputs": { "dnsSuffix": "amazonaws.com", "dualStackDnsSuffix": "api.aws", "implicitGlobalRegion": "us-east-1", "name": "aws", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$", "regions": { "af-south-1": { "description": "Africa (Cape Town)" }, "ap-east-1": { "description": "Asia Pacific (Hong Kong)" }, "ap-east-2": { "description": "Asia Pacific (Taipei)" }, "ap-northeast-1": { "description": "Asia Pacific (Tokyo)" }, "ap-northeast-2": { "description": "Asia Pacific (Seoul)" }, "ap-northeast-3": { "description": "Asia Pacific (Osaka)" }, "ap-south-1": { "description": "Asia Pacific (Mumbai)" }, "ap-south-2": { "description": "Asia Pacific (Hyderabad)" }, "ap-southeast-1": { "description": "Asia Pacific (Singapore)" }, "ap-southeast-2": { "description": "Asia Pacific (Sydney)" }, "ap-southeast-3": { "description": "Asia Pacific (Jakarta)" }, "ap-southeast-4": { "description": "Asia Pacific (Melbourne)" }, "ap-southeast-5": { "description": "Asia Pacific (Malaysia)" }, "ap-southeast-6": { "description": "Asia Pacific (New Zealand)" }, "ap-southeast-7": { "description": "Asia Pacific (Thailand)" }, "aws-global": { "description": "aws global region" }, "ca-central-1": { "description": "Canada (Central)" }, "ca-west-1": { "description": "Canada West (Calgary)" }, "eu-central-1": { "description": "Europe (Frankfurt)" }, "eu-central-2": { "description": "Europe (Zurich)" }, "eu-north-1": { "description": "Europe (Stockholm)" }, "eu-south-1": { "description": "Europe (Milan)" }, "eu-south-2": { "description": "Europe (Spain)" }, "eu-west-1": { "description": "Europe (Ireland)" }, "eu-west-2": { "description": "Europe (London)" }, "eu-west-3": { "description": "Europe (Paris)" }, "il-central-1": { "description": "Israel (Tel Aviv)" }, "me-central-1": { "description": "Middle East (UAE)" }, "me-south-1": { "description": "Middle East (Bahrain)" }, "mx-central-1": { "description": "Mexico (Central)" }, "sa-east-1": { "description": "South America (Sao Paulo)" }, "us-east-1": { "description": "US East (N. Virginia)" }, "us-east-2": { "description": "US East (Ohio)" }, "us-west-1": { "description": "US West (N. California)" }, "us-west-2": { "description": "US West (Oregon)" } } }, { "id": "aws-cn", "outputs": { "dnsSuffix": "amazonaws.com.cn", "dualStackDnsSuffix": "api.amazonwebservices.com.cn", "implicitGlobalRegion": "cn-northwest-1", "name": "aws-cn", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^cn\\-\\w+\\-\\d+$", "regions": { "aws-cn-global": { "description": "aws-cn global region" }, "cn-north-1": { "description": "China (Beijing)" }, "cn-northwest-1": { "description": "China (Ningxia)" } } }, { "id": "aws-eusc", "outputs": { "dnsSuffix": "amazonaws.eu", "dualStackDnsSuffix": "api.amazonwebservices.eu", "implicitGlobalRegion": "eusc-de-east-1", "name": "aws-eusc", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^eusc\\-(de)\\-\\w+\\-\\d+$", "regions": { "eusc-de-east-1": { "description": "AWS European Sovereign Cloud (Germany)" } } }, { "id": "aws-iso", "outputs": { "dnsSuffix": "c2s.ic.gov", "dualStackDnsSuffix": "api.aws.ic.gov", "implicitGlobalRegion": "us-iso-east-1", "name": "aws-iso", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^us\\-iso\\-\\w+\\-\\d+$", "regions": { "aws-iso-global": { "description": "aws-iso global region" }, "us-iso-east-1": { "description": "US ISO East" }, "us-iso-west-1": { "description": "US ISO WEST" } } }, { "id": "aws-iso-b", "outputs": { "dnsSuffix": "sc2s.sgov.gov", "dualStackDnsSuffix": "api.aws.scloud", "implicitGlobalRegion": "us-isob-east-1", "name": "aws-iso-b", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^us\\-isob\\-\\w+\\-\\d+$", "regions": { "aws-iso-b-global": { "description": "aws-iso-b global region" }, "us-isob-east-1": { "description": "US ISOB East (Ohio)" }, "us-isob-west-1": { "description": "US ISOB West" } } }, { "id": "aws-iso-e", "outputs": { "dnsSuffix": "cloud.adc-e.uk", "dualStackDnsSuffix": "api.cloud-aws.adc-e.uk", "implicitGlobalRegion": "eu-isoe-west-1", "name": "aws-iso-e", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^eu\\-isoe\\-\\w+\\-\\d+$", "regions": { "aws-iso-e-global": { "description": "aws-iso-e global region" }, "eu-isoe-west-1": { "description": "EU ISOE West" } } }, { "id": "aws-iso-f", "outputs": { "dnsSuffix": "csp.hci.ic.gov", "dualStackDnsSuffix": "api.aws.hci.ic.gov", "implicitGlobalRegion": "us-isof-south-1", "name": "aws-iso-f", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^us\\-isof\\-\\w+\\-\\d+$", "regions": { "aws-iso-f-global": { "description": "aws-iso-f global region" }, "us-isof-east-1": { "description": "US ISOF EAST" }, "us-isof-south-1": { "description": "US ISOF SOUTH" } } }, { "id": "aws-us-gov", "outputs": { "dnsSuffix": "amazonaws.com", "dualStackDnsSuffix": "api.aws", "implicitGlobalRegion": "us-gov-west-1", "name": "aws-us-gov", "supportsDualStack": true, "supportsFIPS": true }, "regionRegex": "^us\\-gov\\-\\w+\\-\\d+$", "regions": { "aws-us-gov-global": { "description": "aws-us-gov global region" }, "us-gov-east-1": { "description": "AWS GovCloud (US-East)" }, "us-gov-west-1": { "description": "AWS GovCloud (US-West)" } } }], "version": "1.1" };
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partition.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partition.js
 var selectedPartitionsInfo, selectedUserAgentPrefix, partition, setPartitionInfo, useDefaultPartitionInfo, getUserAgentPrefix;
 var init_partition = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partition.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partition.js"() {
     init_partitions();
     selectedPartitionsInfo = partitionsInfo;
     selectedUserAgentPrefix = "";
@@ -35075,7 +35086,7 @@ var init_partition = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/check-features.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/check-features.js
 async function checkFeatures(context, config, args) {
   const request = args.request;
   if (request?.headers?.["smithy-protocol"] === "rpc-v2-cbor") {
@@ -35124,17 +35135,17 @@ async function checkFeatures(context, config, args) {
 }
 var ACCOUNT_ID_ENDPOINT_REGEX;
 var init_check_features = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/check-features.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/check-features.js"() {
     init_retry2();
     init_setFeature();
     ACCOUNT_ID_ENDPOINT_REGEX = /\d{12}\.ddb/;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/constants.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/constants.js
 var USER_AGENT, X_AMZ_USER_AGENT, SPACE, UA_NAME_SEPARATOR, UA_NAME_ESCAPE_REGEX, UA_VALUE_ESCAPE_REGEX, UA_ESCAPE_CHAR;
 var init_constants6 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/constants.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/constants.js"() {
     USER_AGENT = "user-agent";
     X_AMZ_USER_AGENT = "x-amz-user-agent";
     SPACE = " ";
@@ -35145,7 +35156,7 @@ var init_constants6 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/encode-features.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/encode-features.js
 function encodeFeatures(features) {
   let buffer = "";
   for (const key in features) {
@@ -35164,15 +35175,15 @@ function encodeFeatures(features) {
 }
 var BYTE_LIMIT;
 var init_encode_features = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/encode-features.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/encode-features.js"() {
     BYTE_LIMIT = 1024;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/user-agent-middleware.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/user-agent-middleware.js
 var userAgentMiddleware, escapeUserAgent, getUserAgentMiddlewareOptions, getUserAgentPlugin;
 var init_user_agent_middleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/user-agent-middleware.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/user-agent-middleware.js"() {
     init_protocols();
     init_partition();
     init_check_features();
@@ -35248,10 +35259,10 @@ var init_user_agent_middleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getRuntimeUserAgentPair.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getRuntimeUserAgentPair.js
 var import_node_process, getRuntimeUserAgentPair;
 var init_getRuntimeUserAgentPair = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getRuntimeUserAgentPair.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getRuntimeUserAgentPair.js"() {
     import_node_process = require("node:process");
     getRuntimeUserAgentPair = () => {
       const runtimesToCheck = ["deno", "bun", "llrt"];
@@ -35265,10 +35276,10 @@ var init_getRuntimeUserAgentPair = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getNodeModulesParentDirs.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getNodeModulesParentDirs.js
 var import_node_path6, getNodeModulesParentDirs;
 var init_getNodeModulesParentDirs = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getNodeModulesParentDirs.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getNodeModulesParentDirs.js"() {
     import_node_path6 = require("node:path");
     getNodeModulesParentDirs = (dirname) => {
       const cwd = process.cwd();
@@ -35287,10 +35298,10 @@ var init_getNodeModulesParentDirs = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedTypeScriptVersion.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedTypeScriptVersion.js
 var SEMVER_REGEX, getSanitizedTypeScriptVersion;
 var init_getSanitizedTypeScriptVersion = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedTypeScriptVersion.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedTypeScriptVersion.js"() {
     SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?$/;
     getSanitizedTypeScriptVersion = (version2 = "") => {
       const match = version2.match(SEMVER_REGEX);
@@ -35303,10 +35314,10 @@ var init_getSanitizedTypeScriptVersion = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedDevTypeScriptVersion.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedDevTypeScriptVersion.js
 var ALLOWED_PREFIXES, ALLOWED_DIST_TAGS, getSanitizedDevTypeScriptVersion;
 var init_getSanitizedDevTypeScriptVersion = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedDevTypeScriptVersion.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getSanitizedDevTypeScriptVersion.js"() {
     init_getSanitizedTypeScriptVersion();
     ALLOWED_PREFIXES = ["^", "~", ">=", "<=", ">", "<"];
     ALLOWED_DIST_TAGS = ["latest", "beta", "dev", "rc", "insiders", "next"];
@@ -35324,10 +35335,10 @@ var init_getSanitizedDevTypeScriptVersion = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getTypeScriptUserAgentPair.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getTypeScriptUserAgentPair.js
 var import_promises3, import_node_path7, tscVersion, TS_PACKAGE_JSON, getTypeScriptUserAgentPair;
 var init_getTypeScriptUserAgentPair = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getTypeScriptUserAgentPair.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getTypeScriptUserAgentPair.js"() {
     init_config2();
     import_promises3 = require("node:fs/promises");
     import_node_path7 = require("node:path");
@@ -35401,20 +35412,20 @@ var init_getTypeScriptUserAgentPair = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/crt-availability.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/crt-availability.js
 var crtAvailability;
 var init_crt_availability = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/crt-availability.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/crt-availability.js"() {
     crtAvailability = {
       isCrtAvailable: false
     };
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/is-crt-available.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/is-crt-available.js
 var isCrtAvailable;
 var init_is_crt_available = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/is-crt-available.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/is-crt-available.js"() {
     init_crt_availability();
     isCrtAvailable = () => {
       if (crtAvailability.isCrtAvailable) {
@@ -35425,10 +35436,10 @@ var init_is_crt_available = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/defaultUserAgent.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/defaultUserAgent.js
 var import_node_os2, import_node_process2, createDefaultUserAgentProvider, defaultUserAgent;
 var init_defaultUserAgent = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/defaultUserAgent.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/defaultUserAgent.js"() {
     import_node_os2 = require("node:os");
     import_node_process2 = require("node:process");
     init_getRuntimeUserAgentPair();
@@ -35468,10 +35479,10 @@ var init_defaultUserAgent = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/nodeAppIdConfigOptions.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/nodeAppIdConfigOptions.js
 var UA_APP_ID_ENV_NAME, UA_APP_ID_INI_NAME, UA_APP_ID_INI_NAME_DEPRECATED, NODE_APP_ID_CONFIG_OPTIONS;
 var init_nodeAppIdConfigOptions = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/nodeAppIdConfigOptions.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/nodeAppIdConfigOptions.js"() {
     init_configurations2();
     UA_APP_ID_ENV_NAME = "AWS_SDK_UA_APP_ID";
     UA_APP_ID_INI_NAME = "sdk_ua_app_id";
@@ -35484,9 +35495,9 @@ var init_nodeAppIdConfigOptions = __esm({
   }
 });
 
-// node_modules/.pnpm/bowser@2.14.1/node_modules/bowser/es5.js
+// node_modules/bowser/es5.js
 var require_es5 = __commonJS({
-  "node_modules/.pnpm/bowser@2.14.1/node_modules/bowser/es5.js"(exports2, module2) {
+  "node_modules/bowser/es5.js"(exports2, module2) {
     !(function(e5, t) {
       "object" == typeof exports2 && "object" == typeof module2 ? module2.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports2 ? exports2.bowser = t() : e5.bowser = t();
     })(exports2, (function() {
@@ -36300,10 +36311,10 @@ var require_es5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/createUserAgentStringParsingProvider.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/createUserAgentStringParsingProvider.js
 var createUserAgentStringParsingProvider;
 var init_createUserAgentStringParsingProvider = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/createUserAgentStringParsingProvider.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/createUserAgentStringParsingProvider.js"() {
     createUserAgentStringParsingProvider = ({ serviceId, clientVersion }) => async (config) => {
       const module2 = await Promise.resolve().then(() => __toESM(require_es5()));
       const parse2 = module2.parse ?? module2.default.parse ?? (() => "");
@@ -36327,10 +36338,10 @@ var init_createUserAgentStringParsingProvider = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/defaultUserAgent.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/defaultUserAgent.js
 var fallback;
 var init_defaultUserAgent2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/defaultUserAgent.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/defaultUserAgent.js"() {
     fallback = {
       os(ua) {
         if (/iPhone|iPad|iPod/.test(ua))
@@ -36360,17 +36371,17 @@ var init_defaultUserAgent2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/isIpAddress.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/isIpAddress.js
 var init_isIpAddress2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/isIpAddress.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/isIpAddress.js"() {
     init_endpoints();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/isVirtualHostableS3Bucket.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/isVirtualHostableS3Bucket.js
 var isVirtualHostableS3Bucket;
 var init_isVirtualHostableS3Bucket = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/isVirtualHostableS3Bucket.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/isVirtualHostableS3Bucket.js"() {
     init_endpoints();
     init_isIpAddress2();
     isVirtualHostableS3Bucket = (value, allowSubDomains = false) => {
@@ -36399,10 +36410,10 @@ var init_isVirtualHostableS3Bucket = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/parseArn.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/parseArn.js
 var ARN_DELIMITER, RESOURCE_DELIMITER, parseArn;
 var init_parseArn = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/parseArn.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/parseArn.js"() {
     ARN_DELIMITER = ":";
     RESOURCE_DELIMITER = "/";
     parseArn = (value) => {
@@ -36424,10 +36435,10 @@ var init_parseArn = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/aws.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/aws.js
 var awsEndpointFunctions;
 var init_aws = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/aws.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/aws.js"() {
     init_endpoints();
     init_isVirtualHostableS3Bucket();
     init_parseArn();
@@ -36441,17 +36452,17 @@ var init_aws = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveEndpoint.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveEndpoint.js
 var init_resolveEndpoint2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveEndpoint.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveEndpoint.js"() {
     init_endpoints();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveDefaultAwsRegionalEndpointsConfig.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveDefaultAwsRegionalEndpointsConfig.js
 var resolveDefaultAwsRegionalEndpointsConfig, toEndpointV12;
 var init_resolveDefaultAwsRegionalEndpointsConfig = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveDefaultAwsRegionalEndpointsConfig.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/resolveDefaultAwsRegionalEndpointsConfig.js"() {
     init_protocols();
     resolveDefaultAwsRegionalEndpointsConfig = (input) => {
       if (typeof input.endpointProvider !== "function") {
@@ -36474,22 +36485,22 @@ var init_resolveDefaultAwsRegionalEndpointsConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/types/EndpointError.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/types/EndpointError.js
 var init_EndpointError2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/types/EndpointError.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/types/EndpointError.js"() {
     init_endpoints();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/awsRegionConfig.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/awsRegionConfig.js
 var init_awsRegionConfig = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/awsRegionConfig.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/awsRegionConfig.js"() {
     init_config2();
     init_config2();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/stsRegionDefaultResolver.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/stsRegionDefaultResolver.js
 function stsRegionDefaultResolver(loaderConfig = {}) {
   return loadConfig({
     ...NODE_REGION_CONFIG_OPTIONS,
@@ -36503,7 +36514,7 @@ function stsRegionDefaultResolver(loaderConfig = {}) {
 }
 var warning;
 var init_stsRegionDefaultResolver = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/stsRegionDefaultResolver.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/stsRegionDefaultResolver.js"() {
     init_config2();
     warning = {
       silence: false
@@ -36511,10 +36522,10 @@ var init_stsRegionDefaultResolver = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/extensions.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/extensions.js
 var getAwsRegionExtensionConfiguration, resolveAwsRegionExtensionConfiguration;
 var init_extensions = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/extensions.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/extensions.js"() {
     getAwsRegionExtensionConfiguration = (runtimeConfig) => {
       return {
         setRegion(region) {
@@ -36533,7 +36544,7 @@ var init_extensions = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/index.js
+// node_modules/@aws-sdk/core/dist-es/submodules/client/index.js
 var client_exports2 = {};
 __export(client_exports2, {
   DEFAULT_UA_APP_ID: () => DEFAULT_UA_APP_ID,
@@ -36588,7 +36599,7 @@ __export(client_exports2, {
   userAgentMiddleware: () => userAgentMiddleware
 });
 var init_client3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/client/index.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/client/index.js"() {
     init_emitWarningIfUnsupportedVersion();
     init_longPollMiddleware();
     init_setCredentialFeature();
@@ -36619,9 +36630,9 @@ var init_client3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+crc32c@5.2.0/node_modules/@aws-crypto/crc32c/build/main/aws_crc32c.js
+// node_modules/@aws-crypto/crc32c/build/main/aws_crc32c.js
 var require_aws_crc32c = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+crc32c@5.2.0/node_modules/@aws-crypto/crc32c/build/main/aws_crc32c.js"(exports2) {
+  "node_modules/@aws-crypto/crc32c/build/main/aws_crc32c.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.AwsCrc32c = void 0;
@@ -36656,9 +36667,9 @@ var require_aws_crc32c = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-crypto+crc32c@5.2.0/node_modules/@aws-crypto/crc32c/build/main/index.js
+// node_modules/@aws-crypto/crc32c/build/main/index.js
 var require_main3 = __commonJS({
-  "node_modules/.pnpm/@aws-crypto+crc32c@5.2.0/node_modules/@aws-crypto/crc32c/build/main/index.js"(exports2) {
+  "node_modules/@aws-crypto/crc32c/build/main/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.AwsCrc32c = exports2.Crc32c = exports2.crc32c = void 0;
@@ -36965,9 +36976,9 @@ var require_main3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+checksums@3.1000.5/node_modules/@aws-sdk/checksums/dist-cjs/flexible-checksums/getCrc32ChecksumAlgorithmFunction.js
+// node_modules/@aws-sdk/checksums/dist-cjs/flexible-checksums/getCrc32ChecksumAlgorithmFunction.js
 var require_getCrc32ChecksumAlgorithmFunction = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+checksums@3.1000.5/node_modules/@aws-sdk/checksums/dist-cjs/flexible-checksums/getCrc32ChecksumAlgorithmFunction.js"(exports2) {
+  "node_modules/@aws-sdk/checksums/dist-cjs/flexible-checksums/getCrc32ChecksumAlgorithmFunction.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.getCrc32ChecksumAlgorithmFunction = void 0;
@@ -36997,9 +37008,9 @@ var require_getCrc32ChecksumAlgorithmFunction = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+checksums@3.1000.5/node_modules/@aws-sdk/checksums/dist-cjs/index.js
+// node_modules/@aws-sdk/checksums/dist-cjs/index.js
 var require_dist_cjs5 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+checksums@3.1000.5/node_modules/@aws-sdk/checksums/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/checksums/dist-cjs/index.js"(exports2) {
     "use strict";
     var client = (init_client3(), __toCommonJS(client_exports2));
     var protocols = (init_protocols(), __toCommonJS(protocols_exports));
@@ -37505,9 +37516,9 @@ var require_dist_cjs5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-flexible-checksums@3.974.30/node_modules/@aws-sdk/middleware-flexible-checksums/dist-cjs/index.js
+// node_modules/@aws-sdk/middleware-flexible-checksums/dist-cjs/index.js
 var require_dist_cjs6 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+middleware-flexible-checksums@3.974.30/node_modules/@aws-sdk/middleware-flexible-checksums/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/middleware-flexible-checksums/dist-cjs/index.js"(exports2) {
     "use strict";
     var checksums = require_dist_cjs5();
     exports2.CONFIG_REQUEST_CHECKSUM_CALCULATION = checksums.CONFIG_REQUEST_CHECKSUM_CALCULATION;
@@ -37530,7 +37541,7 @@ var require_dist_cjs6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-check-content-length-header/check-content-length-header.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-check-content-length-header/check-content-length-header.js
 function checkContentLengthHeader() {
   return (next, context) => async (args) => {
     const { request } = args;
@@ -37549,7 +37560,7 @@ function checkContentLengthHeader() {
 }
 var CONTENT_LENGTH_HEADER2, DECODED_CONTENT_LENGTH_HEADER, checkContentLengthHeaderMiddlewareOptions, getCheckContentLengthHeaderPlugin;
 var init_check_content_length_header = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-check-content-length-header/check-content-length-header.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-check-content-length-header/check-content-length-header.js"() {
     init_client2();
     init_protocols();
     CONTENT_LENGTH_HEADER2 = "content-length";
@@ -37568,10 +37579,10 @@ var init_check_content_length_header = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-endpoint-middleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-endpoint-middleware.js
 var regionRedirectEndpointMiddleware, regionRedirectEndpointMiddlewareOptions;
 var init_region_redirect_endpoint_middleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-endpoint-middleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-endpoint-middleware.js"() {
     regionRedirectEndpointMiddleware = (config) => {
       return (next, context) => async (args) => {
         const originalRegion = await config.region();
@@ -37616,7 +37627,7 @@ var init_region_redirect_endpoint_middleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-middleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-middleware.js
 function regionRedirectMiddleware(clientConfig) {
   return (next, context) => async (args) => {
     try {
@@ -37645,7 +37656,7 @@ function regionRedirectMiddleware(clientConfig) {
 }
 var regionRedirectMiddlewareOptions, getRegionRedirectMiddlewarePlugin;
 var init_region_redirect_middleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-middleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-middleware.js"() {
     init_region_redirect_endpoint_middleware();
     regionRedirectMiddlewareOptions = {
       step: "initialize",
@@ -37662,10 +37673,10 @@ var init_region_redirect_middleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCache.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCache.js
 var S3ExpressIdentityCache;
 var init_S3ExpressIdentityCache = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCache.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCache.js"() {
     S3ExpressIdentityCache = class _S3ExpressIdentityCache {
       data;
       lastPurgeTime = Date.now();
@@ -37708,10 +37719,10 @@ var init_S3ExpressIdentityCache = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCacheEntry.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCacheEntry.js
 var S3ExpressIdentityCacheEntry;
 var init_S3ExpressIdentityCacheEntry = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCacheEntry.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCacheEntry.js"() {
     S3ExpressIdentityCacheEntry = class {
       _identity;
       isRefreshing;
@@ -37729,10 +37740,10 @@ var init_S3ExpressIdentityCacheEntry = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityProviderImpl.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityProviderImpl.js
 var S3ExpressIdentityProviderImpl;
 var init_S3ExpressIdentityProviderImpl = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityProviderImpl.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityProviderImpl.js"() {
     init_S3ExpressIdentityCache();
     init_S3ExpressIdentityCacheEntry();
     S3ExpressIdentityProviderImpl = class _S3ExpressIdentityProviderImpl {
@@ -37785,10 +37796,10 @@ var init_S3ExpressIdentityProviderImpl = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-configuration/s3Configuration.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-configuration/s3Configuration.js
 var resolveS3Config;
 var init_s3Configuration = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-configuration/s3Configuration.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-configuration/s3Configuration.js"() {
     init_S3ExpressIdentityProviderImpl();
     resolveS3Config = (input, { session }) => {
       const [s3ClientProvider, CreateSessionCommandCtor] = session;
@@ -37808,10 +37819,10 @@ var init_s3Configuration = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-expires/s3-expires-middleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-expires/s3-expires-middleware.js
 var s3ExpiresMiddleware, s3ExpiresMiddlewareOptions, getS3ExpiresMiddlewarePlugin;
 var init_s3_expires_middleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-expires/s3-expires-middleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-expires/s3-expires-middleware.js"() {
     init_protocols();
     init_serde();
     s3ExpiresMiddleware = (config) => {
@@ -37847,9 +37858,9 @@ var init_s3_expires_middleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+signature-v4@5.4.7/node_modules/@smithy/signature-v4/dist-cjs/index.js
+// node_modules/@smithy/signature-v4/dist-cjs/index.js
 var require_dist_cjs7 = __commonJS({
-  "node_modules/.pnpm/@smithy+signature-v4@5.4.7/node_modules/@smithy/signature-v4/dist-cjs/index.js"(exports2) {
+  "node_modules/@smithy/signature-v4/dist-cjs/index.js"(exports2) {
     "use strict";
     var serde = (init_serde(), __toCommonJS(serde_exports));
     var client = (init_client2(), __toCommonJS(client_exports));
@@ -38384,9 +38395,9 @@ ${serde.toHex(hashedRequest)}`;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+signature-v4-multi-region@3.996.34/node_modules/@aws-sdk/signature-v4-multi-region/dist-cjs/index.js
+// node_modules/@aws-sdk/signature-v4-multi-region/dist-cjs/index.js
 var require_dist_cjs8 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+signature-v4-multi-region@3.996.34/node_modules/@aws-sdk/signature-v4-multi-region/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/signature-v4-multi-region/dist-cjs/index.js"(exports2) {
     "use strict";
     var signatureV4 = require_dist_cjs7();
     var signatureV4CrtContainer = {
@@ -38517,20 +38528,20 @@ var require_dist_cjs8 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/SignatureV4S3Express.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/SignatureV4S3Express.js
 var import_signature_v4_multi_region, SignatureV4S3Express;
 var init_SignatureV4S3Express = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/SignatureV4S3Express.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/SignatureV4S3Express.js"() {
     import_signature_v4_multi_region = __toESM(require_dist_cjs8());
     SignatureV4S3Express = class extends import_signature_v4_multi_region.SignatureV4SignWithCredentials {
     };
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/constants.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/constants.js
 var S3_EXPRESS_BUCKET_TYPE, S3_EXPRESS_BACKEND, S3_EXPRESS_AUTH_SCHEME, SESSION_TOKEN_QUERY_PARAM, SESSION_TOKEN_HEADER, NODE_DISABLE_S3_EXPRESS_SESSION_AUTH_ENV_NAME, NODE_DISABLE_S3_EXPRESS_SESSION_AUTH_INI_NAME, NODE_DISABLE_S3_EXPRESS_SESSION_AUTH_OPTIONS;
 var init_constants7 = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/constants.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/constants.js"() {
     init_config2();
     S3_EXPRESS_BUCKET_TYPE = "Directory";
     S3_EXPRESS_BACKEND = "S3Express";
@@ -38547,10 +38558,10 @@ var init_constants7 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressMiddleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressMiddleware.js
 var s3ExpressMiddleware, s3ExpressMiddlewareOptions, getS3ExpressPlugin;
 var init_s3ExpressMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressMiddleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressMiddleware.js"() {
     init_client3();
     init_protocols();
     init_constants7();
@@ -38594,10 +38605,10 @@ var init_s3ExpressMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/signS3Express.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/signS3Express.js
 var signS3Express;
 var init_signS3Express = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/signS3Express.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/signS3Express.js"() {
     signS3Express = async (s3ExpressIdentity, signingOptions, request, sigV4MultiRegionSigner) => {
       const signedRequest = await sigV4MultiRegionSigner.signWithCredentials(request, s3ExpressIdentity, {});
       if (signedRequest.headers["X-Amz-Security-Token"] || signedRequest.headers["x-amz-security-token"]) {
@@ -38608,10 +38619,10 @@ var init_signS3Express = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressHttpSigningMiddleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressHttpSigningMiddleware.js
 var defaultErrorHandler2, defaultSuccessHandler2, s3ExpressHttpSigningMiddlewareOptions, s3ExpressHttpSigningMiddleware, getS3ExpressHttpSigningPlugin;
 var init_s3ExpressHttpSigningMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressHttpSigningMiddleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressHttpSigningMiddleware.js"() {
     init_dist_es();
     init_client2();
     init_protocols();
@@ -38653,21 +38664,21 @@ var init_s3ExpressHttpSigningMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/to-stream/toStream.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/to-stream/toStream.js
 function toStream(bytes) {
   return import_node_stream10.Readable.from(Buffer.from(bytes));
 }
 var import_node_stream10;
 var init_toStream = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/to-stream/toStream.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/to-stream/toStream.js"() {
     import_node_stream10 = require("node:stream");
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-throw-200-exceptions/throw-200-exceptions.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-throw-200-exceptions/throw-200-exceptions.js
 var THROW_IF_EMPTY_BODY, throw200ExceptionsMiddleware, collectBody2, throw200ExceptionsMiddlewareOptions, getThrow200ExceptionsPlugin;
 var init_throw_200_exceptions = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-throw-200-exceptions/throw-200-exceptions.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-throw-200-exceptions/throw-200-exceptions.js"() {
     init_protocols();
     init_toStream();
     THROW_IF_EMPTY_BODY = {
@@ -38722,10 +38733,10 @@ var init_throw_200_exceptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/util/util-arn-parser/arn.js
+// node_modules/@aws-sdk/core/dist-es/submodules/util/util-arn-parser/arn.js
 var validate, parse;
 var init_arn = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/util/util-arn-parser/arn.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/util/util-arn-parser/arn.js"() {
     validate = (str) => typeof str === "string" && str.indexOf("arn:") === 0 && str.split(":").length >= 6;
     parse = (arn) => {
       const segments = arn.split(":");
@@ -38743,14 +38754,14 @@ var init_arn = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/util/index.js
+// node_modules/@aws-sdk/core/dist-es/submodules/util/index.js
 var init_util2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/util/index.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/util/index.js"() {
     init_arn();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/bucket-endpoint-middleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/bucket-endpoint-middleware.js
 function bucketEndpointMiddleware(options) {
   return (next, context) => async (args) => {
     if (options.bucketEndpoint) {
@@ -38781,7 +38792,7 @@ function bucketEndpointMiddleware(options) {
 }
 var bucketEndpointMiddlewareOptions;
 var init_bucket_endpoint_middleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/bucket-endpoint-middleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/bucket-endpoint-middleware.js"() {
     bucketEndpointMiddlewareOptions = {
       name: "bucketEndpointMiddleware",
       override: true,
@@ -38791,7 +38802,7 @@ var init_bucket_endpoint_middleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-validate-bucket-name/validate-bucket-name.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-validate-bucket-name/validate-bucket-name.js
 function validateBucketNameMiddleware({ bucketEndpoint }) {
   return (next) => async (args) => {
     const { input: { Bucket } } = args;
@@ -38805,7 +38816,7 @@ function validateBucketNameMiddleware({ bucketEndpoint }) {
 }
 var validateBucketNameMiddlewareOptions, getValidateBucketNamePlugin;
 var init_validate_bucket_name = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-validate-bucket-name/validate-bucket-name.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-validate-bucket-name/validate-bucket-name.js"() {
     init_util2();
     init_bucket_endpoint_middleware();
     validateBucketNameMiddlewareOptions = {
@@ -38823,10 +38834,10 @@ var init_validate_bucket_name = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js
 var ProtocolLib;
 var init_ProtocolLib = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js"() {
     init_client2();
     init_schema3();
     ProtocolLib = class {
@@ -38964,22 +38975,22 @@ var init_ProtocolLib = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/cbor/AwsSmithyRpcV2CborProtocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/cbor/AwsSmithyRpcV2CborProtocol.js
 var init_AwsSmithyRpcV2CborProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/cbor/AwsSmithyRpcV2CborProtocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/cbor/AwsSmithyRpcV2CborProtocol.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/coercing-serializers.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/coercing-serializers.js
 var init_coercing_serializers = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/coercing-serializers.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/coercing-serializers.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js
 var SerdeContextConfig;
 var init_ConfigurableSerdeContext = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js"() {
     SerdeContextConfig = class {
       serdeContext;
       setSerdeContext(serdeContext) {
@@ -38989,10 +39000,10 @@ var init_ConfigurableSerdeContext = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/UnionSerde.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/UnionSerde.js
 var UnionSerde;
 var init_UnionSerde = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/UnionSerde.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/UnionSerde.js"() {
     UnionSerde = class {
       from;
       to;
@@ -39022,7 +39033,7 @@ var init_UnionSerde = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReviver.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReviver.js
 function jsonReviver(key, value, context) {
   if (context?.source) {
     const numericString = context.source;
@@ -39040,25 +39051,25 @@ function jsonReviver(key, value, context) {
   return value;
 }
 var init_jsonReviver = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReviver.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReviver.js"() {
     init_serde();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js
 var collectBodyString;
 var init_common2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js"() {
     init_protocols();
     init_serde();
     collectBodyString = (streamBody, context) => collectBody(streamBody, context).then((body) => (context?.utf8Encoder ?? toUtf8)(body));
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js
 var parseJsonBody, findKey, sanitizeErrorCode, loadRestJsonErrorCode, loadErrorCode;
 var init_parseJsonBody = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js"() {
     init_common2();
     parseJsonBody = (streamBody, context) => collectBodyString(streamBody, context).then((encoded) => {
       if (encoded.length) {
@@ -39122,10 +39133,10 @@ var init_parseJsonBody = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeDeserializer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeDeserializer.js
 var JsonShapeDeserializer;
 var init_JsonShapeDeserializer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeDeserializer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeDeserializer.js"() {
     init_protocols();
     init_schema3();
     init_serde();
@@ -39277,10 +39288,10 @@ var init_JsonShapeDeserializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReplacer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReplacer.js
 var NUMERIC_CONTROL_CHAR, JsonReplacer;
 var init_jsonReplacer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReplacer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReplacer.js"() {
     init_serde();
     NUMERIC_CONTROL_CHAR = String.fromCharCode(925);
     JsonReplacer = class {
@@ -39330,10 +39341,10 @@ var init_jsonReplacer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeSerializer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeSerializer.js
 var JsonShapeSerializer;
 var init_JsonShapeSerializer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeSerializer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeSerializer.js"() {
     init_protocols();
     init_schema3();
     init_serde();
@@ -39514,10 +39525,10 @@ var init_JsonShapeSerializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonCodec.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonCodec.js
 var JsonCodec;
 var init_JsonCodec = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonCodec.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonCodec.js"() {
     init_ConfigurableSerdeContext();
     init_JsonShapeDeserializer();
     init_JsonShapeSerializer();
@@ -39541,28 +39552,28 @@ var init_JsonCodec = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJsonRpcProtocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJsonRpcProtocol.js
 var init_AwsJsonRpcProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJsonRpcProtocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJsonRpcProtocol.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_0Protocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_0Protocol.js
 var init_AwsJson1_0Protocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_0Protocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_0Protocol.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_1Protocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_1Protocol.js
 var init_AwsJson1_1Protocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_1Protocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_1Protocol.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsRestJsonProtocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsRestJsonProtocol.js
 var AwsRestJsonProtocol;
 var init_AwsRestJsonProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsRestJsonProtocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsRestJsonProtocol.js"() {
     init_protocols();
     init_schema3();
     init_ProtocolLib();
@@ -39651,15 +39662,15 @@ var init_AwsRestJsonProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/awsExpectUnion.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/awsExpectUnion.js
 var init_awsExpectUnion = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/awsExpectUnion.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/awsExpectUnion.js"() {
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@5.7.3/node_modules/fast-xml-parser/lib/fxp.cjs
+// node_modules/fast-xml-parser/lib/fxp.cjs
 var require_fxp = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@5.7.3/node_modules/fast-xml-parser/lib/fxp.cjs"(exports2, module2) {
+  "node_modules/fast-xml-parser/lib/fxp.cjs"(exports2, module2) {
     (() => {
       "use strict";
       var t = { d: (e6, n3) => {
@@ -41179,9 +41190,9 @@ var require_fxp = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+xml-builder@3.972.29/node_modules/@aws-sdk/xml-builder/dist-cjs/xml-external/nodable_entities.js
+// node_modules/@aws-sdk/xml-builder/dist-cjs/xml-external/nodable_entities.js
 var require_nodable_entities = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+xml-builder@3.972.29/node_modules/@aws-sdk/xml-builder/dist-cjs/xml-external/nodable_entities.js"(exports2) {
+  "node_modules/@aws-sdk/xml-builder/dist-cjs/xml-external/nodable_entities.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.EntityDecoderImpl = exports2.CURRENCY = exports2.COMMON_HTML = exports2.XML = void 0;
@@ -41513,9 +41524,9 @@ var require_nodable_entities = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+xml-builder@3.972.29/node_modules/@aws-sdk/xml-builder/dist-cjs/xml-parser.js
+// node_modules/@aws-sdk/xml-builder/dist-cjs/xml-parser.js
 var require_xml_parser = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+xml-builder@3.972.29/node_modules/@aws-sdk/xml-builder/dist-cjs/xml-parser.js"(exports2) {
+  "node_modules/@aws-sdk/xml-builder/dist-cjs/xml-parser.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.parseXML = parseXML2;
@@ -41566,9 +41577,9 @@ var require_xml_parser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+xml-builder@3.972.29/node_modules/@aws-sdk/xml-builder/dist-cjs/index.js
+// node_modules/@aws-sdk/xml-builder/dist-cjs/index.js
 var require_dist_cjs9 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+xml-builder@3.972.29/node_modules/@aws-sdk/xml-builder/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/xml-builder/dist-cjs/index.js"(exports2) {
     "use strict";
     var xmlParser = require_xml_parser();
     var ATTR_ESCAPE_RE = /[&<>"]/g;
@@ -41697,10 +41708,10 @@ var require_dist_cjs9 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js
 var import_xml_builder, XmlShapeDeserializer;
 var init_XmlShapeDeserializer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js"() {
     import_xml_builder = __toESM(require_dist_cjs9());
     init_client2();
     init_protocols();
@@ -41850,10 +41861,10 @@ var init_XmlShapeDeserializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QueryShapeSerializer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QueryShapeSerializer.js
 var QueryShapeSerializer;
 var init_QueryShapeSerializer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QueryShapeSerializer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QueryShapeSerializer.js"() {
     init_protocols();
     init_schema3();
     init_serde();
@@ -42030,10 +42041,10 @@ var init_QueryShapeSerializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsQueryProtocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsQueryProtocol.js
 var AwsQueryProtocol;
 var init_AwsQueryProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsQueryProtocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsQueryProtocol.js"() {
     init_protocols();
     init_schema3();
     init_ProtocolLib();
@@ -42170,22 +42181,22 @@ var init_AwsQueryProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsEc2QueryProtocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsEc2QueryProtocol.js
 var init_AwsEc2QueryProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsEc2QueryProtocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/AwsEc2QueryProtocol.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QuerySerializerSettings.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QuerySerializerSettings.js
 var init_QuerySerializerSettings = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QuerySerializerSettings.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QuerySerializerSettings.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js
 var loadRestXmlErrorCode;
 var init_parseXmlBody = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js"() {
     loadRestXmlErrorCode = (output, data) => {
       if (data?.Error?.Code !== void 0) {
         return data.Error.Code;
@@ -42200,10 +42211,10 @@ var init_parseXmlBody = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js
 var import_xml_builder2, XmlShapeSerializer;
 var init_XmlShapeSerializer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js"() {
     import_xml_builder2 = __toESM(require_dist_cjs9());
     init_protocols();
     init_schema3();
@@ -42478,10 +42489,10 @@ var init_XmlShapeSerializer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlCodec.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlCodec.js
 var XmlCodec;
 var init_XmlCodec = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlCodec.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlCodec.js"() {
     init_ConfigurableSerdeContext();
     init_XmlShapeDeserializer();
     init_XmlShapeSerializer();
@@ -42505,10 +42516,10 @@ var init_XmlCodec = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/AwsRestXmlProtocol.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/AwsRestXmlProtocol.js
 var AwsRestXmlProtocol;
 var init_AwsRestXmlProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/AwsRestXmlProtocol.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/AwsRestXmlProtocol.js"() {
     init_protocols();
     init_schema3();
     init_ProtocolLib();
@@ -42604,9 +42615,9 @@ var init_AwsRestXmlProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/index.js
+// node_modules/@aws-sdk/core/dist-es/submodules/protocols/index.js
 var init_protocols2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/protocols/index.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/protocols/index.js"() {
     init_AwsSmithyRpcV2CborProtocol();
     init_coercing_serializers();
     init_AwsJson1_0Protocol();
@@ -42630,10 +42641,10 @@ var init_protocols2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/protocol/S3RestXmlProtocol.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/protocol/S3RestXmlProtocol.js
 var S3RestXmlProtocol;
 var init_S3RestXmlProtocol = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/protocol/S3RestXmlProtocol.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/protocol/S3RestXmlProtocol.js"() {
     init_protocols2();
     init_schema3();
     S3RestXmlProtocol = class extends AwsRestXmlProtocol {
@@ -42662,10 +42673,10 @@ var init_S3RestXmlProtocol = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeDisableMultiregionAccessPointConfigOptions.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeDisableMultiregionAccessPointConfigOptions.js
 var NODE_DISABLE_MULTIREGION_ACCESS_POINT_ENV_NAME, NODE_DISABLE_MULTIREGION_ACCESS_POINT_INI_NAME, NODE_DISABLE_MULTIREGION_ACCESS_POINT_CONFIG_OPTIONS;
 var init_NodeDisableMultiregionAccessPointConfigOptions = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeDisableMultiregionAccessPointConfigOptions.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeDisableMultiregionAccessPointConfigOptions.js"() {
     init_config2();
     NODE_DISABLE_MULTIREGION_ACCESS_POINT_ENV_NAME = "AWS_S3_DISABLE_MULTIREGION_ACCESS_POINTS";
     NODE_DISABLE_MULTIREGION_ACCESS_POINT_INI_NAME = "s3_disable_multiregion_access_points";
@@ -42677,10 +42688,10 @@ var init_NodeDisableMultiregionAccessPointConfigOptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeUseArnRegionConfigOptions.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeUseArnRegionConfigOptions.js
 var NODE_USE_ARN_REGION_ENV_NAME, NODE_USE_ARN_REGION_INI_NAME, NODE_USE_ARN_REGION_CONFIG_OPTIONS;
 var init_NodeUseArnRegionConfigOptions = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeUseArnRegionConfigOptions.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/NodeUseArnRegionConfigOptions.js"() {
     init_config2();
     NODE_USE_ARN_REGION_ENV_NAME = "AWS_S3_USE_ARN_REGION";
     NODE_USE_ARN_REGION_INI_NAME = "s3_use_arn_region";
@@ -42692,10 +42703,10 @@ var init_NodeUseArnRegionConfigOptions = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostnameUtils.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostnameUtils.js
 var DOMAIN_PATTERN2, IP_ADDRESS_PATTERN2, DOTS_PATTERN2, DOT_PATTERN, S3_HOSTNAME_PATTERN, S3_US_EAST_1_ALTNAME_PATTERN, AWS_PARTITION_SUFFIX, isBucketNameOptions, isDnsCompatibleBucketName2, getRegionalSuffix, getSuffix, getSuffixForArnEndpoint, validateArnEndpointOptions, validateService, validateS3Service, validateOutpostService, validatePartition, validateRegion, validateRegionalClient, validateAccountId, validateDNSHostLabel, validateCustomEndpoint, getArnResources, validateNoDualstack, validateNoFIPS, validateMrapAlias;
 var init_bucketHostnameUtils = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostnameUtils.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostnameUtils.js"() {
     DOMAIN_PATTERN2 = /^[a-z0-9][a-z0-9\.\-]{1,61}[a-z0-9]$/;
     IP_ADDRESS_PATTERN2 = /(\d+\.){3}\d+/;
     DOTS_PATTERN2 = /\.\./;
@@ -42803,10 +42814,10 @@ var init_bucketHostnameUtils = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostname.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostname.js
 var bucketHostname, getEndpointFromBucketName, getEndpointFromArn, getEndpointFromObjectLambdaArn, getEndpointFromMRAPArn, getEndpointFromOutpostArn, getEndpointFromAccessPointArn;
 var init_bucketHostname = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostname.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketHostname.js"() {
     init_bucketHostnameUtils();
     bucketHostname = (options) => {
       validateCustomEndpoint(options);
@@ -42909,10 +42920,10 @@ var init_bucketHostname = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketEndpointMiddleware.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketEndpointMiddleware.js
 var bucketEndpointMiddleware2, bucketEndpointMiddlewareOptions2, getBucketEndpointPlugin;
 var init_bucketEndpointMiddleware = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketEndpointMiddleware.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/bucketEndpointMiddleware.js"() {
     init_util2();
     init_protocols();
     init_bucketHostname();
@@ -42995,7 +43006,7 @@ var init_bucketEndpointMiddleware = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/configurations.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/configurations.js
 function resolveBucketEndpointConfig(input) {
   const { bucketEndpoint = false, forcePathStyle = false, useAccelerateEndpoint = false, useArnRegion, disableMultiregionAccessPoints = false } = input;
   return Object.assign(input, {
@@ -43007,11 +43018,11 @@ function resolveBucketEndpointConfig(input) {
   });
 }
 var init_configurations3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/configurations.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-bucket-endpoint/configurations.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-expect-continue/middleware-expect-continue.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-expect-continue/middleware-expect-continue.js
 function addExpectContinueMiddleware(options) {
   return (next) => async (args) => {
     const { request } = args;
@@ -43038,7 +43049,7 @@ function addExpectContinueMiddleware(options) {
 }
 var addExpectContinueMiddlewareOptions, getAddExpectContinuePlugin;
 var init_middleware_expect_continue = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-expect-continue/middleware-expect-continue.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-expect-continue/middleware-expect-continue.js"() {
     init_protocols();
     addExpectContinueMiddlewareOptions = {
       step: "build",
@@ -43054,7 +43065,7 @@ var init_middleware_expect_continue = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/middleware-location-constraint.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/middleware-location-constraint.js
 function locationConstraintMiddleware(options) {
   return (next) => async (args) => {
     const { CreateBucketConfiguration } = args.input;
@@ -43070,7 +43081,7 @@ function locationConstraintMiddleware(options) {
 }
 var locationConstraintMiddlewareOptions, getLocationConstraintPlugin;
 var init_middleware_location_constraint = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/middleware-location-constraint.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/middleware-location-constraint.js"() {
     locationConstraintMiddlewareOptions = {
       step: "initialize",
       tags: ["LOCATION_CONSTRAINT", "CREATE_BUCKET_CONFIGURATION"],
@@ -43085,16 +43096,16 @@ var init_middleware_location_constraint = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/configuration.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/configuration.js
 function resolveLocationConstraintConfig(input) {
   return input;
 }
 var init_configuration2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/configuration.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-location-constraint/configuration.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-ssec/middleware-ssec.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-ssec/middleware-ssec.js
 function ssecMiddleware(options) {
   return (next) => async (args) => {
     const input = { ...args.input };
@@ -43147,7 +43158,7 @@ function isValidBase64EncodedSSECustomerKey(str, options) {
 }
 var ssecMiddlewareOptions, getSsecPlugin;
 var init_middleware_ssec = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-ssec/middleware-ssec.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-ssec/middleware-ssec.js"() {
     ssecMiddlewareOptions = {
       name: "ssecMiddleware",
       step: "initialize",
@@ -43162,7 +43173,7 @@ var init_middleware_ssec = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/index.js
+// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/index.js
 var s3_exports = {};
 __export(s3_exports, {
   NODE_DISABLE_MULTIREGION_ACCESS_POINT_CONFIG_OPTIONS: () => NODE_DISABLE_MULTIREGION_ACCESS_POINT_CONFIG_OPTIONS,
@@ -43228,7 +43239,7 @@ __export(s3_exports, {
   validateRegion: () => validateRegion
 });
 var init_s32 = __esm({
-  "node_modules/.pnpm/@aws-sdk+middleware-sdk-s3@3.972.51/node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/index.js"() {
+  "node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/index.js"() {
     init_check_content_length_header();
     init_region_redirect_endpoint_middleware();
     init_region_redirect_middleware();
@@ -43257,36 +43268,36 @@ var init_s32 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js
 var getDateHeader;
 var init_getDateHeader = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js"() {
     init_protocols();
     getDateHeader = (response) => HttpResponse.isInstance(response) ? response.headers?.date ?? response.headers?.Date : void 0;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js
 var getSkewCorrectedDate;
 var init_getSkewCorrectedDate = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js"() {
     getSkewCorrectedDate = (systemClockOffset) => new Date(Date.now() + systemClockOffset);
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js
 var isClockSkewed;
 var init_isClockSkewed = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js"() {
     init_getSkewCorrectedDate();
     isClockSkewed = (clockTime, systemClockOffset) => Math.abs(getSkewCorrectedDate(systemClockOffset).getTime() - clockTime) >= 3e5;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js
 var getUpdatedSystemClockOffset;
 var init_getUpdatedSystemClockOffset = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js"() {
     init_isClockSkewed();
     getUpdatedSystemClockOffset = (clockTime, currentSystemClockOffset) => {
       const clockTimeInMs = Date.parse(clockTime);
@@ -43298,19 +43309,19 @@ var init_getUpdatedSystemClockOffset = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/index.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/index.js
 var init_utils7 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/index.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/index.js"() {
     init_getDateHeader();
     init_getSkewCorrectedDate();
     init_getUpdatedSystemClockOffset();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js
 var throwSigningPropertyError, validateSigningProperties, AwsSdkSigV4Signer, AWSSDKSigV4Signer;
 var init_AwsSdkSigV4Signer = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js"() {
     init_protocols();
     init_utils7();
     throwSigningPropertyError = (name, property) => {
@@ -43391,10 +43402,10 @@ var init_AwsSdkSigV4Signer = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js
 var AwsSdkSigV4ASigner;
 var init_AwsSdkSigV4ASigner = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js"() {
     init_protocols();
     init_utils7();
     init_AwsSdkSigV4Signer();
@@ -43418,26 +43429,26 @@ var init_AwsSdkSigV4ASigner = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getArrayForCommaSeparatedString.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getArrayForCommaSeparatedString.js
 var getArrayForCommaSeparatedString;
 var init_getArrayForCommaSeparatedString = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getArrayForCommaSeparatedString.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getArrayForCommaSeparatedString.js"() {
     getArrayForCommaSeparatedString = (str) => typeof str === "string" && str.length > 0 ? str.split(",").map((item) => item.trim()) : [];
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getBearerTokenEnvKey.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getBearerTokenEnvKey.js
 var getBearerTokenEnvKey;
 var init_getBearerTokenEnvKey = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getBearerTokenEnvKey.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getBearerTokenEnvKey.js"() {
     getBearerTokenEnvKey = (signingName) => `AWS_BEARER_TOKEN_${signingName.replace(/[\s-]/g, "_").toUpperCase()}`;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/NODE_AUTH_SCHEME_PREFERENCE_OPTIONS.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/NODE_AUTH_SCHEME_PREFERENCE_OPTIONS.js
 var NODE_AUTH_SCHEME_PREFERENCE_ENV_KEY, NODE_AUTH_SCHEME_PREFERENCE_CONFIG_KEY, NODE_AUTH_SCHEME_PREFERENCE_OPTIONS;
 var init_NODE_AUTH_SCHEME_PREFERENCE_OPTIONS = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/NODE_AUTH_SCHEME_PREFERENCE_OPTIONS.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/NODE_AUTH_SCHEME_PREFERENCE_OPTIONS.js"() {
     init_getArrayForCommaSeparatedString();
     init_getBearerTokenEnvKey();
     NODE_AUTH_SCHEME_PREFERENCE_ENV_KEY = "AWS_AUTH_SCHEME_PREFERENCE";
@@ -43463,10 +43474,10 @@ var init_NODE_AUTH_SCHEME_PREFERENCE_OPTIONS = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js
 var resolveAwsSdkSigV4AConfig, NODE_SIGV4A_CONFIG_OPTIONS;
 var init_resolveAwsSdkSigV4AConfig = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js"() {
     init_dist_es();
     init_config2();
     resolveAwsSdkSigV4AConfig = (config) => {
@@ -43495,7 +43506,7 @@ var init_resolveAwsSdkSigV4AConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js
 function normalizeCredentialProvider(config, { credentials, credentialDefaultProvider }) {
   let credentialsProvider;
   if (credentials) {
@@ -43529,7 +43540,7 @@ function bindCallerConfig(config, credentialsProvider) {
 }
 var import_signature_v4, resolveAwsSdkSigV4Config, resolveAWSSDKSigV4Config;
 var init_resolveAwsSdkSigV4Config = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js"() {
     init_client3();
     init_dist_es();
     import_signature_v4 = __toESM(require_dist_cjs7());
@@ -43633,9 +43644,9 @@ var init_resolveAwsSdkSigV4Config = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/index.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/index.js
 var init_aws_sdk = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/index.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/index.js"() {
     init_AwsSdkSigV4Signer();
     init_AwsSdkSigV4ASigner();
     init_NODE_AUTH_SCHEME_PREFERENCE_OPTIONS();
@@ -43644,7 +43655,7 @@ var init_aws_sdk = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/index.js
+// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/index.js
 var httpAuthSchemes_exports = {};
 __export(httpAuthSchemes_exports, {
   AWSSDKSigV4Signer: () => AWSSDKSigV4Signer,
@@ -43659,15 +43670,15 @@ __export(httpAuthSchemes_exports, {
   validateSigningProperties: () => validateSigningProperties
 });
 var init_httpAuthSchemes2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+core@3.974.20/node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/index.js"() {
+  "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/index.js"() {
     init_aws_sdk();
     init_getBearerTokenEnvKey();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/bdd.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/bdd.js
 var require_bdd = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/bdd.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/bdd.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.bdd = void 0;
@@ -45616,9 +45627,9 @@ var require_bdd = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/endpointResolver.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/endpointResolver.js
 var require_endpointResolver = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/endpointResolver.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/endpoint/endpointResolver.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.defaultEndpointResolver = void 0;
@@ -45655,9 +45666,9 @@ var require_endpointResolver = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/auth/httpAuthSchemeProvider.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/auth/httpAuthSchemeProvider.js
 var require_httpAuthSchemeProvider = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/auth/httpAuthSchemeProvider.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/auth/httpAuthSchemeProvider.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.resolveHttpAuthSchemeConfig = exports2.defaultS3HttpAuthSchemeProvider = exports2.defaultS3HttpAuthSchemeParametersProvider = void 0;
@@ -45784,9 +45795,9 @@ var require_httpAuthSchemeProvider = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/models/S3ServiceException.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/models/S3ServiceException.js
 var require_S3ServiceException = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/models/S3ServiceException.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/models/S3ServiceException.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.S3ServiceException = exports2.__ServiceException = void 0;
@@ -45804,9 +45815,9 @@ var require_S3ServiceException = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/models/errors.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/models/errors.js
 var require_errors = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/models/errors.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/models/errors.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.ObjectAlreadyInActiveTierError = exports2.IdempotencyParameterMismatch = exports2.TooManyParts = exports2.InvalidWriteOffset = exports2.InvalidRequest = exports2.EncryptionTypeMismatch = exports2.NotFound = exports2.NoSuchKey = exports2.InvalidObjectState = exports2.NoSuchBucket = exports2.BucketAlreadyOwnedByYou = exports2.BucketAlreadyExists = exports2.ObjectNotInActiveTierError = exports2.AccessDenied = exports2.NoSuchUpload = void 0;
@@ -46013,9 +46024,9 @@ var require_errors = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/schemas/schemas_0.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/schemas/schemas_0.js
 var require_schemas_0 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/schemas/schemas_0.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/schemas/schemas_0.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CreateBucketMetadataTableConfigurationRequest$ = exports2.CreateBucketMetadataConfigurationRequest$ = exports2.CreateBucketConfiguration$ = exports2.CORSRule$ = exports2.CORSConfiguration$ = exports2.CopyPartResult$ = exports2.CopyObjectResult$ = exports2.CopyObjectRequest$ = exports2.CopyObjectOutput$ = exports2.ContinuationEvent$ = exports2.Condition$ = exports2.CompleteMultipartUploadRequest$ = exports2.CompleteMultipartUploadOutput$ = exports2.CompletedPart$ = exports2.CompletedMultipartUpload$ = exports2.CommonPrefix$ = exports2.Checksum$ = exports2.BucketLoggingStatus$ = exports2.BucketLifecycleConfiguration$ = exports2.BucketInfo$ = exports2.Bucket$ = exports2.BlockedEncryptionTypes$ = exports2.AnalyticsS3BucketDestination$ = exports2.AnalyticsExportDestination$ = exports2.AnalyticsConfiguration$ = exports2.AnalyticsAndOperator$ = exports2.AccessControlTranslation$ = exports2.AccessControlPolicy$ = exports2.AccelerateConfiguration$ = exports2.AbortMultipartUploadRequest$ = exports2.AbortMultipartUploadOutput$ = exports2.AbortIncompleteMultipartUpload$ = exports2.AbacStatus$ = exports2.errorTypeRegistries = exports2.TooManyParts$ = exports2.ObjectNotInActiveTierError$ = exports2.ObjectAlreadyInActiveTierError$ = exports2.NotFound$ = exports2.NoSuchUpload$ = exports2.NoSuchKey$ = exports2.NoSuchBucket$ = exports2.InvalidWriteOffset$ = exports2.InvalidRequest$ = exports2.InvalidObjectState$ = exports2.IdempotencyParameterMismatch$ = exports2.EncryptionTypeMismatch$ = exports2.BucketAlreadyOwnedByYou$ = exports2.BucketAlreadyExists$ = exports2.AccessDenied$ = exports2.S3ServiceException$ = void 0;
@@ -51227,13 +51238,13 @@ var require_schemas_0 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/package.json
+// node_modules/@aws-sdk/client-s3/package.json
 var require_package = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/package.json"(exports2, module2) {
+  "node_modules/@aws-sdk/client-s3/package.json"(exports2, module2) {
     module2.exports = {
       name: "@aws-sdk/client-s3",
       description: "AWS SDK for JavaScript S3 Client for Node.js, Browser and React Native",
-      version: "3.1068.0",
+      version: "3.1067.0",
       scripts: {
         build: "concurrently 'yarn:build:types' 'yarn:build:es' && yarn build:cjs",
         "build:cjs": "node ../../scripts/compilation/inline",
@@ -51275,7 +51286,7 @@ var require_package = __commonJS({
         tslib: "^2.6.2"
       },
       devDependencies: {
-        "@aws-sdk/signature-v4-crt": "3.1068.0",
+        "@aws-sdk/signature-v4-crt": "3.1067.0",
         "@smithy/snapshot-testing": "^2.1.7",
         "@tsconfig/node20": "20.1.8",
         "@types/node": "^20.14.8",
@@ -51319,9 +51330,9 @@ var require_package = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-env@3.972.46/node_modules/@aws-sdk/credential-provider-env/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-env/dist-cjs/index.js
 var require_dist_cjs10 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-env@3.972.46/node_modules/@aws-sdk/credential-provider-env/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-env/dist-cjs/index.js"(exports2) {
     "use strict";
     var client = (init_client3(), __toCommonJS(client_exports2));
     var config = (init_config2(), __toCommonJS(config_exports));
@@ -51363,9 +51374,9 @@ var require_dist_cjs10 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@smithy+credential-provider-imds@4.3.9/node_modules/@smithy/credential-provider-imds/dist-cjs/index.js
+// node_modules/@smithy/credential-provider-imds/dist-cjs/index.js
 var require_dist_cjs11 = __commonJS({
-  "node_modules/.pnpm/@smithy+credential-provider-imds@4.3.9/node_modules/@smithy/credential-provider-imds/dist-cjs/index.js"(exports2) {
+  "node_modules/@smithy/credential-provider-imds/dist-cjs/index.js"(exports2) {
     "use strict";
     var config = (init_config2(), __toCommonJS(config_exports));
     var node_http = require("node:http");
@@ -51707,9 +51718,9 @@ For more information, please visit: ` + STATIC_STABILITY_DOC_URL);
   }
 });
 
-// node_modules/.pnpm/@smithy+node-http-handler@4.7.8/node_modules/@smithy/node-http-handler/dist-cjs/index.js
+// node_modules/@smithy/node-http-handler/dist-cjs/index.js
 var require_dist_cjs12 = __commonJS({
-  "node_modules/.pnpm/@smithy+node-http-handler@4.7.8/node_modules/@smithy/node-http-handler/dist-cjs/index.js"(exports2) {
+  "node_modules/@smithy/node-http-handler/dist-cjs/index.js"(exports2) {
     "use strict";
     var protocols = (init_protocols(), __toCommonJS(protocols_exports));
     var node_https = require("node:https");
@@ -52558,9 +52569,9 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/checkUrl.js
+// node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/checkUrl.js
 var require_checkUrl = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/checkUrl.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/checkUrl.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.checkUrl = void 0;
@@ -52601,9 +52612,9 @@ var require_checkUrl = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/requestHelpers.js
+// node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/requestHelpers.js
 var require_requestHelpers = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/requestHelpers.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/requestHelpers.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createGetRequest = createGetRequest;
@@ -52656,9 +52667,9 @@ var require_requestHelpers = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/retry-wrapper.js
+// node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/retry-wrapper.js
 var require_retry_wrapper = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/retry-wrapper.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/retry-wrapper.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.retryWrapper = void 0;
@@ -52678,9 +52689,9 @@ var require_retry_wrapper = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/fromHttp.js
+// node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/fromHttp.js
 var require_fromHttp = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/fromHttp.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-http/dist-cjs/fromHttp/fromHttp.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.fromHttp = void 0;
@@ -52751,16 +52762,16 @@ Set AWS_CONTAINER_CREDENTIALS_FULL_URI or AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-http/dist-cjs/index.js
 var require_dist_cjs13 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-http@3.972.48/node_modules/@aws-sdk/credential-provider-http/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-http/dist-cjs/index.js"(exports2) {
     "use strict";
     var fromHttp = require_fromHttp();
     exports2.fromHttp = fromHttp.fromHttp;
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthSchemeProvider.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthSchemeProvider.js
 function createAwsAuthSigv4HttpAuthOption(authParameters) {
   return {
     schemeId: "aws.auth#sigv4",
@@ -52783,7 +52794,7 @@ function createSmithyApiNoAuthHttpAuthOption(authParameters) {
 }
 var defaultSSOOIDCHttpAuthSchemeParametersProvider, defaultSSOOIDCHttpAuthSchemeProvider, resolveHttpAuthSchemeConfig;
 var init_httpAuthSchemeProvider = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthSchemeProvider.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthSchemeProvider.js"() {
     init_httpAuthSchemes2();
     init_client2();
     defaultSSOOIDCHttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -52816,10 +52827,10 @@ var init_httpAuthSchemeProvider = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/EndpointParameters.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/EndpointParameters.js
 var resolveClientEndpointParameters, commonParams;
 var init_EndpointParameters = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/EndpointParameters.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/EndpointParameters.js"() {
     resolveClientEndpointParameters = (options) => {
       return Object.assign(options, {
         useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -52836,10 +52847,10 @@ var init_EndpointParameters = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/package.json
+// node_modules/@aws-sdk/nested-clients/package.json
 var package_default;
 var init_package = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/package.json"() {
+  "node_modules/@aws-sdk/nested-clients/package.json"() {
     package_default = {
       name: "@aws-sdk/nested-clients",
       version: "3.997.20",
@@ -52962,10 +52973,10 @@ var init_package = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/bdd.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/bdd.js
 var k, a2, b, c, d, e, f, g, h, i, j, _data, root, r, nodes, bdd;
 var init_bdd = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/bdd.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/bdd.js"() {
     init_endpoints();
     k = "ref";
     a2 = -1;
@@ -53055,10 +53066,10 @@ var init_bdd = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/endpointResolver.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/endpointResolver.js
 var cache, defaultEndpointResolver;
 var init_endpointResolver = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/endpointResolver.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/endpoint/endpointResolver.js"() {
     init_client3();
     init_endpoints();
     init_bdd();
@@ -53076,10 +53087,10 @@ var init_endpointResolver = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/SSOOIDCServiceException.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/SSOOIDCServiceException.js
 var SSOOIDCServiceException;
 var init_SSOOIDCServiceException = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/SSOOIDCServiceException.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/SSOOIDCServiceException.js"() {
     init_client2();
     SSOOIDCServiceException = class _SSOOIDCServiceException extends ServiceException {
       constructor(options) {
@@ -53090,10 +53101,10 @@ var init_SSOOIDCServiceException = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/errors.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/errors.js
 var AccessDeniedException, AuthorizationPendingException, ExpiredTokenException, InternalServerException, InvalidClientException, InvalidGrantException, InvalidRequestException, InvalidScopeException, SlowDownException, UnauthorizedClientException, UnsupportedGrantTypeException;
 var init_errors2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/errors.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/errors.js"() {
     init_SSOOIDCServiceException();
     AccessDeniedException = class _AccessDeniedException extends SSOOIDCServiceException {
       name = "AccessDeniedException";
@@ -53278,10 +53289,10 @@ var init_errors2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/schemas/schemas_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/schemas/schemas_0.js
 var _ADE, _APE, _AT, _CS, _CT, _CTR, _CTRr, _CV, _ETE, _ICE, _IGE, _IRE, _ISE, _ISEn, _IT, _RT, _SDE, _UCE, _UGTE, _aT, _c, _cI, _cS, _cV, _co, _dC, _e2, _eI, _ed, _gT, _h, _hE, _iT, _r, _rT, _rU, _s, _sc, _se, _tT, n0, _s_registry, SSOOIDCServiceException$, n0_registry, AccessDeniedException$, AuthorizationPendingException$, ExpiredTokenException$, InternalServerException$, InvalidClientException$, InvalidGrantException$, InvalidRequestException$, InvalidScopeException$, SlowDownException$, UnauthorizedClientException$, UnsupportedGrantTypeException$, errorTypeRegistries, AccessToken, ClientSecret, CodeVerifier, IdToken, RefreshToken, CreateTokenRequest$, CreateTokenResponse$, Scopes, CreateToken$;
 var init_schemas_0 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/schemas/schemas_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/schemas/schemas_0.js"() {
     init_schema3();
     init_errors2();
     init_SSOOIDCServiceException();
@@ -53467,10 +53478,10 @@ var init_schemas_0 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.shared.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.shared.js
 var getRuntimeConfig;
 var init_runtimeConfig_shared = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.shared.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.shared.js"() {
     init_httpAuthSchemes2();
     init_protocols2();
     init_dist_es();
@@ -53518,10 +53529,10 @@ var init_runtimeConfig_shared = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.js
 var import_node_http_handler, getRuntimeConfig2;
 var init_runtimeConfig = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.js"() {
     init_package();
     init_client3();
     init_httpAuthSchemes2();
@@ -53566,10 +53577,10 @@ var init_runtimeConfig = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthExtensionConfiguration.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthExtensionConfiguration.js
 var getHttpAuthExtensionConfiguration, resolveHttpAuthRuntimeConfig;
 var init_httpAuthExtensionConfiguration = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthExtensionConfiguration.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthExtensionConfiguration.js"() {
     getHttpAuthExtensionConfiguration = (runtimeConfig) => {
       const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
       let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -53610,10 +53621,10 @@ var init_httpAuthExtensionConfiguration = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeExtensions.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeExtensions.js
 var resolveRuntimeExtensions;
 var init_runtimeExtensions = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeExtensions.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeExtensions.js"() {
     init_client3();
     init_client2();
     init_protocols();
@@ -53626,10 +53637,10 @@ var init_runtimeExtensions = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDCClient.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDCClient.js
 var SSOOIDCClient;
 var init_SSOOIDCClient = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDCClient.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDCClient.js"() {
     init_client3();
     init_dist_es();
     init_client2();
@@ -53679,10 +53690,10 @@ var init_SSOOIDCClient = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/CreateTokenCommand.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/CreateTokenCommand.js
 var CreateTokenCommand;
 var init_CreateTokenCommand = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/CreateTokenCommand.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/CreateTokenCommand.js"() {
     init_client2();
     init_endpoints();
     init_EndpointParameters();
@@ -53694,10 +53705,10 @@ var init_CreateTokenCommand = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDC.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDC.js
 var commands, SSOOIDC;
 var init_SSOOIDC = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDC.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/SSOOIDC.js"() {
     init_client2();
     init_CreateTokenCommand();
     init_SSOOIDCClient();
@@ -53710,17 +53721,17 @@ var init_SSOOIDC = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/index.js
 var init_commands = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/commands/index.js"() {
     init_CreateTokenCommand();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/enums.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/enums.js
 var AccessDeniedExceptionReason, InvalidRequestExceptionReason;
 var init_enums = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/enums.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/enums.js"() {
     AccessDeniedExceptionReason = {
       KMS_ACCESS_DENIED: "KMS_AccessDeniedException"
     };
@@ -53733,13 +53744,13 @@ var init_enums = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/models_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/models_0.js
 var init_models_0 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/models_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/models/models_0.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/index.js
 var sso_oidc_exports = {};
 __export(sso_oidc_exports, {
   $Command: () => Command,
@@ -53779,7 +53790,7 @@ __export(sso_oidc_exports, {
   errorTypeRegistries: () => errorTypeRegistries
 });
 var init_sso_oidc = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/index.js"() {
     init_SSOOIDCClient();
     init_SSOOIDC();
     init_commands();
@@ -53791,9 +53802,9 @@ var init_sso_oidc = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+token-providers@3.1066.0/node_modules/@aws-sdk/token-providers/dist-cjs/index.js
+// node_modules/@aws-sdk/token-providers/dist-cjs/index.js
 var require_dist_cjs14 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+token-providers@3.1066.0/node_modules/@aws-sdk/token-providers/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/token-providers/dist-cjs/index.js"(exports2) {
     "use strict";
     var client = (init_client3(), __toCommonJS(client_exports2));
     var httpAuthSchemes = (init_httpAuthSchemes2(), __toCommonJS(httpAuthSchemes_exports));
@@ -53937,7 +53948,7 @@ var require_dist_cjs14 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthSchemeProvider.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthSchemeProvider.js
 function createAwsAuthSigv4HttpAuthOption2(authParameters) {
   return {
     schemeId: "aws.auth#sigv4",
@@ -53960,7 +53971,7 @@ function createSmithyApiNoAuthHttpAuthOption2(authParameters) {
 }
 var defaultSSOHttpAuthSchemeParametersProvider, defaultSSOHttpAuthSchemeProvider, resolveHttpAuthSchemeConfig2;
 var init_httpAuthSchemeProvider2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthSchemeProvider.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthSchemeProvider.js"() {
     init_httpAuthSchemes2();
     init_client2();
     defaultSSOHttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -53993,10 +54004,10 @@ var init_httpAuthSchemeProvider2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/EndpointParameters.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/EndpointParameters.js
 var resolveClientEndpointParameters2, commonParams2;
 var init_EndpointParameters2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/EndpointParameters.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/EndpointParameters.js"() {
     resolveClientEndpointParameters2 = (options) => {
       return Object.assign(options, {
         useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -54013,10 +54024,10 @@ var init_EndpointParameters2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/bdd.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/bdd.js
 var k2, a3, b2, c2, d2, e2, f2, g2, h2, i2, j2, _data2, root2, r2, nodes2, bdd2;
 var init_bdd2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/bdd.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/bdd.js"() {
     init_endpoints();
     k2 = "ref";
     a3 = -1;
@@ -54106,10 +54117,10 @@ var init_bdd2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/endpointResolver.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/endpointResolver.js
 var cache2, defaultEndpointResolver2;
 var init_endpointResolver2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/endpointResolver.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/endpoint/endpointResolver.js"() {
     init_client3();
     init_endpoints();
     init_bdd2();
@@ -54127,10 +54138,10 @@ var init_endpointResolver2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/SSOServiceException.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/SSOServiceException.js
 var SSOServiceException;
 var init_SSOServiceException = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/SSOServiceException.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/SSOServiceException.js"() {
     init_client2();
     SSOServiceException = class _SSOServiceException extends ServiceException {
       constructor(options) {
@@ -54141,10 +54152,10 @@ var init_SSOServiceException = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/errors.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/errors.js
 var InvalidRequestException2, ResourceNotFoundException, TooManyRequestsException, UnauthorizedException;
 var init_errors3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/errors.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/errors.js"() {
     init_SSOServiceException();
     InvalidRequestException2 = class _InvalidRequestException extends SSOServiceException {
       name = "InvalidRequestException";
@@ -54197,10 +54208,10 @@ var init_errors3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/schemas/schemas_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/schemas/schemas_0.js
 var _ATT, _GRC, _GRCR, _GRCRe, _IRE2, _RC, _RNFE, _SAKT, _STT, _TMRE, _UE, _aI, _aKI, _aT2, _ai, _c2, _e3, _ex, _h2, _hE2, _hH, _hQ, _m, _rC, _rN, _rn, _s2, _sAK, _sT, _xasbt, n02, _s_registry2, SSOServiceException$, n0_registry2, InvalidRequestException$2, ResourceNotFoundException$, TooManyRequestsException$, UnauthorizedException$, errorTypeRegistries2, AccessTokenType, SecretAccessKeyType, SessionTokenType, GetRoleCredentialsRequest$, GetRoleCredentialsResponse$, RoleCredentials$, GetRoleCredentials$;
 var init_schemas_02 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/schemas/schemas_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/schemas/schemas_0.js"() {
     init_schema3();
     init_errors3();
     init_SSOServiceException();
@@ -54318,10 +54329,10 @@ var init_schemas_02 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.shared.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.shared.js
 var getRuntimeConfig3;
 var init_runtimeConfig_shared2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.shared.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.shared.js"() {
     init_httpAuthSchemes2();
     init_protocols2();
     init_dist_es();
@@ -54369,10 +54380,10 @@ var init_runtimeConfig_shared2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.js
 var import_node_http_handler2, getRuntimeConfig4;
 var init_runtimeConfig2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.js"() {
     init_package();
     init_client3();
     init_httpAuthSchemes2();
@@ -54417,10 +54428,10 @@ var init_runtimeConfig2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthExtensionConfiguration.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthExtensionConfiguration.js
 var getHttpAuthExtensionConfiguration2, resolveHttpAuthRuntimeConfig2;
 var init_httpAuthExtensionConfiguration2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthExtensionConfiguration.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthExtensionConfiguration.js"() {
     getHttpAuthExtensionConfiguration2 = (runtimeConfig) => {
       const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
       let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -54461,10 +54472,10 @@ var init_httpAuthExtensionConfiguration2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeExtensions.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeExtensions.js
 var resolveRuntimeExtensions2;
 var init_runtimeExtensions2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeExtensions.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeExtensions.js"() {
     init_client3();
     init_client2();
     init_protocols();
@@ -54477,10 +54488,10 @@ var init_runtimeExtensions2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSOClient.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSOClient.js
 var SSOClient;
 var init_SSOClient = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSOClient.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSOClient.js"() {
     init_client3();
     init_dist_es();
     init_client2();
@@ -54530,10 +54541,10 @@ var init_SSOClient = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/GetRoleCredentialsCommand.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/GetRoleCredentialsCommand.js
 var GetRoleCredentialsCommand;
 var init_GetRoleCredentialsCommand = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/GetRoleCredentialsCommand.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/GetRoleCredentialsCommand.js"() {
     init_client2();
     init_endpoints();
     init_EndpointParameters2();
@@ -54545,10 +54556,10 @@ var init_GetRoleCredentialsCommand = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSO.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSO.js
 var commands2, SSO;
 var init_SSO = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSO.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/SSO.js"() {
     init_client2();
     init_GetRoleCredentialsCommand();
     init_SSOClient();
@@ -54561,20 +54572,20 @@ var init_SSO = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/index.js
 var init_commands2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/commands/index.js"() {
     init_GetRoleCredentialsCommand();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/models_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/models_0.js
 var init_models_02 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/models_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/models/models_0.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/index.js
 var sso_exports = {};
 __export(sso_exports, {
   $Command: () => Command,
@@ -54599,7 +54610,7 @@ __export(sso_exports, {
   errorTypeRegistries: () => errorTypeRegistries2
 });
 var init_sso = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/index.js"() {
     init_SSOClient();
     init_SSO();
     init_commands2();
@@ -54610,9 +54621,9 @@ var init_sso = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-sso@3.972.52/node_modules/@aws-sdk/credential-provider-sso/dist-cjs/loadSso-BKDNrsal.js
+// node_modules/@aws-sdk/credential-provider-sso/dist-cjs/loadSso-BKDNrsal.js
 var require_loadSso_BKDNrsal = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-sso@3.972.52/node_modules/@aws-sdk/credential-provider-sso/dist-cjs/loadSso-BKDNrsal.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-sso/dist-cjs/loadSso-BKDNrsal.js"(exports2) {
     "use strict";
     var sso = (init_sso(), __toCommonJS(sso_exports));
     exports2.GetRoleCredentialsCommand = sso.GetRoleCredentialsCommand;
@@ -54620,9 +54631,9 @@ var require_loadSso_BKDNrsal = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-sso@3.972.52/node_modules/@aws-sdk/credential-provider-sso/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-sso/dist-cjs/index.js
 var require_dist_cjs15 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-sso@3.972.52/node_modules/@aws-sdk/credential-provider-sso/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-sso/dist-cjs/index.js"(exports2) {
     "use strict";
     var config = (init_config2(), __toCommonJS(config_exports));
     var client = (init_client3(), __toCommonJS(client_exports2));
@@ -54802,7 +54813,7 @@ Reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.ht
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthSchemeProvider.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthSchemeProvider.js
 function createAwsAuthSigv4HttpAuthOption3(authParameters) {
   return {
     schemeId: "aws.auth#sigv4",
@@ -54825,7 +54836,7 @@ function createSmithyApiNoAuthHttpAuthOption3(authParameters) {
 }
 var defaultSigninHttpAuthSchemeParametersProvider, defaultSigninHttpAuthSchemeProvider, resolveHttpAuthSchemeConfig3;
 var init_httpAuthSchemeProvider3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthSchemeProvider.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthSchemeProvider.js"() {
     init_httpAuthSchemes2();
     init_client2();
     defaultSigninHttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -54858,10 +54869,10 @@ var init_httpAuthSchemeProvider3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/EndpointParameters.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/EndpointParameters.js
 var resolveClientEndpointParameters3, commonParams3;
 var init_EndpointParameters3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/EndpointParameters.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/EndpointParameters.js"() {
     resolveClientEndpointParameters3 = (options) => {
       return Object.assign(options, {
         useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -54878,10 +54889,10 @@ var init_EndpointParameters3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/bdd.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/bdd.js
 var m2, a4, b3, c3, d3, e3, f3, g3, h3, i3, j3, k3, l, _data3, root3, r3, nodes3, bdd3;
 var init_bdd3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/bdd.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/bdd.js"() {
     init_endpoints();
     m2 = "ref";
     a4 = -1;
@@ -54983,10 +54994,10 @@ var init_bdd3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/endpointResolver.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/endpointResolver.js
 var cache3, defaultEndpointResolver3;
 var init_endpointResolver3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/endpointResolver.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/endpoint/endpointResolver.js"() {
     init_client3();
     init_endpoints();
     init_bdd3();
@@ -55004,10 +55015,10 @@ var init_endpointResolver3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/SigninServiceException.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/SigninServiceException.js
 var SigninServiceException;
 var init_SigninServiceException = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/SigninServiceException.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/SigninServiceException.js"() {
     init_client2();
     SigninServiceException = class _SigninServiceException extends ServiceException {
       constructor(options) {
@@ -55018,10 +55029,10 @@ var init_SigninServiceException = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/errors.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/errors.js
 var AccessDeniedException2, InternalServerException2, TooManyRequestsError, ValidationException;
 var init_errors4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/errors.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/errors.js"() {
     init_SigninServiceException();
     AccessDeniedException2 = class _AccessDeniedException extends SigninServiceException {
       name = "AccessDeniedException";
@@ -55082,10 +55093,10 @@ var init_errors4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/schemas/schemas_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/schemas/schemas_0.js
 var _ADE2, _AT2, _COAT, _COATR, _COATRB, _COATRBr, _COATRr, _ISE2, _RT2, _TMRE2, _VE, _aKI2, _aT3, _c3, _cI2, _cV2, _co2, _e4, _eI2, _gT2, _h3, _hE3, _iT2, _jN, _m2, _rT2, _rU2, _s3, _sAK2, _sT2, _se2, _tI, _tO, _tT2, n03, _s_registry3, SigninServiceException$, n0_registry3, AccessDeniedException$2, InternalServerException$2, TooManyRequestsError$, ValidationException$, errorTypeRegistries3, RefreshToken2, AccessToken$, CreateOAuth2TokenRequest$, CreateOAuth2TokenRequestBody$, CreateOAuth2TokenResponse$, CreateOAuth2TokenResponseBody$, CreateOAuth2Token$;
 var init_schemas_03 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/schemas/schemas_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/schemas/schemas_0.js"() {
     init_schema3();
     init_errors4();
     init_SigninServiceException();
@@ -55229,10 +55240,10 @@ var init_schemas_03 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.shared.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.shared.js
 var getRuntimeConfig5;
 var init_runtimeConfig_shared3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.shared.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.shared.js"() {
     init_httpAuthSchemes2();
     init_protocols2();
     init_dist_es();
@@ -55280,10 +55291,10 @@ var init_runtimeConfig_shared3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.js
 var import_node_http_handler3, getRuntimeConfig6;
 var init_runtimeConfig3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.js"() {
     init_package();
     init_client3();
     init_httpAuthSchemes2();
@@ -55328,10 +55339,10 @@ var init_runtimeConfig3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthExtensionConfiguration.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthExtensionConfiguration.js
 var getHttpAuthExtensionConfiguration3, resolveHttpAuthRuntimeConfig3;
 var init_httpAuthExtensionConfiguration3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthExtensionConfiguration.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthExtensionConfiguration.js"() {
     getHttpAuthExtensionConfiguration3 = (runtimeConfig) => {
       const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
       let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -55372,10 +55383,10 @@ var init_httpAuthExtensionConfiguration3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeExtensions.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeExtensions.js
 var resolveRuntimeExtensions3;
 var init_runtimeExtensions3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeExtensions.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeExtensions.js"() {
     init_client3();
     init_client2();
     init_protocols();
@@ -55388,10 +55399,10 @@ var init_runtimeExtensions3 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/SigninClient.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/SigninClient.js
 var SigninClient;
 var init_SigninClient = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/SigninClient.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/SigninClient.js"() {
     init_client3();
     init_dist_es();
     init_client2();
@@ -55441,10 +55452,10 @@ var init_SigninClient = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/CreateOAuth2TokenCommand.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/CreateOAuth2TokenCommand.js
 var CreateOAuth2TokenCommand;
 var init_CreateOAuth2TokenCommand = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/CreateOAuth2TokenCommand.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/CreateOAuth2TokenCommand.js"() {
     init_client2();
     init_endpoints();
     init_EndpointParameters3();
@@ -55456,10 +55467,10 @@ var init_CreateOAuth2TokenCommand = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/Signin.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/Signin.js
 var commands3, Signin;
 var init_Signin = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/Signin.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/Signin.js"() {
     init_client2();
     init_CreateOAuth2TokenCommand();
     init_SigninClient();
@@ -55472,17 +55483,17 @@ var init_Signin = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/index.js
 var init_commands3 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/commands/index.js"() {
     init_CreateOAuth2TokenCommand();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/enums.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/enums.js
 var OAuth2ErrorCode;
 var init_enums2 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/enums.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/enums.js"() {
     OAuth2ErrorCode = {
       AUTHCODE_EXPIRED: "AUTHCODE_EXPIRED",
       INSUFFICIENT_PERMISSIONS: "INSUFFICIENT_PERMISSIONS",
@@ -55494,13 +55505,13 @@ var init_enums2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/models_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/models_0.js
 var init_models_03 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/models_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/models/models_0.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/index.js
 var signin_exports = {};
 __export(signin_exports, {
   $Command: () => Command,
@@ -55528,7 +55539,7 @@ __export(signin_exports, {
   errorTypeRegistries: () => errorTypeRegistries3
 });
 var init_signin = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/index.js"() {
     init_SigninClient();
     init_Signin();
     init_commands3();
@@ -55540,9 +55551,9 @@ var init_signin = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-login@3.972.52/node_modules/@aws-sdk/credential-provider-login/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-login/dist-cjs/index.js
 var require_dist_cjs16 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-login@3.972.52/node_modules/@aws-sdk/credential-provider-login/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-login/dist-cjs/index.js"(exports2) {
     "use strict";
     var client = (init_client3(), __toCommonJS(client_exports2));
     var config = (init_config2(), __toCommonJS(config_exports));
@@ -55818,10 +55829,10 @@ var require_dist_cjs16 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/bdd.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/bdd.js
 var q, a5, b4, c4, d4, e4, f4, g4, h4, i4, j4, k4, l2, m3, n, o, p2, _data4, root4, r4, nodes4, bdd4;
 var init_bdd4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/bdd.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/bdd.js"() {
     init_endpoints();
     q = "ref";
     a5 = -1;
@@ -55987,10 +55998,10 @@ var init_bdd4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/endpointResolver.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/endpointResolver.js
 var cache4, defaultEndpointResolver4;
 var init_endpointResolver4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/endpointResolver.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/endpointResolver.js"() {
     init_client3();
     init_endpoints();
     init_bdd4();
@@ -56008,7 +56019,7 @@ var init_endpointResolver4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthSchemeProvider.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthSchemeProvider.js
 function createAwsAuthSigv4HttpAuthOption4(authParameters) {
   return {
     schemeId: "aws.auth#sigv4",
@@ -56046,7 +56057,7 @@ function createSmithyApiNoAuthHttpAuthOption4(authParameters) {
 }
 var import_signature_v4_multi_region2, createEndpointRuleSetHttpAuthSchemeParametersProvider, _defaultSTSHttpAuthSchemeParametersProvider, defaultSTSHttpAuthSchemeParametersProvider, createEndpointRuleSetHttpAuthSchemeProvider, _defaultSTSHttpAuthSchemeProvider, defaultSTSHttpAuthSchemeProvider, resolveHttpAuthSchemeConfig4;
 var init_httpAuthSchemeProvider4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthSchemeProvider.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthSchemeProvider.js"() {
     init_httpAuthSchemes2();
     import_signature_v4_multi_region2 = __toESM(require_dist_cjs8());
     init_client2();
@@ -56145,10 +56156,10 @@ var init_httpAuthSchemeProvider4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/EndpointParameters.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/EndpointParameters.js
 var resolveClientEndpointParameters4, commonParams4;
 var init_EndpointParameters4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/EndpointParameters.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/endpoint/EndpointParameters.js"() {
     resolveClientEndpointParameters4 = (options) => {
       return Object.assign(options, {
         useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -56167,10 +56178,10 @@ var init_EndpointParameters4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/STSServiceException.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/STSServiceException.js
 var STSServiceException;
 var init_STSServiceException = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/STSServiceException.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/STSServiceException.js"() {
     init_client2();
     STSServiceException = class _STSServiceException extends ServiceException {
       constructor(options) {
@@ -56181,10 +56192,10 @@ var init_STSServiceException = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/errors.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/errors.js
 var ExpiredTokenException2, MalformedPolicyDocumentException, PackedPolicyTooLargeException, RegionDisabledException, IDPRejectedClaimException, InvalidIdentityTokenException, IDPCommunicationErrorException;
 var init_errors5 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/errors.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/errors.js"() {
     init_STSServiceException();
     ExpiredTokenException2 = class _ExpiredTokenException extends STSServiceException {
       name = "ExpiredTokenException";
@@ -56274,10 +56285,10 @@ var init_errors5 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/schemas/schemas_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/schemas/schemas_0.js
 var _A, _AKI, _AR, _ARI, _ARR, _ARRs, _ARU, _ARWWI, _ARWWIR, _ARWWIRs, _Au, _C, _CA, _DS, _E, _EI, _ETE2, _IDPCEE, _IDPRCE, _IITE, _K, _MPDE, _P, _PA, _PAr, _PC, _PCLT, _PCr, _PDT, _PI, _PPS, _PPTLE, _Pr, _RA, _RDE, _RSN, _SAK, _SFWIT, _SI, _SN, _ST, _T, _TC, _TTK, _Ta, _V, _WIT, _a, _aKST, _aQE, _c4, _cTT, _e5, _hE4, _m3, _pDLT, _s4, _tLT, n04, _s_registry4, STSServiceException$, n0_registry4, ExpiredTokenException$2, IDPCommunicationErrorException$, IDPRejectedClaimException$, InvalidIdentityTokenException$, MalformedPolicyDocumentException$, PackedPolicyTooLargeException$, RegionDisabledException$, errorTypeRegistries4, accessKeySecretType, clientTokenType, AssumedRoleUser$, AssumeRoleRequest$, AssumeRoleResponse$, AssumeRoleWithWebIdentityRequest$, AssumeRoleWithWebIdentityResponse$, Credentials$, PolicyDescriptorType$, ProvidedContext$, Tag$, policyDescriptorListType, ProvidedContextsListType, tagKeyListType, tagListType, AssumeRole$, AssumeRoleWithWebIdentity$;
 var init_schemas_04 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/schemas/schemas_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/schemas/schemas_0.js"() {
     init_schema3();
     init_errors5();
     init_STSServiceException();
@@ -56531,10 +56542,10 @@ var init_schemas_04 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.shared.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.shared.js
 var import_signature_v4_multi_region3, getRuntimeConfig7;
 var init_runtimeConfig_shared4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.shared.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.shared.js"() {
     init_httpAuthSchemes2();
     init_protocols2();
     import_signature_v4_multi_region3 = __toESM(require_dist_cjs8());
@@ -56590,10 +56601,10 @@ var init_runtimeConfig_shared4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.js
 var import_node_http_handler4, getRuntimeConfig8;
 var init_runtimeConfig4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.js"() {
     init_package();
     init_client3();
     init_httpAuthSchemes2();
@@ -56657,10 +56668,10 @@ var init_runtimeConfig4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthExtensionConfiguration.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthExtensionConfiguration.js
 var getHttpAuthExtensionConfiguration4, resolveHttpAuthRuntimeConfig4;
 var init_httpAuthExtensionConfiguration4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthExtensionConfiguration.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthExtensionConfiguration.js"() {
     getHttpAuthExtensionConfiguration4 = (runtimeConfig) => {
       const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
       let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -56701,10 +56712,10 @@ var init_httpAuthExtensionConfiguration4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeExtensions.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeExtensions.js
 var resolveRuntimeExtensions4;
 var init_runtimeExtensions4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeExtensions.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeExtensions.js"() {
     init_client3();
     init_client2();
     init_protocols();
@@ -56717,10 +56728,10 @@ var init_runtimeExtensions4 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STSClient.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STSClient.js
 var STSClient;
 var init_STSClient = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STSClient.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STSClient.js"() {
     init_client3();
     init_dist_es();
     init_client2();
@@ -56771,10 +56782,10 @@ var init_STSClient = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleCommand.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleCommand.js
 var AssumeRoleCommand;
 var init_AssumeRoleCommand = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleCommand.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleCommand.js"() {
     init_client2();
     init_endpoints();
     init_EndpointParameters4();
@@ -56786,10 +56797,10 @@ var init_AssumeRoleCommand = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleWithWebIdentityCommand.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleWithWebIdentityCommand.js
 var AssumeRoleWithWebIdentityCommand;
 var init_AssumeRoleWithWebIdentityCommand = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleWithWebIdentityCommand.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/AssumeRoleWithWebIdentityCommand.js"() {
     init_client2();
     init_endpoints();
     init_EndpointParameters4();
@@ -56801,10 +56812,10 @@ var init_AssumeRoleWithWebIdentityCommand = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STS.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STS.js
 var commands4, STS;
 var init_STS = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STS.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/STS.js"() {
     init_client2();
     init_AssumeRoleCommand();
     init_AssumeRoleWithWebIdentityCommand();
@@ -56819,24 +56830,24 @@ var init_STS = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/index.js
 var init_commands4 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/commands/index.js"() {
     init_AssumeRoleCommand();
     init_AssumeRoleWithWebIdentityCommand();
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/models_0.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/models_0.js
 var init_models_04 = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/models_0.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/models/models_0.js"() {
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultStsRoleAssumers.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultStsRoleAssumers.js
 var getAccountIdFromAssumedRoleUser, resolveRegion, getDefaultRoleAssumer, getDefaultRoleAssumerWithWebIdentity, isH2;
 var init_defaultStsRoleAssumers = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultStsRoleAssumers.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultStsRoleAssumers.js"() {
     init_client3();
     init_AssumeRoleCommand();
     init_AssumeRoleWithWebIdentityCommand();
@@ -56941,10 +56952,10 @@ var init_defaultStsRoleAssumers = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultRoleAssumers.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultRoleAssumers.js
 var getCustomizableStsClientCtor, getDefaultRoleAssumer2, getDefaultRoleAssumerWithWebIdentity2, decorateDefaultCredentialProvider;
 var init_defaultRoleAssumers = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultRoleAssumers.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/defaultRoleAssumers.js"() {
     init_defaultStsRoleAssumers();
     init_STSClient();
     getCustomizableStsClientCtor = (baseCtor, customizations) => {
@@ -56970,7 +56981,7 @@ var init_defaultRoleAssumers = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/index.js
+// node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/index.js
 var sts_exports = {};
 __export(sts_exports, {
   $Command: () => Command,
@@ -57012,7 +57023,7 @@ __export(sts_exports, {
   getDefaultRoleAssumerWithWebIdentity: () => getDefaultRoleAssumerWithWebIdentity2
 });
 var init_sts = __esm({
-  "node_modules/.pnpm/@aws-sdk+nested-clients@3.997.20/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/index.js"() {
+  "node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/index.js"() {
     init_STSClient();
     init_STS();
     init_commands4();
@@ -57024,9 +57035,9 @@ var init_sts = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-process@3.972.46/node_modules/@aws-sdk/credential-provider-process/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-process/dist-cjs/index.js
 var require_dist_cjs17 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-process@3.972.46/node_modules/@aws-sdk/credential-provider-process/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-process/dist-cjs/index.js"(exports2) {
     "use strict";
     var config = (init_config2(), __toCommonJS(config_exports));
     var node_child_process = require("node:child_process");
@@ -57099,9 +57110,9 @@ var require_dist_cjs17 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-web-identity@3.972.52/node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromWebToken.js
+// node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromWebToken.js
 var require_fromWebToken = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-web-identity@3.972.52/node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromWebToken.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromWebToken.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.fromWebToken = void 0;
@@ -57134,9 +57145,9 @@ var require_fromWebToken = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-web-identity@3.972.52/node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromTokenFile.js
+// node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromTokenFile.js
 var require_fromTokenFile = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-web-identity@3.972.52/node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromTokenFile.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/fromTokenFile.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.fromTokenFile = void 0;
@@ -57172,9 +57183,9 @@ var require_fromTokenFile = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-web-identity@3.972.52/node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/index.js
 var require_dist_cjs18 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-web-identity@3.972.52/node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-web-identity/dist-cjs/index.js"(exports2) {
     "use strict";
     var fromTokenFile = require_fromTokenFile();
     var fromWebToken = require_fromWebToken();
@@ -57195,9 +57206,9 @@ var require_dist_cjs18 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-ini@3.972.53/node_modules/@aws-sdk/credential-provider-ini/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-ini/dist-cjs/index.js
 var require_dist_cjs19 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-ini@3.972.53/node_modules/@aws-sdk/credential-provider-ini/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-ini/dist-cjs/index.js"(exports2) {
     "use strict";
     var config = (init_config2(), __toCommonJS(config_exports));
     var client = (init_client3(), __toCommonJS(client_exports2));
@@ -57385,9 +57396,9 @@ var require_dist_cjs19 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+credential-provider-node@3.972.55/node_modules/@aws-sdk/credential-provider-node/dist-cjs/index.js
+// node_modules/@aws-sdk/credential-provider-node/dist-cjs/index.js
 var require_dist_cjs20 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+credential-provider-node@3.972.55/node_modules/@aws-sdk/credential-provider-node/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/credential-provider-node/dist-cjs/index.js"(exports2) {
     "use strict";
     var credentialProviderEnv = require_dist_cjs10();
     var config = (init_config2(), __toCommonJS(config_exports));
@@ -57541,7 +57552,7 @@ var require_dist_cjs20 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/chunked-blob-reader/chunked-blob-reader.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/chunked-blob-reader/chunked-blob-reader.js
 async function blobReader(blob, onChunk, chunkSize = 1024 * 1024) {
   const size = blob.size;
   let totalBytesRead = 0;
@@ -57552,14 +57563,14 @@ async function blobReader(blob, onChunk, chunkSize = 1024 * 1024) {
   }
 }
 var init_chunked_blob_reader = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/chunked-blob-reader/chunked-blob-reader.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/chunked-blob-reader/chunked-blob-reader.js"() {
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-blob-browser/blobHasher.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/hash-blob-browser/blobHasher.js
 var blobHasher;
 var init_blobHasher = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-blob-browser/blobHasher.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/hash-blob-browser/blobHasher.js"() {
     init_chunked_blob_reader();
     blobHasher = async function blobHasher2(hashCtor, blob) {
       const hash = new hashCtor();
@@ -57571,10 +57582,10 @@ var init_blobHasher = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/HashCalculator.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/HashCalculator.js
 var import_node_stream11, HashCalculator;
 var init_HashCalculator = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/HashCalculator.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/HashCalculator.js"() {
     import_node_stream11 = require("node:stream");
     init_serde();
     HashCalculator = class extends import_node_stream11.Writable {
@@ -57595,10 +57606,10 @@ var init_HashCalculator = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/fileStreamHasher.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/fileStreamHasher.js
 var import_node_fs2, fileStreamHasher, isReadStream;
 var init_fileStreamHasher = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/fileStreamHasher.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/fileStreamHasher.js"() {
     import_node_fs2 = require("node:fs");
     init_HashCalculator();
     fileStreamHasher = (hashCtor, fileStream) => new Promise((resolve, reject) => {
@@ -57626,10 +57637,10 @@ var init_fileStreamHasher = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/readableStreamHasher.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/readableStreamHasher.js
 var readableStreamHasher;
 var init_readableStreamHasher = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/readableStreamHasher.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/hash-stream-node/readableStreamHasher.js"() {
     init_HashCalculator();
     readableStreamHasher = (hashCtor, readableStream) => {
       if (readableStream.readableFlowing !== null) {
@@ -57652,17 +57663,17 @@ var init_readableStreamHasher = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/constants.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/constants.js
 var BLOCK_SIZE, DIGEST_LENGTH, INIT;
 var init_constants8 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/constants.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/constants.js"() {
     BLOCK_SIZE = 64;
     DIGEST_LENGTH = 16;
     INIT = [1732584193, 4023233417, 2562383102, 271733878];
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/md5.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/md5.js
 function cmn(q2, a6, b5, x2, s, t) {
   a6 = (a6 + q2 & 4294967295) + (x2 + t & 4294967295) & 4294967295;
   return (a6 << s | a6 >>> 32 - s) + b5 & 4294967295;
@@ -57696,7 +57707,7 @@ function convertToBuffer(data) {
 }
 var Md5;
 var init_md5 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/md5.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/md5-js/md5.js"() {
     init_serde();
     init_constants8();
     Md5 = class {
@@ -57836,7 +57847,7 @@ var init_md5 = __esm({
   }
 });
 
-// node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/index.js
+// node_modules/@smithy/core/dist-es/submodules/checksum/index.js
 var checksum_exports = {};
 __export(checksum_exports, {
   Md5: () => Md5,
@@ -57846,7 +57857,7 @@ __export(checksum_exports, {
   readableStreamHasher: () => readableStreamHasher
 });
 var init_checksum2 = __esm({
-  "node_modules/.pnpm/@smithy+core@3.24.7/node_modules/@smithy/core/dist-es/submodules/checksum/index.js"() {
+  "node_modules/@smithy/core/dist-es/submodules/checksum/index.js"() {
     init_blobHasher();
     init_fileStreamHasher();
     init_readableStreamHasher();
@@ -57855,9 +57866,9 @@ var init_checksum2 = __esm({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.shared.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.shared.js
 var require_runtimeConfig_shared = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.shared.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.shared.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.getRuntimeConfig = void 0;
@@ -57915,9 +57926,9 @@ var require_runtimeConfig_shared = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.js
 var require_runtimeConfig = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/runtimeConfig.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.getRuntimeConfig = void 0;
@@ -57982,9 +57993,9 @@ var require_runtimeConfig = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/index.js
+// node_modules/@aws-sdk/client-s3/dist-cjs/index.js
 var require_dist_cjs21 = __commonJS({
-  "node_modules/.pnpm/@aws-sdk+client-s3@3.1068.0/node_modules/@aws-sdk/client-s3/dist-cjs/index.js"(exports2) {
+  "node_modules/@aws-sdk/client-s3/dist-cjs/index.js"(exports2) {
     "use strict";
     var client$1 = (init_client3(), __toCommonJS(client_exports2));
     var middlewareFlexibleChecksums = require_dist_cjs6();
@@ -60168,7 +60179,7 @@ __export(cron_master_exports, {
 module.exports = __toCommonJS(cron_master_exports);
 init_serverless();
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/neon-http/driver.js
+// node_modules/drizzle-orm/neon-http/driver.js
 init_serverless();
 init_entity();
 init_logger();
@@ -60177,7 +60188,7 @@ init_dialect();
 init_relations();
 init_utils();
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/neon-http/session.js
+// node_modules/drizzle-orm/neon-http/session.js
 init_entity();
 init_logger();
 init_pg_core();
@@ -60338,7 +60349,7 @@ var NeonTransaction = class extends PgTransaction {
   }
 };
 
-// node_modules/.pnpm/drizzle-orm@0.44.7_@neondatabase+serverless@0.10.4_@types+pg@8.11.6/node_modules/drizzle-orm/neon-http/driver.js
+// node_modules/drizzle-orm/neon-http/driver.js
 var NeonHttpDriver = class {
   constructor(client, dialect, options = {}) {
     this.client = client;
@@ -62106,6 +62117,909 @@ var CAMPAIGN_FILE_INDEX = {
     "408_German_Oktoberfest_DeFi.png",
     "409_German_Telegram_Beitreten.png",
     "410_German_50_Milestone.png"
+  ],
+  "thai": [
+    "A01_Sprint_PhotoReal_NavyGold_HeroLeft.png",
+    "A02_Sprint_3DRender_TealWhite_HeroCenter.png",
+    "A03_Sprint_Cinematic_PurplePink_FullBleed.png",
+    "A04_Sprint_NeonGlow_MidnightBlue_Diagonal.png",
+    "A05_Sprint_Illustrative_EmeraldDark_SplitScreen.png",
+    "A06_Sprint_Infographic_SunsetWarm_HeroRight.png",
+    "A07_Sprint_Minimalist_MonochromeGold_BottomScene.png",
+    "A08_Sprint_Cultural_ForestGreen_HeroLeft.png",
+    "A09_Sprint_Abstract_CosmicViolet_FrameInFrame.png",
+    "A10_Sprint_NatureOrganic_RoseGold_TopScene.png",
+    "A11_Boost_3DRender_NavyGold_HeroRight.png",
+    "A12_Boost_Cinematic_EmeraldDark_FullBleed.png",
+    "A13_Boost_PhotoReal_TealWhite_SplitScreen.png",
+    "A14_Boost_NeonGlow_PurplePink_HeroCenter.png",
+    "A15_Boost_Infographic_SunsetWarm_Diagonal.png",
+    "A16_Boost_Illustrative_MidnightBlue_HeroLeft.png",
+    "A17_Boost_Minimalist_MonochromeGold_TopScene.png",
+    "A18_Boost_Abstract_ForestGreen_FrameInFrame.png",
+    "A19_Boost_NatureOrganic_CosmicViolet_BottomScene.png",
+    "A20_Boost_Cultural_RoseGold_HeroRight.png",
+    "A21_Power_Cinematic_NavyGold_FullBleed.png",
+    "A22_Power_PhotoReal_EmeraldDark_HeroLeft.png",
+    "A23_Power_3DRender_PurplePink_HeroCenter.png",
+    "A24_Power_NeonGlow_TealWhite_Diagonal.png",
+    "A25_Power_Infographic_SunsetWarm_SplitScreen.png",
+    "A26_Power_Minimalist_MidnightBlue_HeroRight.png",
+    "A27_Power_Abstract_MonochromeGold_FullBleed.png",
+    "A28_Power_NatureOrganic_ForestGreen_HeroLeft.png",
+    "A29_Power_Cultural_CosmicViolet_SplitScreen.png",
+    "A30_Power_Illustrative_RoseGold_Diagonal.png",
+    "A31_Ultimate_Cinematic_NavyGold_FullBleed.png",
+    "A32_Ultimate_PhotoReal_EmeraldDark_HeroLeft.png",
+    "A33_Ultimate_3DRender_PurplePink_HeroCenter.png",
+    "A34_Ultimate_NeonGlow_TealWhite_Diagonal.png",
+    "A35_Ultimate_Infographic_SunsetWarm_SplitScreen.png",
+    "A36_Ultimate_Illustrative_MidnightBlue_HeroRight.png",
+    "A37_Ultimate_Minimalist_MonochromeGold_FrameInFrame.png",
+    "A38_Ultimate_Abstract_ForestGreen_TopScene.png",
+    "A39_Ultimate_NatureOrganic_CosmicViolet_BottomScene.png",
+    "A40_Ultimate_Cultural_RoseGold_HeroCenter.png",
+    "B01_Referral_Cinematic_NavyGold_FullBleed.png",
+    "B02_Referral_PhotoReal_EmeraldDark_HeroLeft.png",
+    "B03_Referral_3DRender_PurplePink_HeroCenter.png",
+    "B04_Referral_NeonGlow_TealWhite_Diagonal.png",
+    "B05_Referral_Infographic_SunsetWarm_SplitScreen.png",
+    "B06_Referral_Illustrative_MidnightBlue_HeroRight.png",
+    "B07_Referral_Minimalist_MonochromeGold_BottomScene.png",
+    "B08_Referral_Abstract_ForestGreen_FrameInFrame.png",
+    "B09_Referral_NatureOrganic_CosmicViolet_TopScene.png",
+    "B10_Referral_Cultural_RoseGold_HeroLeft.png",
+    "B11_Referral_Cinematic_NavyGold_HeroLeft.png",
+    "B12_Referral_Infographic_EmeraldDark_HeroRight.png",
+    "B13_Referral_3DRender_TealWhite_FullBleed.png",
+    "B14_Referral_PhotoReal_SunsetWarm_SplitScreen.png",
+    "B15_Referral_NeonGlow_MidnightBlue_HeroCenter.png",
+    "B16_Referral_Minimalist_MonochromeGold_Diagonal.png",
+    "B17_Referral_Abstract_CosmicViolet_HeroLeft.png",
+    "B18_Referral_NatureOrganic_RoseGold_HeroRight.png",
+    "B19_Referral_Cultural_ForestGreen_FullBleed.png",
+    "B20_Referral_Illustrative_NavyGold_SplitScreen.png",
+    "C01_Calc_Infographic_NavyGold_HeroLeft.png",
+    "C02_Calc_Infographic_EmeraldDark_HeroRight.png",
+    "C03_Calc_Infographic_PurplePink_SplitScreen.png",
+    "C04_Calc_Infographic_TealWhite_HeroCenter.png",
+    "C05_Calc_Infographic_SunsetWarm_FullBleed.png",
+    "C06_Calc_Infographic_MidnightBlue_Diagonal.png",
+    "C07_Calc_Infographic_MonochromeGold_HeroLeft.png",
+    "C08_Calc_Infographic_ForestGreen_HeroRight.png",
+    "C09_Calc_Infographic_CosmicViolet_SplitScreen.png",
+    "C10_Calc_Infographic_RoseGold_HeroCenter.png",
+    "C11_Calc_3DRender_NavyGold_FullBleed.png",
+    "C12_Calc_Cinematic_EmeraldDark_Diagonal.png",
+    "C13_Calc_PhotoReal_PurplePink_HeroLeft.png",
+    "C14_Calc_NeonGlow_TealWhite_HeroRight.png",
+    "C15_Calc_Illustrative_SunsetWarm_BottomScene.png",
+    "C16_Calc_Minimalist_MidnightBlue_TopScene.png",
+    "C17_Calc_Abstract_MonochromeGold_FrameInFrame.png",
+    "C18_Calc_NatureOrganic_ForestGreen_HeroCenter.png",
+    "C19_Calc_Cultural_CosmicViolet_SplitScreen.png",
+    "C20_Calc_PhotoReal_RoseGold_FullBleed.png",
+    "D01_Edu_Illustrative_NavyGold_HeroLeft.png",
+    "D02_Edu_Infographic_EmeraldDark_SplitScreen.png",
+    "D03_Edu_Cinematic_PurplePink_FullBleed.png",
+    "D04_Edu_PhotoReal_TealWhite_HeroRight.png",
+    "D05_Edu_3DRender_SunsetWarm_HeroCenter.png",
+    "D06_Edu_NeonGlow_MidnightBlue_Diagonal.png",
+    "D07_Edu_Minimalist_MonochromeGold_BottomScene.png",
+    "D08_Edu_Abstract_ForestGreen_TopScene.png",
+    "D09_Edu_NatureOrganic_CosmicViolet_FrameInFrame.png",
+    "D10_Edu_Cultural_RoseGold_HeroLeft.png",
+    "D11_Edu_Cinematic_NavyGold_HeroRight.png",
+    "D12_Edu_3DRender_TealWhite_SplitScreen.png",
+    "D13_Edu_PhotoReal_EmeraldDark_FullBleed.png",
+    "D14_Edu_NeonGlow_PurplePink_HeroLeft.png",
+    "D15_Edu_Infographic_SunsetWarm_Diagonal.png",
+    "D16_Edu_Illustrative_MidnightBlue_HeroCenter.png",
+    "D17_Edu_Minimalist_MonochromeGold_HeroRight.png",
+    "D18_Edu_Abstract_CosmicViolet_FullBleed.png",
+    "D19_Edu_NatureOrganic_ForestGreen_SplitScreen.png",
+    "D20_Edu_Cultural_RoseGold_FullBleed.png",
+    "E01_Ranks_Cinematic_NavyGold_FullBleed.png",
+    "E02_Ranks_Infographic_EmeraldDark_HeroLeft.png",
+    "E03_Ranks_3DRender_PurplePink_HeroCenter.png",
+    "E04_Ranks_NeonGlow_TealWhite_Diagonal.png",
+    "E05_Ranks_PhotoReal_SunsetWarm_SplitScreen.png",
+    "E06_Ranks_Illustrative_MidnightBlue_HeroLeft.png",
+    "E07_Ranks_Minimalist_MonochromeGold_HeroCenter.png",
+    "E08_Ranks_Abstract_CosmicViolet_FullBleed.png",
+    "E09_Ranks_Cinematic_NavyGold_HeroCenter.png",
+    "E10_Ranks_3DRender_EmeraldDark_HeroRight.png",
+    "E11_Ranks_NeonGlow_PurplePink_HeroLeft.png",
+    "E12_Ranks_Infographic_TealWhite_SplitScreen.png",
+    "E13_Ranks_Cultural_RoseGold_FullBleed.png",
+    "E14_Ranks_PhotoReal_ForestGreen_HeroCenter.png",
+    "E15_Ranks_Illustrative_SunsetWarm_HeroRight.png",
+    "E16_Ranks_Minimalist_MidnightBlue_Diagonal.png",
+    "E17_Ranks_Abstract_MonochromeGold_HeroLeft.png",
+    "E18_Ranks_NatureOrganic_CosmicViolet_BottomScene.png",
+    "E19_Ranks_Cinematic_NavyGold_SplitScreen.png",
+    "E20_Ranks_3DRender_RoseGold_HeroCenter.png",
+    "F01_Trust_Cinematic_NavyGold_FullBleed.png",
+    "F02_Trust_3DRender_EmeraldDark_HeroCenter.png",
+    "F03_Trust_PhotoReal_TealWhite_HeroLeft.png",
+    "F04_Trust_NeonGlow_MidnightBlue_Diagonal.png",
+    "F05_Trust_Infographic_PurplePink_SplitScreen.png",
+    "F06_Trust_Illustrative_SunsetWarm_HeroLeft.png",
+    "F07_Trust_Minimalist_MonochromeGold_HeroCenter.png",
+    "F08_Trust_Abstract_ForestGreen_FullBleed.png",
+    "F09_Trust_NatureOrganic_CosmicViolet_HeroRight.png",
+    "F10_Trust_Cultural_RoseGold_FullBleed.png",
+    "F11_Trust_Cinematic_EmeraldDark_HeroRight.png",
+    "F12_Trust_3DRender_PurplePink_SplitScreen.png",
+    "F13_Trust_NeonGlow_TealWhite_HeroLeft.png",
+    "F14_Trust_Infographic_SunsetWarm_HeroCenter.png",
+    "F15_Trust_Illustrative_MidnightBlue_FullBleed.png",
+    "F16_Trust_Abstract_MonochromeGold_HeroCenter.png",
+    "F17_Trust_Cinematic_NavyGold_HeroLeft.png",
+    "F18_Trust_3DRender_TealWhite_FullBleed.png",
+    "F19_Trust_PhotoReal_EmeraldDark_HeroRight.png",
+    "F20_Trust_NeonGlow_PurplePink_HeroCenter.png",
+    "G01_Token_Cinematic_NavyGold_FullBleed.png",
+    "G02_Token_3DRender_EmeraldDark_HeroCenter.png",
+    "G03_Token_NeonGlow_PurplePink_HeroLeft.png",
+    "G04_Token_Infographic_TealWhite_SplitScreen.png",
+    "G05_Token_PhotoReal_SunsetWarm_HeroRight.png",
+    "G06_Token_Illustrative_MidnightBlue_HeroLeft.png",
+    "G07_Token_Minimalist_MonochromeGold_HeroCenter.png",
+    "G08_Token_Abstract_CosmicViolet_FullBleed.png",
+    "G09_Token_NatureOrganic_ForestGreen_HeroRight.png",
+    "G10_Token_Cultural_RoseGold_FullBleed.png",
+    "G11_Token_Cinematic_NavyGold_HeroLeft.png",
+    "G12_Token_3DRender_PurplePink_Diagonal.png",
+    "G13_Token_PhotoReal_TealWhite_SplitScreen.png",
+    "G14_Token_NeonGlow_EmeraldDark_HeroCenter.png",
+    "G15_Token_Infographic_SunsetWarm_HeroLeft.png",
+    "G16_Token_Abstract_MonochromeGold_HeroCenter.png",
+    "G17_Token_Cinematic_NavyGold_SplitScreen.png",
+    "G18_Token_3DRender_TealWhite_HeroLeft.png",
+    "G19_Token_NatureOrganic_CosmicViolet_HeroRight.png",
+    "G20_Token_Cultural_RoseGold_HeroCenter.png",
+    "H01_CTA_PhotoReal_NavyGold_HeroLeft.png",
+    "H02_CTA_NeonGlow_MidnightBlue_HeroCenter.png",
+    "H03_CTA_Cinematic_NavyGold_FullBleed.png",
+    "H04_CTA_3DRender_PurplePink_HeroRight.png",
+    "H05_CTA_Infographic_EmeraldDark_SplitScreen.png",
+    "H06_CTA_Illustrative_TealWhite_HeroLeft.png",
+    "H07_CTA_Minimalist_MonochromeGold_HeroCenter.png",
+    "H08_CTA_Abstract_CosmicViolet_FullBleed.png",
+    "H09_CTA_NatureOrganic_ForestGreen_HeroRight.png",
+    "H10_CTA_Cultural_RoseGold_HeroLeft.png",
+    "H11_CTA_Cinematic_EmeraldDark_HeroRight.png",
+    "H12_CTA_3DRender_TealWhite_HeroCenter.png",
+    "H13_CTA_NeonGlow_PurplePink_Diagonal.png",
+    "H14_CTA_PhotoReal_SunsetWarm_HeroLeft.png",
+    "H15_CTA_Illustrative_MidnightBlue_FullBleed.png",
+    "H16_CTA_Abstract_MonochromeGold_Diagonal.png",
+    "H17_CTA_Cinematic_NavyGold_HeroCenter.png",
+    "H18_CTA_3DRender_EmeraldDark_HeroLeft.png",
+    "H19_CTA_NeonGlow_CosmicViolet_HeroRight.png",
+    "H20_CTA_Cultural_RoseGold_FullBleed.png",
+    "I01_Life_PhotoReal_NavyGold_HeroLeft.png",
+    "I02_Life_Cinematic_EmeraldDark_FullBleed.png",
+    "I03_Life_3DRender_PurplePink_HeroCenter.png",
+    "I04_Life_NeonGlow_TealWhite_HeroRight.png",
+    "I05_Life_Illustrative_SunsetWarm_HeroLeft.png",
+    "I06_Life_Minimalist_MonochromeGold_HeroCenter.png",
+    "I07_Life_Abstract_CosmicViolet_FullBleed.png",
+    "I08_Life_NatureOrganic_ForestGreen_HeroLeft.png",
+    "I09_Life_Cultural_RoseGold_FullBleed.png",
+    "I10_Life_PhotoReal_EmeraldDark_HeroRight.png",
+    "I11_Life_Cinematic_NavyGold_HeroCenter.png",
+    "I12_Life_3DRender_TealWhite_SplitScreen.png",
+    "I13_Life_NeonGlow_PurplePink_HeroLeft.png",
+    "I14_Life_Infographic_SunsetWarm_HeroRight.png",
+    "I15_Life_Illustrative_MidnightBlue_HeroCenter.png",
+    "I16_Life_Abstract_MonochromeGold_HeroCenter.png",
+    "I17_Life_Cinematic_NavyGold_SplitScreen.png",
+    "I18_Life_3DRender_EmeraldDark_HeroLeft.png",
+    "I19_Life_NatureOrganic_CosmicViolet_HeroRight.png",
+    "I20_Life_Cultural_RoseGold_HeroCenter.png",
+    "J01_Fest_Songkran_Cinematic_NavyGold_FullBleed.png",
+    "J02_Fest_Songkran_3DRender_TealWhite_HeroCenter.png",
+    "J03_Fest_LoyKrathong_NeonGlow_PurplePink_FullBleed.png",
+    "J04_Fest_LoyKrathong_Illustrative_EmeraldDark_HeroLeft.png",
+    "J05_Fest_ThaiNewYear_PhotoReal_NavyGold_HeroRight.png",
+    "J06_Fest_KingBirthday_Cinematic_NavyGold_HeroCenter.png",
+    "J07_Fest_MotherDay_PhotoReal_RoseGold_HeroLeft.png",
+    "J08_Fest_FatherDay_Cinematic_NavyGold_HeroRight.png",
+    "J09_Fest_NewYear_3DRender_CosmicViolet_FullBleed.png",
+    "J10_Fest_NationalDay_Cinematic_ForestGreen_SplitScreen.png",
+    "J11_Fest_ChinesNewYear_3DRender_CosmicViolet_HeroCenter.png",
+    "J12_Fest_ChineseNewYear_NeonGlow_PurplePink_FullBleed.png",
+    "J13_Fest_Makha_Bucha_Illustrative_TealWhite_HeroRight.png",
+    "J14_Fest_Asanha_Bucha_Abstract_EmeraldDark_Diagonal.png",
+    "J15_Fest_EndOfYear_NatureOrganic_SunsetWarm_BottomScene.png",
+    "J16_Fest_HarvestSeason_Cultural_MonochromeGold_HeroLeft.png",
+    "J17_Fest_RoyalPlowing_PhotoReal_NavyGold_HeroCenter.png",
+    "J18_Fest_Diwali_NeonGlow_RoseGold_FullBleed.png",
+    "J19_Fest_MidAutumn_3DRender_CosmicViolet_SplitScreen.png",
+    "J20_Fest_Gratitude_Minimalist_TealWhite_HeroCenter.png"
+  ],
+  "korean": [
+    "turboloop-ko-A-boost-11-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ko-A-boost-12-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ko-A-boost-13-3D-RENDER-PURPLE-PINK-CENTERED-CARD.png",
+    "turboloop-ko-A-boost-14-GLASSMORPHISM-CYAN-BLACK-FULL-BLEED.png",
+    "turboloop-ko-A-boost-15-DARK-LUXURY-GREEN-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-A-boost-16-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-A-boost-17-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-A-boost-18-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-A-boost-19-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-A-boost-20-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-A-power-21-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ko-A-power-22-NEON-GLOW-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ko-A-power-23-3D-RENDER-PURPLE-PINK-SPLIT-SCREEN.png",
+    "turboloop-ko-A-power-24-GLASSMORPHISM-CYAN-BLACK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-A-power-25-DARK-LUXURY-GREEN-DARK-CENTERED-CARD.png",
+    "turboloop-ko-A-power-26-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-A-power-27-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-A-power-28-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-A-power-29-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-A-power-30-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-A-sprint-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ko-A-sprint-02-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ko-A-sprint-03-3D-RENDER-PURPLE-PINK-CENTERED-CARD.png",
+    "turboloop-ko-A-sprint-04-GLASSMORPHISM-CYAN-BLACK-FULL-BLEED.png",
+    "turboloop-ko-A-sprint-05-DARK-LUXURY-GREEN-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-A-sprint-06-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-A-sprint-07-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-A-sprint-08-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-A-sprint-09-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-A-sprint-10-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-A-ultimate-31-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ko-A-ultimate-32-NEON-GLOW-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ko-A-ultimate-33-3D-RENDER-PURPLE-PINK-SPLIT-SCREEN.png",
+    "turboloop-ko-A-ultimate-34-GLASSMORPHISM-CYAN-BLACK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-A-ultimate-35-DARK-LUXURY-GREEN-DARK-CENTERED-CARD.png",
+    "turboloop-ko-A-ultimate-36-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-A-ultimate-37-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-A-ultimate-38-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-A-ultimate-39-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-A-ultimate-40-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-B-referral-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ko-B-referral-02-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ko-B-referral-03-3D-RENDER-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ko-B-referral-04-GLASSMORPHISM-CYAN-BLACK-CENTERED-CARD.png",
+    "turboloop-ko-B-referral-05-DARK-LUXURY-GREEN-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-B-referral-06-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-B-referral-07-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-B-referral-08-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-B-referral-09-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-B-referral-10-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-B-referral-11-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ko-B-referral-12-NEON-GLOW-PURPLE-PINK-HERO-LEFT.png",
+    "turboloop-ko-B-referral-13-3D-RENDER-CYAN-BLACK-SPLIT-SCREEN.png",
+    "turboloop-ko-B-referral-14-GLASSMORPHISM-GREEN-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-B-referral-15-DARK-LUXURY-ORANGE-DARK-CENTERED-CARD.png",
+    "turboloop-ko-B-referral-16-MINIMALIST-BLUE-SILVER-BOTTOM-HEAVY.png",
+    "turboloop-ko-B-referral-17-HOLOGRAPHIC-ROSE-DARK-TOP-HEAVY.png",
+    "turboloop-ko-B-referral-18-PHOTO-REAL-EMERALD-NAVY-GRID-MOSAIC.png",
+    "turboloop-ko-B-referral-19-FLAT-DESIGN-TEAL-WHITE-CIRCULAR-FOCUS.png",
+    "turboloop-ko-B-referral-20-COMIC-BOLD-PURPLE-PINK-ASYMMETRIC.png",
+    "turboloop-ko-C-calc-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ko-C-calc-02-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ko-C-calc-03-3D-RENDER-PURPLE-PINK-CENTERED-CARD.png",
+    "turboloop-ko-C-calc-04-GLASSMORPHISM-CYAN-BLACK-FULL-BLEED.png",
+    "turboloop-ko-C-calc-05-DARK-LUXURY-GREEN-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-C-calc-06-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-C-calc-07-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-C-calc-08-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-C-calc-09-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-C-calc-10-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-C-calc-11-CINEMATIC-NAVY-GOLD-SPLIT-SCREEN.png",
+    "turboloop-ko-C-calc-12-NEON-GLOW-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ko-C-calc-13-3D-RENDER-CYAN-BLACK-HERO-LEFT.png",
+    "turboloop-ko-C-calc-14-GLASSMORPHISM-GREEN-DARK-CENTERED-CARD.png",
+    "turboloop-ko-C-calc-15-DARK-LUXURY-ORANGE-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-C-calc-16-MINIMALIST-BLUE-SILVER-BOTTOM-HEAVY.png",
+    "turboloop-ko-C-calc-17-HOLOGRAPHIC-ROSE-DARK-TOP-HEAVY.png",
+    "turboloop-ko-C-calc-18-PHOTO-REAL-EMERALD-NAVY-GRID-MOSAIC.png",
+    "turboloop-ko-C-calc-19-FLAT-DESIGN-TEAL-WHITE-CIRCULAR-FOCUS.png",
+    "turboloop-ko-C-calc-20-COMIC-BOLD-PURPLE-PINK-ASYMMETRIC.png",
+    "turboloop-ko-D-edu-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ko-D-edu-02-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ko-D-edu-03-3D-RENDER-PURPLE-PINK-CENTERED-CARD.png",
+    "turboloop-ko-D-edu-04-GLASSMORPHISM-CYAN-BLACK-FULL-BLEED.png",
+    "turboloop-ko-D-edu-05-DARK-LUXURY-GREEN-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-D-edu-06-MINIMALIST-ORANGE-DARK-BOTTOM-HEAVY.png",
+    "turboloop-ko-D-edu-07-HOLOGRAPHIC-BLUE-SILVER-TOP-HEAVY.png",
+    "turboloop-ko-D-edu-08-PHOTO-REAL-ROSE-DARK-GRID-MOSAIC.png",
+    "turboloop-ko-D-edu-09-FLAT-DESIGN-EMERALD-NAVY-CIRCULAR-FOCUS.png",
+    "turboloop-ko-D-edu-10-COMIC-BOLD-RED-DARK-ASYMMETRIC.png",
+    "turboloop-ko-D-edu-11-CINEMATIC-NAVY-GOLD-SPLIT-SCREEN.png",
+    "turboloop-ko-D-edu-12-NEON-GLOW-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ko-D-edu-13-3D-RENDER-CYAN-BLACK-HERO-LEFT.png",
+    "turboloop-ko-D-edu-14-GLASSMORPHISM-GREEN-DARK-CENTERED-CARD.png",
+    "turboloop-ko-D-edu-15-DARK-LUXURY-ORANGE-DARK-DIAGONAL-SPLIT.png",
+    "turboloop-ko-D-edu-16-MINIMALIST-BLUE-SILVER-BOTTOM-HEAVY.png",
+    "turboloop-ko-D-edu-17-HOLOGRAPHIC-ROSE-DARK-TOP-HEAVY.png",
+    "turboloop-ko-D-edu-18-PHOTO-REAL-EMERALD-NAVY-GRID-MOSAIC.png",
+    "turboloop-ko-D-edu-19-FLAT-DESIGN-TEAL-WHITE-CIRCULAR-FOCUS.png",
+    "turboloop-ko-D-edu-20-COMIC-BOLD-PURPLE-PINK-ASYMMETRIC.png",
+    "turboloop-ko-E-ranks-01-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ko-E-ranks-02-NEON-GLOW-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ko-E-ranks-03-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-ko-E-ranks-04-GLASSMORPHISM-CYAN-BLACK-SPLIT.png",
+    "turboloop-ko-E-ranks-05-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-ko-E-ranks-06-MINIMALIST-ORANGE-BOTTOM-HEAVY.png",
+    "turboloop-ko-E-ranks-07-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-ko-E-ranks-08-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-ko-E-ranks-09-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-ko-E-ranks-10-COMIC-BOLD-RED-DARK.png",
+    "turboloop-ko-E-ranks-11-CINEMATIC-NAVY-GOLD-HERO-RIGHT.png",
+    "turboloop-ko-E-ranks-12-NEON-GLOW-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ko-E-ranks-13-3D-RENDER-CYAN-BLACK-SPLIT.png",
+    "turboloop-ko-E-ranks-14-GLASSMORPHISM-GREEN-DARK-CENTERED.png",
+    "turboloop-ko-E-ranks-15-DARK-LUXURY-ORANGE-DIAGONAL.png",
+    "turboloop-ko-E-ranks-16-MINIMALIST-BLUE-SILVER.png",
+    "turboloop-ko-E-ranks-17-HOLOGRAPHIC-ROSE-DARK.png",
+    "turboloop-ko-E-ranks-18-PHOTO-REAL-EMERALD-NAVY.png",
+    "turboloop-ko-E-ranks-19-FLAT-DESIGN-TEAL-WHITE.png",
+    "turboloop-ko-E-ranks-20-COMIC-BOLD-PURPLE-PINK.png",
+    "turboloop-ko-F-trust-01-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ko-F-trust-02-NEON-GLOW-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ko-F-trust-03-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-ko-F-trust-04-GLASSMORPHISM-CYAN-BLACK-SPLIT.png",
+    "turboloop-ko-F-trust-05-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-ko-F-trust-06-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-ko-F-trust-07-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-ko-F-trust-08-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-ko-F-trust-09-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-ko-F-trust-10-COMIC-BOLD-RED-DARK.png",
+    "turboloop-ko-F-trust-11-CINEMATIC-NAVY-GOLD-SPLIT.png",
+    "turboloop-ko-F-trust-12-NEON-GLOW-PURPLE-PINK.png",
+    "turboloop-ko-F-trust-13-3D-RENDER-CYAN-BLACK.png",
+    "turboloop-ko-F-trust-14-GLASSMORPHISM-GREEN-DARK.png",
+    "turboloop-ko-F-trust-15-DARK-LUXURY-ORANGE.png",
+    "turboloop-ko-F-trust-16-MINIMALIST-BLUE-SILVER.png",
+    "turboloop-ko-F-trust-17-HOLOGRAPHIC-ROSE-DARK.png",
+    "turboloop-ko-F-trust-18-PHOTO-REAL-EMERALD-NAVY.png",
+    "turboloop-ko-F-trust-19-FLAT-DESIGN-TEAL-WHITE.png",
+    "turboloop-ko-F-trust-20-COMIC-BOLD-PURPLE-PINK.png",
+    "turboloop-ko-G-token-01-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ko-G-token-02-NEON-GLOW-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ko-G-token-03-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-ko-G-token-04-GLASSMORPHISM-CYAN-BLACK-SPLIT.png",
+    "turboloop-ko-G-token-05-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-ko-G-token-06-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-ko-G-token-07-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-ko-G-token-08-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-ko-G-token-09-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-ko-G-token-10-COMIC-BOLD-RED-DARK.png",
+    "turboloop-ko-G-token-11-CINEMATIC-NAVY-GOLD-SPLIT.png",
+    "turboloop-ko-G-token-12-NEON-GLOW-PURPLE-PINK.png",
+    "turboloop-ko-G-token-13-3D-RENDER-CYAN-BLACK.png",
+    "turboloop-ko-G-token-14-GLASSMORPHISM-GREEN-DARK.png",
+    "turboloop-ko-G-token-15-DARK-LUXURY-ORANGE.png",
+    "turboloop-ko-G-token-16-MINIMALIST-BLUE-SILVER.png",
+    "turboloop-ko-G-token-17-HOLOGRAPHIC-ROSE-DARK.png",
+    "turboloop-ko-G-token-18-PHOTO-REAL-EMERALD-NAVY.png",
+    "turboloop-ko-G-token-19-FLAT-DESIGN-TEAL-WHITE.png",
+    "turboloop-ko-G-token-20-COMIC-BOLD-PURPLE-PINK.png"
+  ],
+  "lao": [
+    "turboloop-la-A-boost-11-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-la-A-boost-12-NEON-GLOW-TEAL-WHITE-SPLIT.png",
+    "turboloop-la-A-boost-13-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-la-A-boost-14-GLASSMORPHISM-CYAN-BLACK-FULL.png",
+    "turboloop-la-A-boost-15-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-la-A-boost-16-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-la-A-boost-17-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-la-A-boost-18-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-la-A-boost-19-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-la-A-boost-20-COMIC-BOLD-RED-DARK.png",
+    "turboloop-la-A-power-21-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-la-A-power-22-NEON-GLOW-TEAL-WHITE-SPLIT.png",
+    "turboloop-la-A-power-23-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-la-A-power-24-GLASSMORPHISM-CYAN-BLACK-FULL.png",
+    "turboloop-la-A-power-25-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-la-A-power-26-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-la-A-power-27-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-la-A-power-28-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-la-A-power-29-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-la-A-power-30-COMIC-BOLD-RED-DARK.png",
+    "turboloop-la-A-sprint-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-la-A-sprint-02-NEON-GLOW-TEAL-WHITE-SPLIT.png",
+    "turboloop-la-A-sprint-03-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-la-A-sprint-04-GLASSMORPHISM-CYAN-BLACK-FULL.png",
+    "turboloop-la-A-sprint-05-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-la-A-sprint-06-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-la-A-sprint-07-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-la-A-sprint-08-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-la-A-sprint-09-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-la-A-sprint-10-COMIC-BOLD-RED-DARK.png",
+    "turboloop-la-A-ultimate-31-CINEMATIC-NAVY-GOLD-FULL.png",
+    "turboloop-la-A-ultimate-32-NEON-GLOW-TEAL-WHITE-SPLIT.png",
+    "turboloop-la-A-ultimate-33-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-la-A-ultimate-34-GLASSMORPHISM-CYAN-BLACK-FULL.png",
+    "turboloop-la-A-ultimate-35-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-la-A-ultimate-36-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-la-A-ultimate-37-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-la-A-ultimate-38-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-la-A-ultimate-39-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-la-A-ultimate-40-COMIC-BOLD-RED-DARK.png",
+    "turboloop-la-B-referral-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-la-B-referral-02-NEON-GLOW-TEAL-WHITE-SPLIT.png",
+    "turboloop-la-B-referral-03-3D-RENDER-PURPLE-PINK-CENTERED.png",
+    "turboloop-la-B-referral-04-GLASSMORPHISM-CYAN-BLACK-FULL.png",
+    "turboloop-la-B-referral-05-DARK-LUXURY-GREEN-DIAGONAL.png",
+    "turboloop-la-B-referral-06-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-la-B-referral-07-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-la-B-referral-08-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-la-B-referral-09-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-la-B-referral-10-COMIC-BOLD-RED-DARK.png",
+    "turboloop-la-B-referral-11-CINEMATIC-NAVY-GOLD-SPLIT.png",
+    "turboloop-la-B-referral-12-NEON-GLOW-PURPLE-PINK.png",
+    "turboloop-la-B-referral-13-3D-RENDER-CYAN-BLACK.png",
+    "turboloop-la-B-referral-14-GLASSMORPHISM-GREEN-DARK.png",
+    "turboloop-la-B-referral-15-DARK-LUXURY-ORANGE.png",
+    "turboloop-la-B-referral-16-MINIMALIST-BLUE-SILVER.png",
+    "turboloop-la-B-referral-17-HOLOGRAPHIC-ROSE-DARK.png",
+    "turboloop-la-B-referral-18-PHOTO-REAL-EMERALD-NAVY.png",
+    "turboloop-la-B-referral-19-FLAT-DESIGN-TEAL-WHITE.png",
+    "turboloop-la-B-referral-20-COMIC-BOLD-PURPLE-PINK.png",
+    "turboloop-la-C-calc-01-CINEMATIC-NAVY-GOLD.png",
+    "turboloop-la-C-calc-02-NEON-GLOW-TEAL-WHITE.png",
+    "turboloop-la-C-calc-03-3D-RENDER-PURPLE-PINK.png",
+    "turboloop-la-C-calc-04-GLASSMORPHISM-CYAN-BLACK.png",
+    "turboloop-la-C-calc-05-DARK-LUXURY-GREEN.png",
+    "turboloop-la-C-calc-06-MINIMALIST-ORANGE-DARK.png",
+    "turboloop-la-C-calc-07-HOLOGRAPHIC-BLUE-SILVER.png",
+    "turboloop-la-C-calc-08-PHOTO-REAL-ROSE-DARK.png",
+    "turboloop-la-C-calc-09-FLAT-DESIGN-EMERALD-NAVY.png",
+    "turboloop-la-C-calc-10-COMIC-BOLD-RED-DARK.png",
+    "turboloop-la-C-calc-11-CINEMATIC-NAVY-GOLD-SPLIT.png",
+    "turboloop-la-C-calc-12-NEON-GLOW-PURPLE-PINK.png",
+    "turboloop-la-C-calc-13-3D-RENDER-CYAN-BLACK.png",
+    "turboloop-la-C-calc-14-GLASSMORPHISM-GREEN-DARK.png",
+    "turboloop-la-C-calc-15-DARK-LUXURY-ORANGE.png",
+    "turboloop-la-C-calc-16-MINIMALIST-BLUE-SILVER.png",
+    "turboloop-la-C-calc-17-HOLOGRAPHIC-ROSE-DARK.png",
+    "turboloop-la-C-calc-18-PHOTO-REAL-EMERALD-NAVY.png",
+    "turboloop-la-C-calc-19-FLAT-DESIGN-TEAL-WHITE.png",
+    "turboloop-la-C-calc-20-COMIC-BOLD-PURPLE-PINK.png",
+    "turboloop-la-D-edu-01-CINEMATIC-NAVY-GOLD.png",
+    "turboloop-la-D-edu-02-NEON-GLOW-TEAL-WHITE.png",
+    "turboloop-la-D-edu-03-3D-RENDER-PURPLE-PINK.png",
+    "turboloop-la-D-edu-04-GLASSMORPHISM-CYAN-BLACK.png",
+    "turboloop-la-D-edu-05-DARK-LUXURY-GREEN.png",
+    "turboloop-la-D-edu-06-MINIMALIST-ORANGE.png",
+    "turboloop-la-D-edu-07-HOLOGRAPHIC-BLUE.png",
+    "turboloop-la-D-edu-08-PHOTO-REAL-ROSE.png",
+    "turboloop-la-D-edu-09-FLAT-EMERALD.png",
+    "turboloop-la-D-edu-10-COMIC-BOLD-RED.png",
+    "turboloop-la-D-edu-11-CINEMATIC-NAVY-SPLIT.png",
+    "turboloop-la-D-edu-12-NEON-PURPLE.png",
+    "turboloop-la-D-edu-13-3D-CYAN.png",
+    "turboloop-la-D-edu-14-GLASS-GREEN.png",
+    "turboloop-la-D-edu-15-LUXURY-ORANGE.png",
+    "turboloop-la-D-edu-16-MINIMALIST-BLUE.png",
+    "turboloop-la-D-edu-17-HOLOGRAPHIC-ROSE.png",
+    "turboloop-la-D-edu-18-PHOTO-EMERALD.png",
+    "turboloop-la-D-edu-19-FLAT-TEAL.png",
+    "turboloop-la-D-edu-20-COMIC-BOLD-PURPLE.png",
+    "turboloop-la-E-ranks-01-CINEMATIC-NAVY-GOLD.png",
+    "turboloop-la-E-ranks-02-NEON-GLOW-TEAL.png",
+    "turboloop-la-E-ranks-03-3D-RENDER-PURPLE.png",
+    "turboloop-la-E-ranks-04-GLASSMORPHISM-CYAN.png",
+    "turboloop-la-E-ranks-05-DARK-LUXURY-GREEN.png",
+    "turboloop-la-E-ranks-06-MINIMALIST-ORANGE.png",
+    "turboloop-la-E-ranks-07-HOLOGRAPHIC-BLUE.png",
+    "turboloop-la-E-ranks-08-PHOTO-REAL-ROSE.png",
+    "turboloop-la-E-ranks-09-FLAT-EMERALD.png",
+    "turboloop-la-E-ranks-10-COMIC-BOLD-RED.png",
+    "turboloop-la-E-ranks-11-CINEMATIC-NAVY-SPLIT.png",
+    "turboloop-la-E-ranks-12-NEON-PURPLE.png",
+    "turboloop-la-E-ranks-13-3D-CYAN.png",
+    "turboloop-la-E-ranks-14-GLASS-GREEN.png",
+    "turboloop-la-E-ranks-15-LUXURY-ORANGE.png",
+    "turboloop-la-E-ranks-16-MINIMALIST-BLUE.png",
+    "turboloop-la-E-ranks-17-HOLOGRAPHIC-ROSE.png",
+    "turboloop-la-E-ranks-18-PHOTO-EMERALD.png",
+    "turboloop-la-E-ranks-19-FLAT-TEAL.png",
+    "turboloop-la-E-ranks-20-COMIC-BOLD-PURPLE.png",
+    "turboloop-la-F-trust-01-CINEMATIC-NAVY-GOLD.png",
+    "turboloop-la-F-trust-02-NEON-GLOW-TEAL.png",
+    "turboloop-la-F-trust-03-3D-RENDER-PURPLE.png",
+    "turboloop-la-F-trust-04-GLASSMORPHISM-CYAN.png",
+    "turboloop-la-F-trust-05-DARK-LUXURY-GREEN.png",
+    "turboloop-la-F-trust-06-MINIMALIST-ORANGE.png",
+    "turboloop-la-F-trust-07-HOLOGRAPHIC-BLUE.png",
+    "turboloop-la-F-trust-08-PHOTO-REAL-ROSE.png",
+    "turboloop-la-F-trust-09-FLAT-EMERALD.png",
+    "turboloop-la-F-trust-10-COMIC-BOLD-RED.png",
+    "turboloop-la-F-trust-11-CINEMATIC-NAVY-SPLIT.png",
+    "turboloop-la-F-trust-12-NEON-PURPLE.png",
+    "turboloop-la-F-trust-13-3D-CYAN.png",
+    "turboloop-la-F-trust-14-GLASS-GREEN.png",
+    "turboloop-la-F-trust-15-LUXURY-ORANGE.png",
+    "turboloop-la-F-trust-16-MINIMALIST-BLUE.png",
+    "turboloop-la-F-trust-17-HOLOGRAPHIC-ROSE.png",
+    "turboloop-la-F-trust-18-PHOTO-EMERALD.png",
+    "turboloop-la-F-trust-19-FLAT-TEAL.png",
+    "turboloop-la-F-trust-20-COMIC-BOLD-PURPLE.png",
+    "turboloop-la-G-token-01-CINEMATIC-NAVY-GOLD.png",
+    "turboloop-la-G-token-02-NEON-GLOW-TEAL.png",
+    "turboloop-la-G-token-03-3D-RENDER-PURPLE.png",
+    "turboloop-la-G-token-04-GLASSMORPHISM-CYAN.png",
+    "turboloop-la-G-token-05-DARK-LUXURY-GREEN.png",
+    "turboloop-la-G-token-06-MINIMALIST-ORANGE.png",
+    "turboloop-la-G-token-07-HOLOGRAPHIC-BLUE.png",
+    "turboloop-la-G-token-08-PHOTO-REAL-ROSE.png",
+    "turboloop-la-G-token-09-FLAT-EMERALD.png",
+    "turboloop-la-G-token-10-COMIC-BOLD-RED.png",
+    "turboloop-la-G-token-11-CINEMATIC-NAVY-SPLIT.png",
+    "turboloop-la-G-token-12-NEON-PURPLE.png",
+    "turboloop-la-G-token-13-3D-CYAN.png",
+    "turboloop-la-G-token-14-GLASS-GREEN.png",
+    "turboloop-la-G-token-15-LUXURY-ORANGE.png",
+    "turboloop-la-G-token-16-MINIMALIST-BLUE.png",
+    "turboloop-la-G-token-17-HOLOGRAPHIC-ROSE.png",
+    "turboloop-la-G-token-18-PHOTO-EMERALD.png",
+    "turboloop-la-G-token-19-FLAT-TEAL.png",
+    "turboloop-la-G-token-20-COMIC-BOLD-PURPLE.png"
+  ],
+  "tamil": [
+    "turboloop-ta-A-boost-01-3D-RENDER-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-A-boost-02-CINEMATIC-PURPLE-PINK-SPLIT-SCREEN.png",
+    "turboloop-ta-A-boost-03-NEON-GLOW-EMERALD-DARK-FULL-BLEED.png",
+    "turboloop-ta-A-boost-04-PHOTO-REAL-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ta-A-boost-05-ABSTRACT-MIDNIGHT-BLUE-DIAGONAL.png",
+    "turboloop-ta-A-boost-06-MINIMALIST-SUNSET-WARM-TOP-SCENE.png",
+    "turboloop-ta-A-boost-07-INFOGRAPHIC-FOREST-GREEN-GRID-MOSAIC.png",
+    "turboloop-ta-A-boost-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-A-boost-09-GLASSMORPHISM-COSMIC-VIOLET-CENTERED-CARD.png",
+    "turboloop-ta-A-boost-10-DARK-LUXURY-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-A-power-01-PHOTO-REAL-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ta-A-power-02-3D-RENDER-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ta-A-power-03-CINEMATIC-PURPLE-PINK-DIAGONAL.png",
+    "turboloop-ta-A-power-04-NEON-GLOW-EMERALD-DARK-SPLIT-SCREEN.png",
+    "turboloop-ta-A-power-05-ABSTRACT-MIDNIGHT-BLUE-HERO-CENTER.png",
+    "turboloop-ta-A-power-06-INFOGRAPHIC-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-A-power-07-MINIMALIST-FOREST-GREEN-BOTTOM-SCENE.png",
+    "turboloop-ta-A-power-08-CULTURAL-ROSE-GOLD-TOP-SCENE.png",
+    "turboloop-ta-A-power-09-GLASSMORPHISM-COSMIC-VIOLET-FRAME-IN-FRAME.png",
+    "turboloop-ta-A-power-10-DARK-LUXURY-MONOCHROME-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-A-sprint-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ta-A-sprint-02-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-A-sprint-03-3D-RENDER-PURPLE-PINK-CENTERED-CARD.png",
+    "turboloop-ta-A-sprint-04-PHOTO-REAL-EMERALD-DARK-FULL-BLEED.png",
+    "turboloop-ta-A-sprint-05-MINIMALIST-MIDNIGHT-BLUE-TOP-SCENE.png",
+    "turboloop-ta-A-sprint-06-ABSTRACT-SUNSET-WARM-DIAGONAL.png",
+    "turboloop-ta-A-sprint-07-CULTURAL-FOREST-GREEN-HERO-RIGHT.png",
+    "turboloop-ta-A-sprint-08-INFOGRAPHIC-ROSE-GOLD-GRID-MOSAIC.png",
+    "turboloop-ta-A-sprint-09-GLASSMORPHISM-COSMIC-VIOLET-FRAME-IN-FRAME.png",
+    "turboloop-ta-A-sprint-10-DARK-LUXURY-MONOCHROME-GOLD-BOTTOM-SCENE.png",
+    "turboloop-ta-A-ultimate-01-CINEMATIC-NAVY-GOLD-FULL-BLEED.png",
+    "turboloop-ta-A-ultimate-02-3D-RENDER-PURPLE-PINK-HERO-CENTER.png",
+    "turboloop-ta-A-ultimate-03-NEON-GLOW-TEAL-WHITE-DIAGONAL.png",
+    "turboloop-ta-A-ultimate-04-PHOTO-REAL-EMERALD-DARK-SPLIT-SCREEN.png",
+    "turboloop-ta-A-ultimate-05-ABSTRACT-MIDNIGHT-BLUE-HERO-LEFT.png",
+    "turboloop-ta-A-ultimate-06-INFOGRAPHIC-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-A-ultimate-07-MINIMALIST-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-A-ultimate-08-CULTURAL-ROSE-GOLD-BOTTOM-SCENE.png",
+    "turboloop-ta-A-ultimate-09-GLASSMORPHISM-COSMIC-VIOLET-HERO-RIGHT.png",
+    "turboloop-ta-A-ultimate-10-DARK-LUXURY-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-B-referral-01-CINEMATIC-NAVY-GOLD-HERO-LEFT.png",
+    "turboloop-ta-B-referral-02-3D-RENDER-TEAL-WHITE-HERO-CENTER.png",
+    "turboloop-ta-B-referral-03-NEON-GLOW-PURPLE-PINK-SPLIT-SCREEN.png",
+    "turboloop-ta-B-referral-04-PHOTO-REAL-EMERALD-DARK-FULL-BLEED.png",
+    "turboloop-ta-B-referral-05-ABSTRACT-MIDNIGHT-BLUE-DIAGONAL.png",
+    "turboloop-ta-B-referral-06-INFOGRAPHIC-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-B-referral-07-MINIMALIST-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-B-referral-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-B-referral-09-GLASSMORPHISM-COSMIC-VIOLET-BOTTOM-SCENE.png",
+    "turboloop-ta-B-referral-10-DARK-LUXURY-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-B-referral-11-3D-RENDER-NAVY-GOLD-DIAGONAL.png",
+    "turboloop-ta-B-referral-12-CINEMATIC-TEAL-WHITE-HERO-RIGHT.png",
+    "turboloop-ta-B-referral-13-NEON-GLOW-EMERALD-DARK-CENTERED-CARD.png",
+    "turboloop-ta-B-referral-14-PHOTO-REAL-MIDNIGHT-BLUE-GRID-MOSAIC.png",
+    "turboloop-ta-B-referral-15-ABSTRACT-SUNSET-WARM-FULL-BLEED.png",
+    "turboloop-ta-B-referral-16-INFOGRAPHIC-FOREST-GREEN-HERO-LEFT.png",
+    "turboloop-ta-B-referral-17-MINIMALIST-ROSE-GOLD-SPLIT-SCREEN.png",
+    "turboloop-ta-B-referral-18-CULTURAL-COSMIC-VIOLET-TOP-SCENE.png",
+    "turboloop-ta-B-referral-19-GLASSMORPHISM-MONOCHROME-GOLD-HERO-CENTER.png",
+    "turboloop-ta-B-referral-20-DARK-LUXURY-NAVY-GOLD-BOTTOM-SCENE.png",
+    "turboloop-ta-C-calculator-01-INFOGRAPHIC-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-C-calculator-02-3D-RENDER-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-C-calculator-03-CINEMATIC-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ta-C-calculator-04-NEON-GLOW-EMERALD-DARK-DIAGONAL.png",
+    "turboloop-ta-C-calculator-05-PHOTO-REAL-MIDNIGHT-BLUE-HERO-LEFT.png",
+    "turboloop-ta-C-calculator-06-ABSTRACT-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-C-calculator-07-MINIMALIST-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-C-calculator-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-C-calculator-09-GLASSMORPHISM-COSMIC-VIOLET-FRAME-IN-FRAME.png",
+    "turboloop-ta-C-calculator-10-DARK-LUXURY-MONOCHROME-GOLD-BOTTOM-SCENE.png",
+    "turboloop-ta-C-calculator-11-INFOGRAPHIC-TEAL-WHITE-DIAGONAL.png",
+    "turboloop-ta-C-calculator-12-3D-RENDER-PURPLE-PINK-HERO-LEFT.png",
+    "turboloop-ta-C-calculator-13-CINEMATIC-EMERALD-DARK-HERO-CENTER.png",
+    "turboloop-ta-C-calculator-14-NEON-GLOW-MIDNIGHT-BLUE-SPLIT-SCREEN.png",
+    "turboloop-ta-C-calculator-15-PHOTO-REAL-SUNSET-WARM-FULL-BLEED.png",
+    "turboloop-ta-C-calculator-16-ABSTRACT-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-C-calculator-17-MINIMALIST-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-C-calculator-18-CULTURAL-COSMIC-VIOLET-GRID-MOSAIC.png",
+    "turboloop-ta-C-calculator-19-GLASSMORPHISM-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-C-calculator-20-DARK-LUXURY-NAVY-GOLD-DIAGONAL.png",
+    "turboloop-ta-D-education-01-INFOGRAPHIC-NAVY-GOLD-GRID-MOSAIC.png",
+    "turboloop-ta-D-education-02-CINEMATIC-TEAL-WHITE-HERO-CENTER.png",
+    "turboloop-ta-D-education-03-3D-RENDER-PURPLE-PINK-SPLIT-SCREEN.png",
+    "turboloop-ta-D-education-04-NEON-GLOW-EMERALD-DARK-DIAGONAL.png",
+    "turboloop-ta-D-education-05-PHOTO-REAL-MIDNIGHT-BLUE-HERO-LEFT.png",
+    "turboloop-ta-D-education-06-ABSTRACT-SUNSET-WARM-FULL-BLEED.png",
+    "turboloop-ta-D-education-07-MINIMALIST-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-D-education-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-D-education-09-GLASSMORPHISM-COSMIC-VIOLET-CENTERED-CARD.png",
+    "turboloop-ta-D-education-10-DARK-LUXURY-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-D-education-11-INFOGRAPHIC-NAVY-GOLD-SPLIT-SCREEN.png",
+    "turboloop-ta-D-education-12-3D-RENDER-TEAL-WHITE-HERO-CENTER.png",
+    "turboloop-ta-D-education-13-CINEMATIC-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ta-D-education-14-NEON-GLOW-TEAL-WHITE-HERO-CENTER.png",
+    "turboloop-ta-D-education-15-PHOTO-REAL-SUNSET-WARM-SPLIT-SCREEN.png",
+    "turboloop-ta-D-education-16-ABSTRACT-MIDNIGHT-BLUE-GRID-MOSAIC.png",
+    "turboloop-ta-D-education-17-MINIMALIST-FOREST-GREEN-HERO-CENTER.png",
+    "turboloop-ta-D-education-18-CULTURAL-ROSE-GOLD-SPLIT-SCREEN.png",
+    "turboloop-ta-D-education-19-GLASSMORPHISM-COSMIC-VIOLET-DIAGONAL.png",
+    "turboloop-ta-D-education-20-DARK-LUXURY-MONOCHROME-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-E-leadership-01-CINEMATIC-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-E-leadership-02-3D-RENDER-PURPLE-PINK-DIAGONAL.png",
+    "turboloop-ta-E-leadership-03-NEON-GLOW-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-E-leadership-04-PHOTO-REAL-EMERALD-DARK-FULL-BLEED.png",
+    "turboloop-ta-E-leadership-05-ABSTRACT-MIDNIGHT-BLUE-HERO-LEFT.png",
+    "turboloop-ta-E-leadership-06-INFOGRAPHIC-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-E-leadership-07-MINIMALIST-FOREST-GREEN-BOTTOM-SCENE.png",
+    "turboloop-ta-E-leadership-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-E-leadership-09-GLASSMORPHISM-COSMIC-VIOLET-FRAME-IN-FRAME.png",
+    "turboloop-ta-E-leadership-10-DARK-LUXURY-MONOCHROME-GOLD-HERO-CENTER.png",
+    "turboloop-ta-E-leadership-11-INFOGRAPHIC-NAVY-GOLD-SPLIT-SCREEN.png",
+    "turboloop-ta-E-leadership-12-3D-RENDER-TEAL-WHITE-HERO-CENTER.png",
+    "turboloop-ta-E-leadership-13-NEON-GLOW-PURPLE-PINK-FULL-BLEED.png",
+    "turboloop-ta-E-leadership-14-PHOTO-REAL-SUNSET-WARM-DIAGONAL.png",
+    "turboloop-ta-E-leadership-15-ABSTRACT-EMERALD-DARK-HERO-LEFT.png",
+    "turboloop-ta-E-leadership-16-MINIMALIST-MIDNIGHT-BLUE-GRID-MOSAIC.png",
+    "turboloop-ta-E-leadership-17-CULTURAL-FOREST-GREEN-HERO-RIGHT.png",
+    "turboloop-ta-E-leadership-18-GLASSMORPHISM-ROSE-GOLD-CENTERED-CARD.png",
+    "turboloop-ta-E-leadership-19-DARK-LUXURY-NAVY-GOLD-TOP-SCENE.png",
+    "turboloop-ta-E-leadership-20-ABSTRACT-COSMIC-VIOLET-FULL-BLEED.png",
+    "turboloop-ta-F-trust-01-CINEMATIC-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-F-trust-02-3D-RENDER-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-F-trust-03-NEON-GLOW-PURPLE-PINK-DIAGONAL.png",
+    "turboloop-ta-F-trust-04-PHOTO-REAL-EMERALD-DARK-FULL-BLEED.png",
+    "turboloop-ta-F-trust-05-ABSTRACT-MIDNIGHT-BLUE-HERO-LEFT.png",
+    "turboloop-ta-F-trust-06-INFOGRAPHIC-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-F-trust-07-MINIMALIST-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-F-trust-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-F-trust-09-GLASSMORPHISM-COSMIC-VIOLET-CENTERED-CARD.png",
+    "turboloop-ta-F-trust-10-DARK-LUXURY-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-F-trust-11-INFOGRAPHIC-TEAL-WHITE-HERO-LEFT.png",
+    "turboloop-ta-F-trust-12-NEON-GLOW-EMERALD-DARK-HERO-CENTER.png",
+    "turboloop-ta-F-trust-13-ABSTRACT-MIDNIGHT-BLUE-DIAGONAL.png",
+    "turboloop-ta-F-trust-14-INFOGRAPHIC-NAVY-GOLD-GRID-MOSAIC.png",
+    "turboloop-ta-F-trust-15-3D-RENDER-PURPLE-PINK-HERO-LEFT.png",
+    "turboloop-ta-F-trust-16-CINEMATIC-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-F-trust-17-PHOTO-REAL-FOREST-GREEN-FULL-BLEED.png",
+    "turboloop-ta-F-trust-18-MINIMALIST-ROSE-GOLD-TOP-SCENE.png",
+    "turboloop-ta-F-trust-19-CULTURAL-COSMIC-VIOLET-HERO-CENTER.png",
+    "turboloop-ta-F-trust-20-DARK-LUXURY-NAVY-GOLD-BOTTOM-SCENE.png",
+    "turboloop-ta-G-turbo-01-CINEMATIC-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-G-turbo-02-3D-RENDER-PURPLE-PINK-SPLIT-SCREEN.png",
+    "turboloop-ta-G-turbo-03-NEON-GLOW-TEAL-WHITE-FULL-BLEED.png",
+    "turboloop-ta-G-turbo-04-PHOTO-REAL-EMERALD-DARK-DIAGONAL.png",
+    "turboloop-ta-G-turbo-05-ABSTRACT-MIDNIGHT-BLUE-HERO-LEFT.png",
+    "turboloop-ta-G-turbo-06-INFOGRAPHIC-SUNSET-WARM-GRID-MOSAIC.png",
+    "turboloop-ta-G-turbo-07-MINIMALIST-FOREST-GREEN-TOP-SCENE.png",
+    "turboloop-ta-G-turbo-08-CULTURAL-ROSE-GOLD-HERO-RIGHT.png",
+    "turboloop-ta-G-turbo-09-GLASSMORPHISM-COSMIC-VIOLET-HERO-CENTER.png",
+    "turboloop-ta-G-turbo-10-DARK-LUXURY-MONOCHROME-GOLD-FRAME-IN-FRAME.png",
+    "turboloop-ta-G-turbo-11-INFOGRAPHIC-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-G-turbo-12-3D-RENDER-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-G-turbo-13-CINEMATIC-PURPLE-PINK-DIAGONAL.png",
+    "turboloop-ta-G-turbo-14-ABSTRACT-MIDNIGHT-BLUE-FULL-BLEED.png",
+    "turboloop-ta-G-turbo-15-PHOTO-REAL-EMERALD-DARK-HERO-LEFT.png",
+    "turboloop-ta-G-turbo-16-MINIMALIST-ROSE-GOLD-TOP-SCENE.png",
+    "turboloop-ta-G-turbo-17-CULTURAL-NAVY-GOLD-HERO-CENTER.png",
+    "turboloop-ta-G-turbo-18-GLASSMORPHISM-TEAL-WHITE-SPLIT-SCREEN.png",
+    "turboloop-ta-G-turbo-19-DARK-LUXURY-MONOCHROME-GOLD-DIAGONAL.png",
+    "turboloop-ta-G-turbo-20-ABSTRACT-FOREST-GREEN-HERO-RIGHT.png"
+  ],
+  "bangla": [
+    "bn-01.png",
+    "bn-02.png",
+    "bn-03.png",
+    "bn-04.png",
+    "bn-05.png",
+    "bn-06.png",
+    "bn-07.png",
+    "bn-08.png",
+    "bn-09.png",
+    "bn-10.png",
+    "bn-11.png",
+    "bn-12.png",
+    "bn-13.png",
+    "bn-14.png",
+    "bn-15.png",
+    "bn-16.png",
+    "bn-17.png",
+    "bn-18.png",
+    "bn-19.png",
+    "bn-20.png",
+    "bn-21.png",
+    "bn-22.png",
+    "bn-23.png",
+    "bn-24.png",
+    "bn-25.png",
+    "bn-26.png",
+    "bn-27.png",
+    "bn-28.png",
+    "bn-29.png",
+    "bn-30.png",
+    "bn-31.png",
+    "bn-32.png",
+    "bn-33.png",
+    "bn-34.png",
+    "bn-35.png",
+    "bn-36.png",
+    "bn-37.png",
+    "bn-38.png",
+    "bn-39.png",
+    "bn-40.png",
+    "bn-41.png",
+    "bn-42.png",
+    "bn-43.png",
+    "bn-44.png",
+    "bn-45.png",
+    "bn-46.png",
+    "bn-47.png",
+    "bn-48.png",
+    "bn-49.png",
+    "bn-50.png",
+    "bn-51.png",
+    "bn-52.png",
+    "bn-53.png",
+    "bn-54.png",
+    "bn-55.png",
+    "bn-56.png",
+    "bn-57.png",
+    "bn-58.png",
+    "bn-59.png",
+    "bn-60.png",
+    "bn-61.png",
+    "bn-62.png",
+    "bn-63.png",
+    "bn-64.png",
+    "bn-65.png",
+    "bn-66.png",
+    "bn-67.png",
+    "bn-68.png",
+    "bn-69.png",
+    "bn-70.png",
+    "bn-71.png",
+    "bn-72.png",
+    "bn-73.png",
+    "bn-74.png",
+    "bn-75.png",
+    "bn-76.png",
+    "bn-77.png",
+    "bn-78.png",
+    "bn-79.png",
+    "bn-80.png",
+    "bn-81.png",
+    "bn-82.png",
+    "bn-83.png",
+    "bn-84.png",
+    "bn-85.png",
+    "bn-86.png",
+    "bn-87.png",
+    "bn-88.png",
+    "bn-89.png",
+    "bn-90.png",
+    "bn-91.png",
+    "bn-92.png",
+    "bn-93.png",
+    "bn-94.png",
+    "bn-95.png",
+    "bn-96.png",
+    "bn-97.png",
+    "bn-98.png",
+    "bn-99.png",
+    "bn-100.png",
+    "bn-101.png",
+    "bn-102.png",
+    "bn-103.png",
+    "bn-104.png",
+    "bn-105.png",
+    "bn-106.png",
+    "bn-107.png",
+    "bn-108.png",
+    "bn-109.png",
+    "bn-110.png",
+    "bn-111.png",
+    "bn-112.png",
+    "bn-113.png",
+    "bn-114.png",
+    "bn-115.png",
+    "bn-116.png",
+    "bn-117.png",
+    "bn-118.png",
+    "bn-119.png",
+    "bn-120.png",
+    "bn-121.png",
+    "bn-122.png",
+    "bn-123.png",
+    "bn-124.png",
+    "bn-125.png",
+    "bn-126.png",
+    "bn-127.png",
+    "bn-128.png",
+    "bn-129.png",
+    "bn-130.png",
+    "bn-131.png",
+    "bn-132.png",
+    "bn-133.png",
+    "bn-134.png",
+    "bn-135.png",
+    "bn-136.png",
+    "bn-137.png",
+    "bn-138.png",
+    "bn-139.png",
+    "bn-140.png",
+    "bn-141.png",
+    "bn-142.png",
+    "bn-143.png",
+    "bn-144.png",
+    "bn-145.png",
+    "bn-146.png",
+    "bn-147.png",
+    "bn-148.png",
+    "bn-149.png",
+    "bn-150.png",
+    "bn-151.png",
+    "bn-152.png",
+    "bn-153.png",
+    "bn-154.png",
+    "bn-155.png",
+    "bn-156.png",
+    "bn-157.png",
+    "bn-158.png",
+    "bn-159.png",
+    "bn-160.png",
+    "bn-161.png",
+    "bn-162.png",
+    "bn-163.png",
+    "bn-164.png",
+    "bn-165.png",
+    "bn-166.png",
+    "bn-167.png",
+    "bn-168.png",
+    "bn-169.png",
+    "bn-170.png",
+    "bn-171.png",
+    "bn-172.png",
+    "bn-173.png",
+    "bn-174.png",
+    "bn-175.png",
+    "bn-176.png",
+    "bn-177.png",
+    "bn-178.png",
+    "bn-179.png",
+    "bn-180.png",
+    "bn-181.png",
+    "bn-182.png",
+    "bn-183.png",
+    "bn-184.png",
+    "bn-185.png",
+    "bn-186.png",
+    "bn-187.png",
+    "bn-188.png",
+    "bn-189.png",
+    "bn-190.png",
+    "bn-191.png",
+    "bn-192.png",
+    "bn-193.png"
   ]
 };
 
@@ -62207,17 +63121,42 @@ var BLOG_HEADLINES_ID = [
   "\u{1F4D6} Sudut pandang baru",
   "\u{1F4D6} Bacaan harian"
 ];
+var BLOG_HEADLINES_BN = [
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u09AA\u09A1\u09BC\u09BE",
+  "\u{1F4D6} \u09AC\u09CD\u09B2\u0997\u09C7 \u09A8\u09A4\u09C1\u09A8",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u0986\u09B0\u09CD\u099F\u09BF\u0995\u09C7\u09B2",
+  "\u{1F4D6} \u09B8\u09AE\u09CD\u09AA\u09BE\u09A6\u0995\u09C0\u09AF\u09BC \u09A5\u09C7\u0995\u09C7 \u09A4\u09BE\u099C\u09BE",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u0997\u09AD\u09C0\u09B0 \u09AC\u09BF\u09B6\u09CD\u09B2\u09C7\u09B7\u09A3",
+  "\u{1F4D6} \u0986\u099C \u09B0\u09BE\u09A4\u09C7 \u09AA\u09A1\u09BC\u09BE\u09B0 \u09AE\u09A4\u09CB",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u09B2\u09C7\u0996\u09BE",
+  "\u{1F4D6} \u098F\u0987\u09AE\u09BE\u09A4\u09CD\u09B0 \u09AA\u09CD\u09B0\u0995\u09BE\u09B6\u09BF\u09A4",
+  "\u{1F4D6} \u09B8\u09AE\u09CD\u09AA\u09BE\u09A6\u0995 \u09A5\u09C7\u0995\u09C7 \u09B8\u09B0\u09BE\u09B8\u09B0\u09BF",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u09A6\u09C0\u09B0\u09CD\u0998 \u09AA\u09A1\u09BC\u09BE",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u0997\u09B2\u09CD\u09AA",
+  "\u{1F4D6} \u09A8\u09A4\u09C1\u09A8 \u0985\u09A7\u09CD\u09AF\u09BE\u09AF\u09BC \u2014 TurboLoop \u09AC\u09CD\u09B2\u0997",
+  "\u{1F4D6} \u09B8\u09A8\u09CD\u09A7\u09CD\u09AF\u09BE\u09B0 \u09AA\u09A1\u09BC\u09BE",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u09A6\u09C3\u09B7\u09CD\u099F\u09BF\u09AD\u0999\u09CD\u0997\u09BF",
+  "\u{1F4D6} \u09A8\u09A4\u09C1\u09A8 \u09AA\u09CD\u09B0\u09AC\u09A8\u09CD\u09A7 \u09B2\u09BE\u0987\u09AD",
+  "\u{1F4D6} TurboLoop \u09AC\u09CD\u09B2\u0997 \u2014 \u0986\u099C\u0995\u09C7\u09B0 \u09B2\u09C7\u0996\u09BE",
+  "\u{1F4D6} \u098F\u0987\u09AE\u09BE\u09A4\u09CD\u09B0 \u098F\u09B2\u09CB",
+  "\u{1F4D6} turboloop.tech-\u098F \u09A8\u09A4\u09C1\u09A8",
+  "\u{1F4D6} \u0986\u099C\u0995\u09C7\u09B0 \u09B8\u09AE\u09CD\u09AA\u09BE\u09A6\u0995\u09C0\u09AF\u09BC",
+  "\u{1F4D6} \u09A8\u09A4\u09C1\u09A8 \u09A6\u09C3\u09B7\u09CD\u099F\u09BF\u09AD\u0999\u09CD\u0997\u09BF",
+  "\u{1F4D6} \u09A6\u09C8\u09A8\u09BF\u0995 \u09AA\u09A1\u09BC\u09BE"
+];
 var HEADLINE_POOLS = {
   en: BLOG_HEADLINES_EN,
   de: BLOG_HEADLINES_DE,
   hi: BLOG_HEADLINES_HI,
-  id: BLOG_HEADLINES_ID
+  id: BLOG_HEADLINES_ID,
+  bn: BLOG_HEADLINES_BN
 };
 var FOOTER_BY_LANG = {
   en: "turboloop.tech",
   de: "turboloop.tech \u2014 sicher und transparent",
   hi: "turboloop.tech \u2014 \u0938\u0941\u0930\u0915\u094D\u0937\u093F\u0924 \u0914\u0930 \u092A\u093E\u0930\u0926\u0930\u094D\u0936\u0940",
-  id: "turboloop.tech \u2014 aman & transparan"
+  id: "turboloop.tech \u2014 aman & transparan",
+  bn: "turboloop.tech \u2014 \u09A8\u09BF\u09B0\u09BE\u09AA\u09A6 \u0993 \u09B8\u09CD\u09AC\u099A\u09CD\u099B"
 };
 function poolFor(lang) {
   return HEADLINE_POOLS[lang] ?? BLOG_HEADLINES_EN;
@@ -62477,18 +63416,100 @@ Call shuru ho gaya hai. Der mat karo \u2014 join karo abhi.
 
 Ab aur intezaar mat karo. Room open hai.`
 ];
+var TH_T60 = [
+  `<b>\u{1F1F9}\u{1F1ED} \u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21 TurboLoop \u2014 \u0E2D\u0E35\u0E01 1 \u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07</b>
+
+\u0E40\u0E15\u0E23\u0E35\u0E22\u0E21\u0E04\u0E33\u0E16\u0E32\u0E21\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13! \u0E2B\u0E49\u0E2D\u0E07\u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21\u0E08\u0E30\u0E40\u0E1B\u0E34\u0E14\u0E43\u0E19 60 \u0E19\u0E32\u0E17\u0E35
+\u0E21\u0E32\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E01\u0E31\u0E19\u0E17\u0E38\u0E01\u0E27\u0E31\u0E19 \u2014 \u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49 \u0E2D\u0E31\u0E1B\u0E40\u0E14\u0E15 \u0E41\u0E25\u0E30\u0E40\u0E15\u0E34\u0E1A\u0E42\u0E15\u0E44\u0E1B\u0E14\u0E49\u0E27\u0E22\u0E01\u0E31\u0E19 \u{1F680}`,
+  `<b>\u{1F1F9}\u{1F1ED} \u0E01\u0E32\u0E23\u0E41\u0E0A\u0E23\u0E4C\u0E04\u0E27\u0E32\u0E21\u0E23\u0E39\u0E49 TurboLoop \u2014 1 \u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07\u0E02\u0E49\u0E32\u0E07\u0E2B\u0E19\u0E49\u0E32</b>
+
+\u0E2D\u0E35\u0E01 60 \u0E19\u0E32\u0E17\u0E35\u0E40\u0E17\u0E48\u0E32\u0E19\u0E31\u0E49\u0E19! \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E41\u0E25\u0E30\u0E23\u0E31\u0E1A\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E2D\u0E31\u0E1B\u0E40\u0E14\u0E15\u0E25\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E08\u0E32\u0E01\u0E17\u0E35\u0E21\u0E07\u0E32\u0E19`,
+  `<b>\u{1F1F9}\u{1F1ED} TurboLoop Thai Call \u2014 \u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E2D\u0E35\u0E01 60 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E40\u0E15\u0E23\u0E35\u0E22\u0E21\u0E15\u0E31\u0E27\u0E43\u0E2B\u0E49\u0E1E\u0E23\u0E49\u0E2D\u0E21 \u0E2B\u0E49\u0E2D\u0E07\u0E08\u0E30\u0E40\u0E1B\u0E34\u0E14\u0E43\u0E19\u0E2D\u0E35\u0E01 1 \u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07 \u0E21\u0E32\u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E23\u0E48\u0E27\u0E21\u0E01\u0E31\u0E19!`,
+  `<b>\u{1F1F9}\u{1F1ED} \u0E19\u0E31\u0E14\u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21\u0E1B\u0E23\u0E30\u0E08\u0E33\u0E27\u0E31\u0E19 \u2014 \u0E2D\u0E35\u0E01 1 \u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07</b>
+
+\u0E2D\u0E22\u0E48\u0E32\u0E1E\u0E25\u0E32\u0E14! \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21 Google Meet \u0E01\u0E31\u0E1A\u0E17\u0E35\u0E21 TurboLoop \u0E43\u0E19\u0E2D\u0E35\u0E01 60 \u0E19\u0E32\u0E17\u0E35`,
+  `<b>\u{1F1F9}\u{1F1ED} TurboLoop Daily Call \u2014 60 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E40\u0E0A\u0E34\u0E0D\u0E17\u0E38\u0E01\u0E17\u0E48\u0E32\u0E19\u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21 \u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E1E\u0E37\u0E49\u0E19\u0E10\u0E32\u0E19 \u0E23\u0E31\u0E1A\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E2D\u0E31\u0E1B\u0E40\u0E14\u0E15 \u0E41\u0E25\u0E30\u0E16\u0E32\u0E21\u0E04\u0E33\u0E16\u0E32\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22!`
+];
+var TH_T30 = [
+  `<b>\u{1F1F9}\u{1F1ED} \u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21 TurboLoop \u2014 \u0E2D\u0E35\u0E01 30 \u0E19\u0E32\u0E17\u0E35!</b>
+
+\u0E2B\u0E49\u0E2D\u0E07\u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21\u0E08\u0E30\u0E40\u0E1B\u0E34\u0E14\u0E43\u0E19\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E36\u0E48\u0E07\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07 \u0E21\u0E32\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E01\u0E31\u0E19\u0E19\u0E30! \u{1F64C}`,
+  `<b>\u{1F1F9}\u{1F1ED} \u0E01\u0E32\u0E23\u0E41\u0E0A\u0E23\u0E4C\u0E04\u0E27\u0E32\u0E21\u0E23\u0E39\u0E49 TurboLoop \u2014 \u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E2D\u0E35\u0E01 30 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E40\u0E15\u0E23\u0E35\u0E22\u0E21\u0E15\u0E31\u0E27\u0E43\u0E2B\u0E49\u0E1E\u0E23\u0E49\u0E2D\u0E21! \u0E2D\u0E35\u0E01 30 \u0E19\u0E32\u0E17\u0E35\u0E40\u0E23\u0E32\u0E08\u0E30\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19\u0E14\u0E49\u0E27\u0E22\u0E01\u0E31\u0E19`,
+  `<b>\u{1F1F9}\u{1F1ED} TurboLoop Thai Call \u2014 30 \u0E19\u0E32\u0E17\u0E35\u0E01\u0E48\u0E2D\u0E19\u0E40\u0E23\u0E34\u0E48\u0E21</b>
+
+\u0E2B\u0E49\u0E2D\u0E07\u0E01\u0E33\u0E25\u0E31\u0E07\u0E08\u0E30\u0E40\u0E1B\u0E34\u0E14 \u0E2D\u0E35\u0E01 30 \u0E19\u0E32\u0E17\u0E35 \u0E21\u0E32\u0E40\u0E08\u0E2D\u0E01\u0E31\u0E19\u0E19\u0E30!`,
+  `<b>\u{1F1F9}\u{1F1ED} \u0E19\u0E31\u0E14\u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21\u0E1B\u0E23\u0E30\u0E08\u0E33\u0E27\u0E31\u0E19 \u2014 \u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E2D\u0E35\u0E01 30 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E2D\u0E22\u0E48\u0E32\u0E25\u0E37\u0E21! \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21 Google Meet \u0E01\u0E31\u0E1A Mr. Keang \u0E43\u0E19\u0E2D\u0E35\u0E01 30 \u0E19\u0E32\u0E17\u0E35 \u{1F399}\uFE0F`,
+  `<b>\u{1F1F9}\u{1F1ED} TurboLoop Daily Call \u2014 30 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E04\u0E23\u0E36\u0E48\u0E07\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07\u0E01\u0E47\u0E08\u0E30\u0E16\u0E36\u0E07\u0E40\u0E27\u0E25\u0E32 \u0E21\u0E32\u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E41\u0E25\u0E30\u0E2D\u0E31\u0E1B\u0E40\u0E14\u0E15\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E23\u0E48\u0E27\u0E21\u0E01\u0E31\u0E19!`
+];
+var TH_T15 = [
+  `<b>\u{1F1F9}\u{1F1ED} \u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21 TurboLoop \u2014 \u0E2D\u0E35\u0E01 15 \u0E19\u0E32\u0E17\u0E35!</b>
+
+\u0E40\u0E01\u0E37\u0E2D\u0E1A\u0E16\u0E36\u0E07\u0E40\u0E27\u0E25\u0E32\u0E41\u0E25\u0E49\u0E27! \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E49\u0E2D\u0E07\u0E40\u0E15\u0E47\u0E21 \u{1F525}`,
+  `<b>\u{1F1F9}\u{1F1ED} TurboLoop Thai Call \u2014 15 \u0E19\u0E32\u0E17\u0E35\u0E2A\u0E38\u0E14\u0E17\u0E49\u0E32\u0E22</b>
+
+\u0E19\u0E32\u0E17\u0E35\u0E17\u0E2D\u0E07! \u0E2D\u0E35\u0E01 15 \u0E19\u0E32\u0E17\u0E35\u0E40\u0E23\u0E32\u0E08\u0E30\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19 \u0E21\u0E32\u0E43\u0E2B\u0E49\u0E17\u0E31\u0E19!`,
+  `<b>\u{1F1F9}\u{1F1ED} \u0E40\u0E01\u0E37\u0E2D\u0E1A\u0E16\u0E36\u0E07\u0E40\u0E27\u0E25\u0E32\u0E41\u0E25\u0E49\u0E27 \u2014 15 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E40\u0E15\u0E23\u0E35\u0E22\u0E21\u0E15\u0E31\u0E27\u0E40\u0E02\u0E49\u0E32\u0E2B\u0E49\u0E2D\u0E07 Google Meet \u0E44\u0E14\u0E49\u0E40\u0E25\u0E22 \u0E40\u0E23\u0E34\u0E48\u0E21\u0E43\u0E19\u0E2D\u0E35\u0E01 15 \u0E19\u0E32\u0E17\u0E35!`,
+  `<b>\u{1F1F9}\u{1F1ED} TurboLoop Daily Call \u2014 15 \u0E19\u0E32\u0E17\u0E35</b>
+
+\u0E23\u0E35\u0E1A\u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E01\u0E48\u0E2D\u0E19\u0E40\u0E23\u0E34\u0E48\u0E21! \u0E2B\u0E49\u0E2D\u0E07\u0E08\u0E30\u0E40\u0E1B\u0E34\u0E14\u0E43\u0E19\u0E2D\u0E35\u0E01 15 \u0E19\u0E32\u0E17\u0E35 \u{1F680}`,
+  `<b>\u{1F1F9}\u{1F1ED} \u0E19\u0E31\u0E14\u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21\u0E1B\u0E23\u0E30\u0E08\u0E33\u0E27\u0E31\u0E19 \u2014 15 \u0E19\u0E32\u0E17\u0E35\u0E2A\u0E38\u0E14\u0E17\u0E49\u0E32\u0E22!</b>
+
+\u0E2D\u0E22\u0E48\u0E32\u0E1E\u0E25\u0E32\u0E14\u0E42\u0E2D\u0E01\u0E32\u0E2A\u0E19\u0E35\u0E49 \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22\u0E43\u0E19 15 \u0E19\u0E32\u0E17\u0E35!`
+];
+var TH_LIVE = [
+  `\u{1F534} <b>\u{1F1F9}\u{1F1ED} TurboLoop Thai Call \u2014 \u0E40\u0E23\u0E32\u0E40\u0E23\u0E34\u0E48\u0E21\u0E41\u0E25\u0E49\u0E27! LIVE NOW</b>
+
+\u0E2B\u0E49\u0E2D\u0E07\u0E40\u0E1B\u0E34\u0E14\u0E41\u0E25\u0E49\u0E27! \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22\u0E17\u0E31\u0E19\u0E17\u0E35 \u0E2D\u0E22\u0E48\u0E32\u0E23\u0E2D\u0E0A\u0E49\u0E32!`,
+  `\u{1F534} <b>\u{1F1F9}\u{1F1ED} LIVE \u0E41\u0E25\u0E49\u0E27 \u2014 TurboLoop Daily Call</b>
+
+\u0E40\u0E23\u0E32\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19\u0E41\u0E25\u0E49\u0E27! \u0E04\u0E25\u0E34\u0E01\u0E25\u0E34\u0E07\u0E01\u0E4C\u0E41\u0E25\u0E30\u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22 \u{1F399}\uFE0F`,
+  `\u{1F534} <b>\u{1F1F9}\u{1F1ED} \u0E1B\u0E23\u0E30\u0E0A\u0E38\u0E21 TurboLoop \u2014 \u0E01\u0E33\u0E25\u0E31\u0E07 LIVE \u0E2D\u0E22\u0E39\u0E48!</b>
+
+\u0E2B\u0E49\u0E2D\u0E07\u0E40\u0E1B\u0E34\u0E14\u0E2D\u0E22\u0E39\u0E48\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49 \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22 \u0E44\u0E21\u0E48\u0E15\u0E49\u0E2D\u0E07\u0E23\u0E2D!`,
+  `\u{1F534} <b>\u{1F1F9}\u{1F1ED} TurboLoop Thai Call \u2014 \u0E40\u0E23\u0E34\u0E48\u0E21\u0E41\u0E25\u0E49\u0E27!</b>
+
+\u0E21\u0E32\u0E40\u0E08\u0E2D\u0E01\u0E31\u0E19\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22 \u0E2B\u0E49\u0E2D\u0E07\u0E01\u0E33\u0E25\u0E31\u0E07 LIVE \u0E2D\u0E22\u0E39\u0E48\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49!`,
+  `\u{1F534} <b>\u{1F1F9}\u{1F1ED} LIVE NOW \u2014 TurboLoop \u0E0A\u0E38\u0E21\u0E0A\u0E19\u0E44\u0E17\u0E22</b>
+
+\u0E40\u0E23\u0E32\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19\u0E41\u0E25\u0E49\u0E27 \u0E40\u0E02\u0E49\u0E32\u0E23\u0E48\u0E27\u0E21\u0E41\u0E25\u0E30\u0E16\u0E32\u0E21\u0E04\u0E33\u0E16\u0E32\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22!`
+];
 var POOLS = {
   en: { T60: EN_T60, T30: EN_T30, T15: EN_T10, LIVE: EN_LIVE },
-  hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE }
+  hi: { T60: HI_T60, T30: HI_T30, T15: HI_T10, LIVE: HI_LIVE },
+  th: { T60: TH_T60, T30: TH_T30, T15: TH_T15, LIVE: TH_LIVE }
 };
+var CELEBRATION_OVERLAY_EN = `\u{1F389} <b>4TH MONTH CELEBRATION \u2014 TODAY'S CALL IS SPECIAL!</b>
+
+\u{1F3C6} We are celebrating <b>4 months of TurboLoop</b> \u2014 4 months of growth, trust, and on-chain returns!
+
+\u{1F4B0} <b>$100 USDT GIVEAWAY</b> happening LIVE on today's call \u2014 join and win!`;
+var CELEBRATION_OVERLAY_HI = `\u{1F389} <b>4 \u092E\u0939\u0940\u0928\u0947 \u0915\u0940 \u0938\u092B\u0932\u0924\u093E \u2014 \u0906\u091C \u0915\u093E ZOOM SPECIAL \u0939\u0948!</b>
+
+\u{1F3C6} TurboLoop \u0915\u0947 <b>4 \u092E\u0939\u0940\u0928\u0947 \u092A\u0942\u0930\u0947</b> \u0939\u094B \u0917\u090F!
+
+\u{1F4B0} <b>$100 USDT \u0907\u0928\u093E\u092E</b> \u0906\u091C LIVE Zoom \u092E\u0947\u0902 \u2014 \u0906\u090F\u0902 \u0914\u0930 \u091C\u0940\u0924\u0947\u0902!`;
 function zoomReminderCaption(opts) {
   const body = pickByDay(POOLS[opts.lang][opts.tier]);
+  const todayStr = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+  const celebrationOverlay = todayStr === "2026-07-08" ? (opts.lang === "hi" ? CELEBRATION_OVERLAY_HI : CELEBRATION_OVERLAY_EN) + "\n\n" : "";
   if (opts.tier === "LIVE") {
-    return `${body}
+    return `${celebrationOverlay}${body}
 
 \u{1F517} ${tgEscape(opts.meetingLink)}`;
   }
-  return `${body}
+  return `${celebrationOverlay}${body}
 
 \u{1F517} ${tgEscape(opts.meetingLink)}
 \u{1F510} Passcode: <code>${tgEscape(opts.passcode)}</code>
@@ -63097,7 +64118,7 @@ What comes after? The roadmap tells all.
 
 "Is it a Ponzi?" \u2014 No. Here's why.
 "Can I lose my money?" \u2014 Here's the risk breakdown.
-"How do I withdraw?" \u2014 Anytime. No lock-up.
+"How do I withdraw?" \u2014 Anytime. Capital + yield returned at end of term.
 
 40+ questions, zero BS.
 
@@ -63567,7 +64588,7 @@ No ID. No credit check. No waiting period. Connect your BSC wallet, choose a pla
 
 1. Connect wallet. 2. Choose plan. 3. Deposit USDT.
 
-That's it. Your yield clock starts on the next block (up to 0.9% daily on Ultimate Plan).
+That's it. Your yield clock starts on the next block (fixed yield up to 54% per term on Ultimate Plan).
 
 #TurboLoop #Deposit #Simple #DeFi #USDT #Instant`,
     buttonText: "\u23F1\uFE0F Start in 30 seconds",
@@ -63788,7 +64809,7 @@ Trust the code, not the team.
 var CAMPAIGN_LIFESTYLE_CAPTIONS = [
   `Your coffee gets cold. Your TurboLoop earnings don't.
 
-While most people trade time for money, TurboLoop members earn up to 0.9% daily on deposited USDT \u2014 automatically, on-chain, every 24 hours.
+While most people trade time for money, TurboLoop members earn fixed yield up to 54% per term on deposited USDT \u2014 automatically, on-chain, every 24 hours.
 
 No trading. No watching charts. No waiting for a salary.
 
@@ -63797,7 +64818,7 @@ No trading. No watching charts. No waiting for a salary.
 #TurboLoop #PassiveIncome #DeFiYield #FinancialFreedom #OnChain`,
   `The beach doesn't care what time it is. Neither does your TurboLoop wallet.
 
-Every 24 hours, your USDT earns up to 0.9% \u2014 whether you're working, sleeping, or on a plane.
+Your USDT earns a fixed yield \u2014 returned in full at the end of your chosen term, whether you're working, sleeping, or on a plane.
 
 This is what financial freedom actually looks like.
 
@@ -63806,7 +64827,7 @@ This is what financial freedom actually looks like.
 #TurboLoop #BeachLife #PassiveIncome #DeFi #FreedomLifestyle`,
   `Most people work for money. TurboLoop members make money work for them.
 
-Up to 0.9% daily yield. Full capital back at end of term. No volatility risk.
+Fixed yield up to 54% \u2014 capital and yield returned in full at end of term. No volatility risk.
 
 The math is simple. The lifestyle change is real.
 
@@ -63815,37 +64836,37 @@ The math is simple. The lifestyle change is real.
 #TurboLoop #MoneyMindset #DeFiYield #PassiveIncome #FinancialFreedom`,
   `Imagine waking up and your balance is already higher than when you went to sleep.
 
-That's not a dream. That's TurboLoop \u2014 up to 0.9% daily yield, on-chain, transparent, and running 24/7.
+That's not a dream. That's TurboLoop \u2014 fixed yield up to 54% per term, on-chain, transparent, and running 24/7.
 
 \u{1F449} Join today: https://turboloop.tech
 
 #TurboLoop #WakeUpRicher #PassiveIncome #DeFi #OnChain`,
   `Your 9-to-5 pays once. TurboLoop pays every single day.
 
-Deposit USDT. Earn up to 0.9% daily. Capital + yield returned at end of term.
+Deposit USDT. Earn fixed yield up to 54% per term. Capital + yield returned at end of term.
 
 One decision. Daily rewards.
 
 \u{1F449} https://turboloop.tech
 
-#TurboLoop #9to5Escape #DeFiYield #DailyRewards #FinancialFreedom`,
+#TurboLoop #9to5Escape #DeFiYield #FixedYield #FinancialFreedom`,
   `Luxury isn't about spending more. It's about worrying less.
 
-When your money earns up to 0.9% daily on TurboLoop, the question stops being "can I afford this?" and starts being "what do I want to do today?"
+When your money earns fixed yield on TurboLoop \u2014 capital and yield returned at end of term \u2014 the question stops being "can I afford this?" and starts being "what do I want to do today?"
 
 \u{1F449} Start building: https://turboloop.tech
 
 #TurboLoop #LuxuryMindset #PassiveIncome #DeFi #WealthBuilding`,
   `Family time is priceless. TurboLoop makes sure you have more of it.
 
-Earn up to 0.9% daily on your USDT without sitting at a desk. The protocol runs itself \u2014 you just live your life.
+Earn fixed yield on your USDT without sitting at a desk. Capital + yield returned at end of term. The protocol runs itself \u2014 you just live your life.
 
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #FamilyFirst #PassiveIncome #DeFiYield #TimeIsWealth`,
   `The difference between people who travel freely and those who can't? Passive income.
 
-TurboLoop members earn up to 0.9% daily on deposited USDT \u2014 from anywhere in the world, on any device.
+TurboLoop members earn fixed yield on deposited USDT \u2014 capital and yield returned at end of term, from anywhere in the world, on any device.
 
 \u{1F449} Start earning: https://turboloop.tech
 
@@ -63854,7 +64875,7 @@ TurboLoop members earn up to 0.9% daily on deposited USDT \u2014 from anywhere i
 
 When your passive income covers your expenses, you're retired \u2014 regardless of how old you are. TurboLoop helps you get there faster.
 
-Up to 0.9% daily. On-chain. Transparent.
+Fixed yield up to 54% per term. On-chain. Transparent.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -63870,14 +64891,14 @@ Your money. Your rules. Your earnings.
 #TurboLoop #SmartMoney #DeFi #PassiveIncome #OnChain`,
   `Some people spend their whole lives working for the weekend. TurboLoop members make every day feel like the weekend.
 
-Up to 0.9% daily yield. Capital + yield returned at end of term.
+Fixed yield up to 54% per term. Capital + yield returned at end of term.
 
 \u{1F449} Join the movement: https://turboloop.tech
 
 #TurboLoop #EveryDayFreedom #PassiveIncome #DeFiYield #FinancialFreedom`,
   `The goal isn't to be rich. The goal is to never have to check the price before you order.
 
-TurboLoop's daily yield gets you there \u2014 one compounding day at a time.
+TurboLoop's fixed end-of-term yield gets you there \u2014 one smart deposit at a time.
 
 \u{1F449} https://turboloop.tech
 
@@ -63979,7 +65000,7 @@ Every dollar in TurboLoop is governed by an immutable smart contract on BNB Smar
 #TurboLoop #NotAScam #SmartContract #DeFiTransparency #DYOR`,
   `"Too good to be true?" \u2014 Check the on-chain data.
 
-Up to 0.9% daily yield sounds extraordinary until you understand DeFi liquidity provision. The protocol earns from real trading activity. The yield is real. The math is public.
+Up to 54% fixed yield per 60-day term sounds extraordinary until you understand DeFi liquidity provision. The protocol earns from real trading activity. The yield is real. The math is public.
 
 \u{1F449} Verify everything: https://turboloop.tech/token
 
@@ -63998,23 +65019,23 @@ The smart contract is autonomous. No admin can pause it, drain it, or change the
 \u{1F449} https://turboloop.tech/token
 
 #TurboLoop #Trustless #SmartContract #DeFi #NoTeamRisk`,
-  `"Can I withdraw anytime?" \u2014 Yes. Always.
+  `"Can I capital + yield returned at end of term?" \u2014 Yes. Always.
 
-TurboLoop has no lock-up period. You can withdraw your earnings at any time. Your full capital is returned after 60 days. The contract enforces this \u2014 not a promise.
+TurboLoop returns your full capital and yield at the end of your chosen term. Your capital and yield are returned in full at the end of your chosen term. Your full capital and yield are returned at the end of your chosen term. The smart contract enforces this \u2014 capital and yield returned at end of term.
 
 \u{1F449} https://turboloop.tech
 
-#TurboLoop #WithdrawAnytime #DeFi #NoLockup #Transparency`,
+#TurboLoop #EndOfTermYield #DeFi #FixedYield #Transparency`,
   `"What about impermanent loss?" \u2014 There is none.
 
-TurboLoop's yield structure offers up to 0.9% daily on your deposited USDT (Ultimate Plan, 60 days). You're not exposed to token price volatility in your principal. USDT in, USDT out.
+TurboLoop's yield structure offers up to 54% fixed yield on your deposited USDT (Ultimate Plan, 60 days), returned at end of term. You're not exposed to token price volatility in your principal. USDT in, USDT out.
 
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #NoImpermanentLoss #StableYield #DeFi #USDT`,
   `"Do I need to understand crypto?" \u2014 Not really.
 
-If you can send a WhatsApp message, you can use TurboLoop. Deposit USDT. Watch it grow. Withdraw when you want. The complexity is in the contract \u2014 not the user experience.
+If you can send a WhatsApp message, you can use TurboLoop. Deposit USDT. Watch it grow. Receive your capital and yield at the end of your chosen term. The complexity is in the contract \u2014 not the user experience.
 
 \u{1F449} https://turboloop.tech
 
@@ -64049,7 +65070,7 @@ A pyramid scheme requires recruitment to pay existing members. TurboLoop pays yi
 #TurboLoop #NotAPyramid #DeFiYield #ReferralBonus #Transparency`,
   `"What if I've been burned by crypto before?" \u2014 We understand.
 
-TurboLoop was built specifically to remove the risks that burned you: no team control, no token volatility on principal, no lock-up, no hidden fees. Just on-chain yield.
+TurboLoop was built specifically to remove the risks that burned you: no team control, no token volatility on principal, capital + yield returned at end of term, no hidden fees. Just on-chain yield.
 
 \u{1F449} Start with $1: https://turboloop.tech
 
@@ -64058,7 +65079,7 @@ TurboLoop was built specifically to remove the risks that burned you: no team co
 var CAMPAIGN_HINDI_CAPTIONS = [
   `\u{1F1EE}\u{1F1F3} India ka DeFi revolution shuru ho gaya hai.
 
-TurboLoop pe up to 0.9% daily yield earn karo apne USDT pe \u2014 bina kisi bank ke, bina kisi middleman ke.
+TurboLoop pe fixed yield up to 54% per term yield earn karo apne USDT pe \u2014 bina kisi bank ke, bina kisi middleman ke.
 
 Smart contract pe sab kuch transparent hai. Verify karo khud.
 
@@ -64067,7 +65088,7 @@ Smart contract pe sab kuch transparent hai. Verify karo khud.
 #TurboLoop #IndiaKaDeFi #PassiveIncome #DeFiIndia #USDT`,
   `Ghar baithe kamao \u2014 yeh sirf ek sapna nahi, TurboLoop ki reality hai.
 
-Up to 0.9% daily yield. 60 din mein pura capital + 54% ROI wapas.
+60 din mein pura capital + 54% yield wapas milta hai \u2014 term ke end pe.
 
 BNB Smart Chain pe immutable smart contract \u2014 koi bhi control nahi kar sakta.
 
@@ -64152,7 +65173,7 @@ Jitna jaldi TurboLoop mein shuru karo, utna zyada compounding ka faida milega. K
 var CAMPAIGN_NIGERIAN_CAPTIONS = [
   `\u{1F1F3}\u{1F1EC} Naija, the DeFi revolution don reach our side.
 
-TurboLoop dey pay up to 0.9% daily yield on your USDT \u2014 no bank, no wahala, no middleman. Just smart contract.
+TurboLoop dey pay fixed yield on your USDT \u2014 capital + yield returned at end of term. No bank, no wahala, no middleman. Just smart contract.
 
 \u{1F449} Start today: https://turboloop.tech
 
@@ -64168,7 +65189,7 @@ This na real deal \u2014 verify am on BscScan.
 #TurboLoop #SapaNoMore #PassiveIncome #NaijaDeFi #USDT`,
   `From Danfo to Benz \u2014 one step at a time.
 
-TurboLoop's daily yield dey compound. Small small, e dey grow. Start with what you have. Scale as you go.
+TurboLoop's fixed yield dey grow your money. Small small, e dey compound. Start with what you have. Scale as you go.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64205,14 +65226,14 @@ If you fit send WhatsApp message, you fit use TurboLoop. Deposit USDT. Watch am 
 #TurboLoop #EasyDeFi #NaijaDeFi #CryptoForAll #PassiveIncome`,
   `Abuja mansion, Lagos lifestyle \u2014 passive income dey make am possible.
 
-TurboLoop members dey earn up to 0.9% daily on their USDT. No trading. No stress. Just yield.
+TurboLoop members dey earn fixed yield on their USDT \u2014 capital + yield returned at end of term. No trading. No stress. Just yield.
 
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #AbujaLife #LagosLife #PassiveIncome #NaijaDeFi`,
   `Diaspora Naija \u2014 your money fit work for you from anywhere.
 
-TurboLoop dey accessible from UK, US, Canada, everywhere. Deposit USDT. Earn daily. Send back home.
+TurboLoop dey accessible from UK, US, Canada, everywhere. Deposit USDT. Earn fixed yield at end of term. Send back home.
 
 \u{1F449} https://turboloop.tech
 
@@ -64249,7 +65270,7 @@ The moment you see USDT land in your wallet from TurboLoop \u2014 that's when it
 #TurboLoop #FirstWithdrawal #DeFiYield #PassiveIncome #RealResults`,
   `60 days in. Full capital back. Plus 54% earned on top.
 
-That's what TurboLoop's Ultimate Plan (0.9% daily) looks like after a full cycle. The math was always right \u2014 the experience confirms it.
+That's what TurboLoop's Ultimate Plan (54% over 60 days) looks like after a full cycle. The math was always right \u2014 the experience confirms it.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64270,14 +65291,14 @@ TurboLoop members who build their network don't just earn yield \u2014 they earn
 #TurboLoop #RankUp #NetworkIncome #DeFi #SuccessStory`,
   `The best investment advice I ever got: let the smart contract work.
 
-Stop timing the market. Stop chasing 100x tokens. Deposit USDT. Earn up to 0.9% daily. Compound. Repeat.
+Stop timing the market. Stop chasing 100x tokens. Deposit USDT. Earn fixed yield at end of term. Compound. Repeat.
 
 \u{1F449} https://turboloop.tech
 
 #TurboLoop #SmartInvestment #DeFiYield #PassiveIncome #SuccessStory`,
   `She started with $100. 60 days later, she had $154 \u2014 and her $100 back.
 
-That's TurboLoop's Ultimate Plan (0.9% daily) in action. Small start. Real results. Compounding magic.
+That's TurboLoop's Ultimate Plan (54% over 60 days) in action. Small start. Real results. Compounding magic.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64312,7 +65333,7 @@ Building a TurboLoop downline took 3 months. Now the commissions come in daily \
 #TurboLoop #NetworkIncome #FamilyLife #DeFi #SuccessStory`,
   `I compounded for 6 months. The results were unbelievable.
 
-Reinvesting TurboLoop earnings instead of withdrawing them creates exponential growth. 6 months of compounding at up to 0.9% daily is transformative.
+Reinvesting TurboLoop earnings instead of withdrawing them creates exponential growth. 6 months of reinvesting end-of-term yields is transformative.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64342,7 +65363,7 @@ A smart contract is code that executes automatically when conditions are met. No
 #SmartContract #DeFiEducation #TurboLoop #Blockchain #Web3`,
   `What is a stablecoin? \u2014 Crypto without the volatility.
 
-USDT is a stablecoin pegged to the US dollar. $1 of USDT is always worth $1. TurboLoop pays up to 0.9% daily on USDT \u2014 so your principal never loses value to crypto volatility.
+USDT is a stablecoin pegged to the US dollar. $1 of USDT is always worth $1. TurboLoop pays fixed yield on USDT \u2014 capital and yield returned at end of term, so your principal never loses value to crypto volatility.
 
 \u{1F449} https://turboloop.tech/learn
 
@@ -64391,7 +65412,7 @@ CeFi (Centralized Finance) = banks, exchanges, custodians. They hold your money.
 #DeFiVsCeFi #DeFiEducation #TurboLoop #Blockchain #FinancialFreedom`,
   `What is ROI? \u2014 Return on Investment, explained for DeFi.
 
-ROI = (Earnings / Investment) \xD7 100. At 0.9% daily for 60 days (Ultimate Plan), TurboLoop's ROI is 54% per cycle \u2014 plus your full capital back. Compare that to any bank.
+ROI = (Earnings / Investment) \xD7 100. TurboLoop's Ultimate Plan returns 54% fixed yield over 60 days \u2014 plus your full capital back at end of term. Compare that to any bank.
 
 \u{1F449} https://turboloop.tech/calculator
 
@@ -64433,7 +65454,7 @@ The gap between what your bank pays and what DeFi pays is not a rounding error. 
 \u{1F449} https://turboloop.tech/calculator
 
 #TurboLoop #BankVsDeFi #PassiveIncome #DeFiYield #StartToday`,
-  `Inflation is running at 5-8% per year. TurboLoop pays up to 0.9% per day.
+  `Inflation is running at 5-8% per year. TurboLoop pays up to 54% fixed yield per 60-day term.
 
 Every day you keep your savings in a bank account, inflation is winning. DeFi is the answer.
 
@@ -64454,7 +65475,7 @@ Will you be one of them?
 \u{1F449} Deposit before midnight: https://turboloop.tech
 
 #TurboLoop #EarnWhileYouSleep #DeFiYield #PassiveIncome #Tonight`,
-  `The protocol doesn't care about market conditions. It pays up to 0.9% daily regardless.
+  `The protocol doesn't care about market conditions. It pays fixed yield up to 54% per term regardless.
 
 Bull market, bear market, sideways market \u2014 TurboLoop's yield is fixed. Your USDT earns the same every day.
 
@@ -64587,7 +65608,7 @@ Reward-based minting. Daily buyback. Permanent burn. No team allocation. This is
 ];
 var CAMPAIGN_COMPARISON_CAPTIONS = [
   `Bank savings account: 0.5% per year.
-TurboLoop: up to 0.9% per day (Ultimate Plan).
+TurboLoop: up to 54% fixed yield per 60-day term (Ultimate Plan).
 
 That's not a typo. That's DeFi.
 
@@ -64595,7 +65616,7 @@ That's not a typo. That's DeFi.
 
 #TurboLoop #BankVsDeFi #DeFiYield #PassiveIncome #FinancialFreedom`,
   `Stocks: average 10% per year (if you're lucky).
-TurboLoop: up to 0.9% per day, every day, regardless of market conditions.
+TurboLoop: up to 54% fixed yield per 60-day term, regardless of market conditions.
 
 Different asset class. Different rules.
 
@@ -64603,7 +65624,7 @@ Different asset class. Different rules.
 
 #TurboLoop #StocksVsDeFi #DeFiYield #PassiveIncome #FixedYield`,
   `Crypto trading: high risk, high stress, unpredictable returns.
-TurboLoop: up to 0.9% daily, USDT principal, no volatility exposure.
+TurboLoop: fixed yield up to 54% per term, USDT principal, no volatility exposure.
 
 Same ecosystem. Completely different risk profile.
 
@@ -64611,7 +65632,7 @@ Same ecosystem. Completely different risk profile.
 
 #TurboLoop #CryptoVsDeFi #StableYield #PassiveIncome #LowRisk`,
   `Forex trading: requires skill, time, and constant attention.
-TurboLoop: deposit once, earn daily, withdraw anytime.
+TurboLoop: deposit once, earn fixed yield, capital + yield returned at end of term.
 
 One requires expertise. The other just requires a wallet.
 
@@ -64619,7 +65640,7 @@ One requires expertise. The other just requires a wallet.
 
 #TurboLoop #ForexVsDeFi #PassiveIncome #DeFiYield #NoExpertiseNeeded`,
   `Fixed deposit: 6-8% per year, locked for 1-5 years.
-TurboLoop: 54% per 60-day cycle, withdraw anytime.
+TurboLoop: 54% per 60-day cycle, capital + yield returned at end of term.
 
 Better returns. More flexibility. On-chain transparency.
 
@@ -64635,7 +65656,7 @@ DeFi democratizes finance.
 
 #TurboLoop #HedgeFundVsDeFi #DeFiForAll #PassiveIncome #FinancialInclusion`,
   `Meme coins: 100x potential, 99% chance of going to zero.
-TurboLoop: up to 0.9% daily, fixed, on USDT principal.
+TurboLoop: fixed yield up to 54% per term, on USDT principal.
 
 One is gambling. The other is yield.
 
@@ -64651,7 +65672,7 @@ Custody matters.
 
 #TurboLoop #CeFiVsDeFi #SmartContract #DeFiYield #NoCounterpartyRisk`,
   `Savings challenge: save $X per month, earn nothing on it.
-TurboLoop: deposit USDT, earn up to 0.9% daily while it sits there.
+TurboLoop: deposit USDT, earn fixed yield \u2014 capital + yield returned at end of term.
 
 Same discipline. Completely different outcome.
 
@@ -64659,7 +65680,7 @@ Same discipline. Completely different outcome.
 
 #TurboLoop #SavingsVsDeFi #DeFiYield #PassiveIncome #MoneyHabits`,
   `Pension fund: wait 30-40 years, get back less than inflation took.
-TurboLoop: earn up to 0.9% daily, compound for years, retire early.
+TurboLoop: earn fixed yield per term, compound for years, retire early.
 
 DeFi is the pension fund the system never gave you.
 
@@ -64667,7 +65688,7 @@ DeFi is the pension fund the system never gave you.
 
 #TurboLoop #PensionVsDeFi #EarlyRetirement #DeFiYield #FinancialFreedom`,
   `Bonds: 3-5% per year, locked, government-dependent.
-TurboLoop: up to 0.9% per day, no lock-up, code-dependent.
+TurboLoop: up to 54% fixed yield per 60-day term, capital + yield returned at end of term, code-dependent.
 
 Trust the math, not the government.
 
@@ -65084,13 +66105,272 @@ Alles auf BSCScan verifizierbar. Dein Geld, deine Regeln.
 
 #TurboLoop #Gepr\xFCft #DeFi #Blockchain`
 ];
+var CAMPAIGN_THAI_DAILY_CAPTIONS = [
+  `\u{1F1F9}\u{1F1ED} <b>TurboLoop \u2014 Now in Thai</b>
+
+We've built a full library of Thai-language banners for our community in Thailand. Same protocol, same returns \u2014 now in your language.
+
+\u{1F4C8} Plans: 7 days (3%) \xB7 14 days (10%) \xB7 30 days (24%) \xB7 60 days (54%)
+\u{1F4B0} Min deposit: 1 USDT \xB7 20-level referral \xB7 Referral income daily at 1 PM UTC
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Thailand #DeFi #USDT #PassiveIncome`,
+  `\u{1F1F9}\u{1F1ED} <b>For our Thai community</b>
+
+TurboLoop is fully available in Thai \u2014 browse 220 free marketing banners, use them to grow your network, and earn on 20 referral levels.
+
+Capital + yield returned at end of term. No daily yield. No APY. Just real DeFi.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #ThaiDeFi #USDT #FinancialFreedom`,
+  `\u{1F1F9}\u{1F1ED} <b>Thai banners. English protocol. Global returns.</b>
+
+Our Thai creative library has 220 banners across 7 themes \u2014 investment plans, referral system, education, trust & security, and more.
+
+Download free. Share freely. Earn referral income daily.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Thailand #DeFi #CryptoThailand`,
+  `\u{1F1F9}\u{1F1ED} <b>TurboLoop speaks Thai</b>
+
+We created 220 premium Thai-language banners so our Thai community can share TurboLoop in their own language.
+
+The smart contract is the same worldwide \u2014 audited, renounced, 100% on BSC.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Thailand #BSC #DeFi`,
+  `\u{1F1F9}\u{1F1ED} <b>Grow your Thai network with TurboLoop</b>
+
+20 referral levels. Referral income paid daily at 1:00 PM UTC. A full library of Thai banners to help you recruit.
+
+Start with as little as 1 USDT. No KYC. No admin. Just code.
+
+\u{1F449} <a href="https://turboloop.io">turboloop.io</a>
+
+#TurboLoop #ThaiCommunity #Referral #DeFi`,
+  `\u{1F1F9}\u{1F1ED} <b>220 Thai banners \u2014 free to use</b>
+
+Every banner in our Thai library is free to download and share. Use them on Telegram, Facebook, Line \u2014 wherever your community is.
+
+Help grow TurboLoop in Thailand. Earn on every referral.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #Thailand #DeFi #USDT`,
+  `\u{1F1F9}\u{1F1ED} <b>The TurboLoop Thai community is growing</b>
+
+Join thousands of Thai investors already earning fixed-term DeFi yields on BSC.
+
+7 days \u2192 3% \xB7 14 days \u2192 10% \xB7 30 days \u2192 24% \xB7 60 days \u2192 54%
+All paid at maturity. Capital + yield returned together.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #ThaiDeFi #PassiveIncome #BSC`
+];
+var CAMPAIGN_KOREAN_DAILY_CAPTIONS = [
+  `\u{1F1F0}\u{1F1F7} <b>TurboLoop \u2014 Now in Korean</b>
+
+We've built a full library of Korean-language banners for our community in South Korea. Same protocol, same returns \u2014 now in your language.
+
+\u{1F4C8} Plans: 7 days (3%) \xB7 14 days (10%) \xB7 30 days (24%) \xB7 60 days (54%)
+\u{1F4B0} Min deposit: 1 USDT \xB7 20-level referral \xB7 Referral income daily at 1 PM UTC
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Korea #DeFi #USDT #PassiveIncome`,
+  `\u{1F1F0}\u{1F1F7} <b>For our Korean community</b>
+
+TurboLoop is fully available in Korean \u2014 browse 160 free marketing banners, use them to grow your network, and earn on 20 referral levels.
+
+Capital + yield returned at end of term. Audited smart contract on BSC.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #KoreaDeFi #USDT #FinancialFreedom`,
+  `\u{1F1F0}\u{1F1F7} <b>Korean banners. Global protocol.</b>
+
+Our Korean creative library has 160 banners across 7 themes \u2014 investment plans, referral system, education, leadership ranks, and more.
+
+Download free. Share freely. Earn referral income daily.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Korea #DeFi #CryptoKorea`,
+  `\u{1F1F0}\u{1F1F7} <b>TurboLoop speaks Korean</b>
+
+We created 160 premium Korean-language banners so our Korean community can share TurboLoop in their own language.
+
+Renounced contract. No admin. 100% on-chain. Verifiable on BSCScan.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Korea #BSC #DeFi`,
+  `\u{1F1F0}\u{1F1F7} <b>Grow your Korean network with TurboLoop</b>
+
+20 referral levels. Referral income paid daily at 1:00 PM UTC. A full library of Korean banners to help you recruit.
+
+Start with as little as 1 USDT. No KYC. No admin. Just code.
+
+\u{1F449} <a href="https://turboloop.io">turboloop.io</a>
+
+#TurboLoop #KoreanCommunity #Referral #DeFi`,
+  `\u{1F1F0}\u{1F1F7} <b>160 Korean banners \u2014 free to use</b>
+
+Every banner in our Korean library is free to download and share. Use them on Telegram, KakaoTalk, Instagram \u2014 wherever your community is.
+
+Help grow TurboLoop in Korea. Earn on every referral.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #Korea #DeFi #USDT`,
+  `\u{1F1F0}\u{1F1F7} <b>The TurboLoop Korean community is growing</b>
+
+Join investors in South Korea already earning fixed-term DeFi yields on BSC.
+
+7 days \u2192 3% \xB7 14 days \u2192 10% \xB7 30 days \u2192 24% \xB7 60 days \u2192 54%
+All paid at maturity. Capital + yield returned together.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #KoreaDeFi #PassiveIncome #BSC`
+];
+var CAMPAIGN_LAO_DAILY_CAPTIONS = [
+  `\u{1F1F1}\u{1F1E6} <b>TurboLoop \u2014 Now in Lao</b>
+
+We've built a full library of Lao-language banners for our community in Laos. Same protocol, same returns \u2014 now in your language.
+
+\u{1F4C8} Plans: 7 days (3%) \xB7 14 days (10%) \xB7 30 days (24%) \xB7 60 days (54%)
+\u{1F4B0} Min deposit: 1 USDT \xB7 20-level referral \xB7 Referral income daily at 1 PM UTC
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Laos #DeFi #USDT #PassiveIncome`,
+  `\u{1F1F1}\u{1F1E6} <b>For our Lao community</b>
+
+TurboLoop is fully available in Lao \u2014 browse 160 free marketing banners, use them to grow your network, and earn on 20 referral levels.
+
+Capital + yield returned at end of term. No daily yield. No APY. Just real DeFi.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #LaoDeFi #USDT #FinancialFreedom`,
+  `\u{1F1F1}\u{1F1E6} <b>Lao banners. Global protocol.</b>
+
+Our Lao creative library has 160 banners across 7 themes \u2014 investment plans, referral system, education, trust & security, and more.
+
+Download free. Share freely. Earn referral income daily.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Laos #DeFi #CryptoLaos`,
+  `\u{1F1F1}\u{1F1E6} <b>TurboLoop speaks Lao</b>
+
+We created 160 premium Lao-language banners so our Lao community can share TurboLoop in their own language.
+
+The smart contract is the same worldwide \u2014 audited, renounced, 100% on BSC.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Laos #BSC #DeFi`,
+  `\u{1F1F1}\u{1F1E6} <b>Grow your Lao network with TurboLoop</b>
+
+20 referral levels. Referral income paid daily at 1:00 PM UTC. A full library of Lao banners to help you recruit.
+
+Start with as little as 1 USDT. No KYC. No admin. Just code.
+
+\u{1F449} <a href="https://turboloop.io">turboloop.io</a>
+
+#TurboLoop #LaoCommunity #Referral #DeFi`,
+  `\u{1F1F1}\u{1F1E6} <b>160 Lao banners \u2014 free to use</b>
+
+Every banner in our Lao library is free to download and share. Use them on Telegram, Facebook, WhatsApp \u2014 wherever your community is.
+
+Help grow TurboLoop in Laos. Earn on every referral.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #Laos #DeFi #USDT`,
+  `\u{1F1F1}\u{1F1E6} <b>The TurboLoop Lao community is growing</b>
+
+Join investors in Laos already earning fixed-term DeFi yields on BSC.
+
+7 days \u2192 3% \xB7 14 days \u2192 10% \xB7 30 days \u2192 24% \xB7 60 days \u2192 54%
+All paid at maturity. Capital + yield returned together.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #LaoDeFi #PassiveIncome #BSC`
+];
+var CAMPAIGN_TAMIL_DAILY_CAPTIONS = [
+  `\u{1F1EE}\u{1F1F3} <b>TurboLoop \u2014 Now in Tamil</b>
+
+We've built a full library of Tamil-language banners for our community in Tamil Nadu and Sri Lanka. Same protocol, same returns \u2014 now in your language.
+
+\u{1F4C8} Plans: 7 days (3%) \xB7 14 days (10%) \xB7 30 days (24%) \xB7 60 days (54%)
+\u{1F4B0} Min deposit: 1 USDT \xB7 20-level referral \xB7 Referral income daily at 1 PM UTC
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Tamil #DeFi #USDT #PassiveIncome`,
+  `\u{1F1EE}\u{1F1F3} <b>For our Tamil community</b>
+
+TurboLoop is fully available in Tamil \u2014 browse free marketing banners, use them to grow your network, and earn on 20 referral levels.
+
+Capital + yield returned at end of term. Audited smart contract on BSC.
+
+\u{1F449} <a href="https://turboloop.tech/creatives">turboloop.tech/creatives</a>
+
+#TurboLoop #TamilDeFi #USDT #FinancialFreedom`,
+  `\u{1F1EE}\u{1F1F3} <b>Tamil banners. Global protocol.</b>
+
+Our Tamil creative library covers 7 themes \u2014 investment plans, referral system, education, leadership ranks, and more.
+
+Download free. Share freely. Earn referral income daily.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Tamil #DeFi #CryptoIndia`,
+  `\u{1F1EE}\u{1F1F3} <b>TurboLoop speaks Tamil</b>
+
+We created premium Tamil-language banners so our Tamil community can share TurboLoop in their own language.
+
+Renounced contract. No admin. 100% on-chain. Verifiable on BSCScan.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #Tamil #BSC #DeFi`,
+  `\u{1F1EE}\u{1F1F3} <b>Grow your Tamil network with TurboLoop</b>
+
+20 referral levels. Referral income paid daily at 1:00 PM UTC. A full library of Tamil banners to help you recruit.
+
+Start with as little as 1 USDT. No KYC. No admin. Just code.
+
+\u{1F449} <a href="https://turboloop.io">turboloop.io</a>
+
+#TurboLoop #TamilCommunity #Referral #DeFi`,
+  `\u{1F1EE}\u{1F1F3} <b>The TurboLoop Tamil community is growing</b>
+
+Join investors from Tamil Nadu and Sri Lanka already earning fixed-term DeFi yields on BSC.
+
+7 days \u2192 3% \xB7 14 days \u2192 10% \xB7 30 days \u2192 24% \xB7 60 days \u2192 54%
+All paid at maturity. Capital + yield returned together.
+
+\u{1F449} <a href="https://turboloop.tech">turboloop.tech</a>
+
+#TurboLoop #TamilDeFi #PassiveIncome #BSC`
+];
 
 // server/db.ts
 init_drizzle_orm();
 init_serverless();
 init_schema2();
 
-// node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+// node_modules/bcryptjs/index.js
 var nextTick = typeof setImmediate === "function" ? setImmediate : typeof scheduler === "object" && typeof scheduler.postTask === "function" ? scheduler.postTask.bind(scheduler) : setTimeout;
 var BASE64_CODE = "./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".split("");
 
@@ -65102,8 +66382,8 @@ function getDb() {
   if (!url) {
     throw new Error("DATABASE_URL is not set");
   }
-  const sql2 = Xs(url);
-  _db = drizzle(sql2);
+  const neonSql = Xs(url);
+  _db = drizzle(neonSql);
   return _db;
 }
 async function getSetting(key) {
@@ -65127,7 +66407,9 @@ var ZOOM_EN = {
   })(),
   startUtcMin: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10) === "2026-06-12" ? 16 * 60 : 17 * 60,
   // auto-reverts
-  durationMin: 120
+  durationMin: 120,
+  // daysOfWeek: undefined — runs every day
+  frequencyLabel: "Daily \xB7 Free"
 };
 var ZOOM_HI = {
   lang: "hi",
@@ -65141,9 +66423,55 @@ var ZOOM_HI = {
   timeLabel: "\u{1F1EE}\u{1F1F3} 9:00 PM IST \xB7 \u{1F1F5}\u{1F1F0} 8:30 PM PKT \xB7 \u{1F1E7}\u{1F1E9} 9:30 PM BST \xB7 \u{1F1F3}\u{1F1F5} 9:15 PM NPT \xB7 \u{1F1E6}\u{1F1EA} 7:30 PM GST",
   startUtcMin: 15 * 60 + 30,
   // 15:30 UTC = 9:00 PM IST
-  durationMin: 120
+  durationMin: 120,
+  // daysOfWeek: undefined — runs every day
+  frequencyLabel: "Daily \xB7 Free"
 };
-var ZOOM_URL_PATTERN = /^https:\/\/[a-z0-9.-]+\.zoom\.us\/j\/\d+/i;
+var ZOOM_AF = {
+  lang: "af",
+  title: "African Community Call",
+  description: "Mon \xB7 Wed \xB7 Sat. Overview, security, transparency and opportunities. Hosts: Sammywealth, Eloho & Amb. Eddie.",
+  link: "https://us06web.zoom.us/j/84609583422?pwd=YvicUhZIUO41DgSugs9aAbcxI3vZyb.1",
+  passcode: "H97KJx",
+  timeLabel: "\u{1F1F3}\u{1F1EC} 8:00 PM WAT \xB7 \u{1F1EC}\u{1F1ED} 7:00 PM GMT \xB7 \u{1F1FF}\u{1F1E6} 9:00 PM SAST \xB7 \u{1F1F0}\u{1F1EA} 10:00 PM EAT\n\u{1F1EC}\u{1F1E7} 7:00 PM BST \xB7 \u{1F1E9}\u{1F1EA} 9:00 PM CEST \xB7 \u{1F1E6}\u{1F1EA} 11:00 PM GST\nMon \xB7 Wed \xB7 Sat only",
+  startUtcMin: 19 * 60,
+  // 19:00 UTC = 8 PM WAT
+  durationMin: 120,
+  daysOfWeek: [1, 3, 6],
+  // Mon, Wed, Sat (JS getUTCDay: 0=Sun…6=Sat)
+  frequencyLabel: "Mon \xB7 Wed \xB7 Sat \xB7 Free"
+};
+var ZOOM_TH_AM = {
+  lang: "th",
+  platform: "meet",
+  title: "Thai Morning Community Call",
+  description: "\u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C. \u0E19\u0E33\u0E04\u0E33\u0E16\u0E32\u0E21\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E21\u0E32. \u0E04\u0E19\u0E08\u0E23\u0E34\u0E07 \u0E04\u0E33\u0E15\u0E2D\u0E1A\u0E08\u0E23\u0E34\u0E07 \u2014 \u0E44\u0E21\u0E48\u0E21\u0E35\u0E41\u0E23\u0E07\u0E01\u0E14\u0E14\u0E31\u0E19.",
+  link: "https://meet.google.com/nmh-hhkr-uzd",
+  passcode: "",
+  timeLabel: "\u{1F1F9}\u{1F1ED} 9:00 AM ICT \xB7 \u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C (Saturday only)",
+  startUtcMin: 2 * 60,
+  // 02:00 UTC = 9 AM ICT
+  durationMin: 90,
+  daysOfWeek: [6],
+  // Saturday only
+  frequencyLabel: "Saturday only \xB7 Free"
+};
+var ZOOM_TH = {
+  lang: "th",
+  platform: "meet",
+  title: "Thai Evening Community Call",
+  description: "\u0E2D\u0E32\u0E17\u0E34\u0E15\u0E22\u0E4C \xB7 \u0E2D\u0E31\u0E07\u0E04\u0E32\u0E23 \xB7 \u0E1E\u0E24\u0E2B\u0E31\u0E2A\u0E1A\u0E14\u0E35. \u0E19\u0E33\u0E04\u0E33\u0E16\u0E32\u0E21\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E21\u0E32. \u0E04\u0E19\u0E08\u0E23\u0E34\u0E07 \u0E04\u0E33\u0E15\u0E2D\u0E1A\u0E08\u0E23\u0E34\u0E07 \u2014 \u0E44\u0E21\u0E48\u0E21\u0E35\u0E41\u0E23\u0E07\u0E01\u0E14\u0E14\u0E31\u0E19.",
+  link: "https://meet.google.com/nmh-hhkr-uzd",
+  passcode: "",
+  timeLabel: "\u{1F1F9}\u{1F1ED} 8:00 PM ICT \xB7 \u0E2D\u0E32 \xB7 \u0E2D \xB7 \u0E1E\u0E24 (Sun \xB7 Tue \xB7 Thu)",
+  startUtcMin: 13 * 60,
+  // 13:00 UTC = 8 PM ICT
+  durationMin: 90,
+  daysOfWeek: [0, 2, 4],
+  // Sun, Tue, Thu (JS getUTCDay)
+  frequencyLabel: "Sun \xB7 Tue \xB7 Thu \xB7 Free"
+};
+var ZOOM_URL_PATTERN = /^https:\/\/([a-z0-9.-]+\.zoom\.us\/j\/\d+|meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3})/i;
 
 // server/zoom-config.ts
 var DEFAULTS = {
@@ -76584,7 +77912,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "01_Was_Ist_TurboLoop.png",
       headline: "\u{1F680} WAS IST TURBOLOOP?",
-      caption: "\u{1F680} WAS IST TURBOLOOP?\n\n\u{1F4CC} Die Revolution des dezentralen passiven Einkommens\n\nTurboLoop ist ein vollst\xE4ndig dezentrales DeFi-Protokoll auf der Binance Smart Chain, das durch einen auditierten Smart Contract gesteuert wird. Es erm\xF6glicht Nutzern weltweit, passives Einkommen durch Yield-Farming, ein 20-Level-Empfehlungsnetzwerk und ein Leadership-Programm zu generieren. Kein Unternehmen, kein CEO, keine zentrale Kontrolle \u2014 nur Code, der 24/7 arbeitet.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Dezentrales DeFi-Protokoll auf BSC\n\u2022 Auditierter Smart Contract \u2014 kein Admin-Zugriff\n\u2022 4 Investitionspl\xE4ne: 3% bis 54% Rendite\n\u2022 20-Level Empfehlungssystem (bis zu 51%)\n\u2022 Starte ab nur $1 USDT\n\n\u{1F449} Verbinde dein Wallet und starte noch heute \u2192 turboloop.io\n\n#TurboLoop #DeFi #PassivesEinkommen #BSC #Krypto #SmartContract #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WAS IST TURBOLOOP?\n\n\u{1F4CC} Die Revolution des dezentralen passiven Einkommens\n\nTurboLoop ist ein vollst\xE4ndig dezentrales DeFi-Protokoll auf der Binance Smart Chain, das durch einen auditierten Smart Contract gesteuert wird. Es erm\xF6glicht Nutzern weltweit, passives Einkommen durch Yield-Farming, ein 20-Level-Empfehlungsnetzwerk und ein Leadership-Programm zu generieren. Kein Unternehmen, kein CEO, keine zentrale Kontrolle \u2014 nur Code, der 24/7 arbeitet.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Dezentrales DeFi-Protokoll auf BSC\n\u2022 Auditierter Smart Contract \u2014 kein Admin-Zugriff\n\u2022 4 Investitionspl\xE4ne: 3% bis 54% Rendite\n\u2022 20-Level Empfehlungssystem (bis zu 51%)\n\u2022 Starte ab nur $1 USDT\n\n\u{1F449} Verbinde dein Wallet und starte noch heute \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #DeFi #PassivesEinkommen #BSC #Krypto #SmartContract #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 1
     },
@@ -76602,7 +77930,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "02_Die_6_Saeulen.png",
       headline: "\u{1F680} DIE 6 S\xC4ULEN VON TURBOLOOP",
-      caption: "\u{1F680} DIE 6 S\xC4ULEN VON TURBOLOOP\n\n\u{1F4CC} Warum TurboLoop anders ist als alles andere\n\nTurboLoop basiert auf sechs unersch\xFCtterlichen S\xE4ulen: Dezentralisierung, Transparenz, Sicherheit, Zug\xE4nglichkeit, Gemeinschaft und Innovation. Jede S\xE4ule ist in den Smart Contract eingebaut und kann nicht ge\xE4ndert werden. Dies macht TurboLoop zu einem der vertrauensw\xFCrdigsten DeFi-Protokolle auf dem Markt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Dezentralisierung: Kein einzelner Kontrollpunkt\n\u2022 Transparenz: Offener, verifizierter Code\n\u2022 Sicherheit: Auditiert, LP gesperrt, Eigentum aufgegeben\n\u2022 Zug\xE4nglichkeit: Ab $1, kein KYC\n\u2022 Gemeinschaft: Globales Netzwerk\n\u2022 Innovation: Einzigartiges Loop-System\n\n\u{1F449} Entdecke die 6 S\xE4ulen \u2192 turboloop.io\n\n#TurboLoop #DeFi #Vertrauen #Sicherheit #Dezentral #Innovation\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DIE 6 S\xC4ULEN VON TURBOLOOP\n\n\u{1F4CC} Warum TurboLoop anders ist als alles andere\n\nTurboLoop basiert auf sechs unersch\xFCtterlichen S\xE4ulen: Dezentralisierung, Transparenz, Sicherheit, Zug\xE4nglichkeit, Gemeinschaft und Innovation. Jede S\xE4ule ist in den Smart Contract eingebaut und kann nicht ge\xE4ndert werden. Dies macht TurboLoop zu einem der vertrauensw\xFCrdigsten DeFi-Protokolle auf dem Markt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Dezentralisierung: Kein einzelner Kontrollpunkt\n\u2022 Transparenz: Offener, verifizierter Code\n\u2022 Sicherheit: Auditiert, LP gesperrt, Eigentum aufgegeben\n\u2022 Zug\xE4nglichkeit: Ab $1, kein KYC\n\u2022 Gemeinschaft: Globales Netzwerk\n\u2022 Innovation: Einzigartiges Loop-System\n\n\u{1F449} Entdecke die 6 S\xE4ulen \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #DeFi #Vertrauen #Sicherheit #Dezentral #Innovation\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 2
     },
@@ -76620,7 +77948,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "03_Wie_DeFi_Funktioniert.png",
       headline: "\u{1F680} WIE DeFi FUNKTIONIERT",
-      caption: "\u{1F680} WIE DeFi FUNKTIONIERT\n\n\u{1F4CC} Dezentrale Finanzen einfach erkl\xE4rt\n\nDeFi (Decentralized Finance) eliminiert Banken und Vermittler. Statt einer zentralen Institution verwaltet ein Smart Contract dein Geld \u2014 transparent, automatisch und ohne menschliches Eingreifen. Du beh\xE4ltst jederzeit die volle Kontrolle \xFCber deine Mittel. Keine \xD6ffnungszeiten, keine Genehmigungen, keine Grenzen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Keine Bank, kein Vermittler\n\u2022 Smart Contract = automatische Ausf\xFChrung\n\u2022 24/7 verf\xFCgbar, weltweit\n\u2022 Du beh\xE4ltst deinen Private Key\n\u2022 Transparent und \xFCberpr\xFCfbar auf der Blockchain\n\n\u{1F449} Erlebe DeFi mit TurboLoop \u2192 turboloop.io\n\n#DeFi #Dezentral #SmartContract #Blockchain #Finanzen #TurboLoop\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WIE DeFi FUNKTIONIERT\n\n\u{1F4CC} Dezentrale Finanzen einfach erkl\xE4rt\n\nDeFi (Decentralized Finance) eliminiert Banken und Vermittler. Statt einer zentralen Institution verwaltet ein Smart Contract dein Geld \u2014 transparent, automatisch und ohne menschliches Eingreifen. Du beh\xE4ltst jederzeit die volle Kontrolle \xFCber deine Mittel. Keine \xD6ffnungszeiten, keine Genehmigungen, keine Grenzen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Keine Bank, kein Vermittler\n\u2022 Smart Contract = automatische Ausf\xFChrung\n\u2022 24/7 verf\xFCgbar, weltweit\n\u2022 Du beh\xE4ltst deinen Private Key\n\u2022 Transparent und \xFCberpr\xFCfbar auf der Blockchain\n\n\u{1F449} Erlebe DeFi mit TurboLoop \u2192 https://turboloop.io?ref=BitPat\n\n#DeFi #Dezentral #SmartContract #Blockchain #Finanzen #TurboLoop\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 3
     },
@@ -76638,7 +77966,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "04_Was_Ist_Smart_Contract.png",
       headline: "\u{1F680} WAS IST EIN SMART CONTRACT?",
-      caption: "\u{1F680} WAS IST EIN SMART CONTRACT?\n\n\u{1F4CC} Code, der Versprechen h\xE4lt \u2014 automatisch und unver\xE4nderlich\n\nEin Smart Contract ist ein selbstausf\xFChrendes Programm auf der Blockchain. Er f\xFChrt Transaktionen automatisch aus, wenn bestimmte Bedingungen erf\xFCllt sind \u2014 ohne menschliches Eingreifen. Der TurboLoop Smart Contract ist auditiert, verifiziert und sein Eigentum wurde aufgegeben. Niemand kann ihn \xE4ndern oder stoppen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Selbstausf\xFChrender Code auf der Blockchain\n\u2022 Keine menschliche Intervention m\xF6glich\n\u2022 Auditiert von unabh\xE4ngiger Sicherheitsfirma\n\u2022 Eigentum aufgegeben (Renounced)\n\u2022 \xD6ffentlich einsehbar auf BSCScan\n\n\u{1F449} Pr\xFCfe den Code selbst \u2192 turboloop.io\n\n#SmartContract #Blockchain #DeFi #Sicherheit #TurboLoop #Audit\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WAS IST EIN SMART CONTRACT?\n\n\u{1F4CC} Code, der Versprechen h\xE4lt \u2014 automatisch und unver\xE4nderlich\n\nEin Smart Contract ist ein selbstausf\xFChrendes Programm auf der Blockchain. Er f\xFChrt Transaktionen automatisch aus, wenn bestimmte Bedingungen erf\xFCllt sind \u2014 ohne menschliches Eingreifen. Der TurboLoop Smart Contract ist auditiert, verifiziert und sein Eigentum wurde aufgegeben. Niemand kann ihn \xE4ndern oder stoppen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Selbstausf\xFChrender Code auf der Blockchain\n\u2022 Keine menschliche Intervention m\xF6glich\n\u2022 Auditiert von unabh\xE4ngiger Sicherheitsfirma\n\u2022 Eigentum aufgegeben (Renounced)\n\u2022 \xD6ffentlich einsehbar auf BSCScan\n\n\u{1F449} Pr\xFCfe den Code selbst \u2192 https://turboloop.io?ref=BitPat\n\n#SmartContract #Blockchain #DeFi #Sicherheit #TurboLoop #Audit\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 4
     },
@@ -76656,7 +77984,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "05_Kein_Impermanent_Loss.png",
       headline: "\u{1F680} KEIN IMPERMANENT LOSS",
-      caption: "\u{1F680} KEIN IMPERMANENT LOSS\n\n\u{1F4CC} Dein Kapital bleibt gesch\xFCtzt \u2014 keine versteckten Verluste\n\nIm Gegensatz zu traditionellen Liquidit\xE4tspools gibt es bei TurboLoop kein Impermanent-Loss-Risiko. Dein USDT-Einzahlung bleibt stabil, da du nicht zwei volatile Token bereitstellen musst. Du verdienst feste Renditen auf deine Einlage, ohne das Risiko von Preisschwankungen zwischen Token-Paaren.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Kein Impermanent Loss \u2014 garantiert\n\u2022 Einzahlung in USDT (Stablecoin)\n\u2022 Feste Renditen, keine Volatilit\xE4t\n\u2022 Kapitalr\xFCckgabe nach Laufzeitende\n\u2022 Einfacher als traditionelles LP-Farming\n\n\u{1F449} Verdiene ohne Risiko \u2192 turboloop.io\n\n#ImpermanentLoss #DeFi #USDT #Stablecoin #TurboLoop #Sicherheit\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} KEIN IMPERMANENT LOSS\n\n\u{1F4CC} Dein Kapital bleibt gesch\xFCtzt \u2014 keine versteckten Verluste\n\nIm Gegensatz zu traditionellen Liquidit\xE4tspools gibt es bei TurboLoop kein Impermanent-Loss-Risiko. Dein USDT-Einzahlung bleibt stabil, da du nicht zwei volatile Token bereitstellen musst. Du verdienst feste Renditen auf deine Einlage, ohne das Risiko von Preisschwankungen zwischen Token-Paaren.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Kein Impermanent Loss \u2014 garantiert\n\u2022 Einzahlung in USDT (Stablecoin)\n\u2022 Feste Renditen, keine Volatilit\xE4t\n\u2022 Kapitalr\xFCckgabe nach Laufzeitende\n\u2022 Einfacher als traditionelles LP-Farming\n\n\u{1F449} Verdiene ohne Risiko \u2192 https://turboloop.io?ref=BitPat\n\n#ImpermanentLoss #DeFi #USDT #Stablecoin #TurboLoop #Sicherheit\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 5
     },
@@ -76674,7 +78002,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "06_Stablecoins_Erklaert.png",
       headline: "\u{1F680} STABLECOINS ERKL\xC4RT",
-      caption: "\u{1F680} STABLECOINS ERKL\xC4RT\n\n\u{1F4CC} USDT \u2014 Der digitale Dollar. Immer $1.00.\n\nUSDT (Tether) ist ein Stablecoin, der 1:1 an den US-Dollar gekoppelt ist. Keine Volatilit\xE4t, keine \xDCberraschungen. TurboLoop nutzt USDT als Basisw\xE4hrung, damit deine Einnahmen stabil und vorhersehbar bleiben. Du verdienst in Dollar-Wert \u2014 nicht in spekulativen Token.\n\n\u2705 KERNPUNKTE:\n\n\u2022 1 USDT = $1.00 \u2014 immer\n\u2022 Keine Preisschwankungen\n\u2022 Weltweit akzeptiert und liquide\n\u2022 24/7 handelbar\n\u2022 TurboLoop nutzt USDT f\xFCr Stabilit\xE4t\n\n\u{1F449} Starte mit stabilem USDT \u2192 turboloop.io\n\n#USDT #Stablecoin #Tether #DeFi #TurboLoop #Stabilit\xE4t\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} STABLECOINS ERKL\xC4RT\n\n\u{1F4CC} USDT \u2014 Der digitale Dollar. Immer $1.00.\n\nUSDT (Tether) ist ein Stablecoin, der 1:1 an den US-Dollar gekoppelt ist. Keine Volatilit\xE4t, keine \xDCberraschungen. TurboLoop nutzt USDT als Basisw\xE4hrung, damit deine Einnahmen stabil und vorhersehbar bleiben. Du verdienst in Dollar-Wert \u2014 nicht in spekulativen Token.\n\n\u2705 KERNPUNKTE:\n\n\u2022 1 USDT = $1.00 \u2014 immer\n\u2022 Keine Preisschwankungen\n\u2022 Weltweit akzeptiert und liquide\n\u2022 24/7 handelbar\n\u2022 TurboLoop nutzt USDT f\xFCr Stabilit\xE4t\n\n\u{1F449} Starte mit stabilem USDT \u2192 https://turboloop.io?ref=BitPat\n\n#USDT #Stablecoin #Tether #DeFi #TurboLoop #Stabilit\xE4t\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 6
     },
@@ -76692,7 +78020,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "07_Was_Ist_BSC.png",
       headline: "\u{1F680} WAS IST BSC?",
-      caption: "\u{1F680} WAS IST BSC?\n\n\u{1F4CC} Binance Smart Chain \u2014 Schnell, g\xFCnstig, bew\xE4hrt\n\nDie Binance Smart Chain (BSC) ist eine der schnellsten und g\xFCnstigsten Blockchains der Welt. Mit Transaktionszeiten von ~3 Sekunden und Geb\xFChren unter $0.10 ist sie ideal f\xFCr DeFi-Anwendungen. TurboLoop l\xE4uft auf BSC, damit du schnelle und kosteng\xFCnstige Transaktionen genie\xDFen kannst.\n\n\u2705 KERNPUNKTE:\n\n\u2022 ~3 Sekunden pro Block\n\u2022 Gas-Geb\xFChren unter $0.10\n\u2022 EVM-kompatibel (Ethereum Virtual Machine)\n\u2022 Millionen aktiver Nutzer\n\u2022 Bew\xE4hrt und sicher seit 2020\n\n\u{1F449} Nutze die Geschwindigkeit von BSC \u2192 turboloop.io\n\n#BSC #BinanceSmartChain #Blockchain #DeFi #TurboLoop #Schnell\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WAS IST BSC?\n\n\u{1F4CC} Binance Smart Chain \u2014 Schnell, g\xFCnstig, bew\xE4hrt\n\nDie Binance Smart Chain (BSC) ist eine der schnellsten und g\xFCnstigsten Blockchains der Welt. Mit Transaktionszeiten von ~3 Sekunden und Geb\xFChren unter $0.10 ist sie ideal f\xFCr DeFi-Anwendungen. TurboLoop l\xE4uft auf BSC, damit du schnelle und kosteng\xFCnstige Transaktionen genie\xDFen kannst.\n\n\u2705 KERNPUNKTE:\n\n\u2022 ~3 Sekunden pro Block\n\u2022 Gas-Geb\xFChren unter $0.10\n\u2022 EVM-kompatibel (Ethereum Virtual Machine)\n\u2022 Millionen aktiver Nutzer\n\u2022 Bew\xE4hrt und sicher seit 2020\n\n\u{1F449} Nutze die Geschwindigkeit von BSC \u2192 https://turboloop.io?ref=BitPat\n\n#BSC #BinanceSmartChain #Blockchain #DeFi #TurboLoop #Schnell\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 7
     },
@@ -76710,7 +78038,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "08_Was_Ist_Liquiditaetspool.png",
       headline: "\u{1F680} WAS IST EIN LIQUIDIT\xC4TSPOOL?",
-      caption: "\u{1F680} WAS IST EIN LIQUIDIT\xC4TSPOOL?\n\n\u{1F4CC} Geb\xFCndelte Liquidit\xE4t f\xFCr automatisierten Handel\n\nEin Liquidit\xE4tspool ist ein Smart Contract, der Token-Reserven h\xE4lt und automatisierten Handel erm\xF6glicht. Anbieter stellen Liquidit\xE4t bereit und verdienen Geb\xFChren. Bei TurboLoop ist die Liquidit\xE4t permanent gesperrt \u2014 sie kann niemals abgezogen werden, was maximale Sicherheit f\xFCr alle Teilnehmer garantiert.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Token-Reserven in einem Smart Contract\n\u2022 Erm\xF6glicht dezentralen Handel\n\u2022 Liquidit\xE4tsanbieter verdienen Geb\xFChren\n\u2022 TurboLoop LP: Permanent gesperrt\n\u2022 Kein Rug-Pull m\xF6glich\n\n\u{1F449} Sichere Liquidit\xE4t bei TurboLoop \u2192 turboloop.io\n\n#Liquidit\xE4tspool #DeFi #LP #TurboLoop #Sicherheit #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WAS IST EIN LIQUIDIT\xC4TSPOOL?\n\n\u{1F4CC} Geb\xFCndelte Liquidit\xE4t f\xFCr automatisierten Handel\n\nEin Liquidit\xE4tspool ist ein Smart Contract, der Token-Reserven h\xE4lt und automatisierten Handel erm\xF6glicht. Anbieter stellen Liquidit\xE4t bereit und verdienen Geb\xFChren. Bei TurboLoop ist die Liquidit\xE4t permanent gesperrt \u2014 sie kann niemals abgezogen werden, was maximale Sicherheit f\xFCr alle Teilnehmer garantiert.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Token-Reserven in einem Smart Contract\n\u2022 Erm\xF6glicht dezentralen Handel\n\u2022 Liquidit\xE4tsanbieter verdienen Geb\xFChren\n\u2022 TurboLoop LP: Permanent gesperrt\n\u2022 Kein Rug-Pull m\xF6glich\n\n\u{1F449} Sichere Liquidit\xE4t bei TurboLoop \u2192 https://turboloop.io?ref=BitPat\n\n#Liquidit\xE4tspool #DeFi #LP #TurboLoop #Sicherheit #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 8
     },
@@ -76728,7 +78056,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "09_DeFi_vs_Banking.png",
       headline: "\u{1F680} DeFi VS. BANKING",
-      caption: "\u{1F680} DeFi VS. BANKING\n\n\u{1F4CC} Die Zukunft wartet nicht \u2014 DeFi \xFCbertrifft traditionelle Banken\n\nTraditionelle Banken bieten 0.5-2% Zinsen pro Jahr, arbeiten nur zu B\xFCrozeiten und verlangen Geb\xFChren f\xFCr alles. DeFi mit TurboLoop bietet bis zu 54% in 60 Tagen, arbeitet 24/7, erfordert keine Genehmigung und gibt dir die volle Kontrolle. Die Wahl ist klar.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Bank: 0.5-2%/Jahr | TurboLoop: bis zu 54%/60 Tage\n\u2022 Bank: B\xFCrozeiten | TurboLoop: 24/7/365\n\u2022 Bank: KYC + Wartezeit | TurboLoop: Sofort, kein KYC\n\u2022 Bank: Geb\xFChren | TurboLoop: Minimale Gas-Kosten\n\u2022 Bank: Zentrale Kontrolle | TurboLoop: Du hast die Kontrolle\n\n\u{1F449} Wechsle zu DeFi \u2192 turboloop.io\n\n#DeFi #Banking #Zinsen #TurboLoop #Finanzen #Zukunft\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DeFi VS. BANKING\n\n\u{1F4CC} Die Zukunft wartet nicht \u2014 DeFi \xFCbertrifft traditionelle Banken\n\nTraditionelle Banken bieten 0.5-2% Zinsen pro Jahr, arbeiten nur zu B\xFCrozeiten und verlangen Geb\xFChren f\xFCr alles. DeFi mit TurboLoop bietet bis zu 54% in 60 Tagen, arbeitet 24/7, erfordert keine Genehmigung und gibt dir die volle Kontrolle. Die Wahl ist klar.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Bank: 0.5-2%/Jahr | TurboLoop: bis zu 54%/60 Tage\n\u2022 Bank: B\xFCrozeiten | TurboLoop: 24/7/365\n\u2022 Bank: KYC + Wartezeit | TurboLoop: Sofort, kein KYC\n\u2022 Bank: Geb\xFChren | TurboLoop: Minimale Gas-Kosten\n\u2022 Bank: Zentrale Kontrolle | TurboLoop: Du hast die Kontrolle\n\n\u{1F449} Wechsle zu DeFi \u2192 https://turboloop.io?ref=BitPat\n\n#DeFi #Banking #Zinsen #TurboLoop #Finanzen #Zukunft\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 9
     },
@@ -76746,7 +78074,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "10_Kraft_Des_Zinseszins.png",
       headline: "\u{1F680} DIE KRAFT DES ZINSESZINS",
-      caption: "\u{1F680} DIE KRAFT DES ZINSESZINS\n\n\u{1F4CC} $1,000 \u2192 $13,220 in 12 Monaten mit Reinvestition\n\nDer Zinseszins ist die m\xE4chtigste Kraft im Finanzwesen. Wenn du deine TurboLoop-Ertr\xE4ge reinvestierst, w\xE4chst dein Kapital exponentiell. Aus $1,000 im Power Loop werden nach 12 Monaten \xFCber $13,220 \u2014 das ist die Macht des Compounding in Aktion.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Monat 1: $1,240\n\u2022 Monat 3: $1,907\n\u2022 Monat 6: $3,654\n\u2022 Monat 9: $7,003\n\u2022 Monat 12: $13,220\n\u2022 \xDCber 1,200% Wachstum in einem Jahr\n\n\u{1F449} Starte den Zinseszins-Effekt \u2192 turboloop.io\n\n#Zinseszins #Compounding #PassivesEinkommen #TurboLoop #Wachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DIE KRAFT DES ZINSESZINS\n\n\u{1F4CC} $1,000 \u2192 $13,220 in 12 Monaten mit Reinvestition\n\nDer Zinseszins ist die m\xE4chtigste Kraft im Finanzwesen. Wenn du deine TurboLoop-Ertr\xE4ge reinvestierst, w\xE4chst dein Kapital exponentiell. Aus $1,000 im Power Loop werden nach 12 Monaten \xFCber $13,220 \u2014 das ist die Macht des Compounding in Aktion.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Monat 1: $1,240\n\u2022 Monat 3: $1,907\n\u2022 Monat 6: $3,654\n\u2022 Monat 9: $7,003\n\u2022 Monat 12: $13,220\n\u2022 \xDCber 1,200% Wachstum in einem Jahr\n\n\u{1F449} Starte den Zinseszins-Effekt \u2192 https://turboloop.io?ref=BitPat\n\n#Zinseszins #Compounding #PassivesEinkommen #TurboLoop #Wachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 10
     },
@@ -76764,7 +78092,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "11_Wallet_Verbinden.png",
       headline: "\u{1F680} WALLET VERBINDEN",
-      caption: "\u{1F680} WALLET VERBINDEN\n\n\u{1F4CC} 3 einfache Schritte zum Start\n\nDer Einstieg bei TurboLoop ist kinderleicht. Installiere MetaMask oder Trust Wallet, f\xFCge das BSC-Netzwerk hinzu und zahle USDT ein. In weniger als 5 Minuten bist du bereit, passives Einkommen zu verdienen. Keine Registrierung, kein KYC, keine Wartezeit.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Schritt 1: Wallet installieren (MetaMask/Trust Wallet)\n\u2022 Schritt 2: BSC-Netzwerk hinzuf\xFCgen\n\u2022 Schritt 3: USDT einzahlen und Plan w\xE4hlen\n\u2022 Keine Registrierung erforderlich\n\u2022 In unter 5 Minuten startklar\n\n\u{1F449} Verbinde jetzt dein Wallet \u2192 turboloop.io\n\n#Wallet #MetaMask #TrustWallet #BSC #TurboLoop #Start\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WALLET VERBINDEN\n\n\u{1F4CC} 3 einfache Schritte zum Start\n\nDer Einstieg bei TurboLoop ist kinderleicht. Installiere MetaMask oder Trust Wallet, f\xFCge das BSC-Netzwerk hinzu und zahle USDT ein. In weniger als 5 Minuten bist du bereit, passives Einkommen zu verdienen. Keine Registrierung, kein KYC, keine Wartezeit.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Schritt 1: Wallet installieren (MetaMask/Trust Wallet)\n\u2022 Schritt 2: BSC-Netzwerk hinzuf\xFCgen\n\u2022 Schritt 3: USDT einzahlen und Plan w\xE4hlen\n\u2022 Keine Registrierung erforderlich\n\u2022 In unter 5 Minuten startklar\n\n\u{1F449} Verbinde jetzt dein Wallet \u2192 https://turboloop.io?ref=BitPat\n\n#Wallet #MetaMask #TrustWallet #BSC #TurboLoop #Start\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 11
     },
@@ -76782,7 +78110,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "12_Vier_Plaene.png",
       headline: "\u{1F680} 4 INVESTITIONSPL\xC4NE",
-      caption: "\u{1F680} 4 INVESTITIONSPL\xC4NE\n\n\u{1F4CC} W\xE4hle deinen Loop \u2014 Starte ab $1\n\nTurboLoop bietet vier Investitionspl\xE4ne f\xFCr jeden Anlegertyp: Sprint (3%/7 Tage), Boost (10%/14 Tage), Power (24%/30 Tage) und Ultimate (54%/60 Tage). Jeder Plan ist ab $1 zug\xE4nglich und bietet garantierte Renditen durch den Smart Contract.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sprint Loop: 3% in 7 Tagen (~0.43%/Tag)\n\u2022 Boost Loop: 10% in 14 Tagen (~0.71%/Tag)\n\u2022 Power Loop: 24% in 30 Tagen (~0.80%/Tag)\n\u2022 Ultimate Loop: 54% in 60 Tagen (~0.90%/Tag)\n\u2022 Alle ab $1 USDT verf\xFCgbar\n\n\u{1F449} W\xE4hle deinen Plan \u2192 turboloop.io\n\n#TurboLoop #Investition #Rendite #DeFi #PassivesEinkommen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} 4 INVESTITIONSPL\xC4NE\n\n\u{1F4CC} W\xE4hle deinen Loop \u2014 Starte ab $1\n\nTurboLoop bietet vier Investitionspl\xE4ne f\xFCr jeden Anlegertyp: Sprint (3%/7 Tage), Boost (10%/14 Tage), Power (24%/30 Tage) und Ultimate (54%/60 Tage). Jeder Plan ist ab $1 zug\xE4nglich und bietet garantierte Renditen durch den Smart Contract.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sprint Loop: 3% in 7 Tagen (~0.43%/Tag)\n\u2022 Boost Loop: 10% in 14 Tagen (~0.71%/Tag)\n\u2022 Power Loop: 24% in 30 Tagen (~0.80%/Tag)\n\u2022 Ultimate Loop: 54% in 60 Tagen (~0.90%/Tag)\n\u2022 Alle ab $1 USDT verf\xFCgbar\n\n\u{1F449} W\xE4hle deinen Plan \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Investition #Rendite #DeFi #PassivesEinkommen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 12
     },
@@ -76800,7 +78128,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "13_Sprint_Loop.png",
       headline: "\u{1F680} SPRINT LOOP",
-      caption: "\u{1F680} SPRINT LOOP\n\n\u{1F4CC} 3% in 7 Tagen \u2014 Der perfekte Einstieg\n\nDer Sprint Loop ist ideal f\xFCr Einsteiger und alle, die schnelle Ergebnisse sehen m\xF6chten. Mit 3% Rendite in nur 7 Tagen und einer t\xE4glichen Rate von ~0.43% bietet er eine risikoarme M\xF6glichkeit, TurboLoop kennenzulernen. Kapital wird nach 7 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 3% in 7 Tagen\n\u2022 T\xE4glich: ~0.43%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 7\n\u2022 Ideal f\xFCr: Einsteiger, schnelle Tests\n\n\u{1F449} Starte mit Sprint Loop \u2192 turboloop.io\n\n#SprintLoop #TurboLoop #DeFi #Rendite #Einstieg #7Tage\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} SPRINT LOOP\n\n\u{1F4CC} 3% in 7 Tagen \u2014 Der perfekte Einstieg\n\nDer Sprint Loop ist ideal f\xFCr Einsteiger und alle, die schnelle Ergebnisse sehen m\xF6chten. Mit 3% Rendite in nur 7 Tagen und einer t\xE4glichen Rate von ~0.43% bietet er eine risikoarme M\xF6glichkeit, TurboLoop kennenzulernen. Kapital wird nach 7 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 3% in 7 Tagen\n\u2022 T\xE4glich: ~0.43%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 7\n\u2022 Ideal f\xFCr: Einsteiger, schnelle Tests\n\n\u{1F449} Starte mit Sprint Loop \u2192 https://turboloop.io?ref=BitPat\n\n#SprintLoop #TurboLoop #DeFi #Rendite #Einstieg #7Tage\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 13
     },
@@ -76818,7 +78146,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "14_Boost_Loop.png",
       headline: "\u{1F680} BOOST LOOP",
-      caption: "\u{1F680} BOOST LOOP\n\n\u{1F4CC} 10% in 14 Tagen \u2014 Beschleunigtes Wachstum\n\nDer Boost Loop verdreifacht die Sprint-Rendite in der doppelten Zeit. Mit 10% in 14 Tagen und ~0.71% t\xE4glich ist er perfekt f\xFCr Anleger, die bereit sind, etwas l\xE4nger zu investieren f\xFCr deutlich h\xF6here Ertr\xE4ge. Kapital wird nach 14 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 10% in 14 Tagen\n\u2022 T\xE4glich: ~0.71%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 14\n\u2022 3x Sprint-Rendite in 2x der Zeit\n\n\u{1F449} Beschleunige mit Boost Loop \u2192 turboloop.io\n\n#BoostLoop #TurboLoop #DeFi #Wachstum #Rendite #14Tage\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} BOOST LOOP\n\n\u{1F4CC} 10% in 14 Tagen \u2014 Beschleunigtes Wachstum\n\nDer Boost Loop verdreifacht die Sprint-Rendite in der doppelten Zeit. Mit 10% in 14 Tagen und ~0.71% t\xE4glich ist er perfekt f\xFCr Anleger, die bereit sind, etwas l\xE4nger zu investieren f\xFCr deutlich h\xF6here Ertr\xE4ge. Kapital wird nach 14 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 10% in 14 Tagen\n\u2022 T\xE4glich: ~0.71%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 14\n\u2022 3x Sprint-Rendite in 2x der Zeit\n\n\u{1F449} Beschleunige mit Boost Loop \u2192 https://turboloop.io?ref=BitPat\n\n#BoostLoop #TurboLoop #DeFi #Wachstum #Rendite #14Tage\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 14
     },
@@ -76836,7 +78164,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "15_Power_Loop.png",
       headline: "\u{1F680} POWER LOOP",
-      caption: "\u{1F680} POWER LOOP\n\n\u{1F4CC} 24% in 30 Tagen \u2014 F\xFCr ernsthafte Investoren\n\nDer Power Loop ist f\xFCr ernsthafte Investoren konzipiert, die maximale Rendite bei voller Kontrolle suchen. Mit 24% in 30 Tagen und ~0.80% t\xE4glicher Rendite bietet er das beste Verh\xE4ltnis von Laufzeit zu Ertrag. Kapital wird nach 30 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 24% in 30 Tagen\n\u2022 T\xE4glich: ~0.80%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 30\n\u2022 Bestes Rendite-Laufzeit-Verh\xE4ltnis\n\n\u{1F449} Aktiviere Power Loop \u2192 turboloop.io\n\n#PowerLoop #TurboLoop #DeFi #MaximaleRendite #30Tage\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} POWER LOOP\n\n\u{1F4CC} 24% in 30 Tagen \u2014 F\xFCr ernsthafte Investoren\n\nDer Power Loop ist f\xFCr ernsthafte Investoren konzipiert, die maximale Rendite bei voller Kontrolle suchen. Mit 24% in 30 Tagen und ~0.80% t\xE4glicher Rendite bietet er das beste Verh\xE4ltnis von Laufzeit zu Ertrag. Kapital wird nach 30 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 24% in 30 Tagen\n\u2022 T\xE4glich: ~0.80%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 30\n\u2022 Bestes Rendite-Laufzeit-Verh\xE4ltnis\n\n\u{1F449} Aktiviere Power Loop \u2192 https://turboloop.io?ref=BitPat\n\n#PowerLoop #TurboLoop #DeFi #MaximaleRendite #30Tage\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 15
     },
@@ -76854,7 +78182,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "16_Ultimate_Loop.png",
       headline: "\u{1F680} ULTIMATE LOOP",
-      caption: "\u{1F680} ULTIMATE LOOP\n\n\u{1F4CC} 54% in 60 Tagen \u2014 Das Flaggschiff f\xFCr Vision\xE4re\n\nDer Ultimate Loop ist das Flaggschiff von TurboLoop \u2014 konzipiert f\xFCr Vision\xE4re, die langfristiges Verm\xF6gen aufbauen wollen. Mit 54% in 60 Tagen und ~0.90% t\xE4glicher Rendite bietet er die h\xF6chste Rendite aller Pl\xE4ne. Kapital wird nach 60 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 54% in 60 Tagen\n\u2022 T\xE4glich: ~0.90%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 60\n\u2022 H\xF6chste Rendite aller Pl\xE4ne\n\n\u{1F449} Werde Ultimate Looper \u2192 turboloop.io\n\n#UltimateLoop #TurboLoop #DeFi #Flaggschiff #54Prozent #Vision\xE4r\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} ULTIMATE LOOP\n\n\u{1F4CC} 54% in 60 Tagen \u2014 Das Flaggschiff f\xFCr Vision\xE4re\n\nDer Ultimate Loop ist das Flaggschiff von TurboLoop \u2014 konzipiert f\xFCr Vision\xE4re, die langfristiges Verm\xF6gen aufbauen wollen. Mit 54% in 60 Tagen und ~0.90% t\xE4glicher Rendite bietet er die h\xF6chste Rendite aller Pl\xE4ne. Kapital wird nach 60 Tagen vollst\xE4ndig zur\xFCckgegeben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Rendite: 54% in 60 Tagen\n\u2022 T\xE4glich: ~0.90%\n\u2022 Minimum: $1 USDT\n\u2022 Kapitalr\xFCckgabe: Tag 60\n\u2022 H\xF6chste Rendite aller Pl\xE4ne\n\n\u{1F449} Werde Ultimate Looper \u2192 https://turboloop.io?ref=BitPat\n\n#UltimateLoop #TurboLoop #DeFi #Flaggschiff #54Prozent #Vision\xE4r\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 16
     },
@@ -76872,7 +78200,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "17_Wie_Es_Funktioniert.png",
       headline: "\u{1F680} WIE ES FUNKTIONIERT",
-      caption: "\u{1F680} WIE ES FUNKTIONIERT\n\n\u{1F4CC} 5 Schritte zum passiven Einkommen\n\nTurboLoop macht passives Einkommen einfach: Wallet verbinden, Plan w\xE4hlen, USDT einzahlen, t\xE4glich verdienen, jederzeit abheben. Der gesamte Prozess ist automatisiert durch den Smart Contract \u2014 kein manuelles Eingreifen n\xF6tig. Deine Ertr\xE4ge werden automatisch gutgeschrieben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Schritt 1: Wallet verbinden\n\u2022 Schritt 2: Plan w\xE4hlen (Sprint/Boost/Power/Ultimate)\n\u2022 Schritt 3: USDT einzahlen\n\u2022 Schritt 4: T\xE4glich verdienen (automatisch)\n\u2022 Schritt 5: Jederzeit abheben\n\n\u{1F449} Starte in 5 Minuten \u2192 turboloop.io\n\n#TurboLoop #WieEsFunktioniert #DeFi #PassivesEinkommen #Einfach\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WIE ES FUNKTIONIERT\n\n\u{1F4CC} 5 Schritte zum passiven Einkommen\n\nTurboLoop macht passives Einkommen einfach: Wallet verbinden, Plan w\xE4hlen, USDT einzahlen, t\xE4glich verdienen, jederzeit abheben. Der gesamte Prozess ist automatisiert durch den Smart Contract \u2014 kein manuelles Eingreifen n\xF6tig. Deine Ertr\xE4ge werden automatisch gutgeschrieben.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Schritt 1: Wallet verbinden\n\u2022 Schritt 2: Plan w\xE4hlen (Sprint/Boost/Power/Ultimate)\n\u2022 Schritt 3: USDT einzahlen\n\u2022 Schritt 4: T\xE4glich verdienen (automatisch)\n\u2022 Schritt 5: Jederzeit abheben\n\n\u{1F449} Starte in 5 Minuten \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #WieEsFunktioniert #DeFi #PassivesEinkommen #Einfach\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 17
     },
@@ -76890,7 +78218,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "18_Fallstudie_100.png",
       headline: "\u{1F680} FALLSTUDIE: $100",
-      caption: "\u{1F680} FALLSTUDIE: $100\n\n\u{1F4CC} Selbst $100 arbeiten f\xFCr dich \u2014 24/7\n\nWas passiert mit $100 in TurboLoop? Sprint: $103 nach 7 Tagen. Boost: $110 nach 14 Tagen. Power: $124 nach 30 Tagen. Ultimate: $154 nach 60 Tagen. Und das ist nur ein einzelner Zyklus \u2014 mit Reinvestition multipliziert sich der Effekt exponentiell.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sprint Loop: $100 \u2192 $103 (7 Tage)\n\u2022 Boost Loop: $100 \u2192 $110 (14 Tage)\n\u2022 Power Loop: $100 \u2192 $124 (30 Tage)\n\u2022 Ultimate Loop: $100 \u2192 $154 (60 Tage)\n\u2022 Mit Reinvestition: Exponentielles Wachstum\n\n\u{1F449} Starte mit $100 \u2192 turboloop.io\n\n#TurboLoop #Fallstudie #100Dollar #Rendite #DeFi #Wachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} FALLSTUDIE: $100\n\n\u{1F4CC} Selbst $100 arbeiten f\xFCr dich \u2014 24/7\n\nWas passiert mit $100 in TurboLoop? Sprint: $103 nach 7 Tagen. Boost: $110 nach 14 Tagen. Power: $124 nach 30 Tagen. Ultimate: $154 nach 60 Tagen. Und das ist nur ein einzelner Zyklus \u2014 mit Reinvestition multipliziert sich der Effekt exponentiell.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sprint Loop: $100 \u2192 $103 (7 Tage)\n\u2022 Boost Loop: $100 \u2192 $110 (14 Tage)\n\u2022 Power Loop: $100 \u2192 $124 (30 Tage)\n\u2022 Ultimate Loop: $100 \u2192 $154 (60 Tage)\n\u2022 Mit Reinvestition: Exponentielles Wachstum\n\n\u{1F449} Starte mit $100 \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Fallstudie #100Dollar #Rendite #DeFi #Wachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 18
     },
@@ -76908,7 +78236,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "19_Fallstudie_1000.png",
       headline: "\u{1F680} $1,000 \xD7 12 MONATE",
-      caption: "\u{1F680} $1,000 \xD7 12 MONATE\n\n\u{1F4CC} Die Macht der Reinvestition \u2014 \xDCber 1,200% in einem Jahr\n\nInvestiere $1,000 in den Power Loop und reinvestiere jeden Monat. Nach 12 Monaten hast du \xFCber $13,220 \u2014 das ist die Kraft des Zinseszins in Aktion. Kein Trading, kein Timing, kein Stress. Nur der Smart Contract, der f\xFCr dich arbeitet.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Monat 1: $1,240\n\u2022 Monat 3: $1,907\n\u2022 Monat 6: $3,654\n\u2022 Monat 9: $7,003\n\u2022 Monat 12: $13,220\n\u2022 Strategie: Power Loop + monatliche Reinvestition\n\n\u{1F449} Starte deine 12-Monats-Reise \u2192 turboloop.io\n\n#TurboLoop #1000Dollar #Zinseszins #12Monate #Verm\xF6gen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} $1,000 \xD7 12 MONATE\n\n\u{1F4CC} Die Macht der Reinvestition \u2014 \xDCber 1,200% in einem Jahr\n\nInvestiere $1,000 in den Power Loop und reinvestiere jeden Monat. Nach 12 Monaten hast du \xFCber $13,220 \u2014 das ist die Kraft des Zinseszins in Aktion. Kein Trading, kein Timing, kein Stress. Nur der Smart Contract, der f\xFCr dich arbeitet.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Monat 1: $1,240\n\u2022 Monat 3: $1,907\n\u2022 Monat 6: $3,654\n\u2022 Monat 9: $7,003\n\u2022 Monat 12: $13,220\n\u2022 Strategie: Power Loop + monatliche Reinvestition\n\n\u{1F449} Starte deine 12-Monats-Reise \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #1000Dollar #Zinseszins #12Monate #Verm\xF6gen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 19
     },
@@ -76926,7 +78254,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "20_Drei_Einkommensquellen.png",
       headline: "\u{1F680} DREI EINKOMMENSQUELLEN",
-      caption: "\u{1F680} DREI EINKOMMENSQUELLEN\n\n\u{1F4CC} Drei Motoren. Maximaler Ertrag. Alle gleichzeitig aktiv.\n\nTurboLoop bietet drei simultane Einkommensquellen: Yield (3%-54% je nach Plan), Referral (bis zu 51% \xFCber 20 Ebenen) und Leadership (1%-10% auf Team-Volumen). Alle drei arbeiten gleichzeitig und erg\xE4nzen sich gegenseitig f\xFCr maximalen Ertrag.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Yield Engine: 3%-54% je nach gew\xE4hltem Plan\n\u2022 Referral Engine: Bis zu 51% \xFCber 20 Ebenen\n\u2022 Leadership Engine: 1%-10% auf Team-Volumen\n\u2022 Alle drei gleichzeitig aktiv\n\u2022 Unbegrenztes Verdienstpotenzial\n\n\u{1F449} Aktiviere alle 3 Motoren \u2192 turboloop.io\n\n#TurboLoop #DreiQuellen #Yield #Referral #Leadership #MaximalerErtrag\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DREI EINKOMMENSQUELLEN\n\n\u{1F4CC} Drei Motoren. Maximaler Ertrag. Alle gleichzeitig aktiv.\n\nTurboLoop bietet drei simultane Einkommensquellen: Yield (3%-54% je nach Plan), Referral (bis zu 51% \xFCber 20 Ebenen) und Leadership (1%-10% auf Team-Volumen). Alle drei arbeiten gleichzeitig und erg\xE4nzen sich gegenseitig f\xFCr maximalen Ertrag.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Yield Engine: 3%-54% je nach gew\xE4hltem Plan\n\u2022 Referral Engine: Bis zu 51% \xFCber 20 Ebenen\n\u2022 Leadership Engine: 1%-10% auf Team-Volumen\n\u2022 Alle drei gleichzeitig aktiv\n\u2022 Unbegrenztes Verdienstpotenzial\n\n\u{1F449} Aktiviere alle 3 Motoren \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #DreiQuellen #Yield #Referral #Leadership #MaximalerErtrag\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 20
     },
@@ -76944,7 +78272,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "21_20_Level_Referral.png",
       headline: "\u{1F680} 20-LEVEL EMPFEHLUNGSNETZWERK",
-      caption: "\u{1F680} 20-LEVEL EMPFEHLUNGSNETZWERK\n\n\u{1F4CC} Bis zu 51% Gesamtprovision \xFCber 20 Ebenen\n\nDas TurboLoop-Empfehlungssystem belohnt dich auf 20 Ebenen tief. Level 1: 8%, Level 2: 5%, Level 3: 3%, Level 4-5: je 2%, Level 6-20: je 1%. Insgesamt bis zu 35% Referral-Provision plus 16% Leadership-Bonus = 51% Gesamtpotenzial.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Level 1: 8% Provision\n\u2022 Level 2: 5% Provision\n\u2022 Level 3: 3% Provision\n\u2022 Level 4-5: je 2% Provision\n\u2022 Level 6-20: je 1% Provision\n\u2022 Gesamt: Bis zu 51% (inkl. Leadership)\n\n\u{1F449} Baue dein Netzwerk \u2192 turboloop.io\n\n#TurboLoop #Referral #20Level #Netzwerk #Provision #51Prozent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} 20-LEVEL EMPFEHLUNGSNETZWERK\n\n\u{1F4CC} Bis zu 51% Gesamtprovision \xFCber 20 Ebenen\n\nDas TurboLoop-Empfehlungssystem belohnt dich auf 20 Ebenen tief. Level 1: 8%, Level 2: 5%, Level 3: 3%, Level 4-5: je 2%, Level 6-20: je 1%. Insgesamt bis zu 35% Referral-Provision plus 16% Leadership-Bonus = 51% Gesamtpotenzial.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Level 1: 8% Provision\n\u2022 Level 2: 5% Provision\n\u2022 Level 3: 3% Provision\n\u2022 Level 4-5: je 2% Provision\n\u2022 Level 6-20: je 1% Provision\n\u2022 Gesamt: Bis zu 51% (inkl. Leadership)\n\n\u{1F449} Baue dein Netzwerk \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Referral #20Level #Netzwerk #Provision #51Prozent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 21
     },
@@ -76962,7 +78290,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "22_Leadership_Raenge.png",
       headline: "\u{1F680} LEADERSHIP-R\xC4NGE",
-      caption: "\u{1F680} LEADERSHIP-R\xC4NGE\n\n\u{1F4CC} F\xFChre. Verdiene. Wachse. Zus\xE4tzlicher Bonus auf Netzwerk-Volumen.\n\nDas Leadership-Programm belohnt aktive Netzwerk-Builder mit zus\xE4tzlichen Boni auf das gesamte Team-Volumen. F\xFCnf R\xE4nge: Star, Manager, Director, VP und President \u2014 jeder mit steigenden Boni von 1% bis 10%. Je gr\xF6\xDFer dein Team, desto h\xF6her dein Rang und dein Bonus.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Star: $10K Team-Volumen (1-5%)\n\u2022 Manager: $50K Team-Volumen (3-10%)\n\u2022 Director: $250K Team-Volumen (5-15%)\n\u2022 VP: $1M Team-Volumen (8-20%)\n\u2022 President: $5M Team-Volumen (10-25%)\n\n\u{1F449} Steige auf in den R\xE4ngen \u2192 turboloop.io\n\n#TurboLoop #Leadership #R\xE4nge #TeamBuilding #Bonus #F\xFChrung\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LEADERSHIP-R\xC4NGE\n\n\u{1F4CC} F\xFChre. Verdiene. Wachse. Zus\xE4tzlicher Bonus auf Netzwerk-Volumen.\n\nDas Leadership-Programm belohnt aktive Netzwerk-Builder mit zus\xE4tzlichen Boni auf das gesamte Team-Volumen. F\xFCnf R\xE4nge: Star, Manager, Director, VP und President \u2014 jeder mit steigenden Boni von 1% bis 10%. Je gr\xF6\xDFer dein Team, desto h\xF6her dein Rang und dein Bonus.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Star: $10K Team-Volumen (1-5%)\n\u2022 Manager: $50K Team-Volumen (3-10%)\n\u2022 Director: $250K Team-Volumen (5-15%)\n\u2022 VP: $1M Team-Volumen (8-20%)\n\u2022 President: $5M Team-Volumen (10-25%)\n\n\u{1F449} Steige auf in den R\xE4ngen \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Leadership #R\xE4nge #TeamBuilding #Bonus #F\xFChrung\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 22
     },
@@ -76980,7 +78308,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "23_Onboarding_Bonus.png",
       headline: "\u{1F680} ONBOARDING BONUS",
-      caption: "\u{1F680} ONBOARDING BONUS\n\n\u{1F4CC} Bringe 10 aktive Mitglieder \u2192 Erhalte $100 Sofortbonus\n\nDer Onboarding Bonus belohnt aktive Community-Builder. Bringe 10 direkte Empfehlungen, die alle aktiv investieren, und erhalte sofort $100 Bonus ausgezahlt. Einfach, klar und sofort \u2014 keine versteckten Bedingungen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Anforderung: 10 direkte aktive Empfehlungen\n\u2022 Belohnung: $100 Sofortbonus\n\u2022 Auszahlung: Sofort nach Erreichen\n\u2022 Keine versteckten Bedingungen\n\u2022 Zus\xE4tzlich zu Referral-Provisionen\n\n\u{1F449} Verdiene $100 Bonus \u2192 turboloop.io\n\n#TurboLoop #OnboardingBonus #100Dollar #Belohnung #Community\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} ONBOARDING BONUS\n\n\u{1F4CC} Bringe 10 aktive Mitglieder \u2192 Erhalte $100 Sofortbonus\n\nDer Onboarding Bonus belohnt aktive Community-Builder. Bringe 10 direkte Empfehlungen, die alle aktiv investieren, und erhalte sofort $100 Bonus ausgezahlt. Einfach, klar und sofort \u2014 keine versteckten Bedingungen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Anforderung: 10 direkte aktive Empfehlungen\n\u2022 Belohnung: $100 Sofortbonus\n\u2022 Auszahlung: Sofort nach Erreichen\n\u2022 Keine versteckten Bedingungen\n\u2022 Zus\xE4tzlich zu Referral-Provisionen\n\n\u{1F449} Verdiene $100 Bonus \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #OnboardingBonus #100Dollar #Belohnung #Community\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 23
     },
@@ -76998,7 +78326,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "24_Content_Creator.png",
       headline: "\u{1F680} CONTENT CREATOR STAR",
-      caption: "\u{1F680} CONTENT CREATOR STAR\n\n\u{1F4CC} Erstelle Inhalte \xFCber TurboLoop \u2192 Verdiene $50 Bonus\n\nBist du kreativ? Erstelle ein Video, einen Post oder einen Artikel \xFCber TurboLoop und verdiene $50 Bonus. Teile deine Erfahrung mit der Community und werde f\xFCr deinen Beitrag belohnt. Original-Content, auf Social Media geteilt, mit Community getaggt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Erstelle: Video, Post oder Artikel\n\u2022 Teile: Auf Social Media\n\u2022 Tagge: TurboLoop Community\n\u2022 Verdiene: $50 Bonus\n\u2022 Zus\xE4tzlich zu allen anderen Einnahmen\n\n\u{1F449} Werde Content Creator \u2192 turboloop.io\n\n#TurboLoop #ContentCreator #SocialMedia #Bonus #Kreativ\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} CONTENT CREATOR STAR\n\n\u{1F4CC} Erstelle Inhalte \xFCber TurboLoop \u2192 Verdiene $50 Bonus\n\nBist du kreativ? Erstelle ein Video, einen Post oder einen Artikel \xFCber TurboLoop und verdiene $50 Bonus. Teile deine Erfahrung mit der Community und werde f\xFCr deinen Beitrag belohnt. Original-Content, auf Social Media geteilt, mit Community getaggt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Erstelle: Video, Post oder Artikel\n\u2022 Teile: Auf Social Media\n\u2022 Tagge: TurboLoop Community\n\u2022 Verdiene: $50 Bonus\n\u2022 Zus\xE4tzlich zu allen anderen Einnahmen\n\n\u{1F449} Werde Content Creator \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #ContentCreator #SocialMedia #Bonus #Kreativ\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 24
     },
@@ -77016,7 +78344,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "25_Zoom_Presenter.png",
       headline: "\u{1F680} ZOOM PRESENTER",
-      caption: "\u{1F680} ZOOM PRESENTER\n\n\u{1F4CC} Pr\xE4sentiere TurboLoop live \u2192 Verdiene $50 Bonus\n\nHalte eine Live-Pr\xE4sentation \xFCber TurboLoop via Zoom mit mindestens 10 Teilnehmern und verdiene $50 Bonus. Teile dein Wissen, baue dein Team auf und werde f\xFCr deine F\xFChrungsqualit\xE4ten belohnt. Aufzeichnung einreichen gen\xFCgt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Halte: Live Zoom-Pr\xE4sentation\n\u2022 Mindestens: 10 Teilnehmer\n\u2022 Reiche ein: Aufzeichnung\n\u2022 Verdiene: $50 Bonus\n\u2022 Baue gleichzeitig dein Team auf\n\n\u{1F449} Werde Zoom Presenter \u2192 turboloop.io\n\n#TurboLoop #ZoomPresenter #LivePr\xE4sentation #Bonus #F\xFChrung\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} ZOOM PRESENTER\n\n\u{1F4CC} Pr\xE4sentiere TurboLoop live \u2192 Verdiene $50 Bonus\n\nHalte eine Live-Pr\xE4sentation \xFCber TurboLoop via Zoom mit mindestens 10 Teilnehmern und verdiene $50 Bonus. Teile dein Wissen, baue dein Team auf und werde f\xFCr deine F\xFChrungsqualit\xE4ten belohnt. Aufzeichnung einreichen gen\xFCgt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Halte: Live Zoom-Pr\xE4sentation\n\u2022 Mindestens: 10 Teilnehmer\n\u2022 Reiche ein: Aufzeichnung\n\u2022 Verdiene: $50 Bonus\n\u2022 Baue gleichzeitig dein Team auf\n\n\u{1F449} Werde Zoom Presenter \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #ZoomPresenter #LivePr\xE4sentation #Bonus #F\xFChrung\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 25
     },
@@ -77034,7 +78362,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "26_SC_Challenge.png",
       headline: "\u{1F680} SMART CONTRACT CHALLENGE",
-      caption: "\u{1F680} SMART CONTRACT CHALLENGE\n\n\u{1F4CC} Finde einen Fehler \u2192 Verdiene $10,000\n\nTurboLoop ist so sicher, dass wir $10,000 Bounty f\xFCr jeden ausloben, der einen Fehler im Smart Contract findet. Der Code ist \xF6ffentlich, die Logik transparent. Bisher: 0 Fehler gefunden. Belohnung garantiert. Das ist unser Vertrauen in die Sicherheit des Systems.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Bounty: $10,000 f\xFCr jeden gefundenen Fehler\n\u2022 Code: \xD6ffentlich auf BSCScan\n\u2022 Logik: Vollst\xE4ndig transparent\n\u2022 Bisher: 0 kritische Fehler gefunden\n\u2022 Belohnung: Garantiert ausgezahlt\n\n\u{1F449} Pr\xFCfe den Code \u2192 turboloop.io\n\n#TurboLoop #BugBounty #SmartContract #Sicherheit #10000Dollar\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} SMART CONTRACT CHALLENGE\n\n\u{1F4CC} Finde einen Fehler \u2192 Verdiene $10,000\n\nTurboLoop ist so sicher, dass wir $10,000 Bounty f\xFCr jeden ausloben, der einen Fehler im Smart Contract findet. Der Code ist \xF6ffentlich, die Logik transparent. Bisher: 0 Fehler gefunden. Belohnung garantiert. Das ist unser Vertrauen in die Sicherheit des Systems.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Bounty: $10,000 f\xFCr jeden gefundenen Fehler\n\u2022 Code: \xD6ffentlich auf BSCScan\n\u2022 Logik: Vollst\xE4ndig transparent\n\u2022 Bisher: 0 kritische Fehler gefunden\n\u2022 Belohnung: Garantiert ausgezahlt\n\n\u{1F449} Pr\xFCfe den Code \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #BugBounty #SmartContract #Sicherheit #10000Dollar\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 26
     },
@@ -77052,7 +78380,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "27_Turbo_Buy.png",
       headline: "\u{1F680} TURBO BUY",
-      caption: "\u{1F680} TURBO BUY\n\n\u{1F4CC} Kaufe USDT direkt \u2014 Kein Umweg \xFCber B\xF6rsen\n\nMit Turbo Buy kannst du USDT direkt in der TurboLoop-App kaufen \u2014 ohne den Umweg \xFCber Krypto-B\xF6rsen. Gib deinen Betrag ein, w\xE4hle deine Zahlungsmethode und erhalte USDT sofort in dein Wallet. Einfach, schnell und zu den besten Kursen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Kein B\xF6rsenkonto n\xF6tig\n\u2022 Sofortige Gutschrift\n\u2022 Beste verf\xFCgbare Kurse\n\u2022 Mehrere Zahlungsmethoden\n\u2022 Direkt ins Wallet\n\n\u{1F449} Kaufe USDT mit Turbo Buy \u2192 turboloop.io\n\n#TurboLoop #TurboBuy #USDT #Kaufen #Einfach #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} TURBO BUY\n\n\u{1F4CC} Kaufe USDT direkt \u2014 Kein Umweg \xFCber B\xF6rsen\n\nMit Turbo Buy kannst du USDT direkt in der TurboLoop-App kaufen \u2014 ohne den Umweg \xFCber Krypto-B\xF6rsen. Gib deinen Betrag ein, w\xE4hle deine Zahlungsmethode und erhalte USDT sofort in dein Wallet. Einfach, schnell und zu den besten Kursen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Kein B\xF6rsenkonto n\xF6tig\n\u2022 Sofortige Gutschrift\n\u2022 Beste verf\xFCgbare Kurse\n\u2022 Mehrere Zahlungsmethoden\n\u2022 Direkt ins Wallet\n\n\u{1F449} Kaufe USDT mit Turbo Buy \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #TurboBuy #USDT #Kaufen #Einfach #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 27
     },
@@ -77070,7 +78398,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "28_Turbo_Swap.png",
       headline: "\u{1F680} TURBO SWAP",
-      caption: "\u{1F680} TURBO SWAP\n\n\u{1F4CC} Tausche Token sofort \u2014 Dezentral, schnell, g\xFCnstig\n\nTurbo Swap erm\xF6glicht dir den sofortigen Tausch von Token direkt in der App. Dezentrale Exchange-Integration, beste aggregierte Preise, keine Registrierung erforderlich. Tausche Token A gegen Token B in Sekunden \u2014 ohne zentrale B\xF6rse.\n\n\u2705 KERNPUNKTE:\n\n\u2022 DEX-Integration f\xFCr beste Preise\n\u2022 Keine Registrierung n\xF6tig\n\u2022 Sofortige Ausf\xFChrung\n\u2022 Minimale Geb\xFChren\n\u2022 Dezentral und sicher\n\n\u{1F449} Tausche mit Turbo Swap \u2192 turboloop.io\n\n#TurboLoop #TurboSwap #DEX #TokenSwap #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} TURBO SWAP\n\n\u{1F4CC} Tausche Token sofort \u2014 Dezentral, schnell, g\xFCnstig\n\nTurbo Swap erm\xF6glicht dir den sofortigen Tausch von Token direkt in der App. Dezentrale Exchange-Integration, beste aggregierte Preise, keine Registrierung erforderlich. Tausche Token A gegen Token B in Sekunden \u2014 ohne zentrale B\xF6rse.\n\n\u2705 KERNPUNKTE:\n\n\u2022 DEX-Integration f\xFCr beste Preise\n\u2022 Keine Registrierung n\xF6tig\n\u2022 Sofortige Ausf\xFChrung\n\u2022 Minimale Geb\xFChren\n\u2022 Dezentral und sicher\n\n\u{1F449} Tausche mit Turbo Swap \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #TurboSwap #DEX #TokenSwap #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 28
     },
@@ -77088,7 +78416,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "29_Auditiert.png",
       headline: "\u{1F680} VOLLST\xC4NDIG AUDITIERT",
-      caption: "\u{1F680} VOLLST\xC4NDIG AUDITIERT\n\n\u{1F4CC} Unabh\xE4ngig gepr\xFCft \u2014 Keine kritischen Fehler\n\nDer TurboLoop Smart Contract wurde von einer unabh\xE4ngigen Blockchain-Sicherheitsfirma vollst\xE4ndig auditiert. Ergebnis: Keine kritischen Fehler, keine Backdoors, Code 100% verifiziert. Der Audit-Bericht ist \xF6ffentlich einsehbar \u2014 volle Transparenz f\xFCr maximales Vertrauen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Gepr\xFCft von: Unabh\xE4ngige Sicherheitsfirma\n\u2022 Ergebnis: Keine kritischen Fehler\n\u2022 Code: 100% verifiziert\n\u2022 Backdoors: Keine gefunden\n\u2022 Bericht: \xD6ffentlich einsehbar\n\n\u{1F449} Lies den Audit-Bericht \u2192 turboloop.io\n\n#TurboLoop #Audit #Sicherheit #Verifiziert #Vertrauen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} VOLLST\xC4NDIG AUDITIERT\n\n\u{1F4CC} Unabh\xE4ngig gepr\xFCft \u2014 Keine kritischen Fehler\n\nDer TurboLoop Smart Contract wurde von einer unabh\xE4ngigen Blockchain-Sicherheitsfirma vollst\xE4ndig auditiert. Ergebnis: Keine kritischen Fehler, keine Backdoors, Code 100% verifiziert. Der Audit-Bericht ist \xF6ffentlich einsehbar \u2014 volle Transparenz f\xFCr maximales Vertrauen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Gepr\xFCft von: Unabh\xE4ngige Sicherheitsfirma\n\u2022 Ergebnis: Keine kritischen Fehler\n\u2022 Code: 100% verifiziert\n\u2022 Backdoors: Keine gefunden\n\u2022 Bericht: \xD6ffentlich einsehbar\n\n\u{1F449} Lies den Audit-Bericht \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Audit #Sicherheit #Verifiziert #Vertrauen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 29
     },
@@ -77106,7 +78434,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "30_Eigentum_Aufgegeben.png",
       headline: "\u{1F680} EIGENTUM AUFGEGEBEN",
-      caption: "\u{1F680} EIGENTUM AUFGEGEBEN\n\n\u{1F4CC} Kein Besitzer kann den Contract \xE4ndern oder stoppen\n\nDas Eigentum des TurboLoop Smart Contracts wurde unwiderruflich aufgegeben (Renounced). Die Owner-Adresse zeigt auf 0x000...dead \u2014 verifizierbar auf BSCScan. Niemand kann den Contract \xE4ndern, pausieren oder stoppen. Er l\xE4uft autonom und f\xFCr immer.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Owner Address: 0x000...dead (Renounced)\n\u2022 Verifiziert auf BSCScan\n\u2022 Unver\xE4nderlich \u2014 f\xFCr immer\n\u2022 Kein Admin-Zugriff m\xF6glich\n\u2022 Community-gesteuert und dezentral\n\n\u{1F449} Verifiziere auf BSCScan \u2192 turboloop.io\n\n#TurboLoop #Renounced #Dezentral #Sicherheit #Unver\xE4nderlich\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} EIGENTUM AUFGEGEBEN\n\n\u{1F4CC} Kein Besitzer kann den Contract \xE4ndern oder stoppen\n\nDas Eigentum des TurboLoop Smart Contracts wurde unwiderruflich aufgegeben (Renounced). Die Owner-Adresse zeigt auf 0x000...dead \u2014 verifizierbar auf BSCScan. Niemand kann den Contract \xE4ndern, pausieren oder stoppen. Er l\xE4uft autonom und f\xFCr immer.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Owner Address: 0x000...dead (Renounced)\n\u2022 Verifiziert auf BSCScan\n\u2022 Unver\xE4nderlich \u2014 f\xFCr immer\n\u2022 Kein Admin-Zugriff m\xF6glich\n\u2022 Community-gesteuert und dezentral\n\n\u{1F449} Verifiziere auf BSCScan \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Renounced #Dezentral #Sicherheit #Unver\xE4nderlich\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 30
     },
@@ -77124,7 +78452,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "31_LP_Gesperrt.png",
       headline: "\u{1F680} LP F\xDCR IMMER GESPERRT",
-      caption: "\u{1F680} LP F\xDCR IMMER GESPERRT\n\n\u{1F4CC} Liquidit\xE4t permanent gesichert \u2014 Kein Rug-Pull m\xF6glich\n\nDie Liquidit\xE4t von TurboLoop ist permanent gesperrt \u2014 f\xFCr immer. Verifizierbar \xFCber BscScan und BSCScan. Kein Entwickler, kein Admin, niemand kann die Liquidit\xE4t jemals abziehen. Dies eliminiert das Rug-Pull-Risiko vollst\xE4ndig.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BscScan\n\u2022 Dauer: Permanent (f\xFCr immer)\n\u2022 Status: Verifiziert\n\u2022 Einsehbar: BSCScan\n\u2022 Rug-Pull: Unm\xF6glich\n\n\u{1F449} Pr\xFCfe den LP-Lock \u2192 turboloop.io\n\n#TurboLoop #LPLock #Sicherheit #KeinRugPull #Permanent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LP F\xDCR IMMER GESPERRT\n\n\u{1F4CC} Liquidit\xE4t permanent gesichert \u2014 Kein Rug-Pull m\xF6glich\n\nDie Liquidit\xE4t von TurboLoop ist permanent gesperrt \u2014 f\xFCr immer. Verifizierbar \xFCber BscScan und BSCScan. Kein Entwickler, kein Admin, niemand kann die Liquidit\xE4t jemals abziehen. Dies eliminiert das Rug-Pull-Risiko vollst\xE4ndig.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BscScan\n\u2022 Dauer: Permanent (f\xFCr immer)\n\u2022 Status: Verifiziert\n\u2022 Einsehbar: BSCScan\n\u2022 Rug-Pull: Unm\xF6glich\n\n\u{1F449} Pr\xFCfe den LP-Lock \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #LPLock #Sicherheit #KeinRugPull #Permanent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 31
     },
@@ -77142,7 +78470,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "32_Kein_KYC.png",
       headline: "\u{1F680} KEIN KYC ERFORDERLICH",
-      caption: "\u{1F680} KEIN KYC ERFORDERLICH\n\n\u{1F4CC} Keine Dokumente. Keine Wartezeit. Sofort starten.\n\nTurboLoop erfordert kein KYC (Know Your Customer). Keine Ausweisdokumente, keine Adressverifizierung, keine Wartezeit, keine Datenspeicherung. Du brauchst nur ein Wallet \u2014 das ist alles. DeFi bedeutet Freiheit, und TurboLoop lebt dieses Prinzip.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Keine Ausweisdokumente\n\u2022 Keine Adressverifizierung\n\u2022 Keine Wartezeit\n\u2022 Keine Datenspeicherung\n\u2022 Nur Wallet n\xF6tig \u2014 sofort starten\n\n\u{1F449} Starte ohne KYC \u2192 turboloop.io\n\n#TurboLoop #KeinKYC #Privatsph\xE4re #DeFi #Freiheit #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} KEIN KYC ERFORDERLICH\n\n\u{1F4CC} Keine Dokumente. Keine Wartezeit. Sofort starten.\n\nTurboLoop erfordert kein KYC (Know Your Customer). Keine Ausweisdokumente, keine Adressverifizierung, keine Wartezeit, keine Datenspeicherung. Du brauchst nur ein Wallet \u2014 das ist alles. DeFi bedeutet Freiheit, und TurboLoop lebt dieses Prinzip.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Keine Ausweisdokumente\n\u2022 Keine Adressverifizierung\n\u2022 Keine Wartezeit\n\u2022 Keine Datenspeicherung\n\u2022 Nur Wallet n\xF6tig \u2014 sofort starten\n\n\u{1F449} Starte ohne KYC \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #KeinKYC #Privatsph\xE4re #DeFi #Freiheit #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 32
     },
@@ -77160,7 +78488,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "33_Verifizierter_Code.png",
       headline: "\u{1F680} VERIFIZIERTER CODE",
-      caption: "\u{1F680} VERIFIZIERTER CODE\n\n\u{1F4CC} Quellcode \xF6ffentlich auf BSCScan \u2014 Jeder kann pr\xFCfen\n\nDer gesamte Quellcode von TurboLoop ist \xF6ffentlich auf BSCScan verifiziert und ver\xF6ffentlicht. Jeder kann den Code lesen, pr\xFCfen und verstehen. Keine versteckten Funktionen, keine geheimen Backdoors. Volle Transparenz \u2014 das ist DeFi wie es sein sollte.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BSCScan\n\u2022 Status: Verifiziert & Ver\xF6ffentlicht\n\u2022 Sprache: Solidity\n\u2022 Lizenz: MIT (Open Source)\n\u2022 Jeder kann den Code lesen und pr\xFCfen\n\n\u{1F449} Pr\xFCfe den Code auf BSCScan \u2192 turboloop.io\n\n#TurboLoop #OpenSource #Verifiziert #BSCScan #Transparenz\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} VERIFIZIERTER CODE\n\n\u{1F4CC} Quellcode \xF6ffentlich auf BSCScan \u2014 Jeder kann pr\xFCfen\n\nDer gesamte Quellcode von TurboLoop ist \xF6ffentlich auf BSCScan verifiziert und ver\xF6ffentlicht. Jeder kann den Code lesen, pr\xFCfen und verstehen. Keine versteckten Funktionen, keine geheimen Backdoors. Volle Transparenz \u2014 das ist DeFi wie es sein sollte.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BSCScan\n\u2022 Status: Verifiziert & Ver\xF6ffentlicht\n\u2022 Sprache: Solidity\n\u2022 Lizenz: MIT (Open Source)\n\u2022 Jeder kann den Code lesen und pr\xFCfen\n\n\u{1F449} Pr\xFCfe den Code auf BSCScan \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #OpenSource #Verifiziert #BSCScan #Transparenz\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 33
     },
@@ -77178,7 +78506,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "34_Deine_Mittel.png",
       headline: "\u{1F680} DEINE MITTEL. DEINE KONTROLLE.",
-      caption: "\u{1F680} DEINE MITTEL. DEINE KONTROLLE.\n\n\u{1F4CC} Non-custodial \u2014 Nur du hast Zugriff auf dein Wallet\n\nTurboLoop ist non-custodial \u2014 wir halten niemals deine Mittel. Dein Private Key bleibt bei dir, du kannst jederzeit ohne Genehmigung abheben, und die Kontrolle liegt zu 100% bei dir. Dein Schl\xFCssel = Dein Geld. So einfach ist das.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Non-Custodial: Wir halten nie deine Mittel\n\u2022 Private Key: Nur bei dir\n\u2022 Abhebung: Jederzeit ohne Genehmigung\n\u2022 Kontrolle: 100% bei dir\n\u2022 Dein Schl\xFCssel = Dein Geld\n\n\u{1F449} Behalte die Kontrolle \u2192 turboloop.io\n\n#TurboLoop #NonCustodial #DeineKontrolle #Sicherheit #DeFi\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DEINE MITTEL. DEINE KONTROLLE.\n\n\u{1F4CC} Non-custodial \u2014 Nur du hast Zugriff auf dein Wallet\n\nTurboLoop ist non-custodial \u2014 wir halten niemals deine Mittel. Dein Private Key bleibt bei dir, du kannst jederzeit ohne Genehmigung abheben, und die Kontrolle liegt zu 100% bei dir. Dein Schl\xFCssel = Dein Geld. So einfach ist das.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Non-Custodial: Wir halten nie deine Mittel\n\u2022 Private Key: Nur bei dir\n\u2022 Abhebung: Jederzeit ohne Genehmigung\n\u2022 Kontrolle: 100% bei dir\n\u2022 Dein Schl\xFCssel = Dein Geld\n\n\u{1F449} Behalte die Kontrolle \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #NonCustodial #DeineKontrolle #Sicherheit #DeFi\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 34
     },
@@ -77196,7 +78524,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "35_Taegliche_Einnahmen.png",
       headline: "\u{1F680} T\xC4GLICHE EINNAHMEN",
-      caption: "\u{1F680} T\xC4GLICHE EINNAHMEN\n\n\u{1F4CC} Jeden Tag verdienen \u2014 Automatisch, ohne Aufwand\n\nMit TurboLoop verdienst du jeden einzelnen Tag \u2014 automatisch und ohne Aufwand. Der Smart Contract berechnet und gutschreibt deine Ertr\xE4ge t\xE4glich. Sprint: 0.43%/Tag, Boost: 0.71%/Tag, Power: 0.80%/Tag, Ultimate: 0.90%/Tag.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sprint Loop: ~0.43% t\xE4glich\n\u2022 Boost Loop: ~0.71% t\xE4glich\n\u2022 Power Loop: ~0.80% t\xE4glich\n\u2022 Ultimate Loop: ~0.90% t\xE4glich\n\u2022 Automatisch gutgeschrieben \u2014 kein Aufwand\n\n\u{1F449} Verdiene ab heute t\xE4glich \u2192 turboloop.io\n\n#TurboLoop #T\xE4glicheEinnahmen #PassivesEinkommen #Automatisch\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} T\xC4GLICHE EINNAHMEN\n\n\u{1F4CC} Jeden Tag verdienen \u2014 Automatisch, ohne Aufwand\n\nMit TurboLoop verdienst du jeden einzelnen Tag \u2014 automatisch und ohne Aufwand. Der Smart Contract berechnet und gutschreibt deine Ertr\xE4ge t\xE4glich. Sprint: 0.43%/Tag, Boost: 0.71%/Tag, Power: 0.80%/Tag, Ultimate: 0.90%/Tag.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sprint Loop: ~0.43% t\xE4glich\n\u2022 Boost Loop: ~0.71% t\xE4glich\n\u2022 Power Loop: ~0.80% t\xE4glich\n\u2022 Ultimate Loop: ~0.90% t\xE4glich\n\u2022 Automatisch gutgeschrieben \u2014 kein Aufwand\n\n\u{1F449} Verdiene ab heute t\xE4glich \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #T\xE4glicheEinnahmen #PassivesEinkommen #Automatisch\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 35
     },
@@ -77214,7 +78542,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "36_Ab_1_Dollar.png",
       headline: "\u{1F680} STARTE AB $1",
-      caption: "\u{1F680} STARTE AB $1\n\n\u{1F4CC} Kein gro\xDFes Kapital n\xF6tig \u2014 Jeder kann mitmachen\n\nTurboLoop ist f\xFCr jeden zug\xE4nglich \u2014 starte ab nur $1 USDT. Alle Pl\xE4ne, alle Funktionen, gleiches System, gleiche Rendite. Kein Mindestbetrag, der dich ausschlie\xDFt. Ob $1 oder $10,000 \u2014 der Smart Contract behandelt alle gleich.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Minimum: Nur $1 USDT\n\u2022 Alle Pl\xE4ne verf\xFCgbar ab $1\n\u2022 Gleiches System f\xFCr alle\n\u2022 Gleiche prozentuale Rendite\n\u2022 Kein Maximum \u2014 investiere was du m\xF6chtest\n\n\u{1F449} Starte mit $1 \u2192 turboloop.io\n\n#TurboLoop #Ab1Dollar #Zug\xE4nglich #DeFi #JederKann\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} STARTE AB $1\n\n\u{1F4CC} Kein gro\xDFes Kapital n\xF6tig \u2014 Jeder kann mitmachen\n\nTurboLoop ist f\xFCr jeden zug\xE4nglich \u2014 starte ab nur $1 USDT. Alle Pl\xE4ne, alle Funktionen, gleiches System, gleiche Rendite. Kein Mindestbetrag, der dich ausschlie\xDFt. Ob $1 oder $10,000 \u2014 der Smart Contract behandelt alle gleich.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Minimum: Nur $1 USDT\n\u2022 Alle Pl\xE4ne verf\xFCgbar ab $1\n\u2022 Gleiches System f\xFCr alle\n\u2022 Gleiche prozentuale Rendite\n\u2022 Kein Maximum \u2014 investiere was du m\xF6chtest\n\n\u{1F449} Starte mit $1 \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Ab1Dollar #Zug\xE4nglich #DeFi #JederKann\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 36
     },
@@ -77232,7 +78560,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "37_Passives_Einkommen.png",
       headline: "\u{1F680} PASSIVES EINKOMMEN",
-      caption: "\u{1F680} PASSIVES EINKOMMEN\n\n\u{1F4CC} Verdiene w\xE4hrend du schl\xE4fst \u2014 Der Smart Contract arbeitet 24/7\n\nEchtes passives Einkommen bedeutet: Du verdienst, ohne aktiv arbeiten zu m\xFCssen. Der TurboLoop Smart Contract arbeitet 24 Stunden am Tag, 7 Tage die Woche, 365 Tage im Jahr \u2014 f\xFCr dich. Kein Trading, kein Timing, kein Stress. Nur automatische Ertr\xE4ge.\n\n\u2705 KERNPUNKTE:\n\n\u2022 24/7 aktiv \u2014 auch wenn du schl\xE4fst\n\u2022 Kein manueller Aufwand\n\u2022 Automatische Gutschrift\n\u2022 Jederzeit abheben\n\u2022 Kein Trading oder Timing n\xF6tig\n\n\u{1F449} Starte passives Einkommen \u2192 turboloop.io\n\n#TurboLoop #PassivesEinkommen #24/7 #Automatisch #SmartContract\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} PASSIVES EINKOMMEN\n\n\u{1F4CC} Verdiene w\xE4hrend du schl\xE4fst \u2014 Der Smart Contract arbeitet 24/7\n\nEchtes passives Einkommen bedeutet: Du verdienst, ohne aktiv arbeiten zu m\xFCssen. Der TurboLoop Smart Contract arbeitet 24 Stunden am Tag, 7 Tage die Woche, 365 Tage im Jahr \u2014 f\xFCr dich. Kein Trading, kein Timing, kein Stress. Nur automatische Ertr\xE4ge.\n\n\u2705 KERNPUNKTE:\n\n\u2022 24/7 aktiv \u2014 auch wenn du schl\xE4fst\n\u2022 Kein manueller Aufwand\n\u2022 Automatische Gutschrift\n\u2022 Jederzeit abheben\n\u2022 Kein Trading oder Timing n\xF6tig\n\n\u{1F449} Starte passives Einkommen \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #PassivesEinkommen #24/7 #Automatisch #SmartContract\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 37
     },
@@ -77250,7 +78578,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "38_Referral_Netzwerk.png",
       headline: "\u{1F680} EMPFEHLUNGSNETZWERK",
-      caption: "\u{1F680} EMPFEHLUNGSNETZWERK\n\n\u{1F4CC} Baue dein Team auf \u2014 Verdiene an jeder Aktivit\xE4t\n\nDas TurboLoop-Empfehlungsnetzwerk belohnt dich f\xFCr den Aufbau deiner Community. Jedes Mal, wenn jemand in deinem Netzwerk investiert, verdienst du automatisch eine Provision \u2014 \xFCber 20 Ebenen tief. Unbegrenztes Verdienstpotenzial.\n\n\u2705 KERNPUNKTE:\n\n\u2022 20 Ebenen tief\n\u2022 Bis zu 51% Gesamtprovision\n\u2022 Automatische Auszahlung\n\u2022 Unbegrenzte Tiefe und Breite\n\u2022 Verdiene bei jeder Team-Einzahlung\n\n\u{1F449} Baue dein Netzwerk \u2192 turboloop.io\n\n#TurboLoop #Empfehlung #Netzwerk #TeamBuilding #Provision\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} EMPFEHLUNGSNETZWERK\n\n\u{1F4CC} Baue dein Team auf \u2014 Verdiene an jeder Aktivit\xE4t\n\nDas TurboLoop-Empfehlungsnetzwerk belohnt dich f\xFCr den Aufbau deiner Community. Jedes Mal, wenn jemand in deinem Netzwerk investiert, verdienst du automatisch eine Provision \u2014 \xFCber 20 Ebenen tief. Unbegrenztes Verdienstpotenzial.\n\n\u2705 KERNPUNKTE:\n\n\u2022 20 Ebenen tief\n\u2022 Bis zu 51% Gesamtprovision\n\u2022 Automatische Auszahlung\n\u2022 Unbegrenzte Tiefe und Breite\n\u2022 Verdiene bei jeder Team-Einzahlung\n\n\u{1F449} Baue dein Netzwerk \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Empfehlung #Netzwerk #TeamBuilding #Provision\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 38
     },
@@ -77268,7 +78596,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "39_Referral_Level_1_5.png",
       headline: "\u{1F680} REFERRAL LEVEL 1\u20135",
-      caption: "\u{1F680} REFERRAL LEVEL 1\u20135\n\n\u{1F4CC} Die ersten 5 Ebenen \u2014 H\xF6chste Provisionen\n\nDie ersten 5 Referral-Ebenen bieten die h\xF6chsten Provisionen: Level 1: 8%, Level 2: 5%, Level 3: 3%, Level 4: 2%, Level 5: 2%. Das sind insgesamt 20% auf die ersten 5 Ebenen deines Netzwerks \u2014 bei jeder Einzahlung.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Level 1: 8% Provision\n\u2022 Level 2: 5% Provision\n\u2022 Level 3: 3% Provision\n\u2022 Level 4: 2% Provision\n\u2022 Level 5: 2% Provision\n\u2022 Gesamt Level 1-5: 20%\n\n\u{1F449} Starte mit Level 1 \u2192 turboloop.io\n\n#TurboLoop #Referral #Level1bis5 #Provision #20Prozent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} REFERRAL LEVEL 1\u20135\n\n\u{1F4CC} Die ersten 5 Ebenen \u2014 H\xF6chste Provisionen\n\nDie ersten 5 Referral-Ebenen bieten die h\xF6chsten Provisionen: Level 1: 8%, Level 2: 5%, Level 3: 3%, Level 4: 2%, Level 5: 2%. Das sind insgesamt 20% auf die ersten 5 Ebenen deines Netzwerks \u2014 bei jeder Einzahlung.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Level 1: 8% Provision\n\u2022 Level 2: 5% Provision\n\u2022 Level 3: 3% Provision\n\u2022 Level 4: 2% Provision\n\u2022 Level 5: 2% Provision\n\u2022 Gesamt Level 1-5: 20%\n\n\u{1F449} Starte mit Level 1 \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Referral #Level1bis5 #Provision #20Prozent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 39
     },
@@ -77286,7 +78614,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "40_Referral_Level_6_20.png",
       headline: "\u{1F680} REFERRAL LEVEL 6\u201320",
-      caption: "\u{1F680} REFERRAL LEVEL 6\u201320\n\n\u{1F4CC} Tiefe Netzwerk-Provision \u2014 15 weitere Ebenen\n\nLevel 6 bis 20 bieten jeweils 1% Provision \u2014 das sind 15 zus\xE4tzliche Ebenen mit insgesamt 15% extra Provision. Kombiniert mit Level 1-5 (20%) und Leadership (bis zu 16%) ergibt das ein Gesamtpotenzial von 51% auf dein Netzwerk.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Level 6-20: je 1% Provision\n\u2022 15 zus\xE4tzliche Ebenen\n\u2022 Gesamt Level 6-20: 15%\n\u2022 Kombiniert: 20% + 15% + 16% = 51%\n\u2022 Tiefes Netzwerk = Mehr Verdienst\n\n\u{1F449} Baue tiefe Netzwerke \u2192 turboloop.io\n\n#TurboLoop #Referral #Level6bis20 #TiefesNetzwerk #51Prozent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} REFERRAL LEVEL 6\u201320\n\n\u{1F4CC} Tiefe Netzwerk-Provision \u2014 15 weitere Ebenen\n\nLevel 6 bis 20 bieten jeweils 1% Provision \u2014 das sind 15 zus\xE4tzliche Ebenen mit insgesamt 15% extra Provision. Kombiniert mit Level 1-5 (20%) und Leadership (bis zu 16%) ergibt das ein Gesamtpotenzial von 51% auf dein Netzwerk.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Level 6-20: je 1% Provision\n\u2022 15 zus\xE4tzliche Ebenen\n\u2022 Gesamt Level 6-20: 15%\n\u2022 Kombiniert: 20% + 15% + 16% = 51%\n\u2022 Tiefes Netzwerk = Mehr Verdienst\n\n\u{1F449} Baue tiefe Netzwerke \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Referral #Level6bis20 #TiefesNetzwerk #51Prozent\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 40
     },
@@ -77304,7 +78632,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "41_Leadership_Detail.png",
       headline: "\u{1F680} LEADERSHIP-PROGRAMM IM DETAIL",
-      caption: "\u{1F680} LEADERSHIP-PROGRAMM IM DETAIL\n\n\u{1F4CC} Zus\xE4tzlich zu Referral \u2014 Verdiene am gesamten Netzwerk-Volumen\n\nDas Leadership-Programm belohnt dich mit zus\xE4tzlichen Boni basierend auf dem Gesamtvolumen deines Teams. Star: $10K (1%), Manager: $50K (3%), Director: $250K (5%), VP: $1M (8%), President: $5M (10%). Diese Boni kommen zus\xE4tzlich zu deinen Referral-Provisionen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Star: $10K Team-Volumen \u2192 1% Bonus\n\u2022 Manager: $50K Team-Volumen \u2192 3% Bonus\n\u2022 Director: $250K Team-Volumen \u2192 5% Bonus\n\u2022 VP: $1M Team-Volumen \u2192 8% Bonus\n\u2022 President: $5M Team-Volumen \u2192 10% Bonus\n\n\u{1F449} Steige auf \u2192 turboloop.io\n\n#TurboLoop #Leadership #Bonus #TeamVolumen #Aufstieg\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LEADERSHIP-PROGRAMM IM DETAIL\n\n\u{1F4CC} Zus\xE4tzlich zu Referral \u2014 Verdiene am gesamten Netzwerk-Volumen\n\nDas Leadership-Programm belohnt dich mit zus\xE4tzlichen Boni basierend auf dem Gesamtvolumen deines Teams. Star: $10K (1%), Manager: $50K (3%), Director: $250K (5%), VP: $1M (8%), President: $5M (10%). Diese Boni kommen zus\xE4tzlich zu deinen Referral-Provisionen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Star: $10K Team-Volumen \u2192 1% Bonus\n\u2022 Manager: $50K Team-Volumen \u2192 3% Bonus\n\u2022 Director: $250K Team-Volumen \u2192 5% Bonus\n\u2022 VP: $1M Team-Volumen \u2192 8% Bonus\n\u2022 President: $5M Team-Volumen \u2192 10% Bonus\n\n\u{1F449} Steige auf \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Leadership #Bonus #TeamVolumen #Aufstieg\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 41
     },
@@ -77322,7 +78650,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "42_Zinseszins_Kraft.png",
       headline: "\u{1F680} DIE KRAFT DES ZINSESZINS",
-      caption: "\u{1F680} DIE KRAFT DES ZINSESZINS\n\n\u{1F4CC} Reinvestiere und lass den Zinseszins f\xFCr dich arbeiten\n\nOhne Reinvestition: $100 \u2192 $154 nach 60 Tagen (Ultimate Loop). Mit Reinvestition \xFCber 12 Monate: $100 \u2192 $713. Das ist die exponentielle Kraft des Zinseszins. Je l\xE4nger du reinvestierst, desto st\xE4rker wird der Effekt. Zeit ist dein gr\xF6\xDFter Verb\xFCndeter.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Ohne Reinvestition: $100 \u2192 $154 (60 Tage)\n\u2022 Mit Reinvestition (6 Monate): $100 \u2192 $365\n\u2022 Mit Reinvestition (12 Monate): $100 \u2192 $713\n\u2022 Exponentielles Wachstum\n\u2022 Zeit = Dein gr\xF6\xDFter Verb\xFCndeter\n\n\u{1F449} Starte den Zinseszins \u2192 turboloop.io\n\n#TurboLoop #Zinseszins #Compounding #ExponentiellesWachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DIE KRAFT DES ZINSESZINS\n\n\u{1F4CC} Reinvestiere und lass den Zinseszins f\xFCr dich arbeiten\n\nOhne Reinvestition: $100 \u2192 $154 nach 60 Tagen (Ultimate Loop). Mit Reinvestition \xFCber 12 Monate: $100 \u2192 $713. Das ist die exponentielle Kraft des Zinseszins. Je l\xE4nger du reinvestierst, desto st\xE4rker wird der Effekt. Zeit ist dein gr\xF6\xDFter Verb\xFCndeter.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Ohne Reinvestition: $100 \u2192 $154 (60 Tage)\n\u2022 Mit Reinvestition (6 Monate): $100 \u2192 $365\n\u2022 Mit Reinvestition (12 Monate): $100 \u2192 $713\n\u2022 Exponentielles Wachstum\n\u2022 Zeit = Dein gr\xF6\xDFter Verb\xFCndeter\n\n\u{1F449} Starte den Zinseszins \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Zinseszins #Compounding #ExponentiellesWachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 42
     },
@@ -77340,7 +78668,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "43_Drei_Quellen_Detail.png",
       headline: "\u{1F680} DREI MOTOREN IM DETAIL",
-      caption: "\u{1F680} DREI MOTOREN IM DETAIL\n\n\u{1F4CC} Alle drei gleichzeitig aktiv \u2014 Maximaler Ertrag\n\nMotor 1 \u2014 Yield: 3%-54% je nach Plan, automatisch t\xE4glich. Motor 2 \u2014 Referral: 8%+5%+3%+2%+2%+15\xD71% = 35% \xFCber 20 Ebenen. Motor 3 \u2014 Leadership: 1%-10% auf gesamtes Team-Volumen. Alle drei arbeiten gleichzeitig und erg\xE4nzen sich.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Motor 1 (Yield): 3%-54% automatisch t\xE4glich\n\u2022 Motor 2 (Referral): Bis zu 35% \xFCber 20 Ebenen\n\u2022 Motor 3 (Leadership): 1%-10% auf Team-Volumen\n\u2022 Alle drei gleichzeitig aktiv\n\u2022 Unbegrenztes Gesamtpotenzial\n\n\u{1F449} Aktiviere alle 3 Motoren \u2192 turboloop.io\n\n#TurboLoop #DreiMotoren #Yield #Referral #Leadership\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DREI MOTOREN IM DETAIL\n\n\u{1F4CC} Alle drei gleichzeitig aktiv \u2014 Maximaler Ertrag\n\nMotor 1 \u2014 Yield: 3%-54% je nach Plan, automatisch t\xE4glich. Motor 2 \u2014 Referral: 8%+5%+3%+2%+2%+15\xD71% = 35% \xFCber 20 Ebenen. Motor 3 \u2014 Leadership: 1%-10% auf gesamtes Team-Volumen. Alle drei arbeiten gleichzeitig und erg\xE4nzen sich.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Motor 1 (Yield): 3%-54% automatisch t\xE4glich\n\u2022 Motor 2 (Referral): Bis zu 35% \xFCber 20 Ebenen\n\u2022 Motor 3 (Leadership): 1%-10% auf Team-Volumen\n\u2022 Alle drei gleichzeitig aktiv\n\u2022 Unbegrenztes Gesamtpotenzial\n\n\u{1F449} Aktiviere alle 3 Motoren \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #DreiMotoren #Yield #Referral #Leadership\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 43
     },
@@ -77358,7 +78686,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "44_Sprint_Detail.png",
       headline: "\u{1F680} SPRINT LOOP \u2014 IM DETAIL",
-      caption: "\u{1F680} SPRINT LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Ideal f\xFCr Einsteiger, schnelle Ergebnisse, Testen\n\nSprint Loop: 7 Tage Laufzeit, 3% Gesamtrendite, ~0.43% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 7. Beispiel: $1,000 investiert \u2192 $1,030 nach 7 Tagen. Perfekt zum Testen des Systems mit minimalem Zeitaufwand.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 7 Tage\n\u2022 Rendite: 3% gesamt\n\u2022 T\xE4glich: ~0.43%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,030\n\n\u{1F449} Teste mit Sprint Loop \u2192 turboloop.io\n\n#TurboLoop #SprintLoop #7Tage #3Prozent #Einstieg\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} SPRINT LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Ideal f\xFCr Einsteiger, schnelle Ergebnisse, Testen\n\nSprint Loop: 7 Tage Laufzeit, 3% Gesamtrendite, ~0.43% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 7. Beispiel: $1,000 investiert \u2192 $1,030 nach 7 Tagen. Perfekt zum Testen des Systems mit minimalem Zeitaufwand.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 7 Tage\n\u2022 Rendite: 3% gesamt\n\u2022 T\xE4glich: ~0.43%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,030\n\n\u{1F449} Teste mit Sprint Loop \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #SprintLoop #7Tage #3Prozent #Einstieg\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 44
     },
@@ -77376,7 +78704,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "45_Boost_Detail.png",
       headline: "\u{1F680} BOOST LOOP \u2014 IM DETAIL",
-      caption: "\u{1F680} BOOST LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Beschleunigtes Wachstum in 14 Tagen\n\nBoost Loop: 14 Tage Laufzeit, 10% Gesamtrendite, ~0.71% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 14. Beispiel: $1,000 investiert \u2192 $1,100 nach 14 Tagen. 3x Sprint-Rendite in der doppelten Zeit.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 14 Tage\n\u2022 Rendite: 10% gesamt\n\u2022 T\xE4glich: ~0.71%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,100\n\n\u{1F449} Beschleunige mit Boost \u2192 turboloop.io\n\n#TurboLoop #BoostLoop #14Tage #10Prozent #Wachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} BOOST LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Beschleunigtes Wachstum in 14 Tagen\n\nBoost Loop: 14 Tage Laufzeit, 10% Gesamtrendite, ~0.71% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 14. Beispiel: $1,000 investiert \u2192 $1,100 nach 14 Tagen. 3x Sprint-Rendite in der doppelten Zeit.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 14 Tage\n\u2022 Rendite: 10% gesamt\n\u2022 T\xE4glich: ~0.71%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,100\n\n\u{1F449} Beschleunige mit Boost \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #BoostLoop #14Tage #10Prozent #Wachstum\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 45
     },
@@ -77394,7 +78722,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "46_Power_Detail.png",
       headline: "\u{1F680} POWER LOOP \u2014 IM DETAIL",
-      caption: "\u{1F680} POWER LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Maximale Rendite f\xFCr ernsthafte Investoren\n\nPower Loop: 30 Tage Laufzeit, 24% Gesamtrendite, ~0.80% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 30. Beispiel: $1,000 investiert \u2192 $1,240 nach 30 Tagen. Das beste Verh\xE4ltnis von Laufzeit zu Ertrag.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 30 Tage\n\u2022 Rendite: 24% gesamt\n\u2022 T\xE4glich: ~0.80%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,240\n\n\u{1F449} Aktiviere Power Loop \u2192 turboloop.io\n\n#TurboLoop #PowerLoop #30Tage #24Prozent #MaximaleRendite\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} POWER LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Maximale Rendite f\xFCr ernsthafte Investoren\n\nPower Loop: 30 Tage Laufzeit, 24% Gesamtrendite, ~0.80% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 30. Beispiel: $1,000 investiert \u2192 $1,240 nach 30 Tagen. Das beste Verh\xE4ltnis von Laufzeit zu Ertrag.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 30 Tage\n\u2022 Rendite: 24% gesamt\n\u2022 T\xE4glich: ~0.80%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,240\n\n\u{1F449} Aktiviere Power Loop \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #PowerLoop #30Tage #24Prozent #MaximaleRendite\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 46
     },
@@ -77412,7 +78740,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "47_Ultimate_Detail.png",
       headline: "\u{1F680} ULTIMATE LOOP \u2014 IM DETAIL",
-      caption: "\u{1F680} ULTIMATE LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Das Flaggschiff \u2014 H\xF6chste Rendite f\xFCr Vision\xE4re\n\nUltimate Loop: 60 Tage Laufzeit, 54% Gesamtrendite, ~0.90% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 60. Beispiel: $1,000 investiert \u2192 $1,540 nach 60 Tagen. Die h\xF6chste Rendite aller TurboLoop-Pl\xE4ne.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 60 Tage\n\u2022 Rendite: 54% gesamt\n\u2022 T\xE4glich: ~0.90%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,540\n\n\u{1F449} Werde Ultimate Looper \u2192 turboloop.io\n\n#TurboLoop #UltimateLoop #60Tage #54Prozent #Flaggschiff\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} ULTIMATE LOOP \u2014 IM DETAIL\n\n\u{1F4CC} Das Flaggschiff \u2014 H\xF6chste Rendite f\xFCr Vision\xE4re\n\nUltimate Loop: 60 Tage Laufzeit, 54% Gesamtrendite, ~0.90% t\xE4glich. Minimum $1, kein Maximum. Kapitalr\xFCckgabe am Tag 60. Beispiel: $1,000 investiert \u2192 $1,540 nach 60 Tagen. Die h\xF6chste Rendite aller TurboLoop-Pl\xE4ne.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Laufzeit: 60 Tage\n\u2022 Rendite: 54% gesamt\n\u2022 T\xE4glich: ~0.90%\n\u2022 Minimum: $1 | Maximum: Unbegrenzt\n\u2022 Beispiel: $1,000 \u2192 $1,540\n\n\u{1F449} Werde Ultimate Looper \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #UltimateLoop #60Tage #54Prozent #Flaggschiff\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 47
     },
@@ -77430,7 +78758,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "48_Onboarding_Variant.png",
       headline: "\u{1F680} VERDIENE $100 SOFORT",
-      caption: "\u{1F680} VERDIENE $100 SOFORT\n\n\u{1F4CC} 10 aktive Mitglieder = $100 Bonus \u2014 Garantiert\n\nDer Onboarding Bonus ist der schnellste Weg zu extra Einkommen. Teile deinen Referral-Link, bringe 10 Mitglieder dazu aktiv zu investieren, und erhalte sofort $100 Bonus. Kein Warten, keine komplizierten Bedingungen. Einfach und direkt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Teile deinen Referral-Link\n\u2022 10 Mitglieder aktivieren sich\n\u2022 $100 Bonus wird sofort ausgezahlt\n\u2022 Zus\xE4tzlich zu Referral-Provisionen\n\u2022 Wiederholbar mit neuen Teams\n\n\u{1F449} Starte jetzt \u2192 turboloop.io\n\n#TurboLoop #100Dollar #Bonus #Sofort #TeamBuilding\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} VERDIENE $100 SOFORT\n\n\u{1F4CC} 10 aktive Mitglieder = $100 Bonus \u2014 Garantiert\n\nDer Onboarding Bonus ist der schnellste Weg zu extra Einkommen. Teile deinen Referral-Link, bringe 10 Mitglieder dazu aktiv zu investieren, und erhalte sofort $100 Bonus. Kein Warten, keine komplizierten Bedingungen. Einfach und direkt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Teile deinen Referral-Link\n\u2022 10 Mitglieder aktivieren sich\n\u2022 $100 Bonus wird sofort ausgezahlt\n\u2022 Zus\xE4tzlich zu Referral-Provisionen\n\u2022 Wiederholbar mit neuen Teams\n\n\u{1F449} Starte jetzt \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #100Dollar #Bonus #Sofort #TeamBuilding\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 48
     },
@@ -77448,7 +78776,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "49_Creator_Variant.png",
       headline: "\u{1F680} WERDE CONTENT CREATOR",
-      caption: "\u{1F680} WERDE CONTENT CREATOR\n\n\u{1F4CC} Deine Kreativit\xE4t = $50 Belohnung\n\nErstelle authentischen Content \xFCber TurboLoop \u2014 ein Video, einen Blog-Post, eine Instagram-Story oder einen Twitter-Thread. Teile es mit der Community und verdiene $50 Bonus. Dein Content hilft anderen, TurboLoop zu entdecken, und du wirst daf\xFCr belohnt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Video, Post, Story oder Thread\n\u2022 Original und authentisch\n\u2022 Auf Social Media teilen\n\u2022 TurboLoop Community taggen\n\u2022 $50 Bonus nach Verifizierung\n\n\u{1F449} Erstelle Content \u2192 turboloop.io\n\n#TurboLoop #Creator #Content #50Dollar #SocialMedia\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WERDE CONTENT CREATOR\n\n\u{1F4CC} Deine Kreativit\xE4t = $50 Belohnung\n\nErstelle authentischen Content \xFCber TurboLoop \u2014 ein Video, einen Blog-Post, eine Instagram-Story oder einen Twitter-Thread. Teile es mit der Community und verdiene $50 Bonus. Dein Content hilft anderen, TurboLoop zu entdecken, und du wirst daf\xFCr belohnt.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Video, Post, Story oder Thread\n\u2022 Original und authentisch\n\u2022 Auf Social Media teilen\n\u2022 TurboLoop Community taggen\n\u2022 $50 Bonus nach Verifizierung\n\n\u{1F449} Erstelle Content \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Creator #Content #50Dollar #SocialMedia\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 49
     },
@@ -77466,7 +78794,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "50_Zoom_Variant.png",
       headline: "\u{1F680} WERDE ZOOM PRESENTER",
-      caption: "\u{1F680} WERDE ZOOM PRESENTER\n\n\u{1F4CC} Pr\xE4sentiere live \u2014 Verdiene $50 + baue dein Team\n\nHalte eine Live-Pr\xE4sentation \xFCber TurboLoop auf Zoom. Erkl\xE4re das System, beantworte Fragen und inspiriere andere. Mindestens 10 Teilnehmer, Aufzeichnung einreichen, $50 Bonus erhalten. Plus: Du baust gleichzeitig dein Referral-Netzwerk auf.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Live Zoom-Pr\xE4sentation halten\n\u2022 Mindestens 10 Teilnehmer\n\u2022 Aufzeichnung einreichen\n\u2022 $50 Bonus erhalten\n\u2022 Gleichzeitig Team aufbauen\n\n\u{1F449} Pr\xE4sentiere live \u2192 turboloop.io\n\n#TurboLoop #Zoom #Presenter #Live #50Dollar #Team\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} WERDE ZOOM PRESENTER\n\n\u{1F4CC} Pr\xE4sentiere live \u2014 Verdiene $50 + baue dein Team\n\nHalte eine Live-Pr\xE4sentation \xFCber TurboLoop auf Zoom. Erkl\xE4re das System, beantworte Fragen und inspiriere andere. Mindestens 10 Teilnehmer, Aufzeichnung einreichen, $50 Bonus erhalten. Plus: Du baust gleichzeitig dein Referral-Netzwerk auf.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Live Zoom-Pr\xE4sentation halten\n\u2022 Mindestens 10 Teilnehmer\n\u2022 Aufzeichnung einreichen\n\u2022 $50 Bonus erhalten\n\u2022 Gleichzeitig Team aufbauen\n\n\u{1F449} Pr\xE4sentiere live \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Zoom #Presenter #Live #50Dollar #Team\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 50
     },
@@ -77484,7 +78812,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "51_SC_Challenge_V2.png",
       headline: "\u{1F680} $10,000 BOUNTY",
-      caption: "\u{1F680} $10,000 BOUNTY\n\n\u{1F4CC} Finde einen Fehler im Smart Contract und gewinne\n\nWir sind so \xFCberzeugt von der Sicherheit unseres Smart Contracts, dass wir $10,000 f\xFCr jeden ausloben, der einen kritischen Fehler findet. Der Code ist offen, die Logik transparent, der Audit bestanden. Bisher hat niemand einen Fehler gefunden. Kannst du es?\n\n\u2705 KERNPUNKTE:\n\n\u2022 $10,000 Bounty pro kritischem Fehler\n\u2022 Code: \xD6ffentlich und verifiziert\n\u2022 Audit: Bestanden ohne Fehler\n\u2022 Bisher: 0 Fehler gefunden\n\u2022 Challenge: Offen f\xFCr alle Entwickler\n\n\u{1F449} Nimm die Challenge an \u2192 turboloop.io\n\n#TurboLoop #BugBounty #10000 #Challenge #SmartContract\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} $10,000 BOUNTY\n\n\u{1F4CC} Finde einen Fehler im Smart Contract und gewinne\n\nWir sind so \xFCberzeugt von der Sicherheit unseres Smart Contracts, dass wir $10,000 f\xFCr jeden ausloben, der einen kritischen Fehler findet. Der Code ist offen, die Logik transparent, der Audit bestanden. Bisher hat niemand einen Fehler gefunden. Kannst du es?\n\n\u2705 KERNPUNKTE:\n\n\u2022 $10,000 Bounty pro kritischem Fehler\n\u2022 Code: \xD6ffentlich und verifiziert\n\u2022 Audit: Bestanden ohne Fehler\n\u2022 Bisher: 0 Fehler gefunden\n\u2022 Challenge: Offen f\xFCr alle Entwickler\n\n\u{1F449} Nimm die Challenge an \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #BugBounty #10000 #Challenge #SmartContract\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 51
     },
@@ -77502,7 +78830,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "52_Turbo_Buy_Detail.png",
       headline: "\u{1F680} TURBO BUY \u2014 IM DETAIL",
-      caption: "\u{1F680} TURBO BUY \u2014 IM DETAIL\n\n\u{1F4CC} 4 Schritte zum USDT-Kauf ohne B\xF6rse\n\nTurbo Buy macht den USDT-Kauf kinderleicht: 1. Betrag eingeben, 2. Zahlungsmethode w\xE4hlen (Visa, Mastercard, Apple Pay, Google Pay), 3. USDT erhalten, 4. Direkt investieren. Kein B\xF6rsenkonto, keine Verifizierung, sofortige Gutschrift.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Schritt 1: Betrag eingeben\n\u2022 Schritt 2: Zahlungsmethode w\xE4hlen\n\u2022 Schritt 3: USDT erhalten\n\u2022 Schritt 4: Direkt investieren\n\u2022 Unterst\xFCtzt: Visa, MC, Apple Pay, Google Pay\n\n\u{1F449} Kaufe USDT jetzt \u2192 turboloop.io\n\n#TurboLoop #TurboBuy #USDT #Kaufen #OhneB\xF6rse #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} TURBO BUY \u2014 IM DETAIL\n\n\u{1F4CC} 4 Schritte zum USDT-Kauf ohne B\xF6rse\n\nTurbo Buy macht den USDT-Kauf kinderleicht: 1. Betrag eingeben, 2. Zahlungsmethode w\xE4hlen (Visa, Mastercard, Apple Pay, Google Pay), 3. USDT erhalten, 4. Direkt investieren. Kein B\xF6rsenkonto, keine Verifizierung, sofortige Gutschrift.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Schritt 1: Betrag eingeben\n\u2022 Schritt 2: Zahlungsmethode w\xE4hlen\n\u2022 Schritt 3: USDT erhalten\n\u2022 Schritt 4: Direkt investieren\n\u2022 Unterst\xFCtzt: Visa, MC, Apple Pay, Google Pay\n\n\u{1F449} Kaufe USDT jetzt \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #TurboBuy #USDT #Kaufen #OhneB\xF6rse #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 52
     },
@@ -77520,7 +78848,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "53_Turbo_Swap_Detail.png",
       headline: "\u{1F680} TURBO SWAP \u2014 IM DETAIL",
-      caption: "\u{1F680} TURBO SWAP \u2014 IM DETAIL\n\n\u{1F4CC} Token tauschen in Sekunden \u2014 Dezentral und g\xFCnstig\n\nTurbo Swap aggregiert die besten Preise von dezentralen B\xF6rsen und erm\xF6glicht dir den sofortigen Token-Tausch. Keine Registrierung, keine zentrale B\xF6rse, minimale Geb\xFChren. Einfach Token A ausw\xE4hlen, Token B w\xE4hlen, Betrag eingeben und swappen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 DEX-Aggregation f\xFCr beste Preise\n\u2022 Keine Registrierung erforderlich\n\u2022 Sofortige Ausf\xFChrung\n\u2022 Minimale Gas-Geb\xFChren\n\u2022 Hunderte Token-Paare verf\xFCgbar\n\n\u{1F449} Swape jetzt \u2192 turboloop.io\n\n#TurboLoop #TurboSwap #DEX #Swap #Dezentral #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} TURBO SWAP \u2014 IM DETAIL\n\n\u{1F4CC} Token tauschen in Sekunden \u2014 Dezentral und g\xFCnstig\n\nTurbo Swap aggregiert die besten Preise von dezentralen B\xF6rsen und erm\xF6glicht dir den sofortigen Token-Tausch. Keine Registrierung, keine zentrale B\xF6rse, minimale Geb\xFChren. Einfach Token A ausw\xE4hlen, Token B w\xE4hlen, Betrag eingeben und swappen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 DEX-Aggregation f\xFCr beste Preise\n\u2022 Keine Registrierung erforderlich\n\u2022 Sofortige Ausf\xFChrung\n\u2022 Minimale Gas-Geb\xFChren\n\u2022 Hunderte Token-Paare verf\xFCgbar\n\n\u{1F449} Swape jetzt \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #TurboSwap #DEX #Swap #Dezentral #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 53
     },
@@ -77538,7 +78866,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "54_Audit_Detail.png",
       headline: "\u{1F680} AUDIT-BERICHT IM DETAIL",
-      caption: "\u{1F680} AUDIT-BERICHT IM DETAIL\n\n\u{1F4CC} Sicherheit. Transparenz. Vertrauen.\n\nDer vollst\xE4ndige Audit-Bericht zeigt: Sicherheits\xFCberpr\xFCfung bestanden, Code-Qualit\xE4t bestanden, Schwachstellen-Scan bestanden, Backdoor-Analyse: kein Risiko, manuelle \xDCberpr\xFCfung bestanden. Der gepr\xFCfte Quellcode erf\xFCllt alle Sicherheitsstandards.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sicherheits\xFCberpr\xFCfung: Bestanden\n\u2022 Code-Qualit\xE4t: Bestanden\n\u2022 Schwachstellen-Scan: Bestanden\n\u2022 Backdoor-Analyse: Kein Risiko\n\u2022 Manuelle \xDCberpr\xFCfung: Bestanden\n\n\u{1F449} Lies den vollen Bericht \u2192 turboloop.io\n\n#TurboLoop #Audit #Sicherheit #Bestanden #Vertrauen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} AUDIT-BERICHT IM DETAIL\n\n\u{1F4CC} Sicherheit. Transparenz. Vertrauen.\n\nDer vollst\xE4ndige Audit-Bericht zeigt: Sicherheits\xFCberpr\xFCfung bestanden, Code-Qualit\xE4t bestanden, Schwachstellen-Scan bestanden, Backdoor-Analyse: kein Risiko, manuelle \xDCberpr\xFCfung bestanden. Der gepr\xFCfte Quellcode erf\xFCllt alle Sicherheitsstandards.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Sicherheits\xFCberpr\xFCfung: Bestanden\n\u2022 Code-Qualit\xE4t: Bestanden\n\u2022 Schwachstellen-Scan: Bestanden\n\u2022 Backdoor-Analyse: Kein Risiko\n\u2022 Manuelle \xDCberpr\xFCfung: Bestanden\n\n\u{1F449} Lies den vollen Bericht \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Audit #Sicherheit #Bestanden #Vertrauen\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 54
     },
@@ -77556,7 +78884,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "55_Eigentum_Detail.png",
       headline: "\u{1F680} EIGENTUM AUFGEGEBEN \u2014 BEWEIS",
-      caption: "\u{1F680} EIGENTUM AUFGEGEBEN \u2014 BEWEIS\n\n\u{1F4CC} Niemand kann den Contract stoppen oder \xE4ndern\n\nDie Blockchain beweist es: Owner Address zeigt auf 0x000...dead. Die Transaktion ist auf BSCScan verifizierbar. Einmal aufgegeben, f\xFCr immer unver\xE4nderlich. Kein Admin-Zugriff, keine Hintert\xFCr, keine M\xF6glichkeit zur Manipulation. 100% dezentral.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Owner Address: 0x000...dead\n\u2022 Transaktion: Auf BSCScan verifiziert\n\u2022 Status: Permanent und unver\xE4nderlich\n\u2022 Admin-Zugriff: Unm\xF6glich\n\u2022 Manipulation: Ausgeschlossen\n\n\u{1F449} Verifiziere selbst \u2192 turboloop.io\n\n#TurboLoop #Renounced #Beweis #BSCScan #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} EIGENTUM AUFGEGEBEN \u2014 BEWEIS\n\n\u{1F4CC} Niemand kann den Contract stoppen oder \xE4ndern\n\nDie Blockchain beweist es: Owner Address zeigt auf 0x000...dead. Die Transaktion ist auf BSCScan verifizierbar. Einmal aufgegeben, f\xFCr immer unver\xE4nderlich. Kein Admin-Zugriff, keine Hintert\xFCr, keine M\xF6glichkeit zur Manipulation. 100% dezentral.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Owner Address: 0x000...dead\n\u2022 Transaktion: Auf BSCScan verifiziert\n\u2022 Status: Permanent und unver\xE4nderlich\n\u2022 Admin-Zugriff: Unm\xF6glich\n\u2022 Manipulation: Ausgeschlossen\n\n\u{1F449} Verifiziere selbst \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Renounced #Beweis #BSCScan #Dezentral\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 55
     },
@@ -77574,7 +78902,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "56_LP_Lock_Detail.png",
       headline: "\u{1F680} LP LOCK \u2014 IM DETAIL",
-      caption: "\u{1F680} LP LOCK \u2014 IM DETAIL\n\n\u{1F4CC} 100% gesperrt. 100% transparent. 100% Vertrauen.\n\nDie Liquidit\xE4t ist \xFCber BscScan permanent gesperrt. Dauer: F\xFCr immer. Status: Verifiziert. Einsehbar auf BSCScan. Kein Entwickler kann die Liquidit\xE4t jemals abziehen. Dies ist der ultimative Schutz gegen Rug-Pulls.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BscScan\n\u2022 Dauer: F\xFCr immer (permanent)\n\u2022 Status: Verifiziert und aktiv\n\u2022 Einsehbar: BSCScan\n\u2022 Schutz: 100% gegen Rug-Pull\n\n\u{1F449} Pr\xFCfe den Lock \u2192 turboloop.io\n\n#TurboLoop #LPLock #Permanent #Verifiziert #KeinRugPull\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LP LOCK \u2014 IM DETAIL\n\n\u{1F4CC} 100% gesperrt. 100% transparent. 100% Vertrauen.\n\nDie Liquidit\xE4t ist \xFCber BscScan permanent gesperrt. Dauer: F\xFCr immer. Status: Verifiziert. Einsehbar auf BSCScan. Kein Entwickler kann die Liquidit\xE4t jemals abziehen. Dies ist der ultimative Schutz gegen Rug-Pulls.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Plattform: BscScan\n\u2022 Dauer: F\xFCr immer (permanent)\n\u2022 Status: Verifiziert und aktiv\n\u2022 Einsehbar: BSCScan\n\u2022 Schutz: 100% gegen Rug-Pull\n\n\u{1F449} Pr\xFCfe den Lock \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #LPLock #Permanent #Verifiziert #KeinRugPull\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 56
     },
@@ -77592,7 +78920,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "57_Kein_KYC_Detail.png",
       headline: "\u{1F680} KEIN KYC \u2014 IM DETAIL",
-      caption: "\u{1F680} KEIN KYC \u2014 IM DETAIL\n\n\u{1F4CC} DeFi bedeutet Freiheit \u2014 Starte sofort mit nur deinem Wallet\n\nKeine Ausweisdokumente, keine Adressverifizierung, keine Wartezeit, keine Datenspeicherung. TurboLoop speichert keine pers\xF6nlichen Daten. Du brauchst nur ein Wallet (MetaMask oder Trust Wallet) und USDT. Das ist alles. Sofortiger Zugang, volle Privatsph\xE4re.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Keine Ausweisdokumente n\xF6tig\n\u2022 Keine Adressverifizierung\n\u2022 Keine Wartezeit \u2014 sofort starten\n\u2022 Keine Datenspeicherung\n\u2022 100% Privatsph\xE4re garantiert\n\n\u{1F449} Starte privat \u2192 turboloop.io\n\n#TurboLoop #KeinKYC #Privatsph\xE4re #Freiheit #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} KEIN KYC \u2014 IM DETAIL\n\n\u{1F4CC} DeFi bedeutet Freiheit \u2014 Starte sofort mit nur deinem Wallet\n\nKeine Ausweisdokumente, keine Adressverifizierung, keine Wartezeit, keine Datenspeicherung. TurboLoop speichert keine pers\xF6nlichen Daten. Du brauchst nur ein Wallet (MetaMask oder Trust Wallet) und USDT. Das ist alles. Sofortiger Zugang, volle Privatsph\xE4re.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Keine Ausweisdokumente n\xF6tig\n\u2022 Keine Adressverifizierung\n\u2022 Keine Wartezeit \u2014 sofort starten\n\u2022 Keine Datenspeicherung\n\u2022 100% Privatsph\xE4re garantiert\n\n\u{1F449} Starte privat \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #KeinKYC #Privatsph\xE4re #Freiheit #Sofort\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 57
     },
@@ -77610,7 +78938,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "58_Code_Detail.png",
       headline: "\u{1F680} VERIFIZIERTER CODE \u2014 IM DETAIL",
-      caption: "\u{1F680} VERIFIZIERTER CODE \u2014 IM DETAIL\n\n\u{1F4CC} Volle Transparenz \u2014 Nichts ist versteckt\n\nDer TurboLoop Smart Contract ist auf BSCScan als 'Verified & Published' markiert. Sprache: Solidity. Compiler: v0.8.19. Optimierung: Aktiviert. Lizenz: MIT. Jeder Entwickler weltweit kann den Code lesen, analysieren und verifizieren. Keine versteckten Funktionen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 BSCScan: Verified & Published\n\u2022 Sprache: Solidity v0.8.19\n\u2022 Optimierung: Aktiviert (200 Runs)\n\u2022 Lizenz: MIT (Open Source)\n\u2022 Status: Jeder kann lesen und pr\xFCfen\n\n\u{1F449} Code auf BSCScan ansehen \u2192 turboloop.io\n\n#TurboLoop #Code #Verifiziert #OpenSource #Solidity\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} VERIFIZIERTER CODE \u2014 IM DETAIL\n\n\u{1F4CC} Volle Transparenz \u2014 Nichts ist versteckt\n\nDer TurboLoop Smart Contract ist auf BSCScan als 'Verified & Published' markiert. Sprache: Solidity. Compiler: v0.8.19. Optimierung: Aktiviert. Lizenz: MIT. Jeder Entwickler weltweit kann den Code lesen, analysieren und verifizieren. Keine versteckten Funktionen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 BSCScan: Verified & Published\n\u2022 Sprache: Solidity v0.8.19\n\u2022 Optimierung: Aktiviert (200 Runs)\n\u2022 Lizenz: MIT (Open Source)\n\u2022 Status: Jeder kann lesen und pr\xFCfen\n\n\u{1F449} Code auf BSCScan ansehen \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Code #Verifiziert #OpenSource #Solidity\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 58
     },
@@ -77628,7 +78956,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "59_Mittel_Detail.png",
       headline: "\u{1F680} DEINE MITTEL \u2014 IM DETAIL",
-      caption: "\u{1F680} DEINE MITTEL \u2014 IM DETAIL\n\n\u{1F4CC} Dein Schl\xFCssel. Dein Wallet. Dein Geld.\n\nNon-Custodial bedeutet: TurboLoop h\xE4lt niemals deine Mittel. Dein Private Key bleibt ausschlie\xDFlich bei dir. Abhebungen sind jederzeit m\xF6glich \u2014 ohne Genehmigung, ohne Wartezeit, ohne Limits. Die Kontrolle liegt zu 100% bei dir.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Non-Custodial: Wir halten nie deine Mittel\n\u2022 Private Key: Ausschlie\xDFlich bei dir\n\u2022 Abhebung: Jederzeit ohne Genehmigung\n\u2022 Wartezeit: Keine\n\u2022 Kontrolle: 100% bei dir\n\n\u{1F449} Behalte volle Kontrolle \u2192 turboloop.io\n\n#TurboLoop #NonCustodial #DeinGeld #Kontrolle #Sicherheit\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DEINE MITTEL \u2014 IM DETAIL\n\n\u{1F4CC} Dein Schl\xFCssel. Dein Wallet. Dein Geld.\n\nNon-Custodial bedeutet: TurboLoop h\xE4lt niemals deine Mittel. Dein Private Key bleibt ausschlie\xDFlich bei dir. Abhebungen sind jederzeit m\xF6glich \u2014 ohne Genehmigung, ohne Wartezeit, ohne Limits. Die Kontrolle liegt zu 100% bei dir.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Non-Custodial: Wir halten nie deine Mittel\n\u2022 Private Key: Ausschlie\xDFlich bei dir\n\u2022 Abhebung: Jederzeit ohne Genehmigung\n\u2022 Wartezeit: Keine\n\u2022 Kontrolle: 100% bei dir\n\n\u{1F449} Behalte volle Kontrolle \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #NonCustodial #DeinGeld #Kontrolle #Sicherheit\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 59
     },
@@ -77646,7 +78974,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "60_Einnahmen_Detail.png",
       headline: "\u{1F680} T\xC4GLICHE EINNAHMEN \u2014 IM DETAIL",
-      caption: "\u{1F680} T\xC4GLICHE EINNAHMEN \u2014 IM DETAIL\n\n\u{1F4CC} Jeden Tag Ertrag \u2014 Automatisch gutgeschrieben\n\nBasierend auf $1,000 im Power Loop: Tag 1: +$8.00, Tag 7: +$56, Tag 14: +$112, Tag 30: +$240 Gesamtertrag. Jeden Tag wird dein Ertrag automatisch vom Smart Contract berechnet und gutgeschrieben. Kein manuelles Eingreifen n\xF6tig.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Tag 1: +$8.00\n\u2022 Tag 7: +$56 (kumuliert)\n\u2022 Tag 14: +$112 (kumuliert)\n\u2022 Tag 30: +$240 (kumuliert)\n\u2022 Basierend auf $1,000 Power Loop\n\n\u{1F449} Verdiene t\xE4glich \u2192 turboloop.io\n\n#TurboLoop #T\xE4glicheEinnahmen #PowerLoop #Automatisch\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} T\xC4GLICHE EINNAHMEN \u2014 IM DETAIL\n\n\u{1F4CC} Jeden Tag Ertrag \u2014 Automatisch gutgeschrieben\n\nBasierend auf $1,000 im Power Loop: Tag 1: +$8.00, Tag 7: +$56, Tag 14: +$112, Tag 30: +$240 Gesamtertrag. Jeden Tag wird dein Ertrag automatisch vom Smart Contract berechnet und gutgeschrieben. Kein manuelles Eingreifen n\xF6tig.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Tag 1: +$8.00\n\u2022 Tag 7: +$56 (kumuliert)\n\u2022 Tag 14: +$112 (kumuliert)\n\u2022 Tag 30: +$240 (kumuliert)\n\u2022 Basierend auf $1,000 Power Loop\n\n\u{1F449} Verdiene t\xE4glich \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #T\xE4glicheEinnahmen #PowerLoop #Automatisch\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 60
     },
@@ -77664,7 +78992,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "61_Passives_Einkommen_Detail.png",
       headline: "\u{1F680} PASSIVES EINKOMMEN \u2014 IM DETAIL",
-      caption: "\u{1F680} PASSIVES EINKOMMEN \u2014 IM DETAIL\n\n\u{1F4CC} Drei Einkommensstr\xF6me \u2014 Alle passiv, alle automatisch\n\nYield: Automatisch t\xE4glich gutgeschrieben. Referral: Bei jeder Team-Einzahlung sofort. Leadership: Monatlich auf Volumen. Reinvestition: Zinseszins-Effekt. Alle Str\xF6me arbeiten gleichzeitig und passiv \u2014 du musst nichts tun au\xDFer zuzuschauen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Yield: Automatisch t\xE4glich\n\u2022 Referral: Bei jeder Team-Einzahlung\n\u2022 Leadership: Monatlich auf Volumen\n\u2022 Reinvestition: Zinseszins-Effekt\n\u2022 Alles passiv und automatisch\n\n\u{1F449} Starte passiv \u2192 turboloop.io\n\n#TurboLoop #PassivesEinkommen #Automatisch #DreiStr\xF6me\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} PASSIVES EINKOMMEN \u2014 IM DETAIL\n\n\u{1F4CC} Drei Einkommensstr\xF6me \u2014 Alle passiv, alle automatisch\n\nYield: Automatisch t\xE4glich gutgeschrieben. Referral: Bei jeder Team-Einzahlung sofort. Leadership: Monatlich auf Volumen. Reinvestition: Zinseszins-Effekt. Alle Str\xF6me arbeiten gleichzeitig und passiv \u2014 du musst nichts tun au\xDFer zuzuschauen.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Yield: Automatisch t\xE4glich\n\u2022 Referral: Bei jeder Team-Einzahlung\n\u2022 Leadership: Monatlich auf Volumen\n\u2022 Reinvestition: Zinseszins-Effekt\n\u2022 Alles passiv und automatisch\n\n\u{1F449} Starte passiv \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #PassivesEinkommen #Automatisch #DreiStr\xF6me\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 61
     },
@@ -77682,7 +79010,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "62_Referral_Detail.png",
       headline: "\u{1F680} EMPFEHLUNGSNETZWERK \u2014 IM DETAIL",
-      caption: "\u{1F680} EMPFEHLUNGSNETZWERK \u2014 IM DETAIL\n\n\u{1F4CC} Unbegrenztes Verdienstpotenzial \xFCber 20 Ebenen\n\nKomplette Aufschl\xFCsselung: L1: 8%, L2: 5%, L3: 3%, L4-5: 2%, L6-20: 1% = 35% Total. Beispiel: $1,000 Team-Einzahlung = $80 (L1) + $50 (L2) + $30 (L3) + $20 (L4) + $20 (L5) + $150 (L6-20) = $350 Gesamtprovision.\n\n\u2705 KERNPUNKTE:\n\n\u2022 L1: 8% = $80 pro $1,000\n\u2022 L2: 5% = $50 pro $1,000\n\u2022 L3: 3% = $30 pro $1,000\n\u2022 L4-5: 2% = $40 pro $1,000\n\u2022 L6-20: 1% = $150 pro $1,000\n\u2022 Gesamt: $350 pro $1,000 Team-Einzahlung\n\n\u{1F449} Baue dein Netzwerk \u2192 turboloop.io\n\n#TurboLoop #Referral #20Ebenen #Provision #Unbegrenzt\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} EMPFEHLUNGSNETZWERK \u2014 IM DETAIL\n\n\u{1F4CC} Unbegrenztes Verdienstpotenzial \xFCber 20 Ebenen\n\nKomplette Aufschl\xFCsselung: L1: 8%, L2: 5%, L3: 3%, L4-5: 2%, L6-20: 1% = 35% Total. Beispiel: $1,000 Team-Einzahlung = $80 (L1) + $50 (L2) + $30 (L3) + $20 (L4) + $20 (L5) + $150 (L6-20) = $350 Gesamtprovision.\n\n\u2705 KERNPUNKTE:\n\n\u2022 L1: 8% = $80 pro $1,000\n\u2022 L2: 5% = $50 pro $1,000\n\u2022 L3: 3% = $30 pro $1,000\n\u2022 L4-5: 2% = $40 pro $1,000\n\u2022 L6-20: 1% = $150 pro $1,000\n\u2022 Gesamt: $350 pro $1,000 Team-Einzahlung\n\n\u{1F449} Baue dein Netzwerk \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Referral #20Ebenen #Provision #Unbegrenzt\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 62
     },
@@ -77700,7 +79028,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "63_Leadership_Detail2.png",
       headline: "\u{1F680} LEADERSHIP-PROGRAMM \u2014 DEIN WEG",
-      caption: "\u{1F680} LEADERSHIP-PROGRAMM \u2014 DEIN WEG\n\n\u{1F4CC} Baue ein Team. Werde zur F\xFChrungskraft. Verdiene zus\xE4tzlich.\n\nDein Weg durch die R\xE4nge: Star ($10K Team-Volumen, 5% Bonus) \u2192 Manager ($50K, 10%) \u2192 Director ($250K, 15%) \u2192 VP ($1M, 20%) \u2192 President ($5M, 25%). Jeder Rang bringt h\xF6here Boni und mehr Prestige. Dein Engagement bestimmt deinen Erfolg.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Star: $10K \u2192 5% Bonus\n\u2022 Manager: $50K \u2192 10% Bonus\n\u2022 Director: $250K \u2192 15% Bonus\n\u2022 VP: $1M \u2192 20% Bonus\n\u2022 President: $5M \u2192 25% Bonus\n\n\u{1F449} Starte deinen Aufstieg \u2192 turboloop.io\n\n#TurboLoop #Leadership #Aufstieg #R\xE4nge #Erfolg\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} LEADERSHIP-PROGRAMM \u2014 DEIN WEG\n\n\u{1F4CC} Baue ein Team. Werde zur F\xFChrungskraft. Verdiene zus\xE4tzlich.\n\nDein Weg durch die R\xE4nge: Star ($10K Team-Volumen, 5% Bonus) \u2192 Manager ($50K, 10%) \u2192 Director ($250K, 15%) \u2192 VP ($1M, 20%) \u2192 President ($5M, 25%). Jeder Rang bringt h\xF6here Boni und mehr Prestige. Dein Engagement bestimmt deinen Erfolg.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Star: $10K \u2192 5% Bonus\n\u2022 Manager: $50K \u2192 10% Bonus\n\u2022 Director: $250K \u2192 15% Bonus\n\u2022 VP: $1M \u2192 20% Bonus\n\u2022 President: $5M \u2192 25% Bonus\n\n\u{1F449} Starte deinen Aufstieg \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #Leadership #Aufstieg #R\xE4nge #Erfolg\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 63
     },
@@ -77718,7 +79046,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "64_Loop_Hoert_Nie_Auf.png",
       headline: "\u{1F680} DER LOOP H\xD6RT NIE AUF",
-      caption: "\u{1F680} DER LOOP H\xD6RT NIE AUF\n\n\u{1F4CC} Smart Contract l\xE4uft 24/7/365 \u2014 Keine Pause, kein Stopp\n\nDer TurboLoop Smart Contract ist dezentral, automatisch und unaufhaltbar. Er l\xE4uft 24 Stunden am Tag, 7 Tage die Woche, 365 Tage im Jahr \u2014 f\xFCr immer. Kein Admin kann ihn pausieren, kein Unternehmen kann ihn stoppen. Ein System. Ein Loop. Endlose M\xF6glichkeiten.\n\n\u2705 KERNPUNKTE:\n\n\u2022 24/7/365 aktiv \u2014 ohne Pause\n\u2022 Dezentral \u2014 kein einzelner Kontrollpunkt\n\u2022 Automatisch \u2014 kein menschliches Eingreifen\n\u2022 Unaufhaltbar \u2014 niemand kann stoppen\n\u2022 F\xFCr immer \u2014 Code ist permanent\n\n\u{1F449} Tritt dem ewigen Loop bei \u2192 turboloop.io\n\n#TurboLoop #24/7 #Unaufhaltbar #Dezentral #F\xFCrImmer\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} DER LOOP H\xD6RT NIE AUF\n\n\u{1F4CC} Smart Contract l\xE4uft 24/7/365 \u2014 Keine Pause, kein Stopp\n\nDer TurboLoop Smart Contract ist dezentral, automatisch und unaufhaltbar. Er l\xE4uft 24 Stunden am Tag, 7 Tage die Woche, 365 Tage im Jahr \u2014 f\xFCr immer. Kein Admin kann ihn pausieren, kein Unternehmen kann ihn stoppen. Ein System. Ein Loop. Endlose M\xF6glichkeiten.\n\n\u2705 KERNPUNKTE:\n\n\u2022 24/7/365 aktiv \u2014 ohne Pause\n\u2022 Dezentral \u2014 kein einzelner Kontrollpunkt\n\u2022 Automatisch \u2014 kein menschliches Eingreifen\n\u2022 Unaufhaltbar \u2014 niemand kann stoppen\n\u2022 F\xFCr immer \u2014 Code ist permanent\n\n\u{1F449} Tritt dem ewigen Loop bei \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #24/7 #Unaufhaltbar #Dezentral #F\xFCrImmer\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 64
     },
@@ -77736,7 +79064,7 @@ Here's where TurboLoop's true potential reveals itself. Take $1,000 and deposit 
       },
       original: "65_Tritt_Dem_Loop_Bei.png",
       headline: "\u{1F680} TRITT DEM LOOP BEI",
-      caption: "\u{1F680} TRITT DEM LOOP BEI\n\n\u{1F4CC} Die Zukunft des passiven Einkommens beginnt hier\n\nTurboLoop ist mehr als ein Protokoll \u2014 es ist eine Bewegung. Tausende von Menschen weltweit verdienen bereits passives Einkommen durch den Loop. Verbinde dein Wallet, w\xE4hle deinen Plan und werde Teil der TurboLoop-Community. Die Zukunft wartet nicht.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Verbinde dein Wallet\n\u2022 W\xE4hle deinen Plan (ab $1)\n\u2022 Verdiene t\xE4glich \u2014 automatisch\n\u2022 Baue dein Netzwerk auf\n\u2022 Werde Teil der Zukunft\n\n\u{1F449} JETZT STARTEN \u2192 turboloop.io\n\n#TurboLoop #JetztStarten #DeFi #Zukunft #PassivesEinkommen #Community\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
+      caption: "\u{1F680} TRITT DEM LOOP BEI\n\n\u{1F4CC} Die Zukunft des passiven Einkommens beginnt hier\n\nTurboLoop ist mehr als ein Protokoll \u2014 es ist eine Bewegung. Tausende von Menschen weltweit verdienen bereits passives Einkommen durch den Loop. Verbinde dein Wallet, w\xE4hle deinen Plan und werde Teil der TurboLoop-Community. Die Zukunft wartet nicht.\n\n\u2705 KERNPUNKTE:\n\n\u2022 Verbinde dein Wallet\n\u2022 W\xE4hle deinen Plan (ab $1)\n\u2022 Verdiene t\xE4glich \u2014 automatisch\n\u2022 Baue dein Netzwerk auf\n\u2022 Werde Teil der Zukunft\n\n\u{1F449} JETZT STARTEN \u2192 https://turboloop.io?ref=BitPat\n\n#TurboLoop #JetztStarten #DeFi #Zukunft #PassivesEinkommen #Community\n\nTurboLoop \u2014 Der Loop h\xF6rt nie auf.",
       hashtags: [],
       visualNumber: 65
     }
@@ -78172,6 +79500,14 @@ function bannerUrlBlog(slug, title) {
 }
 var R2_ZOOM = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/hub-promo";
 function bannerUrlZoom(lang, tier = "T30") {
+  if (lang === "th") {
+    const v3 = Math.floor(Date.now() / 864e5) % 2 + 1;
+    return v3 === 1 ? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/thai/thai_zoom_portrait.png" : "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/thai/thai_zoom_landscape.png";
+  }
+  const todayStr = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+  if (todayStr === "2026-07-08") {
+    return lang === "hi" ? "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/4month-hindi-celebration.png" : "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/zoom-banners/4month-global-celebration.png";
+  }
   const t = tier === "T0" ? "live" : tier.toLowerCase();
   const v2 = Math.floor(Date.now() / 864e5) % 3 + 1;
   return `${R2_ZOOM}/hub-promo-zoom-${lang}-${t}-v${v2}.png`;
@@ -78471,6 +79807,33 @@ async function handler(req, res) {
       res.end(JSON.stringify({ ok: true, today, firedKeys: rows.map((r5) => r5.settingKey) }));
       return;
     }
+    if (reqUrlDebug.searchParams.get("checktg") === "1") {
+      const botToken = process.env.TELEGRAM_BOT_TOKEN;
+      const channel = process.env.TELEGRAM_CHANNEL;
+      const chat = process.env.TELEGRAM_CHAT;
+      res.statusCode = 200;
+      res.end(JSON.stringify({
+        ok: true,
+        botTokenSet: !!botToken,
+        botTokenPrefix: botToken ? botToken.slice(0, 10) + "..." : null,
+        channel: channel || null,
+        chat: chat || null
+      }));
+      return;
+    }
+    if (reqUrlDebug.searchParams.get("sendpost") === "1") {
+      const photoUrl = reqUrlDebug.searchParams.get("photo") || "";
+      const caption = reqUrlDebug.searchParams.get("caption") || "";
+      if (!photoUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "photo param required" }));
+        return;
+      }
+      const result = await tgBroadcastPhoto({ photoUrl, caption, parseMode: "HTML" });
+      res.statusCode = 200;
+      res.end(JSON.stringify({ ok: true, result }));
+      return;
+    }
     if (reqUrlDebug.searchParams.get("setcommands") === "1") {
       const botToken = process.env.TELEGRAM_BOT_TOKEN;
       if (!botToken) {
@@ -78502,6 +79865,71 @@ async function handler(req, res) {
       const tgData = await tgRes.json();
       res.statusCode = 200;
       res.end(JSON.stringify({ ok: true, telegram: tgData, registered: commands5.map((c5) => c5.command) }));
+      return;
+    }
+    const ALLOWED_UPLOAD_PREFIXES = ["reels/", "reel-thumbs/", "hub-promo/", "banners/", "og/", "uploads/images/"];
+    const BLOCKED_EXTENSIONS = [".js", ".mjs", ".cjs", ".ts", ".html", ".htm", ".php", ".svg", ".xml", ".xhtml", ".sh", ".bat", ".cmd", ".ps1"];
+    const uploadAssetKey = reqUrlDebug.searchParams.get("uploadasset");
+    if (uploadAssetKey) {
+      const keyLower = uploadAssetKey.toLowerCase();
+      const isAllowedPrefix = ALLOWED_UPLOAD_PREFIXES.some((p3) => keyLower.startsWith(p3));
+      if (!isAllowedPrefix) {
+        res.statusCode = 403;
+        res.end(JSON.stringify({ ok: false, error: `Forbidden: key must start with one of: ${ALLOWED_UPLOAD_PREFIXES.join(", ")}` }));
+        return;
+      }
+      const ext = keyLower.slice(keyLower.lastIndexOf("."));
+      if (BLOCKED_EXTENSIONS.includes(ext)) {
+        res.statusCode = 403;
+        res.end(JSON.stringify({ ok: false, error: `Forbidden: file extension '${ext}' is not allowed` }));
+        return;
+      }
+      const srcUrl = reqUrlDebug.searchParams.get("src");
+      const ct = reqUrlDebug.searchParams.get("ct") || "application/octet-stream";
+      if (ct.includes("javascript") || ct.includes("ecmascript") || ct.includes("html")) {
+        res.statusCode = 403;
+        res.end(JSON.stringify({ ok: false, error: `Forbidden: content-type '${ct}' is not allowed` }));
+        return;
+      }
+      if (!srcUrl) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ ok: false, error: "Missing ?src= param" }));
+        return;
+      }
+      try {
+        const { S3Client, PutObjectCommand } = await Promise.resolve().then(() => __toESM(require_dist_cjs21(), 1));
+        const r2Endpoint = process.env.R2_ENDPOINT;
+        const r2Key = process.env.R2_ACCESS_KEY_ID;
+        const r2Secret = process.env.R2_SECRET_ACCESS_KEY;
+        const r2Bucket = process.env.R2_BUCKET_NAME;
+        const r2Public = process.env.R2_PUBLIC_URL;
+        if (!r2Endpoint || !r2Key || !r2Secret || !r2Bucket) {
+          res.statusCode = 500;
+          res.end(JSON.stringify({ ok: false, error: "R2 env vars not set" }));
+          return;
+        }
+        const fileRes = await fetch(srcUrl, { signal: AbortSignal.timeout(12e4) });
+        if (!fileRes.ok) throw new Error(`Fetch failed: ${fileRes.status}`);
+        const fileBuf = Buffer.from(await fileRes.arrayBuffer());
+        const s3 = new S3Client({
+          region: "auto",
+          endpoint: r2Endpoint,
+          credentials: { accessKeyId: r2Key, secretAccessKey: r2Secret }
+        });
+        await s3.send(new PutObjectCommand({
+          Bucket: r2Bucket,
+          Key: uploadAssetKey,
+          Body: fileBuf,
+          ContentType: ct,
+          CacheControl: "public, max-age=31536000, immutable"
+        }));
+        const publicUrl = `${r2Public}/${uploadAssetKey}`;
+        res.statusCode = 200;
+        res.end(JSON.stringify({ ok: true, key: uploadAssetKey, url: publicUrl, bytes: fileBuf.length }));
+      } catch (err) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({ ok: false, error: err?.message ?? String(err) }));
+      }
       return;
     }
     const uploadBannerName = reqUrlDebug.searchParams.get("uploadbanner");
@@ -78794,6 +80222,10 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
     const forceZoomEnT0 = forceSet.has("zoom:en:T0");
     const forceZoomHiT30 = forceSet.has("zoom:hi:T30");
     const forceZoomEnT30 = forceSet.has("zoom:en:T30");
+    const forceZoomThT60 = forceSet.has("zoom:th:T60");
+    const forceZoomThT30 = forceSet.has("zoom:th:T30");
+    const forceZoomThT15 = forceSet.has("zoom:th:T15");
+    const forceZoomThT0 = forceSet.has("zoom:th:T0");
     const forceCampaignLifestyle = forceSet.has("campaign:lifestyle");
     const forceCampaignToken = forceSet.has("campaign:token");
     const forceCampaignReferral = forceSet.has("campaign:referral");
@@ -78808,6 +80240,10 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
     const forceCampaignCommunity = forceSet.has("campaign:community");
     const forceCreativesPromoA = forceSet.has("creatives:promo:A");
     const forceCreativesPromoB = forceSet.has("creatives:promo:B");
+    const forceThaiDaily = forceSet.has("thai:daily");
+    const forceKoreanDaily = forceSet.has("korean:daily");
+    const forceLaoDaily = forceSet.has("lao:daily");
+    const forceTamilDaily = forceSet.has("tamil:daily");
     try {
       const fireAt = new Date(LAUNCH_FIRE_AT_UTC);
       const now = /* @__PURE__ */ new Date();
@@ -78939,7 +80375,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
       console.error("[cron-master] safety-net publishOverdueBlogs failed", err);
     }
     try {
-      if ((isInWindow(15, 0) || isMissedToday(15, 0) || forceZoomHiT60) && (forceZoomHiT60 || !await hasFiredToday(db, "zoom:hi:T60"))) {
+      if ((isInWindow(14, 30) || isMissedToday(14, 30) || forceZoomHiT60) && (forceZoomHiT60 || !await hasFiredToday(db, "zoom:hi:T60"))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T60", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T60");
@@ -78951,7 +80387,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
       log.push(`\u274C zoom:hi:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(15, 30) || isMissedToday(15, 30) || forceZoomHiT30) && (forceZoomHiT30 || !await hasFiredToday(db, "zoom:hi:T30"))) {
+      if ((isInWindow(15, 0) || isMissedToday(15, 0) || forceZoomHiT30) && (forceZoomHiT30 || !await hasFiredToday(db, "zoom:hi:T30"))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T30", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T30");
@@ -78963,7 +80399,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
       log.push(`\u274C zoom:hi:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(15, 45) || isMissedToday(15, 45) || forceZoomHiT10) && (forceZoomHiT10 || !await hasFiredToday(db, "zoom:hi:T10"))) {
+      if ((isInWindow(15, 15) || isMissedToday(15, 15) || forceZoomHiT10) && (forceZoomHiT10 || !await hasFiredToday(db, "zoom:hi:T10"))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "T15", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T10");
@@ -78975,7 +80411,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
       log.push(`\u274C zoom:hi:T10 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(16, 0) || isMissedToday(16, 0) || forceZoomHiT0) && (forceZoomHiT0 || !await hasFiredToday(db, "zoom:hi:T0"))) {
+      if ((isInWindow(15, 30) || isMissedToday(15, 30) || forceZoomHiT0) && (forceZoomHiT0 || !await hasFiredToday(db, "zoom:hi:T0"))) {
         const cfg = await getZoomConfig("hi");
         await sendZoomReminder("hi", "LIVE", cfg.link, cfg.passcode, cfg.timeLabel);
         await markFired(db, "zoom:hi:T0");
@@ -79041,6 +80477,106 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
         log.push(`\u274C zoom:en:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
+    {
+      const now = /* @__PURE__ */ new Date();
+      const dow = now.getUTCDay();
+      const isSaturdayMorning = dow === 6;
+      const isEveningDay = dow === 0 || dow === 2 || dow === 4;
+      const TH_MEET_LINK = "https://meet.google.com/nmh-hhkr-uzd";
+      const TH_PASSCODE = "";
+      if (isSaturdayMorning) {
+        try {
+          if ((isInWindow(1, 0) || isMissedToday(1, 0) || forceZoomThT60) && (forceZoomThT60 || !await hasFiredToday(db, "zoom:th:am:T60"))) {
+            await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 09:00 \u0E19. \xB7 \u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C | Google Meet");
+            await markFired(db, "zoom:th:am:T60");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Morning Zoom T-60 (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T60", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:am:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        try {
+          if ((isInWindow(1, 30) || isMissedToday(1, 30) || forceZoomThT30) && (forceZoomThT30 || !await hasFiredToday(db, "zoom:th:am:T30"))) {
+            await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 09:00 \u0E19. \xB7 \u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C | Google Meet");
+            await markFired(db, "zoom:th:am:T30");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Morning Zoom T-30 (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T30", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:am:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        try {
+          if ((isInWindow(1, 45) || isMissedToday(1, 45) || forceZoomThT15) && (forceZoomThT15 || !await hasFiredToday(db, "zoom:th:am:T15"))) {
+            await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 09:00 \u0E19. \xB7 \u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C | Google Meet");
+            await markFired(db, "zoom:th:am:T15");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Morning Zoom T-15 (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T15", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:am:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        try {
+          if ((isInWindow(2, 0) || isMissedToday(2, 0) || forceZoomThT0) && (forceZoomThT0 || !await hasFiredToday(db, "zoom:th:am:T0"))) {
+            await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 09:00 \u0E19. \xB7 \u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C | Google Meet");
+            await markFired(db, "zoom:th:am:T0");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Morning Zoom LIVE (Sat)`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:am:T0", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:am:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+      }
+      if (isEveningDay) {
+        try {
+          if ((isInWindow(12, 0) || isMissedToday(12, 0) || forceZoomThT60) && (forceZoomThT60 || !await hasFiredToday(db, "zoom:th:T60"))) {
+            await sendZoomReminder("th", "T60", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 20:00 \u0E19. | Google Meet");
+            await markFired(db, "zoom:th:T60");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Evening Zoom T-60`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T60", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        try {
+          if ((isInWindow(12, 30) || isMissedToday(12, 30) || forceZoomThT30) && (forceZoomThT30 || !await hasFiredToday(db, "zoom:th:T30"))) {
+            await sendZoomReminder("th", "T30", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 20:00 \u0E19. | Google Meet");
+            await markFired(db, "zoom:th:T30");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Evening Zoom T-30`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T30", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        try {
+          if ((isInWindow(12, 45) || isMissedToday(12, 45) || forceZoomThT15) && (forceZoomThT15 || !await hasFiredToday(db, "zoom:th:T15"))) {
+            await sendZoomReminder("th", "T15", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 20:00 \u0E19. | Google Meet");
+            await markFired(db, "zoom:th:T15");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Evening Zoom T-15`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T15", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        try {
+          if ((isInWindow(13, 0) || isMissedToday(13, 0) || forceZoomThT0) && (forceZoomThT0 || !await hasFiredToday(db, "zoom:th:T0"))) {
+            await sendZoomReminder("th", "LIVE", TH_MEET_LINK, TH_PASSCODE, "\u{1F1F9}\u{1F1ED} 20:00 \u0E19. | Google Meet");
+            await markFired(db, "zoom:th:T0");
+            log.push(`\u{1F1F9}\u{1F1ED} TH Evening Zoom LIVE`);
+          }
+        } catch (err) {
+          await markError(db, "zoom:th:T0", err).catch(() => {
+          });
+          log.push(`\u274C zoom:th:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+      }
+    }
     try {
       if (isInWindow(18, 0) && !await hasFiredToday(db, "cinematic:daily")) {
         const film = pickTodaysFilm();
@@ -79058,6 +80594,97 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
       });
       console.error("[cron-master] task cinematic:daily failed", err);
       log.push(`\u274C cinematic:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      const deZoomDate = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+      const deZoomLink = "https://us06web.zoom.us/j/89879779242?pwd=ebIpowaHOb7mhI0laFOEM07OK33sXP.1";
+      const deZoomFlyer = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/thumbnails/turboloop-germany-zoom-flyer.jpg";
+      const deToken = process.env.TELEGRAM_BOT_TOKEN;
+      const deChat = process.env.TELEGRAM_GERMAN_CHAT;
+      if (deZoomDate === "2026-07-29" && isInWindow(19, 0) && !await hasFiredToday(db, "zoom:de:T24h")) {
+        const caption = `\u{1F1E9}\u{1F1EA} <b>Morgen ist es soweit!</b> 
+
+\u{1F4F9} <b>TurboLoop Deutschland \u2014 Erster Community-Zoom</b>
+
+\u23F0 In <b>24 Stunden</b> startet unser erster offizieller deutschsprachiger Community-Zoom!
+
+\u{1F5D3} <b>Donnerstag, 30. Juli 2026</b>
+\u{1F552} <b>21:00 Uhr CEST</b> (19:00 UTC)
+
+\u2705 \xDCberblick \xFCber TurboLoop
+\u2705 Chancen &amp; Risiken offen besprochen
+\u2705 Offene Fragerunde
+
+\u{1F517} <a href="${deZoomLink}">Jetzt vormerken \u2192 Zoom-Link</a>
+
+<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        if (deToken && deChat) {
+          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F4F9} Zoom beitreten", url: deZoomLink }] });
+        }
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F1E9}\u{1F1EA} Germany Zoom \u2014 morgen!", url: deZoomLink }] });
+        await markFired(db, "zoom:de:T24h");
+        log.push("\u{1F1E9}\u{1F1EA} DE Zoom T-24h");
+      }
+      if (deZoomDate === "2026-07-30" && isInWindow(16, 0) && !await hasFiredToday(db, "zoom:de:T3h")) {
+        const caption = `\u{1F1E9}\u{1F1EA} <b>Noch 3 Stunden!</b>
+
+\u{1F4F9} <b>TurboLoop Deutschland \u2014 Community-Zoom</b>
+
+\u23F0 Heute Abend um <b>21:00 Uhr CEST</b> ist es soweit!
+
+Bring deine Fragen mit \u2014 echte Menschen, echte Antworten. Kein Druck.
+
+\u{1F517} <a href="${deZoomLink}">Zoom-Link \u2192 Jetzt speichern</a>
+
+<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        if (deToken && deChat) {
+          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F4F9} Zoom beitreten", url: deZoomLink }] });
+        }
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F1E9}\u{1F1EA} Germany Zoom \u2014 heute 21:00 CEST!", url: deZoomLink }] });
+        await markFired(db, "zoom:de:T3h");
+        log.push("\u{1F1E9}\u{1F1EA} DE Zoom T-3h");
+      }
+      if (deZoomDate === "2026-07-30" && isInWindow(18, 30) && !await hasFiredToday(db, "zoom:de:T30")) {
+        const caption = `\u{1F1E9}\u{1F1EA} \u26A1 <b>In 30 Minuten geht es los!</b>
+
+\u{1F4F9} <b>TurboLoop Deutschland \u2014 Community-Zoom</b>
+
+\u23F0 <b>21:00 Uhr CEST</b> \u2014 gleich ist es soweit!
+
+Klick den Link, tritt bei und bring deine Fragen mit.
+
+\u{1F517} <a href="${deZoomLink}">Jetzt beitreten \u2192</a>
+
+<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        if (deToken && deChat) {
+          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F4F9} Jetzt beitreten", url: deZoomLink }] });
+        }
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F1E9}\u{1F1EA} Jetzt beitreten!", url: deZoomLink }] });
+        await markFired(db, "zoom:de:T30");
+        log.push("\u{1F1E9}\u{1F1EA} DE Zoom T-30min");
+      }
+      if (deZoomDate === "2026-07-30" && isInWindow(19, 0) && !await hasFiredToday(db, "zoom:de:T0")) {
+        const caption = `\u{1F1E9}\u{1F1EA} \u{1F534} <b>LIVE JETZT!</b>
+
+\u{1F4F9} <b>TurboLoop Deutschland \u2014 Community-Zoom ist live!</b>
+
+Der Zoom hat begonnen. Tritt jetzt bei!
+
+\u{1F517} <a href="${deZoomLink}">Jetzt beitreten \u2192</a>
+
+<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        if (deToken && deChat) {
+          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F4F9} Jetzt beitreten", url: deZoomLink }] });
+        }
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "\u{1F1E9}\u{1F1EA} LIVE \u2014 Jetzt beitreten!", url: deZoomLink }] });
+        await markFired(db, "zoom:de:T0");
+        log.push("\u{1F1E9}\u{1F1EA} DE Zoom LIVE");
+      }
+    } catch (err) {
+      await markError(db, "zoom:de:oneshot", err).catch(() => {
+      });
+      console.error("[cron-master] Germany Zoom alert failed", err);
+      log.push(`\u274C zoom:de failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
       if (isInWindow(19, 0)) {
@@ -79191,7 +80818,7 @@ Our community keeps growing stronger. Thank you to every holder who believes in 
       log.push(`\u274C midnight:math failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
-      if ((isInWindow(2, 0) || forceGlobalReach) && (forceGlobalReach || !await hasFiredToday(db, "global:reach"))) {
+      if ((isInWindow(2, 10) || forceGlobalReach) && (forceGlobalReach || !await hasFiredToday(db, "global:reach"))) {
         const { neon } = await Promise.resolve().then(() => (init_serverless(), serverless_exports));
         const sql2 = neon(process.env.DATABASE_URL);
         const leaderRows = await sql2`
@@ -79580,6 +81207,95 @@ No hidden wallets. No admin keys. Just code.
       log.push(`\u274C nightly:education failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     try {
+      if ((isInWindow(1, 15) || forceThaiDaily) && (forceThaiDaily || !await hasFiredToday(db, "thai:daily"))) {
+        const dayIndex = Math.floor(Date.now() / 864e5);
+        const photoUrl = campaignBannerUrl("thai", dayIndex);
+        const caption = pickByDay(CAMPAIGN_THAI_DAILY_CAPTIONS);
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F1F9}\u{1F1ED} Browse Thai Banners", url: "https://turboloop.tech/creatives" }]
+        });
+        await markFired(db, "thai:daily");
+        log.push(`\u{1F1F9}\u{1F1ED} Thai daily \u2014 ${photoUrl}`);
+      }
+    } catch (err) {
+      await markError(db, "thai:daily", err).catch(() => {
+      });
+      console.error("[cron-master] task thai:daily failed", err);
+      log.push(`\u274C thai:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(3, 30) || forceKoreanDaily) && (forceKoreanDaily || !await hasFiredToday(db, "korean:daily"))) {
+        const dayIndex = Math.floor(Date.now() / 864e5);
+        const photoUrl = campaignBannerUrl("korean", dayIndex);
+        const caption = pickByDay(CAMPAIGN_KOREAN_DAILY_CAPTIONS);
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F1F0}\u{1F1F7} Browse Korean Banners", url: "https://turboloop.tech/creatives" }]
+        });
+        await markFired(db, "korean:daily");
+        log.push(`\u{1F1F0}\u{1F1F7} Korean daily \u2014 ${photoUrl}`);
+      }
+    } catch (err) {
+      await markError(db, "korean:daily", err).catch(() => {
+      });
+      console.error("[cron-master] task korean:daily failed", err);
+      log.push(`\u274C korean:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(5, 30) || forceLaoDaily) && (forceLaoDaily || !await hasFiredToday(db, "lao:daily"))) {
+        const dayIndex = Math.floor(Date.now() / 864e5);
+        const photoUrl = campaignBannerUrl("lao", dayIndex);
+        const caption = pickByDay(CAMPAIGN_LAO_DAILY_CAPTIONS);
+        await tgBroadcastPhoto({
+          photoUrl,
+          caption,
+          parseMode: "HTML",
+          buttons: [{ text: "\u{1F1F1}\u{1F1E6} Browse Lao Banners", url: "https://turboloop.tech/creatives" }]
+        });
+        await markFired(db, "lao:daily");
+        log.push(`\u{1F1F1}\u{1F1E6} Lao daily \u2014 ${photoUrl}`);
+      }
+    } catch (err) {
+      await markError(db, "lao:daily", err).catch(() => {
+      });
+      console.error("[cron-master] task lao:daily failed", err);
+      log.push(`\u274C lao:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
+      if ((isInWindow(7, 30) || forceTamilDaily) && (forceTamilDaily || !await hasFiredToday(db, "tamil:daily"))) {
+        const dayIndex = Math.floor(Date.now() / 864e5);
+        let photoUrl = "";
+        try {
+          photoUrl = campaignBannerUrl("tamil", dayIndex);
+        } catch {
+        }
+        if (photoUrl) {
+          const caption = pickByDay(CAMPAIGN_TAMIL_DAILY_CAPTIONS);
+          await tgBroadcastPhoto({
+            photoUrl,
+            caption,
+            parseMode: "HTML",
+            buttons: [{ text: "\u{1F1EE}\u{1F1F3} Browse Tamil Banners", url: "https://turboloop.tech/creatives" }]
+          });
+          await markFired(db, "tamil:daily");
+          log.push(`\u{1F1EE}\u{1F1F3} Tamil daily \u2014 ${photoUrl}`);
+        } else {
+          log.push(`\u{1F1EE}\u{1F1F3} Tamil daily \u2014 skipped (campaigns/tamil/ not yet on R2)`);
+          await markFired(db, "tamil:daily");
+        }
+      }
+    } catch (err) {
+      await markError(db, "tamil:daily", err).catch(() => {
+      });
+      console.error("[cron-master] task tamil:daily failed", err);
+      log.push(`\u274C tamil:daily failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    try {
       if ((isInWindow(11, 30) || forceBotCommands) && (forceBotCommands || !await hasFiredToday(db, "bot:commands"))) {
         const variant = (/* @__PURE__ */ new Date()).getUTCDay() % 5;
         const captions = [
@@ -79667,7 +81383,7 @@ Quick links: <code>/plans</code> <code>/calculator</code> <code>/payout</code>`
     }
     try {
       const forceSocialWall = reqUrl.searchParams.get("force") === "social:wall";
-      if ((isInWindow(13, 0) || forceSocialWall) && (forceSocialWall || !await hasFiredToday(db, "social:wall"))) {
+      if ((isInWindow(13, 10) || forceSocialWall) && (forceSocialWall || !await hasFiredToday(db, "social:wall"))) {
         const promo = pickHubPromoByPages(["social-wall", "submit"]);
         const photoUrl = hubPromoBannerUrl(promo);
         const tgResults = await tgBroadcastPhoto({
@@ -79979,7 +81695,7 @@ The marketing toolkit your uplines never told you existed.
 #TurboLoop #PremiumFree #MarketingArsenal #DeFiCommunity`
     ];
     try {
-      if ((forceCreativesPromoA || isInWindow(7, 30) || isMissedToday(7, 30, 90)) && (forceCreativesPromoA || !await hasFiredToday(db, "creatives:promo:A"))) {
+      if ((forceCreativesPromoA || isInWindow(7, 40) || isMissedToday(7, 40, 90)) && (forceCreativesPromoA || !await hasFiredToday(db, "creatives:promo:A"))) {
         const bannerUrl2 = pickByDay(CREATIVES_PROMO_BANNERS, daysSinceLaunch);
         const caption = pickByDay(CREATIVES_PROMO_CAPTIONS, daysSinceLaunch);
         await tgBroadcastPhoto({
@@ -80062,7 +81778,7 @@ The marketing toolkit your uplines never told you existed.
       { hour: 14, minute: 0, taskId: "campaign:c29", category: "hindi-new", captions: CAMPAIGN_HINDI_CAPTIONS, slotOffset: 2 },
       // ── 14:xx (moved from 15:xx — clear Zoom window 15:00–17:00 UTC) ──
       { hour: 14, minute: 45, taskId: "campaign:c31", category: "success-story", captions: CAMPAIGN_SUCCESS_CAPTIONS, slotOffset: 2 },
-      // ── 15:xx — ZOOM WINDOW (HI T-60 @ 15:00, T-30 @ 15:30, T-15 @ 15:45, LIVE @ 16:00) ──
+      // ── 14:30-15:30 — HI ZOOM WINDOW (T-60 @ 14:30, T-30 @ 15:00, T-15 @ 15:15, LIVE @ 15:30) ──
       // No campaign posts in this window — keep Zoom sequence clean
       // ── 16:xx — ZOOM WINDOW (EN T-60 @ 16:00, T-30 @ 16:30, T-15 @ 16:45, LIVE @ 17:00) ──
       // No campaign posts in this window — keep Zoom sequence clean

@@ -1670,58 +1670,45 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // All alerts go to TELEGRAM_GERMAN_CHAT + main channel
     try {
       const deZoomDate = new Date().toISOString().slice(0, 10);
-      const deZoomLink = "https://us06web.zoom.us/j/89879779242?pwd=ebIpowaHOb7mhI0laFOEM07OK33sXP.1";
-      const deZoomFlyer = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/thumbnails/turboloop-germany-zoom-flyer.jpg";
-      const deToken = process.env.TELEGRAM_BOT_TOKEN;
-      const deChat = process.env.TELEGRAM_GERMAN_CHAT;
+      // ── Aug 2 2026 Community-Starter Call (new link) ──
+      const deZoomLink2 = "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1";
+      const deZoomFlyer2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev/thumbnails/turboloop-germany-zoom-flyer.jpg";
 
-      // T-24h reminder — fires Jul 29 @ 19:00 UTC
-      if (deZoomDate === "2026-07-29" && isInWindow(19, 0) && !(await hasFiredToday(db, "zoom:de:T24h"))) {
-        const caption = `🇩🇪 <b>Morgen ist es soweit!</b> \n\n📹 <b>TurboLoop Deutschland — Erster Community-Zoom</b>\n\n⏰ In <b>24 Stunden</b> startet unser erster offizieller deutschsprachiger Community-Zoom!\n\n🗓 <b>Donnerstag, 30. Juli 2026</b>\n🕒 <b>21:00 Uhr CEST</b> (19:00 UTC)\n\n✅ Überblick über TurboLoop\n✅ Chancen &amp; Risiken offen besprochen\n✅ Offene Fragerunde\n\n🔗 <a href="${deZoomLink}">Jetzt vormerken → Zoom-Link</a>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
-        if (deToken && deChat) {
-          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "📹 Zoom beitreten", url: deZoomLink }] });
-        }
-        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 Germany Zoom — morgen!", url: deZoomLink }] });
-        await markFired(db, "zoom:de:T24h");
-        log.push("🇩🇪 DE Zoom T-24h");
+      // T-60min reminder — fires Aug 2 @ 18:30 UTC (20:30 Berlin)
+      if (deZoomDate === "2026-08-02" && isInWindow(18, 30) && !(await hasFiredToday(db, "zoom:de2:T60"))) {
+        const caption = `🇩🇪 ⏰ <b>In 60 Minuten geht es los!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Starter Call</b>\n\n🗓 <b>Sonntag, 02.08.2026</b>\n🕒 <b>21:30 Uhr (Berliner Zeit)</b>\n\n✅ Vorstellung von TurboLoop\n✅ Wie funktioniert TurboLoop?\n✅ Dashboard-Erklärung\n✅ Offene Fragerunde\n\n🔗 <a href="${deZoomLink2}">Zoom-Link → Jetzt speichern</a>\n🔑 Kenncode: <b>577845</b>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer2, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 Zoom beitreten", url: deZoomLink2 }] });
+        await markFired(db, "zoom:de2:T60");
+        log.push("🇩🇪 DE Zoom2 T-60min");
       }
 
-      // T-3h reminder — fires Jul 30 @ 16:00 UTC
-      if (deZoomDate === "2026-07-30" && isInWindow(16, 0) && !(await hasFiredToday(db, "zoom:de:T3h"))) {
-        const caption = `🇩🇪 <b>Noch 3 Stunden!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Zoom</b>\n\n⏰ Heute Abend um <b>21:00 Uhr CEST</b> ist es soweit!\n\nBring deine Fragen mit — echte Menschen, echte Antworten. Kein Druck.\n\n🔗 <a href="${deZoomLink}">Zoom-Link → Jetzt speichern</a>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
-        if (deToken && deChat) {
-          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "📹 Zoom beitreten", url: deZoomLink }] });
-        }
-        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 Germany Zoom — heute 21:00 CEST!", url: deZoomLink }] });
-        await markFired(db, "zoom:de:T3h");
-        log.push("🇩🇪 DE Zoom T-3h");
+      // T-30min reminder — fires Aug 2 @ 19:00 UTC (21:00 Berlin)
+      if (deZoomDate === "2026-08-02" && isInWindow(19, 0) && !(await hasFiredToday(db, "zoom:de2:T30"))) {
+        const caption = `🇩🇪 ⚡ <b>Noch 30 Minuten!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Starter Call</b>\n\n⏰ Heute um <b>21:30 Uhr (Berlin)</b> — gleich ist es soweit!\n\nKlick den Link, tritt bei und bring deine Fragen mit.\n\n🔗 <a href="${deZoomLink2}">Jetzt beitreten →</a>\n🔑 Kenncode: <b>577845</b>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer2, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 Jetzt beitreten", url: deZoomLink2 }] });
+        await markFired(db, "zoom:de2:T30");
+        log.push("🇩🇪 DE Zoom2 T-30min");
       }
 
-      // T-30min reminder — fires Jul 30 @ 18:30 UTC
-      if (deZoomDate === "2026-07-30" && isInWindow(18, 30) && !(await hasFiredToday(db, "zoom:de:T30"))) {
-        const caption = `🇩🇪 ⚡ <b>In 30 Minuten geht es los!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Zoom</b>\n\n⏰ <b>21:00 Uhr CEST</b> — gleich ist es soweit!\n\nKlick den Link, tritt bei und bring deine Fragen mit.\n\n🔗 <a href="${deZoomLink}">Jetzt beitreten →</a>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
-        if (deToken && deChat) {
-          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "📹 Jetzt beitreten", url: deZoomLink }] });
-        }
-        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 Jetzt beitreten!", url: deZoomLink }] });
-        await markFired(db, "zoom:de:T30");
-        log.push("🇩🇪 DE Zoom T-30min");
+      // T-15min reminder — fires Aug 2 @ 19:15 UTC (21:15 Berlin)
+      if (deZoomDate === "2026-08-02" && isInWindow(19, 15) && !(await hasFiredToday(db, "zoom:de2:T15"))) {
+        const caption = `🇩🇪 🔔 <b>Noch 15 Minuten!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Starter Call</b>\n\n⏰ Startet um <b>21:30 Uhr (Berlin)</b> — sei dabei!\n\n🔗 <a href="${deZoomLink2}">Jetzt beitreten →</a>\n🔑 Kenncode: <b>577845</b>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer2, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 Jetzt beitreten", url: deZoomLink2 }] });
+        await markFired(db, "zoom:de2:T15");
+        log.push("🇩🇪 DE Zoom2 T-15min");
       }
 
-      // LIVE alert — fires Jul 30 @ 19:00 UTC
-      if (deZoomDate === "2026-07-30" && isInWindow(19, 0) && !(await hasFiredToday(db, "zoom:de:T0"))) {
-        const caption = `🇩🇪 🔴 <b>LIVE JETZT!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Zoom ist live!</b>\n\nDer Zoom hat begonnen. Tritt jetzt bei!\n\n🔗 <a href="${deZoomLink}">Jetzt beitreten →</a>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
-        if (deToken && deChat) {
-          await tgSendPhoto(deToken, { chatId: deChat, photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "📹 Jetzt beitreten", url: deZoomLink }] });
-        }
-        await tgBroadcastPhoto({ photoUrl: deZoomFlyer, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 LIVE — Jetzt beitreten!", url: deZoomLink }] });
-        await markFired(db, "zoom:de:T0");
-        log.push("🇩🇪 DE Zoom LIVE");
+      // LIVE alert — fires Aug 2 @ 19:30 UTC (21:30 Berlin)
+      if (deZoomDate === "2026-08-02" && isInWindow(19, 30) && !(await hasFiredToday(db, "zoom:de2:T0"))) {
+        const caption = `🇩🇪 🔴 <b>JETZT LIVE!</b>\n\n📹 <b>TurboLoop Deutschland — Community-Starter Call ist live!</b>\n\nDer Zoom hat begonnen. Tritt jetzt bei!\n\n🔗 <a href="${deZoomLink2}">Jetzt beitreten →</a>\n🔑 Kenncode: <b>577845</b>\n\n<i>Keine Anlageberatung. Eigene Recherche empfohlen.</i>`;
+        await tgBroadcastPhoto({ photoUrl: deZoomFlyer2, caption, parseMode: "HTML", buttons: [{ text: "🇩🇪 LIVE — Jetzt beitreten!", url: deZoomLink2 }] });
+        await markFired(db, "zoom:de2:T0");
+        log.push("🇩🇪 DE Zoom2 LIVE");
       }
     } catch (err) {
-      await markError(db, "zoom:de:oneshot", err).catch(() => {});
-      console.error("[cron-master] Germany Zoom alert failed", err);
-      log.push(`❌ zoom:de failed: ${err instanceof Error ? err.message : String(err)}`);
+      await markError(db, "zoom:de2:oneshot", err).catch(() => {});
+      console.error("[cron-master] Germany Zoom2 alert failed", err);
+      log.push(`❌ zoom:de2 failed: ${err instanceof Error ? err.message : String(err)}`);
     }
 
     // ============ 6. CREATOR STAR — 44-day view-count reminder ============

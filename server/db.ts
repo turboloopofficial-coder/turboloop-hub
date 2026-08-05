@@ -19,6 +19,7 @@ import {
   chatConversations, chatMessages,
   scheduledPosts, type ScheduledPost, type InsertScheduledPost,
   auditLog,
+  rankedLeaders, type RankedLeader, type InsertRankedLeader,
 } from "../drizzle/schema";
 import bcrypt from "bcryptjs";
 
@@ -1273,4 +1274,37 @@ export async function countRecentLoginFailures(ip: string, windowMinutes: number
     console.error("[rate-limit-check]", err);
     return 0; // fail open — don't block legitimate users on DB error
   }
+}
+
+// ===== Ranked Leaders / Hall of Fame =====
+export async function listRankedLeaders(publishedOnly = true) {
+  const db = getDb();
+  const RANK_ORDER = ["Ambassador", "Executive", "Senior Partner", "Turbo Partner", "Partner"];
+  const rows = publishedOnly
+    ? await db.select().from(rankedLeaders).where(eq(rankedLeaders.published, true)).orderBy(asc(rankedLeaders.sortOrder), desc(rankedLeaders.createdAt))
+    : await db.select().from(rankedLeaders).orderBy(asc(rankedLeaders.sortOrder), desc(rankedLeaders.createdAt));
+  // Sort by rank tier order, then by sortOrder within tier
+  return rows.sort((a, b) => {
+    const ai = RANK_ORDER.indexOf(a.rank);
+    const bi = RANK_ORDER.indexOf(b.rank);
+    const rankDiff = (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    if (rankDiff !== 0) return rankDiff;
+    return a.sortOrder - b.sortOrder;
+  });
+}
+
+export async function createRankedLeader(data: InsertRankedLeader) {
+  const db = getDb();
+  const result = await db.insert(rankedLeaders).values(data).returning();
+  return result[0];
+}
+
+export async function updateRankedLeader(id: number, data: Partial<InsertRankedLeader>) {
+  const db = getDb();
+  await db.update(rankedLeaders).set(data).where(eq(rankedLeaders.id, id));
+}
+
+export async function deleteRankedLeader(id: number) {
+  const db = getDb();
+  await db.delete(rankedLeaders).where(eq(rankedLeaders.id, id));
 }

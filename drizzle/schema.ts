@@ -516,3 +516,31 @@ export const auditLog = pgTable("audit_log", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 export type AuditLog = typeof auditLog.$inferSelect;
+
+// ─── Ranked Leaders / Hall of Fame ────────────────────────────────────────────
+//
+// Stores TurboLoop community leaders who have achieved a rank milestone.
+// Displayed publicly on /leaders (Hall of Fame page) and optionally embedded
+// in the community page. Managed entirely from the admin panel.
+//
+// `rank` is a free-form string matching TurboLoop's rank tier names:
+//   "Turbo Partner", "Partner", "Senior Partner", "Executive", "Ambassador"
+// `photoUrl` is an R2-hosted image URL (uploaded via admin panel).
+// `teamSize` and `teamVolume` are display strings (e.g. "300", "$120,000 USDT").
+// `sortOrder` controls display order within the same rank tier.
+export const rankedLeaders = pgTable("ranked_leaders", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 200 }).notNull(),
+  rank: varchar("rank", { length: 100 }).notNull(),
+  photoUrl: varchar("photo_url", { length: 1024 }),
+  teamSize: varchar("team_size", { length: 50 }),
+  teamVolume: varchar("team_volume", { length: 100 }),
+  country: varchar("country", { length: 100 }),
+  achievedAt: varchar("achieved_at", { length: 50 }),
+  sortOrder: integer("sort_order").default(0).notNull(),
+  published: boolean("published").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+});
+export type RankedLeader = typeof rankedLeaders.$inferSelect;
+export type InsertRankedLeader = typeof rankedLeaders.$inferInsert;

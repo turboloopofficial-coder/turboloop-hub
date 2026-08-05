@@ -34,6 +34,7 @@ export const WATCH_LINKS = [
 
 export const COMMUNITY_LINKS = [
   { label: "Community",      href: "/community",              description: "Voices from 14+ countries",   emoji: "💬" },
+  { label: "Hall of Fame",   href: "/leaders",                description: "Ranked leaders · real results", emoji: "👑" },
   { label: "Social Wall",    href: "/social-wall",            description: "Community videos and stories", emoji: "🌐" },
   { label: "Leaderboard",    href: "/community#leaderboard",  description: "Top countries this week",     emoji: "🏆" },
   { label: "Events & Zoom",  href: "/events",                 description: "Daily calls · global meetups", emoji: "📅" },

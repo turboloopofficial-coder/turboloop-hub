@@ -8,6 +8,7 @@ import {
   listAutomationLog,
   listVideos, createVideo, updateVideo, deleteVideo,
   listEvents, createEvent, updateEvent, deleteEvent,
+  listRankedLeaders, createRankedLeader, updateRankedLeader, deleteRankedLeader,
   listLeaderboard, upsertLeaderboardEntry,
   listPromotions, updatePromotion, createPromotion,
   listRoadmapPhases, updateRoadmapPhase,
@@ -184,6 +185,7 @@ export const appRouter = router({
     videos: publicProcedure.query(() => listVideos(true)),
     events: publicProcedure.query(() => listEvents(true)),
     leaderboard: publicProcedure.query(() => listLeaderboard()),
+    rankedLeaders: publicProcedure.query(() => listRankedLeaders(true)),
     promotions: publicProcedure.query(() => listPromotions(true)),
     roadmap: publicProcedure.query(() => listRoadmapPhases()),
     presentations: publicProcedure.query(() => listPresentations(true)),
@@ -2094,8 +2096,39 @@ Return ONLY valid JSON: { "captions": ["caption1", "caption2", "caption3"] } —
         published: z.boolean().optional(),
       }))
       .mutation(({ input }) => { const { id, ...data } = input; return updateEvent(id, data); }),
-    deleteEvent: adminProcedure.input(z.object({ id: z.number() })).mutation(({ input }) => deleteEvent(input.id)),
-
+        deleteEvent: adminProcedure.input(z.object({ id: z.number() })).mutation(({ input }) => deleteEvent(input.id)),
+    // ─── Ranked Leaders / Hall of Fame ───
+    listRankedLeaders: adminProcedure.query(() => listRankedLeaders(false)),
+    createRankedLeader: adminProcedure
+      .input(z.object({
+        name: z.string().min(1).max(200),
+        rank: z.string().min(1).max(100),
+        photoUrl: z.string().max(1024).optional(),
+        teamSize: z.string().max(50).optional(),
+        teamVolume: z.string().max(100).optional(),
+        country: z.string().max(100).optional(),
+        achievedAt: z.string().max(50).optional(),
+        sortOrder: z.number().default(0),
+        published: z.boolean().default(true),
+      }))
+      .mutation(({ input }) => createRankedLeader(input)),
+    updateRankedLeader: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        name: z.string().min(1).max(200).optional(),
+        rank: z.string().min(1).max(100).optional(),
+        photoUrl: z.string().max(1024).optional().nullable(),
+        teamSize: z.string().max(50).optional().nullable(),
+        teamVolume: z.string().max(100).optional().nullable(),
+        country: z.string().max(100).optional().nullable(),
+        achievedAt: z.string().max(50).optional().nullable(),
+        sortOrder: z.number().optional(),
+        published: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => { const { id, ...data } = input; return updateRankedLeader(id, data); }),
+    deleteRankedLeader: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(({ input }) => deleteRankedLeader(input.id)),
     leaderboard: adminProcedure.query(() => listLeaderboard()),
     updateLeaderboard: adminProcedure
       .input(z.object({

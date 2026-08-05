@@ -737,6 +737,180 @@ function EventManager() {
   );
 }
 
+// ============ Ranked Leaders Manager (Hall of Fame) ============
+const RANK_TIERS = ["Ambassador", "Executive", "Senior Partner", "Turbo Partner", "Partner"];
+const RANK_COLORS: Record<string, string> = {
+  "Ambassador": "text-yellow-500 border-yellow-400/40 bg-yellow-500/10",
+  "Executive": "text-purple-500 border-purple-400/40 bg-purple-500/10",
+  "Senior Partner": "text-cyan-500 border-cyan-400/40 bg-cyan-500/10",
+  "Turbo Partner": "text-orange-500 border-orange-400/40 bg-orange-500/10",
+  "Partner": "text-emerald-500 border-emerald-400/40 bg-emerald-500/10",
+};
+function RankedLeadersManager() {
+  const utils = trpc.useUtils();
+  const { data: leaders, isLoading } = trpc.manage.listRankedLeaders.useQuery();
+  const createLeader = trpc.manage.createRankedLeader.useMutation({
+    onSuccess: () => { utils.manage.listRankedLeaders.invalidate(); toast.success("Leader added"); resetForm(); },
+  });
+  const updateLeader = trpc.manage.updateRankedLeader.useMutation({
+    onSuccess: () => { utils.manage.listRankedLeaders.invalidate(); toast.success("Leader updated"); setEditId(null); },
+  });
+  const deleteLeader = trpc.manage.deleteRankedLeader.useMutation({
+    onSuccess: () => { utils.manage.listRankedLeaders.invalidate(); toast.success("Leader removed"); },
+  });
+
+  const [showForm, setShowForm] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
+  const [name, setName] = useState("");
+  const [rank, setRank] = useState("Partner");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [teamSize, setTeamSize] = useState("");
+  const [teamVolume, setTeamVolume] = useState("");
+  const [country, setCountry] = useState("");
+  const [achievedAt, setAchievedAt] = useState("");
+  const [sortOrder, setSortOrder] = useState(0);
+  const [published, setPublished] = useState(true);
+
+  const resetForm = () => {
+    setShowForm(false); setEditId(null); setName(""); setRank("Partner");
+    setPhotoUrl(""); setTeamSize(""); setTeamVolume(""); setCountry("");
+    setAchievedAt(""); setSortOrder(0); setPublished(true);
+  };
+
+  const startEdit = (l: any) => {
+    setEditId(l.id); setName(l.name); setRank(l.rank); setPhotoUrl(l.photoUrl || "");
+    setTeamSize(l.teamSize || ""); setTeamVolume(l.teamVolume || ""); setCountry(l.country || "");
+    setAchievedAt(l.achievedAt || ""); setSortOrder(l.sortOrder ?? 0); setPublished(l.published ?? true);
+    setShowForm(true);
+  };
+
+  const handleSave = () => {
+    const payload = { name, rank, photoUrl: photoUrl || undefined, teamSize: teamSize || undefined,
+      teamVolume: teamVolume || undefined, country: country || undefined,
+      achievedAt: achievedAt || undefined, sortOrder, published };
+    if (editId) updateLeader.mutate({ id: editId, ...payload });
+    else createLeader.mutate(payload);
+  };
+
+  const grouped = (leaders ?? []).reduce((acc: Record<string, any[]>, l) => {
+    if (!acc[l.rank]) acc[l.rank] = [];
+    acc[l.rank].push(l);
+    return acc;
+  }, {});
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-heading font-bold text-slate-800">Ranked Leaders — Hall of Fame</h3>
+          <p className="text-xs text-slate-400 mt-0.5">Displayed publicly at turboloop.tech/leaders</p>
+        </div>
+        <Button size="sm" onClick={() => { resetForm(); setShowForm(true); }}
+          className="bg-cyan-600/10 text-cyan-700 border border-cyan-600/20 hover:bg-cyan-600/20">
+          <Plus className="h-4 w-4 mr-1" /> Add Leader
+        </Button>
+      </div>
+
+      {showForm && (
+        <div className="p-5 rounded-xl border border-slate-200 bg-white/70 backdrop-blur-xl space-y-4">
+          <div className="flex items-center justify-between mb-1">
+            <h4 className="text-sm font-bold text-cyan-700">{editId ? "Edit Leader" : "Add New Leader"}</h4>
+            <button onClick={resetForm} className="text-slate-400 hover:text-slate-700"><X className="h-4 w-4" /></button>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label className="text-slate-500 text-xs">Full Name</Label>
+              <Input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Dybalaonchain" className="bg-white/80 border-slate-200 text-slate-800 text-sm" />
+            </div>
+            <div>
+              <Label className="text-slate-500 text-xs">Rank</Label>
+              <select value={rank} onChange={e => setRank(e.target.value)}
+                className="w-full bg-white/80 border border-slate-200 text-slate-800 text-sm rounded-md p-2">
+                {RANK_TIERS.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+            </div>
+            <div>
+              <Label className="text-slate-500 text-xs">Team Size (e.g. 300)</Label>
+              <Input value={teamSize} onChange={e => setTeamSize(e.target.value)} placeholder="300" className="bg-white/80 border-slate-200 text-slate-800 text-sm" />
+            </div>
+            <div>
+              <Label className="text-slate-500 text-xs">Team Volume (e.g. $120,000 USDT)</Label>
+              <Input value={teamVolume} onChange={e => setTeamVolume(e.target.value)} placeholder="$120,000 USDT" className="bg-white/80 border-slate-200 text-slate-800 text-sm" />
+            </div>
+            <div>
+              <Label className="text-slate-500 text-xs">Country</Label>
+              <Input value={country} onChange={e => setCountry(e.target.value)} placeholder="Nigeria" className="bg-white/80 border-slate-200 text-slate-800 text-sm" />
+            </div>
+            <div>
+              <Label className="text-slate-500 text-xs">Achieved Date (e.g. Aug 2026)</Label>
+              <Input value={achievedAt} onChange={e => setAchievedAt(e.target.value)} placeholder="Aug 2026" className="bg-white/80 border-slate-200 text-slate-800 text-sm" />
+            </div>
+          </div>
+          <ImageUpload value={photoUrl} onChange={setPhotoUrl} label="Profile Photo" />
+          <div className="flex items-center gap-4">
+            <div>
+              <Label className="text-slate-500 text-xs">Sort Order</Label>
+              <Input type="number" value={sortOrder} onChange={e => setSortOrder(Number(e.target.value))} className="bg-white/80 border-slate-200 text-slate-800 text-sm w-20" />
+            </div>
+            <div className="flex items-center gap-2 mt-4">
+              <input type="checkbox" id="rl-published" checked={published} onChange={e => setPublished(e.target.checked)} className="rounded" />
+              <Label htmlFor="rl-published" className="text-slate-600 text-sm cursor-pointer">Published (visible publicly)</Label>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button size="sm" onClick={handleSave} disabled={createLeader.isPending || updateLeader.isPending || !name}
+              className="bg-cyan-600/10 text-cyan-700 border border-cyan-600/20">
+              {(createLeader.isPending || updateLeader.isPending) ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Save className="h-3 w-3 mr-1" />}
+              {editId ? "Update Leader" : "Add Leader"}
+            </Button>
+            <Button size="sm" variant="ghost" onClick={resetForm} className="text-slate-400">Cancel</Button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? (
+        <Loader2 className="h-6 w-6 animate-spin text-cyan-600 mx-auto" />
+      ) : (
+        <div className="space-y-6">
+          {RANK_TIERS.filter(tier => grouped[tier]?.length > 0).map(tier => (
+            <div key={tier}>
+              <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border mb-3 ${RANK_COLORS[tier] ?? "text-slate-500 border-slate-300 bg-slate-100"}`}>
+                {tier === "Ambassador" ? "👑" : tier === "Executive" ? "💎" : tier === "Senior Partner" ? "🌟" : tier === "Turbo Partner" ? "🚀" : "🏆"} {tier}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {grouped[tier].map((l: any) => (
+                  <div key={l.id} className="relative p-3 rounded-xl border border-slate-200 bg-white/60 backdrop-blur-sm flex gap-3 items-start">
+                    {l.photoUrl ? (
+                      <img src={l.photoUrl} alt={l.name} className="w-12 h-12 rounded-full object-cover border-2 border-slate-200 shrink-0" />
+                    ) : (
+                      <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-lg shrink-0">👤</div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-bold text-slate-800 truncate">{l.name}</p>
+                      {l.country && <p className="text-xs text-slate-400">{l.country}</p>}
+                      {l.teamSize && <p className="text-xs text-slate-500">Team: {l.teamSize}</p>}
+                      {l.teamVolume && <p className="text-xs text-slate-500">Vol: {l.teamVolume}</p>}
+                      {l.achievedAt && <p className="text-xs text-slate-400">{l.achievedAt}</p>}
+                      {!l.published && <span className="text-xs text-amber-500 font-medium">Hidden</span>}
+                    </div>
+                    <div className="flex flex-col gap-1 shrink-0">
+                      <Button size="sm" variant="ghost" onClick={() => startEdit(l)} className="text-slate-400 hover:text-cyan-600 h-7 w-7 p-0"><PenLine className="h-3.5 w-3.5" /></Button>
+                      <Button size="sm" variant="ghost" onClick={() => { if (confirm(`Remove ${l.name}?`)) deleteLeader.mutate({ id: l.id }); }} className="text-slate-400 hover:text-red-500 h-7 w-7 p-0"><Trash2 className="h-3.5 w-3.5" /></Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          {(leaders ?? []).length === 0 && (
+            <p className="text-sm text-slate-400 text-center py-8">No ranked leaders yet. Click "Add Leader" to add the first one.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ============ Leaderboard Manager ============
 function LeaderboardManager() {
   const utils = trpc.useUtils();
@@ -1642,6 +1816,12 @@ export default function AdminDashboard() {
               Promotions
             </TabsTrigger>
             <TabsTrigger
+              value="ranked-leaders"
+              className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
+            >
+              Ranked Leaders
+            </TabsTrigger>
+            <TabsTrigger
               value="leaderboard"
               className="data-[state=active]:bg-cyan-600/10 data-[state=active]:text-cyan-700 text-slate-400 text-sm"
             >
@@ -1703,6 +1883,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="promotions">
             <PromotionManager />
+          </TabsContent>
+          <TabsContent value="ranked-leaders">
+            <RankedLeadersManager />
           </TabsContent>
           <TabsContent value="leaderboard">
             <LeaderboardManager />

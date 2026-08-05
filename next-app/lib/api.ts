@@ -281,6 +281,21 @@ export interface JobVacancy {
   updatedAt: string | null;
 }
 
+export interface RankedLeader {
+  id: number;
+  name: string;
+  rank: string;
+  photoUrl: string | null;
+  teamSize: string | null;
+  teamVolume: string | null;
+  country: string | null;
+  achievedAt: string | null;
+  sortOrder: number;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const api = {
   blogPosts: () => fetchTRPC<BlogPost[]>("content.blogPosts"),
   /** Listing-safe endpoint: omits `content` so the payload stays under
@@ -327,6 +342,15 @@ export const api = {
   openCareers: async (): Promise<JobVacancy[]> => {
     try {
       return await fetchTRPC<JobVacancy[]>("careers.openList");
+    } catch {
+      return [];
+    }
+  },
+  /** Public list of ranked leaders (Hall of Fame) — returns [] on API failure
+   *  so the /leaders page renders gracefully even if the API is down. */
+  rankedLeaders: async (): Promise<RankedLeader[]> => {
+    try {
+      return await fetchTRPC<RankedLeader[]>("content.rankedLeaders", undefined, { revalidate: 300 });
     } catch {
       return [];
     }

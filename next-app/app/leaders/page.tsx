@@ -40,7 +40,9 @@ export const metadata: Metadata = {
 
 const RANK_ORDER = [
   "Ambassador",
+  "Turbo Leader",
   "Executive",
+  "Turbo Influencer",
   "Senior Partner",
   "Turbo Partner",
   "Partner",
@@ -57,12 +59,26 @@ const RANK_META: Record<
       "bg-yellow-500/20 text-yellow-300 border border-yellow-400/40 shadow-yellow-500/20",
     glow: "shadow-yellow-500/30",
   },
+  "Turbo Leader": {
+    emoji: "🌠",
+    gradient: "from-yellow-400/20 via-amber-300/10 to-transparent",
+    badge:
+      "bg-yellow-400/20 text-yellow-200 border border-yellow-300/40 shadow-yellow-400/20",
+    glow: "shadow-yellow-400/30",
+  },
   Executive: {
     emoji: "💎",
     gradient: "from-purple-500/20 via-violet-400/10 to-transparent",
     badge:
       "bg-purple-500/20 text-purple-300 border border-purple-400/40 shadow-purple-500/20",
     glow: "shadow-purple-500/30",
+  },
+  "Turbo Influencer": {
+    emoji: "⚡",
+    gradient: "from-pink-500/20 via-rose-400/10 to-transparent",
+    badge:
+      "bg-pink-500/20 text-pink-300 border border-pink-400/40 shadow-pink-500/20",
+    glow: "shadow-pink-500/30",
   },
   "Senior Partner": {
     emoji: "🌟",

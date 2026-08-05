@@ -286,6 +286,7 @@ export interface RankedLeader {
   name: string;
   rank: string;
   photoUrl: string | null;
+  bannerUrl: string | null;
   teamSize: string | null;
   teamVolume: string | null;
   country: string | null;

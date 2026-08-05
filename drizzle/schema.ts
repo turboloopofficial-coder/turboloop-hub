@@ -533,6 +533,7 @@ export const rankedLeaders = pgTable("ranked_leaders", {
   name: varchar("name", { length: 200 }).notNull(),
   rank: varchar("rank", { length: 100 }).notNull(),
   photoUrl: varchar("photo_url", { length: 1024 }),
+  bannerUrl: varchar("banner_url", { length: 1024 }),
   teamSize: varchar("team_size", { length: 50 }),
   teamVolume: varchar("team_volume", { length: 100 }),
   country: varchar("country", { length: 100 }),

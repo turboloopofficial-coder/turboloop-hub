@@ -350,7 +350,7 @@ export const api = {
    *  so the /leaders page renders gracefully even if the API is down. */
   rankedLeaders: async (): Promise<RankedLeader[]> => {
     try {
-      return await fetchTRPC<RankedLeader[]>("content.rankedLeaders", undefined, { revalidate: 300 });
+      return await fetchTRPC<RankedLeader[]>("content.rankedLeaders", undefined, { revalidate: 60 });
     } catch {
       return [];
     }

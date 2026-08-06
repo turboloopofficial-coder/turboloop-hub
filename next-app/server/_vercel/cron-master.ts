@@ -934,7 +934,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     // Banners:  R2 at milestones/banner_{N}k.jpg (13k–50k)
     try {
       const _AU_CONTRACT = "0xc90E5785632dAaB9Cb61F5050dA393090541A76D";
-      const _AU_RPC = "https://bsc-dataseed.binance.org/";
+      const _AU_RPC = "https://1rpc.io/bnb"; // Primary: 1rpc.io (no auth required, reliable)
       const _AU_R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
       const _AU_MILESTONES = Array.from({ length: 38 }, (_, i) => (i + 13) * 1000); // 13000..50000
 

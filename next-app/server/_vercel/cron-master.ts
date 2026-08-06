@@ -921,6 +921,131 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       console.error("[cron-master] milestone detection error:", _milestoneErr);
     }
 
+    // ─── Active Users Milestone auto-detection & auto-post ──────────────────
+    // Reads the live active user count from the TurboLoop BSC smart contract
+    // every cron tick. When the count crosses a new 1K milestone (13K–50K)
+    // that hasn't been celebrated yet, posts the pre-generated banner to
+    // Telegram EN automatically.
+    //
+    // Contract: 0xc90E5785632dAaB9Cb61F5050dA393090541A76D (BSC Mainnet)
+    // Function: getContractStats() → (totalRegistered, totalActive, launchDate)
+    // Selector: 0xdfe6b5d6
+    // State:    site_settings key `milestone:active_users:last_celebrated`
+    // Banners:  R2 at milestones/banner_{N}k.jpg (13k–50k)
+    try {
+      const _AU_CONTRACT = "0xc90E5785632dAaB9Cb61F5050dA393090541A76D";
+      const _AU_RPC = "https://bsc-dataseed.binance.org/";
+      const _AU_R2 = "https://pub-1d13f4e7ccfa4575bc04b75045f1b1b1.r2.dev";
+      const _AU_MILESTONES = Array.from({ length: 38 }, (_, i) => (i + 13) * 1000); // 13000..50000
+
+      // Read live active user count from BSC contract via eth_call
+      const _auRpcRes = await fetch(_AU_RPC, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          method: "eth_call",
+          params: [{ to: _AU_CONTRACT, data: "0xdfe6b5d6" }, "latest"],
+          id: 1,
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+      const _auRpcData: any = await _auRpcRes.json();
+      const _auHex: string = (_auRpcData?.result ?? "").replace("0x", "");
+      // Decode: result is 3 × uint256 (96 bytes). Active users is the 2nd value (bytes 32–63).
+      const _auActiveUsers: number = _auHex.length >= 128
+        ? parseInt(_auHex.slice(64, 128), 16)
+        : 0;
+
+      if (_auActiveUsers > 0) {
+        // Read last celebrated active-user milestone from DB
+        const _auLastRows = await db
+          .select({ settingValue: siteSettings.settingValue })
+          .from(siteSettings)
+          .where(eq(siteSettings.settingKey, "milestone:active_users:last_celebrated"))
+          .limit(1);
+        const _auLastCelebrated: number = _auLastRows[0]
+          ? (parseInt(_auLastRows[0].settingValue, 10) || 0)
+          : 0;
+
+        // Find the highest uncelebrated milestone that has been crossed
+        const _auNextMilestone = _AU_MILESTONES
+          .filter(m => m > _auLastCelebrated && _auActiveUsers >= m)
+          .pop();
+
+        if (_auNextMilestone) {
+          const _auK = _auNextMilestone / 1000; // e.g. 13
+          const _auBannerUrl = `${_AU_R2}/milestones/banner_${_auK}k.jpg`;
+
+          // Per-milestone captions (unique, celebrative, on-brand)
+          const _auCaptionMap: Record<number, string> = {
+            13000: `🎉 <b>13,000 ACTIVE USERS!</b>\n\nThe TurboLoop community keeps growing — 13,000 active users on BSC! 🚀\n\nFixed yield. Fixed trust. Fixed future.\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            14000: `🔥 <b>14,000 STRONG!</b>\n\n14,000 active users are earning fixed USDT yield on TurboLoop. The loop never stops! 💪\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            15000: `⚡ <b>15,000 USERS — UNSTOPPABLE!</b>\n\n15,000 active users trust TurboLoop with their USDT. The momentum is real. 🌍\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            16000: `🌱 <b>16,000 BELIEVERS!</b>\n\n16,000 people chose fixed yield over speculation. They chose TurboLoop. 🙌\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            17000: `🌐 <b>17,000 DREAMERS — GLOBAL DEFI!</b>\n\n17,000 active users across every continent. TurboLoop has no borders. 🗺\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            18000: `📚 <b>18,000 LEARNERS!</b>\n\n18,000 users who learned that fixed yield beats speculation. Welcome to the loop. 🎓\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            19000: `🏅 <b>19,000 — A MILESTONE EARNED!</b>\n\n19,000 active users. Built on trust. Built on results. No hype. Just yield. ✅\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            20000: `🎊 <b>20,000 ACTIVE USERS!</b>\n\nTWENTY THOUSAND! 🎉 The TurboLoop community has reached a massive milestone. Thank you to every single user! 🌟\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            21000: `💎 <b>21,000 STRONG!</b>\n\n21,000 active users earning fixed USDT yield. The community is unstoppable. 🔥\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            22000: `🚀 <b>22,000 USERS — THE LOOP NEVER BREAKS!</b>\n\n22,000 active users. Fixed yield. Dual-audited. 100% LP locked. 💪\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            23000: `🌍 <b>23,000 WORLDWIDE!</b>\n\n23,000 users from every corner of the globe earning fixed USDT on BSC. 🌏\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            24000: `⚡ <b>24,000 ENERGETIC COMMUNITY!</b>\n\n24,000 active users and the energy is electric. TurboLoop is just getting started! ⚡\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            25000: `🎯 <b>25,000 — QUARTER OF THE WAY TO 100K!</b>\n\n25,000 active users. The platform that delivers. Fixed yield. Real results. 🎯\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            26000: `🌿 <b>26,000 ROOTS RUN DEEP!</b>\n\n26,000 users have put down deep roots in TurboLoop. Organic growth. Real earnings. 🌱\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            27000: `🏆 <b>27,000 UNBEATABLE!</b>\n\n27,000 active users. No other DeFi protocol on BSC matches TurboLoop's fixed yield and security. 🏆\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            28000: `🤝 <b>28,000 TOGETHER!</b>\n\n28,000 users earning together. The power of 20-level referrals. 🤝\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            29000: `📊 <b>29,000 — THE NUMBERS SPEAK!</b>\n\n29,000 active users. 54% APY. Dual-audited. 100% LP locked. The math speaks for itself. 🧮\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            30000: `🎊 <b>30,000 ACTIVE USERS!</b>\n\nTHIRTY THOUSAND! 🎉 From Lagos to Manila, from São Paulo to Seoul — TurboLoop is truly global. 🌏\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            31000: `💪 <b>31,000 STRONG BELIEVERS!</b>\n\n31,000 believers in fixed yield. They chose conviction over speculation. 💎\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            32000: `🔥 <b>32,000 — THE FIRE KEEPS BURNING!</b>\n\n32,000 active users. The TurboLoop fire is unstoppable. 🔥\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            33000: `🌸 <b>33,000 — THE WORLD CELEBRATES!</b>\n\n33,000 active users from every culture on earth. TurboLoop belongs to the world. 🌸\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            34000: `🎓 <b>34,000 LEARNERS — KNOWLEDGE IS POWER!</b>\n\n34,000 users who chose to learn DeFi the right way. Fixed yield. No speculation. 📚\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            35000: `🌐 <b>35,000 — DECENTRALIZED AND UNSTOPPABLE!</b>\n\n35,000 active users. No borders. No limits. Just fixed USDT yield on BSC. 🌐\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            36000: `✨ <b>36,000 DREAMERS!</b>\n\n36,000 dreamers who turned their DeFi dreams into real earnings. The loop is real. ✨\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            37000: `🏅 <b>37,000 — EARNED, NOT PROMISED!</b>\n\n37,000 active users. Built on trust. Built on transparency. Built on results. 🏅\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            38000: `🚀 <b>38,000 ACTIVE USERS!</b>\n\n38,000 users earning fixed USDT yield on TurboLoop. The platform that never stops. 🚀\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            39000: `⚡ <b>39,000 — ALMOST 40K!</b>\n\n39,000 active users and counting. TurboLoop is on fire! 🔥\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            40000: `🎊 <b>40,000 ACTIVE USERS!</b>\n\nFORTY THOUSAND! 🎉 The TurboLoop community is massive and growing every day. Thank you! 🙏\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            41000: `💎 <b>41,000 STRONG!</b>\n\n41,000 active users. The diamond hands of DeFi. Fixed yield. Real trust. 💎\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            42000: `🌍 <b>42,000 WORLDWIDE!</b>\n\n42,000 users from every continent earning fixed USDT yield on TurboLoop. 🌍\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            43000: `🏆 <b>43,000 — UNBEATABLE PLATFORM!</b>\n\n43,000 active users trust TurboLoop. Dual-audited. 100% LP locked. The safest yield on BSC. 🏆\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            44000: `🤝 <b>44,000 COMMUNITY STRONG!</b>\n\n44,000 users in the TurboLoop family. One community. One mission. Fixed yield for all. 🤝\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            45000: `🎯 <b>45,000 — ALMOST HALFWAY TO 100K!</b>\n\n45,000 active users. The momentum is unstoppable. TurboLoop is the future of DeFi. 🎯\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            46000: `🌿 <b>46,000 ROOTS RUN DEEP!</b>\n\n46,000 users have built something real with TurboLoop. Organic growth. Real earnings. 🌱\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            47000: `🔥 <b>47,000 — THE LOOP NEVER STOPS!</b>\n\n47,000 active users. The fire keeps burning. TurboLoop is unstoppable. 🔥\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            48000: `💪 <b>48,000 STRONG BELIEVERS!</b>\n\n48,000 believers in fixed yield. The community that never gives up. 💪\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            49000: `⚡ <b>49,000 — ONE STEP FROM 50K!</b>\n\n49,000 active users! The 50K milestone is within reach. The TurboLoop community is incredible! ⚡\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+            50000: `🎊 <b>50,000 ACTIVE USERS — HALF WAY TO 100K!</b>\n\nFIFTY THOUSAND! 🎉🎉🎉 This is a historic milestone for TurboLoop and the entire BSC DeFi ecosystem. Thank you to every single one of our 50,000 active users! 🌟\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`,
+          };
+          const _auCaption = _auCaptionMap[_auNextMilestone] ??
+            `🎉 <b>${_auK}K ACTIVE USERS!</b>\n\nAnother milestone reached on TurboLoop! 🚀\n\n👉 <a href="https://turboloop.io">turboloop.io</a>`;
+
+          // Post to Telegram EN channel
+          await tgBroadcastPhoto({
+            photoUrl: _auBannerUrl,
+            caption: _auCaption,
+            parseMode: "HTML",
+            buttons: [{ text: "🌐 Join TurboLoop", url: "https://turboloop.io" }],
+          });
+
+          // Record the celebrated milestone so it never fires again
+          await db
+            .insert(siteSettings)
+            .values({ settingKey: "milestone:active_users:last_celebrated", settingValue: String(_auNextMilestone) })
+            .onConflictDoUpdate({
+              target: siteSettings.settingKey,
+              set: { settingValue: String(_auNextMilestone), updatedAt: new Date() },
+            });
+
+          console.log(`[cron-master] 🎉 Active users milestone: ${_auNextMilestone.toLocaleString("en-US")} (live count: ${_auActiveUsers.toLocaleString("en-US")})`);
+        }
+      }
+    } catch (_auMilestoneErr) {
+      // Non-fatal — active user milestone detection should never break the cron.
+      console.error("[cron-master] active users milestone error:", _auMilestoneErr);
+    }
+
     // ─── Manual force-fire overrides ────────────────────────────────
     // Allows campaign slots to fire on demand outside their normal time
     // window. Used on launch day for each campaign when the regular

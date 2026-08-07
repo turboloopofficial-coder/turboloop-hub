@@ -1562,62 +1562,102 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         log.push(`❌ zoom:th:pm:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
-    // ============ 5c. GERMAN ZOOM (Zoom) — one-time Sunday Aug 2 2026 · 19:30 UTC (21:30 Berlin) ============
-    // T-60: 18:30 UTC, T-30: 19:00 UTC, T-15: 19:15 UTC, LIVE: 19:30 UTC
-    // Broadcasts to ALL channels (main EN channel + group) via tgBroadcastPhoto
+    // ============ 5c. GERMAN ZOOM — 4 sessions Aug 9/12/16/19 2026 · 18:30 UTC (20:30 Berlin/CEST) ============
+    // T-60: 17:30 UTC, T-30: 18:00 UTC, T-15: 18:15 UTC, LIVE: 18:30 UTC
+    // Sessions: Starter Call Sun 09.08, Analyse Call Tue 12.08, Starter Call Sun 16.08, Analyse Call Wed 19.08
     {
-      const utcDayDE = new Date().getUTCDay(); // 0=Sun
-      const isDeDay = utcDayDE === 0; // Sunday only
-      const ZOOM_DE_LINK = "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1";
-      const ZOOM_DE_PASS = "577845";
-      const ZOOM_DE_TIME = "🇩🇪 21:30 Uhr (Berlin) · Sonntag, 02.08.2026";
-      // Helper: broadcast to all TG channels via tgBroadcastPhoto (same as EN/HI/AF zoom reminders)
-      async function sendDeZoomAlert(tier: import("./_messagePools").ZoomTier): Promise<void> {
-        await sendZoomReminder("de", tier, ZOOM_DE_LINK, ZOOM_DE_PASS, ZOOM_DE_TIME);
-      }
-      // T-60
-      try {
-        if ((isDeDay || forceZoomDeT60) && (isInWindow(18, 30) || isMissedToday(18, 30) || forceZoomDeT60) && (forceZoomDeT60 || !(await hasFiredToday(db, "zoom:de:T60")))) {
-          await sendDeZoomAlert("T60");
-          await markFired(db, "zoom:de:T60");
-          log.push("🇩🇪 DE Zoom T-60 sent");
+      const nowDE = new Date();
+      const utcDayDE = nowDE.getUTCDay(); // 0=Sun, 2=Tue, 3=Wed
+      const utcDateDE = nowDE.getUTCDate();
+      const utcMonthDE = nowDE.getUTCMonth(); // 7 = August
+      const utcYearDE = nowDE.getUTCFullYear();
+      // Determine which session is active today
+      type DeSession = { link: string; pass: string; timeLabel: string; deKey: string };
+      let activeDeSession: DeSession | null = null;
+      if (utcYearDE === 2026 && utcMonthDE === 7) {
+        if (utcDateDE === 9 && utcDayDE === 0) {
+          // Starter Call Sun 09.08.2026
+          activeDeSession = {
+            link: "https://us06web.zoom.us/j/82446832824?pwd=59OwOcjGY0ZHgGSzCT8u6zU1CQL3bj.1",
+            pass: "096594",
+            timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Sonntag, 09.08.2026",
+            deKey: "de_0908",
+          };
+        } else if (utcDateDE === 12 && utcDayDE === 2) {
+          // Technische Analyse Call Tue 12.08.2026
+          activeDeSession = {
+            link: "https://us06web.zoom.us/j/81279948065?pwd=thx7FEYJ2H9wKEW2noU5w9nV82i5hI.1",
+            pass: "906499",
+            timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Dienstag, 12.08.2026",
+            deKey: "de_1208",
+          };
+        } else if (utcDateDE === 16 && utcDayDE === 0) {
+          // Starter Call Sun 16.08.2026
+          activeDeSession = {
+            link: "https://us06web.zoom.us/j/88309318656?pwd=WFx40pwe3hcT0Fau7Hb0JQejCIwrSF.1",
+            pass: "445025",
+            timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Sonntag, 16.08.2026",
+            deKey: "de_1608",
+          };
+        } else if (utcDateDE === 19 && utcDayDE === 3) {
+          // Technische Analyse Call Wed 19.08.2026
+          activeDeSession = {
+            link: "https://us06web.zoom.us/j/88259139722?pwd=AVE0zZkIlDZdhaPfUhJW0i8FBKPlQo.1",
+            pass: "189643",
+            timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Mittwoch, 19.08.2026",
+            deKey: "de_1908",
+          };
         }
-      } catch (err) {
-        await markError(db, "zoom:de:T60", err).catch(() => {});
-        log.push(`❌ zoom:de:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
       }
-      // T-30
-      try {
-        if ((isDeDay || forceZoomDeT30) && (isInWindow(19, 0) || isMissedToday(19, 0) || forceZoomDeT30) && (forceZoomDeT30 || !(await hasFiredToday(db, "zoom:de:T30")))) {
-          await sendDeZoomAlert("T30");
-          await markFired(db, "zoom:de:T30");
-          log.push("🇩🇪 DE Zoom T-30 sent");
+      if (activeDeSession !== null) {
+        const s = activeDeSession;
+        async function sendDeZoomAlert(tier: import("./_messagePools").ZoomTier): Promise<void> {
+          await sendZoomReminder("de", tier, s.link, s.pass, s.timeLabel);
         }
-      } catch (err) {
-        await markError(db, "zoom:de:T30", err).catch(() => {});
-        log.push(`❌ zoom:de:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      // T-15
-      try {
-        if ((isDeDay || forceZoomDeT15) && (isInWindow(19, 15) || isMissedToday(19, 15) || forceZoomDeT15) && (forceZoomDeT15 || !(await hasFiredToday(db, "zoom:de:T15")))) {
-          await sendDeZoomAlert("T15");
-          await markFired(db, "zoom:de:T15");
-          log.push("🇩🇪 DE Zoom T-15 sent");
+        // T-60 (17:30 UTC)
+        try {
+          if ((isInWindow(17, 30) || isMissedToday(17, 30) || forceZoomDeT60) && (forceZoomDeT60 || !(await hasFiredToday(db, `zoom:${s.deKey}:T60`)))) {
+            await sendDeZoomAlert("T60");
+            await markFired(db, `zoom:${s.deKey}:T60`);
+            log.push(`🇩🇪 DE Zoom T-60 sent (${s.deKey})`);
+          }
+        } catch (err) {
+          await markError(db, `zoom:${s.deKey}:T60`, err).catch(() => {});
+          log.push(`❌ zoom:${s.deKey}:T60 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:de:T15", err).catch(() => {});
-        log.push(`❌ zoom:de:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
-      }
-      // LIVE
-      try {
-        if ((isDeDay || forceZoomDeT0) && (isInWindow(19, 30) || isMissedToday(19, 30) || forceZoomDeT0) && (forceZoomDeT0 || !(await hasFiredToday(db, "zoom:de:T0")))) {
-          await sendDeZoomAlert("LIVE");
-          await markFired(db, "zoom:de:T0");
-          log.push("🇩🇪 DE Zoom LIVE sent");
+        // T-30 (18:00 UTC)
+        try {
+          if ((isInWindow(18, 0) || isMissedToday(18, 0) || forceZoomDeT30) && (forceZoomDeT30 || !(await hasFiredToday(db, `zoom:${s.deKey}:T30`)))) {
+            await sendDeZoomAlert("T30");
+            await markFired(db, `zoom:${s.deKey}:T30`);
+            log.push(`🇩🇪 DE Zoom T-30 sent (${s.deKey})`);
+          }
+        } catch (err) {
+          await markError(db, `zoom:${s.deKey}:T30`, err).catch(() => {});
+          log.push(`❌ zoom:${s.deKey}:T30 failed: ${err instanceof Error ? err.message : String(err)}`);
         }
-      } catch (err) {
-        await markError(db, "zoom:de:T0", err).catch(() => {});
-        log.push(`❌ zoom:de:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+        // T-15 (18:15 UTC)
+        try {
+          if ((isInWindow(18, 15) || isMissedToday(18, 15) || forceZoomDeT15) && (forceZoomDeT15 || !(await hasFiredToday(db, `zoom:${s.deKey}:T15`)))) {
+            await sendDeZoomAlert("T15");
+            await markFired(db, `zoom:${s.deKey}:T15`);
+            log.push(`🇩🇪 DE Zoom T-15 sent (${s.deKey})`);
+          }
+        } catch (err) {
+          await markError(db, `zoom:${s.deKey}:T15`, err).catch(() => {});
+          log.push(`❌ zoom:${s.deKey}:T15 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+        // LIVE (18:30 UTC)
+        try {
+          if ((isInWindow(18, 30) || isMissedToday(18, 30) || forceZoomDeT0) && (forceZoomDeT0 || !(await hasFiredToday(db, `zoom:${s.deKey}:T0`)))) {
+            await sendDeZoomAlert("LIVE");
+            await markFired(db, `zoom:${s.deKey}:T0`);
+            log.push(`🇩🇪 DE Zoom LIVE sent (${s.deKey})`);
+          }
+        } catch (err) {
+          await markError(db, `zoom:${s.deKey}:T0`, err).catch(() => {});
+          log.push(`❌ zoom:${s.deKey}:T0 failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
       }
     }
     // ============ 6. CINEMATIC FILM (rotates daily): 18:00 UTC = 11:30 PM IST ============

@@ -144,23 +144,71 @@ export const ZOOM_TH: ZoomSession = {
   frequencyLabel: "Sun · Tue · Thu · Free",
 };
 
-// ── German Community-Starter Call ────────────────────────────────────────────────────────────────────────────────────
-// Sunday Aug 2, 2026 only · 21:30 Berlin (CEST) = 19:30 UTC
+// ── German Starter Call — Sonntag 09.08.2026 ────────────────────────────────
+// Sunday Aug 9, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
 export const ZOOM_DE: ZoomSession = {
   lang: "de",
-  title: "TurboLoop Deutschland Community-Starter Call",
+  title: "TurboLoop Deutschland Starter Call",
   description:
-    "Sonntag, 02.08.2026. Vorstellung, Dashboard-Erklärung, Erfahrungen und offene Fragerunde. Gemeinsam. Transparent. Informiert.",
-  link: "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1",
-  passcode: "577845",
-  timeLabel: "🇩🇪 21:30 Uhr (Berlin) · Sonntag, 02.08.2026",
-  startUtcMin: 19 * 60 + 30, // 19:30 UTC = 21:30 Berlin (CEST)
+    "Sonntag, 09.08.2026. Vorstellung & Einführung — alles, was du über TurboLoop wissen musst, verständlich auf Deutsch erklärt. Offene Fragerunde.",
+  link: "https://us06web.zoom.us/j/82446832824?pwd=59OwOcjGY0ZHgGSzCT8u6zU1CQL3bj.1",
+  passcode: "096594",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Sonntag, 09.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
   durationMin: 120,
-  daysOfWeek: [0], // Sunday only (JS getUTCDay: 0=Sun)
-  frequencyLabel: "Sonntag, 02.08.2026 · Einmalig · Kostenlos",
+  daysOfWeek: [0], // Sunday only
+  frequencyLabel: "Sonntag, 09.08.2026 · Einmalig · Kostenlos",
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH, ZOOM_DE];
+// ── German Technische Analyse Call — Dienstag 12.08.2026 ─────────────────────
+// Tuesday Aug 12, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
+export const ZOOM_DE_2: ZoomSession = {
+  lang: "de",
+  title: "TurboLoop Deutschland Technische Analyse Call",
+  description:
+    "Dienstag, 12.08.2026. Tiefer Einblick. Echte Daten. Klare Analyse — Live On-Chain Analyse, Smart Contracts & Mechanismen, Transaktionen & Wallet Bewegungen.",
+  link: "https://us06web.zoom.us/j/81279948065?pwd=thx7FEYJ2H9wKEW2noU5w9nV82i5hI.1",
+  passcode: "906499",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Dienstag, 12.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [2], // Tuesday only
+  frequencyLabel: "Dienstag, 12.08.2026 · Einmalig · Kostenlos",
+};
+
+// ── German Starter Call — Sonntag 16.08.2026 ─────────────────────────────────
+// Sunday Aug 16, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
+export const ZOOM_DE_3: ZoomSession = {
+  lang: "de",
+  title: "TurboLoop Deutschland Starter Call",
+  description:
+    "Sonntag, 16.08.2026. Vorstellung & Einführung — alles, was du über TurboLoop wissen musst, verständlich auf Deutsch erklärt. Offene Fragerunde.",
+  link: "https://us06web.zoom.us/j/88309318656?pwd=WFx40pwe3hcT0Fau7Hb0JQejCIwrSF.1",
+  passcode: "445025",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Sonntag, 16.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [0], // Sunday only
+  frequencyLabel: "Sonntag, 16.08.2026 · Einmalig · Kostenlos",
+};
+
+// ── German Technische Analyse Call — Mittwoch 19.08.2026 ─────────────────────
+// Wednesday Aug 19, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
+export const ZOOM_DE_4: ZoomSession = {
+  lang: "de",
+  title: "TurboLoop Deutschland Technische Analyse Call",
+  description:
+    "Mittwoch, 19.08.2026. Tiefer Einblick. Echte Daten. Klare Analyse — Live On-Chain Analyse, Smart Contracts & Mechanismen, Transaktionen & Wallet Bewegungen.",
+  link: "https://us06web.zoom.us/j/88259139722?pwd=AVE0zZkIlDZdhaPfUhJW0i8FBKPlQo.1",
+  passcode: "189643",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Mittwoch, 19.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [3], // Wednesday only
+  frequencyLabel: "Mittwoch, 19.08.2026 · Einmalig · Kostenlos",
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH, ZOOM_DE, ZOOM_DE_2, ZOOM_DE_3, ZOOM_DE_4];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side

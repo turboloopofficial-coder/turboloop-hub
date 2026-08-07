@@ -81,7 +81,8 @@ async function fetchFromDB(): Promise<DBResult> {
       .limit(1);
     if (!rows.length || !rows[0].settingValue) return { fresh: emptyResponse(), stale: null };
     const parsed = JSON.parse(rows[0].settingValue) as TokenHoldersData;
-    if (!parsed.holdersNum || parsed.holdersNum <= 0) return { fresh: emptyResponse(), stale: null };
+    // Reject suspiciously low counts (< 10) as parse errors from BscScan bot-detection
+    if (!parsed.holdersNum || parsed.holdersNum <= 0 || parsed.holdersNum < 10) return { fresh: emptyResponse(), stale: null };
 
     const ageMs = Date.now() - new Date(parsed.fetchedAt as unknown as string).getTime();
     const isStale = ageMs > 2 * 60 * 60_000; // 2 hours
@@ -170,9 +171,13 @@ export async function GET() {
     data = await fetchDirect();
   }
 
-  // 3. Fall back to Cloudflare Worker
+  // 3. Fall back to Cloudflare Worker (last resort — Worker sometimes returns
+  //    bot-detection page counts like 2; only use if result looks plausible)
   if (!data.fresh) {
-    data = await fetchFromWorker();
+    const workerData = await fetchFromWorker();
+    if (workerData.holdersNum && workerData.holdersNum >= 10) {
+      data = workerData;
+    }
   }
 
   // 4. Last resort: serve stale DB value rather than returning null.

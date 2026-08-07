@@ -2,8 +2,7 @@
 //
 // Read by:
 //   - server/_vercel/cron-master.ts — daily T-30 reminder broadcasts
-//   - next-app/components/sections/ZoomLiveSection.tsx — live countdown timer
-//   - next-app/components/sections/EventsSection.tsx — events section
+//   - next-app/components/sections/EventsSection.tsx — live countdown timer
 //
 // startUtcMin is "minutes since 00:00 UTC" — easier to compute the next
 // occurrence than parsing 12-hour strings with timezones at runtime.
@@ -31,11 +30,16 @@ export interface ZoomSession {
   /** Call duration in minutes — used to detect "Live now" window */
   durationMin: number;
   /**
-   * Days of week this session runs (JS getUTCDay: 0=Sun, 1=Mon … 6=Sat).
-   * Undefined means every day.
+   * Optional: which UTC days-of-week this session runs.
+   * Uses JS getUTCDay() convention: 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat.
+   * If omitted, the session runs every day.
    */
   daysOfWeek?: number[];
-  /** Short frequency badge shown on the card, e.g. "Mon · Wed · Sat · Free" */
+  /**
+   * Short human-readable frequency label shown in the countdown card badge.
+   * e.g. "Daily · Free", "Mon · Wed · Sat · Free", "Sat only · Free"
+   * Defaults to "Daily · Free" if omitted.
+   */
   frequencyLabel?: string;
 }
 
@@ -66,8 +70,8 @@ export const ZOOM_EN: ZoomSession = {
   })(),
   startUtcMin: new Date().toISOString().slice(0, 10) === "2026-06-12" ? 16 * 60 : 17 * 60, // auto-reverts
   durationMin: 120,
-  // daysOfWeek: undefined — runs every day
   frequencyLabel: "Daily · Free",
+  // No daysOfWeek → runs every day
 };
 
 export const ZOOM_HI: ZoomSession = {
@@ -84,8 +88,8 @@ export const ZOOM_HI: ZoomSession = {
     "🇮🇳 9:00 PM IST · 🇵🇰 8:30 PM PKT · 🇧🇩 9:30 PM BST · 🇳🇵 9:15 PM NPT · 🇦🇪 7:30 PM GST",
   startUtcMin: 15 * 60 + 30, // 15:30 UTC = 9:00 PM IST
   durationMin: 120,
-  // daysOfWeek: undefined — runs every day
   frequencyLabel: "Daily · Free",
+  // No daysOfWeek → runs every day
 };
 
 // ── African Community Zoom ────────────────────────────────────────────────
@@ -108,23 +112,23 @@ export const ZOOM_AF: ZoomSession = {
   frequencyLabel: "Mon · Wed · Sat · Free",
 };
 
-// ── Thai Morning Google Meet ──────────────────────────────────────────────
+// ── Thai Saturday Morning Google Meet ────────────────────────────────────
 // Saturday only · 9:00 AM ICT = 02:00 UTC
 export const ZOOM_TH_AM: ZoomSession = {
   lang: "th",
   platform: "meet",
-  title: "Thai Morning Community Call",
+  title: "Thai Saturday Morning Call",
   description: "วันเสาร์. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
   timeLabel: "🇹🇭 9:00 AM ICT · วันเสาร์ (Saturday only)",
-  startUtcMin: 2 * 60, // 02:00 UTC = 9 AM ICT
+  startUtcMin: 2 * 60, // 02:00 UTC = 9:00 AM ICT
   durationMin: 90,
-  daysOfWeek: [6], // Saturday only
+  daysOfWeek: [6], // Saturday only (JS getUTCDay: 6=Sat)
   frequencyLabel: "Saturday only · Free",
 };
 
-// ── Thai Evening Google Meet ───────────────────────────────────────────────
+// ── Thai Evening Google Meet ──────────────────────────────────────────────
 // Sun, Tue, Thu · 8:00 PM ICT = 13:00 UTC
 export const ZOOM_TH: ZoomSession = {
   lang: "th",
@@ -133,31 +137,78 @@ export const ZOOM_TH: ZoomSession = {
   description: "อาทิตย์ · อังคาร · พฤหัสบดี. นำคำถามของคุณมา. คนจริง คำตอบจริง — ไม่มีแรงกดดัน.",
   link: "https://meet.google.com/nmh-hhkr-uzd",
   passcode: "",
-  timeLabel: "🇹🇭 8:00 PM ICT · อา · อ · พฤ (Sun · Tue · Thu)",
-  startUtcMin: 13 * 60, // 13:00 UTC = 8 PM ICT
+  timeLabel: "🇹🇭 8:00 PM ICT · อาทิตย์ · อังคาร · พฤหัสบดี (Sun · Tue · Thu)",
+  startUtcMin: 13 * 60, // 13:00 UTC = 8:00 PM ICT
   durationMin: 90,
-  daysOfWeek: [0, 2, 4], // Sun, Tue, Thu (JS getUTCDay)
+  daysOfWeek: [0, 2, 4], // Sun, Tue, Thu (JS getUTCDay: 0=Sun, 2=Tue, 4=Thu)
   frequencyLabel: "Sun · Tue · Thu · Free",
 };
 
-// ── German Community-Starter Call ───────────────────────────────────────────
-// One-time event: Sunday Aug 2 2026 · 21:30 Uhr Berlin (19:30 UTC)
+// ── German Starter Call — Sonntag 09.08.2026 ────────────────────────────────
+// Sunday Aug 9, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
 export const ZOOM_DE: ZoomSession = {
   lang: "de",
-  platform: "zoom",
-  title: "TurboLoop Deutschland — Community-Starter Call",
+  title: "TurboLoop Deutschland Starter Call",
   description:
-    "Sonntag, 02.08.2026. Vorstellung, Dashboard-Erklärung, Erfahrungen & offene Fragerunde. Gemeinsam. Transparent. Informiert.",
-  link: "https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1",
-  passcode: "577845",
-  timeLabel: "🇩🇪 21:30 Uhr (Berlin) · Sonntag, 02.08.2026",
-  startUtcMin: 19 * 60 + 30, // 19:30 UTC = 21:30 Berlin (CEST)
+    "Sonntag, 09.08.2026. Vorstellung & Einführung — alles, was du über TurboLoop wissen musst, verständlich auf Deutsch erklärt. Offene Fragerunde.",
+  link: "https://us06web.zoom.us/j/82446832824?pwd=59OwOcjGY0ZHgGSzCT8u6zU1CQL3bj.1",
+  passcode: "096594",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Sonntag, 09.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
   durationMin: 120,
   daysOfWeek: [0], // Sunday only
-  frequencyLabel: "Sonntag, 02.08.2026 · Einmalig · Kostenlos",
+  frequencyLabel: "Sonntag, 09.08.2026 · Einmalig · Kostenlos",
 };
 
-export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH, ZOOM_DE];
+// ── German Technische Analyse Call — Dienstag 12.08.2026 ─────────────────────
+// Tuesday Aug 12, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
+export const ZOOM_DE_2: ZoomSession = {
+  lang: "de",
+  title: "TurboLoop Deutschland Technische Analyse Call",
+  description:
+    "Dienstag, 12.08.2026. Tiefer Einblick. Echte Daten. Klare Analyse — Live On-Chain Analyse, Smart Contracts & Mechanismen, Transaktionen & Wallet Bewegungen.",
+  link: "https://us06web.zoom.us/j/81279948065?pwd=thx7FEYJ2H9wKEW2noU5w9nV82i5hI.1",
+  passcode: "906499",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Dienstag, 12.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [2], // Tuesday only
+  frequencyLabel: "Dienstag, 12.08.2026 · Einmalig · Kostenlos",
+};
+
+// ── German Starter Call — Sonntag 16.08.2026 ─────────────────────────────────
+// Sunday Aug 16, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
+export const ZOOM_DE_3: ZoomSession = {
+  lang: "de",
+  title: "TurboLoop Deutschland Starter Call",
+  description:
+    "Sonntag, 16.08.2026. Vorstellung & Einführung — alles, was du über TurboLoop wissen musst, verständlich auf Deutsch erklärt. Offene Fragerunde.",
+  link: "https://us06web.zoom.us/j/88309318656?pwd=WFx40pwe3hcT0Fau7Hb0JQejCIwrSF.1",
+  passcode: "445025",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Sonntag, 16.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [0], // Sunday only
+  frequencyLabel: "Sonntag, 16.08.2026 · Einmalig · Kostenlos",
+};
+
+// ── German Technische Analyse Call — Mittwoch 19.08.2026 ─────────────────────
+// Wednesday Aug 19, 2026 only · 20:30 Berlin (CEST) = 18:30 UTC
+export const ZOOM_DE_4: ZoomSession = {
+  lang: "de",
+  title: "TurboLoop Deutschland Technische Analyse Call",
+  description:
+    "Mittwoch, 19.08.2026. Tiefer Einblick. Echte Daten. Klare Analyse — Live On-Chain Analyse, Smart Contracts & Mechanismen, Transaktionen & Wallet Bewegungen.",
+  link: "https://us06web.zoom.us/j/88259139722?pwd=AVE0zZkIlDZdhaPfUhJW0i8FBKPlQo.1",
+  passcode: "189643",
+  timeLabel: "🇩🇪 20:30 Uhr (Berlin/CEST) · Mittwoch, 19.08.2026",
+  startUtcMin: 18 * 60 + 30, // 18:30 UTC = 20:30 Berlin (CEST)
+  durationMin: 120,
+  daysOfWeek: [3], // Wednesday only
+  frequencyLabel: "Mittwoch, 19.08.2026 · Einmalig · Kostenlos",
+};
+
+export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_AM, ZOOM_TH, ZOOM_DE, ZOOM_DE_2, ZOOM_DE_3, ZOOM_DE_4];
 
 /** URL shape that the admin-editable Zoom override (Task C) accepts.
  *  Exposed here so both the admin form validator and the server-side
@@ -165,31 +216,64 @@ export const ZOOM_SESSIONS: ZoomSession[] = [ZOOM_EN, ZOOM_HI, ZOOM_AF, ZOOM_TH_
 export const ZOOM_URL_PATTERN = /^https:\/\/([a-z0-9.-]+\.zoom\.us\/j\/\d+|meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3})/i;
 
 /**
- * Next occurrence of a Zoom session as a Date.
- * Respects session.daysOfWeek — skips days when the session doesn't run.
- * If the session is currently in progress, returns the current start time.
+ * Next occurrence of a Zoom session as a UTC Date.
+ *
+ * Respects `session.daysOfWeek` — if the session only runs on certain days,
+ * the function skips forward until the next valid day.
+ *
+ * If the session is currently in progress, returns the start time of the
+ * current occurrence (so the UI can render an "Ends in" countdown).
+ * Otherwise returns the next future start.
  */
 export function nextZoomOccurrence(
   session: ZoomSession,
   now: Date = new Date()
 ): Date {
+  const days = session.daysOfWeek; // undefined → runs every day
+
+  // Helper: is a given UTC day-of-week a valid session day?
+  const isValidDay = (utcDay: number) =>
+    !days || days.includes(utcDay);
+
   const ms = now.getTime();
+
+  // Walk forward up to 7 days to find the next valid occurrence
   for (let offset = 0; offset <= 7; offset++) {
-    const dayStart = Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate() + offset
-    );
-    const dayOfWeek = new Date(dayStart).getUTCDay();
-    // Skip days not in the schedule
-    if (session.daysOfWeek && !session.daysOfWeek.includes(dayOfWeek)) continue;
-    const callStart = dayStart + session.startUtcMin * 60_000;
-    const callEnd = callStart + session.durationMin * 60_000;
-    // Skip today if the call has already ended
-    if (offset === 0 && ms >= callEnd) continue;
-    return new Date(callStart);
+    const candidateStart =
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + offset
+      ) +
+      session.startUtcMin * 60_000;
+
+    const candidateDay = new Date(candidateStart).getUTCDay();
+
+    if (!isValidDay(candidateDay)) continue;
+
+    const candidateEnd = candidateStart + session.durationMin * 60_000;
+
+    if (offset === 0) {
+      // Today's slot
+      if (ms >= candidateStart && ms < candidateEnd) {
+        // Currently live — return start so UI shows "Ends in"
+        return new Date(candidateStart);
+      }
+      if (ms < candidateStart) {
+        // Still upcoming today
+        return new Date(candidateStart);
+      }
+      // Already ended today — continue to next valid day
+      continue;
+    }
+
+    // Future day — always valid
+    return new Date(candidateStart);
   }
-  // Fallback: tomorrow at session time (should never reach here)
-  const tomorrow = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
-  return new Date(tomorrow + session.startUtcMin * 60_000);
+
+  // Fallback (should never reach here for well-formed daysOfWeek)
+  return new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) +
+      session.startUtcMin * 60_000
+  );
 }

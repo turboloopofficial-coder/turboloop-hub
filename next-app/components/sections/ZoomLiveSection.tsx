@@ -80,17 +80,55 @@ function ZoomLiveSectionInner({ strings: s }: { strings: ZoomStrings }) {
             {s.subtitle}
           </p>
         </div>
-        {/* Special Event: Germany Community-Starter Call — one-time, Aug 2 2026 21:30 CEST (19:30 UTC) */}
-        {/* Auto-hides after the event ends (2h duration) */}
-        <div className="max-w-5xl mx-auto mb-4 md:mb-5">
+        {/* German Community Sessions — 4 sessions Aug 9/12/16/19 2026 · 20:30 Berlin (CEST) = 18:30 UTC */}
+        {/* Each card auto-hides after the event ends (2h duration) */}
+        <div className="max-w-5xl mx-auto mb-4 md:mb-5 flex flex-col gap-4">
+          {/* Starter Call — Sonntag 09.08.2026 */}
           <OneTimeEventCard
-            title="🇩🇪 TurboLoop Deutschland — Community-Starter Call"
-            description="Offizieller Community-Starter Call. Vorstellung, Dashboard-Erklärung, Erfahrungen & offene Fragerunde. Gemeinsam. Transparent. Informiert."
-            timeLabel="🇩🇪 21:30 Uhr CEST · 🇬🇧 20:30 BST · 🇦🇪 23:30 GST · 🇺🇸 3:30 PM EDT"
-            dateLabel="Sonntag, 02. August 2026"
-            link="https://us06web.zoom.us/j/83675055278?pwd=aroXE7VxfzUE9G1fmvbHiZZ7Xa8vbM.1"
-            // Aug 2 2026 19:30 UTC in milliseconds
-            targetUtcMs={1785699000000}
+            title="🇩🇪 TurboLoop Deutschland — Starter Call"
+            description="Sonntag, 09.08.2026. Vorstellung & Einführung — alles über TurboLoop verständlich auf Deutsch erklärt. Offene Fragerunde."
+            timeLabel="🇩🇪 20:30 Uhr CEST · 🇬🇧 19:30 BST · 🇦🇪 22:30 GST · 🇺🇸 2:30 PM EDT"
+            dateLabel="Sonntag, 09. August 2026"
+            link="https://us06web.zoom.us/j/82446832824?pwd=59OwOcjGY0ZHgGSzCT8u6zU1CQL3bj.1"
+            passcode="096594"
+            // Aug 9 2026 18:30 UTC in milliseconds
+            targetUtcMs={1786300200000}
+            durationMin={120}
+          />
+          {/* Technische Analyse Call — Dienstag 12.08.2026 */}
+          <OneTimeEventCard
+            title="🇩🇪 TurboLoop Deutschland — Technische Analyse Call"
+            description="Dienstag, 12.08.2026. Tiefer Einblick. Echte Daten. Klare Analyse — Live On-Chain Analyse, Smart Contracts & Mechanismen."
+            timeLabel="🇩🇪 20:30 Uhr CEST · 🇬🇧 19:30 BST · 🇦🇪 22:30 GST · 🇺🇸 2:30 PM EDT"
+            dateLabel="Dienstag, 12. August 2026"
+            link="https://us06web.zoom.us/j/81279948065?pwd=thx7FEYJ2H9wKEW2noU5w9nV82i5hI.1"
+            passcode="906499"
+            // Aug 12 2026 18:30 UTC in milliseconds
+            targetUtcMs={1786559400000}
+            durationMin={120}
+          />
+          {/* Starter Call — Sonntag 16.08.2026 */}
+          <OneTimeEventCard
+            title="🇩🇪 TurboLoop Deutschland — Starter Call"
+            description="Sonntag, 16.08.2026. Vorstellung & Einführung — alles über TurboLoop verständlich auf Deutsch erklärt. Offene Fragerunde."
+            timeLabel="🇩🇪 20:30 Uhr CEST · 🇬🇧 19:30 BST · 🇦🇪 22:30 GST · 🇺🇸 2:30 PM EDT"
+            dateLabel="Sonntag, 16. August 2026"
+            link="https://us06web.zoom.us/j/88309318656?pwd=WFx40pwe3hcT0Fau7Hb0JQejCIwrSF.1"
+            passcode="445025"
+            // Aug 16 2026 18:30 UTC in milliseconds
+            targetUtcMs={1786905000000}
+            durationMin={120}
+          />
+          {/* Technische Analyse Call — Mittwoch 19.08.2026 */}
+          <OneTimeEventCard
+            title="🇩🇪 TurboLoop Deutschland — Technische Analyse Call"
+            description="Mittwoch, 19.08.2026. Tiefer Einblick. Echte Daten. Klare Analyse — Live On-Chain Analyse, Smart Contracts & Mechanismen."
+            timeLabel="🇩🇪 20:30 Uhr CEST · 🇬🇧 19:30 BST · 🇦🇪 22:30 GST · 🇺🇸 2:30 PM EDT"
+            dateLabel="Mittwoch, 19. August 2026"
+            link="https://us06web.zoom.us/j/88259139722?pwd=AVE0zZkIlDZdhaPfUhJW0i8FBKPlQo.1"
+            passcode="189643"
+            // Aug 19 2026 18:30 UTC in milliseconds
+            targetUtcMs={1787164200000}
             durationMin={120}
           />
         </div>
@@ -154,6 +192,7 @@ function OneTimeEventCard({
   timeLabel,
   dateLabel,
   link,
+  passcode,
   targetUtcMs,
   durationMin,
 }: {
@@ -162,6 +201,7 @@ function OneTimeEventCard({
   timeLabel: string;
   dateLabel: string;
   link: string;
+  passcode?: string;
   targetUtcMs: number;
   durationMin: number;
 }) {
@@ -196,6 +236,14 @@ function OneTimeEventCard({
         </span>
         <span className="whitespace-pre-line">{timeLabel}</span>
       </div>
+      {passcode && (
+        <div className="mb-4 rounded-[var(--r-md)] bg-[var(--c-bg)] border border-[var(--c-border)] px-3 py-2">
+          <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] block mb-1">
+            KENNCODE
+          </span>
+          <span className="text-sm font-bold text-[var(--c-text)] font-mono">{passcode}</span>
+        </div>
+      )}
       <div className="mb-5">
         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[var(--c-text-subtle)] block mb-1">
           STARTS IN

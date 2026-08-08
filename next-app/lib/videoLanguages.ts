@@ -66,6 +66,11 @@ export const LANGUAGES: VideoLanguage[] = [
     ep3: { video: `${R2_BASE}/turboloop-ep3-en.mp4`,        youtubeUrl: "https://youtu.be/08dLfBMf2JM",  thumb: `${R2_PUB}/thumbnails/ep3/ep3_thumb_en.jpg` },
     ep4: { video: `${R2_BASE}/turboloop-ep4-en.mp4`,        youtubeUrl: "https://youtu.be/yL3fjbJkaEM",  thumb: `${R2_PUB}/thumbnails/ep4/ep4_thumb_en.jpg` },
     ep5: { video: `${R2_BASE}/turboloop-ep5-en.mp4`,        youtubeUrl: "https://youtu.be/DrgrLpMqUDM",  thumb: `${R2_PUB}/thumbnails/ep5/ep5_thumb_en.jpg` },
+    ep6: { video: `${R2_BASE}/turboloop-ep6-en.mp4`,        youtubeUrl: "https://youtu.be/gLdZCc_sX9c",  thumb: `${R2_PUB}/thumbnails/turboloop-ep6-en.jpg` },
+    ep7: { video: `${R2_BASE}/turboloop-ep7-en.mp4`,        youtubeUrl: "https://youtu.be/zqVJZjYQZf0",  thumb: `${R2_PUB}/thumbnails/turboloop-ep7-en.jpg` },
+    ep8: { video: `${R2_BASE}/turboloop-ep8-en.mp4`,        youtubeUrl: "https://youtu.be/q9UbtY7SJU8",  thumb: `${R2_PUB}/thumbnails/turboloop-ep8-en.jpg` },
+    ep9: { video: `${R2_BASE}/turboloop-ep9-en.mp4`,        youtubeUrl: "https://youtu.be/ahYBT2tvmBc",  thumb: `${R2_PUB}/thumbnails/turboloop-ep9-en.jpg` },
+    ep10: { video: `${R2_BASE}/turboloop-ep10-en.mp4`,      youtubeUrl: "https://youtu.be/evjXnWJBNCo", thumb: `${R2_PUB}/thumbnails/turboloop-ep10-en.jpg` },
   }},
   { code: "hi", label: "Hindi",       nativeLabel: "हिन्दी",           flag: "🇮🇳", episodes: {
     ep1: { video: `${R2_BASE}/turboloop-explainer-hi.mp4`,  youtubeUrl: "https://youtu.be/X0p28uy2yeI",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },

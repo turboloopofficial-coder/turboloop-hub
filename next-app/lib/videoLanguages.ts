@@ -92,6 +92,8 @@ export const LANGUAGES: VideoLanguage[] = [
     ep2: { video: `${R2_BASE}/turboloop-ep2-fr.mp4`,        youtubeUrl: "https://youtu.be/X6VJ3WvDtjo",  thumb: T("ep2","fr") },
     ep3: { video: `${R2_BASE}/turboloop-ep3-fr.mp4`,        youtubeUrl: "https://youtu.be/9GZAqb3bHYA",  thumb: T("ep3","fr") },
     ep4: N, ep5: N,
+    ep6: { video: `${R2_BASE}/turboloop-ep6-fr.mp4`, youtubeUrl: "https://youtu.be/RULV5vGOmww", thumb: `${R2_PUB}/thumbnails/turboloop-ep6-en.jpg` },
+    ep7: N, ep8: N, ep9: N, ep10: N,
   }},
   { code: "de", label: "German",      nativeLabel: "Deutsch",          flag: "🇩🇪", episodes: {
     ep1: { video: `${R2_BASE}/turboloop-explainer-de.mp4`,  youtubeUrl: "https://youtu.be/H4LtRG4uJcU",  thumb: `${R2_PUB}/videos/turboloop-explainer-en-thumb.jpg` },

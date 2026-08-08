@@ -559,12 +559,19 @@ async function sendZoomReminder(lang: ZoomLang, tier: ZoomTier, meetingLink: str
   const caption = zoomReminderCaption({ lang, tier, meetingLink, passcode, timeLabel });
   // bannerUrlZoom picks a static R2 PNG (3 variants, daily rotation)
   const buttonText = platform === "meet" ? "📹 Join Google Meet" : "🎤 Join Zoom now";
-  await tgBroadcastPhoto({
-    photoUrl: bannerUrlZoom(lang, tier),
-    caption,
-    parseMode: "HTML",
-    buttons: [{ text: buttonText, url: meetingLink }],
-  });
+  const photoUrl = bannerUrlZoom(lang, tier);
+  const buttons = [{ text: buttonText, url: meetingLink }];
+  // Always broadcast to the main English channel (reaches the whole community)
+  await tgBroadcastPhoto({ photoUrl, caption, parseMode: "HTML", buttons });
+  // DE sessions: additionally send to the German group so the German community
+  // also gets the alert in their own group
+  if (lang === "de") {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const germanChat = process.env.TELEGRAM_GERMAN_CHAT;
+    if (token && germanChat) {
+      await tgSendPhoto(token, { chatId: germanChat, photoUrl, caption, parseMode: "HTML", buttons });
+    }
+  }
 }
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
